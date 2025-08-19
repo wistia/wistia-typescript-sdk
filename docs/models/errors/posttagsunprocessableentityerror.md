@@ -1,0 +1,17 @@
+# PostTagsUnprocessableEntityError
+
+Validation error - tag already exists
+
+## Example Usage
+
+```typescript
+import { PostTagsUnprocessableEntityError } from "wistia/models/errors";
+
+// No examples available for this model
+```
+
+## Fields
+
+| Field                                          | Type                                           | Required                                       | Description                                    | Example                                        |
+| ---------------------------------------------- | ---------------------------------------------- | ---------------------------------------------- | ---------------------------------------------- | ---------------------------------------------- |
+| `error`                                        | *string*                                       | :heavy_minus_sign:                             | N/A                                            | Validation failed: Name has already been taken |

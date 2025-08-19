@@ -1,0 +1,1481 @@
+lockVersion: 2.0.0
+id: 4405d822-b9c8-4c48-afa1-98770d3fab12
+management:
+  docChecksum: b07951a612c561887c8e917f61b39681
+  docVersion: 1.0.0
+  speakeasyVersion: 1.606.0
+  generationVersion: 2.686.7
+  releaseVersion: 0.0.1
+  configChecksum: 461f9017378b3ec6071371f13b374aa8
+features:
+  typescript:
+    acceptHeaders: 2.81.2
+    additionalDependencies: 0.1.0
+    constsAndDefaults: 0.1.12
+    core: 3.21.20
+    defaultEnabledRetries: 0.1.0
+    deprecations: 2.81.1
+    devContainers: 2.90.0
+    enumUnions: 0.1.0
+    envVarSecurityUsage: 0.1.2
+    globalSecurity: 2.82.13
+    globalSecurityCallbacks: 0.1.0
+    globalSecurityFlattening: 0.1.0
+    globalServerURLs: 2.82.5
+    methodArguments: 0.1.2
+    nullables: 0.1.1
+    responseFormat: 0.2.3
+    retries: 2.83.0
+    sdkHooks: 0.3.0
+    unions: 2.85.11
+    uploadStreams: 0.1.0
+generatedFiles:
+  - .devcontainer/README.md
+  - .devcontainer/devcontainer.json
+  - .devcontainer/setup.sh
+  - .gitattributes
+  - .npmignore
+  - FUNCTIONS.md
+  - RUNTIMES.md
+  - USAGE.md
+  - docs/lib/utils/retryconfig.md
+  - docs/models/account.md
+  - docs/models/alloweddomain.md
+  - docs/models/asset.md
+  - docs/models/authorization.md
+  - docs/models/backgroundjobstatus.md
+  - docs/models/backgroundjobstatusstatus.md
+  - docs/models/candownload.md
+  - docs/models/candownloadenum.md
+  - docs/models/canshare.md
+  - docs/models/canshareenum.md
+  - docs/models/canupload.md
+  - docs/models/canuploadenum.md
+  - docs/models/caption.md
+  - docs/models/captions.md
+  - docs/models/channel.md
+  - docs/models/channelchannels.md
+  - docs/models/channelepisode.md
+  - docs/models/channelepisodechannels.md
+  - docs/models/chapterlist.md
+  - docs/models/chapters.md
+  - docs/models/conversiondata.md
+  - docs/models/createchannelepisode.md
+  - docs/models/createlivestreamevent.md
+  - docs/models/createlivestreameventresponse.md
+  - docs/models/createproject.md
+  - docs/models/createprojectpublicenum.md
+  - docs/models/createprojectpublicunion.md
+  - docs/models/createprojectsharing.md
+  - docs/models/createprojectsharingsharing.md
+  - docs/models/encrypted.md
+  - docs/models/episodetype.md
+  - docs/models/errors.md
+  - docs/models/errors/deletealloweddomainsdomainnotfounderror.md
+  - docs/models/errors/fivehundrederror.md
+  - docs/models/errors/fourhundredandfourerror.md
+  - docs/models/errors/fourhundredandoneerror.md
+  - docs/models/errors/fourhundredandtwentytwoerror.md
+  - docs/models/errors/fourhundrederror.md
+  - docs/models/errors/getalloweddomainsdomainnotfounderror.md
+  - docs/models/errors/getbackgroundjobstatusbackgroundjobstatusidforbiddenerror.md
+  - docs/models/errors/getsearchbadrequesterror.md
+  - docs/models/errors/internalservererror.md
+  - docs/models/errors/methodnotallowederror.md
+  - docs/models/errors/notimplementederror.md
+  - docs/models/errors/postalloweddomainsbadrequesterror.md
+  - docs/models/errors/postlivestreameventsforbiddenerror.md
+  - docs/models/errors/postlivestreameventsunprocessableentityerror.md
+  - docs/models/errors/postmediasmediahashedidcaptionspurchaseunprocessableentityerror.md
+  - docs/models/errors/postmediasmediahashedidcopybadrequesterror.md
+  - docs/models/errors/postmediasmediahashedidlocalizationsunprocessableentityerror.md
+  - docs/models/errors/postmediasmediahashedidtranslateunprocessableentityerror.md
+  - docs/models/errors/posttagsbadrequesterror.md
+  - docs/models/errors/posttagsunprocessableentityerror.md
+  - docs/models/errors/putlivestreameventsidunprocessableentityerror.md
+  - docs/models/errors/putmediasarchiveforbiddenerror.md
+  - docs/models/errors/putmediasarchiveunprocessableentityerror.md
+  - docs/models/errors/putmediasmediahashedidswapbadrequesterror.md
+  - docs/models/errors/putmediasmovebadrequesterror.md
+  - docs/models/errors/putmediasrestoreforbiddenerror.md
+  - docs/models/errors/putmediasrestoreunprocessableentityerror.md
+  - docs/models/event.md
+  - docs/models/eventthumbnail.md
+  - docs/models/eventuseragentdetails.md
+  - docs/models/expiringaccesstokeninput.md
+  - docs/models/expiringaccesstokenresponse.md
+  - docs/models/hashedid.md
+  - docs/models/livestreamevent.md
+  - docs/models/localization.md
+  - docs/models/localizationtranscript.md
+  - docs/models/localizationwithpurchasedata.md
+  - docs/models/media.md
+  - docs/models/mediashow.md
+  - docs/models/mediashowstatus.md
+  - docs/models/mediashowtag.md
+  - docs/models/mediashowtype.md
+  - docs/models/mediastatus.md
+  - docs/models/mediatype.md
+  - docs/models/mediawiththumbnailandprojectschemamedia.md
+  - docs/models/mediawiththumbnailandprojectschemamediastatus.md
+  - docs/models/mediawiththumbnailandprojectschemamediatype.md
+  - docs/models/noassetmediaschemamedia.md
+  - docs/models/operations/container.md
+  - docs/models/operations/data.md
+  - docs/models/operations/deletealloweddomainsdomainrequest.md
+  - docs/models/operations/deletelivestreameventsidrequest.md
+  - docs/models/operations/deletemediasmediahashedidcaptionslanguagecoderequest.md
+  - docs/models/operations/deletemediasmediahashedidlocalizationslocalizationhashedidrequest.md
+  - docs/models/operations/deletemediasmediahashedidrequest.md
+  - docs/models/operations/deletemediasmediaidcustomizationsrequest.md
+  - docs/models/operations/deleteprojectsidrequest.md
+  - docs/models/operations/deleteprojectsprojectidsharingssharingidrequest.md
+  - docs/models/operations/deletetagsnamerequest.md
+  - docs/models/operations/filter.md
+  - docs/models/operations/getalloweddomainsdomainrequest.md
+  - docs/models/operations/getalloweddomainsrequest.md
+  - docs/models/operations/getbackgroundjobstatusbackgroundjobstatusidrequest.md
+  - docs/models/operations/getbackgroundjobstatusbackgroundjobstatusidresponse.md
+  - docs/models/operations/getchannelepisodesrequest.md
+  - docs/models/operations/getchannelschannelhashedidchannelepisodeschannelepisodeidrequest.md
+  - docs/models/operations/getchannelschannelhashedidchannelepisodesrequest.md
+  - docs/models/operations/getchannelschannelhashedidrequest.md
+  - docs/models/operations/getchannelsrequest.md
+  - docs/models/operations/getchannelssortby.md
+  - docs/models/operations/getchannelssortdirection.md
+  - docs/models/operations/getlivestreameventsidrequest.md
+  - docs/models/operations/getlivestreameventsrequest.md
+  - docs/models/operations/getlivestreameventssortby.md
+  - docs/models/operations/getlivestreameventssortdirection.md
+  - docs/models/operations/getmediasmediahashedidcaptionslanguagecoderequest.md
+  - docs/models/operations/getmediasmediahashedidcaptionslanguagecoderesponse.md
+  - docs/models/operations/getmediasmediahashedidcaptionsrequest.md
+  - docs/models/operations/getmediasmediahashedidlocalizationslocalizationhashedidrequest.md
+  - docs/models/operations/getmediasmediahashedidlocalizationsrequest.md
+  - docs/models/operations/getmediasmediahashedidrequest.md
+  - docs/models/operations/getmediasmediahashedidstatsrequest.md
+  - docs/models/operations/getmediasmediahashedidstatsresponse.md
+  - docs/models/operations/getmediasmediaidcustomizationsrequest.md
+  - docs/models/operations/getmediasrequest.md
+  - docs/models/operations/getmediassortby.md
+  - docs/models/operations/getmediassortdirection.md
+  - docs/models/operations/getprojectsidrequest.md
+  - docs/models/operations/getprojectsprojectidsharingsrequest.md
+  - docs/models/operations/getprojectsprojectidsharingssharingidrequest.md
+  - docs/models/operations/getprojectsrequest.md
+  - docs/models/operations/getprojectssortby.md
+  - docs/models/operations/getprojectssortdirection.md
+  - docs/models/operations/getsearchrequest.md
+  - docs/models/operations/getsearchresponse.md
+  - docs/models/operations/getstatsaccountresponse.md
+  - docs/models/operations/getstatseventseventkeyrequest.md
+  - docs/models/operations/getstatseventsrequest.md
+  - docs/models/operations/getstatsmediasmediaidbydaterequest.md
+  - docs/models/operations/getstatsmediasmediaidbydateresponse.md
+  - docs/models/operations/getstatsvisitorsrequest.md
+  - docs/models/operations/getstatsvisitorsvisitorkeyrequest.md
+  - docs/models/operations/gettagsrequest.md
+  - docs/models/operations/gettagssortby.md
+  - docs/models/operations/gettagssortdirection.md
+  - docs/models/operations/partialerror.md
+  - docs/models/operations/postalloweddomainsrequest.md
+  - docs/models/operations/postchannelschannelhashedidchannelepisodesrequest.md
+  - docs/models/operations/postexpiringtokenrequest.md
+  - docs/models/operations/postmediasmediahashedidcaptionsmultipartcaptionfile.md
+  - docs/models/operations/postmediasmediahashedidcaptionsmultipartrequest.md
+  - docs/models/operations/postmediasmediahashedidcaptionsmultipartrequestbody.md
+  - docs/models/operations/postmediasmediahashedidcaptionspurchaserequest.md
+  - docs/models/operations/postmediasmediahashedidcaptionspurchaserequestbody.md
+  - docs/models/operations/postmediasmediahashedidcaptionspurchaseresponse.md
+  - docs/models/operations/postmediasmediahashedidcaptionsrequest.md
+  - docs/models/operations/postmediasmediahashedidcaptionsrequestbody.md
+  - docs/models/operations/postmediasmediahashedidcopyrequest.md
+  - docs/models/operations/postmediasmediahashedidcopyrequestbody.md
+  - docs/models/operations/postmediasmediahashedidcopyresponse.md
+  - docs/models/operations/postmediasmediahashedidlocalizationsrequest.md
+  - docs/models/operations/postmediasmediahashedidlocalizationsrequestbody.md
+  - docs/models/operations/postmediasmediahashedidtranslaterequest.md
+  - docs/models/operations/postmediasmediahashedidtranslaterequestbody.md
+  - docs/models/operations/postmediasmediahashedidtranslateresponse.md
+  - docs/models/operations/postmediasmediahashedidtrimsrequest.md
+  - docs/models/operations/postmediasmediahashedidtrimsresponse.md
+  - docs/models/operations/postmediasmediaidcustomizationsrequest.md
+  - docs/models/operations/postprojectsidcopyrequest.md
+  - docs/models/operations/postprojectsidcopyrequestbody.md
+  - docs/models/operations/postprojectsidcopyresponse.md
+  - docs/models/operations/postprojectsprojectidsharingsrequest.md
+  - docs/models/operations/postprojectsprojectidsharingsresponse.md
+  - docs/models/operations/posttagsrequest.md
+  - docs/models/operations/putlivestreameventsidrequest.md
+  - docs/models/operations/putmediasarchiverequest.md
+  - docs/models/operations/putmediasarchiveresponse.md
+  - docs/models/operations/putmediasmediahashedidcaptionslanguagecodemultipartcaptionfile.md
+  - docs/models/operations/putmediasmediahashedidcaptionslanguagecodemultipartrequest.md
+  - docs/models/operations/putmediasmediahashedidcaptionslanguagecodemultipartrequestbody.md
+  - docs/models/operations/putmediasmediahashedidcaptionslanguagecoderequest.md
+  - docs/models/operations/putmediasmediahashedidcaptionslanguagecoderequestbody.md
+  - docs/models/operations/putmediasmediahashedidrequest.md
+  - docs/models/operations/putmediasmediahashedidrequestbody.md
+  - docs/models/operations/putmediasmediahashedidswaprequest.md
+  - docs/models/operations/putmediasmediahashedidswaprequestbody.md
+  - docs/models/operations/putmediasmediahashedidswapresponse.md
+  - docs/models/operations/putmediasmediaidcustomizationsrequest.md
+  - docs/models/operations/putmediasmoverequest.md
+  - docs/models/operations/putmediasmoveresponse.md
+  - docs/models/operations/putmediasmoveresponsebody1.md
+  - docs/models/operations/putmediasmoveresponsebody2.md
+  - docs/models/operations/putmediasrestorerequest.md
+  - docs/models/operations/putmediasrestoreresponse.md
+  - docs/models/operations/putprojectsidrequest.md
+  - docs/models/operations/putprojectsprojectidsharingssharingidrequest.md
+  - docs/models/operations/stats.md
+  - docs/models/operations/type.md
+  - docs/models/org.md
+  - docs/models/passwordprotectedvideo.md
+  - docs/models/postrollv1.md
+  - docs/models/private.md
+  - docs/models/project.md
+  - docs/models/projectsharingdetail.md
+  - docs/models/projectsharingdetailproject.md
+  - docs/models/projectsharingdetailshare.md
+  - docs/models/projectsharingresponse.md
+  - docs/models/projectsharingschema.md
+  - docs/models/projectsharingschemaproject.md
+  - docs/models/projectsharingschemashare.md
+  - docs/models/projectwithmedias.md
+  - docs/models/publishstatus.md
+  - docs/models/requirepassword.md
+  - docs/models/requirepasswordenum.md
+  - docs/models/searchchannel.md
+  - docs/models/searchchannelepisode.md
+  - docs/models/searchmedia.md
+  - docs/models/searchmediastatus.md
+  - docs/models/searchmediatype.md
+  - docs/models/security.md
+  - docs/models/sendemailnotification.md
+  - docs/models/slimprojectschemaproject.md
+  - docs/models/socialbarv1.md
+  - docs/models/sortby.md
+  - docs/models/sortdirection.md
+  - docs/models/sourcemedia.md
+  - docs/models/style.md
+  - docs/models/subfolder.md
+  - docs/models/tag.md
+  - docs/models/thumbnail.md
+  - docs/models/time.md
+  - docs/models/trims.md
+  - docs/models/updatelivestreamevent.md
+  - docs/models/updatelivestreameventlivestreamevent.md
+  - docs/models/updateproject.md
+  - docs/models/updateprojectpublicenum.md
+  - docs/models/updateprojectpublicunion.md
+  - docs/models/updatesharingrequest.md
+  - docs/models/updatesharingrequestsharing.md
+  - docs/models/videocustomization.md
+  - docs/models/videocustomizationplugin.md
+  - docs/models/videocustomizationresponse.md
+  - docs/models/videocustomizationresponseplugin.md
+  - docs/models/videocustomizationresponsevideothumbnail.md
+  - docs/models/videocustomizationvideothumbnail.md
+  - docs/models/videofoam.md
+  - docs/models/videofoamunion.md
+  - docs/models/visitor.md
+  - docs/models/visitoridentity.md
+  - docs/models/visitoruseragentdetails.md
+  - docs/sdks/account/README.md
+  - docs/sdks/alloweddomains/README.md
+  - docs/sdks/backgroundjobstatus/README.md
+  - docs/sdks/captions/README.md
+  - docs/sdks/channelepisodes/README.md
+  - docs/sdks/channels/README.md
+  - docs/sdks/customizations/README.md
+  - docs/sdks/expiringaccesstokens/README.md
+  - docs/sdks/livestreamevents/README.md
+  - docs/sdks/localizations/README.md
+  - docs/sdks/media/README.md
+  - docs/sdks/projects/README.md
+  - docs/sdks/projectsharings/README.md
+  - docs/sdks/search/README.md
+  - docs/sdks/statsaccount/README.md
+  - docs/sdks/statsevents/README.md
+  - docs/sdks/statsmedia/README.md
+  - docs/sdks/statsvisitors/README.md
+  - docs/sdks/tags/README.md
+  - docs/sdks/trims/README.md
+  - docs/sdks/wistia/README.md
+  - docs/types/rfcdate.md
+  - eslint.config.mjs
+  - examples/.env.template
+  - examples/README.md
+  - examples/package.json
+  - examples/projectsGetProjects.example.ts
+  - jsr.json
+  - package.json
+  - src/core.ts
+  - src/funcs/accountGetAccountDetails.ts
+  - src/funcs/allowedDomainsDeleteAllowedDomainsDomain.ts
+  - src/funcs/allowedDomainsGetAllowedDomains.ts
+  - src/funcs/allowedDomainsGetAllowedDomainsDomain.ts
+  - src/funcs/allowedDomainsPostAllowedDomains.ts
+  - src/funcs/backgroundJobStatusGetBackgroundJobStatusBackgroundJobStatusId.ts
+  - src/funcs/captionsDeleteMediasMediaHashedIdCaptionsLanguageCode.ts
+  - src/funcs/captionsGetMediasMediaHashedIdCaptions.ts
+  - src/funcs/captionsGetMediasMediaHashedIdCaptionsLanguageCode.ts
+  - src/funcs/captionsPostMediasMediaHashedIdCaptions.ts
+  - src/funcs/captionsPostMediasMediaHashedIdCaptionsMultipart.ts
+  - src/funcs/captionsPostMediasMediaHashedIdCaptionsPurchase.ts
+  - src/funcs/captionsPutMediasMediaHashedIdCaptionsLanguageCode.ts
+  - src/funcs/captionsPutMediasMediaHashedIdCaptionsLanguageCodeMultipart.ts
+  - src/funcs/channelEpisodesGetChannelEpisodes.ts
+  - src/funcs/channelEpisodesGetChannelsChannelHashedIdChannelEpisodes.ts
+  - src/funcs/channelEpisodesGetChannelsChannelHashedIdChannelEpisodesChannelEpisodeId.ts
+  - src/funcs/channelEpisodesPostChannelsChannelHashedIdChannelEpisodes.ts
+  - src/funcs/channelsGetChannels.ts
+  - src/funcs/channelsGetChannelsChannelHashedId.ts
+  - src/funcs/customizationsDeleteMediasMediaIdCustomizations.ts
+  - src/funcs/customizationsGetMediasMediaIdCustomizations.ts
+  - src/funcs/customizationsPostMediasMediaIdCustomizations.ts
+  - src/funcs/customizationsPutMediasMediaIdCustomizations.ts
+  - src/funcs/expiringAccessTokensPostExpiringToken.ts
+  - src/funcs/liveStreamEventsDeleteLiveStreamEventsId.ts
+  - src/funcs/liveStreamEventsGetLiveStreamEvents.ts
+  - src/funcs/liveStreamEventsGetLiveStreamEventsId.ts
+  - src/funcs/liveStreamEventsPostLiveStreamEvents.ts
+  - src/funcs/liveStreamEventsPutLiveStreamEventsId.ts
+  - src/funcs/localizationsDeleteMediasMediaHashedIdLocalizationsLocalizationHashedId.ts
+  - src/funcs/localizationsGetMediasMediaHashedIdLocalizations.ts
+  - src/funcs/localizationsGetMediasMediaHashedIdLocalizationsLocalizationHashedId.ts
+  - src/funcs/localizationsPostMediasMediaHashedIdLocalizations.ts
+  - src/funcs/mediaDeleteMediasMediaHashedId.ts
+  - src/funcs/mediaGetMedias.ts
+  - src/funcs/mediaGetMediasMediaHashedId.ts
+  - src/funcs/mediaGetMediasMediaHashedIdStats.ts
+  - src/funcs/mediaPostMediasMediaHashedIdCopy.ts
+  - src/funcs/mediaPostMediasMediaHashedIdTranslate.ts
+  - src/funcs/mediaPutMediasArchive.ts
+  - src/funcs/mediaPutMediasMediaHashedId.ts
+  - src/funcs/mediaPutMediasMediaHashedIdSwap.ts
+  - src/funcs/mediaPutMediasMove.ts
+  - src/funcs/mediaPutMediasRestore.ts
+  - src/funcs/projectSharingsDeleteProjectsProjectIdSharingsSharingId.ts
+  - src/funcs/projectSharingsGetProjectsProjectIdSharings.ts
+  - src/funcs/projectSharingsGetProjectsProjectIdSharingsSharingId.ts
+  - src/funcs/projectSharingsPostProjectsProjectIdSharings.ts
+  - src/funcs/projectSharingsPutProjectsProjectIdSharingsSharingId.ts
+  - src/funcs/projectsDeleteProjectsId.ts
+  - src/funcs/projectsGetProjects.ts
+  - src/funcs/projectsGetProjectsId.ts
+  - src/funcs/projectsPostProjects.ts
+  - src/funcs/projectsPostProjectsIdCopy.ts
+  - src/funcs/projectsPutProjectsId.ts
+  - src/funcs/searchGetSearch.ts
+  - src/funcs/statsAccountGetStatsAccount.ts
+  - src/funcs/statsEventsGetStatsEvents.ts
+  - src/funcs/statsEventsGetStatsEventsEventKey.ts
+  - src/funcs/statsMediaGetStatsMediasMediaIdByDate.ts
+  - src/funcs/statsVisitorsGetStatsVisitors.ts
+  - src/funcs/statsVisitorsGetStatsVisitorsVisitorKey.ts
+  - src/funcs/tagsDeleteTagsName.ts
+  - src/funcs/tagsGetTags.ts
+  - src/funcs/tagsPostTags.ts
+  - src/funcs/trimsPostMediasMediaHashedIdTrims.ts
+  - src/hooks/hooks.ts
+  - src/hooks/index.ts
+  - src/hooks/types.ts
+  - src/index.ts
+  - src/lib/base64.ts
+  - src/lib/config.ts
+  - src/lib/dlv.ts
+  - src/lib/encodings.ts
+  - src/lib/env.ts
+  - src/lib/files.ts
+  - src/lib/http.ts
+  - src/lib/is-plain-object.ts
+  - src/lib/logger.ts
+  - src/lib/matchers.ts
+  - src/lib/primitives.ts
+  - src/lib/retries.ts
+  - src/lib/schemas.ts
+  - src/lib/sdks.ts
+  - src/lib/security.ts
+  - src/lib/url.ts
+  - src/models/account.ts
+  - src/models/alloweddomain.ts
+  - src/models/asset.ts
+  - src/models/backgroundjobstatus.ts
+  - src/models/caption.ts
+  - src/models/channel.ts
+  - src/models/channelepisode.ts
+  - src/models/createchannelepisode.ts
+  - src/models/createlivestreamevent.ts
+  - src/models/createlivestreameventresponse.ts
+  - src/models/createproject.ts
+  - src/models/createprojectsharing.ts
+  - src/models/errors/deletealloweddomainsdomain.ts
+  - src/models/errors/fivehundrederror.ts
+  - src/models/errors/fourhundredandfourerror.ts
+  - src/models/errors/fourhundredandoneerror.ts
+  - src/models/errors/fourhundredandtwentytwoerror.ts
+  - src/models/errors/fourhundrederror.ts
+  - src/models/errors/getalloweddomainsdomain.ts
+  - src/models/errors/getbackgroundjobstatusbackgroundjobstatusid.ts
+  - src/models/errors/getsearch.ts
+  - src/models/errors/httpclienterrors.ts
+  - src/models/errors/index.ts
+  - src/models/errors/postalloweddomains.ts
+  - src/models/errors/postexpiringtoken.ts
+  - src/models/errors/postlivestreamevents.ts
+  - src/models/errors/postmediasmediahashedidcaptionspurchase.ts
+  - src/models/errors/postmediasmediahashedidcopy.ts
+  - src/models/errors/postmediasmediahashedidlocalizations.ts
+  - src/models/errors/postmediasmediahashedidtranslate.ts
+  - src/models/errors/posttags.ts
+  - src/models/errors/putlivestreameventsid.ts
+  - src/models/errors/putmediasarchive.ts
+  - src/models/errors/putmediasmediahashedidswap.ts
+  - src/models/errors/putmediasmove.ts
+  - src/models/errors/putmediasrestore.ts
+  - src/models/errors/responsevalidationerror.ts
+  - src/models/errors/sdkvalidationerror.ts
+  - src/models/errors/wistiadefaulterror.ts
+  - src/models/errors/wistiaerror.ts
+  - src/models/event.ts
+  - src/models/expiringaccesstokeninput.ts
+  - src/models/expiringaccesstokenresponse.ts
+  - src/models/fourhundredandtwentytwoerror.ts
+  - src/models/hashedid.ts
+  - src/models/index.ts
+  - src/models/livestreamevent.ts
+  - src/models/localization.ts
+  - src/models/localizationtranscript.ts
+  - src/models/localizationwithpurchasedata.ts
+  - src/models/media.ts
+  - src/models/mediashow.ts
+  - src/models/mediawiththumbnailandprojectschemamedia.ts
+  - src/models/noassetmediaschemamedia.ts
+  - src/models/operations/deletealloweddomainsdomain.ts
+  - src/models/operations/deletelivestreameventsid.ts
+  - src/models/operations/deletemediasmediahashedid.ts
+  - src/models/operations/deletemediasmediahashedidcaptionslanguagecode.ts
+  - src/models/operations/deletemediasmediahashedidlocalizationslocalizationhashedid.ts
+  - src/models/operations/deletemediasmediaidcustomizations.ts
+  - src/models/operations/deleteprojectsid.ts
+  - src/models/operations/deleteprojectsprojectidsharingssharingid.ts
+  - src/models/operations/deletetagsname.ts
+  - src/models/operations/getalloweddomains.ts
+  - src/models/operations/getalloweddomainsdomain.ts
+  - src/models/operations/getbackgroundjobstatusbackgroundjobstatusid.ts
+  - src/models/operations/getchannelepisodes.ts
+  - src/models/operations/getchannels.ts
+  - src/models/operations/getchannelschannelhashedid.ts
+  - src/models/operations/getchannelschannelhashedidchannelepisodes.ts
+  - src/models/operations/getchannelschannelhashedidchannelepisodeschannelepisodeid.ts
+  - src/models/operations/getlivestreamevents.ts
+  - src/models/operations/getlivestreameventsid.ts
+  - src/models/operations/getmedias.ts
+  - src/models/operations/getmediasmediahashedid.ts
+  - src/models/operations/getmediasmediahashedidcaptions.ts
+  - src/models/operations/getmediasmediahashedidcaptionslanguagecode.ts
+  - src/models/operations/getmediasmediahashedidlocalizations.ts
+  - src/models/operations/getmediasmediahashedidlocalizationslocalizationhashedid.ts
+  - src/models/operations/getmediasmediahashedidstats.ts
+  - src/models/operations/getmediasmediaidcustomizations.ts
+  - src/models/operations/getprojects.ts
+  - src/models/operations/getprojectsid.ts
+  - src/models/operations/getprojectsprojectidsharings.ts
+  - src/models/operations/getprojectsprojectidsharingssharingid.ts
+  - src/models/operations/getsearch.ts
+  - src/models/operations/getstatsaccount.ts
+  - src/models/operations/getstatsevents.ts
+  - src/models/operations/getstatseventseventkey.ts
+  - src/models/operations/getstatsmediasmediaidbydate.ts
+  - src/models/operations/getstatsvisitors.ts
+  - src/models/operations/getstatsvisitorsvisitorkey.ts
+  - src/models/operations/gettags.ts
+  - src/models/operations/index.ts
+  - src/models/operations/postalloweddomains.ts
+  - src/models/operations/postchannelschannelhashedidchannelepisodes.ts
+  - src/models/operations/postexpiringtoken.ts
+  - src/models/operations/postmediasmediahashedidcaptions.ts
+  - src/models/operations/postmediasmediahashedidcaptionsmultipart.ts
+  - src/models/operations/postmediasmediahashedidcaptionspurchase.ts
+  - src/models/operations/postmediasmediahashedidcopy.ts
+  - src/models/operations/postmediasmediahashedidlocalizations.ts
+  - src/models/operations/postmediasmediahashedidtranslate.ts
+  - src/models/operations/postmediasmediahashedidtrims.ts
+  - src/models/operations/postmediasmediaidcustomizations.ts
+  - src/models/operations/postprojectsidcopy.ts
+  - src/models/operations/postprojectsprojectidsharings.ts
+  - src/models/operations/posttags.ts
+  - src/models/operations/putlivestreameventsid.ts
+  - src/models/operations/putmediasarchive.ts
+  - src/models/operations/putmediasmediahashedid.ts
+  - src/models/operations/putmediasmediahashedidcaptionslanguagecode.ts
+  - src/models/operations/putmediasmediahashedidcaptionslanguagecodemultipart.ts
+  - src/models/operations/putmediasmediahashedidswap.ts
+  - src/models/operations/putmediasmediaidcustomizations.ts
+  - src/models/operations/putmediasmove.ts
+  - src/models/operations/putmediasrestore.ts
+  - src/models/operations/putprojectsid.ts
+  - src/models/operations/putprojectsprojectidsharingssharingid.ts
+  - src/models/project.ts
+  - src/models/projectsharingdetail.ts
+  - src/models/projectsharingresponse.ts
+  - src/models/projectsharingschema.ts
+  - src/models/projectwithmedias.ts
+  - src/models/searchchannel.ts
+  - src/models/searchchannelepisode.ts
+  - src/models/searchmedia.ts
+  - src/models/security.ts
+  - src/models/slimprojectschemaproject.ts
+  - src/models/sortby.ts
+  - src/models/sortdirection.ts
+  - src/models/sourcemedia.ts
+  - src/models/subfolder.ts
+  - src/models/tag.ts
+  - src/models/thumbnail.ts
+  - src/models/trims.ts
+  - src/models/updatelivestreamevent.ts
+  - src/models/updateproject.ts
+  - src/models/updatesharingrequest.ts
+  - src/models/videocustomization.ts
+  - src/models/videocustomizationresponse.ts
+  - src/models/visitor.ts
+  - src/sdk/account.ts
+  - src/sdk/alloweddomains.ts
+  - src/sdk/backgroundjobstatus.ts
+  - src/sdk/captions.ts
+  - src/sdk/channelepisodes.ts
+  - src/sdk/channels.ts
+  - src/sdk/customizations.ts
+  - src/sdk/expiringaccesstokens.ts
+  - src/sdk/index.ts
+  - src/sdk/livestreamevents.ts
+  - src/sdk/localizations.ts
+  - src/sdk/media.ts
+  - src/sdk/projects.ts
+  - src/sdk/projectsharings.ts
+  - src/sdk/sdk.ts
+  - src/sdk/search.ts
+  - src/sdk/statsaccount.ts
+  - src/sdk/statsevents.ts
+  - src/sdk/statsmedia.ts
+  - src/sdk/statsvisitors.ts
+  - src/sdk/tags.ts
+  - src/sdk/trims.ts
+  - src/types/async.ts
+  - src/types/blobs.ts
+  - src/types/constdatetime.ts
+  - src/types/enums.ts
+  - src/types/fp.ts
+  - src/types/index.ts
+  - src/types/operations.ts
+  - src/types/rfcdate.ts
+  - src/types/streams.ts
+  - tsconfig.json
+examples:
+  get_/projects:
+    speakeasy-default-get-/projects:
+      responses:
+        "200":
+          application/json: [{"id": 22570, "name": "My Project Title", "description": "About My Project", "mediaCount": 2, "created": "2010-08-13T18:47:39+00:00", "updated": "2010-08-19T21:47:00+00:00", "hashedId": "4d23503f70", "public": false, "publicId": "4bD", "anonymousCanUpload": false, "anonymousCanDownload": false}]
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "500":
+          application/json: {"error": "Internal server error"}
+  post_/projects:
+    speakeasy-default-post-/projects:
+      requestBody:
+        application/json: {"name": "My New Project", "adminEmail": "admin@example.com", "public": false}
+      responses:
+        "201":
+          application/json: {"id": 22570, "name": "My Project Title", "description": "About My Project", "mediaCount": 2, "created": "2010-08-13T18:47:39+00:00", "updated": "2010-08-19T21:47:00+00:00", "hashedId": "4d23503f70", "public": false, "publicId": "4bD", "anonymousCanUpload": false, "anonymousCanDownload": false}
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "500":
+          application/json: {"error": "Internal server error"}
+  get_/projects/{id}:
+    speakeasy-default-get-/projects/{id}:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "200":
+          application/json: {"id": 22570, "name": "My Project Title", "description": "About My Project", "mediaCount": 2, "created": "2010-08-13T18:47:39+00:00", "updated": "2010-08-19T21:47:00+00:00", "hashedId": "4d23503f70", "public": false, "publicId": "4bD", "anonymousCanUpload": false, "anonymousCanDownload": false}
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "404":
+          application/json: {"error": "Project with ID 'fakeid' not found."}
+        "500":
+          application/json: {"error": "Internal server error"}
+  put_/projects/{id}:
+    speakeasy-default-put-/projects/{id}:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"name": "My New Project Name", "description": "My New Project Description", "public": false}
+      responses:
+        "200":
+          application/json: {"id": 22570, "name": "My Project Title", "description": "About My Project", "mediaCount": 2, "created": "2010-08-13T18:47:39+00:00", "updated": "2010-08-19T21:47:00+00:00", "hashedId": "4d23503f70", "public": false, "publicId": "4bD", "anonymousCanUpload": false, "anonymousCanDownload": false}
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "404":
+          application/json: {"error": "Project with ID 'fakeid' not found."}
+        "500":
+          application/json: {"error": "Internal server error"}
+  delete_/projects/{id}:
+    speakeasy-default-delete-/projects/{id}:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "200":
+          application/json: {"id": 22570, "name": "My Project Title", "description": "About My Project", "mediaCount": 2, "created": "2010-08-13T18:47:39+00:00", "updated": "2010-08-19T21:47:00+00:00", "hashedId": "4d23503f70", "public": false, "publicId": "4bD", "anonymousCanUpload": false, "anonymousCanDownload": false}
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "404":
+          application/json: {"error": "Project with ID 'fakeid' not found."}
+        "500":
+          application/json: {"error": "Internal server error"}
+  post_/projects/{id}/copy:
+    speakeasy-default-post-/projects/{id}/copy:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"adminEmail": "admin@example.com"}
+      responses:
+        "201":
+          application/json: {"id": 22570, "name": "My Project Title", "description": "About My Project", "mediaCount": 2, "created": "2010-08-13T18:47:39+00:00", "updated": "2010-08-19T21:47:00+00:00", "hashedId": "4d23503f70", "public": false, "publicId": "4bD", "anonymousCanUpload": false, "anonymousCanDownload": false}
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "404":
+          application/json: {"error": "Project with ID 'fakeid' not found."}
+        "500":
+          application/json: {"error": "Internal server error"}
+  get_/projects/{project-id}/sharings:
+    speakeasy-default-get-/projects/{project-id}/sharings:
+      parameters:
+        path:
+          project-id: "<id>"
+      responses:
+        "200":
+          application/json: [{"id": 14, "isAdmin": true, "canShare": true, "canDownload": true, "canUpload": true, "share": {"id": 3, "name": "Jim", "type": "Contact", "email": "jim@wistia.com"}, "project": {"id": 13, "name": "My Project"}}]
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "500":
+          application/json: {"error": "Internal server error"}
+  post_/projects/{project-id}/sharings:
+    speakeasy-default-post-/projects/{project-id}/sharings:
+      parameters:
+        path:
+          project-id: "<id>"
+      requestBody:
+        application/json: {"sharing": {"with": "Darien64@yahoo.com", "requirePassword": false, "canShare": false, "canDownload": false, "canUpload": false}}
+      responses:
+        "201":
+          application/json: {"project": "http://myaccount.wistia.com/folders/13", "sharing": {"id": 14, "isAdmin": true, "canShare": true, "canDownload": true, "canUpload": true, "share": {"id": 3, "name": "Jim", "type": "Contact", "email": "jim@wistia.com"}, "project": {"id": 13, "name": "My Project"}}}
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "500":
+          application/json: {"error": "Internal server error"}
+  get_/projects/{project-id}/sharings/{sharing-id}:
+    speakeasy-default-get-/projects/{project-id}/sharings/{sharing-id}:
+      parameters:
+        path:
+          project-id: "<id>"
+          sharing-id: 176565
+      responses:
+        "200":
+          application/json: {"id": 14, "isAdmin": true, "canShare": true, "canDownload": true, "canUpload": true, "share": {"id": 3, "name": "Jim", "type": "Contact", "email": "jim@wistia.com"}, "project": {"id": 13, "name": "My Project"}}
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "404":
+          application/json: {"error": "Project with ID 'fakeid' not found."}
+        "500":
+          application/json: {"error": "Internal server error"}
+  put_/projects/{project-id}/sharings/{sharing-id}:
+    speakeasy-default-put-/projects/{project-id}/sharings/{sharing-id}:
+      parameters:
+        path:
+          project-id: "<id>"
+          sharing-id: "<id>"
+      requestBody:
+        application/json: {}
+      responses:
+        "200":
+          application/json: {"id": 14, "isAdmin": true, "canShare": true, "canDownload": true, "canUpload": true, "share": {"id": 3, "name": "Jim", "type": "Contact", "email": "jim@wistia.com"}, "project": {"id": 13, "name": "My Project"}}
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "404":
+          application/json: {"error": "Project with ID 'fakeid' not found."}
+        "500":
+          application/json: {"error": "Internal server error"}
+  delete_/projects/{project-id}/sharings/{sharing-id}:
+    speakeasy-default-delete-/projects/{project-id}/sharings/{sharing-id}:
+      parameters:
+        path:
+          project-id: "<id>"
+          sharing-id: "<id>"
+      responses:
+        "200":
+          application/json: {"id": 14, "isAdmin": true, "canShare": true, "canDownload": true, "canUpload": true, "share": {"id": 3, "name": "Jim", "type": "Contact", "email": "jim@wistia.com"}, "project": {"id": 13, "name": "My Project"}}
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "404":
+          application/json: {"error": "Project with ID 'fakeid' not found."}
+        "500":
+          application/json: {"error": "Internal server error"}
+  get_/medias:
+    speakeasy-default-get-/medias:
+      responses:
+        "200":
+          application/json: [{"project": {"id": 22570, "name": "My Project Title", "hashedId": "4d23503f70"}}]
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "500":
+          application/json: {"error": "Internal server error"}
+  get_/medias/{media-hashed-id}:
+    speakeasy-default-get-/medias/{media-hashed-id}:
+      parameters:
+        path:
+          media-hashed-id: "<id>"
+      responses:
+        "200":
+          application/json: {"project": {"id": 22570, "name": "My Project Title", "hashedId": "4d23503f70"}}
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "404":
+          application/json: {"error": "Project with ID 'fakeid' not found."}
+        "500":
+          application/json: {"error": "Internal server error"}
+  put_/medias/{media-hashed-id}:
+    speakeasy-default-put-/medias/{media-hashed-id}:
+      parameters:
+        path:
+          media-hashed-id: "<id>"
+      responses:
+        "200":
+          application/json: {}
+        "400":
+          application/json: {"error": "Bad request"}
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "404":
+          application/json: {"error": "Project with ID 'fakeid' not found."}
+        "500":
+          application/json: {"error": "Internal server error"}
+  delete_/medias/{media-hashed-id}:
+    speakeasy-default-delete-/medias/{media-hashed-id}:
+      parameters:
+        path:
+          media-hashed-id: "<id>"
+      responses:
+        "200":
+          application/json: {"project": {"id": 22570, "name": "My Project Title", "hashedId": "4d23503f70"}}
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "404":
+          application/json: {"error": "Project with ID 'fakeid' not found."}
+        "500":
+          application/json: {"error": "Internal server error"}
+  post_/medias/{media-hashed-id}/copy:
+    speakeasy-default-post-/medias/{media-hashed-id}/copy:
+      parameters:
+        path:
+          media-hashed-id: "<id>"
+      responses:
+        "201":
+          application/json: {"project": {"id": 22570, "name": "My Project Title", "hashedId": "4d23503f70"}}
+        "400":
+          application/json: {}
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "404":
+          application/json: {"error": "Project with ID 'fakeid' not found."}
+        "405":
+          application/json: {}
+        "500":
+          application/json: {"error": "Internal server error"}
+  put_/medias/{media-hashed-id}/swap:
+    speakeasy-default-put-/medias/{media-hashed-id}/swap:
+      parameters:
+        path:
+          media-hashed-id: "<id>"
+      responses:
+        "200":
+          application/json: {"message": "Media swap has been queued for processing.", "media": {"project": {"id": 22570, "name": "My Project Title", "hashedId": "4d23503f70"}}}
+        "400":
+          application/json: {"error": "Replacement media must be the same type as the original media (Video)."}
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "404":
+          application/json: {"error": "Project with ID 'fakeid' not found."}
+        "500":
+          application/json: {"error": "Internal server error"}
+  get_/medias/{media-hashed-id}/stats:
+    speakeasy-default-get-/medias/{media-hashed-id}/stats:
+      parameters:
+        path:
+          media-hashed-id: "<id>"
+      responses:
+        "200":
+          application/json: {}
+        "400":
+          application/json: {"error": "Bad request"}
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "404":
+          application/json: {"error": "Project with ID 'fakeid' not found."}
+        "500":
+          application/json: {"error": "Internal server error"}
+  post_/medias/{media-hashed-id}/translate:
+    speakeasy-default-post-/medias/{media-hashed-id}/translate:
+      parameters:
+        path:
+          media-hashed-id: "<id>"
+      responses:
+        "201":
+          application/json: {"message": "Translation request has been successfully queued for processing."}
+        "400":
+          application/json: {"error": "Bad request"}
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "404":
+          application/json: {"error": "Project with ID 'fakeid' not found."}
+        "422":
+          application/json: {}
+        "500":
+          application/json: {"error": "Internal server error"}
+  put_/medias/archive:
+    speakeasy-default-put-/medias/archive:
+      requestBody:
+        application/json: {"hashed_ids": []}
+      responses:
+        "200":
+          application/json: {}
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "403":
+          application/json: {}
+        "422":
+          application/json: {}
+        "500":
+          application/json: {"error": "Internal server error"}
+  put_/medias/move:
+    speakeasy-default-put-/medias/move:
+      requestBody:
+        application/json: {"hashed_ids": ["<value 1>", "<value 2>"], "project_id": "<id>"}
+      responses:
+        "200":
+          application/json: {}
+        "207":
+          application/json: {}
+        "400":
+          application/json: {}
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "404":
+          application/json: {"error": "Project with ID 'fakeid' not found."}
+        "500":
+          application/json: {"error": "Internal server error"}
+  put_/medias/restore:
+    speakeasy-default-put-/medias/restore:
+      requestBody:
+        application/json: {"hashed_ids": []}
+      responses:
+        "200":
+          application/json: {}
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "403":
+          application/json: {}
+        "404":
+          application/json: {"error": "Project with ID 'fakeid' not found."}
+        "422":
+          application/json: {"error": "Incorrect number of parameters provided. Provide one project_id or one channel_id."}
+        "500":
+          application/json: {"error": "Internal server error"}
+  getAccountDetails:
+    speakeasy-default-get-account-details:
+      responses:
+        "200":
+          application/json: {"id": 357367, "name": "<value>", "url": "https://paltry-soliloquy.biz", "mediaCount": 996575, "videoLimit": 691084, "projectCount": 313087, "channelCount": 241543}
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "500":
+          application/json: {"error": "Internal server error"}
+  get_/allowed_domains:
+    speakeasy-default-get-/allowed-domains:
+      parameters:
+        query:
+          page: 1
+          per_page: 100
+      responses:
+        "200":
+          application/json: [{"domain": "example.com", "created_at": "2010-08-13T18:47:39+00:00"}]
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "500":
+          application/json: {"error": "Internal server error"}
+  post_/allowed_domains:
+    speakeasy-default-post-/allowed-domains:
+      requestBody:
+        application/json: {"domain": "example.com"}
+      responses:
+        "200":
+          application/json: {"domain": "example.com", "created_at": "2010-08-13T18:47:39+00:00"}
+        "400":
+          application/json: {"error": "The domain's format doesn't look correct. It should be formatted like \"mydomain.com\""}
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "500":
+          application/json: {"error": "Internal server error"}
+  get_/allowed_domains/{domain}:
+    speakeasy-default-get-/allowed-domains/{domain}:
+      parameters:
+        path:
+          domain: "example.com"
+      responses:
+        "200":
+          application/json: {"domain": "example.com", "created_at": "2010-08-13T18:47:39+00:00"}
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "404":
+          application/json: {"error": "domain was not found"}
+        "500":
+          application/json: {"error": "Internal server error"}
+  delete_/allowed_domains/{domain}:
+    speakeasy-default-delete-/allowed-domains/{domain}:
+      parameters:
+        path:
+          domain: "example.com"
+      responses:
+        "200":
+          application/json: {"domain": "example.com", "created_at": "2010-08-13T18:47:39+00:00"}
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "404":
+          application/json: {"error": "domain was not found"}
+        "500":
+          application/json: {"error": "Internal server error"}
+  get_/background_job_status/{background-job-status-id}:
+    speakeasy-default-get-/background-job-status/{background-job-status-id}:
+      parameters:
+        path:
+          background-job-status-id: 350035
+      responses:
+        "200":
+          application/json: {"background_job_status": {"id": 469550, "status": "finished"}}
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "403":
+          application/json: {"error": "The requested background job status is not associated with an authorized object."}
+        "500":
+          application/json: {"error": "Internal server error"}
+  get_/medias/{media-id}/customizations:
+    speakeasy-default-get-/medias/{media-id}/customizations:
+      parameters:
+        path:
+          media-id: "<id>"
+      responses:
+        "200":
+          application/json: {}
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "404":
+          application/json: {"error": "Project with ID 'fakeid' not found."}
+        "500":
+          application/json: {"error": "Internal server error"}
+  post_/medias/{media-id}/customizations:
+    speakeasy-default-post-/medias/{media-id}/customizations:
+      parameters:
+        path:
+          media-id: "<id>"
+      requestBody:
+        application/json: {"plugin": {"postRoll-v1": {"style": {"backgroundColor": "#303030"}, "ctaType": "text"}}, "videoFoam": true}
+      responses:
+        "201":
+          application/json: {}
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "500":
+          application/json: {"error": "Internal server error"}
+  put_/medias/{media-id}/customizations:
+    speakeasy-default-put-/medias/{media-id}/customizations:
+      parameters:
+        path:
+          media-id: "<id>"
+      requestBody:
+        application/json: {"plugin": {"postRoll-v1": {"style": {"backgroundColor": "#303030"}, "ctaType": "text"}}, "videoFoam": true}
+      responses:
+        "200":
+          application/json: {}
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "404":
+          application/json: {"error": "Project with ID 'fakeid' not found."}
+        "500":
+          application/json: {"error": "Internal server error"}
+  delete_/medias/{media-id}/customizations:
+    speakeasy-default-delete-/medias/{media-id}/customizations:
+      parameters:
+        path:
+          media-id: "<id>"
+      responses:
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "404":
+          application/json: {"error": "Project with ID 'fakeid' not found."}
+        "500":
+          application/json: {"error": "Internal server error"}
+  get_/medias/{media-hashed-id}/captions:
+    speakeasy-default-get-/medias/{media-hashed-id}/captions:
+      parameters:
+        path:
+          media-hashed-id: "<id>"
+      responses:
+        "200":
+          application/json: [{}]
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "500":
+          application/json: {"error": "Internal server error"}
+  post_/medias/{media-hashed-id}/captions:
+    speakeasy-default-post-/medias/{media-hashed-id}/captions-multipart:
+      parameters:
+        path:
+          media-hashed-id: "<id>"
+      requestBody:
+        multipart/form-data: {"caption_file": "x-file: example.file"}
+      responses:
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "500":
+          application/json: {"error": "Internal server error"}
+    speakeasy-default-post-/medias/{media-hashed-id}/captions:
+      parameters:
+        path:
+          media-hashed-id: "<id>"
+      requestBody:
+        application/json: {"caption_file": "<value>"}
+      responses:
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "500":
+          application/json: {"error": "Internal server error"}
+  post_/medias/{media-hashed-id}/captions/purchase:
+    speakeasy-default-post-/medias/{media-hashed-id}/captions/purchase:
+      parameters:
+        path:
+          media-hashed-id: "<id>"
+      requestBody:
+        application/json: {"automated": false, "rush": true, "automatically_enable": true}
+      responses:
+        "200":
+          application/json: {"message": "Captions purchased for this video. Your account will be charged when the captions are ready.", "id": "abc123def456"}
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "422":
+          application/json: {}
+        "500":
+          application/json: {"error": "Internal server error"}
+  get_/medias/{media-hashed-id}/captions/{language-code}:
+    speakeasy-default-get-/medias/{media-hashed-id}/captions/{language-code}:
+      parameters:
+        path:
+          media-hashed-id: "<id>"
+          language-code: "<value>"
+      responses:
+        "200":
+          application/json: {}
+          text/plain: "<value>"
+          text/vtt: "<value>"
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "500":
+          application/json: {"error": "Internal server error"}
+  put_/medias/{media-hashed-id}/captions/{language-code}:
+    speakeasy-default-put-/medias/{media-hashed-id}/captions/{language-code}:
+      parameters:
+        path:
+          media-hashed-id: "<id>"
+          language-code: "<value>"
+      requestBody:
+        application/json: {"caption_file": "<value>"}
+      responses:
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "500":
+          application/json: {"error": "Internal server error"}
+    speakeasy-default-put-/medias/{media-hashed-id}/captions/{language-code}-multipart:
+      parameters:
+        path:
+          media-hashed-id: "<id>"
+          language-code: "<value>"
+      requestBody:
+        multipart/form-data: {"caption_file": "x-file: example.file"}
+      responses:
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "500":
+          application/json: {"error": "Internal server error"}
+  delete_/medias/{media-hashed-id}/captions/{language-code}:
+    speakeasy-default-delete-/medias/{media-hashed-id}/captions/{language-code}:
+      parameters:
+        path:
+          media-hashed-id: "<id>"
+          language-code: "<value>"
+      responses:
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "500":
+          application/json: {"error": "Internal server error"}
+  post_/medias/{media-hashed-id}/trims:
+    speakeasy-default-post-/medias/{media-hashed-id}/trims:
+      parameters:
+        path:
+          media-hashed-id: "<id>"
+      requestBody:
+        application/json: {}
+      responses:
+        "200":
+          application/json: {}
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "422":
+          application/json: {}
+        "500":
+          application/json: {"error": "Internal server error"}
+  get_/medias/{media-hashed-id}/localizations:
+    speakeasy-default-get-/medias/{media-hashed-id}/localizations:
+      parameters:
+        path:
+          media-hashed-id: "<id>"
+        query:
+          include_transcript: false
+      responses:
+        "200":
+          application/json: [{"hashed_id": "<id>", "language_code": "<value>", "iso639_2_language_code": "<value>", "language_name": "<value>", "native_language_name": "<value>", "created_at": "2024-02-08T12:15:41.264Z", "updated_at": "2023-09-03T03:15:51.559Z", "ordered_at": "2025-09-20T00:42:01.775Z", "enabled_at": "2023-10-12T03:50:05.199Z", "enabled": false, "source_media": {"hashed_id": "<id>", "name": "<value>", "duration": 9090.7, "created_at": "2025-11-08T17:49:52.998Z", "updated_at": "2023-10-24T17:33:28.032Z"}}]
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "404":
+          application/json: {"error": "Project with ID 'fakeid' not found."}
+        "500":
+          application/json: {"error": "Internal server error"}
+  post_/medias/{media-hashed-id}/localizations:
+    speakeasy-default-post-/medias/{media-hashed-id}/localizations:
+      parameters:
+        path:
+          media-hashed-id: "<id>"
+      responses:
+        "201":
+          application/json: {"hashed_id": "<id>", "language_code": "<value>", "iso639_2_language_code": "<value>", "language_name": "<value>", "native_language_name": "<value>", "created_at": "2023-08-14T13:48:05.715Z", "updated_at": "2025-04-24T11:18:34.287Z", "ordered_at": "2024-01-26T14:41:40.377Z", "enabled_at": "2023-08-22T19:47:37.631Z", "enabled": false, "source_media": {"hashed_id": "<id>", "name": "<value>", "duration": 8751.09, "created_at": "2025-10-30T00:33:19.007Z", "updated_at": "2023-07-01T15:10:57.678Z"}, "auto_enable_dubbing": false, "expected_billed_minutes": 3047.96, "expected_billed_price_per_minute": null, "expected_billed_price": 5930.01, "billed_at": "2025-08-24T14:43:08.631Z"}
+        "400":
+          application/json: {"error": "Bad request"}
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "404":
+          application/json: {"error": "Project with ID 'fakeid' not found."}
+        "422":
+          application/json: {}
+        "500":
+          application/json: {"error": "Internal server error"}
+  get_/medias/{media-hashed-id}/localizations/{localization-hashed-id}:
+    speakeasy-default-get-/medias/{media-hashed-id}/localizations/{localization-hashed-id}:
+      parameters:
+        path:
+          media-hashed-id: "<id>"
+          localization-hashed-id: "<id>"
+        query:
+          include_transcript: false
+      responses:
+        "200":
+          application/json: {"hashed_id": "<id>", "language_code": "<value>", "iso639_2_language_code": "<value>", "language_name": "<value>", "native_language_name": "<value>", "created_at": "2025-12-25T09:39:39.229Z", "updated_at": "2023-03-08T15:29:07.755Z", "ordered_at": "2023-04-13T01:46:08.985Z", "enabled_at": "2024-01-29T10:29:31.479Z", "enabled": true, "source_media": {"hashed_id": "<id>", "name": "<value>", "duration": 2021.83, "created_at": "2024-08-31T07:45:46.228Z", "updated_at": "2025-07-21T04:51:03.356Z"}}
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "404":
+          application/json: {"error": "Project with ID 'fakeid' not found."}
+        "500":
+          application/json: {"error": "Internal server error"}
+  delete_/medias/{media-hashed-id}/localizations/{localization-hashed-id}:
+    speakeasy-default-delete-/medias/{media-hashed-id}/localizations/{localization-hashed-id}:
+      parameters:
+        path:
+          media-hashed-id: "<id>"
+          localization-hashed-id: "<id>"
+      responses:
+        "200":
+          application/json: {"hashed_id": "<id>", "language_code": "<value>", "iso639_2_language_code": "<value>", "language_name": "<value>", "native_language_name": "<value>", "created_at": "2024-04-12T08:27:05.740Z", "updated_at": "2023-07-28T09:49:36.578Z", "ordered_at": "2024-04-03T20:34:31.499Z", "enabled_at": "2025-05-28T20:01:14.637Z", "enabled": false, "source_media": {"hashed_id": "<id>", "name": "<value>", "duration": 2378.05, "created_at": "2023-02-13T00:21:50.249Z", "updated_at": "2024-06-06T16:36:53.539Z"}}
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "404":
+          application/json: {"error": "Project with ID 'fakeid' not found."}
+        "500":
+          application/json: {"error": "Internal server error"}
+  get_/tags:
+    speakeasy-default-get-/tags:
+      responses:
+        "200":
+          application/json: [{"name": "My tag Title", "taggingsCount": 2, "created": "2010-08-13T18:47:39+00:00", "updated": "2010-08-19T21:47:00+00:00"}]
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "500":
+          application/json: {"error": "Internal server error"}
+  post_/tags:
+    speakeasy-default-post-/tags:
+      requestBody:
+        application/json: {"name": "<value>"}
+      responses:
+        "200":
+          application/json: {"name": "My tag Title", "taggingsCount": 2, "created": "2010-08-13T18:47:39+00:00", "updated": "2010-08-19T21:47:00+00:00"}
+        "400":
+          application/json: {"error": "param is missing or the value is empty: name"}
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "422":
+          application/json: {"error": "Validation failed: Name has already been taken"}
+        "500":
+          application/json: {"error": "Internal server error"}
+  delete_/tags/{name}:
+    speakeasy-default-delete-/tags/{name}:
+      parameters:
+        path:
+          name: "<value>"
+      responses:
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "500":
+          application/json: {"error": "Internal server error"}
+  get_/search:
+    speakeasy-default-get-/search:
+      parameters:
+        query:
+          q: "screencast"
+      responses:
+        "200":
+          application/json: {"data": {"projects": [], "medias": [{"project": {"id": 22570, "name": "My Project Title", "hashedId": "4d23503f70"}, "projectHashedId": "4d23503f70"}], "channels": [], "channelEpisodes": []}}
+        "400":
+          application/json: {"error": "the \"q\" parameter should specify the search query, e.g. \"q=screencast\""}
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "500":
+          application/json: {"error": "Internal server error"}
+  get_/channels:
+    speakeasy-default-get-/channels:
+      responses:
+        "200":
+          application/json: [{}]
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "500":
+          application/json: {"error": "Internal server error"}
+  get_/channels/{channel-hashed-id}:
+    speakeasy-default-get-/channels/{channel-hashed-id}:
+      parameters:
+        path:
+          channel-hashed-id: "<id>"
+      responses:
+        "200":
+          application/json: {}
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "404":
+          application/json: {"error": "Project with ID 'fakeid' not found."}
+        "500":
+          application/json: {"error": "Internal server error"}
+  get_/channels/{channel-hashed-id}/channel_episodes/{channel-episode-id}:
+    speakeasy-default-get-/channels/{channel-hashed-id}/channel-episodes/{channel-episode-id}:
+      parameters:
+        path:
+          channel-hashed-id: "<id>"
+          channel-episode-id: "<id>"
+      responses:
+        "200":
+          application/json: {"channels": {"channelHashedId": "<id>", "created": "2025-05-06T23:14:08.655Z", "description": "confiscate cripple disinherit superficial heartfelt gigantic stark er geez", "summary": "A short description.", "hashedId": "<id>", "mediaHashedId": "<id>", "published": true, "publish_at": "2024-12-31T23:59:59Z", "title": "<value>", "updated": "2024-09-04T04:16:46.511Z"}}
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "500":
+          application/json: {"error": "Internal server error"}
+  get_/channels/{channel-hashed-id}/channel_episodes:
+    speakeasy-default-get-/channels/{channel-hashed-id}/channel-episodes:
+      parameters:
+        path:
+          channel-hashed-id: "<id>"
+      responses:
+        "200":
+          application/json: [{"channels": {"channelHashedId": "<id>", "created": "2025-11-13T17:50:32.173Z", "description": "uh-huh gosh woot regarding phooey straw", "summary": "A short description.", "hashedId": "<id>", "mediaHashedId": "<id>", "published": true, "publish_at": "2024-12-31T23:59:59Z", "title": "<value>", "updated": "2024-03-30T20:32:05.175Z"}}]
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "500":
+          application/json: {"error": "Internal server error"}
+  post_/channels/{channel-hashed-id}/channel_episodes:
+    speakeasy-default-post-/channels/{channel-hashed-id}/channel-episodes:
+      parameters:
+        path:
+          channel-hashed-id: "<id>"
+      requestBody:
+        application/json: {"title": "My New Episode", "description": "My Episode Description.", "summary": "A short description.", "publish_at": "2024-12-31T23:59:59Z"}
+      responses:
+        "200":
+          application/json: {"channels": {"channelHashedId": "<id>", "created": "2023-07-26T11:57:39.757Z", "description": "mockingly amongst favorable", "summary": "A short description.", "hashedId": "<id>", "mediaHashedId": "<id>", "published": true, "publish_at": "2024-12-31T23:59:59Z", "title": "<value>", "updated": "2025-01-08T11:56:54.921Z"}}
+        "400":
+          application/json: {"error": "Bad request"}
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "500":
+          application/json: {"error": "Internal server error"}
+  get_/channel_episodes:
+    speakeasy-default-get-/channel-episodes:
+      responses:
+        "200":
+          application/json: [{"channels": {"channelHashedId": "<id>", "created": "2025-07-18T16:26:27.459Z", "description": "uselessly so correctly accentuate", "summary": "A short description.", "hashedId": "<id>", "mediaHashedId": "<id>", "published": false, "publish_at": "2024-12-31T23:59:59Z", "title": "<value>", "updated": "2025-07-07T20:00:20.388Z"}}]
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "500":
+          application/json: {"error": "Internal server error"}
+  post_/expiring_token:
+    speakeasy-default-post-/expiring-token:
+      responses:
+        "200":
+          application/json: {}
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "422":
+          application/json: {}
+        "500":
+          application/json: {"error": "Internal server error"}
+        "501":
+          application/json: {"error": "Expiring tokens can only be created from non-expiring access tokens."}
+  get_/live_stream_events:
+    speakeasy-default-get-/live-stream-events:
+      responses:
+        "200":
+          application/json: [{"id": "abc123def456", "title": "Wellness Session: Coping with Outie Memories", "description": "A comprehensive session on managing work-life balance", "scheduled_for": "2024-03-20T15:30:00-05:00", "event_duration": 60, "lifecycle_status": "scheduled", "registration_status": "published", "created_at": "2024-03-15T10:30:00Z", "updated_at": "2024-03-15T10:30:00Z", "audience_link": "https://lumon-industries.wistia.com/live/events/abc123def456", "host_link": "https://lumon-industries.wistia.com/live/onair/abc123def456/"}]
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "500":
+          application/json: {"error": "Internal server error"}
+  post_/live_stream_events:
+    speakeasy-default-post-/live-stream-events:
+      requestBody:
+        application/json: {"title": "Wellness Session: Coping with Outie Memories", "description": "A comprehensive session on managing work-life balance", "scheduled_for": "2024-03-20T15:30:00-05:00", "event_duration": 60}
+      responses:
+        "201":
+          application/json: {"id": "abc123def456", "audience_link": "https://lumon-industries.wistia.com/live/events/abc123def456", "host_link": "https://lumon-industries.wistia.com/live/onair/abc123def456/"}
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "403":
+          application/json: {"error": "Live streaming is not available on your current plan"}
+        "422":
+          application/json: {"errors": ["Title is required", "Event duration must be at least 15 minutes"]}
+        "500":
+          application/json: {"errors": ["An error occurred while creating the live stream event. Please try again."]}
+  get_/live_stream_events/{id}:
+    speakeasy-default-get-/live-stream-events/{id}:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "200":
+          application/json: {"id": "abc123def456", "title": "Wellness Session: Coping with Outie Memories", "description": "A comprehensive session on managing work-life balance", "scheduled_for": "2024-03-20T15:30:00-05:00", "event_duration": 60, "lifecycle_status": "scheduled", "registration_status": "published", "created_at": "2024-03-15T10:30:00Z", "updated_at": "2024-03-15T10:30:00Z", "audience_link": "https://lumon-industries.wistia.com/live/events/abc123def456", "host_link": "https://lumon-industries.wistia.com/live/onair/abc123def456/"}
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "500":
+          application/json: {"error": "Internal server error"}
+  put_/live_stream_events/{id}:
+    speakeasy-default-put-/live-stream-events/{id}:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"live_stream_event": {"title": "Updated Event Title", "description": "Updated event description", "scheduled_for": "2024-03-20T15:30:00-05:00", "event_duration": 90}}
+      responses:
+        "200":
+          application/json: {"id": "abc123def456", "title": "Wellness Session: Coping with Outie Memories", "description": "A comprehensive session on managing work-life balance", "scheduled_for": "2024-03-20T15:30:00-05:00", "event_duration": 60, "lifecycle_status": "scheduled", "registration_status": "published", "created_at": "2024-03-15T10:30:00Z", "updated_at": "2024-03-15T10:30:00Z", "audience_link": "https://lumon-industries.wistia.com/live/events/abc123def456", "host_link": "https://lumon-industries.wistia.com/live/onair/abc123def456/"}
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "422":
+          application/json: {"errors": ["Title is required", "Event duration must be at least 15 minutes"]}
+        "500":
+          application/json: {"error": "Internal server error"}
+  delete_/live_stream_events/{id}:
+    speakeasy-default-delete-/live-stream-events/{id}:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "200":
+          application/json: {"id": "abc123def456", "title": "Wellness Session: Coping with Outie Memories", "description": "A comprehensive session on managing work-life balance", "scheduled_for": "2024-03-20T15:30:00-05:00", "event_duration": 60, "lifecycle_status": "scheduled", "registration_status": "published", "created_at": "2024-03-15T10:30:00Z", "updated_at": "2024-03-15T10:30:00Z", "audience_link": "https://lumon-industries.wistia.com/live/events/abc123def456", "host_link": "https://lumon-industries.wistia.com/live/onair/abc123def456/"}
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "500":
+          application/json: {"error": "Internal server error"}
+  get_/stats/account:
+    speakeasy-default-get-/stats/account:
+      responses:
+        "200":
+          application/json: {"load_count": 964792, "play_count": 873225, "hours_watched": 3471.04}
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "500":
+          application/json: {"error": "Internal server error"}
+  get_/stats/medias/{media-id}/by_date:
+    speakeasy-default-get-/stats/medias/{media-id}/by-date:
+      parameters:
+        path:
+          media-id: "<id>"
+        query:
+          start_date: "2024-02-21"
+          end_date: "2024-02-23"
+      responses:
+        "200":
+          application/json: [{}]
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "500":
+          application/json: {"error": "Internal server error"}
+  get_/stats/visitors:
+    speakeasy-default-get-/stats/visitors:
+      responses:
+        "200":
+          application/json: [{}]
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "500":
+          application/json: {"error": "Internal server error"}
+  get_/stats/visitors/{visitor-key}:
+    speakeasy-default-get-/stats/visitors/{visitor-key}:
+      parameters:
+        path:
+          visitor-key: "<value>"
+      responses:
+        "200":
+          application/json: {}
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "500":
+          application/json: {"error": "Internal server error"}
+  get_/stats/events:
+    speakeasy-default-get-/stats/events:
+      responses:
+        "200":
+          application/json: [{}]
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "500":
+          application/json: {"error": "Internal server error"}
+  get_/stats/events/{event-key}:
+    speakeasy-default-get-/stats/events/{event-key}:
+      parameters:
+        path:
+          event-key: "<value>"
+      responses:
+        "200":
+          application/json: {}
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "500":
+          application/json: {"error": "Internal server error"}
+examplesVersion: 1.0.2

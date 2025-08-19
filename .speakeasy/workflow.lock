@@ -1,0 +1,37 @@
+speakeasyVersion: 1.606.0
+sources:
+    Data API:
+        sourceNamespace: data-api
+        sourceRevisionDigest: sha256:29982202dac17550cc69b87dd51c734900c749081be6eb5c2bf070ca9435fa02
+        sourceBlobDigest: sha256:a79a192e30c7555a80f3ae2666556ba8a405f3b1a34ff34826a7d7b4c13cff22
+        tags:
+            - latest
+            - 1.0.0
+targets:
+    wistia:
+        source: Data API
+        sourceNamespace: data-api
+        sourceRevisionDigest: sha256:29982202dac17550cc69b87dd51c734900c749081be6eb5c2bf070ca9435fa02
+        sourceBlobDigest: sha256:a79a192e30c7555a80f3ae2666556ba8a405f3b1a34ff34826a7d7b4c13cff22
+        codeSamplesNamespace: data-api-typescript-code-samples
+        codeSamplesRevisionDigest: sha256:599c895024f9fb29d9b948f25cd7e6d02611dfa7fe0c5b635033c77ca0b56da0
+workflow:
+    workflowVersion: 1.0.0
+    speakeasyVersion: latest
+    sources:
+        Data API:
+            inputs:
+                - location: ../wistia.yaml
+            output: .speakeasy/out.openapi.yaml
+            registry:
+                location: registry.speakeasyapi.dev/sheldon-vaughn-test/sandbox/data-api
+    targets:
+        wistia:
+            target: typescript
+            source: Data API
+            codeSamples:
+                registry:
+                    location: registry.speakeasyapi.dev/sheldon-vaughn-test/sandbox/data-api-typescript-code-samples
+                labelOverride:
+                    fixedValue: Typescript (SDK)
+                blocking: false
