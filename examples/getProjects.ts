@@ -3,7 +3,7 @@
 import { Wistia } from "../src/index.js";
 
 const wistia = new Wistia({
-  bearerAuth: "",
+  bearerAuth: "bd37ee8ec671f20f79120f0d786e771fcc09c7c43a93ab1e5e7104bbda359b9d",
   debugLogger: console
 });
 
