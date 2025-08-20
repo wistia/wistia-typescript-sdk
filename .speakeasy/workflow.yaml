@@ -4,16 +4,18 @@ sources:
     Data API:
         inputs:
             - location: ../wistia.yaml
+        overlays:
+            - location: .speakeasy/speakeasy-modifications-overlay.yaml
         output: .speakeasy/out.openapi.yaml
         registry:
-            location: registry.speakeasyapi.dev/sheldon-vaughn-test/sandbox/data-api
+            location: registry.speakeasyapi.dev/wistia/wistia/data-api
 targets:
     wistia:
         target: typescript
         source: Data API
         codeSamples:
             registry:
-                location: registry.speakeasyapi.dev/sheldon-vaughn-test/sandbox/data-api-typescript-code-samples
+                location: registry.speakeasyapi.dev/wistia/wistia/data-api-typescript-code-samples
             labelOverride:
                 fixedValue: Typescript (SDK)
             blocking: false

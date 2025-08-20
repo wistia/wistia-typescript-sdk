@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 7b32ab6a-5908-41aa-b82f-7906605d30ce
 management:
-  docChecksum: b07951a612c561887c8e917f61b39681
+  docChecksum: 601b8fcca873708b73a28f2c95f61edc
   docVersion: 1.0.0
   speakeasyVersion: 1.606.0
   generationVersion: 2.686.7
-  releaseVersion: 0.0.1
-  configChecksum: 461f9017378b3ec6071371f13b374aa8
+  releaseVersion: 0.1.0
+  configChecksum: 018106b939ebbf53a4ddcf6fab59a22f
 features:
   typescript:
     acceptHeaders: 2.81.2
@@ -22,7 +22,9 @@ features:
     globalSecurityCallbacks: 0.1.0
     globalSecurityFlattening: 0.1.0
     globalServerURLs: 2.82.5
+    groups: 2.81.2
     methodArguments: 0.1.2
+    nameOverrides: 2.81.2
     nullables: 0.1.1
     responseFormat: 0.2.3
     retries: 2.83.0
@@ -289,6 +291,7 @@ generatedFiles:
   - docs/sdks/channelepisodes/README.md
   - docs/sdks/channels/README.md
   - docs/sdks/customizations/README.md
+  - docs/sdks/events/README.md
   - docs/sdks/expiringaccesstokens/README.md
   - docs/sdks/livestreamevents/README.md
   - docs/sdks/localizations/README.md
@@ -296,6 +299,7 @@ generatedFiles:
   - docs/sdks/projects/README.md
   - docs/sdks/projectsharings/README.md
   - docs/sdks/search/README.md
+  - docs/sdks/stats/README.md
   - docs/sdks/statsaccount/README.md
   - docs/sdks/statsevents/README.md
   - docs/sdks/statsmedia/README.md
@@ -308,77 +312,77 @@ generatedFiles:
   - examples/.env.template
   - examples/README.md
   - examples/package.json
-  - examples/projectsGetProjects.example.ts
+  - examples/projectsList.example.ts
   - jsr.json
   - package.json
   - src/core.ts
-  - src/funcs/accountGetAccountDetails.ts
-  - src/funcs/allowedDomainsDeleteAllowedDomainsDomain.ts
-  - src/funcs/allowedDomainsGetAllowedDomains.ts
-  - src/funcs/allowedDomainsGetAllowedDomainsDomain.ts
-  - src/funcs/allowedDomainsPostAllowedDomains.ts
-  - src/funcs/backgroundJobStatusGetBackgroundJobStatusBackgroundJobStatusId.ts
-  - src/funcs/captionsDeleteMediasMediaHashedIdCaptionsLanguageCode.ts
-  - src/funcs/captionsGetMediasMediaHashedIdCaptions.ts
-  - src/funcs/captionsGetMediasMediaHashedIdCaptionsLanguageCode.ts
-  - src/funcs/captionsPostMediasMediaHashedIdCaptions.ts
-  - src/funcs/captionsPostMediasMediaHashedIdCaptionsMultipart.ts
-  - src/funcs/captionsPostMediasMediaHashedIdCaptionsPurchase.ts
-  - src/funcs/captionsPutMediasMediaHashedIdCaptionsLanguageCode.ts
-  - src/funcs/captionsPutMediasMediaHashedIdCaptionsLanguageCodeMultipart.ts
-  - src/funcs/channelEpisodesGetChannelEpisodes.ts
-  - src/funcs/channelEpisodesGetChannelsChannelHashedIdChannelEpisodes.ts
-  - src/funcs/channelEpisodesGetChannelsChannelHashedIdChannelEpisodesChannelEpisodeId.ts
-  - src/funcs/channelEpisodesPostChannelsChannelHashedIdChannelEpisodes.ts
-  - src/funcs/channelsGetChannels.ts
-  - src/funcs/channelsGetChannelsChannelHashedId.ts
-  - src/funcs/customizationsDeleteMediasMediaIdCustomizations.ts
-  - src/funcs/customizationsGetMediasMediaIdCustomizations.ts
-  - src/funcs/customizationsPostMediasMediaIdCustomizations.ts
-  - src/funcs/customizationsPutMediasMediaIdCustomizations.ts
-  - src/funcs/expiringAccessTokensPostExpiringToken.ts
-  - src/funcs/liveStreamEventsDeleteLiveStreamEventsId.ts
-  - src/funcs/liveStreamEventsGetLiveStreamEvents.ts
-  - src/funcs/liveStreamEventsGetLiveStreamEventsId.ts
-  - src/funcs/liveStreamEventsPostLiveStreamEvents.ts
-  - src/funcs/liveStreamEventsPutLiveStreamEventsId.ts
-  - src/funcs/localizationsDeleteMediasMediaHashedIdLocalizationsLocalizationHashedId.ts
-  - src/funcs/localizationsGetMediasMediaHashedIdLocalizations.ts
-  - src/funcs/localizationsGetMediasMediaHashedIdLocalizationsLocalizationHashedId.ts
-  - src/funcs/localizationsPostMediasMediaHashedIdLocalizations.ts
-  - src/funcs/mediaDeleteMediasMediaHashedId.ts
-  - src/funcs/mediaGetMedias.ts
-  - src/funcs/mediaGetMediasMediaHashedId.ts
-  - src/funcs/mediaGetMediasMediaHashedIdStats.ts
-  - src/funcs/mediaPostMediasMediaHashedIdCopy.ts
-  - src/funcs/mediaPostMediasMediaHashedIdTranslate.ts
-  - src/funcs/mediaPutMediasArchive.ts
-  - src/funcs/mediaPutMediasMediaHashedId.ts
-  - src/funcs/mediaPutMediasMediaHashedIdSwap.ts
-  - src/funcs/mediaPutMediasMove.ts
-  - src/funcs/mediaPutMediasRestore.ts
-  - src/funcs/projectSharingsDeleteProjectsProjectIdSharingsSharingId.ts
-  - src/funcs/projectSharingsGetProjectsProjectIdSharings.ts
-  - src/funcs/projectSharingsGetProjectsProjectIdSharingsSharingId.ts
-  - src/funcs/projectSharingsPostProjectsProjectIdSharings.ts
-  - src/funcs/projectSharingsPutProjectsProjectIdSharingsSharingId.ts
-  - src/funcs/projectsDeleteProjectsId.ts
-  - src/funcs/projectsGetProjects.ts
-  - src/funcs/projectsGetProjectsId.ts
-  - src/funcs/projectsPostProjects.ts
-  - src/funcs/projectsPostProjectsIdCopy.ts
-  - src/funcs/projectsPutProjectsId.ts
-  - src/funcs/searchGetSearch.ts
-  - src/funcs/statsAccountGetStatsAccount.ts
-  - src/funcs/statsEventsGetStatsEvents.ts
-  - src/funcs/statsEventsGetStatsEventsEventKey.ts
-  - src/funcs/statsMediaGetStatsMediasMediaIdByDate.ts
-  - src/funcs/statsVisitorsGetStatsVisitors.ts
-  - src/funcs/statsVisitorsGetStatsVisitorsVisitorKey.ts
-  - src/funcs/tagsDeleteTagsName.ts
-  - src/funcs/tagsGetTags.ts
-  - src/funcs/tagsPostTags.ts
-  - src/funcs/trimsPostMediasMediaHashedIdTrims.ts
+  - src/funcs/accountGet.ts
+  - src/funcs/allowedDomainsCreate.ts
+  - src/funcs/allowedDomainsDelete.ts
+  - src/funcs/allowedDomainsGet.ts
+  - src/funcs/allowedDomainsList.ts
+  - src/funcs/backgroundJobStatusGet.ts
+  - src/funcs/captionsCreate.ts
+  - src/funcs/captionsCreateMultipart.ts
+  - src/funcs/captionsDelete.ts
+  - src/funcs/captionsGet.ts
+  - src/funcs/captionsList.ts
+  - src/funcs/captionsPurchase.ts
+  - src/funcs/captionsUpdate.ts
+  - src/funcs/captionsUpdateMultipart.ts
+  - src/funcs/channelEpisodesCreate.ts
+  - src/funcs/channelEpisodesGet.ts
+  - src/funcs/channelEpisodesList.ts
+  - src/funcs/channelEpisodesListByChannel.ts
+  - src/funcs/channelsGet.ts
+  - src/funcs/channelsList.ts
+  - src/funcs/customizationsCreate.ts
+  - src/funcs/customizationsDelete.ts
+  - src/funcs/customizationsGet.ts
+  - src/funcs/customizationsUpdate.ts
+  - src/funcs/expiringAccessTokensCreate.ts
+  - src/funcs/liveStreamEventsCreate.ts
+  - src/funcs/liveStreamEventsDelete.ts
+  - src/funcs/liveStreamEventsGet.ts
+  - src/funcs/liveStreamEventsList.ts
+  - src/funcs/liveStreamEventsUpdate.ts
+  - src/funcs/localizationsCreate.ts
+  - src/funcs/localizationsDelete.ts
+  - src/funcs/localizationsGet.ts
+  - src/funcs/localizationsList.ts
+  - src/funcs/mediaArchive.ts
+  - src/funcs/mediaCopy.ts
+  - src/funcs/mediaDelete.ts
+  - src/funcs/mediaGet.ts
+  - src/funcs/mediaList.ts
+  - src/funcs/mediaMove.ts
+  - src/funcs/mediaRestore.ts
+  - src/funcs/mediaStats.ts
+  - src/funcs/mediaSwap.ts
+  - src/funcs/mediaTranslate.ts
+  - src/funcs/mediaUpdate.ts
+  - src/funcs/projectSharingsCreate.ts
+  - src/funcs/projectSharingsDelete.ts
+  - src/funcs/projectSharingsGet.ts
+  - src/funcs/projectSharingsList.ts
+  - src/funcs/projectSharingsUpdate.ts
+  - src/funcs/projectsCopy.ts
+  - src/funcs/projectsCreate.ts
+  - src/funcs/projectsDelete.ts
+  - src/funcs/projectsGet.ts
+  - src/funcs/projectsList.ts
+  - src/funcs/projectsUpdate.ts
+  - src/funcs/searchGet.ts
+  - src/funcs/statsAccountGet.ts
+  - src/funcs/statsEventsGet.ts
+  - src/funcs/statsEventsList.ts
+  - src/funcs/statsMediaGetByDate.ts
+  - src/funcs/statsVisitorsGet.ts
+  - src/funcs/statsVisitorsList.ts
+  - src/funcs/tagsCreate.ts
+  - src/funcs/tagsDelete.ts
+  - src/funcs/tagsList.ts
+  - src/funcs/trimsCreate.ts
   - src/hooks/hooks.ts
   - src/hooks/index.ts
   - src/hooks/types.ts
@@ -548,6 +552,7 @@ generatedFiles:
   - src/sdk/channelepisodes.ts
   - src/sdk/channels.ts
   - src/sdk/customizations.ts
+  - src/sdk/events.ts
   - src/sdk/expiringaccesstokens.ts
   - src/sdk/index.ts
   - src/sdk/livestreamevents.ts
@@ -557,6 +562,7 @@ generatedFiles:
   - src/sdk/projectsharings.ts
   - src/sdk/sdk.ts
   - src/sdk/search.ts
+  - src/sdk/stats.ts
   - src/sdk/statsaccount.ts
   - src/sdk/statsevents.ts
   - src/sdk/statsmedia.ts

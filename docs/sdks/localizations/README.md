@@ -5,12 +5,12 @@
 
 ### Available Operations
 
-* [getMediasMediaHashedIdLocalizations](#getmediasmediahashedidlocalizations) - Localizations List
-* [postMediasMediaHashedIdLocalizations](#postmediasmediahashedidlocalizations) - Localizations Create
-* [getMediasMediaHashedIdLocalizationsLocalizationHashedId](#getmediasmediahashedidlocalizationslocalizationhashedid) - Localizations Show
-* [deleteMediasMediaHashedIdLocalizationsLocalizationHashedId](#deletemediasmediahashedidlocalizationslocalizationhashedid) - Localizations Delete
+* [list](#list) - Localizations List
+* [create](#create) - Localizations Create
+* [get](#get) - Localizations Show
+* [delete](#delete) - Localizations Delete
 
-## getMediasMediaHashedIdLocalizations
+## list
 
 Obtain a list of all the localizations for a media.
 
@@ -33,7 +33,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.localizations.getMediasMediaHashedIdLocalizations({
+  const result = await wistia.localizations.list({
     mediaHashedId: "<id>",
   });
 
@@ -49,7 +49,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "wistia/core.js";
-import { localizationsGetMediasMediaHashedIdLocalizations } from "wistia/funcs/localizationsGetMediasMediaHashedIdLocalizations.js";
+import { localizationsList } from "wistia/funcs/localizationsList.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -58,14 +58,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await localizationsGetMediasMediaHashedIdLocalizations(wistia, {
+  const res = await localizationsList(wistia, {
     mediaHashedId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("localizationsGetMediasMediaHashedIdLocalizations failed:", res.error);
+    console.log("localizationsList failed:", res.error);
   }
 }
 
@@ -94,7 +94,7 @@ run();
 | errors.FiveHundredError        | 500                            | application/json               |
 | errors.WistiaDefaultError      | 4XX, 5XX                       | \*/\*                          |
 
-## postMediasMediaHashedIdLocalizations
+## create
 
 Create a new localization.
 
@@ -115,7 +115,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.localizations.postMediasMediaHashedIdLocalizations({
+  const result = await wistia.localizations.create({
     mediaHashedId: "<id>",
   });
 
@@ -131,7 +131,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "wistia/core.js";
-import { localizationsPostMediasMediaHashedIdLocalizations } from "wistia/funcs/localizationsPostMediasMediaHashedIdLocalizations.js";
+import { localizationsCreate } from "wistia/funcs/localizationsCreate.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -140,14 +140,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await localizationsPostMediasMediaHashedIdLocalizations(wistia, {
+  const res = await localizationsCreate(wistia, {
     mediaHashedId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("localizationsPostMediasMediaHashedIdLocalizations failed:", res.error);
+    console.log("localizationsCreate failed:", res.error);
   }
 }
 
@@ -178,7 +178,7 @@ run();
 | errors.FiveHundredError                                             | 500                                                                 | application/json                                                    |
 | errors.WistiaDefaultError                                           | 4XX, 5XX                                                            | \*/\*                                                               |
 
-## getMediasMediaHashedIdLocalizationsLocalizationHashedId
+## get
 
 Obtain detailed information about a localization.
 
@@ -201,7 +201,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.localizations.getMediasMediaHashedIdLocalizationsLocalizationHashedId({
+  const result = await wistia.localizations.get({
     mediaHashedId: "<id>",
     localizationHashedId: "<id>",
   });
@@ -218,7 +218,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "wistia/core.js";
-import { localizationsGetMediasMediaHashedIdLocalizationsLocalizationHashedId } from "wistia/funcs/localizationsGetMediasMediaHashedIdLocalizationsLocalizationHashedId.js";
+import { localizationsGet } from "wistia/funcs/localizationsGet.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -227,7 +227,7 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await localizationsGetMediasMediaHashedIdLocalizationsLocalizationHashedId(wistia, {
+  const res = await localizationsGet(wistia, {
     mediaHashedId: "<id>",
     localizationHashedId: "<id>",
   });
@@ -235,7 +235,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("localizationsGetMediasMediaHashedIdLocalizationsLocalizationHashedId failed:", res.error);
+    console.log("localizationsGet failed:", res.error);
   }
 }
 
@@ -264,7 +264,7 @@ run();
 | errors.FiveHundredError        | 500                            | application/json               |
 | errors.WistiaDefaultError      | 4XX, 5XX                       | \*/\*                          |
 
-## deleteMediasMediaHashedIdLocalizationsLocalizationHashedId
+## delete
 
 Delete a localization.
 
@@ -285,7 +285,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.localizations.deleteMediasMediaHashedIdLocalizationsLocalizationHashedId({
+  const result = await wistia.localizations.delete({
     mediaHashedId: "<id>",
     localizationHashedId: "<id>",
   });
@@ -302,7 +302,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "wistia/core.js";
-import { localizationsDeleteMediasMediaHashedIdLocalizationsLocalizationHashedId } from "wistia/funcs/localizationsDeleteMediasMediaHashedIdLocalizationsLocalizationHashedId.js";
+import { localizationsDelete } from "wistia/funcs/localizationsDelete.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -311,7 +311,7 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await localizationsDeleteMediasMediaHashedIdLocalizationsLocalizationHashedId(wistia, {
+  const res = await localizationsDelete(wistia, {
     mediaHashedId: "<id>",
     localizationHashedId: "<id>",
   });
@@ -319,7 +319,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("localizationsDeleteMediasMediaHashedIdLocalizationsLocalizationHashedId failed:", res.error);
+    console.log("localizationsDelete failed:", res.error);
   }
 }
 

@@ -5,9 +5,9 @@
 
 ### Available Operations
 
-* [getAccountDetails](#getaccountdetails) - Account Show
+* [get](#get) - Account Show
 
-## getAccountDetails
+## get
 
 Retrieve account details.
 
@@ -28,7 +28,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.account.getAccountDetails();
+  const result = await wistia.account.get();
 
   console.log(result);
 }
@@ -42,7 +42,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "wistia/core.js";
-import { accountGetAccountDetails } from "wistia/funcs/accountGetAccountDetails.js";
+import { accountGet } from "wistia/funcs/accountGet.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -51,12 +51,12 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await accountGetAccountDetails(wistia);
+  const res = await accountGet(wistia);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("accountGetAccountDetails failed:", res.error);
+    console.log("accountGet failed:", res.error);
   }
 }
 

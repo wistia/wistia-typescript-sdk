@@ -5,9 +5,9 @@
 
 ### Available Operations
 
-* [postMediasMediaHashedIdTrims](#postmediasmediahashedidtrims) - Trims Create
+* [create](#create) - Trims Create
 
-## postMediasMediaHashedIdTrims
+## create
 
 Creates a new media that trims off parts of an existing media
 
@@ -28,7 +28,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.trims.postMediasMediaHashedIdTrims({
+  const result = await wistia.trims.create({
     mediaHashedId: "<id>",
     trims: {},
   });
@@ -45,7 +45,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "wistia/core.js";
-import { trimsPostMediasMediaHashedIdTrims } from "wistia/funcs/trimsPostMediasMediaHashedIdTrims.js";
+import { trimsCreate } from "wistia/funcs/trimsCreate.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -54,7 +54,7 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await trimsPostMediasMediaHashedIdTrims(wistia, {
+  const res = await trimsCreate(wistia, {
     mediaHashedId: "<id>",
     trims: {},
   });
@@ -62,7 +62,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("trimsPostMediasMediaHashedIdTrims failed:", res.error);
+    console.log("trimsCreate failed:", res.error);
   }
 }
 
