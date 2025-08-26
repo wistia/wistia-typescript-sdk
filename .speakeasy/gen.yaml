@@ -58,7 +58,7 @@ typescript:
   methodArguments: infer-optional-args
   moduleFormat: dual
   outputModelSuffix: output
-  packageName: wistia
+  packageName: "@wistia/wistia-api-client"
   responseFormat: flat
   templateVersion: v2
   usageSDKInitImports: []
