@@ -1,0 +1,11 @@
+
+
+## 2025-08-26 21:15:12
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.606.5 (2.687.1) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [typescript v2025.8.1] .
+### Releases
+- [NPM v2025.8.1] https://www.npmjs.com/package/wistia/v/2025.8.1 - .
