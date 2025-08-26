@@ -135,7 +135,7 @@ export type MediaShow = {
    */
   section?: string | undefined;
   /**
-   * A subfolder within a folder that contains media files.
+   * A subfolder within a project that contains media files.
    */
   subfolder?: Subfolder | undefined;
   /**

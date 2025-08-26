@@ -22,6 +22,7 @@ import { ResponseValidationError } from "../models/errors/responsevalidationerro
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import { WistiaError } from "../models/errors/wistiaerror.js";
 import * as operations from "../models/operations/index.js";
+import { PutMediasMediaHashedIdSwapServerList } from "../models/operations/putmediasmediahashedidswap.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
@@ -100,6 +101,11 @@ async function $do(
   const payload = parsed.value;
   const body = encodeJSON("body", payload.RequestBody, { explode: true });
 
+  const baseURL = options?.serverURL
+    || pathToFunc(PutMediasMediaHashedIdSwapServerList[0], {
+      charEncoding: "percent",
+    })();
+
   const pathParams = {
     "media-hashed-id": encodeSimple(
       "media-hashed-id",
@@ -121,7 +127,7 @@ async function $do(
 
   const context = {
     options: client._options,
-    baseURL: options?.serverURL ?? client._baseURL ?? "",
+    baseURL: baseURL ?? "",
     operationID: "put_/medias/{media-hashed-id}/swap",
     oAuth2Scopes: [],
 
@@ -137,7 +143,7 @@ async function $do(
   const requestRes = client._createRequest(context, {
     security: requestSecurity,
     method: "PUT",
-    baseURL: options?.serverURL,
+    baseURL: baseURL,
     path: path,
     headers: headers,
     body: body,

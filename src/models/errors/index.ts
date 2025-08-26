@@ -3,6 +3,7 @@
  */
 
 export * from "./deletealloweddomainsdomain.js";
+export * from "./deleteprojectsprojectidsubfolderssubfolderid.js";
 export * from "./fivehundrederror.js";
 export * from "./fourhundredandfourerror.js";
 export * from "./fourhundredandoneerror.js";
@@ -10,21 +11,27 @@ export * from "./fourhundredandtwentytwoerror.js";
 export * from "./fourhundrederror.js";
 export * from "./getalloweddomainsdomain.js";
 export * from "./getbackgroundjobstatusbackgroundjobstatusid.js";
+export * from "./getprojectsprojectidsubfolders.js";
+export * from "./getprojectsprojectidsubfolderssubfolderid.js";
 export * from "./getsearch.js";
 export * from "./httpclienterrors.js";
 export * from "./postalloweddomains.js";
 export * from "./postexpiringtoken.js";
+export * from "./postform.js";
 export * from "./postlivestreamevents.js";
 export * from "./postmediasmediahashedidcaptionspurchase.js";
 export * from "./postmediasmediahashedidcopy.js";
 export * from "./postmediasmediahashedidlocalizations.js";
 export * from "./postmediasmediahashedidtranslate.js";
+export * from "./postmultipart.js";
+export * from "./postprojectsprojectidsubfolders.js";
 export * from "./posttags.js";
 export * from "./putlivestreameventsid.js";
 export * from "./putmediasarchive.js";
 export * from "./putmediasmediahashedidswap.js";
 export * from "./putmediasmove.js";
 export * from "./putmediasrestore.js";
+export * from "./putprojectsprojectidsubfolderssubfolderid.js";
 export * from "./responsevalidationerror.js";
 export * from "./sdkvalidationerror.js";
 export * from "./wistiadefaulterror.js";

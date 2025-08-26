@@ -1,0 +1,39 @@
+speakeasyVersion: 1.606.5
+sources:
+    Data API:
+        sourceNamespace: data-api
+        sourceRevisionDigest: sha256:26732ab1805cdab522231b043a04f092d6d08a80283fd3827d1e34b647327c93
+        sourceBlobDigest: sha256:12893ba92a68ac4ae9637153bbf12e4a09b7394b2c1ddd7e9e726e283ab24ec7
+        tags:
+            - latest
+            - 1.0.0
+targets:
+    wistia:
+        source: Data API
+        sourceNamespace: data-api
+        sourceRevisionDigest: sha256:26732ab1805cdab522231b043a04f092d6d08a80283fd3827d1e34b647327c93
+        sourceBlobDigest: sha256:12893ba92a68ac4ae9637153bbf12e4a09b7394b2c1ddd7e9e726e283ab24ec7
+        codeSamplesNamespace: data-api-typescript-code-samples
+        codeSamplesRevisionDigest: sha256:bd96b2d0f74fe471fb1102a058cbb452269af2978cd8d1a995fb34635e398c43
+workflow:
+    workflowVersion: 1.0.0
+    speakeasyVersion: latest
+    sources:
+        Data API:
+            inputs:
+                - location: https://wistia.github.io/wistia/api/openapi.yaml
+            overlays:
+                - location: .speakeasy/speakeasy-modifications-overlay.yaml
+            output: .speakeasy/out.openapi.yaml
+            registry:
+                location: registry.speakeasyapi.dev/wistia/wistia/data-api
+    targets:
+        wistia:
+            target: typescript
+            source: Data API
+            codeSamples:
+                registry:
+                    location: registry.speakeasyapi.dev/wistia/wistia/data-api-typescript-code-samples
+                labelOverride:
+                    fixedValue: Typescript (SDK)
+                blocking: false

@@ -9,6 +9,10 @@ import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
+export const GetTagsServerList = [
+  "https://api.wistia.com/v1",
+] as const;
+
 /**
  * Ordering
  */

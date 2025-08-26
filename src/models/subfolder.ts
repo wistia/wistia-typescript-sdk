@@ -9,33 +9,33 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 /**
- * A subfolder within a folder that contains media files.
+ * A subfolder within a project that contains media files.
  */
 export type Subfolder = {
   /**
-   * The hashed ID for this subfolder.
+   * A unique alphanumeric identifier for this subfolder.
    */
-  hashedId?: string | undefined;
+  hashedId: string;
   /**
    * The display name of the subfolder.
    */
   name?: string | null | undefined;
   /**
-   * The position of this subfolder within its project, used for ordering.
-   */
-  position?: number | undefined;
-  /**
    * A description for the subfolder.
    */
   description?: string | null | undefined;
   /**
+   * The position of this subfolder within its project, used for ordering.
+   */
+  position: number;
+  /**
    * The date when the subfolder was created.
    */
-  created?: Date | undefined;
+  created: Date;
   /**
    * The date when the subfolder was last modified.
    */
-  updated?: Date | undefined;
+  updated: Date;
 };
 
 /** @internal */
@@ -44,14 +44,12 @@ export const Subfolder$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  hashed_id: z.string().optional(),
+  hashed_id: z.string(),
   name: z.nullable(z.string()).optional(),
-  position: z.number().int().optional(),
   description: z.nullable(z.string()).optional(),
-  created: z.string().datetime({ offset: true }).transform(v => new Date(v))
-    .optional(),
-  updated: z.string().datetime({ offset: true }).transform(v => new Date(v))
-    .optional(),
+  position: z.number().int(),
+  created: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  updated: z.string().datetime({ offset: true }).transform(v => new Date(v)),
 }).transform((v) => {
   return remap$(v, {
     "hashed_id": "hashedId",
@@ -60,12 +58,12 @@ export const Subfolder$inboundSchema: z.ZodType<
 
 /** @internal */
 export type Subfolder$Outbound = {
-  hashed_id?: string | undefined;
+  hashed_id: string;
   name?: string | null | undefined;
-  position?: number | undefined;
   description?: string | null | undefined;
-  created?: string | undefined;
-  updated?: string | undefined;
+  position: number;
+  created: string;
+  updated: string;
 };
 
 /** @internal */
@@ -74,12 +72,12 @@ export const Subfolder$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   Subfolder
 > = z.object({
-  hashedId: z.string().optional(),
+  hashedId: z.string(),
   name: z.nullable(z.string()).optional(),
-  position: z.number().int().optional(),
   description: z.nullable(z.string()).optional(),
-  created: z.date().transform(v => v.toISOString()).optional(),
-  updated: z.date().transform(v => v.toISOString()).optional(),
+  position: z.number().int(),
+  created: z.date().transform(v => v.toISOString()),
+  updated: z.date().transform(v => v.toISOString()),
 }).transform((v) => {
   return remap$(v, {
     hashedId: "hashed_id",

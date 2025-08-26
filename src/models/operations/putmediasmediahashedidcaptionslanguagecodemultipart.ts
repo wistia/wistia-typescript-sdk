@@ -9,6 +9,10 @@ import { blobLikeSchema } from "../../types/blobs.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
+export const PutMediasMediaHashedIdCaptionsLanguageCodeMultipartServerList = [
+  "https://api.wistia.com/v1",
+] as const;
+
 export type PutMediasMediaHashedIdCaptionsLanguageCodeMultipartCaptionFile = {
   fileName: string;
   content: ReadableStream<Uint8Array> | Blob | ArrayBuffer | Uint8Array;

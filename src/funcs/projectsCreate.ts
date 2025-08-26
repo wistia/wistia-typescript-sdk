@@ -22,6 +22,7 @@ import { ResponseValidationError } from "../models/errors/responsevalidationerro
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import { WistiaError } from "../models/errors/wistiaerror.js";
 import * as models from "../models/index.js";
+import { PostProjectsServerList } from "../models/operations/postprojects.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
@@ -97,6 +98,9 @@ async function $do(
     ? null
     : encodeJSON("body", payload, { explode: true });
 
+  const baseURL = options?.serverURL
+    || pathToFunc(PostProjectsServerList[0], { charEncoding: "percent" })();
+
   const path = pathToFunc("/projects")();
 
   const headers = new Headers(compactMap({
@@ -110,7 +114,7 @@ async function $do(
 
   const context = {
     options: client._options,
-    baseURL: options?.serverURL ?? client._baseURL ?? "",
+    baseURL: baseURL ?? "",
     operationID: "post_/projects",
     oAuth2Scopes: [],
 
@@ -126,7 +130,7 @@ async function $do(
   const requestRes = client._createRequest(context, {
     security: requestSecurity,
     method: "POST",
-    baseURL: options?.serverURL,
+    baseURL: baseURL,
     path: path,
     headers: headers,
     body: body,

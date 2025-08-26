@@ -9,6 +9,10 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
+export const PutMediasMoveServerList = [
+  "https://api.wistia.com/v1",
+] as const;
+
 export type PutMediasMoveRequest = {
   /**
    * An array of the media hashed IDs to be moved.
@@ -18,6 +22,10 @@ export type PutMediasMoveRequest = {
    * The hashed ID of the project where you want the media moved.
    */
   projectId: string;
+  /**
+   * Optional. The hashed ID of the subfolder where you want the media moved. If not provided, media will be moved to the project's default subfolder. The subfolder must belong to the specified project.
+   */
+  subfolderId?: string | undefined;
 };
 
 export type PartialError = {
@@ -60,10 +68,12 @@ export const PutMediasMoveRequest$inboundSchema: z.ZodType<
 > = z.object({
   hashed_ids: z.array(z.string()),
   project_id: z.string(),
+  subfolder_id: z.string().optional(),
 }).transform((v) => {
   return remap$(v, {
     "hashed_ids": "hashedIds",
     "project_id": "projectId",
+    "subfolder_id": "subfolderId",
   });
 });
 
@@ -71,6 +81,7 @@ export const PutMediasMoveRequest$inboundSchema: z.ZodType<
 export type PutMediasMoveRequest$Outbound = {
   hashed_ids: Array<string>;
   project_id: string;
+  subfolder_id?: string | undefined;
 };
 
 /** @internal */
@@ -81,10 +92,12 @@ export const PutMediasMoveRequest$outboundSchema: z.ZodType<
 > = z.object({
   hashedIds: z.array(z.string()),
   projectId: z.string(),
+  subfolderId: z.string().optional(),
 }).transform((v) => {
   return remap$(v, {
     hashedIds: "hashed_ids",
     projectId: "project_id",
+    subfolderId: "subfolder_id",
   });
 });
 

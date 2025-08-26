@@ -8,6 +8,10 @@ import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
+export const PostMediasMediaHashedIdCaptionsServerList = [
+  "https://api.wistia.com/v1",
+] as const;
+
 export type PostMediasMediaHashedIdCaptionsRequestBody = {
   /**
    * Either an attached SRT file or a string parameter with the contents of an SRT file.

@@ -8,6 +8,10 @@ import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
+export const GetStatsVisitorsVisitorKeyServerList = [
+  "https://api.wistia.com/v1",
+] as const;
+
 export type GetStatsVisitorsVisitorKeyRequest = {
   /**
    * The unique key of the visitor.

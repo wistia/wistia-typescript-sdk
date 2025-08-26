@@ -22,6 +22,7 @@ import { ResponseValidationError } from "../models/errors/responsevalidationerro
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import { WistiaError } from "../models/errors/wistiaerror.js";
 import * as operations from "../models/operations/index.js";
+import { PutMediasMoveServerList } from "../models/operations/putmediasmove.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
@@ -29,9 +30,12 @@ import { Result } from "../types/fp.js";
  * Media Move
  *
  * @remarks
- * Move one or many media to a different project.
+ * Move one or many media to a different project and optionally to a specific subfolder.
  * Max 100 media per request, and max 10 requests in 5 minutes.
  * Note: this is a different rate limit than applies to the rest of the api!
+ *
+ * If a subfolder_id is provided, media will be moved to that subfolder. The subfolder
+ * must belong to the specified project.
  *
  * Returns a Background Job as the move is async.
  *
@@ -103,6 +107,9 @@ async function $do(
   const payload = parsed.value;
   const body = encodeJSON("body", payload, { explode: true });
 
+  const baseURL = options?.serverURL
+    || pathToFunc(PutMediasMoveServerList[0], { charEncoding: "percent" })();
+
   const path = pathToFunc("/medias/move")();
 
   const headers = new Headers(compactMap({
@@ -116,7 +123,7 @@ async function $do(
 
   const context = {
     options: client._options,
-    baseURL: options?.serverURL ?? client._baseURL ?? "",
+    baseURL: baseURL ?? "",
     operationID: "put_/medias/move",
     oAuth2Scopes: [],
 
@@ -132,7 +139,7 @@ async function $do(
   const requestRes = client._createRequest(context, {
     security: requestSecurity,
     method: "PUT",
-    baseURL: options?.serverURL,
+    baseURL: baseURL,
     path: path,
     headers: headers,
     body: body,
