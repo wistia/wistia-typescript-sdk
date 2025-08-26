@@ -9,6 +9,10 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
+export const PostMediasMediaHashedIdCopyServerList = [
+  "https://api.wistia.com/v1",
+] as const;
+
 export type PostMediasMediaHashedIdCopyRequestBody = {
   /**
    * The ID of the project where you want the new copy placed. Defaults to the source media’s current project if omitted or invalid.

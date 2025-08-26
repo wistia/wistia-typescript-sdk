@@ -41,6 +41,8 @@ export * from "./sortby.js";
 export * from "./sortdirection.js";
 export * from "./sourcemedia.js";
 export * from "./subfolder.js";
+export * from "./subfolderinput.js";
+export * from "./subfolderwithmedia.js";
 export * from "./tag.js";
 export * from "./thumbnail.js";
 export * from "./trims.js";

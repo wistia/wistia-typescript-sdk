@@ -7,6 +7,10 @@ import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
+export const PostAllowedDomainsServerList = [
+  "https://api.wistia.com/v1",
+] as const;
+
 export type PostAllowedDomainsRequest = {
   /**
    * The domain name to add (www will be automatically stripped)

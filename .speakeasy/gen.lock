@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 7b32ab6a-5908-41aa-b82f-7906605d30ce
 management:
-  docChecksum: 601b8fcca873708b73a28f2c95f61edc
+  docChecksum: 5faef12175b0630b758e9439742e2cdd
   docVersion: 1.0.0
-  speakeasyVersion: 1.606.0
-  generationVersion: 2.686.7
-  releaseVersion: 0.1.0
-  configChecksum: 018106b939ebbf53a4ddcf6fab59a22f
+  speakeasyVersion: 1.606.5
+  generationVersion: 2.687.1
+  releaseVersion: 0.2.0
+  configChecksum: 902ebcba82296098fab3f3c05b5b5b51
 features:
   typescript:
     acceptHeaders: 2.81.2
@@ -24,6 +24,7 @@ features:
     globalServerURLs: 2.82.5
     groups: 2.81.2
     methodArguments: 0.1.2
+    methodServerURLs: 2.82.1
     nameOverrides: 2.81.2
     nullables: 0.1.1
     responseFormat: 0.2.3
@@ -74,6 +75,7 @@ generatedFiles:
   - docs/models/episodetype.md
   - docs/models/errors.md
   - docs/models/errors/deletealloweddomainsdomainnotfounderror.md
+  - docs/models/errors/deleteprojectsprojectidsubfolderssubfolderidnotfounderror.md
   - docs/models/errors/fivehundrederror.md
   - docs/models/errors/fourhundredandfourerror.md
   - docs/models/errors/fourhundredandoneerror.md
@@ -81,17 +83,22 @@ generatedFiles:
   - docs/models/errors/fourhundrederror.md
   - docs/models/errors/getalloweddomainsdomainnotfounderror.md
   - docs/models/errors/getbackgroundjobstatusbackgroundjobstatusidforbiddenerror.md
+  - docs/models/errors/getprojectsprojectidsubfoldersnotfounderror.md
+  - docs/models/errors/getprojectsprojectidsubfolderssubfolderidnotfounderror.md
   - docs/models/errors/getsearchbadrequesterror.md
   - docs/models/errors/internalservererror.md
   - docs/models/errors/methodnotallowederror.md
   - docs/models/errors/notimplementederror.md
   - docs/models/errors/postalloweddomainsbadrequesterror.md
+  - docs/models/errors/postformbadrequesterror.md
   - docs/models/errors/postlivestreameventsforbiddenerror.md
   - docs/models/errors/postlivestreameventsunprocessableentityerror.md
   - docs/models/errors/postmediasmediahashedidcaptionspurchaseunprocessableentityerror.md
   - docs/models/errors/postmediasmediahashedidcopybadrequesterror.md
   - docs/models/errors/postmediasmediahashedidlocalizationsunprocessableentityerror.md
   - docs/models/errors/postmediasmediahashedidtranslateunprocessableentityerror.md
+  - docs/models/errors/postmultipartbadrequesterror.md
+  - docs/models/errors/postprojectsprojectidsubfoldersnotfounderror.md
   - docs/models/errors/posttagsbadrequesterror.md
   - docs/models/errors/posttagsunprocessableentityerror.md
   - docs/models/errors/putlivestreameventsidunprocessableentityerror.md
@@ -101,6 +108,7 @@ generatedFiles:
   - docs/models/errors/putmediasmovebadrequesterror.md
   - docs/models/errors/putmediasrestoreforbiddenerror.md
   - docs/models/errors/putmediasrestoreunprocessableentityerror.md
+  - docs/models/errors/putprojectsprojectidsubfolderssubfolderidnotfounderror.md
   - docs/models/event.md
   - docs/models/eventthumbnail.md
   - docs/models/eventuseragentdetails.md
@@ -132,7 +140,10 @@ generatedFiles:
   - docs/models/operations/deletemediasmediaidcustomizationsrequest.md
   - docs/models/operations/deleteprojectsidrequest.md
   - docs/models/operations/deleteprojectsprojectidsharingssharingidrequest.md
+  - docs/models/operations/deleteprojectsprojectidsubfolderssubfolderidrequest.md
   - docs/models/operations/deletetagsnamerequest.md
+  - docs/models/operations/descriptionformat.md
+  - docs/models/operations/filet.md
   - docs/models/operations/filter.md
   - docs/models/operations/getalloweddomainsdomainrequest.md
   - docs/models/operations/getalloweddomainsrequest.md
@@ -164,6 +175,10 @@ generatedFiles:
   - docs/models/operations/getprojectsidrequest.md
   - docs/models/operations/getprojectsprojectidsharingsrequest.md
   - docs/models/operations/getprojectsprojectidsharingssharingidrequest.md
+  - docs/models/operations/getprojectsprojectidsubfoldersrequest.md
+  - docs/models/operations/getprojectsprojectidsubfolderssortby.md
+  - docs/models/operations/getprojectsprojectidsubfolderssortdirection.md
+  - docs/models/operations/getprojectsprojectidsubfolderssubfolderidrequest.md
   - docs/models/operations/getprojectsrequest.md
   - docs/models/operations/getprojectssortby.md
   - docs/models/operations/getprojectssortdirection.md
@@ -183,6 +198,9 @@ generatedFiles:
   - docs/models/operations/postalloweddomainsrequest.md
   - docs/models/operations/postchannelschannelhashedidchannelepisodesrequest.md
   - docs/models/operations/postexpiringtokenrequest.md
+  - docs/models/operations/postformerror.md
+  - docs/models/operations/postformrequest.md
+  - docs/models/operations/postformresponse.md
   - docs/models/operations/postmediasmediahashedidcaptionsmultipartcaptionfile.md
   - docs/models/operations/postmediasmediahashedidcaptionsmultipartrequest.md
   - docs/models/operations/postmediasmediahashedidcaptionsmultipartrequestbody.md
@@ -202,11 +220,15 @@ generatedFiles:
   - docs/models/operations/postmediasmediahashedidtrimsrequest.md
   - docs/models/operations/postmediasmediahashedidtrimsresponse.md
   - docs/models/operations/postmediasmediaidcustomizationsrequest.md
+  - docs/models/operations/postmultiparterror.md
+  - docs/models/operations/postmultipartrequest.md
+  - docs/models/operations/postmultipartresponse.md
   - docs/models/operations/postprojectsidcopyrequest.md
   - docs/models/operations/postprojectsidcopyrequestbody.md
   - docs/models/operations/postprojectsidcopyresponse.md
   - docs/models/operations/postprojectsprojectidsharingsrequest.md
   - docs/models/operations/postprojectsprojectidsharingsresponse.md
+  - docs/models/operations/postprojectsprojectidsubfoldersrequest.md
   - docs/models/operations/posttagsrequest.md
   - docs/models/operations/putlivestreameventsidrequest.md
   - docs/models/operations/putmediasarchiverequest.md
@@ -230,6 +252,8 @@ generatedFiles:
   - docs/models/operations/putmediasrestoreresponse.md
   - docs/models/operations/putprojectsidrequest.md
   - docs/models/operations/putprojectsprojectidsharingssharingidrequest.md
+  - docs/models/operations/putprojectsprojectidsubfolderssubfolderidrequest.md
+  - docs/models/operations/putprojectsprojectidsubfolderssubfolderidrequestbody.md
   - docs/models/operations/stats.md
   - docs/models/operations/type.md
   - docs/models/org.md
@@ -262,6 +286,8 @@ generatedFiles:
   - docs/models/sourcemedia.md
   - docs/models/style.md
   - docs/models/subfolder.md
+  - docs/models/subfolderinput.md
+  - docs/models/subfolderwithmedia.md
   - docs/models/tag.md
   - docs/models/thumbnail.md
   - docs/models/time.md
@@ -304,8 +330,10 @@ generatedFiles:
   - docs/sdks/statsevents/README.md
   - docs/sdks/statsmedia/README.md
   - docs/sdks/statsvisitors/README.md
+  - docs/sdks/subfolders/README.md
   - docs/sdks/tags/README.md
   - docs/sdks/trims/README.md
+  - docs/sdks/uploadorimportmedia/README.md
   - docs/sdks/wistia/README.md
   - docs/types/rfcdate.md
   - eslint.config.mjs
@@ -379,10 +407,17 @@ generatedFiles:
   - src/funcs/statsMediaGetByDate.ts
   - src/funcs/statsVisitorsGet.ts
   - src/funcs/statsVisitorsList.ts
+  - src/funcs/subfoldersDeleteProjectsProjectIdSubfoldersSubfolderId.ts
+  - src/funcs/subfoldersGetProjectsProjectIdSubfolders.ts
+  - src/funcs/subfoldersGetProjectsProjectIdSubfoldersSubfolderId.ts
+  - src/funcs/subfoldersPostProjectsProjectIdSubfolders.ts
+  - src/funcs/subfoldersPutProjectsProjectIdSubfoldersSubfolderId.ts
   - src/funcs/tagsCreate.ts
   - src/funcs/tagsDelete.ts
   - src/funcs/tagsList.ts
   - src/funcs/trimsCreate.ts
+  - src/funcs/uploadOrImportMediaPostForm.ts
+  - src/funcs/uploadOrImportMediaPostMultipart.ts
   - src/hooks/hooks.ts
   - src/hooks/index.ts
   - src/hooks/types.ts
@@ -416,6 +451,7 @@ generatedFiles:
   - src/models/createproject.ts
   - src/models/createprojectsharing.ts
   - src/models/errors/deletealloweddomainsdomain.ts
+  - src/models/errors/deleteprojectsprojectidsubfolderssubfolderid.ts
   - src/models/errors/fivehundrederror.ts
   - src/models/errors/fourhundredandfourerror.ts
   - src/models/errors/fourhundredandoneerror.ts
@@ -423,22 +459,28 @@ generatedFiles:
   - src/models/errors/fourhundrederror.ts
   - src/models/errors/getalloweddomainsdomain.ts
   - src/models/errors/getbackgroundjobstatusbackgroundjobstatusid.ts
+  - src/models/errors/getprojectsprojectidsubfolders.ts
+  - src/models/errors/getprojectsprojectidsubfolderssubfolderid.ts
   - src/models/errors/getsearch.ts
   - src/models/errors/httpclienterrors.ts
   - src/models/errors/index.ts
   - src/models/errors/postalloweddomains.ts
   - src/models/errors/postexpiringtoken.ts
+  - src/models/errors/postform.ts
   - src/models/errors/postlivestreamevents.ts
   - src/models/errors/postmediasmediahashedidcaptionspurchase.ts
   - src/models/errors/postmediasmediahashedidcopy.ts
   - src/models/errors/postmediasmediahashedidlocalizations.ts
   - src/models/errors/postmediasmediahashedidtranslate.ts
+  - src/models/errors/postmultipart.ts
+  - src/models/errors/postprojectsprojectidsubfolders.ts
   - src/models/errors/posttags.ts
   - src/models/errors/putlivestreameventsid.ts
   - src/models/errors/putmediasarchive.ts
   - src/models/errors/putmediasmediahashedidswap.ts
   - src/models/errors/putmediasmove.ts
   - src/models/errors/putmediasrestore.ts
+  - src/models/errors/putprojectsprojectidsubfolderssubfolderid.ts
   - src/models/errors/responsevalidationerror.ts
   - src/models/errors/sdkvalidationerror.ts
   - src/models/errors/wistiadefaulterror.ts
@@ -465,7 +507,9 @@ generatedFiles:
   - src/models/operations/deletemediasmediaidcustomizations.ts
   - src/models/operations/deleteprojectsid.ts
   - src/models/operations/deleteprojectsprojectidsharingssharingid.ts
+  - src/models/operations/deleteprojectsprojectidsubfolderssubfolderid.ts
   - src/models/operations/deletetagsname.ts
+  - src/models/operations/getaccountdetails.ts
   - src/models/operations/getalloweddomains.ts
   - src/models/operations/getalloweddomainsdomain.ts
   - src/models/operations/getbackgroundjobstatusbackgroundjobstatusid.ts
@@ -488,6 +532,8 @@ generatedFiles:
   - src/models/operations/getprojectsid.ts
   - src/models/operations/getprojectsprojectidsharings.ts
   - src/models/operations/getprojectsprojectidsharingssharingid.ts
+  - src/models/operations/getprojectsprojectidsubfolders.ts
+  - src/models/operations/getprojectsprojectidsubfolderssubfolderid.ts
   - src/models/operations/getsearch.ts
   - src/models/operations/getstatsaccount.ts
   - src/models/operations/getstatsevents.ts
@@ -500,6 +546,8 @@ generatedFiles:
   - src/models/operations/postalloweddomains.ts
   - src/models/operations/postchannelschannelhashedidchannelepisodes.ts
   - src/models/operations/postexpiringtoken.ts
+  - src/models/operations/postform.ts
+  - src/models/operations/postlivestreamevents.ts
   - src/models/operations/postmediasmediahashedidcaptions.ts
   - src/models/operations/postmediasmediahashedidcaptionsmultipart.ts
   - src/models/operations/postmediasmediahashedidcaptionspurchase.ts
@@ -508,8 +556,11 @@ generatedFiles:
   - src/models/operations/postmediasmediahashedidtranslate.ts
   - src/models/operations/postmediasmediahashedidtrims.ts
   - src/models/operations/postmediasmediaidcustomizations.ts
+  - src/models/operations/postmultipart.ts
+  - src/models/operations/postprojects.ts
   - src/models/operations/postprojectsidcopy.ts
   - src/models/operations/postprojectsprojectidsharings.ts
+  - src/models/operations/postprojectsprojectidsubfolders.ts
   - src/models/operations/posttags.ts
   - src/models/operations/putlivestreameventsid.ts
   - src/models/operations/putmediasarchive.ts
@@ -522,6 +573,7 @@ generatedFiles:
   - src/models/operations/putmediasrestore.ts
   - src/models/operations/putprojectsid.ts
   - src/models/operations/putprojectsprojectidsharingssharingid.ts
+  - src/models/operations/putprojectsprojectidsubfolderssubfolderid.ts
   - src/models/project.ts
   - src/models/projectsharingdetail.ts
   - src/models/projectsharingresponse.ts
@@ -536,6 +588,8 @@ generatedFiles:
   - src/models/sortdirection.ts
   - src/models/sourcemedia.ts
   - src/models/subfolder.ts
+  - src/models/subfolderinput.ts
+  - src/models/subfolderwithmedia.ts
   - src/models/tag.ts
   - src/models/thumbnail.ts
   - src/models/trims.ts
@@ -567,8 +621,10 @@ generatedFiles:
   - src/sdk/statsevents.ts
   - src/sdk/statsmedia.ts
   - src/sdk/statsvisitors.ts
+  - src/sdk/subfolders.ts
   - src/sdk/tags.ts
   - src/sdk/trims.ts
+  - src/sdk/uploadorimportmedia.ts
   - src/types/async.ts
   - src/types/blobs.ts
   - src/types/constdatetime.ts
@@ -607,7 +663,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"id": 22570, "name": "My Project Title", "description": "About My Project", "mediaCount": 2, "created": "2010-08-13T18:47:39+00:00", "updated": "2010-08-19T21:47:00+00:00", "hashedId": "4d23503f70", "public": false, "publicId": "4bD", "anonymousCanUpload": false, "anonymousCanDownload": false}
+          application/json: {"id": 22570, "name": "My Project Title", "description": "About My Project", "medias": [{"subfolder": {"hashed_id": "abc123def4", "name": "Marketing Videos", "description": "Collection of all marketing and promotional videos", "position": 1, "created": "2024-01-15T10:30:00+00:00", "updated": "2024-01-20T14:45:00+00:00"}}], "mediaCount": 2, "created": "2010-08-13T18:47:39+00:00", "updated": "2010-08-19T21:47:00+00:00", "hashedId": "4d23503f70", "public": false, "publicId": "4bD", "anonymousCanUpload": false, "anonymousCanDownload": false}
         "401":
           application/json: {"error": "Invalid credentials."}
         "404":
@@ -749,7 +805,7 @@ examples:
           media-hashed-id: "<id>"
       responses:
         "200":
-          application/json: {"project": {"id": 22570, "name": "My Project Title", "hashedId": "4d23503f70"}}
+          application/json: {"subfolder": {"hashed_id": "abc123def4", "name": "Marketing Videos", "description": "Collection of all marketing and promotional videos", "position": 1, "created": "2024-01-15T10:30:00+00:00", "updated": "2024-01-20T14:45:00+00:00"}, "project": {"id": 22570, "name": "My Project Title", "hashedId": "4d23503f70"}}
         "401":
           application/json: {"error": "Invalid credentials."}
         "404":
@@ -763,7 +819,7 @@ examples:
           media-hashed-id: "<id>"
       responses:
         "200":
-          application/json: {}
+          application/json: {"subfolder": {"hashed_id": "abc123def4", "name": "Marketing Videos", "description": "Collection of all marketing and promotional videos", "position": 1, "created": "2024-01-15T10:30:00+00:00", "updated": "2024-01-20T14:45:00+00:00"}}
         "400":
           application/json: {"error": "Bad request"}
         "401":
@@ -779,7 +835,7 @@ examples:
           media-hashed-id: "<id>"
       responses:
         "200":
-          application/json: {"project": {"id": 22570, "name": "My Project Title", "hashedId": "4d23503f70"}}
+          application/json: {"subfolder": {"hashed_id": "abc123def4", "name": "Marketing Videos", "description": "Collection of all marketing and promotional videos", "position": 1, "created": "2024-01-15T10:30:00+00:00", "updated": "2024-01-20T14:45:00+00:00"}, "project": {"id": 22570, "name": "My Project Title", "hashedId": "4d23503f70"}}
         "401":
           application/json: {"error": "Invalid credentials."}
         "404":
@@ -793,7 +849,7 @@ examples:
           media-hashed-id: "<id>"
       responses:
         "201":
-          application/json: {"project": {"id": 22570, "name": "My Project Title", "hashedId": "4d23503f70"}}
+          application/json: {"subfolder": {"hashed_id": "abc123def4", "name": "Marketing Videos", "description": "Collection of all marketing and promotional videos", "position": 1, "created": "2024-01-15T10:30:00+00:00", "updated": "2024-01-20T14:45:00+00:00"}, "project": {"id": 22570, "name": "My Project Title", "hashedId": "4d23503f70"}}
         "400":
           application/json: {}
         "401":
@@ -811,7 +867,7 @@ examples:
           media-hashed-id: "<id>"
       responses:
         "200":
-          application/json: {"message": "Media swap has been queued for processing.", "media": {"project": {"id": 22570, "name": "My Project Title", "hashedId": "4d23503f70"}}}
+          application/json: {"message": "Media swap has been queued for processing.", "media": {"subfolder": {"hashed_id": "abc123def4", "name": "Marketing Videos", "description": "Collection of all marketing and promotional videos", "position": 1, "created": "2024-01-15T10:30:00+00:00", "updated": "2024-01-20T14:45:00+00:00"}, "project": {"id": 22570, "name": "My Project Title", "hashedId": "4d23503f70"}}}
         "400":
           application/json: {"error": "Replacement media must be the same type as the original media (Video)."}
         "401":
@@ -1484,4 +1540,95 @@ examples:
           application/json: {"error": "Invalid credentials."}
         "500":
           application/json: {"error": "Internal server error"}
+  get_/projects/{project-id}/subfolders:
+    speakeasy-default-get-/projects/{project-id}/subfolders:
+      parameters:
+        path:
+          project-id: "abc123def4"
+        query:
+          page: 1
+          per_page: 100
+          sort_by: "position"
+          sort_direction: 1
+      responses:
+        "200":
+          application/json: [{"hashed_id": "abc123def4", "name": "Marketing Videos", "description": "Collection of all marketing and promotional videos", "position": 1, "created": "2024-01-15T10:30:00+00:00", "updated": "2024-01-20T14:45:00+00:00"}]
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "404":
+          application/json: {"error": "Project with ID abc123def4 not found."}
+        "500":
+          application/json: {"error": "Internal server error"}
+  post_/projects/{project-id}/subfolders:
+    speakeasy-default-post-/projects/{project-id}/subfolders:
+      parameters:
+        path:
+          project-id: "abc123def4"
+      requestBody:
+        application/json: {"name": "Marketing Videos", "description": "Collection of all marketing and promotional videos"}
+      responses:
+        "201":
+          application/json: {"hashed_id": "abc123def4", "name": "Marketing Videos", "description": "Collection of all marketing and promotional videos", "position": 1, "created": "2024-01-15T10:30:00+00:00", "updated": "2024-01-20T14:45:00+00:00"}
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "404":
+          application/json: {"error": "Project with ID abc123def4 not found."}
+        "500":
+          application/json: {"error": "Internal server error"}
+  get_/projects/{project-id}/subfolders/{subfolder-id}:
+    speakeasy-default-get-/projects/{project-id}/subfolders/{subfolder-id}:
+      parameters:
+        path:
+          project-id: "abc123def4"
+          subfolder-id: "xyz789ghi0"
+        query:
+          description_format: "markdown"
+      responses:
+        "200":
+          application/json: {"hashed_id": "abc123def4", "name": "Marketing Videos", "description": "Collection of all marketing and promotional videos", "position": 1, "created": "2024-01-15T10:30:00+00:00", "updated": "2024-01-20T14:45:00+00:00", "medias": [{"subfolder": {"hashed_id": "abc123def4", "name": "Marketing Videos", "description": "Collection of all marketing and promotional videos", "position": 1, "created": "2024-01-15T10:30:00+00:00", "updated": "2024-01-20T14:45:00+00:00"}, "project": {"id": 22570, "name": "My Project Title", "hashedId": "4d23503f70"}}]}
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "404":
+          application/json: {"error": "Subfolder with ID xyz789ghi0 not found."}
+        "500":
+          application/json: {"error": "Internal server error"}
+  put_/projects/{project-id}/subfolders/{subfolder-id}:
+    speakeasy-default-put-/projects/{project-id}/subfolders/{subfolder-id}:
+      parameters:
+        path:
+          project-id: "abc123def4"
+          subfolder-id: "xyz789ghi0"
+      requestBody:
+        application/json: {"name": "Updated Marketing Videos", "description": "Updated collection of marketing materials"}
+      responses:
+        "200":
+          application/json: {"hashed_id": "abc123def4", "name": "Marketing Videos", "description": "Collection of all marketing and promotional videos", "position": 1, "created": "2024-01-15T10:30:00+00:00", "updated": "2024-01-20T14:45:00+00:00"}
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "404":
+          application/json: {"error": "Subfolder with ID xyz789ghi0 not found."}
+        "500":
+          application/json: {"error": "Internal server error"}
+  delete_/projects/{project-id}/subfolders/{subfolder-id}:
+    speakeasy-default-delete-/projects/{project-id}/subfolders/{subfolder-id}:
+      parameters:
+        path:
+          project-id: "abc123def4"
+          subfolder-id: "xyz789ghi0"
+      responses:
+        "200":
+          application/json: {"hashed_id": "abc123def4", "name": "Marketing Videos", "description": "Collection of all marketing and promotional videos", "position": 1, "created": "2024-01-15T10:30:00+00:00", "updated": "2024-01-20T14:45:00+00:00"}
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "404":
+          application/json: {"error": "Subfolder with ID xyz789ghi0 not found."}
+        "500":
+          application/json: {"error": "Internal server error"}
+  post_/:
+    missing_credentials:
+      requestBody:
+        application/x-www-form-urlencoded: {"url": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", "low_priority": true}
+      responses:
+        "400":
+          application/json: {}
 examplesVersion: 1.0.2

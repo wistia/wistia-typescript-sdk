@@ -3,6 +3,7 @@
 import { Wistia } from "wistia";
 
 const wistia = new Wistia({
+  serverURL: "https://api.example.com",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 

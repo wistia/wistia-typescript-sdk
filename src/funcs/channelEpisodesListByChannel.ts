@@ -23,6 +23,7 @@ import { ResponseValidationError } from "../models/errors/responsevalidationerro
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import { WistiaError } from "../models/errors/wistiaerror.js";
 import * as models from "../models/index.js";
+import { GetChannelsChannelHashedIdChannelEpisodesServerList } from "../models/operations/getchannelschannelhashedidchannelepisodes.js";
 import * as operations from "../models/operations/index.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
@@ -101,6 +102,11 @@ async function $do(
   const payload = parsed.value;
   const body = null;
 
+  const baseURL = options?.serverURL
+    || pathToFunc(GetChannelsChannelHashedIdChannelEpisodesServerList[0], {
+      charEncoding: "percent",
+    })();
+
   const pathParams = {
     "channel-hashed-id": encodeSimple(
       "channel-hashed-id",
@@ -134,7 +140,7 @@ async function $do(
 
   const context = {
     options: client._options,
-    baseURL: options?.serverURL ?? client._baseURL ?? "",
+    baseURL: baseURL ?? "",
     operationID: "get_/channels/{channel-hashed-id}/channel_episodes",
     oAuth2Scopes: [],
 
@@ -150,7 +156,7 @@ async function $do(
   const requestRes = client._createRequest(context, {
     security: requestSecurity,
     method: "GET",
-    baseURL: options?.serverURL,
+    baseURL: baseURL,
     path: path,
     headers: headers,
     query: query,

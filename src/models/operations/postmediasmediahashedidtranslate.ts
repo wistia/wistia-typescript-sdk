@@ -9,6 +9,10 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
+export const PostMediasMediaHashedIdTranslateServerList = [
+  "https://api.wistia.com/v1",
+] as const;
+
 export type PostMediasMediaHashedIdTranslateRequestBody = {
   /**
    * The language to translate the transcript to as a 3-character IETF language code.

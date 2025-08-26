@@ -9,6 +9,10 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
+export const PutMediasMediaIdCustomizationsServerList = [
+  "https://api.wistia.com/v1",
+] as const;
+
 export type PutMediasMediaIdCustomizationsRequest = {
   /**
    * The hashed ID of the video to be customized.

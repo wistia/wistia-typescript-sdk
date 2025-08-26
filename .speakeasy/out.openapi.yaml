@@ -3,11 +3,11 @@ info:
   title: Data API
   description: Wistia Data API
   version: 1.0.0
-servers:
-  - url: https://api.wistia.com/v1
 tags:
   - name: Projects
     x-displayName: Projects
+  - name: Subfolders
+    x-displayName: Subfolders
   - name: Project Sharings
     x-displayName: Project Sharings
   - name: Media
@@ -48,8 +48,12 @@ tags:
     x-displayName: Stats:Visitors
   - name: Stats:Events
     x-displayName: Stats:Events
+  - name: Upload or Import Media
+    x-displayName: Upload or Import Media
 paths:
   /projects:
+    servers:
+      - url: https://api.wistia.com/v1
     get:
       summary: Project List
       description: >
@@ -155,6 +159,8 @@ paths:
         - BearerAuth: []
       x-speakeasy-name-override: create
   /projects/{id}:
+    servers:
+      - url: https://api.wistia.com/v1
     get:
       summary: Project Show
       description: >
@@ -275,6 +281,8 @@ paths:
         - BearerAuth: []
       x-speakeasy-name-override: delete
   /projects/{id}/copy:
+    servers:
+      - url: https://api.wistia.com/v1
     post:
       summary: Project Copy
       description: >
@@ -335,7 +343,361 @@ paths:
       security:
         - BearerAuth: []
       x-speakeasy-name-override: copy
+  /projects/{project-id}/subfolders:
+    servers:
+      - url: https://api.wistia.com/v1
+    get:
+      summary: Subfolder List
+      description: >
+        Use this endpoint to request a list of subfolders in a specific project. This request supports paging and sorting.
+
+
+        ## Requires api token with one of the following permissions
+
+        ```
+
+        Read, update & delete anything
+
+        Read all data
+
+        Read all project and video data
+
+        ```
+
+      tags:
+        - Subfolders
+      parameters:
+        - name: project-id
+          in: path
+          description: The hashed ID of the project
+          required: true
+          schema:
+            type: string
+            example: abc123def4
+        - name: page
+          in: query
+          description: Page number to retrieve
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            default: 1
+        - name: per_page
+          in: query
+          description: Number of subfolders per page
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 100
+        - name: sort_by
+          in: query
+          description: Field to sort by
+          required: false
+          schema:
+            type: string
+            enum:
+              - name
+              - created
+              - updated
+              - position
+            default: position
+        - name: sort_direction
+          in: query
+          description: Sort direction (0 = desc, 1 = asc; default is 1)
+          required: false
+          schema:
+            type: integer
+            enum:
+              - 0
+              - 1
+            default: 1
+      responses:
+        '200':
+          description: A list of subfolders
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Subfolder'
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          description: Project not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Project with ID abc123def4 not found.
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+        - BearerAuth: []
+    post:
+      summary: Create Subfolder
+      description: >
+        Create a new subfolder within a project. The subfolder will be created with the next available position.
+
+
+        ## Requires api token with one of the following permissions
+
+        ```
+
+        Read, update & delete anything
+
+        ```
+
+      tags:
+        - Subfolders
+      parameters:
+        - name: project-id
+          in: path
+          description: The hashed ID of the project
+          required: true
+          schema:
+            type: string
+            example: abc123def4
+      requestBody:
+        description: Subfolder data
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubfolderInput'
+            example:
+              name: Marketing Videos
+              description: Collection of all marketing and promotional videos
+      responses:
+        '201':
+          description: Subfolder created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subfolder'
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          description: Project not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Project with ID abc123def4 not found.
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+        - BearerAuth: []
+  /projects/{project-id}/subfolders/{subfolder-id}:
+    servers:
+      - url: https://api.wistia.com/v1
+    get:
+      summary: Show Subfolder
+      description: >
+        Retrieve detailed information about a specific subfolder, including all media files contained within it.
+
+
+        ## Requires api token with one of the following permissions
+
+        ```
+
+        Read, update & delete anything
+
+        Read all data
+
+        Read all project and video data
+
+        ```
+
+      tags:
+        - Subfolders
+      parameters:
+        - name: project-id
+          in: path
+          description: The hashed ID of the project
+          required: true
+          schema:
+            type: string
+            example: abc123def4
+        - name: subfolder-id
+          in: path
+          description: The hashed ID of the subfolder
+          required: true
+          schema:
+            type: string
+            example: xyz789ghi0
+        - name: description_format
+          in: query
+          description: Format for media descriptions
+          required: false
+          schema:
+            type: string
+            enum:
+              - markdown
+            example: markdown
+      responses:
+        '200':
+          description: Subfolder details with contained media
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubfolderWithMedia'
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          description: Project or subfolder not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Subfolder with ID xyz789ghi0 not found.
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+        - BearerAuth: []
+    put:
+      summary: Update Subfolder
+      description: "Update a subfolder's name and/or description. \n\n## Requires api token with one of the following permissions\n```\nRead, update & delete anything\n```\n"
+      tags:
+        - Subfolders
+      parameters:
+        - name: project-id
+          in: path
+          description: The hashed ID of the project
+          required: true
+          schema:
+            type: string
+            example: abc123def4
+        - name: subfolder-id
+          in: path
+          description: The hashed ID of the subfolder
+          required: true
+          schema:
+            type: string
+            example: xyz789ghi0
+      requestBody:
+        description: Updated subfolder data
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: The new name for the subfolder
+                  example: Updated Marketing Videos
+                  maxLength: 255
+                description:
+                  type: string
+                  nullable: true
+                  description: The new description for the subfolder
+                  example: Updated collection of marketing materials
+                  maxLength: 1000
+            example:
+              name: Updated Marketing Videos
+              description: Updated collection of marketing materials
+      responses:
+        '200':
+          description: Subfolder updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subfolder'
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          description: Project or subfolder not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Subfolder with ID xyz789ghi0 not found.
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+        - BearerAuth: []
+    delete:
+      summary: Delete Subfolder
+      description: >
+        Delete a subfolder from a project. All media files in the subfolder will be moved to the project's root level.
+
+
+        The subfolder is soft-deleted and may be recoverable through other means, but is no longer accessible via the API.
+
+
+        ## Requires api token with one of the following permissions
+
+        ```
+
+        Read, update & delete anything
+
+        ```
+
+      tags:
+        - Subfolders
+      parameters:
+        - name: project-id
+          in: path
+          description: The hashed ID of the project
+          required: true
+          schema:
+            type: string
+            example: abc123def4
+        - name: subfolder-id
+          in: path
+          description: The hashed ID of the subfolder
+          required: true
+          schema:
+            type: string
+            example: xyz789ghi0
+      responses:
+        '200':
+          description: Subfolder deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subfolder'
+              example:
+                id: 123
+                hashed_id: xyz789ghi0
+                name: Marketing Videos
+                description: Collection of all marketing and promotional videos
+                position: 1
+                created: '2024-01-15T10:30:00+00:00'
+                updated: '2024-01-20T14:45:00+00:00'
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          description: Project or subfolder not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Subfolder with ID xyz789ghi0 not found.
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+        - BearerAuth: []
   /projects/{project-id}/sharings:
+    servers:
+      - url: https://api.wistia.com/v1
     get:
       summary: Project Sharing List
       description: >
@@ -455,6 +817,8 @@ paths:
       x-speakeasy-group: projectSharings
       x-speakeasy-name-override: create
   /projects/{project-id}/sharings/{sharing-id}:
+    servers:
+      - url: https://api.wistia.com/v1
     get:
       summary: Project Sharing Show
       description: |
@@ -588,6 +952,8 @@ paths:
       x-speakeasy-group: projectSharings
       x-speakeasy-name-override: delete
   /medias:
+    servers:
+      - url: https://api.wistia.com/v1
     get:
       summary: Media List
       description: >
@@ -717,6 +1083,8 @@ paths:
         - BearerAuth: []
       x-speakeasy-name-override: list
   /medias/{media-hashed-id}:
+    servers:
+      - url: https://api.wistia.com/v1
     get:
       summary: Media Show
       description: >
@@ -864,6 +1232,8 @@ paths:
         - BearerAuth: []
       x-speakeasy-name-override: delete
   /medias/{media-hashed-id}/copy:
+    servers:
+      - url: https://api.wistia.com/v1
     post:
       summary: Media Copy
       description: |
@@ -940,6 +1310,8 @@ paths:
         - BearerAuth: []
       x-speakeasy-name-override: copy
   /medias/{media-hashed-id}/swap:
+    servers:
+      - url: https://api.wistia.com/v1
     put:
       summary: Media Swap
       description: >
@@ -1013,6 +1385,8 @@ paths:
         - BearerAuth: []
       x-speakeasy-name-override: swap
   /medias/{media-hashed-id}/stats:
+    servers:
+      - url: https://api.wistia.com/v1
     get:
       summary: Media Stats
       description: |
@@ -1090,6 +1464,8 @@ paths:
         - BearerAuth: []
       x-speakeasy-name-override: stats
   /medias/{media-hashed-id}/translate:
+    servers:
+      - url: https://api.wistia.com/v1
     post:
       summary: Media Translate
       description: |
@@ -1161,6 +1537,8 @@ paths:
         - BearerAuth: []
       x-speakeasy-name-override: translate
   /medias/archive:
+    servers:
+      - url: https://api.wistia.com/v1
     put:
       summary: Medias Archive
       description: >
@@ -1231,14 +1609,21 @@ paths:
         - BearerAuth: []
       x-speakeasy-name-override: archive
   /medias/move:
+    servers:
+      - url: https://api.wistia.com/v1
     put:
       summary: Media Move
       description: >
-        Move one or many media to a different project.
+        Move one or many media to a different project and optionally to a specific subfolder.
 
         Max 100 media per request, and max 10 requests in 5 minutes.
 
         Note: this is a different rate limit than applies to the rest of the api!
+
+
+        If a subfolder_id is provided, media will be moved to that subfolder. The subfolder
+
+        must belong to the specified project.
 
 
         Returns a Background Job as the move is async.
@@ -1268,6 +1653,10 @@ paths:
                     type: string
                 project_id:
                   description: The hashed ID of the project where you want the media moved.
+                  type: string
+                subfolder_id:
+                  description: >-
+                    Optional. The hashed ID of the subfolder where you want the media moved. If not provided, media will be moved to the project's default subfolder. The subfolder must belong to the specified project.
                   type: string
               required:
                 - hashed_ids
@@ -1326,6 +1715,8 @@ paths:
         - BearerAuth: []
       x-speakeasy-name-override: move
   /medias/restore:
+    servers:
+      - url: https://api.wistia.com/v1
     put:
       summary: Media Restore
       description: >
@@ -1425,6 +1816,8 @@ paths:
         - BearerAuth: []
       x-speakeasy-name-override: restore
   /account:
+    servers:
+      - url: https://api.wistia.com/v1
     get:
       summary: Account Show
       description: |
@@ -1452,6 +1845,8 @@ paths:
         - BearerAuth: []
       x-speakeasy-name-override: get
   /allowed_domains:
+    servers:
+      - url: https://api.wistia.com/v1
     get:
       summary: Allowed Domains List
       description: |
@@ -1547,6 +1942,8 @@ paths:
         - BearerAuth: []
       x-speakeasy-name-override: create
   /allowed_domains/{domain}:
+    servers:
+      - url: https://api.wistia.com/v1
     get:
       summary: Allowed Domain Show
       description: |
@@ -1634,6 +2031,8 @@ paths:
         - BearerAuth: []
       x-speakeasy-name-override: delete
   /background_job_status/{background-job-status-id}:
+    servers:
+      - url: https://api.wistia.com/v1
     get:
       summary: Background Job Status Show
       description: |
@@ -1686,6 +2085,8 @@ paths:
       x-speakeasy-group: backgroundJobStatus
       x-speakeasy-name-override: get
   /medias/{media-id}/customizations:
+    servers:
+      - url: https://api.wistia.com/v1
     get:
       summary: Customizations Show
       description: |
@@ -1846,6 +2247,8 @@ paths:
         - BearerAuth: []
       x-speakeasy-name-override: delete
   /medias/{media-hashed-id}/captions:
+    servers:
+      - url: https://api.wistia.com/v1
     get:
       summary: Captions List
       description: >
@@ -1965,6 +2368,8 @@ paths:
         - BearerAuth: []
       x-speakeasy-name-override: create
   /medias/{media-hashed-id}/captions/purchase:
+    servers:
+      - url: https://api.wistia.com/v1
     post:
       summary: Captions Purchase
       description: >
@@ -2060,6 +2465,8 @@ paths:
         - BearerAuth: []
       x-speakeasy-name-override: purchase
   /medias/{media-hashed-id}/captions/{language-code}:
+    servers:
+      - url: https://api.wistia.com/v1
     get:
       summary: Captions Show
       description: >
@@ -2232,6 +2639,8 @@ paths:
         - BearerAuth: []
       x-speakeasy-name-override: delete
   /medias/{media-hashed-id}/trims:
+    servers:
+      - url: https://api.wistia.com/v1
     post:
       summary: Trims Create
       description: |
@@ -2276,6 +2685,8 @@ paths:
         - BearerAuth: []
       x-speakeasy-name-override: create
   /medias/{media-hashed-id}/localizations:
+    servers:
+      - url: https://api.wistia.com/v1
     get:
       summary: Localizations List
       description: |
@@ -2384,6 +2795,8 @@ paths:
         - BearerAuth: []
       x-speakeasy-name-override: create
   /medias/{media-hashed-id}/localizations/{localization-hashed-id}:
+    servers:
+      - url: https://api.wistia.com/v1
     get:
       summary: Localizations Show
       description: |
@@ -2474,6 +2887,8 @@ paths:
         - BearerAuth: []
       x-speakeasy-name-override: delete
   /tags:
+    servers:
+      - url: https://api.wistia.com/v1
     get:
       summary: Tags List
       description: >
@@ -2598,6 +3013,8 @@ paths:
         - BearerAuth: []
       x-speakeasy-name-override: create
   /tags/{name}:
+    servers:
+      - url: https://api.wistia.com/v1
     delete:
       summary: Tags Delete
       description: |
@@ -2630,6 +3047,8 @@ paths:
         - BearerAuth: []
       x-speakeasy-name-override: delete
   /search:
+    servers:
+      - url: https://api.wistia.com/v1
     get:
       summary: Search
       description: |
@@ -2702,6 +3121,8 @@ paths:
         - BearerAuth: []
       x-speakeasy-name-override: get
   /channels:
+    servers:
+      - url: https://api.wistia.com/v1
     get:
       summary: Channels List
       description: |
@@ -2774,6 +3195,8 @@ paths:
         - BearerAuth: []
       x-speakeasy-name-override: list
   /channels/{channel-hashed-id}:
+    servers:
+      - url: https://api.wistia.com/v1
     get:
       summary: Channels Show
       description: |
@@ -2812,6 +3235,8 @@ paths:
         - BearerAuth: []
       x-speakeasy-name-override: get
   /channels/{channel-hashed-id}/channel_episodes/{channel-episode-id}:
+    servers:
+      - url: https://api.wistia.com/v1
     get:
       summary: Channel Episodes Show
       description: |
@@ -2856,6 +3281,8 @@ paths:
       x-speakeasy-group: channelEpisodes
       x-speakeasy-name-override: get
   /channels/{channel-hashed-id}/channel_episodes:
+    servers:
+      - url: https://api.wistia.com/v1
     get:
       summary: Channel Episodes List filtered by channel
       description: >
@@ -2950,6 +3377,8 @@ paths:
       x-speakeasy-group: channelEpisodes
       x-speakeasy-name-override: create
   /channel_episodes:
+    servers:
+      - url: https://api.wistia.com/v1
     get:
       summary: Channel Episodes List
       description: >
@@ -3004,6 +3433,8 @@ paths:
       x-speakeasy-group: channelEpisodes
       x-speakeasy-name-override: list
   /expiring_token:
+    servers:
+      - url: https://api.wistia.com/v1
     post:
       summary: Create an expiring access token
       description: "```\n\U0001F6AB Alert\n\nThis API is still under development and can change at any time.\n```\n\nThis endpoint is for creating expiring access tokens which can be used for some iframe embeds.\n\n## Requires api token with one of the following permissions\n```\nRead, update & delete anything\n```\n"
@@ -3048,6 +3479,8 @@ paths:
       x-speakeasy-group: expiringAccessTokens
       x-speakeasy-name-override: create
   /live_stream_events:
+    servers:
+      - url: https://api.wistia.com/v1
     get:
       summary: Live Stream Events List
       description: >
@@ -3215,6 +3648,8 @@ paths:
       x-speakeasy-group: liveStreamEvents
       x-speakeasy-name-override: create
   /live_stream_events/{id}:
+    servers:
+      - url: https://api.wistia.com/v1
     get:
       summary: Live Stream Event Show
       description: |
@@ -3343,6 +3778,8 @@ paths:
       x-speakeasy-group: liveStreamEvents
       x-speakeasy-name-override: delete
   /stats/account:
+    servers:
+      - url: https://api.wistia.com/v1
     get:
       summary: Stats:Account Show
       description: >
@@ -3397,6 +3834,8 @@ paths:
       x-speakeasy-group: stats.account
       x-speakeasy-name-override: get
   /stats/projects/{project-id}:
+    servers:
+      - url: https://api.wistia.com/v1
     get:
       summary: Stats:Projects Show
       description: >
@@ -3465,6 +3904,8 @@ paths:
       x-speakeasy-group: statsProjects
       x-speakeasy-name-override: get
   /stats/medias/{media-id}:
+    servers:
+      - url: https://api.wistia.com/v1
     get:
       summary: Stats:Media Show
       description: >
@@ -3559,6 +4000,8 @@ paths:
       x-speakeasy-group: stats.media
       x-speakeasy-name-override: get
   /stats/medias/{media-id}/by_date:
+    servers:
+      - url: https://api.wistia.com/v1
     get:
       summary: Stats:Media By Date
       description: >
@@ -3633,6 +4076,8 @@ paths:
       x-speakeasy-group: statsMedia
       x-speakeasy-name-override: getByDate
   /stats/medias/{media-id}/engagement:
+    servers:
+      - url: https://api.wistia.com/v1
     get:
       summary: Stats:Media Engagement
       description: >
@@ -3701,6 +4146,8 @@ paths:
       x-speakeasy-group: statsMedia
       x-speakeasy-name-override: getEngagement
   /stats/visitors:
+    servers:
+      - url: https://api.wistia.com/v1
     get:
       summary: Stats:Visitors List
       description: >
@@ -3764,6 +4211,8 @@ paths:
       x-speakeasy-group: statsVisitors
       x-speakeasy-name-override: list
   /stats/visitors/{visitor-key}:
+    servers:
+      - url: https://api.wistia.com/v1
     get:
       summary: Stats:Visitors Show
       description: |
@@ -3803,6 +4252,8 @@ paths:
       x-speakeasy-group: statsVisitors
       x-speakeasy-name-override: get
   /stats/events:
+    servers:
+      - url: https://api.wistia.com/v1
     get:
       summary: Stats:Events List
       description: >
@@ -3876,6 +4327,8 @@ paths:
       x-speakeasy-group: statsEvents
       x-speakeasy-name-override: list
   /stats/events/{event-key}:
+    servers:
+      - url: https://api.wistia.com/v1
     get:
       summary: Stats:Events Show
       description: >
@@ -3923,6 +4376,123 @@ paths:
         - BearerAuth: []
       x-speakeasy-group: stats.events
       x-speakeasy-name-override: get
+  /:
+    servers:
+      - url: https://upload.wistia.com
+    post:
+      summary: Upload or Import Media
+      description: >
+        Endpoint to upload media files from a local system or import from a web URL.
+
+
+        - Use `multipart/form-data` with a `file` parameter to upload from local system
+
+        - Use `application/x-www-form-urlencoded` with a `url` parameter to import from web URL
+
+      tags:
+        - Upload or Import Media
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/CommonUploadProperties'
+                - type: object
+                  required:
+                    - file
+                  properties:
+                    file:
+                      type: string
+                      format: binary
+                      description: >-
+                        The media file, multipart-form encoded into the request body.
+          application/x-www-form-urlencoded:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/CommonUploadProperties'
+                - type: object
+                  required:
+                    - url
+                  properties:
+                    url:
+                      type: string
+                      format: uri
+                      example: >-
+                        http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4
+                      description: The web location of the media file to import.
+                    low_priority:
+                      type: boolean
+                      example: true
+                      description: >-
+                        Inform the encoding service that this upload can be considered lower priority than others. This is especially useful for platform customers doing bulk uploads or migrations. Setting this to "false" has no effect.
+      responses:
+        '200':
+          description: Successfully uploaded or imported.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: Response after successfully uploading or importing media
+                properties:
+                  id:
+                    type: integer
+                    description: >-
+                      A unique numeric identifier for the media within the system.
+                  name:
+                    type: string
+                    description: The display name of the media.
+                  type:
+                    type: string
+                    description: A string representing what type of media this is.
+                  created:
+                    type: string
+                    format: date-time
+                    description: The date when the media was originally uploaded.
+                  updated:
+                    type: string
+                    format: date-time
+                    description: The date when the media was last changed.
+                  duration:
+                    type: number
+                    description: >-
+                      Specifies the length (in seconds) for audio and video files.
+                  hashed_id:
+                    type: string
+                    description: A unique alphanumeric identifier for this media.
+                  progress:
+                    type: number
+                    minimum: 0
+                    maximum: 1
+                    description: >-
+                      A floating point value between 0 and 1 that indicates the progress of the processing for this file.
+                  thumbnail:
+                    $ref: '#/components/schemas/Thumbnail'
+        '400':
+          description: >-
+            Error due to reaching the video limit of your account or other issues.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                      detail:
+                        type: string
+              examples:
+                missing_credentials:
+                  value:
+                    code: upload_failed
+                    detail: '''api_password'' or ''access_token'' are required'
+        '401':
+          description: Authorization error. Check your access_token.
+          content:
+            text/html: {}
+      security:
+        - BearerAuth: []
 components:
   schemas:
     Account:
@@ -4974,6 +5544,73 @@ components:
         - id
         - audience_link
         - host_link
+    Subfolder:
+      type: object
+      description: A subfolder within a project that contains media files.
+      properties:
+        hashed_id:
+          type: string
+          description: A unique alphanumeric identifier for this subfolder.
+          example: abc123def4
+        name:
+          type: string
+          nullable: true
+          description: The display name of the subfolder.
+          example: Marketing Videos
+        description:
+          type: string
+          nullable: true
+          description: A description for the subfolder.
+          example: Collection of all marketing and promotional videos
+        position:
+          type: integer
+          description: >-
+            The position of this subfolder within its project, used for ordering.
+          example: 1
+        created:
+          type: string
+          format: date-time
+          description: The date when the subfolder was created.
+          example: '2024-01-15T10:30:00+00:00'
+        updated:
+          type: string
+          format: date-time
+          description: The date when the subfolder was last modified.
+          example: '2024-01-20T14:45:00+00:00'
+      required:
+        - hashed_id
+        - position
+        - created
+        - updated
+    SubfolderWithMedia:
+      type: object
+      description: A subfolder with its contained media files.
+      allOf:
+        - $ref: '#/components/schemas/Subfolder'
+        - type: object
+          properties:
+            medias:
+              type: array
+              description: Array of media files contained in this subfolder.
+              items:
+                $ref: '#/components/schemas/Media'
+    SubfolderInput:
+      type: object
+      description: Input data for creating or updating a subfolder.
+      properties:
+        name:
+          type: string
+          description: The display name of the subfolder.
+          example: Marketing Videos
+          maxLength: 255
+        description:
+          type: string
+          nullable: true
+          description: A description for the subfolder.
+          example: Collection of all marketing and promotional videos
+          maxLength: 1000
+      required:
+        - name
     CreateProject:
       type: object
       properties:
@@ -4998,33 +5635,6 @@ components:
               description: >-
                 A flag indicating whether or not the project is enabled for public access. Set to `true` to enable and `false` to disable.
               example: false
-    Subfolder:
-      type: object
-      description: A subfolder within a folder that contains media files.
-      properties:
-        hashed_id:
-          type: string
-          description: The hashed ID for this subfolder.
-        name:
-          type: string
-          nullable: true
-          description: The display name of the subfolder.
-        position:
-          type: integer
-          description: >-
-            The position of this subfolder within its project, used for ordering.
-        description:
-          type: string
-          nullable: true
-          description: A description for the subfolder.
-        created:
-          type: string
-          format: date-time
-          description: The date when the subfolder was created.
-        updated:
-          type: string
-          format: date-time
-          description: The date when the subfolder was last modified.
     Thumbnail:
       type: object
       properties:
@@ -5113,6 +5723,46 @@ components:
               description: >-
                 A flag indicating whether or not the project is enabled for public access. Set to `true` to enable and `false` to disable.
               example: false
+    slim_project_schema_Project:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: A unique numeric identifier for the project within the system.
+          example: 22570
+        name:
+          type: string
+          description: The project’s display name.
+          example: My Project Title
+        hashedId:
+          type: string
+          description: >-
+            A private hashed id, uniquely identifying the project within the system.
+          example: 4d23503f70
+    Asset:
+      type: object
+      properties:
+        url:
+          type: string
+          description: A direct-access URL to the content of the asset.
+        width:
+          type: integer
+          description: The width of this specific asset, if applicable.
+        height:
+          type: integer
+          description: The height of this specific asset, if applicable.
+        fileSize:
+          type: integer
+          description: >-
+            The size of the asset file that’s referenced by url, measured in bytes.
+        contentType:
+          type: string
+          description: The asset’s content type.
+        type:
+          type: string
+          description: >
+            The internal type of the asset, describing how the asset should be used. Values can include OriginalFile, FlashVideoFile, MdFlashVideoFile, HdFlashVideoFile, Mp4VideoFile, MdMp4VideoFile, HdMp4VideoFile, IPhoneVideoFile, StillImageFile, SwfFile, Mp3AudioFile, and LargeImageFile.
+
     ProjectSharingDetail:
       type: object
       properties:
@@ -5242,46 +5892,6 @@ components:
             isAdmin:
               type: boolean
               description: Give this user admin rights to the project.
-    slim_project_schema_Project:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: A unique numeric identifier for the project within the system.
-          example: 22570
-        name:
-          type: string
-          description: The project’s display name.
-          example: My Project Title
-        hashedId:
-          type: string
-          description: >-
-            A private hashed id, uniquely identifying the project within the system.
-          example: 4d23503f70
-    Asset:
-      type: object
-      properties:
-        url:
-          type: string
-          description: A direct-access URL to the content of the asset.
-        width:
-          type: integer
-          description: The width of this specific asset, if applicable.
-        height:
-          type: integer
-          description: The height of this specific asset, if applicable.
-        fileSize:
-          type: integer
-          description: >-
-            The size of the asset file that’s referenced by url, measured in bytes.
-        contentType:
-          type: string
-          description: The asset’s content type.
-        type:
-          type: string
-          description: >
-            The internal type of the asset, describing how the asset should be used. Values can include OriginalFile, FlashVideoFile, MdFlashVideoFile, HdFlashVideoFile, Mp4VideoFile, MdMp4VideoFile, HdMp4VideoFile, IPhoneVideoFile, StillImageFile, SwfFile, Mp3AudioFile, and LargeImageFile.
-
     MediaShow:
       type: object
       properties:
@@ -5859,6 +6469,27 @@ components:
             mobile:
               type: boolean
           description: Details about the user agent of the viewer.
+    CommonUploadProperties:
+      type: object
+      properties:
+        project_id:
+          type: string
+          description: The hashed id of the project to upload media into.
+        name:
+          type: string
+          maxLength: 255
+          description: A display name to use for the media in Wistia.
+        description:
+          type: string
+          description: A description to use for the media in Wistia.
+        contact_id:
+          type: integer
+          description: A Wistia contact id.
+        access_token:
+          type: string
+          deprecated: true
+          description: >-
+            A 64 character hex string. This parameter can be found on your API access page OR can be the token you received from authenticating via Oauth2. Note this approach is legacy and discouraged. We recommend using Bearer Token authentication.
   securitySchemes:
     BearerAuth:
       type: http
@@ -5993,6 +6624,7 @@ x-tagGroups:
   - name: Data API
     tags:
       - Projects
+      - Subfolders
       - Project Sharings
       - Media
       - Account
@@ -6015,3 +6647,6 @@ x-tagGroups:
       - Stats:Media
       - Stats:Visitors
       - Stats:Events
+  - name: Upload API
+    tags:
+      - Upload or Import Media
