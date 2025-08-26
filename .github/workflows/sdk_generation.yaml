@@ -22,12 +22,27 @@ permissions:
       - labeled
       - unlabeled
 jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+    steps:
+        - name: Generate version
+          id: version
+          run: |
+            if [ -n "${{ github.event.inputs.set_version }}" ]; then
+              echo "version=${{ github.event.inputs.set_version }}" >> $GITHUB_OUTPUT
+            else
+              echo "version=$(date +'%Y.%-m.1')" >> $GITHUB_OUTPUT
+            fi
+  
   generate:
+    needs: prepare
     uses: speakeasy-api/sdk-generation-action/.github/workflows/workflow-executor.yaml@v15
     with:
       force: ${{ github.event.inputs.force }}
       mode: pr
-      set_version: ${{ github.event.inputs.set_version }}
+      set_version: ${{ needs.prepare.outputs.version }}
     secrets:
       github_access_token: ${{ secrets.GITHUB_TOKEN }}
       npm_token: ${{ secrets.NPM_TOKEN }}
