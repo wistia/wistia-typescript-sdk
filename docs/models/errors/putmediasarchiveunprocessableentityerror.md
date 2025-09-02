@@ -5,7 +5,7 @@ Unprocessable entity, e.g. too many media requested.
 ## Example Usage
 
 ```typescript
-import { PutMediasArchiveUnprocessableEntityError } from "wistia/models/errors";
+import { PutMediasArchiveUnprocessableEntityError } from "@wistia/wistia-api-client/models/errors";
 
 // No examples available for this model
 ```

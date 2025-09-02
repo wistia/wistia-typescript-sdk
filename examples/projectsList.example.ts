@@ -5,13 +5,13 @@
 import dotenv from "dotenv";
 dotenv.config();
 /**
- * Example usage of the wistia SDK
+ * Example usage of the @wistia/wistia-api-client SDK
  *
  * To run this example from the examples directory:
  * npm run build && npx tsx projectsList.example.ts
  */
 
-import { Wistia } from "wistia";
+import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
   serverURL: "https://api.example.com",

@@ -24,7 +24,7 @@ Read all data
 
 <!-- UsageSnippet language="typescript" operationID="get_/tags" method="get" path="/tags" -->
 ```typescript
-import { Wistia } from "wistia";
+import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
   serverURL: "https://api.example.com",
@@ -45,8 +45,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { WistiaCore } from "wistia/core.js";
-import { tagsList } from "wistia/funcs/tagsList.js";
+import { WistiaCore } from "@wistia/wistia-api-client/core.js";
+import { tagsList } from "@wistia/wistia-api-client/funcs/tagsList.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -104,7 +104,7 @@ Read, update & delete anything
 
 <!-- UsageSnippet language="typescript" operationID="post_/tags" method="post" path="/tags" -->
 ```typescript
-import { Wistia } from "wistia";
+import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
   serverURL: "https://api.example.com",
@@ -127,8 +127,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { WistiaCore } from "wistia/core.js";
-import { tagsCreate } from "wistia/funcs/tagsCreate.js";
+import { WistiaCore } from "@wistia/wistia-api-client/core.js";
+import { tagsCreate } from "@wistia/wistia-api-client/funcs/tagsCreate.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -190,7 +190,7 @@ Read, update & delete anything
 
 <!-- UsageSnippet language="typescript" operationID="delete_/tags/{name}" method="delete" path="/tags/{name}" -->
 ```typescript
-import { Wistia } from "wistia";
+import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
   serverURL: "https://api.example.com",
@@ -213,8 +213,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { WistiaCore } from "wistia/core.js";
-import { tagsDelete } from "wistia/funcs/tagsDelete.js";
+import { WistiaCore } from "@wistia/wistia-api-client/core.js";
+import { tagsDelete } from "@wistia/wistia-api-client/funcs/tagsDelete.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.

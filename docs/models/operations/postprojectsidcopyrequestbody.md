@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { PostProjectsIdCopyRequestBody } from "wistia/models/operations";
+import { PostProjectsIdCopyRequestBody } from "@wistia/wistia-api-client/models/operations";
 
 let value: PostProjectsIdCopyRequestBody = {
   adminEmail: "admin@example.com",

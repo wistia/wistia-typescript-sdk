@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { Project } from "wistia/models";
+import { Project } from "@wistia/wistia-api-client/models";
 
 let value: Project = {
   id: 22570,

@@ -21,6 +21,7 @@ export const GetProjectsSortBy = {
   Created: "created",
   Updated: "updated",
   MediaCount: "mediaCount",
+  Id: "id",
 } as const;
 /**
  * Ordering

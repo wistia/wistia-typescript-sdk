@@ -20,6 +20,7 @@ export const GetChannelsSortBy = {
   Created: "created",
   Id: "id",
   Updated: "updated",
+  Name: "name",
 } as const;
 /**
  * Ordering. Default is ID ASC.

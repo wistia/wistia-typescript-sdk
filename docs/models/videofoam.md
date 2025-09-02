@@ -18,7 +18,7 @@ Examples:
 ## Example Usage
 
 ```typescript
-import { VideoFoam } from "wistia/models";
+import { VideoFoam } from "@wistia/wistia-api-client/models";
 
 let value: VideoFoam = {};
 ```

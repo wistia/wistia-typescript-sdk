@@ -10,6 +10,7 @@ export const SortBy = {
   Title: "title",
   Created: "created",
   Updated: "updated",
+  Id: "id",
 } as const;
 export type SortBy = ClosedEnum<typeof SortBy>;
 

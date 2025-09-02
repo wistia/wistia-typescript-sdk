@@ -5,7 +5,7 @@ Project or subfolder not found
 ## Example Usage
 
 ```typescript
-import { PutProjectsProjectIdSubfoldersSubfolderIdNotFoundError } from "wistia/models/errors";
+import { PutProjectsProjectIdSubfoldersSubfolderIdNotFoundError } from "@wistia/wistia-api-client/models/errors";
 
 // No examples available for this model
 ```

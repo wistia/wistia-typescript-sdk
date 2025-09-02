@@ -5,7 +5,7 @@ Successful archival of media.
 ## Example Usage
 
 ```typescript
-import { PutMediasArchiveResponse } from "wistia/models/operations";
+import { PutMediasArchiveResponse } from "@wistia/wistia-api-client/models/operations";
 
 let value: PutMediasArchiveResponse = {};
 ```

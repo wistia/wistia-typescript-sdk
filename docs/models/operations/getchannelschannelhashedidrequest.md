@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { GetChannelsChannelHashedIdRequest } from "wistia/models/operations";
+import { GetChannelsChannelHashedIdRequest } from "@wistia/wistia-api-client/models/operations";
 
 let value: GetChannelsChannelHashedIdRequest = {
   channelHashedId: "<id>",

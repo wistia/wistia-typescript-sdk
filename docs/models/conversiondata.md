@@ -5,7 +5,7 @@ Additional data related to the conversion.
 ## Example Usage
 
 ```typescript
-import { ConversionData } from "wistia/models";
+import { ConversionData } from "@wistia/wistia-api-client/models";
 
 let value: ConversionData = {};
 ```

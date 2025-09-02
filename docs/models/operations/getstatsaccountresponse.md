@@ -5,7 +5,7 @@ Successful operation. Account stats retrieved.
 ## Example Usage
 
 ```typescript
-import { GetStatsAccountResponse } from "wistia/models/operations";
+import { GetStatsAccountResponse } from "@wistia/wistia-api-client/models/operations";
 
 let value: GetStatsAccountResponse = {
   loadCount: 189636,

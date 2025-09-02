@@ -5,13 +5,13 @@ Ordering
 ## Example Usage
 
 ```typescript
-import { GetTagsSortBy } from "wistia/models/operations";
+import { GetTagsSortBy } from "@wistia/wistia-api-client/models/operations";
 
-let value: GetTagsSortBy = "taggings_count";
+let value: GetTagsSortBy = "taggingsCount";
 ```
 
 ## Values
 
 ```typescript
-"name" | "created" | "updated" | "taggings_count"
+"name" | "created" | "updated" | "taggingsCount"
 ```

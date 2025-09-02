@@ -24,7 +24,7 @@ Read, update & delete anything
 
 <!-- UsageSnippet language="typescript" operationID="get_/allowed_domains" method="get" path="/allowed_domains" -->
 ```typescript
-import { Wistia } from "wistia";
+import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
   serverURL: "https://api.example.com",
@@ -45,8 +45,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { WistiaCore } from "wistia/core.js";
-import { allowedDomainsList } from "wistia/funcs/allowedDomainsList.js";
+import { WistiaCore } from "@wistia/wistia-api-client/core.js";
+import { allowedDomainsList } from "@wistia/wistia-api-client/funcs/allowedDomainsList.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -104,7 +104,7 @@ Read, update & delete anything
 
 <!-- UsageSnippet language="typescript" operationID="post_/allowed_domains" method="post" path="/allowed_domains" -->
 ```typescript
-import { Wistia } from "wistia";
+import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
   serverURL: "https://api.example.com",
@@ -127,8 +127,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { WistiaCore } from "wistia/core.js";
-import { allowedDomainsCreate } from "wistia/funcs/allowedDomainsCreate.js";
+import { WistiaCore } from "@wistia/wistia-api-client/core.js";
+import { allowedDomainsCreate } from "@wistia/wistia-api-client/funcs/allowedDomainsCreate.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -189,7 +189,7 @@ Read, update & delete anything
 
 <!-- UsageSnippet language="typescript" operationID="get_/allowed_domains/{domain}" method="get" path="/allowed_domains/{domain}" -->
 ```typescript
-import { Wistia } from "wistia";
+import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
   serverURL: "https://api.example.com",
@@ -212,8 +212,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { WistiaCore } from "wistia/core.js";
-import { allowedDomainsGet } from "wistia/funcs/allowedDomainsGet.js";
+import { WistiaCore } from "@wistia/wistia-api-client/core.js";
+import { allowedDomainsGet } from "@wistia/wistia-api-client/funcs/allowedDomainsGet.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -274,7 +274,7 @@ Read, update & delete anything
 
 <!-- UsageSnippet language="typescript" operationID="delete_/allowed_domains/{domain}" method="delete" path="/allowed_domains/{domain}" -->
 ```typescript
-import { Wistia } from "wistia";
+import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
   serverURL: "https://api.example.com",
@@ -297,8 +297,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { WistiaCore } from "wistia/core.js";
-import { allowedDomainsDelete } from "wistia/funcs/allowedDomainsDelete.js";
+import { WistiaCore } from "@wistia/wistia-api-client/core.js";
+import { allowedDomainsDelete } from "@wistia/wistia-api-client/funcs/allowedDomainsDelete.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.

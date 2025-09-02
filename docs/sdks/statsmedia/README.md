@@ -23,8 +23,8 @@ Read all project and video data
 
 <!-- UsageSnippet language="typescript" operationID="get_/stats/medias/{media-id}/by_date" method="get" path="/stats/medias/{media-id}/by_date" -->
 ```typescript
-import { Wistia } from "wistia";
-import { RFCDate } from "wistia/types";
+import { Wistia } from "@wistia/wistia-api-client";
+import { RFCDate } from "@wistia/wistia-api-client/types";
 
 const wistia = new Wistia({
   serverURL: "https://api.example.com",
@@ -49,9 +49,9 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { WistiaCore } from "wistia/core.js";
-import { statsMediaGetByDate } from "wistia/funcs/statsMediaGetByDate.js";
-import { RFCDate } from "wistia/types";
+import { WistiaCore } from "@wistia/wistia-api-client/core.js";
+import { statsMediaGetByDate } from "@wistia/wistia-api-client/funcs/statsMediaGetByDate.js";
+import { RFCDate } from "@wistia/wistia-api-client/types";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.

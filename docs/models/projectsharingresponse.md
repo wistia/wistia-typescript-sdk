@@ -5,7 +5,7 @@ The response includes a link for the user to access the project.
 ## Example Usage
 
 ```typescript
-import { ProjectSharingResponse } from "wistia/models";
+import { ProjectSharingResponse } from "@wistia/wistia-api-client/models";
 
 let value: ProjectSharingResponse = {
   project: "http://myaccount.wistia.com/folders/13",

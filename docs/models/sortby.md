@@ -3,13 +3,13 @@
 ## Example Usage
 
 ```typescript
-import { SortBy } from "wistia/models";
+import { SortBy } from "@wistia/wistia-api-client/models";
 
-let value: SortBy = "updated";
+let value: SortBy = "id";
 ```
 
 ## Values
 
 ```typescript
-"position" | "title" | "created" | "updated"
+"position" | "title" | "created" | "updated" | "id"
 ```

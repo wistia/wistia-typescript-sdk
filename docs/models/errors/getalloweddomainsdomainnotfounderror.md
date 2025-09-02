@@ -5,7 +5,7 @@ Domain not found
 ## Example Usage
 
 ```typescript
-import { GetAllowedDomainsDomainNotFoundError } from "wistia/models/errors";
+import { GetAllowedDomainsDomainNotFoundError } from "@wistia/wistia-api-client/models/errors";
 
 // No examples available for this model
 ```

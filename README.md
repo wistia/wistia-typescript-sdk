@@ -42,25 +42,25 @@ The SDK can be installed with either [npm](https://www.npmjs.com/), [pnpm](https
 ### NPM
 
 ```bash
-npm add wistia
+npm add @wistia/wistia-api-client
 ```
 
 ### PNPM
 
 ```bash
-pnpm add wistia
+pnpm add @wistia/wistia-api-client
 ```
 
 ### Bun
 
 ```bash
-bun add wistia
+bun add @wistia/wistia-api-client
 ```
 
 ### Yarn
 
 ```bash
-yarn add wistia zod
+yarn add @wistia/wistia-api-client zod
 
 # Note that Yarn does not install peer dependencies automatically. You will need
 # to install zod as shown above.
@@ -82,7 +82,7 @@ For supported JavaScript runtimes, please consult [RUNTIMES.md](RUNTIMES.md).
 ### Example
 
 ```typescript
-import { Wistia } from "wistia";
+import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
   serverURL: "https://api.example.com",
@@ -113,7 +113,7 @@ This SDK supports the following security scheme globally:
 
 To authenticate with the API the `bearerAuth` parameter must be set when initializing the SDK client instance. For example:
 ```typescript
-import { Wistia } from "wistia";
+import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
   serverURL: "https://api.example.com",
@@ -395,8 +395,8 @@ Certain SDK methods accept files as part of a multi-part request. It is possible
 > - **Node.js v18:** A file stream can be created using the `fileFrom` helper from [`fetch-blob/from.js`](https://www.npmjs.com/package/fetch-blob).
 
 ```typescript
+import { Wistia } from "@wistia/wistia-api-client";
 import { openAsBlob } from "node:fs";
-import { Wistia } from "wistia";
 
 const wistia = new Wistia({
   serverURL: "https://api.example.com",
@@ -424,7 +424,7 @@ Some of the endpoints in this SDK support retries.  If you use the SDK without a
 
 To change the default retry strategy for a single API call, simply provide a retryConfig object to the call:
 ```typescript
-import { Wistia } from "wistia";
+import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
   serverURL: "https://api.example.com",
@@ -454,7 +454,7 @@ run();
 
 If you'd like to override the default retry strategy for all operations that support retries, you can provide a retryConfig at SDK initialization:
 ```typescript
-import { Wistia } from "wistia";
+import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
   serverURL: "https://api.example.com",
@@ -498,8 +498,8 @@ run();
 
 ### Example
 ```typescript
-import { Wistia } from "wistia";
-import * as errors from "wistia/models/errors";
+import { Wistia } from "@wistia/wistia-api-client";
+import * as errors from "@wistia/wistia-api-client/models/errors";
 
 const wistia = new Wistia({
   serverURL: "https://api.example.com",
@@ -608,8 +608,8 @@ custom header and a timeout to requests and how to use the `"requestError"` hook
 to log errors:
 
 ```typescript
-import { Wistia } from "wistia";
-import { HTTPClient } from "wistia/lib/http";
+import { Wistia } from "@wistia/wistia-api-client";
+import { HTTPClient } from "@wistia/wistia-api-client/lib/http";
 
 const httpClient = new HTTPClient({
   // fetcher takes a function that has the same signature as native `fetch`.
@@ -650,7 +650,7 @@ You can pass a logger that matches `console`'s interface as an SDK option.
 > Beware that debug logging will reveal secrets, like API tokens in headers, in log messages printed to a console or files. It's recommended to use this feature only during local development and not in production.
 
 ```typescript
-import { Wistia } from "wistia";
+import { Wistia } from "@wistia/wistia-api-client";
 
 const sdk = new Wistia({ debugLogger: console });
 ```

@@ -5,7 +5,7 @@ Successful operation. Captions purchased.
 ## Example Usage
 
 ```typescript
-import { PostMediasMediaHashedIdCaptionsPurchaseResponse } from "wistia/models/operations";
+import { PostMediasMediaHashedIdCaptionsPurchaseResponse } from "@wistia/wistia-api-client/models/operations";
 
 let value: PostMediasMediaHashedIdCaptionsPurchaseResponse = {
   message:

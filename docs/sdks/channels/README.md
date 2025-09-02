@@ -24,7 +24,7 @@ Read all project and video data
 
 <!-- UsageSnippet language="typescript" operationID="get_/channels" method="get" path="/channels" -->
 ```typescript
-import { Wistia } from "wistia";
+import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
   serverURL: "https://api.example.com",
@@ -45,8 +45,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { WistiaCore } from "wistia/core.js";
-import { channelsList } from "wistia/funcs/channelsList.js";
+import { WistiaCore } from "@wistia/wistia-api-client/core.js";
+import { channelsList } from "@wistia/wistia-api-client/funcs/channelsList.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -106,7 +106,7 @@ Read all project and video data
 
 <!-- UsageSnippet language="typescript" operationID="get_/channels/{channel-hashed-id}" method="get" path="/channels/{channel-hashed-id}" -->
 ```typescript
-import { Wistia } from "wistia";
+import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
   serverURL: "https://api.example.com",
@@ -129,8 +129,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { WistiaCore } from "wistia/core.js";
-import { channelsGet } from "wistia/funcs/channelsGet.js";
+import { WistiaCore } from "@wistia/wistia-api-client/core.js";
+import { channelsGet } from "@wistia/wistia-api-client/funcs/channelsGet.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.

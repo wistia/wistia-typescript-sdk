@@ -5,7 +5,7 @@ Validation error - tag already exists
 ## Example Usage
 
 ```typescript
-import { PostTagsUnprocessableEntityError } from "wistia/models/errors";
+import { PostTagsUnprocessableEntityError } from "@wistia/wistia-api-client/models/errors";
 
 // No examples available for this model
 ```

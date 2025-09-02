@@ -5,7 +5,7 @@ Internal server error during event creation
 ## Example Usage
 
 ```typescript
-import { InternalServerError } from "wistia/models/errors";
+import { InternalServerError } from "@wistia/wistia-api-client/models/errors";
 
 // No examples available for this model
 ```

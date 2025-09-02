@@ -5,7 +5,7 @@ Updated subfolder data
 ## Example Usage
 
 ```typescript
-import { PutProjectsProjectIdSubfoldersSubfolderIdRequestBody } from "wistia/models/operations";
+import { PutProjectsProjectIdSubfoldersSubfolderIdRequestBody } from "@wistia/wistia-api-client/models/operations";
 
 let value: PutProjectsProjectIdSubfoldersSubfolderIdRequestBody = {
   name: "Updated Marketing Videos",

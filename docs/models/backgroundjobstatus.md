@@ -5,7 +5,7 @@ Status of the background job.
 ## Example Usage
 
 ```typescript
-import { BackgroundJobStatus } from "wistia/models";
+import { BackgroundJobStatus } from "@wistia/wistia-api-client/models";
 
 let value: BackgroundJobStatus = {
   id: 287035,

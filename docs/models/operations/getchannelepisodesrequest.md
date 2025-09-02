@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { GetChannelEpisodesRequest } from "wistia/models/operations";
+import { GetChannelEpisodesRequest } from "@wistia/wistia-api-client/models/operations";
 
 let value: GetChannelEpisodesRequest = {};
 ```
