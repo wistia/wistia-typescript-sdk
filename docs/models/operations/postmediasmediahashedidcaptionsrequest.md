@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { PostMediasMediaHashedIdCaptionsRequest } from "wistia/models/operations";
+import { PostMediasMediaHashedIdCaptionsRequest } from "@wistia/wistia-api-client/models/operations";
 
 let value: PostMediasMediaHashedIdCaptionsRequest = {
   mediaHashedId: "<id>",

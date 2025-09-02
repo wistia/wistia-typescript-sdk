@@ -27,7 +27,7 @@ Read all project and video data
 
 <!-- UsageSnippet language="typescript" operationID="get_/projects/{project-id}/subfolders" method="get" path="/projects/{project-id}/subfolders" -->
 ```typescript
-import { Wistia } from "wistia";
+import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
   serverURL: "https://api.example.com",
@@ -50,8 +50,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { WistiaCore } from "wistia/core.js";
-import { subfoldersGetProjectsProjectIdSubfolders } from "wistia/funcs/subfoldersGetProjectsProjectIdSubfolders.js";
+import { WistiaCore } from "@wistia/wistia-api-client/core.js";
+import { subfoldersGetProjectsProjectIdSubfolders } from "@wistia/wistia-api-client/funcs/subfoldersGetProjectsProjectIdSubfolders.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -112,7 +112,7 @@ Read, update & delete anything
 
 <!-- UsageSnippet language="typescript" operationID="post_/projects/{project-id}/subfolders" method="post" path="/projects/{project-id}/subfolders" -->
 ```typescript
-import { Wistia } from "wistia";
+import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
   serverURL: "https://api.example.com",
@@ -139,8 +139,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { WistiaCore } from "wistia/core.js";
-import { subfoldersPostProjectsProjectIdSubfolders } from "wistia/funcs/subfoldersPostProjectsProjectIdSubfolders.js";
+import { WistiaCore } from "@wistia/wistia-api-client/core.js";
+import { subfoldersPostProjectsProjectIdSubfolders } from "@wistia/wistia-api-client/funcs/subfoldersPostProjectsProjectIdSubfolders.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -207,7 +207,7 @@ Read all project and video data
 
 <!-- UsageSnippet language="typescript" operationID="get_/projects/{project-id}/subfolders/{subfolder-id}" method="get" path="/projects/{project-id}/subfolders/{subfolder-id}" -->
 ```typescript
-import { Wistia } from "wistia";
+import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
   serverURL: "https://api.example.com",
@@ -232,8 +232,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { WistiaCore } from "wistia/core.js";
-import { subfoldersGetProjectsProjectIdSubfoldersSubfolderId } from "wistia/funcs/subfoldersGetProjectsProjectIdSubfoldersSubfolderId.js";
+import { WistiaCore } from "@wistia/wistia-api-client/core.js";
+import { subfoldersGetProjectsProjectIdSubfoldersSubfolderId } from "@wistia/wistia-api-client/funcs/subfoldersGetProjectsProjectIdSubfoldersSubfolderId.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -296,7 +296,7 @@ Read, update & delete anything
 
 <!-- UsageSnippet language="typescript" operationID="put_/projects/{project-id}/subfolders/{subfolder-id}" method="put" path="/projects/{project-id}/subfolders/{subfolder-id}" -->
 ```typescript
-import { Wistia } from "wistia";
+import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
   serverURL: "https://api.example.com",
@@ -324,8 +324,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { WistiaCore } from "wistia/core.js";
-import { subfoldersPutProjectsProjectIdSubfoldersSubfolderId } from "wistia/funcs/subfoldersPutProjectsProjectIdSubfoldersSubfolderId.js";
+import { WistiaCore } from "@wistia/wistia-api-client/core.js";
+import { subfoldersPutProjectsProjectIdSubfoldersSubfolderId } from "@wistia/wistia-api-client/funcs/subfoldersPutProjectsProjectIdSubfoldersSubfolderId.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -393,7 +393,7 @@ Read, update & delete anything
 
 <!-- UsageSnippet language="typescript" operationID="delete_/projects/{project-id}/subfolders/{subfolder-id}" method="delete" path="/projects/{project-id}/subfolders/{subfolder-id}" -->
 ```typescript
-import { Wistia } from "wistia";
+import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
   serverURL: "https://api.example.com",
@@ -417,8 +417,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { WistiaCore } from "wistia/core.js";
-import { subfoldersDeleteProjectsProjectIdSubfoldersSubfolderId } from "wistia/funcs/subfoldersDeleteProjectsProjectIdSubfoldersSubfolderId.js";
+import { WistiaCore } from "@wistia/wistia-api-client/core.js";
+import { subfoldersDeleteProjectsProjectIdSubfoldersSubfolderId } from "@wistia/wistia-api-client/funcs/subfoldersDeleteProjectsProjectIdSubfoldersSubfolderId.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.

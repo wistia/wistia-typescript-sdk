@@ -5,7 +5,7 @@ Unprocessible entity, parameters provided were invalid.
 ## Example Usage
 
 ```typescript
-import { PostMediasMediaHashedIdLocalizationsUnprocessableEntityError } from "wistia/models/errors";
+import { PostMediasMediaHashedIdLocalizationsUnprocessableEntityError } from "@wistia/wistia-api-client/models/errors";
 
 // No examples available for this model
 ```

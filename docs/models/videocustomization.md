@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { VideoCustomization } from "wistia/models";
+import { VideoCustomization } from "@wistia/wistia-api-client/models";
 
 let value: VideoCustomization = {
   plugin: {

@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 7b32ab6a-5908-41aa-b82f-7906605d30ce
 management:
-  docChecksum: 5faef12175b0630b758e9439742e2cdd
+  docChecksum: f40eeec5be3ef8b6f9d99f57957a2327
   docVersion: 1.0.0
-  speakeasyVersion: 1.606.5
-  generationVersion: 2.687.1
-  releaseVersion: 2025.8.1
-  configChecksum: c85395d38e5a638fd3ea655cdc85c523
+  speakeasyVersion: 1.607.0
+  generationVersion: 2.690.1
+  releaseVersion: 2025.9.1
+  configChecksum: 79634be8b0e8dd88eb895a5623bd07c9
   repoURL: https://github.com/speakeasy-sdks/wistia-typescript-sdk.git
   installationURL: https://github.com/speakeasy-sdks/wistia-typescript-sdk
   published: true
@@ -15,7 +15,7 @@ features:
     acceptHeaders: 2.81.2
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.1.12
-    core: 3.21.20
+    core: 3.21.21
     defaultEnabledRetries: 0.1.0
     deprecations: 2.81.1
     devContainers: 2.90.0
@@ -303,8 +303,10 @@ generatedFiles:
   - docs/models/updatesharingrequest.md
   - docs/models/updatesharingrequestsharing.md
   - docs/models/videocustomization.md
+  - docs/models/videocustomizationcaptionsv1.md
   - docs/models/videocustomizationplugin.md
   - docs/models/videocustomizationresponse.md
+  - docs/models/videocustomizationresponsecaptionsv1.md
   - docs/models/videocustomizationresponseplugin.md
   - docs/models/videocustomizationresponsevideothumbnail.md
   - docs/models/videocustomizationvideothumbnail.md
@@ -1635,3 +1637,4 @@ examples:
         "400":
           application/json: {}
 examplesVersion: 1.0.2
+releaseNotes: "## Typescript SDK Changes Detected:\n* `wistia.media.delete()`:  `response.subfolder` **Changed** **Breaking** :warning:\n* `wistia.media.copy()`:  `response.subfolder` **Changed** **Breaking** :warning:\n* `wistia.subfolders.get/projects/{projectId}/subfolders()`: \n  *  `request.sortBy` **Changed**\n  *  `response.[]` **Changed** **Breaking** :warning:\n* `wistia.subfolders.post/projects/{projectId}/subfolders()`:  `response` **Changed** **Breaking** :warning:\n* `wistia.subfolders.get/projects/{projectId}/subfolders/{subfolderId}()`:  `response` **Changed** **Breaking** :warning:\n* `wistia.subfolders.put/projects/{projectId}/subfolders/{subfolderId}()`:  `response` **Changed** **Breaking** :warning:\n* `wistia.subfolders.delete/projects/{projectId}/subfolders/{subfolderId}()`:  `response` **Changed** **Breaking** :warning:\n* `wistia.media.list()`:  `response.[].subfolder` **Changed** **Breaking** :warning:\n* `wistia.media.get()`:  `response.subfolder` **Changed** **Breaking** :warning:\n* `wistia.media.swap()`:  `response.media.subfolder` **Changed** **Breaking** :warning:\n* `wistia.projects.get()`:  `response.medias.[].subfolder` **Changed** **Breaking** :warning:\n* `wistia.search.get()`:  `response.data.medias.[].subfolder` **Changed** **Breaking** :warning:\n* `wistia.media.update()`:  `response.subfolder` **Changed** **Breaking** :warning:\n* `wistia.customizations.get()`:  `response.plugin.captions-v1` **Added**\n* `wistia.customizations.create()`: \n  *  `request.videoCustomization.plugin.captions-v1` **Added**\n  *  `response.plugin.captions-v1` **Added**\n* `wistia.customizations.update()`: \n  *  `request.videoCustomization.plugin.captions-v1` **Added**\n  *  `response.plugin.captions-v1` **Added**\n* `wistia.tags.list()`: \n  *  `request.sortBy` **Changed**\n* `wistia.projects.list()`: \n  *  `request.sortBy` **Changed**\n* `wistia.channels.list()`: \n  *  `request.sortBy` **Changed**\n* `wistia.channelEpisodes.listByChannel()`: \n  *  `request.sortBy` **Changed**\n* `wistia.channelEpisodes.list()`: \n  *  `request.sortBy` **Changed**\n* `wistia.liveStreamEvents.list()`: \n  *  `request.sortBy` **Changed**\n"

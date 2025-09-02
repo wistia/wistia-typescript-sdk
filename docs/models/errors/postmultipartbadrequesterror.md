@@ -5,7 +5,7 @@ Error due to reaching the video limit of your account or other issues.
 ## Example Usage
 
 ```typescript
-import { PostMultipartBadRequestError } from "wistia/models/errors";
+import { PostMultipartBadRequestError } from "@wistia/wistia-api-client/models/errors";
 
 // No examples available for this model
 ```

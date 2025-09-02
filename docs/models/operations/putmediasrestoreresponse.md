@@ -5,7 +5,7 @@ Successful restoration of media.
 ## Example Usage
 
 ```typescript
-import { PutMediasRestoreResponse } from "wistia/models/operations";
+import { PutMediasRestoreResponse } from "@wistia/wistia-api-client/models/operations";
 
 let value: PutMediasRestoreResponse = {};
 ```

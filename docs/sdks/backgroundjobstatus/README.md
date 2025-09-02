@@ -21,7 +21,7 @@ Read all data
 
 <!-- UsageSnippet language="typescript" operationID="get_/background_job_status/{background-job-status-id}" method="get" path="/background_job_status/{background-job-status-id}" -->
 ```typescript
-import { Wistia } from "wistia";
+import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
   serverURL: "https://api.example.com",
@@ -44,8 +44,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { WistiaCore } from "wistia/core.js";
-import { backgroundJobStatusGet } from "wistia/funcs/backgroundJobStatusGet.js";
+import { WistiaCore } from "@wistia/wistia-api-client/core.js";
+import { backgroundJobStatusGet } from "@wistia/wistia-api-client/funcs/backgroundJobStatusGet.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.

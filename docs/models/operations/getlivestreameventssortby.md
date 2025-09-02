@@ -5,13 +5,13 @@ Field to sort by
 ## Example Usage
 
 ```typescript
-import { GetLiveStreamEventsSortBy } from "wistia/models/operations";
+import { GetLiveStreamEventsSortBy } from "@wistia/wistia-api-client/models/operations";
 
-let value: GetLiveStreamEventsSortBy = "scheduled_for";
+let value: GetLiveStreamEventsSortBy = "id";
 ```
 
 ## Values
 
 ```typescript
-"scheduled_for"
+"scheduled_for" | "id"
 ```

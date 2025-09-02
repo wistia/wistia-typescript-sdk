@@ -19,8 +19,8 @@ specific category of applications.
 ## Example
 
 ```typescript
-import { WistiaCore } from "wistia/core.js";
-import { projectsList } from "wistia/funcs/projectsList.js";
+import { WistiaCore } from "@wistia/wistia-api-client/core.js";
+import { projectsList } from "@wistia/wistia-api-client/funcs/projectsList.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.

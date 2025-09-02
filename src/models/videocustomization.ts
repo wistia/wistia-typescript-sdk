@@ -86,6 +86,20 @@ export type PostRollV1 = {
   conversionOpportunityKey?: string | undefined;
 };
 
+/**
+ * Enables closed captions for the video
+ */
+export type VideoCustomizationCaptionsV1 = {
+  /**
+   * If set to true, the captions plugin is enabled and captions controls will be available to viewers.
+   */
+  on?: boolean | undefined;
+  /**
+   * If set to true, captions will be turned on automatically when the video loads. Only takes effect when the captions plugin is enabled.
+   */
+  onByDefault?: boolean | undefined;
+};
+
 export type VideoCustomizationPlugin = {
   videoThumbnail?: VideoCustomizationVideoThumbnail | undefined;
   socialbarV1?: SocialbarV1 | undefined;
@@ -94,6 +108,10 @@ export type VideoCustomizationPlugin = {
    * Adds a Call To Action to your Video
    */
   postRollV1?: PostRollV1 | undefined;
+  /**
+   * Enables closed captions for the video
+   */
+  captionsV1?: VideoCustomizationCaptionsV1 | undefined;
 };
 
 /**
@@ -676,6 +694,65 @@ export function postRollV1FromJSON(
 }
 
 /** @internal */
+export const VideoCustomizationCaptionsV1$inboundSchema: z.ZodType<
+  VideoCustomizationCaptionsV1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  on: z.boolean().optional(),
+  onByDefault: z.boolean().optional(),
+});
+
+/** @internal */
+export type VideoCustomizationCaptionsV1$Outbound = {
+  on?: boolean | undefined;
+  onByDefault?: boolean | undefined;
+};
+
+/** @internal */
+export const VideoCustomizationCaptionsV1$outboundSchema: z.ZodType<
+  VideoCustomizationCaptionsV1$Outbound,
+  z.ZodTypeDef,
+  VideoCustomizationCaptionsV1
+> = z.object({
+  on: z.boolean().optional(),
+  onByDefault: z.boolean().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace VideoCustomizationCaptionsV1$ {
+  /** @deprecated use `VideoCustomizationCaptionsV1$inboundSchema` instead. */
+  export const inboundSchema = VideoCustomizationCaptionsV1$inboundSchema;
+  /** @deprecated use `VideoCustomizationCaptionsV1$outboundSchema` instead. */
+  export const outboundSchema = VideoCustomizationCaptionsV1$outboundSchema;
+  /** @deprecated use `VideoCustomizationCaptionsV1$Outbound` instead. */
+  export type Outbound = VideoCustomizationCaptionsV1$Outbound;
+}
+
+export function videoCustomizationCaptionsV1ToJSON(
+  videoCustomizationCaptionsV1: VideoCustomizationCaptionsV1,
+): string {
+  return JSON.stringify(
+    VideoCustomizationCaptionsV1$outboundSchema.parse(
+      videoCustomizationCaptionsV1,
+    ),
+  );
+}
+
+export function videoCustomizationCaptionsV1FromJSON(
+  jsonString: string,
+): SafeParseResult<VideoCustomizationCaptionsV1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => VideoCustomizationCaptionsV1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'VideoCustomizationCaptionsV1' from JSON`,
+  );
+}
+
+/** @internal */
 export const VideoCustomizationPlugin$inboundSchema: z.ZodType<
   VideoCustomizationPlugin,
   z.ZodTypeDef,
@@ -686,10 +763,13 @@ export const VideoCustomizationPlugin$inboundSchema: z.ZodType<
   "socialbar-v1": z.lazy(() => SocialbarV1$inboundSchema).optional(),
   chapters: z.lazy(() => Chapters$inboundSchema).optional(),
   "postRoll-v1": z.lazy(() => PostRollV1$inboundSchema).optional(),
+  "captions-v1": z.lazy(() => VideoCustomizationCaptionsV1$inboundSchema)
+    .optional(),
 }).transform((v) => {
   return remap$(v, {
     "socialbar-v1": "socialbarV1",
     "postRoll-v1": "postRollV1",
+    "captions-v1": "captionsV1",
   });
 });
 
@@ -699,6 +779,7 @@ export type VideoCustomizationPlugin$Outbound = {
   "socialbar-v1"?: SocialbarV1$Outbound | undefined;
   chapters?: Chapters$Outbound | undefined;
   "postRoll-v1"?: PostRollV1$Outbound | undefined;
+  "captions-v1"?: VideoCustomizationCaptionsV1$Outbound | undefined;
 };
 
 /** @internal */
@@ -712,10 +793,13 @@ export const VideoCustomizationPlugin$outboundSchema: z.ZodType<
   socialbarV1: z.lazy(() => SocialbarV1$outboundSchema).optional(),
   chapters: z.lazy(() => Chapters$outboundSchema).optional(),
   postRollV1: z.lazy(() => PostRollV1$outboundSchema).optional(),
+  captionsV1: z.lazy(() => VideoCustomizationCaptionsV1$outboundSchema)
+    .optional(),
 }).transform((v) => {
   return remap$(v, {
     socialbarV1: "socialbar-v1",
     postRollV1: "postRoll-v1",
+    captionsV1: "captions-v1",
   });
 });
 

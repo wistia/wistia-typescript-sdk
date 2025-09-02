@@ -5,7 +5,7 @@ Unprocessable entity. Account not eligible, captions already purchased, or other
 ## Example Usage
 
 ```typescript
-import { PostMediasMediaHashedIdCaptionsPurchaseUnprocessableEntityError } from "wistia/models/errors";
+import { PostMediasMediaHashedIdCaptionsPurchaseUnprocessableEntityError } from "@wistia/wistia-api-client/models/errors";
 
 // No examples available for this model
 ```

@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { PostMediasMediaHashedIdCaptionsMultipartRequest } from "wistia/models/operations";
+import { PostMediasMediaHashedIdCaptionsMultipartRequest } from "@wistia/wistia-api-client/models/operations";
 
 // No examples available for this model
 ```

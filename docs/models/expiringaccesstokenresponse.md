@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { ExpiringAccessTokenResponse } from "wistia/models";
+import { ExpiringAccessTokenResponse } from "@wistia/wistia-api-client/models";
 
 let value: ExpiringAccessTokenResponse = {};
 ```

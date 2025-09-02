@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { PostMultipartError } from "wistia/models/operations";
+import { PostMultipartError } from "@wistia/wistia-api-client/models/operations";
 
 let value: PostMultipartError = {};
 ```

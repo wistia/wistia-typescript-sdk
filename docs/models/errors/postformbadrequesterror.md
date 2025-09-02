@@ -5,7 +5,7 @@ Error due to reaching the video limit of your account or other issues.
 ## Example Usage
 
 ```typescript
-import { PostFormBadRequestError } from "wistia/models/errors";
+import { PostFormBadRequestError } from "@wistia/wistia-api-client/models/errors";
 
 // No examples available for this model
 ```

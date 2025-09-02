@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { DeleteAllowedDomainsDomainRequest } from "wistia/models/operations";
+import { DeleteAllowedDomainsDomainRequest } from "@wistia/wistia-api-client/models/operations";
 
 let value: DeleteAllowedDomainsDomainRequest = {
   domain: "example.com",

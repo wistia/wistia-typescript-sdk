@@ -5,7 +5,7 @@ Successfully queued move of at least one media. Other provided hashed_ids failed
 ## Example Usage
 
 ```typescript
-import { PutMediasMoveResponseBody2 } from "wistia/models/operations";
+import { PutMediasMoveResponseBody2 } from "@wistia/wistia-api-client/models/operations";
 
 let value: PutMediasMoveResponseBody2 = {};
 ```

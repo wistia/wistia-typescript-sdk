@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { PartialError } from "wistia/models/operations";
+import { PartialError } from "@wistia/wistia-api-client/models/operations";
 
 let value: PartialError = {};
 ```

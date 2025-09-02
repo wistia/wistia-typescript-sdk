@@ -1,6 +1,6 @@
-# wistia Examples
+# @wistia/wistia-api-client Examples
 
-This directory contains example scripts demonstrating how to use the wistia SDK.
+This directory contains example scripts demonstrating how to use the @wistia/wistia-api-client SDK.
 
 ## Prerequisites
 

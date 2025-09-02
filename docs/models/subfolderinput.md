@@ -5,7 +5,7 @@ Input data for creating or updating a subfolder.
 ## Example Usage
 
 ```typescript
-import { SubfolderInput } from "wistia/models";
+import { SubfolderInput } from "@wistia/wistia-api-client/models";
 
 let value: SubfolderInput = {
   name: "Marketing Videos",

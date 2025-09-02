@@ -37,11 +37,11 @@ export type SubfolderWithMedia = {
   /**
    * The date when the subfolder was created.
    */
-  created: Date;
+  created: Date | null;
   /**
    * The date when the subfolder was last modified.
    */
-  updated: Date;
+  updated: Date | null;
   /**
    * Array of media files contained in this subfolder.
    */
@@ -58,8 +58,12 @@ export const SubfolderWithMedia$inboundSchema: z.ZodType<
   name: z.nullable(z.string()).optional(),
   description: z.nullable(z.string()).optional(),
   position: z.number().int(),
-  created: z.string().datetime({ offset: true }).transform(v => new Date(v)),
-  updated: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  created: z.nullable(
+    z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  ),
+  updated: z.nullable(
+    z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  ),
   medias: z.array(Media$inboundSchema).optional(),
 }).transform((v) => {
   return remap$(v, {
@@ -73,8 +77,8 @@ export type SubfolderWithMedia$Outbound = {
   name?: string | null | undefined;
   description?: string | null | undefined;
   position: number;
-  created: string;
-  updated: string;
+  created: string | null;
+  updated: string | null;
   medias?: Array<Media$Outbound> | undefined;
 };
 
@@ -88,8 +92,8 @@ export const SubfolderWithMedia$outboundSchema: z.ZodType<
   name: z.nullable(z.string()).optional(),
   description: z.nullable(z.string()).optional(),
   position: z.number().int(),
-  created: z.date().transform(v => v.toISOString()),
-  updated: z.date().transform(v => v.toISOString()),
+  created: z.nullable(z.date().transform(v => v.toISOString())),
+  updated: z.nullable(z.date().transform(v => v.toISOString())),
   medias: z.array(Media$outboundSchema).optional(),
 }).transform((v) => {
   return remap$(v, {

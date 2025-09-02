@@ -26,7 +26,7 @@ Read all project and video data
 
 <!-- UsageSnippet language="typescript" operationID="get_/medias/{media-id}/customizations" method="get" path="/medias/{media-id}/customizations" -->
 ```typescript
-import { Wistia } from "wistia";
+import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
   serverURL: "https://api.example.com",
@@ -49,8 +49,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { WistiaCore } from "wistia/core.js";
-import { customizationsGet } from "wistia/funcs/customizationsGet.js";
+import { WistiaCore } from "@wistia/wistia-api-client/core.js";
+import { customizationsGet } from "@wistia/wistia-api-client/funcs/customizationsGet.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -111,7 +111,7 @@ Read, update & delete anything
 
 <!-- UsageSnippet language="typescript" operationID="post_/medias/{media-id}/customizations" method="post" path="/medias/{media-id}/customizations" -->
 ```typescript
-import { Wistia } from "wistia";
+import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
   serverURL: "https://api.example.com",
@@ -145,8 +145,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { WistiaCore } from "wistia/core.js";
-import { customizationsCreate } from "wistia/funcs/customizationsCreate.js";
+import { WistiaCore } from "@wistia/wistia-api-client/core.js";
+import { customizationsCreate } from "@wistia/wistia-api-client/funcs/customizationsCreate.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -217,7 +217,7 @@ Read, update & delete anything
 
 <!-- UsageSnippet language="typescript" operationID="put_/medias/{media-id}/customizations" method="put" path="/medias/{media-id}/customizations" -->
 ```typescript
-import { Wistia } from "wistia";
+import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
   serverURL: "https://api.example.com",
@@ -251,8 +251,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { WistiaCore } from "wistia/core.js";
-import { customizationsUpdate } from "wistia/funcs/customizationsUpdate.js";
+import { WistiaCore } from "@wistia/wistia-api-client/core.js";
+import { customizationsUpdate } from "@wistia/wistia-api-client/funcs/customizationsUpdate.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -324,7 +324,7 @@ Read, update & delete anything
 
 <!-- UsageSnippet language="typescript" operationID="delete_/medias/{media-id}/customizations" method="delete" path="/medias/{media-id}/customizations" -->
 ```typescript
-import { Wistia } from "wistia";
+import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
   serverURL: "https://api.example.com",
@@ -347,8 +347,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { WistiaCore } from "wistia/core.js";
-import { customizationsDelete } from "wistia/funcs/customizationsDelete.js";
+import { WistiaCore } from "@wistia/wistia-api-client/core.js";
+import { customizationsDelete } from "@wistia/wistia-api-client/funcs/customizationsDelete.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.

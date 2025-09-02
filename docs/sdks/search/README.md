@@ -21,7 +21,7 @@ Read, update & delete anything
 
 <!-- UsageSnippet language="typescript" operationID="get_/search" method="get" path="/search" -->
 ```typescript
-import { Wistia } from "wistia";
+import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
   serverURL: "https://api.example.com",
@@ -44,8 +44,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { WistiaCore } from "wistia/core.js";
-import { searchGet } from "wistia/funcs/searchGet.js";
+import { WistiaCore } from "@wistia/wistia-api-client/core.js";
+import { searchGet } from "@wistia/wistia-api-client/funcs/searchGet.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.

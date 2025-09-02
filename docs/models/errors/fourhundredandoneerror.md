@@ -5,7 +5,7 @@ Unauthorized, invalid or missing token
 ## Example Usage
 
 ```typescript
-import { FourHundredAndOneError } from "wistia/models/errors";
+import { FourHundredAndOneError } from "@wistia/wistia-api-client/models/errors";
 
 // No examples available for this model
 ```

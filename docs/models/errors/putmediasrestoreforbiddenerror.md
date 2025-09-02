@@ -5,7 +5,7 @@ Forbidden, e.g. account does not have access to archiving.
 ## Example Usage
 
 ```typescript
-import { PutMediasRestoreForbiddenError } from "wistia/models/errors";
+import { PutMediasRestoreForbiddenError } from "@wistia/wistia-api-client/models/errors";
 
 // No examples available for this model
 ```

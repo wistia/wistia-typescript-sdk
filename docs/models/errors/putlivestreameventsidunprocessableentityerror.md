@@ -5,7 +5,7 @@ Validation errors
 ## Example Usage
 
 ```typescript
-import { PutLiveStreamEventsIdUnprocessableEntityError } from "wistia/models/errors";
+import { PutLiveStreamEventsIdUnprocessableEntityError } from "@wistia/wistia-api-client/models/errors";
 
 // No examples available for this model
 ```

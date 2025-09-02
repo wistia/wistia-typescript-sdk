@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { PostFormRequest } from "wistia/models/operations";
+import { PostFormRequest } from "@wistia/wistia-api-client/models/operations";
 
 let value: PostFormRequest = {
   url:

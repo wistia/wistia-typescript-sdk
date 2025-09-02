@@ -5,7 +5,7 @@ Search results
 ## Example Usage
 
 ```typescript
-import { GetSearchResponse } from "wistia/models/operations";
+import { GetSearchResponse } from "@wistia/wistia-api-client/models/operations";
 
 let value: GetSearchResponse = {
   data: {

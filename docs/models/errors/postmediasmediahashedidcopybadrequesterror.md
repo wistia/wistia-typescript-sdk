@@ -5,7 +5,7 @@ Bad request, e.g. copy failure.
 ## Example Usage
 
 ```typescript
-import { PostMediasMediaHashedIdCopyBadRequestError } from "wistia/models/errors";
+import { PostMediasMediaHashedIdCopyBadRequestError } from "@wistia/wistia-api-client/models/errors";
 
 // No examples available for this model
 ```
