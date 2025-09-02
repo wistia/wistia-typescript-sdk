@@ -1,5 +1,5 @@
 {
-  "name": "wistia",
+  "name": "@wistia/wistia-api-client",
   "version": "2025.8.1",
   "author": "Speakeasy",
   "type": "module",
