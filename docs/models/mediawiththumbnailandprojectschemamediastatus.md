@@ -6,7 +6,7 @@ Post upload processing status. - `queued`: the file is waiting in the queue to b
 ## Example Usage
 
 ```typescript
-import { MediaWithThumbnailAndProjectSchemaMediaStatus } from "wistia/models";
+import { MediaWithThumbnailAndProjectSchemaMediaStatus } from "@wistia/wistia-api-client/models";
 
 let value: MediaWithThumbnailAndProjectSchemaMediaStatus = "failed";
 ```

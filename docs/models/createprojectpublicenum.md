@@ -5,7 +5,7 @@ A flag indicating whether or not the project is enabled for public access. Set t
 ## Example Usage
 
 ```typescript
-import { CreateProjectPublicEnum } from "wistia/models";
+import { CreateProjectPublicEnum } from "@wistia/wistia-api-client/models";
 
 let value: CreateProjectPublicEnum = "0";
 ```

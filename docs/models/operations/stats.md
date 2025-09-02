@@ -5,7 +5,7 @@ An object representing the aggregated embed statistics for this video.
 ## Example Usage
 
 ```typescript
-import { Stats } from "wistia/models/operations";
+import { Stats } from "@wistia/wistia-api-client/models/operations";
 
 let value: Stats = {};
 ```

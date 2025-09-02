@@ -24,7 +24,7 @@ Read all project and video data
 
 <!-- UsageSnippet language="typescript" operationID="get_/stats/events" method="get" path="/stats/events" -->
 ```typescript
-import { Wistia } from "wistia";
+import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
   serverURL: "https://api.example.com",
@@ -45,8 +45,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { WistiaCore } from "wistia/core.js";
-import { statsEventsList } from "wistia/funcs/statsEventsList.js";
+import { WistiaCore } from "@wistia/wistia-api-client/core.js";
+import { statsEventsList } from "@wistia/wistia-api-client/funcs/statsEventsList.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.

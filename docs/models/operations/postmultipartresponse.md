@@ -5,7 +5,7 @@ Response after successfully uploading or importing media
 ## Example Usage
 
 ```typescript
-import { PostMultipartResponse } from "wistia/models/operations";
+import { PostMultipartResponse } from "@wistia/wistia-api-client/models/operations";
 
 let value: PostMultipartResponse = {};
 ```

@@ -5,7 +5,7 @@ Bad request - missing query parameter
 ## Example Usage
 
 ```typescript
-import { GetSearchBadRequestError } from "wistia/models/errors";
+import { GetSearchBadRequestError } from "@wistia/wistia-api-client/models/errors";
 
 // No examples available for this model
 ```

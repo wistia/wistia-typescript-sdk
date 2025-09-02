@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { DeleteTagsNameRequest } from "wistia/models/operations";
+import { DeleteTagsNameRequest } from "@wistia/wistia-api-client/models/operations";
 
 let value: DeleteTagsNameRequest = {
   name: "<value>",

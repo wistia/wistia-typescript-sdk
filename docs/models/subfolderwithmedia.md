@@ -5,7 +5,7 @@ A subfolder with its contained media files.
 ## Example Usage
 
 ```typescript
-import { SubfolderWithMedia } from "wistia/models";
+import { SubfolderWithMedia } from "@wistia/wistia-api-client/models";
 
 let value: SubfolderWithMedia = {
   hashedId: "abc123def4",

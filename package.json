@@ -1,11 +1,11 @@
 {
   "name": "@wistia/wistia-api-client",
-  "version": "2025.8.1",
+  "version": "2025.9.1",
   "author": "Speakeasy",
   "type": "module",
   "tshy": {
     "sourceDialects": [
-      "wistia/source"
+      "@wistia/wistia-api-client/source"
     ],
     "exports": {
       ".": "./src/index.ts",
@@ -43,7 +43,7 @@
   "exports": {
     ".": {
       "import": {
-        "wistia/source": "./src/index.ts",
+        "@wistia/wistia-api-client/source": "./src/index.ts",
         "types": "./dist/esm/index.d.ts",
         "default": "./dist/esm/index.js"
       },
@@ -55,7 +55,7 @@
     "./package.json": "./package.json",
     "./types": {
       "import": {
-        "wistia/source": "./src/types/index.ts",
+        "@wistia/wistia-api-client/source": "./src/types/index.ts",
         "types": "./dist/esm/types/index.d.ts",
         "default": "./dist/esm/types/index.js"
       },
@@ -66,7 +66,7 @@
     },
     "./models/errors": {
       "import": {
-        "wistia/source": "./src/models/errors/index.ts",
+        "@wistia/wistia-api-client/source": "./src/models/errors/index.ts",
         "types": "./dist/esm/models/errors/index.d.ts",
         "default": "./dist/esm/models/errors/index.js"
       },
@@ -77,7 +77,7 @@
     },
     "./models": {
       "import": {
-        "wistia/source": "./src/models/index.ts",
+        "@wistia/wistia-api-client/source": "./src/models/index.ts",
         "types": "./dist/esm/models/index.d.ts",
         "default": "./dist/esm/models/index.js"
       },
@@ -88,7 +88,7 @@
     },
     "./models/operations": {
       "import": {
-        "wistia/source": "./src/models/operations/index.ts",
+        "@wistia/wistia-api-client/source": "./src/models/operations/index.ts",
         "types": "./dist/esm/models/operations/index.d.ts",
         "default": "./dist/esm/models/operations/index.js"
       },
@@ -99,7 +99,7 @@
     },
     "./*.js": {
       "import": {
-        "wistia/source": "./src/*.ts",
+        "@wistia/wistia-api-client/source": "./src/*.ts",
         "types": "./dist/esm/*.d.ts",
         "default": "./dist/esm/*.js"
       },
@@ -110,7 +110,7 @@
     },
     "./*": {
       "import": {
-        "wistia/source": "./src/*.ts",
+        "@wistia/wistia-api-client/source": "./src/*.ts",
         "types": "./dist/esm/*.d.ts",
         "default": "./dist/esm/*.js"
       },

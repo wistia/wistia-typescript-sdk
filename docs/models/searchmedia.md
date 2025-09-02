@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { SearchMedia } from "wistia/models";
+import { SearchMedia } from "@wistia/wistia-api-client/models";
 
 let value: SearchMedia = {
   subfolder: {

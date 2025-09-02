@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { GetSearchRequest } from "wistia/models/operations";
+import { GetSearchRequest } from "@wistia/wistia-api-client/models/operations";
 
 let value: GetSearchRequest = {
   q: "screencast",

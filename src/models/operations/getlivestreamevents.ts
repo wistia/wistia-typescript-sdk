@@ -18,6 +18,7 @@ export const GetLiveStreamEventsServerList = [
  */
 export const GetLiveStreamEventsSortBy = {
   ScheduledFor: "scheduled_for",
+  Id: "id",
 } as const;
 /**
  * Field to sort by

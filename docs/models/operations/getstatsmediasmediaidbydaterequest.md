@@ -3,8 +3,8 @@
 ## Example Usage
 
 ```typescript
-import { GetStatsMediasMediaIdByDateRequest } from "wistia/models/operations";
-import { RFCDate } from "wistia/types";
+import { GetStatsMediasMediaIdByDateRequest } from "@wistia/wistia-api-client/models/operations";
+import { RFCDate } from "@wistia/wistia-api-client/types";
 
 let value: GetStatsMediasMediaIdByDateRequest = {
   mediaId: "<id>",

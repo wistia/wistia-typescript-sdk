@@ -5,7 +5,7 @@ The media that the localization is associated with.
 ## Example Usage
 
 ```typescript
-import { SourceMedia } from "wistia/models";
+import { SourceMedia } from "@wistia/wistia-api-client/models";
 
 let value: SourceMedia = {
   hashedId: "<id>",

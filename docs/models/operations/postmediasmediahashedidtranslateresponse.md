@@ -5,7 +5,7 @@ Successfully queued background job for translation of the transcript.
 ## Example Usage
 
 ```typescript
-import { PostMediasMediaHashedIdTranslateResponse } from "wistia/models/operations";
+import { PostMediasMediaHashedIdTranslateResponse } from "@wistia/wistia-api-client/models/operations";
 
 let value: PostMediasMediaHashedIdTranslateResponse = {
   message: "Translation request has been successfully queued for processing.",

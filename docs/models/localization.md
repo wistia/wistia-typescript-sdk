@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { Localization } from "wistia/models";
+import { Localization } from "@wistia/wistia-api-client/models";
 
 let value: Localization = {
   hashedId: "<id>",

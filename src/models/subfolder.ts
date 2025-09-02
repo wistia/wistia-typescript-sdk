@@ -31,11 +31,11 @@ export type Subfolder = {
   /**
    * The date when the subfolder was created.
    */
-  created: Date;
+  created: Date | null;
   /**
    * The date when the subfolder was last modified.
    */
-  updated: Date;
+  updated: Date | null;
 };
 
 /** @internal */
@@ -48,8 +48,12 @@ export const Subfolder$inboundSchema: z.ZodType<
   name: z.nullable(z.string()).optional(),
   description: z.nullable(z.string()).optional(),
   position: z.number().int(),
-  created: z.string().datetime({ offset: true }).transform(v => new Date(v)),
-  updated: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  created: z.nullable(
+    z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  ),
+  updated: z.nullable(
+    z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  ),
 }).transform((v) => {
   return remap$(v, {
     "hashed_id": "hashedId",
@@ -62,8 +66,8 @@ export type Subfolder$Outbound = {
   name?: string | null | undefined;
   description?: string | null | undefined;
   position: number;
-  created: string;
-  updated: string;
+  created: string | null;
+  updated: string | null;
 };
 
 /** @internal */
@@ -76,8 +80,8 @@ export const Subfolder$outboundSchema: z.ZodType<
   name: z.nullable(z.string()).optional(),
   description: z.nullable(z.string()).optional(),
   position: z.number().int(),
-  created: z.date().transform(v => v.toISOString()),
-  updated: z.date().transform(v => v.toISOString()),
+  created: z.nullable(z.date().transform(v => v.toISOString())),
+  updated: z.nullable(z.date().transform(v => v.toISOString())),
 }).transform((v) => {
   return remap$(v, {
     hashedId: "hashed_id",

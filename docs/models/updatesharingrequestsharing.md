@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { UpdateSharingRequestSharing } from "wistia/models";
+import { UpdateSharingRequestSharing } from "@wistia/wistia-api-client/models";
 
 let value: UpdateSharingRequestSharing = {};
 ```

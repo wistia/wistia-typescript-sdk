@@ -5,7 +5,7 @@ Successfully queued background job for media swap.
 ## Example Usage
 
 ```typescript
-import { PutMediasMediaHashedIdSwapResponse } from "wistia/models/operations";
+import { PutMediasMediaHashedIdSwapResponse } from "@wistia/wistia-api-client/models/operations";
 
 let value: PutMediasMediaHashedIdSwapResponse = {
   message: "Media swap has been queued for processing.",

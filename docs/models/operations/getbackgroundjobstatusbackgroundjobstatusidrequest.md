@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { GetBackgroundJobStatusBackgroundJobStatusIdRequest } from "wistia/models/operations";
+import { GetBackgroundJobStatusBackgroundJobStatusIdRequest } from "@wistia/wistia-api-client/models/operations";
 
 let value: GetBackgroundJobStatusBackgroundJobStatusIdRequest = {
   backgroundJobStatusId: 270430,

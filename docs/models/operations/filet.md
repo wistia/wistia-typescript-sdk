@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { FileT } from "wistia/models/operations";
+import { FileT } from "@wistia/wistia-api-client/models/operations";
 
 // No examples available for this model
 ```

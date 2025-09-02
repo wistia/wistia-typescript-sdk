@@ -5,7 +5,7 @@ Resource not found
 ## Example Usage
 
 ```typescript
-import { FourHundredAndFourError } from "wistia/models/errors";
+import { FourHundredAndFourError } from "@wistia/wistia-api-client/models/errors";
 
 // No examples available for this model
 ```

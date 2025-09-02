@@ -5,7 +5,7 @@ Successful retrieval of video statistics.
 ## Example Usage
 
 ```typescript
-import { GetMediasMediaHashedIdStatsResponse } from "wistia/models/operations";
+import { GetMediasMediaHashedIdStatsResponse } from "@wistia/wistia-api-client/models/operations";
 
 let value: GetMediasMediaHashedIdStatsResponse = {};
 ```

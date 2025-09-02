@@ -5,7 +5,7 @@ Background Job Status Not Associated with An Authorized Object
 ## Example Usage
 
 ```typescript
-import { GetBackgroundJobStatusBackgroundJobStatusIdForbiddenError } from "wistia/models/errors";
+import { GetBackgroundJobStatusBackgroundJobStatusIdForbiddenError } from "@wistia/wistia-api-client/models/errors";
 
 // No examples available for this model
 ```

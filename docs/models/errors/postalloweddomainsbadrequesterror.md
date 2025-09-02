@@ -5,7 +5,7 @@ Bad request - missing or invalid domain
 ## Example Usage
 
 ```typescript
-import { PostAllowedDomainsBadRequestError } from "wistia/models/errors";
+import { PostAllowedDomainsBadRequestError } from "@wistia/wistia-api-client/models/errors";
 
 // No examples available for this model
 ```

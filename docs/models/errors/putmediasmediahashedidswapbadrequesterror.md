@@ -5,7 +5,7 @@ Bad request, e.g. missing replacement_media_id or media type mismatch.
 ## Example Usage
 
 ```typescript
-import { PutMediasMediaHashedIdSwapBadRequestError } from "wistia/models/errors";
+import { PutMediasMediaHashedIdSwapBadRequestError } from "@wistia/wistia-api-client/models/errors";
 
 // No examples available for this model
 ```

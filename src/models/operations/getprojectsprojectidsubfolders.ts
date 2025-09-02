@@ -21,6 +21,7 @@ export const GetProjectsProjectIdSubfoldersSortBy = {
   Created: "created",
   Updated: "updated",
   Position: "position",
+  Id: "id",
 } as const;
 /**
  * Field to sort by

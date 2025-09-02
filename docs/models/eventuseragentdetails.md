@@ -5,7 +5,7 @@ Details about the user agent of the viewer.
 ## Example Usage
 
 ```typescript
-import { EventUserAgentDetails } from "wistia/models";
+import { EventUserAgentDetails } from "@wistia/wistia-api-client/models";
 
 let value: EventUserAgentDetails = {};
 ```

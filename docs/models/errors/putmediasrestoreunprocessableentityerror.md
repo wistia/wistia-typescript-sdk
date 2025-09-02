@@ -5,7 +5,7 @@ Missing arguments for restoration of media.
 ## Example Usage
 
 ```typescript
-import { PutMediasRestoreUnprocessableEntityError } from "wistia/models/errors";
+import { PutMediasRestoreUnprocessableEntityError } from "@wistia/wistia-api-client/models/errors";
 
 // No examples available for this model
 ```

@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { GetStatsVisitorsVisitorKeyRequest } from "wistia/models/operations";
+import { GetStatsVisitorsVisitorKeyRequest } from "@wistia/wistia-api-client/models/operations";
 
 let value: GetStatsVisitorsVisitorKeyRequest = {
   visitorKey: "<value>",

@@ -5,7 +5,7 @@ The transcript for the localization. Selectively serialized in some endpoints. S
 ## Example Usage
 
 ```typescript
-import { LocalizationTranscript } from "wistia/models";
+import { LocalizationTranscript } from "@wistia/wistia-api-client/models";
 
 let value: LocalizationTranscript = {
   hashedId: "<id>",

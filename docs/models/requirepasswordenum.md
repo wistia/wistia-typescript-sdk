@@ -5,7 +5,7 @@ Default is "1". Set to "0" to allow access without a password.
 ## Example Usage
 
 ```typescript
-import { RequirePasswordEnum } from "wistia/models";
+import { RequirePasswordEnum } from "@wistia/wistia-api-client/models";
 
 let value: RequirePasswordEnum = "0";
 ```

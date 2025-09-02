@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { PutMediasRestoreRequest } from "wistia/models/operations";
+import { PutMediasRestoreRequest } from "@wistia/wistia-api-client/models/operations";
 
 let value: PutMediasRestoreRequest = {
   hashedIds: [

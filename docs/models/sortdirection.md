@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { SortDirection } from "wistia/models";
+import { SortDirection } from "@wistia/wistia-api-client/models";
 
 let value: SortDirection = 0;
 ```

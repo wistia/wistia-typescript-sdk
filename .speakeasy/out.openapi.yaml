@@ -98,6 +98,7 @@ paths:
               - created
               - updated
               - mediaCount
+              - id
         - name: sort_direction
           in: query
           description: Ordering Sort Direction (0 = desc, 1 = asc; default is 1)
@@ -402,6 +403,7 @@ paths:
               - created
               - updated
               - position
+              - id
             default: position
         - name: sort_direction
           in: query
@@ -2930,7 +2932,7 @@ paths:
               - name
               - created
               - updated
-              - taggings_count
+              - taggingsCount
         - name: sort_direction
           in: query
           description: Ordering Sort Direction (0 = desc, 1 = asc)
@@ -3159,6 +3161,7 @@ paths:
               - created
               - id
               - updated
+              - name
         - name: sort_direction
           in: query
           description: Ordering Sort Direction (0 = desc, 1 = asc; default is 1)
@@ -3523,6 +3526,7 @@ paths:
             type: string
             enum:
               - scheduled_for
+              - id
         - name: sort_direction
           in: query
           description: Sort direction (1 for ascending, -1 for descending)
@@ -5161,6 +5165,18 @@ components:
                 conversionOpportunityKey:
                   type: string
                   description: The key used for tracking conversion opportunities.
+            captions-v1:
+              type: object
+              description: Enables closed captions for the video
+              properties:
+                'on':
+                  type: boolean
+                  description: >-
+                    If set to true, the captions plugin is enabled and captions controls will be available to viewers.
+                onByDefault:
+                  type: boolean
+                  description: >-
+                    If set to true, captions will be turned on automatically when the video loads. Only takes effect when the captions plugin is enabled.
         preload:
           type: string
           description: >-
@@ -5349,6 +5365,18 @@ components:
               properties:
                 clickToPlayButton:
                   type: string
+            captions-v1:
+              type: object
+              description: Captions plugin configuration (response format)
+              properties:
+                'on':
+                  type: string
+                  description: >-
+                    String representation of whether the captions plugin is enabled ("true" or "false").
+                onByDefault:
+                  type: string
+                  description: >-
+                    String representation of whether captions are turned on by default ("true" or "false").
         private:
           type: object
           properties:
@@ -5572,11 +5600,13 @@ components:
           format: date-time
           description: The date when the subfolder was created.
           example: '2024-01-15T10:30:00+00:00'
+          nullable: true
         updated:
           type: string
           format: date-time
           description: The date when the subfolder was last modified.
           example: '2024-01-20T14:45:00+00:00'
+          nullable: true
       required:
         - hashed_id
         - position
@@ -6562,6 +6592,7 @@ components:
           - title
           - created
           - updated
+          - id
     sort_direction:
       name: sort_direction
       in: query

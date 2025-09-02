@@ -27,7 +27,7 @@ Read all project and video data
 
 <!-- UsageSnippet language="typescript" operationID="get_/live_stream_events" method="get" path="/live_stream_events" -->
 ```typescript
-import { Wistia } from "wistia";
+import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
   serverURL: "https://api.example.com",
@@ -48,8 +48,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { WistiaCore } from "wistia/core.js";
-import { liveStreamEventsList } from "wistia/funcs/liveStreamEventsList.js";
+import { WistiaCore } from "@wistia/wistia-api-client/core.js";
+import { liveStreamEventsList } from "@wistia/wistia-api-client/funcs/liveStreamEventsList.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -113,7 +113,7 @@ This endpoint requires the live streaming feature to be enabled on your account 
 
 <!-- UsageSnippet language="typescript" operationID="post_/live_stream_events" method="post" path="/live_stream_events" -->
 ```typescript
-import { Wistia } from "wistia";
+import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
   serverURL: "https://api.example.com",
@@ -139,8 +139,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { WistiaCore } from "wistia/core.js";
-import { liveStreamEventsCreate } from "wistia/funcs/liveStreamEventsCreate.js";
+import { WistiaCore } from "@wistia/wistia-api-client/core.js";
+import { liveStreamEventsCreate } from "@wistia/wistia-api-client/funcs/liveStreamEventsCreate.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -207,7 +207,7 @@ Read all project and video data
 
 <!-- UsageSnippet language="typescript" operationID="get_/live_stream_events/{id}" method="get" path="/live_stream_events/{id}" -->
 ```typescript
-import { Wistia } from "wistia";
+import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
   serverURL: "https://api.example.com",
@@ -230,8 +230,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { WistiaCore } from "wistia/core.js";
-import { liveStreamEventsGet } from "wistia/funcs/liveStreamEventsGet.js";
+import { WistiaCore } from "@wistia/wistia-api-client/core.js";
+import { liveStreamEventsGet } from "@wistia/wistia-api-client/funcs/liveStreamEventsGet.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -291,7 +291,7 @@ Read, update & delete anything
 
 <!-- UsageSnippet language="typescript" operationID="put_/live_stream_events/{id}" method="put" path="/live_stream_events/{id}" -->
 ```typescript
-import { Wistia } from "wistia";
+import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
   serverURL: "https://api.example.com",
@@ -322,8 +322,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { WistiaCore } from "wistia/core.js";
-import { liveStreamEventsUpdate } from "wistia/funcs/liveStreamEventsUpdate.js";
+import { WistiaCore } from "@wistia/wistia-api-client/core.js";
+import { liveStreamEventsUpdate } from "@wistia/wistia-api-client/funcs/liveStreamEventsUpdate.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -392,7 +392,7 @@ Read, update & delete anything
 
 <!-- UsageSnippet language="typescript" operationID="delete_/live_stream_events/{id}" method="delete" path="/live_stream_events/{id}" -->
 ```typescript
-import { Wistia } from "wistia";
+import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
   serverURL: "https://api.example.com",
@@ -415,8 +415,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { WistiaCore } from "wistia/core.js";
-import { liveStreamEventsDelete } from "wistia/funcs/liveStreamEventsDelete.js";
+import { WistiaCore } from "@wistia/wistia-api-client/core.js";
+import { liveStreamEventsDelete } from "@wistia/wistia-api-client/funcs/liveStreamEventsDelete.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.

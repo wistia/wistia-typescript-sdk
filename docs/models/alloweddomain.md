@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { AllowedDomain } from "wistia/models";
+import { AllowedDomain } from "@wistia/wistia-api-client/models";
 
 let value: AllowedDomain = {
   domain: "example.com",
