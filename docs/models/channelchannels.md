@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { ChannelChannels } from "wistia/models";
+import { ChannelChannels } from "@wistia/wistia-api-client/models";
 
 let value: ChannelChannels = {
   id: 181386,

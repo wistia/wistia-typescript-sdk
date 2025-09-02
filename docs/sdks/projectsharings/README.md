@@ -27,7 +27,7 @@ Read all data
 
 <!-- UsageSnippet language="typescript" operationID="get_/projects/{project-id}/sharings" method="get" path="/projects/{project-id}/sharings" -->
 ```typescript
-import { Wistia } from "wistia";
+import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
   serverURL: "https://api.example.com",
@@ -50,8 +50,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { WistiaCore } from "wistia/core.js";
-import { projectSharingsList } from "wistia/funcs/projectSharingsList.js";
+import { WistiaCore } from "@wistia/wistia-api-client/core.js";
+import { projectSharingsList } from "@wistia/wistia-api-client/funcs/projectSharingsList.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -111,7 +111,7 @@ Read, update & delete anything
 
 <!-- UsageSnippet language="typescript" operationID="post_/projects/{project-id}/sharings" method="post" path="/projects/{project-id}/sharings" -->
 ```typescript
-import { Wistia } from "wistia";
+import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
   serverURL: "https://api.example.com",
@@ -143,8 +143,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { WistiaCore } from "wistia/core.js";
-import { projectSharingsCreate } from "wistia/funcs/projectSharingsCreate.js";
+import { WistiaCore } from "@wistia/wistia-api-client/core.js";
+import { projectSharingsCreate } from "@wistia/wistia-api-client/funcs/projectSharingsCreate.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -214,7 +214,7 @@ Read all data
 
 <!-- UsageSnippet language="typescript" operationID="get_/projects/{project-id}/sharings/{sharing-id}" method="get" path="/projects/{project-id}/sharings/{sharing-id}" -->
 ```typescript
-import { Wistia } from "wistia";
+import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
   serverURL: "https://api.example.com",
@@ -238,8 +238,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { WistiaCore } from "wistia/core.js";
-import { projectSharingsGet } from "wistia/funcs/projectSharingsGet.js";
+import { WistiaCore } from "@wistia/wistia-api-client/core.js";
+import { projectSharingsGet } from "@wistia/wistia-api-client/funcs/projectSharingsGet.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -301,7 +301,7 @@ Read, update & delete anything
 
 <!-- UsageSnippet language="typescript" operationID="put_/projects/{project-id}/sharings/{sharing-id}" method="put" path="/projects/{project-id}/sharings/{sharing-id}" -->
 ```typescript
-import { Wistia } from "wistia";
+import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
   serverURL: "https://api.example.com",
@@ -326,8 +326,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { WistiaCore } from "wistia/core.js";
-import { projectSharingsUpdate } from "wistia/funcs/projectSharingsUpdate.js";
+import { WistiaCore } from "@wistia/wistia-api-client/core.js";
+import { projectSharingsUpdate } from "@wistia/wistia-api-client/funcs/projectSharingsUpdate.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -390,7 +390,7 @@ Read, update & delete anything
 
 <!-- UsageSnippet language="typescript" operationID="delete_/projects/{project-id}/sharings/{sharing-id}" method="delete" path="/projects/{project-id}/sharings/{sharing-id}" -->
 ```typescript
-import { Wistia } from "wistia";
+import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
   serverURL: "https://api.example.com",
@@ -414,8 +414,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { WistiaCore } from "wistia/core.js";
-import { projectSharingsDelete } from "wistia/funcs/projectSharingsDelete.js";
+import { WistiaCore } from "@wistia/wistia-api-client/core.js";
+import { projectSharingsDelete } from "@wistia/wistia-api-client/funcs/projectSharingsDelete.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.

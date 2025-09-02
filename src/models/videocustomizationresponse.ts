@@ -19,9 +19,27 @@ export type VideoCustomizationResponseVideoThumbnail = {
   clickToPlayButton?: string | undefined;
 };
 
+/**
+ * Captions plugin configuration (response format)
+ */
+export type VideoCustomizationResponseCaptionsV1 = {
+  /**
+   * String representation of whether the captions plugin is enabled ("true" or "false").
+   */
+  on?: string | undefined;
+  /**
+   * String representation of whether captions are turned on by default ("true" or "false").
+   */
+  onByDefault?: string | undefined;
+};
+
 export type VideoCustomizationResponsePlugin = {
   passwordProtectedVideo?: PasswordProtectedVideo | undefined;
   videoThumbnail?: VideoCustomizationResponseVideoThumbnail | undefined;
+  /**
+   * Captions plugin configuration (response format)
+   */
+  captionsV1?: VideoCustomizationResponseCaptionsV1 | undefined;
 };
 
 export type Private = {
@@ -219,6 +237,68 @@ export function videoCustomizationResponseVideoThumbnailFromJSON(
 }
 
 /** @internal */
+export const VideoCustomizationResponseCaptionsV1$inboundSchema: z.ZodType<
+  VideoCustomizationResponseCaptionsV1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  on: z.string().optional(),
+  onByDefault: z.string().optional(),
+});
+
+/** @internal */
+export type VideoCustomizationResponseCaptionsV1$Outbound = {
+  on?: string | undefined;
+  onByDefault?: string | undefined;
+};
+
+/** @internal */
+export const VideoCustomizationResponseCaptionsV1$outboundSchema: z.ZodType<
+  VideoCustomizationResponseCaptionsV1$Outbound,
+  z.ZodTypeDef,
+  VideoCustomizationResponseCaptionsV1
+> = z.object({
+  on: z.string().optional(),
+  onByDefault: z.string().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace VideoCustomizationResponseCaptionsV1$ {
+  /** @deprecated use `VideoCustomizationResponseCaptionsV1$inboundSchema` instead. */
+  export const inboundSchema =
+    VideoCustomizationResponseCaptionsV1$inboundSchema;
+  /** @deprecated use `VideoCustomizationResponseCaptionsV1$outboundSchema` instead. */
+  export const outboundSchema =
+    VideoCustomizationResponseCaptionsV1$outboundSchema;
+  /** @deprecated use `VideoCustomizationResponseCaptionsV1$Outbound` instead. */
+  export type Outbound = VideoCustomizationResponseCaptionsV1$Outbound;
+}
+
+export function videoCustomizationResponseCaptionsV1ToJSON(
+  videoCustomizationResponseCaptionsV1: VideoCustomizationResponseCaptionsV1,
+): string {
+  return JSON.stringify(
+    VideoCustomizationResponseCaptionsV1$outboundSchema.parse(
+      videoCustomizationResponseCaptionsV1,
+    ),
+  );
+}
+
+export function videoCustomizationResponseCaptionsV1FromJSON(
+  jsonString: string,
+): SafeParseResult<VideoCustomizationResponseCaptionsV1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      VideoCustomizationResponseCaptionsV1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'VideoCustomizationResponseCaptionsV1' from JSON`,
+  );
+}
+
+/** @internal */
 export const VideoCustomizationResponsePlugin$inboundSchema: z.ZodType<
   VideoCustomizationResponsePlugin,
   z.ZodTypeDef,
@@ -229,6 +309,13 @@ export const VideoCustomizationResponsePlugin$inboundSchema: z.ZodType<
   videoThumbnail: z.lazy(() =>
     VideoCustomizationResponseVideoThumbnail$inboundSchema
   ).optional(),
+  "captions-v1": z.lazy(() =>
+    VideoCustomizationResponseCaptionsV1$inboundSchema
+  ).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "captions-v1": "captionsV1",
+  });
 });
 
 /** @internal */
@@ -237,6 +324,7 @@ export type VideoCustomizationResponsePlugin$Outbound = {
   videoThumbnail?:
     | VideoCustomizationResponseVideoThumbnail$Outbound
     | undefined;
+  "captions-v1"?: VideoCustomizationResponseCaptionsV1$Outbound | undefined;
 };
 
 /** @internal */
@@ -250,6 +338,12 @@ export const VideoCustomizationResponsePlugin$outboundSchema: z.ZodType<
   videoThumbnail: z.lazy(() =>
     VideoCustomizationResponseVideoThumbnail$outboundSchema
   ).optional(),
+  captionsV1: z.lazy(() => VideoCustomizationResponseCaptionsV1$outboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    captionsV1: "captions-v1",
+  });
 });
 
 /**

@@ -5,7 +5,7 @@ Ordering
 ## Example Usage
 
 ```typescript
-import { GetProjectsSortBy } from "wistia/models/operations";
+import { GetProjectsSortBy } from "@wistia/wistia-api-client/models/operations";
 
 let value: GetProjectsSortBy = "created";
 ```
@@ -13,5 +13,5 @@ let value: GetProjectsSortBy = "created";
 ## Values
 
 ```typescript
-"name" | "created" | "updated" | "mediaCount"
+"name" | "created" | "updated" | "mediaCount" | "id"
 ```

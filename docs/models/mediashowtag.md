@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { MediaShowTag } from "wistia/models";
+import { MediaShowTag } from "@wistia/wistia-api-client/models";
 
 let value: MediaShowTag = {};
 ```

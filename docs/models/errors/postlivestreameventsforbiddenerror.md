@@ -5,7 +5,7 @@ Live streaming feature not available
 ## Example Usage
 
 ```typescript
-import { PostLiveStreamEventsForbiddenError } from "wistia/models/errors";
+import { PostLiveStreamEventsForbiddenError } from "@wistia/wistia-api-client/models/errors";
 
 // No examples available for this model
 ```

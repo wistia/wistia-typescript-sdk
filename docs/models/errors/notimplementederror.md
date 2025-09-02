@@ -5,7 +5,7 @@ Not implemented - expiring tokens cannot be created from other expiring tokens
 ## Example Usage
 
 ```typescript
-import { NotImplementedError } from "wistia/models/errors";
+import { NotImplementedError } from "@wistia/wistia-api-client/models/errors";
 
 // No examples available for this model
 ```

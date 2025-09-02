@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { GetMediasMediaHashedIdCaptionsLanguageCodeRequest } from "wistia/models/operations";
+import { GetMediasMediaHashedIdCaptionsLanguageCodeRequest } from "@wistia/wistia-api-client/models/operations";
 
 let value: GetMediasMediaHashedIdCaptionsLanguageCodeRequest = {
   mediaHashedId: "<id>",

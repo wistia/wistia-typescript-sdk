@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { UpdateLiveStreamEvent } from "wistia/models";
+import { UpdateLiveStreamEvent } from "@wistia/wistia-api-client/models";
 
 let value: UpdateLiveStreamEvent = {
   liveStreamEvent: {

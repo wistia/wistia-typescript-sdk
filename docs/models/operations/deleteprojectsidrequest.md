@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { DeleteProjectsIdRequest } from "wistia/models/operations";
+import { DeleteProjectsIdRequest } from "@wistia/wistia-api-client/models/operations";
 
 let value: DeleteProjectsIdRequest = {
   id: "<id>",

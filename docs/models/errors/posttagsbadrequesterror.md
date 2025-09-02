@@ -5,7 +5,7 @@ Bad request - missing or invalid parameters
 ## Example Usage
 
 ```typescript
-import { PostTagsBadRequestError } from "wistia/models/errors";
+import { PostTagsBadRequestError } from "@wistia/wistia-api-client/models/errors";
 
 // No examples available for this model
 ```

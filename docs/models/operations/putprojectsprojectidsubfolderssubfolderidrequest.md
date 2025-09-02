@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { PutProjectsProjectIdSubfoldersSubfolderIdRequest } from "wistia/models/operations";
+import { PutProjectsProjectIdSubfoldersSubfolderIdRequest } from "@wistia/wistia-api-client/models/operations";
 
 let value: PutProjectsProjectIdSubfoldersSubfolderIdRequest = {
   projectId: "abc123def4",

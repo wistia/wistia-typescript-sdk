@@ -33,7 +33,7 @@ Read all project and video data
 
 <!-- UsageSnippet language="typescript" operationID="get_/medias" method="get" path="/medias" -->
 ```typescript
-import { Wistia } from "wistia";
+import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
   serverURL: "https://api.example.com",
@@ -54,8 +54,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { WistiaCore } from "wistia/core.js";
-import { mediaList } from "wistia/funcs/mediaList.js";
+import { WistiaCore } from "@wistia/wistia-api-client/core.js";
+import { mediaList } from "@wistia/wistia-api-client/funcs/mediaList.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -118,7 +118,7 @@ Read all project and video data
 
 <!-- UsageSnippet language="typescript" operationID="get_/medias/{media-hashed-id}" method="get" path="/medias/{media-hashed-id}" -->
 ```typescript
-import { Wistia } from "wistia";
+import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
   serverURL: "https://api.example.com",
@@ -141,8 +141,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { WistiaCore } from "wistia/core.js";
-import { mediaGet } from "wistia/funcs/mediaGet.js";
+import { WistiaCore } from "@wistia/wistia-api-client/core.js";
+import { mediaGet } from "@wistia/wistia-api-client/funcs/mediaGet.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -203,7 +203,7 @@ Read, update & delete anything
 
 <!-- UsageSnippet language="typescript" operationID="put_/medias/{media-hashed-id}" method="put" path="/medias/{media-hashed-id}" -->
 ```typescript
-import { Wistia } from "wistia";
+import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
   serverURL: "https://api.example.com",
@@ -226,8 +226,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { WistiaCore } from "wistia/core.js";
-import { mediaUpdate } from "wistia/funcs/mediaUpdate.js";
+import { WistiaCore } from "@wistia/wistia-api-client/core.js";
+import { mediaUpdate } from "@wistia/wistia-api-client/funcs/mediaUpdate.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -289,7 +289,7 @@ Read, update & delete anything
 
 <!-- UsageSnippet language="typescript" operationID="delete_/medias/{media-hashed-id}" method="delete" path="/medias/{media-hashed-id}" -->
 ```typescript
-import { Wistia } from "wistia";
+import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
   serverURL: "https://api.example.com",
@@ -312,8 +312,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { WistiaCore } from "wistia/core.js";
-import { mediaDelete } from "wistia/funcs/mediaDelete.js";
+import { WistiaCore } from "@wistia/wistia-api-client/core.js";
+import { mediaDelete } from "@wistia/wistia-api-client/funcs/mediaDelete.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -374,7 +374,7 @@ Read, update & delete anything
 
 <!-- UsageSnippet language="typescript" operationID="post_/medias/{media-hashed-id}/copy" method="post" path="/medias/{media-hashed-id}/copy" -->
 ```typescript
-import { Wistia } from "wistia";
+import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
   serverURL: "https://api.example.com",
@@ -397,8 +397,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { WistiaCore } from "wistia/core.js";
-import { mediaCopy } from "wistia/funcs/mediaCopy.js";
+import { WistiaCore } from "@wistia/wistia-api-client/core.js";
+import { mediaCopy } from "@wistia/wistia-api-client/funcs/mediaCopy.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -461,7 +461,7 @@ Read, update & delete anything
 
 <!-- UsageSnippet language="typescript" operationID="put_/medias/{media-hashed-id}/swap" method="put" path="/medias/{media-hashed-id}/swap" -->
 ```typescript
-import { Wistia } from "wistia";
+import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
   serverURL: "https://api.example.com",
@@ -484,8 +484,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { WistiaCore } from "wistia/core.js";
-import { mediaSwap } from "wistia/funcs/mediaSwap.js";
+import { WistiaCore } from "@wistia/wistia-api-client/core.js";
+import { mediaSwap } from "@wistia/wistia-api-client/funcs/mediaSwap.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -549,7 +549,7 @@ Read all project and video data
 
 <!-- UsageSnippet language="typescript" operationID="get_/medias/{media-hashed-id}/stats" method="get" path="/medias/{media-hashed-id}/stats" -->
 ```typescript
-import { Wistia } from "wistia";
+import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
   serverURL: "https://api.example.com",
@@ -572,8 +572,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { WistiaCore } from "wistia/core.js";
-import { mediaStats } from "wistia/funcs/mediaStats.js";
+import { WistiaCore } from "@wistia/wistia-api-client/core.js";
+import { mediaStats } from "@wistia/wistia-api-client/funcs/mediaStats.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -635,7 +635,7 @@ Read, update & delete anything
 
 <!-- UsageSnippet language="typescript" operationID="post_/medias/{media-hashed-id}/translate" method="post" path="/medias/{media-hashed-id}/translate" -->
 ```typescript
-import { Wistia } from "wistia";
+import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
   serverURL: "https://api.example.com",
@@ -658,8 +658,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { WistiaCore } from "wistia/core.js";
-import { mediaTranslate } from "wistia/funcs/mediaTranslate.js";
+import { WistiaCore } from "@wistia/wistia-api-client/core.js";
+import { mediaTranslate } from "@wistia/wistia-api-client/funcs/mediaTranslate.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -722,7 +722,7 @@ Read, update & delete anything
 
 <!-- UsageSnippet language="typescript" operationID="put_/medias/archive" method="put" path="/medias/archive" -->
 ```typescript
-import { Wistia } from "wistia";
+import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
   serverURL: "https://api.example.com",
@@ -745,8 +745,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { WistiaCore } from "wistia/core.js";
-import { mediaArchive } from "wistia/funcs/mediaArchive.js";
+import { WistiaCore } from "@wistia/wistia-api-client/core.js";
+import { mediaArchive } from "@wistia/wistia-api-client/funcs/mediaArchive.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -815,7 +815,7 @@ Read, update & delete anything
 
 <!-- UsageSnippet language="typescript" operationID="put_/medias/move" method="put" path="/medias/move" -->
 ```typescript
-import { Wistia } from "wistia";
+import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
   serverURL: "https://api.example.com",
@@ -842,8 +842,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { WistiaCore } from "wistia/core.js";
-import { mediaMove } from "wistia/funcs/mediaMove.js";
+import { WistiaCore } from "@wistia/wistia-api-client/core.js";
+import { mediaMove } from "@wistia/wistia-api-client/funcs/mediaMove.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -909,7 +909,7 @@ Read, update & delete anything
 
 <!-- UsageSnippet language="typescript" operationID="put_/medias/restore" method="put" path="/medias/restore" -->
 ```typescript
-import { Wistia } from "wistia";
+import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
   serverURL: "https://api.example.com",
@@ -932,8 +932,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { WistiaCore } from "wistia/core.js";
-import { mediaRestore } from "wistia/funcs/mediaRestore.js";
+import { WistiaCore } from "@wistia/wistia-api-client/core.js";
+import { mediaRestore } from "@wistia/wistia-api-client/funcs/mediaRestore.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.

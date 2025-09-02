@@ -5,7 +5,7 @@ Adds a Call To Action to your Video
 ## Example Usage
 
 ```typescript
-import { PostRollV1 } from "wistia/models";
+import { PostRollV1 } from "@wistia/wistia-api-client/models";
 
 let value: PostRollV1 = {
   style: {

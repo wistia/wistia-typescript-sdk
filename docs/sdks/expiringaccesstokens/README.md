@@ -27,7 +27,7 @@ Read, update & delete anything
 
 <!-- UsageSnippet language="typescript" operationID="post_/expiring_token" method="post" path="/expiring_token" -->
 ```typescript
-import { Wistia } from "wistia";
+import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
   serverURL: "https://api.example.com",
@@ -48,8 +48,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { WistiaCore } from "wistia/core.js";
-import { expiringAccessTokensCreate } from "wistia/funcs/expiringAccessTokensCreate.js";
+import { WistiaCore } from "@wistia/wistia-api-client/core.js";
+import { expiringAccessTokensCreate } from "@wistia/wistia-api-client/funcs/expiringAccessTokensCreate.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.

@@ -5,7 +5,7 @@ The status of the background job that's been queued for the request.
 ## Example Usage
 
 ```typescript
-import { BackgroundJobStatusStatus } from "wistia/models";
+import { BackgroundJobStatusStatus } from "@wistia/wistia-api-client/models";
 
 let value: BackgroundJobStatusStatus = "finished";
 ```

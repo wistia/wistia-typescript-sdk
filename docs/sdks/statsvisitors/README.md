@@ -24,7 +24,7 @@ Read all project and video data
 
 <!-- UsageSnippet language="typescript" operationID="get_/stats/visitors" method="get" path="/stats/visitors" -->
 ```typescript
-import { Wistia } from "wistia";
+import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
   serverURL: "https://api.example.com",
@@ -45,8 +45,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { WistiaCore } from "wistia/core.js";
-import { statsVisitorsList } from "wistia/funcs/statsVisitorsList.js";
+import { WistiaCore } from "@wistia/wistia-api-client/core.js";
+import { statsVisitorsList } from "@wistia/wistia-api-client/funcs/statsVisitorsList.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -106,7 +106,7 @@ Read all project and video data
 
 <!-- UsageSnippet language="typescript" operationID="get_/stats/visitors/{visitor-key}" method="get" path="/stats/visitors/{visitor-key}" -->
 ```typescript
-import { Wistia } from "wistia";
+import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
   serverURL: "https://api.example.com",
@@ -129,8 +129,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { WistiaCore } from "wistia/core.js";
-import { statsVisitorsGet } from "wistia/funcs/statsVisitorsGet.js";
+import { WistiaCore } from "@wistia/wistia-api-client/core.js";
+import { statsVisitorsGet } from "@wistia/wistia-api-client/funcs/statsVisitorsGet.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.

@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { Style } from "wistia/models";
+import { Style } from "@wistia/wistia-api-client/models";
 
 let value: Style = {
   backgroundColor: "#303030",

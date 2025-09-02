@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { MediaShow } from "wistia/models";
+import { MediaShow } from "@wistia/wistia-api-client/models";
 
 let value: MediaShow = {
   subfolder: {

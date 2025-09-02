@@ -5,7 +5,7 @@ Response after successfully uploading or importing media
 ## Example Usage
 
 ```typescript
-import { PostFormResponse } from "wistia/models/operations";
+import { PostFormResponse } from "@wistia/wistia-api-client/models/operations";
 
 let value: PostFormResponse = {};
 ```

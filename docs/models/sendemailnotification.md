@@ -7,7 +7,7 @@ Deprecated! Email notifications are always sent now.
 ## Example Usage
 
 ```typescript
-import { SendEmailNotification } from "wistia/models";
+import { SendEmailNotification } from "@wistia/wistia-api-client/models";
 
 let value: SendEmailNotification = "0";
 ```

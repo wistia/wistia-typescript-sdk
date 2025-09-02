@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { NoAssetMediaSchemaMedia } from "wistia/models";
+import { NoAssetMediaSchemaMedia } from "@wistia/wistia-api-client/models";
 
 let value: NoAssetMediaSchemaMedia = {
   subfolder: {

@@ -5,7 +5,7 @@ Successfully queued move of all the media.
 ## Example Usage
 
 ```typescript
-import { PutMediasMoveResponseBody1 } from "wistia/models/operations";
+import { PutMediasMoveResponseBody1 } from "@wistia/wistia-api-client/models/operations";
 
 let value: PutMediasMoveResponseBody1 = {};
 ```

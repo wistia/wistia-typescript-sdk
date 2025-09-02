@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { GetProjectsProjectIdSharingsSharingIdRequest } from "wistia/models/operations";
+import { GetProjectsProjectIdSharingsSharingIdRequest } from "@wistia/wistia-api-client/models/operations";
 
 let value: GetProjectsProjectIdSharingsSharingIdRequest = {
   projectId: "<id>",

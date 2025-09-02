@@ -5,7 +5,7 @@ Bad request
 ## Example Usage
 
 ```typescript
-import { FourHundredError } from "wistia/models/errors";
+import { FourHundredError } from "@wistia/wistia-api-client/models/errors";
 
 // No examples available for this model
 ```

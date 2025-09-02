@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { VideoCustomizationPlugin } from "wistia/models";
+import { VideoCustomizationPlugin } from "@wistia/wistia-api-client/models";
 
 let value: VideoCustomizationPlugin = {
   postRollV1: {
@@ -23,3 +23,4 @@ let value: VideoCustomizationPlugin = {
 | `socialbarV1`                                                                            | [models.SocialbarV1](../models/socialbarv1.md)                                           | :heavy_minus_sign:                                                                       | N/A                                                                                      |
 | `chapters`                                                                               | [models.Chapters](../models/chapters.md)                                                 | :heavy_minus_sign:                                                                       | N/A                                                                                      |
 | `postRollV1`                                                                             | [models.PostRollV1](../models/postrollv1.md)                                             | :heavy_minus_sign:                                                                       | Adds a Call To Action to your Video                                                      |
+| `captionsV1`                                                                             | [models.VideoCustomizationCaptionsV1](../models/videocustomizationcaptionsv1.md)         | :heavy_minus_sign:                                                                       | Enables closed captions for the video                                                    |

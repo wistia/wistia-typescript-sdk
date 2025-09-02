@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { GetStatsMediasMediaIdByDateResponse } from "wistia/models/operations";
+import { GetStatsMediasMediaIdByDateResponse } from "@wistia/wistia-api-client/models/operations";
 
 let value: GetStatsMediasMediaIdByDateResponse = {};
 ```

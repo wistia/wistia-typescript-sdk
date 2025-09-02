@@ -20,8 +20,8 @@ Endpoint to upload media files from a local system or import from a web URL.
 
 <!-- UsageSnippet language="typescript" operationID="post_/_multipart" method="post" path="/" -->
 ```typescript
+import { Wistia } from "@wistia/wistia-api-client";
 import { openAsBlob } from "node:fs";
-import { Wistia } from "wistia";
 
 const wistia = new Wistia({
   serverURL: "https://api.example.com",
@@ -44,9 +44,9 @@ run();
 The standalone function version of this method:
 
 ```typescript
+import { WistiaCore } from "@wistia/wistia-api-client/core.js";
+import { uploadOrImportMediaPostMultipart } from "@wistia/wistia-api-client/funcs/uploadOrImportMediaPostMultipart.js";
 import { openAsBlob } from "node:fs";
-import { WistiaCore } from "wistia/core.js";
-import { uploadOrImportMediaPostMultipart } from "wistia/funcs/uploadOrImportMediaPostMultipart.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -103,7 +103,7 @@ Endpoint to upload media files from a local system or import from a web URL.
 
 <!-- UsageSnippet language="typescript" operationID="post_/_form" method="post" path="/" -->
 ```typescript
-import { Wistia } from "wistia";
+import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
   serverURL: "https://api.example.com",
@@ -127,8 +127,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { WistiaCore } from "wistia/core.js";
-import { uploadOrImportMediaPostForm } from "wistia/funcs/uploadOrImportMediaPostForm.js";
+import { WistiaCore } from "@wistia/wistia-api-client/core.js";
+import { uploadOrImportMediaPostForm } from "@wistia/wistia-api-client/funcs/uploadOrImportMediaPostForm.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.

@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { GetAllowedDomainsDomainRequest } from "wistia/models/operations";
+import { GetAllowedDomainsDomainRequest } from "@wistia/wistia-api-client/models/operations";
 
 let value: GetAllowedDomainsDomainRequest = {
   domain: "example.com",

@@ -5,7 +5,7 @@ Internal server error
 ## Example Usage
 
 ```typescript
-import { FiveHundredError } from "wistia/models/errors";
+import { FiveHundredError } from "@wistia/wistia-api-client/models/errors";
 
 // No examples available for this model
 ```

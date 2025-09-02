@@ -20,7 +20,7 @@ export const GetTagsSortBy = {
   Name: "name",
   Created: "created",
   Updated: "updated",
-  TaggingsCount: "taggings_count",
+  TaggingsCount: "taggingsCount",
 } as const;
 /**
  * Ordering

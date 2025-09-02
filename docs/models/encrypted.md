@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { Encrypted } from "wistia/models";
+import { Encrypted } from "@wistia/wistia-api-client/models";
 
 let value: Encrypted = {};
 ```

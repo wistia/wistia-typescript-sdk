@@ -5,7 +5,7 @@ Invalid request.
 ## Example Usage
 
 ```typescript
-import { PutMediasMoveBadRequestError } from "wistia/models/errors";
+import { PutMediasMoveBadRequestError } from "@wistia/wistia-api-client/models/errors";
 
 // No examples available for this model
 ```

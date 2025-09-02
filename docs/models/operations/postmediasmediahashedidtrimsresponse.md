@@ -5,7 +5,7 @@ Successful queueing of trims worker.
 ## Example Usage
 
 ```typescript
-import { PostMediasMediaHashedIdTrimsResponse } from "wistia/models/operations";
+import { PostMediasMediaHashedIdTrimsResponse } from "@wistia/wistia-api-client/models/operations";
 
 let value: PostMediasMediaHashedIdTrimsResponse = {};
 ```

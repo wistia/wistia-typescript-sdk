@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { PostMultipartRequest } from "wistia/models/operations";
+import { PostMultipartRequest } from "@wistia/wistia-api-client/models/operations";
 
 // No examples available for this model
 ```

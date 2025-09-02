@@ -21,7 +21,7 @@ Read, update & delete anything
 
 <!-- UsageSnippet language="typescript" operationID="post_/medias/{media-hashed-id}/trims" method="post" path="/medias/{media-hashed-id}/trims" -->
 ```typescript
-import { Wistia } from "wistia";
+import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
   serverURL: "https://api.example.com",
@@ -45,8 +45,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { WistiaCore } from "wistia/core.js";
-import { trimsCreate } from "wistia/funcs/trimsCreate.js";
+import { WistiaCore } from "@wistia/wistia-api-client/core.js";
+import { trimsCreate } from "@wistia/wistia-api-client/funcs/trimsCreate.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
