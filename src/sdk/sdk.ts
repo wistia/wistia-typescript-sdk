@@ -17,14 +17,13 @@ import { Media } from "./media.js";
 import { Projects } from "./projects.js";
 import { ProjectSharings } from "./projectsharings.js";
 import { Search } from "./search.js";
-import { Stats } from "./stats.js";
+import { StatsAccount } from "./statsaccount.js";
 import { StatsEvents } from "./statsevents.js";
 import { StatsMedia } from "./statsmedia.js";
 import { StatsVisitors } from "./statsvisitors.js";
 import { Subfolders } from "./subfolders.js";
 import { Tags } from "./tags.js";
 import { Trims } from "./trims.js";
-import { UploadOrImportMedia } from "./uploadorimportmedia.js";
 
 export class Wistia extends ClientSDK {
   private _projects?: Projects;
@@ -116,9 +115,9 @@ export class Wistia extends ClientSDK {
     return (this._liveStreamEvents ??= new LiveStreamEvents(this._options));
   }
 
-  private _stats?: Stats;
-  get stats(): Stats {
-    return (this._stats ??= new Stats(this._options));
+  private _statsAccount?: StatsAccount;
+  get statsAccount(): StatsAccount {
+    return (this._statsAccount ??= new StatsAccount(this._options));
   }
 
   private _statsMedia?: StatsMedia;
@@ -134,12 +133,5 @@ export class Wistia extends ClientSDK {
   private _statsEvents?: StatsEvents;
   get statsEvents(): StatsEvents {
     return (this._statsEvents ??= new StatsEvents(this._options));
-  }
-
-  private _uploadOrImportMedia?: UploadOrImportMedia;
-  get uploadOrImportMedia(): UploadOrImportMedia {
-    return (this._uploadOrImportMedia ??= new UploadOrImportMedia(
-      this._options,
-    ));
   }
 }

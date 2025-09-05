@@ -5,12 +5,12 @@
 
 ### Available Operations
 
-* [get](#get) - Channel Episodes Show
-* [listByChannel](#listbychannel) - Channel Episodes List filtered by channel
-* [create](#create) - Channel Episode Create
-* [list](#list) - Channel Episodes List
+* [getChannelsChannelHashedIdChannelEpisodesChannelEpisodeId](#getchannelschannelhashedidchannelepisodeschannelepisodeid) - Channel Episodes Show
+* [getChannelsChannelHashedIdChannelEpisodes](#getchannelschannelhashedidchannelepisodes) - Channel Episodes List filtered by channel
+* [postChannelsChannelHashedIdChannelEpisodes](#postchannelschannelhashedidchannelepisodes) - Channel Episode Create
+* [getChannelEpisodes](#getchannelepisodes) - Channel Episodes List
 
-## get
+## getChannelsChannelHashedIdChannelEpisodesChannelEpisodeId
 
 Returns the Channel Episode associated with the hashedId.
 
@@ -29,12 +29,11 @@ Read all project and video data
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
-  serverURL: "https://api.example.com",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const result = await wistia.channelEpisodes.get({
+  const result = await wistia.channelEpisodes.getChannelsChannelHashedIdChannelEpisodesChannelEpisodeId({
     channelHashedId: "<id>",
     channelEpisodeId: "<id>",
   });
@@ -51,17 +50,16 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { channelEpisodesGet } from "@wistia/wistia-api-client/funcs/channelEpisodesGet.js";
+import { channelEpisodesGetChannelsChannelHashedIdChannelEpisodesChannelEpisodeId } from "@wistia/wistia-api-client/funcs/channelEpisodesGetChannelsChannelHashedIdChannelEpisodesChannelEpisodeId.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
-  serverURL: "https://api.example.com",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const res = await channelEpisodesGet(wistia, {
+  const res = await channelEpisodesGetChannelsChannelHashedIdChannelEpisodesChannelEpisodeId(wistia, {
     channelHashedId: "<id>",
     channelEpisodeId: "<id>",
   });
@@ -69,7 +67,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("channelEpisodesGet failed:", res.error);
+    console.log("channelEpisodesGetChannelsChannelHashedIdChannelEpisodesChannelEpisodeId failed:", res.error);
   }
 }
 
@@ -84,7 +82,6 @@ run();
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-| `options.serverURL`                                                                                                                                                            | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | An optional server URL to use.                                                                                                                                                 |
 
 ### Response
 
@@ -98,7 +95,7 @@ run();
 | errors.FiveHundredError       | 500                           | application/json              |
 | errors.WistiaDefaultError     | 4XX, 5XX                      | \*/\*                         |
 
-## listByChannel
+## getChannelsChannelHashedIdChannelEpisodes
 
 Returns all the Channel Episodes belonging the channel passed in the path.
 
@@ -117,12 +114,11 @@ Read all project and video data
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
-  serverURL: "https://api.example.com",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const result = await wistia.channelEpisodes.listByChannel({
+  const result = await wistia.channelEpisodes.getChannelsChannelHashedIdChannelEpisodes({
     channelHashedId: "<id>",
   });
 
@@ -138,24 +134,23 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { channelEpisodesListByChannel } from "@wistia/wistia-api-client/funcs/channelEpisodesListByChannel.js";
+import { channelEpisodesGetChannelsChannelHashedIdChannelEpisodes } from "@wistia/wistia-api-client/funcs/channelEpisodesGetChannelsChannelHashedIdChannelEpisodes.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
-  serverURL: "https://api.example.com",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const res = await channelEpisodesListByChannel(wistia, {
+  const res = await channelEpisodesGetChannelsChannelHashedIdChannelEpisodes(wistia, {
     channelHashedId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("channelEpisodesListByChannel failed:", res.error);
+    console.log("channelEpisodesGetChannelsChannelHashedIdChannelEpisodes failed:", res.error);
   }
 }
 
@@ -170,7 +165,6 @@ run();
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-| `options.serverURL`                                                                                                                                                            | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | An optional server URL to use.                                                                                                                                                 |
 
 ### Response
 
@@ -184,7 +178,7 @@ run();
 | errors.FiveHundredError       | 500                           | application/json              |
 | errors.WistiaDefaultError     | 4XX, 5XX                      | \*/\*                         |
 
-## create
+## postChannelsChannelHashedIdChannelEpisodes
 
 Creates a new channel episode in a channel.
 
@@ -201,12 +195,11 @@ Read, update & delete anything
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
-  serverURL: "https://api.example.com",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const result = await wistia.channelEpisodes.create({
+  const result = await wistia.channelEpisodes.postChannelsChannelHashedIdChannelEpisodes({
     channelHashedId: "<id>",
     createChannelEpisode: {
       title: "My New Episode",
@@ -228,17 +221,16 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { channelEpisodesCreate } from "@wistia/wistia-api-client/funcs/channelEpisodesCreate.js";
+import { channelEpisodesPostChannelsChannelHashedIdChannelEpisodes } from "@wistia/wistia-api-client/funcs/channelEpisodesPostChannelsChannelHashedIdChannelEpisodes.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
-  serverURL: "https://api.example.com",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const res = await channelEpisodesCreate(wistia, {
+  const res = await channelEpisodesPostChannelsChannelHashedIdChannelEpisodes(wistia, {
     channelHashedId: "<id>",
     createChannelEpisode: {
       title: "My New Episode",
@@ -251,7 +243,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("channelEpisodesCreate failed:", res.error);
+    console.log("channelEpisodesPostChannelsChannelHashedIdChannelEpisodes failed:", res.error);
   }
 }
 
@@ -266,7 +258,6 @@ run();
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-| `options.serverURL`                                                                                                                                                            | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | An optional server URL to use.                                                                                                                                                 |
 
 ### Response
 
@@ -281,7 +272,7 @@ run();
 | errors.FiveHundredError       | 500                           | application/json              |
 | errors.WistiaDefaultError     | 4XX, 5XX                      | \*/\*                         |
 
-## list
+## getChannelEpisodes
 
 Returns all the Channel Episodes associated with the account, and allows for filtering by a particular channel.
 
@@ -300,12 +291,11 @@ Read all project and video data
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
-  serverURL: "https://api.example.com",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const result = await wistia.channelEpisodes.list();
+  const result = await wistia.channelEpisodes.getChannelEpisodes();
 
   console.log(result);
 }
@@ -319,22 +309,21 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { channelEpisodesList } from "@wistia/wistia-api-client/funcs/channelEpisodesList.js";
+import { channelEpisodesGetChannelEpisodes } from "@wistia/wistia-api-client/funcs/channelEpisodesGetChannelEpisodes.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
-  serverURL: "https://api.example.com",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const res = await channelEpisodesList(wistia);
+  const res = await channelEpisodesGetChannelEpisodes(wistia);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("channelEpisodesList failed:", res.error);
+    console.log("channelEpisodesGetChannelEpisodes failed:", res.error);
   }
 }
 
@@ -349,7 +338,6 @@ run();
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-| `options.serverURL`                                                                                                                                                            | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | An optional server URL to use.                                                                                                                                                 |
 
 ### Response
 

@@ -9,10 +9,6 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
-export const PostProjectsIdCopyServerList = [
-  "https://api.wistia.com/v1",
-] as const;
-
 export type PostProjectsIdCopyRequestBody = {
   /**
    * The email address of the account Manager that will be the owner of the new project. Defaults to the Account Owner if invalid or omitted.

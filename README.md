@@ -26,6 +26,7 @@ Data API: Wistia Data API
   * [File uploads](#file-uploads)
   * [Retries](#retries)
   * [Error Handling](#error-handling)
+  * [Server Selection](#server-selection)
   * [Custom HTTP Client](#custom-http-client)
   * [Debugging](#debugging)
 * [Development](#development)
@@ -85,12 +86,11 @@ For supported JavaScript runtimes, please consult [RUNTIMES.md](RUNTIMES.md).
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
-  serverURL: "https://api.example.com",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const result = await wistia.projects.list();
+  const result = await wistia.projects.getProjects();
 
   console.log(result);
 }
@@ -116,12 +116,11 @@ To authenticate with the API the `bearerAuth` parameter must be set when initial
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
-  serverURL: "https://api.example.com",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const result = await wistia.projects.list();
+  const result = await wistia.projects.getProjects();
 
   console.log(result);
 }
@@ -139,149 +138,138 @@ run();
 
 ### [account](docs/sdks/account/README.md)
 
-* [get](docs/sdks/account/README.md#get) - Account Show
+* [getAccountDetails](docs/sdks/account/README.md#getaccountdetails) - Account Show
 
 ### [allowedDomains](docs/sdks/alloweddomains/README.md)
 
-* [list](docs/sdks/alloweddomains/README.md#list) - Allowed Domains List
-* [create](docs/sdks/alloweddomains/README.md#create) - Allowed Domain Create
-* [get](docs/sdks/alloweddomains/README.md#get) - Allowed Domain Show
-* [delete](docs/sdks/alloweddomains/README.md#delete) - Allowed Domain Delete
+* [getAllowedDomains](docs/sdks/alloweddomains/README.md#getalloweddomains) - Allowed Domains List
+* [postAllowedDomains](docs/sdks/alloweddomains/README.md#postalloweddomains) - Allowed Domain Create
+* [getAllowedDomainsDomain](docs/sdks/alloweddomains/README.md#getalloweddomainsdomain) - Allowed Domain Show
+* [deleteAllowedDomainsDomain](docs/sdks/alloweddomains/README.md#deletealloweddomainsdomain) - Allowed Domain Delete
 
 ### [backgroundJobStatus](docs/sdks/backgroundjobstatus/README.md)
 
-* [get](docs/sdks/backgroundjobstatus/README.md#get) - Background Job Status Show
+* [getBackgroundJobStatusBackgroundJobStatusId](docs/sdks/backgroundjobstatus/README.md#getbackgroundjobstatusbackgroundjobstatusid) - Background Job Status Show
 
 ### [captions](docs/sdks/captions/README.md)
 
-* [list](docs/sdks/captions/README.md#list) - Captions List
-* [createMultipart](docs/sdks/captions/README.md#createmultipart) - Captions Create
-* [create](docs/sdks/captions/README.md#create) - Captions Create
-* [purchase](docs/sdks/captions/README.md#purchase) - Captions Purchase
-* [get](docs/sdks/captions/README.md#get) - Captions Show
-* [update](docs/sdks/captions/README.md#update) - Captions Update
-* [updateMultipart](docs/sdks/captions/README.md#updatemultipart) - Captions Update
-* [delete](docs/sdks/captions/README.md#delete) - Captions Delete
+* [getMediasMediaHashedIdCaptions](docs/sdks/captions/README.md#getmediasmediahashedidcaptions) - Captions List
+* [postMediasMediaHashedIdCaptionsMultipart](docs/sdks/captions/README.md#postmediasmediahashedidcaptionsmultipart) - Captions Create
+* [postMediasMediaHashedIdCaptions](docs/sdks/captions/README.md#postmediasmediahashedidcaptions) - Captions Create
+* [postMediasMediaHashedIdCaptionsPurchase](docs/sdks/captions/README.md#postmediasmediahashedidcaptionspurchase) - Captions Purchase
+* [getMediasMediaHashedIdCaptionsLanguageCode](docs/sdks/captions/README.md#getmediasmediahashedidcaptionslanguagecode) - Captions Show
+* [putMediasMediaHashedIdCaptionsLanguageCode](docs/sdks/captions/README.md#putmediasmediahashedidcaptionslanguagecode) - Captions Update
+* [putMediasMediaHashedIdCaptionsLanguageCodeMultipart](docs/sdks/captions/README.md#putmediasmediahashedidcaptionslanguagecodemultipart) - Captions Update
+* [deleteMediasMediaHashedIdCaptionsLanguageCode](docs/sdks/captions/README.md#deletemediasmediahashedidcaptionslanguagecode) - Captions Delete
 
 ### [channelEpisodes](docs/sdks/channelepisodes/README.md)
 
-* [get](docs/sdks/channelepisodes/README.md#get) - Channel Episodes Show
-* [listByChannel](docs/sdks/channelepisodes/README.md#listbychannel) - Channel Episodes List filtered by channel
-* [create](docs/sdks/channelepisodes/README.md#create) - Channel Episode Create
-* [list](docs/sdks/channelepisodes/README.md#list) - Channel Episodes List
+* [getChannelsChannelHashedIdChannelEpisodesChannelEpisodeId](docs/sdks/channelepisodes/README.md#getchannelschannelhashedidchannelepisodeschannelepisodeid) - Channel Episodes Show
+* [getChannelsChannelHashedIdChannelEpisodes](docs/sdks/channelepisodes/README.md#getchannelschannelhashedidchannelepisodes) - Channel Episodes List filtered by channel
+* [postChannelsChannelHashedIdChannelEpisodes](docs/sdks/channelepisodes/README.md#postchannelschannelhashedidchannelepisodes) - Channel Episode Create
+* [getChannelEpisodes](docs/sdks/channelepisodes/README.md#getchannelepisodes) - Channel Episodes List
 
 ### [channels](docs/sdks/channels/README.md)
 
-* [list](docs/sdks/channels/README.md#list) - Channels List
-* [get](docs/sdks/channels/README.md#get) - Channels Show
+* [getChannels](docs/sdks/channels/README.md#getchannels) - Channels List
+* [getChannelsChannelHashedId](docs/sdks/channels/README.md#getchannelschannelhashedid) - Channels Show
 
 ### [customizations](docs/sdks/customizations/README.md)
 
-* [get](docs/sdks/customizations/README.md#get) - Customizations Show
-* [create](docs/sdks/customizations/README.md#create) - Customizations Create
-* [update](docs/sdks/customizations/README.md#update) - Customizations Update
-* [delete](docs/sdks/customizations/README.md#delete) - Customizations Delete
+* [getMediasMediaIdCustomizations](docs/sdks/customizations/README.md#getmediasmediaidcustomizations) - Customizations Show
+* [postMediasMediaIdCustomizations](docs/sdks/customizations/README.md#postmediasmediaidcustomizations) - Customizations Create
+* [putMediasMediaIdCustomizations](docs/sdks/customizations/README.md#putmediasmediaidcustomizations) - Customizations Update
+* [deleteMediasMediaIdCustomizations](docs/sdks/customizations/README.md#deletemediasmediaidcustomizations) - Customizations Delete
 
 ### [expiringAccessTokens](docs/sdks/expiringaccesstokens/README.md)
 
-* [create](docs/sdks/expiringaccesstokens/README.md#create) - Create an expiring access token
+* [postExpiringToken](docs/sdks/expiringaccesstokens/README.md#postexpiringtoken) - Create an expiring access token
 
 ### [liveStreamEvents](docs/sdks/livestreamevents/README.md)
 
-* [list](docs/sdks/livestreamevents/README.md#list) - Live Stream Events List
-* [create](docs/sdks/livestreamevents/README.md#create) - Live Stream Event Create
-* [get](docs/sdks/livestreamevents/README.md#get) - Live Stream Event Show
-* [update](docs/sdks/livestreamevents/README.md#update) - Live Stream Event Update
-* [delete](docs/sdks/livestreamevents/README.md#delete) - Live Stream Event Delete
+* [getLiveStreamEvents](docs/sdks/livestreamevents/README.md#getlivestreamevents) - Live Stream Events List
+* [postLiveStreamEvents](docs/sdks/livestreamevents/README.md#postlivestreamevents) - Live Stream Event Create
+* [getLiveStreamEventsId](docs/sdks/livestreamevents/README.md#getlivestreameventsid) - Live Stream Event Show
+* [putLiveStreamEventsId](docs/sdks/livestreamevents/README.md#putlivestreameventsid) - Live Stream Event Update
+* [deleteLiveStreamEventsId](docs/sdks/livestreamevents/README.md#deletelivestreameventsid) - Live Stream Event Delete
 
 ### [localizations](docs/sdks/localizations/README.md)
 
-* [list](docs/sdks/localizations/README.md#list) - Localizations List
-* [create](docs/sdks/localizations/README.md#create) - Localizations Create
-* [get](docs/sdks/localizations/README.md#get) - Localizations Show
-* [delete](docs/sdks/localizations/README.md#delete) - Localizations Delete
+* [getMediasMediaHashedIdLocalizations](docs/sdks/localizations/README.md#getmediasmediahashedidlocalizations) - Localizations List
+* [postMediasMediaHashedIdLocalizations](docs/sdks/localizations/README.md#postmediasmediahashedidlocalizations) - Localizations Create
+* [getMediasMediaHashedIdLocalizationsLocalizationHashedId](docs/sdks/localizations/README.md#getmediasmediahashedidlocalizationslocalizationhashedid) - Localizations Show
+* [deleteMediasMediaHashedIdLocalizationsLocalizationHashedId](docs/sdks/localizations/README.md#deletemediasmediahashedidlocalizationslocalizationhashedid) - Localizations Delete
 
 ### [media](docs/sdks/media/README.md)
 
-* [list](docs/sdks/media/README.md#list) - Media List
-* [get](docs/sdks/media/README.md#get) - Media Show
-* [update](docs/sdks/media/README.md#update) - Media Update
-* [delete](docs/sdks/media/README.md#delete) - Media Delete
-* [copy](docs/sdks/media/README.md#copy) - Media Copy
-* [swap](docs/sdks/media/README.md#swap) - Media Swap
-* [stats](docs/sdks/media/README.md#stats) - Media Stats
-* [translate](docs/sdks/media/README.md#translate) - Media Translate
-* [archive](docs/sdks/media/README.md#archive) - Medias Archive
-* [move](docs/sdks/media/README.md#move) - Media Move
-* [restore](docs/sdks/media/README.md#restore) - Media Restore
+* [getMedias](docs/sdks/media/README.md#getmedias) - Media List
+* [getMediasMediaHashedId](docs/sdks/media/README.md#getmediasmediahashedid) - Media Show
+* [putMediasMediaHashedId](docs/sdks/media/README.md#putmediasmediahashedid) - Media Update
+* [deleteMediasMediaHashedId](docs/sdks/media/README.md#deletemediasmediahashedid) - Media Delete
+* [postMediasMediaHashedIdCopy](docs/sdks/media/README.md#postmediasmediahashedidcopy) - Media Copy
+* [putMediasMediaHashedIdSwap](docs/sdks/media/README.md#putmediasmediahashedidswap) - Media Swap
+* [getMediasMediaHashedIdStats](docs/sdks/media/README.md#getmediasmediahashedidstats) - Media Stats
+* [postMediasMediaHashedIdTranslate](docs/sdks/media/README.md#postmediasmediahashedidtranslate) - Media Translate
+* [putMediasArchive](docs/sdks/media/README.md#putmediasarchive) - Medias Archive
+* [putMediasMove](docs/sdks/media/README.md#putmediasmove) - Media Move
+* [putMediasRestore](docs/sdks/media/README.md#putmediasrestore) - Media Restore
 
 ### [projects](docs/sdks/projects/README.md)
 
-* [list](docs/sdks/projects/README.md#list) - Project List
-* [create](docs/sdks/projects/README.md#create) - Project Create
-* [get](docs/sdks/projects/README.md#get) - Project Show
-* [update](docs/sdks/projects/README.md#update) - Project Update
-* [delete](docs/sdks/projects/README.md#delete) - Project Delete
-* [copy](docs/sdks/projects/README.md#copy) - Project Copy
+* [getProjects](docs/sdks/projects/README.md#getprojects) - Project List
+* [postProjects](docs/sdks/projects/README.md#postprojects) - Project Create
+* [getProjectsId](docs/sdks/projects/README.md#getprojectsid) - Project Show
+* [putProjectsId](docs/sdks/projects/README.md#putprojectsid) - Project Update
+* [deleteProjectsId](docs/sdks/projects/README.md#deleteprojectsid) - Project Delete
+* [postProjectsIdCopy](docs/sdks/projects/README.md#postprojectsidcopy) - Project Copy
 
 ### [projectSharings](docs/sdks/projectsharings/README.md)
 
-* [list](docs/sdks/projectsharings/README.md#list) - Project Sharing List
-* [create](docs/sdks/projectsharings/README.md#create) - Project Sharing Create
-* [get](docs/sdks/projectsharings/README.md#get) - Project Sharing Show
-* [update](docs/sdks/projectsharings/README.md#update) - Project Sharing Update
-* [delete](docs/sdks/projectsharings/README.md#delete) - Project Sharing Delete
+* [getProjectsProjectIdSharings](docs/sdks/projectsharings/README.md#getprojectsprojectidsharings) - Project Sharing List
+* [postProjectsProjectIdSharings](docs/sdks/projectsharings/README.md#postprojectsprojectidsharings) - Project Sharing Create
+* [getProjectsProjectIdSharingsSharingId](docs/sdks/projectsharings/README.md#getprojectsprojectidsharingssharingid) - Project Sharing Show
+* [putProjectsProjectIdSharingsSharingId](docs/sdks/projectsharings/README.md#putprojectsprojectidsharingssharingid) - Project Sharing Update
+* [deleteProjectsProjectIdSharingsSharingId](docs/sdks/projectsharings/README.md#deleteprojectsprojectidsharingssharingid) - Project Sharing Delete
 
 ### [search](docs/sdks/search/README.md)
 
-* [get](docs/sdks/search/README.md#get) - Search
+* [getSearch](docs/sdks/search/README.md#getsearch) - Search
 
-### [stats](docs/sdks/stats/README.md)
+### [statsAccount](docs/sdks/statsaccount/README.md)
 
-
-#### [stats.account](docs/sdks/statsaccount/README.md)
-
-* [get](docs/sdks/statsaccount/README.md#get) - Stats:Account Show
-
-#### [stats.events](docs/sdks/events/README.md)
-
-* [get](docs/sdks/events/README.md#get) - Stats:Events Show
+* [getStatsAccount](docs/sdks/statsaccount/README.md#getstatsaccount) - Stats:Account Show
 
 ### [statsEvents](docs/sdks/statsevents/README.md)
 
-* [list](docs/sdks/statsevents/README.md#list) - Stats:Events List
+* [getStatsEvents](docs/sdks/statsevents/README.md#getstatsevents) - Stats:Events List
+* [getStatsEventsEventKey](docs/sdks/statsevents/README.md#getstatseventseventkey) - Stats:Events Show
 
 ### [statsMedia](docs/sdks/statsmedia/README.md)
 
-* [getByDate](docs/sdks/statsmedia/README.md#getbydate) - Stats:Media By Date
+* [getStatsMediasMediaIdByDate](docs/sdks/statsmedia/README.md#getstatsmediasmediaidbydate) - Stats:Media By Date
 
 ### [statsVisitors](docs/sdks/statsvisitors/README.md)
 
-* [list](docs/sdks/statsvisitors/README.md#list) - Stats:Visitors List
-* [get](docs/sdks/statsvisitors/README.md#get) - Stats:Visitors Show
+* [getStatsVisitors](docs/sdks/statsvisitors/README.md#getstatsvisitors) - Stats:Visitors List
+* [getStatsVisitorsVisitorKey](docs/sdks/statsvisitors/README.md#getstatsvisitorsvisitorkey) - Stats:Visitors Show
 
 ### [subfolders](docs/sdks/subfolders/README.md)
 
-* [getProjectsProjectIdSubfolders](docs/sdks/subfolders/README.md#getprojectsprojectidsubfolders) - Subfolder List
-* [postProjectsProjectIdSubfolders](docs/sdks/subfolders/README.md#postprojectsprojectidsubfolders) - Create Subfolder
-* [getProjectsProjectIdSubfoldersSubfolderId](docs/sdks/subfolders/README.md#getprojectsprojectidsubfolderssubfolderid) - Show Subfolder
-* [putProjectsProjectIdSubfoldersSubfolderId](docs/sdks/subfolders/README.md#putprojectsprojectidsubfolderssubfolderid) - Update Subfolder
-* [deleteProjectsProjectIdSubfoldersSubfolderId](docs/sdks/subfolders/README.md#deleteprojectsprojectidsubfolderssubfolderid) - Delete Subfolder
+* [list](docs/sdks/subfolders/README.md#list) - Subfolder List
+* [create](docs/sdks/subfolders/README.md#create) - Create Subfolder
+* [get](docs/sdks/subfolders/README.md#get) - Show Subfolder
+* [update](docs/sdks/subfolders/README.md#update) - Update Subfolder
+* [delete](docs/sdks/subfolders/README.md#delete) - Delete Subfolder
 
 ### [tags](docs/sdks/tags/README.md)
 
-* [list](docs/sdks/tags/README.md#list) - Tags List
-* [create](docs/sdks/tags/README.md#create) - Tags Create
-* [delete](docs/sdks/tags/README.md#delete) - Tags Delete
+* [getTags](docs/sdks/tags/README.md#gettags) - Tags List
+* [postTags](docs/sdks/tags/README.md#posttags) - Tags Create
+* [deleteTagsName](docs/sdks/tags/README.md#deletetagsname) - Tags Delete
 
 ### [trims](docs/sdks/trims/README.md)
 
-* [create](docs/sdks/trims/README.md#create) - Trims Create
-
-### [uploadOrImportMedia](docs/sdks/uploadorimportmedia/README.md)
-
-* [postMultipart](docs/sdks/uploadorimportmedia/README.md#postmultipart) - Upload or Import Media
-* [postForm](docs/sdks/uploadorimportmedia/README.md#postform) - Upload or Import Media
+* [postMediasMediaHashedIdTrims](docs/sdks/trims/README.md#postmediasmediahashedidtrims) - Trims Create
 
 
 </details>
@@ -302,80 +290,78 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 
 <summary>Available standalone functions</summary>
 
-- [`accountGet`](docs/sdks/account/README.md#get) - Account Show
-- [`allowedDomainsCreate`](docs/sdks/alloweddomains/README.md#create) - Allowed Domain Create
-- [`allowedDomainsDelete`](docs/sdks/alloweddomains/README.md#delete) - Allowed Domain Delete
-- [`allowedDomainsGet`](docs/sdks/alloweddomains/README.md#get) - Allowed Domain Show
-- [`allowedDomainsList`](docs/sdks/alloweddomains/README.md#list) - Allowed Domains List
-- [`backgroundJobStatusGet`](docs/sdks/backgroundjobstatus/README.md#get) - Background Job Status Show
-- [`captionsCreate`](docs/sdks/captions/README.md#create) - Captions Create
-- [`captionsCreateMultipart`](docs/sdks/captions/README.md#createmultipart) - Captions Create
-- [`captionsDelete`](docs/sdks/captions/README.md#delete) - Captions Delete
-- [`captionsGet`](docs/sdks/captions/README.md#get) - Captions Show
-- [`captionsList`](docs/sdks/captions/README.md#list) - Captions List
-- [`captionsPurchase`](docs/sdks/captions/README.md#purchase) - Captions Purchase
-- [`captionsUpdate`](docs/sdks/captions/README.md#update) - Captions Update
-- [`captionsUpdateMultipart`](docs/sdks/captions/README.md#updatemultipart) - Captions Update
-- [`channelEpisodesCreate`](docs/sdks/channelepisodes/README.md#create) - Channel Episode Create
-- [`channelEpisodesGet`](docs/sdks/channelepisodes/README.md#get) - Channel Episodes Show
-- [`channelEpisodesList`](docs/sdks/channelepisodes/README.md#list) - Channel Episodes List
-- [`channelEpisodesListByChannel`](docs/sdks/channelepisodes/README.md#listbychannel) - Channel Episodes List filtered by channel
-- [`channelsGet`](docs/sdks/channels/README.md#get) - Channels Show
-- [`channelsList`](docs/sdks/channels/README.md#list) - Channels List
-- [`customizationsCreate`](docs/sdks/customizations/README.md#create) - Customizations Create
-- [`customizationsDelete`](docs/sdks/customizations/README.md#delete) - Customizations Delete
-- [`customizationsGet`](docs/sdks/customizations/README.md#get) - Customizations Show
-- [`customizationsUpdate`](docs/sdks/customizations/README.md#update) - Customizations Update
-- [`expiringAccessTokensCreate`](docs/sdks/expiringaccesstokens/README.md#create) - Create an expiring access token
-- [`liveStreamEventsCreate`](docs/sdks/livestreamevents/README.md#create) - Live Stream Event Create
-- [`liveStreamEventsDelete`](docs/sdks/livestreamevents/README.md#delete) - Live Stream Event Delete
-- [`liveStreamEventsGet`](docs/sdks/livestreamevents/README.md#get) - Live Stream Event Show
-- [`liveStreamEventsList`](docs/sdks/livestreamevents/README.md#list) - Live Stream Events List
-- [`liveStreamEventsUpdate`](docs/sdks/livestreamevents/README.md#update) - Live Stream Event Update
-- [`localizationsCreate`](docs/sdks/localizations/README.md#create) - Localizations Create
-- [`localizationsDelete`](docs/sdks/localizations/README.md#delete) - Localizations Delete
-- [`localizationsGet`](docs/sdks/localizations/README.md#get) - Localizations Show
-- [`localizationsList`](docs/sdks/localizations/README.md#list) - Localizations List
-- [`mediaArchive`](docs/sdks/media/README.md#archive) - Medias Archive
-- [`mediaCopy`](docs/sdks/media/README.md#copy) - Media Copy
-- [`mediaDelete`](docs/sdks/media/README.md#delete) - Media Delete
-- [`mediaGet`](docs/sdks/media/README.md#get) - Media Show
-- [`mediaList`](docs/sdks/media/README.md#list) - Media List
-- [`mediaMove`](docs/sdks/media/README.md#move) - Media Move
-- [`mediaRestore`](docs/sdks/media/README.md#restore) - Media Restore
-- [`mediaStats`](docs/sdks/media/README.md#stats) - Media Stats
-- [`mediaSwap`](docs/sdks/media/README.md#swap) - Media Swap
-- [`mediaTranslate`](docs/sdks/media/README.md#translate) - Media Translate
-- [`mediaUpdate`](docs/sdks/media/README.md#update) - Media Update
-- [`projectsCopy`](docs/sdks/projects/README.md#copy) - Project Copy
-- [`projectsCreate`](docs/sdks/projects/README.md#create) - Project Create
-- [`projectsDelete`](docs/sdks/projects/README.md#delete) - Project Delete
-- [`projectsGet`](docs/sdks/projects/README.md#get) - Project Show
-- [`projectSharingsCreate`](docs/sdks/projectsharings/README.md#create) - Project Sharing Create
-- [`projectSharingsDelete`](docs/sdks/projectsharings/README.md#delete) - Project Sharing Delete
-- [`projectSharingsGet`](docs/sdks/projectsharings/README.md#get) - Project Sharing Show
-- [`projectSharingsList`](docs/sdks/projectsharings/README.md#list) - Project Sharing List
-- [`projectSharingsUpdate`](docs/sdks/projectsharings/README.md#update) - Project Sharing Update
-- [`projectsList`](docs/sdks/projects/README.md#list) - Project List
-- [`projectsUpdate`](docs/sdks/projects/README.md#update) - Project Update
-- [`searchGet`](docs/sdks/search/README.md#get) - Search
-- [`statsAccountGet`](docs/sdks/statsaccount/README.md#get) - Stats:Account Show
-- [`statsEventsGet`](docs/sdks/events/README.md#get) - Stats:Events Show
-- [`statsEventsList`](docs/sdks/statsevents/README.md#list) - Stats:Events List
-- [`statsMediaGetByDate`](docs/sdks/statsmedia/README.md#getbydate) - Stats:Media By Date
-- [`statsVisitorsGet`](docs/sdks/statsvisitors/README.md#get) - Stats:Visitors Show
-- [`statsVisitorsList`](docs/sdks/statsvisitors/README.md#list) - Stats:Visitors List
-- [`subfoldersDeleteProjectsProjectIdSubfoldersSubfolderId`](docs/sdks/subfolders/README.md#deleteprojectsprojectidsubfolderssubfolderid) - Delete Subfolder
-- [`subfoldersGetProjectsProjectIdSubfolders`](docs/sdks/subfolders/README.md#getprojectsprojectidsubfolders) - Subfolder List
-- [`subfoldersGetProjectsProjectIdSubfoldersSubfolderId`](docs/sdks/subfolders/README.md#getprojectsprojectidsubfolderssubfolderid) - Show Subfolder
-- [`subfoldersPostProjectsProjectIdSubfolders`](docs/sdks/subfolders/README.md#postprojectsprojectidsubfolders) - Create Subfolder
-- [`subfoldersPutProjectsProjectIdSubfoldersSubfolderId`](docs/sdks/subfolders/README.md#putprojectsprojectidsubfolderssubfolderid) - Update Subfolder
-- [`tagsCreate`](docs/sdks/tags/README.md#create) - Tags Create
-- [`tagsDelete`](docs/sdks/tags/README.md#delete) - Tags Delete
-- [`tagsList`](docs/sdks/tags/README.md#list) - Tags List
-- [`trimsCreate`](docs/sdks/trims/README.md#create) - Trims Create
-- [`uploadOrImportMediaPostForm`](docs/sdks/uploadorimportmedia/README.md#postform) - Upload or Import Media
-- [`uploadOrImportMediaPostMultipart`](docs/sdks/uploadorimportmedia/README.md#postmultipart) - Upload or Import Media
+- [`accountGetAccountDetails`](docs/sdks/account/README.md#getaccountdetails) - Account Show
+- [`allowedDomainsDeleteAllowedDomainsDomain`](docs/sdks/alloweddomains/README.md#deletealloweddomainsdomain) - Allowed Domain Delete
+- [`allowedDomainsGetAllowedDomains`](docs/sdks/alloweddomains/README.md#getalloweddomains) - Allowed Domains List
+- [`allowedDomainsGetAllowedDomainsDomain`](docs/sdks/alloweddomains/README.md#getalloweddomainsdomain) - Allowed Domain Show
+- [`allowedDomainsPostAllowedDomains`](docs/sdks/alloweddomains/README.md#postalloweddomains) - Allowed Domain Create
+- [`backgroundJobStatusGetBackgroundJobStatusBackgroundJobStatusId`](docs/sdks/backgroundjobstatus/README.md#getbackgroundjobstatusbackgroundjobstatusid) - Background Job Status Show
+- [`captionsDeleteMediasMediaHashedIdCaptionsLanguageCode`](docs/sdks/captions/README.md#deletemediasmediahashedidcaptionslanguagecode) - Captions Delete
+- [`captionsGetMediasMediaHashedIdCaptions`](docs/sdks/captions/README.md#getmediasmediahashedidcaptions) - Captions List
+- [`captionsGetMediasMediaHashedIdCaptionsLanguageCode`](docs/sdks/captions/README.md#getmediasmediahashedidcaptionslanguagecode) - Captions Show
+- [`captionsPostMediasMediaHashedIdCaptions`](docs/sdks/captions/README.md#postmediasmediahashedidcaptions) - Captions Create
+- [`captionsPostMediasMediaHashedIdCaptionsMultipart`](docs/sdks/captions/README.md#postmediasmediahashedidcaptionsmultipart) - Captions Create
+- [`captionsPostMediasMediaHashedIdCaptionsPurchase`](docs/sdks/captions/README.md#postmediasmediahashedidcaptionspurchase) - Captions Purchase
+- [`captionsPutMediasMediaHashedIdCaptionsLanguageCode`](docs/sdks/captions/README.md#putmediasmediahashedidcaptionslanguagecode) - Captions Update
+- [`captionsPutMediasMediaHashedIdCaptionsLanguageCodeMultipart`](docs/sdks/captions/README.md#putmediasmediahashedidcaptionslanguagecodemultipart) - Captions Update
+- [`channelEpisodesGetChannelEpisodes`](docs/sdks/channelepisodes/README.md#getchannelepisodes) - Channel Episodes List
+- [`channelEpisodesGetChannelsChannelHashedIdChannelEpisodes`](docs/sdks/channelepisodes/README.md#getchannelschannelhashedidchannelepisodes) - Channel Episodes List filtered by channel
+- [`channelEpisodesGetChannelsChannelHashedIdChannelEpisodesChannelEpisodeId`](docs/sdks/channelepisodes/README.md#getchannelschannelhashedidchannelepisodeschannelepisodeid) - Channel Episodes Show
+- [`channelEpisodesPostChannelsChannelHashedIdChannelEpisodes`](docs/sdks/channelepisodes/README.md#postchannelschannelhashedidchannelepisodes) - Channel Episode Create
+- [`channelsGetChannels`](docs/sdks/channels/README.md#getchannels) - Channels List
+- [`channelsGetChannelsChannelHashedId`](docs/sdks/channels/README.md#getchannelschannelhashedid) - Channels Show
+- [`customizationsDeleteMediasMediaIdCustomizations`](docs/sdks/customizations/README.md#deletemediasmediaidcustomizations) - Customizations Delete
+- [`customizationsGetMediasMediaIdCustomizations`](docs/sdks/customizations/README.md#getmediasmediaidcustomizations) - Customizations Show
+- [`customizationsPostMediasMediaIdCustomizations`](docs/sdks/customizations/README.md#postmediasmediaidcustomizations) - Customizations Create
+- [`customizationsPutMediasMediaIdCustomizations`](docs/sdks/customizations/README.md#putmediasmediaidcustomizations) - Customizations Update
+- [`expiringAccessTokensPostExpiringToken`](docs/sdks/expiringaccesstokens/README.md#postexpiringtoken) - Create an expiring access token
+- [`liveStreamEventsDeleteLiveStreamEventsId`](docs/sdks/livestreamevents/README.md#deletelivestreameventsid) - Live Stream Event Delete
+- [`liveStreamEventsGetLiveStreamEvents`](docs/sdks/livestreamevents/README.md#getlivestreamevents) - Live Stream Events List
+- [`liveStreamEventsGetLiveStreamEventsId`](docs/sdks/livestreamevents/README.md#getlivestreameventsid) - Live Stream Event Show
+- [`liveStreamEventsPostLiveStreamEvents`](docs/sdks/livestreamevents/README.md#postlivestreamevents) - Live Stream Event Create
+- [`liveStreamEventsPutLiveStreamEventsId`](docs/sdks/livestreamevents/README.md#putlivestreameventsid) - Live Stream Event Update
+- [`localizationsDeleteMediasMediaHashedIdLocalizationsLocalizationHashedId`](docs/sdks/localizations/README.md#deletemediasmediahashedidlocalizationslocalizationhashedid) - Localizations Delete
+- [`localizationsGetMediasMediaHashedIdLocalizations`](docs/sdks/localizations/README.md#getmediasmediahashedidlocalizations) - Localizations List
+- [`localizationsGetMediasMediaHashedIdLocalizationsLocalizationHashedId`](docs/sdks/localizations/README.md#getmediasmediahashedidlocalizationslocalizationhashedid) - Localizations Show
+- [`localizationsPostMediasMediaHashedIdLocalizations`](docs/sdks/localizations/README.md#postmediasmediahashedidlocalizations) - Localizations Create
+- [`mediaDeleteMediasMediaHashedId`](docs/sdks/media/README.md#deletemediasmediahashedid) - Media Delete
+- [`mediaGetMedias`](docs/sdks/media/README.md#getmedias) - Media List
+- [`mediaGetMediasMediaHashedId`](docs/sdks/media/README.md#getmediasmediahashedid) - Media Show
+- [`mediaGetMediasMediaHashedIdStats`](docs/sdks/media/README.md#getmediasmediahashedidstats) - Media Stats
+- [`mediaPostMediasMediaHashedIdCopy`](docs/sdks/media/README.md#postmediasmediahashedidcopy) - Media Copy
+- [`mediaPostMediasMediaHashedIdTranslate`](docs/sdks/media/README.md#postmediasmediahashedidtranslate) - Media Translate
+- [`mediaPutMediasArchive`](docs/sdks/media/README.md#putmediasarchive) - Medias Archive
+- [`mediaPutMediasMediaHashedId`](docs/sdks/media/README.md#putmediasmediahashedid) - Media Update
+- [`mediaPutMediasMediaHashedIdSwap`](docs/sdks/media/README.md#putmediasmediahashedidswap) - Media Swap
+- [`mediaPutMediasMove`](docs/sdks/media/README.md#putmediasmove) - Media Move
+- [`mediaPutMediasRestore`](docs/sdks/media/README.md#putmediasrestore) - Media Restore
+- [`projectsDeleteProjectsId`](docs/sdks/projects/README.md#deleteprojectsid) - Project Delete
+- [`projectsGetProjects`](docs/sdks/projects/README.md#getprojects) - Project List
+- [`projectsGetProjectsId`](docs/sdks/projects/README.md#getprojectsid) - Project Show
+- [`projectSharingsDeleteProjectsProjectIdSharingsSharingId`](docs/sdks/projectsharings/README.md#deleteprojectsprojectidsharingssharingid) - Project Sharing Delete
+- [`projectSharingsGetProjectsProjectIdSharings`](docs/sdks/projectsharings/README.md#getprojectsprojectidsharings) - Project Sharing List
+- [`projectSharingsGetProjectsProjectIdSharingsSharingId`](docs/sdks/projectsharings/README.md#getprojectsprojectidsharingssharingid) - Project Sharing Show
+- [`projectSharingsPostProjectsProjectIdSharings`](docs/sdks/projectsharings/README.md#postprojectsprojectidsharings) - Project Sharing Create
+- [`projectSharingsPutProjectsProjectIdSharingsSharingId`](docs/sdks/projectsharings/README.md#putprojectsprojectidsharingssharingid) - Project Sharing Update
+- [`projectsPostProjects`](docs/sdks/projects/README.md#postprojects) - Project Create
+- [`projectsPostProjectsIdCopy`](docs/sdks/projects/README.md#postprojectsidcopy) - Project Copy
+- [`projectsPutProjectsId`](docs/sdks/projects/README.md#putprojectsid) - Project Update
+- [`searchGetSearch`](docs/sdks/search/README.md#getsearch) - Search
+- [`statsAccountGetStatsAccount`](docs/sdks/statsaccount/README.md#getstatsaccount) - Stats:Account Show
+- [`statsEventsGetStatsEvents`](docs/sdks/statsevents/README.md#getstatsevents) - Stats:Events List
+- [`statsEventsGetStatsEventsEventKey`](docs/sdks/statsevents/README.md#getstatseventseventkey) - Stats:Events Show
+- [`statsMediaGetStatsMediasMediaIdByDate`](docs/sdks/statsmedia/README.md#getstatsmediasmediaidbydate) - Stats:Media By Date
+- [`statsVisitorsGetStatsVisitors`](docs/sdks/statsvisitors/README.md#getstatsvisitors) - Stats:Visitors List
+- [`statsVisitorsGetStatsVisitorsVisitorKey`](docs/sdks/statsvisitors/README.md#getstatsvisitorsvisitorkey) - Stats:Visitors Show
+- [`subfoldersCreate`](docs/sdks/subfolders/README.md#create) - Create Subfolder
+- [`subfoldersDelete`](docs/sdks/subfolders/README.md#delete) - Delete Subfolder
+- [`subfoldersGet`](docs/sdks/subfolders/README.md#get) - Show Subfolder
+- [`subfoldersList`](docs/sdks/subfolders/README.md#list) - Subfolder List
+- [`subfoldersUpdate`](docs/sdks/subfolders/README.md#update) - Update Subfolder
+- [`tagsDeleteTagsName`](docs/sdks/tags/README.md#deletetagsname) - Tags Delete
+- [`tagsGetTags`](docs/sdks/tags/README.md#gettags) - Tags List
+- [`tagsPostTags`](docs/sdks/tags/README.md#posttags) - Tags Create
+- [`trimsPostMediasMediaHashedIdTrims`](docs/sdks/trims/README.md#postmediasmediahashedidtrims) - Trims Create
 
 </details>
 <!-- End Standalone functions [standalone-funcs] -->
@@ -399,12 +385,11 @@ import { Wistia } from "@wistia/wistia-api-client";
 import { openAsBlob } from "node:fs";
 
 const wistia = new Wistia({
-  serverURL: "https://api.example.com",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  await wistia.captions.createMultipart({
+  await wistia.captions.postMediasMediaHashedIdCaptionsMultipart({
     mediaHashedId: "<id>",
     requestBody: {
       captionFile: await openAsBlob("example.file"),
@@ -427,12 +412,11 @@ To change the default retry strategy for a single API call, simply provide a ret
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
-  serverURL: "https://api.example.com",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const result = await wistia.projects.list({
+  const result = await wistia.projects.getProjects({
     retries: {
       strategy: "backoff",
       backoff: {
@@ -457,7 +441,6 @@ If you'd like to override the default retry strategy for all operations that sup
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
-  serverURL: "https://api.example.com",
   retryConfig: {
     strategy: "backoff",
     backoff: {
@@ -472,7 +455,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.projects.list();
+  const result = await wistia.projects.getProjects();
 
   console.log(result);
 }
@@ -502,13 +485,12 @@ import { Wistia } from "@wistia/wistia-api-client";
 import * as errors from "@wistia/wistia-api-client/models/errors";
 
 const wistia = new Wistia({
-  serverURL: "https://api.example.com",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
   try {
-    const result = await wistia.projects.list();
+    const result = await wistia.projects.getProjects();
 
     console.log(result);
   } catch (error) {
@@ -534,10 +516,10 @@ run();
 ### Error Classes
 **Primary errors:**
 * [`WistiaError`](./src/models/errors/wistiaerror.ts): The base class for HTTP error responses.
-  * [`FourHundredAndOneError`](./src/models/errors/fourhundredandoneerror.ts): Unauthorized, invalid or missing token. Status code `401`. *
+  * [`FourHundredAndOneError`](./src/models/errors/fourhundredandoneerror.ts): Unauthorized, invalid or missing token. Status code `401`.
   * [`FiveHundredError`](./src/models/errors/fivehundrederror.ts): Internal server error. Status code `500`. *
 
-<details><summary>Less common errors (39)</summary>
+<details><summary>Less common errors (37)</summary>
 
 <br />
 
@@ -550,45 +532,68 @@ run();
 
 
 **Inherit from [`WistiaError`](./src/models/errors/wistiaerror.ts)**:
-* [`FourHundredAndFourError`](./src/models/errors/fourhundredandfourerror.ts): Resource not found. Status code `404`. Applicable to 24 of 74 methods.*
-* [`FourHundredError`](./src/models/errors/fourhundrederror.ts): Bad request. Status code `400`. Applicable to 5 of 74 methods.*
-* [`FourHundredAndTwentyTwoError`](./src/models/errors/fourhundredandtwentytwoerror.ts): Unprocessible entity, parameters provided were invalid. Status code `422`. Applicable to 2 of 74 methods.*
-* [`PostMediasMediaHashedIdCopyBadRequestError`](./src/models/errors/postmediasmediahashedidcopybadrequesterror.ts): Bad request, e.g. copy failure. Status code `400`. Applicable to 1 of 74 methods.*
-* [`PutMediasMediaHashedIdSwapBadRequestError`](./src/models/errors/putmediasmediahashedidswapbadrequesterror.ts): Bad request, e.g. missing replacement_media_id or media type mismatch. Status code `400`. Applicable to 1 of 74 methods.*
-* [`PutMediasMoveBadRequestError`](./src/models/errors/putmediasmovebadrequesterror.ts): Invalid request. Status code `400`. Applicable to 1 of 74 methods.*
-* [`PostAllowedDomainsBadRequestError`](./src/models/errors/postalloweddomainsbadrequesterror.ts): Bad request - missing or invalid domain. Status code `400`. Applicable to 1 of 74 methods.*
-* [`PostTagsBadRequestError`](./src/models/errors/posttagsbadrequesterror.ts): Bad request - missing or invalid parameters. Status code `400`. Applicable to 1 of 74 methods.*
-* [`GetSearchBadRequestError`](./src/models/errors/getsearchbadrequesterror.ts): Bad request - missing query parameter. Status code `400`. Applicable to 1 of 74 methods.*
-* [`PostMultipartBadRequestError`](./src/models/errors/postmultipartbadrequesterror.ts): Error due to reaching the video limit of your account or other issues. Status code `400`. Applicable to 1 of 74 methods.*
-* [`PostFormBadRequestError`](./src/models/errors/postformbadrequesterror.ts): Error due to reaching the video limit of your account or other issues. Status code `400`. Applicable to 1 of 74 methods.*
-* [`PutMediasArchiveForbiddenError`](./src/models/errors/putmediasarchiveforbiddenerror.ts): Forbidden, e.g. account does not have access to archiving. Status code `403`. Applicable to 1 of 74 methods.*
-* [`PutMediasRestoreForbiddenError`](./src/models/errors/putmediasrestoreforbiddenerror.ts): Forbidden, e.g. account does not have access to archiving. Status code `403`. Applicable to 1 of 74 methods.*
-* [`GetBackgroundJobStatusBackgroundJobStatusIdForbiddenError`](./src/models/errors/getbackgroundjobstatusbackgroundjobstatusidforbiddenerror.ts): Background Job Status Not Associated with An Authorized Object. Status code `403`. Applicable to 1 of 74 methods.*
-* [`PostLiveStreamEventsForbiddenError`](./src/models/errors/postlivestreameventsforbiddenerror.ts): Live streaming feature not available. Status code `403`. Applicable to 1 of 74 methods.*
-* [`GetProjectsProjectIdSubfoldersNotFoundError`](./src/models/errors/getprojectsprojectidsubfoldersnotfounderror.ts): Project not found. Status code `404`. Applicable to 1 of 74 methods.*
-* [`PostProjectsProjectIdSubfoldersNotFoundError`](./src/models/errors/postprojectsprojectidsubfoldersnotfounderror.ts): Project not found. Status code `404`. Applicable to 1 of 74 methods.*
-* [`GetProjectsProjectIdSubfoldersSubfolderIdNotFoundError`](./src/models/errors/getprojectsprojectidsubfolderssubfolderidnotfounderror.ts): Project or subfolder not found. Status code `404`. Applicable to 1 of 74 methods.*
-* [`PutProjectsProjectIdSubfoldersSubfolderIdNotFoundError`](./src/models/errors/putprojectsprojectidsubfolderssubfolderidnotfounderror.ts): Project or subfolder not found. Status code `404`. Applicable to 1 of 74 methods.*
-* [`DeleteProjectsProjectIdSubfoldersSubfolderIdNotFoundError`](./src/models/errors/deleteprojectsprojectidsubfolderssubfolderidnotfounderror.ts): Project or subfolder not found. Status code `404`. Applicable to 1 of 74 methods.*
-* [`GetAllowedDomainsDomainNotFoundError`](./src/models/errors/getalloweddomainsdomainnotfounderror.ts): Domain not found. Status code `404`. Applicable to 1 of 74 methods.*
-* [`DeleteAllowedDomainsDomainNotFoundError`](./src/models/errors/deletealloweddomainsdomainnotfounderror.ts): Domain not found. Status code `404`. Applicable to 1 of 74 methods.*
-* [`MethodNotAllowedError`](./src/models/errors/methodnotallowederror.ts): Method not allowed, e.g. trying to copy archived media. Status code `405`. Applicable to 1 of 74 methods.*
-* [`PostMediasMediaHashedIdTranslateUnprocessableEntityError`](./src/models/errors/postmediasmediahashedidtranslateunprocessableentityerror.ts): Unprocessible entity, parameters provided were invalid. Status code `422`. Applicable to 1 of 74 methods.*
-* [`PutMediasArchiveUnprocessableEntityError`](./src/models/errors/putmediasarchiveunprocessableentityerror.ts): Unprocessable entity, e.g. too many media requested. Status code `422`. Applicable to 1 of 74 methods.*
-* [`PutMediasRestoreUnprocessableEntityError`](./src/models/errors/putmediasrestoreunprocessableentityerror.ts): Missing arguments for restoration of media. Status code `422`. Applicable to 1 of 74 methods.*
-* [`PostMediasMediaHashedIdCaptionsPurchaseUnprocessableEntityError`](./src/models/errors/postmediasmediahashedidcaptionspurchaseunprocessableentityerror.ts): Unprocessable entity. Account not eligible, captions already purchased, or other validation error. Status code `422`. Applicable to 1 of 74 methods.*
-* [`PostMediasMediaHashedIdLocalizationsUnprocessableEntityError`](./src/models/errors/postmediasmediahashedidlocalizationsunprocessableentityerror.ts): Unprocessible entity, parameters provided were invalid. Status code `422`. Applicable to 1 of 74 methods.*
-* [`PostTagsUnprocessableEntityError`](./src/models/errors/posttagsunprocessableentityerror.ts): Validation error - tag already exists. Status code `422`. Applicable to 1 of 74 methods.*
-* [`PostLiveStreamEventsUnprocessableEntityError`](./src/models/errors/postlivestreameventsunprocessableentityerror.ts): Validation errors. Status code `422`. Applicable to 1 of 74 methods.*
-* [`PutLiveStreamEventsIdUnprocessableEntityError`](./src/models/errors/putlivestreameventsidunprocessableentityerror.ts): Validation errors. Status code `422`. Applicable to 1 of 74 methods.*
-* [`InternalServerError`](./src/models/errors/internalservererror.ts): Internal server error during event creation. Status code `500`. Applicable to 1 of 74 methods.*
-* [`NotImplementedError`](./src/models/errors/notimplementederror.ts): Not implemented - expiring tokens cannot be created from other expiring tokens. Status code `501`. Applicable to 1 of 74 methods.*
+* [`FourHundredAndFourError`](./src/models/errors/fourhundredandfourerror.ts): Resource not found. Status code `404`. Applicable to 24 of 72 methods.*
+* [`FourHundredError`](./src/models/errors/fourhundrederror.ts): Bad request. Status code `400`. Applicable to 6 of 72 methods.*
+* [`FourHundredAndTwentyTwoError`](./src/models/errors/fourhundredandtwentytwoerror.ts): Unprocessible entity, parameters provided were invalid. Status code `422`. Applicable to 2 of 72 methods.*
+* [`PostMediasMediaHashedIdCopyBadRequestError`](./src/models/errors/postmediasmediahashedidcopybadrequesterror.ts): Bad request, e.g. copy failure. Status code `400`. Applicable to 1 of 72 methods.*
+* [`PutMediasMediaHashedIdSwapBadRequestError`](./src/models/errors/putmediasmediahashedidswapbadrequesterror.ts): Bad request, e.g. missing replacement_media_id or media type mismatch. Status code `400`. Applicable to 1 of 72 methods.*
+* [`PutMediasMoveBadRequestError`](./src/models/errors/putmediasmovebadrequesterror.ts): Invalid request. Status code `400`. Applicable to 1 of 72 methods.*
+* [`PostAllowedDomainsBadRequestError`](./src/models/errors/postalloweddomainsbadrequesterror.ts): Bad request - missing or invalid domain. Status code `400`. Applicable to 1 of 72 methods.*
+* [`PostTagsBadRequestError`](./src/models/errors/posttagsbadrequesterror.ts): Bad request - missing or invalid parameters. Status code `400`. Applicable to 1 of 72 methods.*
+* [`GetSearchBadRequestError`](./src/models/errors/getsearchbadrequesterror.ts): Bad request - missing query parameter. Status code `400`. Applicable to 1 of 72 methods.*
+* [`PutMediasArchiveForbiddenError`](./src/models/errors/putmediasarchiveforbiddenerror.ts): Forbidden, e.g. account does not have access to archiving. Status code `403`. Applicable to 1 of 72 methods.*
+* [`PutMediasRestoreForbiddenError`](./src/models/errors/putmediasrestoreforbiddenerror.ts): Forbidden, e.g. account does not have access to archiving. Status code `403`. Applicable to 1 of 72 methods.*
+* [`GetBackgroundJobStatusBackgroundJobStatusIdForbiddenError`](./src/models/errors/getbackgroundjobstatusbackgroundjobstatusidforbiddenerror.ts): Background Job Status Not Associated with An Authorized Object. Status code `403`. Applicable to 1 of 72 methods.*
+* [`PostLiveStreamEventsForbiddenError`](./src/models/errors/postlivestreameventsforbiddenerror.ts): Live streaming feature not available. Status code `403`. Applicable to 1 of 72 methods.*
+* [`GetProjectsProjectIdSubfoldersNotFoundError`](./src/models/errors/getprojectsprojectidsubfoldersnotfounderror.ts): Project not found. Status code `404`. Applicable to 1 of 72 methods.*
+* [`PostProjectsProjectIdSubfoldersNotFoundError`](./src/models/errors/postprojectsprojectidsubfoldersnotfounderror.ts): Project not found. Status code `404`. Applicable to 1 of 72 methods.*
+* [`GetProjectsProjectIdSubfoldersSubfolderIdNotFoundError`](./src/models/errors/getprojectsprojectidsubfolderssubfolderidnotfounderror.ts): Project or subfolder not found. Status code `404`. Applicable to 1 of 72 methods.*
+* [`PutProjectsProjectIdSubfoldersSubfolderIdNotFoundError`](./src/models/errors/putprojectsprojectidsubfolderssubfolderidnotfounderror.ts): Project or subfolder not found. Status code `404`. Applicable to 1 of 72 methods.*
+* [`DeleteProjectsProjectIdSubfoldersSubfolderIdNotFoundError`](./src/models/errors/deleteprojectsprojectidsubfolderssubfolderidnotfounderror.ts): Project or subfolder not found. Status code `404`. Applicable to 1 of 72 methods.*
+* [`GetAllowedDomainsDomainNotFoundError`](./src/models/errors/getalloweddomainsdomainnotfounderror.ts): Domain not found. Status code `404`. Applicable to 1 of 72 methods.*
+* [`DeleteAllowedDomainsDomainNotFoundError`](./src/models/errors/deletealloweddomainsdomainnotfounderror.ts): Domain not found. Status code `404`. Applicable to 1 of 72 methods.*
+* [`MethodNotAllowedError`](./src/models/errors/methodnotallowederror.ts): Method not allowed, e.g. trying to copy archived media. Status code `405`. Applicable to 1 of 72 methods.*
+* [`PostMediasMediaHashedIdTranslateUnprocessableEntityError`](./src/models/errors/postmediasmediahashedidtranslateunprocessableentityerror.ts): Unprocessible entity, parameters provided were invalid. Status code `422`. Applicable to 1 of 72 methods.*
+* [`PutMediasArchiveUnprocessableEntityError`](./src/models/errors/putmediasarchiveunprocessableentityerror.ts): Unprocessable entity, e.g. too many media requested. Status code `422`. Applicable to 1 of 72 methods.*
+* [`PutMediasRestoreUnprocessableEntityError`](./src/models/errors/putmediasrestoreunprocessableentityerror.ts): Missing arguments for restoration of media. Status code `422`. Applicable to 1 of 72 methods.*
+* [`PostMediasMediaHashedIdCaptionsPurchaseUnprocessableEntityError`](./src/models/errors/postmediasmediahashedidcaptionspurchaseunprocessableentityerror.ts): Unprocessable entity. Account not eligible, captions already purchased, or other validation error. Status code `422`. Applicable to 1 of 72 methods.*
+* [`PostMediasMediaHashedIdLocalizationsUnprocessableEntityError`](./src/models/errors/postmediasmediahashedidlocalizationsunprocessableentityerror.ts): Unprocessible entity, parameters provided were invalid. Status code `422`. Applicable to 1 of 72 methods.*
+* [`PostTagsUnprocessableEntityError`](./src/models/errors/posttagsunprocessableentityerror.ts): Validation error - tag already exists. Status code `422`. Applicable to 1 of 72 methods.*
+* [`PostLiveStreamEventsUnprocessableEntityError`](./src/models/errors/postlivestreameventsunprocessableentityerror.ts): Validation errors. Status code `422`. Applicable to 1 of 72 methods.*
+* [`PutLiveStreamEventsIdUnprocessableEntityError`](./src/models/errors/putlivestreameventsidunprocessableentityerror.ts): Validation errors. Status code `422`. Applicable to 1 of 72 methods.*
+* [`InternalServerError`](./src/models/errors/internalservererror.ts): Internal server error during event creation. Status code `500`. Applicable to 1 of 72 methods.*
+* [`NotImplementedError`](./src/models/errors/notimplementederror.ts): Not implemented - expiring tokens cannot be created from other expiring tokens. Status code `501`. Applicable to 1 of 72 methods.*
 * [`ResponseValidationError`](./src/models/errors/responsevalidationerror.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
 
 </details>
 
 \* Check [the method documentation](#available-resources-and-operations) to see if the error is applicable.
 <!-- End Error Handling [errors] -->
+
+<!-- Start Server Selection [server] -->
+## Server Selection
+
+### Override Server URL Per-Client
+
+The default server can be overridden globally by passing a URL to the `serverURL: string` optional parameter when initializing the SDK client instance. For example:
+```typescript
+import { Wistia } from "@wistia/wistia-api-client";
+
+const wistia = new Wistia({
+  serverURL: "https://api.wistia.com/v1",
+  bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
+});
+
+async function run() {
+  const result = await wistia.projects.getProjects();
+
+  console.log(result);
+}
+
+run();
+
+```
+<!-- End Server Selection [server] -->
 
 <!-- Start Custom HTTP Client [http-client] -->
 ## Custom HTTP Client

@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 7b32ab6a-5908-41aa-b82f-7906605d30ce
 management:
-  docChecksum: f40eeec5be3ef8b6f9d99f57957a2327
+  docChecksum: 482cb4b74a7b2d221c606a294d852e46
   docVersion: 1.0.0
-  speakeasyVersion: 1.607.0
-  generationVersion: 2.690.1
-  releaseVersion: 2025.9.1
-  configChecksum: 79634be8b0e8dd88eb895a5623bd07c9
+  speakeasyVersion: 1.611.0
+  generationVersion: 2.694.1
+  releaseVersion: 2025.11.1
+  configChecksum: 9cdba5918ee7782f76a00582cdbb5ea6
   repoURL: https://github.com/speakeasy-sdks/wistia-typescript-sdk.git
   installationURL: https://github.com/speakeasy-sdks/wistia-typescript-sdk
   published: true
@@ -15,7 +15,7 @@ features:
     acceptHeaders: 2.81.2
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.1.12
-    core: 3.21.21
+    core: 3.21.22
     defaultEnabledRetries: 0.1.0
     deprecations: 2.81.1
     devContainers: 2.90.0
@@ -25,9 +25,7 @@ features:
     globalSecurityCallbacks: 0.1.0
     globalSecurityFlattening: 0.1.0
     globalServerURLs: 2.82.5
-    groups: 2.81.2
     methodArguments: 0.1.2
-    methodServerURLs: 2.82.1
     nameOverrides: 2.81.2
     nullables: 0.1.1
     responseFormat: 0.2.3
@@ -93,14 +91,12 @@ generatedFiles:
   - docs/models/errors/methodnotallowederror.md
   - docs/models/errors/notimplementederror.md
   - docs/models/errors/postalloweddomainsbadrequesterror.md
-  - docs/models/errors/postformbadrequesterror.md
   - docs/models/errors/postlivestreameventsforbiddenerror.md
   - docs/models/errors/postlivestreameventsunprocessableentityerror.md
   - docs/models/errors/postmediasmediahashedidcaptionspurchaseunprocessableentityerror.md
   - docs/models/errors/postmediasmediahashedidcopybadrequesterror.md
   - docs/models/errors/postmediasmediahashedidlocalizationsunprocessableentityerror.md
   - docs/models/errors/postmediasmediahashedidtranslateunprocessableentityerror.md
-  - docs/models/errors/postmultipartbadrequesterror.md
   - docs/models/errors/postprojectsprojectidsubfoldersnotfounderror.md
   - docs/models/errors/posttagsbadrequesterror.md
   - docs/models/errors/posttagsunprocessableentityerror.md
@@ -129,11 +125,15 @@ generatedFiles:
   - docs/models/mediashowtype.md
   - docs/models/mediastatus.md
   - docs/models/mediatype.md
+  - docs/models/mediawithcursor.md
+  - docs/models/mediawithcursorstatus.md
+  - docs/models/mediawithcursortype.md
   - docs/models/mediawiththumbnailandprojectschemamedia.md
   - docs/models/mediawiththumbnailandprojectschemamediastatus.md
   - docs/models/mediawiththumbnailandprojectschemamediatype.md
   - docs/models/noassetmediaschemamedia.md
   - docs/models/operations/container.md
+  - docs/models/operations/cursor.md
   - docs/models/operations/data.md
   - docs/models/operations/deletealloweddomainsdomainrequest.md
   - docs/models/operations/deletelivestreameventsidrequest.md
@@ -146,7 +146,7 @@ generatedFiles:
   - docs/models/operations/deleteprojectsprojectidsubfolderssubfolderidrequest.md
   - docs/models/operations/deletetagsnamerequest.md
   - docs/models/operations/descriptionformat.md
-  - docs/models/operations/filet.md
+  - docs/models/operations/enabled.md
   - docs/models/operations/filter.md
   - docs/models/operations/getalloweddomainsdomainrequest.md
   - docs/models/operations/getalloweddomainsrequest.md
@@ -201,9 +201,6 @@ generatedFiles:
   - docs/models/operations/postalloweddomainsrequest.md
   - docs/models/operations/postchannelschannelhashedidchannelepisodesrequest.md
   - docs/models/operations/postexpiringtokenrequest.md
-  - docs/models/operations/postformerror.md
-  - docs/models/operations/postformrequest.md
-  - docs/models/operations/postformresponse.md
   - docs/models/operations/postmediasmediahashedidcaptionsmultipartcaptionfile.md
   - docs/models/operations/postmediasmediahashedidcaptionsmultipartrequest.md
   - docs/models/operations/postmediasmediahashedidcaptionsmultipartrequestbody.md
@@ -223,9 +220,6 @@ generatedFiles:
   - docs/models/operations/postmediasmediahashedidtrimsrequest.md
   - docs/models/operations/postmediasmediahashedidtrimsresponse.md
   - docs/models/operations/postmediasmediaidcustomizationsrequest.md
-  - docs/models/operations/postmultiparterror.md
-  - docs/models/operations/postmultipartrequest.md
-  - docs/models/operations/postmultipartresponse.md
   - docs/models/operations/postprojectsidcopyrequest.md
   - docs/models/operations/postprojectsidcopyrequestbody.md
   - docs/models/operations/postprojectsidcopyresponse.md
@@ -322,7 +316,6 @@ generatedFiles:
   - docs/sdks/channelepisodes/README.md
   - docs/sdks/channels/README.md
   - docs/sdks/customizations/README.md
-  - docs/sdks/events/README.md
   - docs/sdks/expiringaccesstokens/README.md
   - docs/sdks/livestreamevents/README.md
   - docs/sdks/localizations/README.md
@@ -330,7 +323,6 @@ generatedFiles:
   - docs/sdks/projects/README.md
   - docs/sdks/projectsharings/README.md
   - docs/sdks/search/README.md
-  - docs/sdks/stats/README.md
   - docs/sdks/statsaccount/README.md
   - docs/sdks/statsevents/README.md
   - docs/sdks/statsmedia/README.md
@@ -338,91 +330,88 @@ generatedFiles:
   - docs/sdks/subfolders/README.md
   - docs/sdks/tags/README.md
   - docs/sdks/trims/README.md
-  - docs/sdks/uploadorimportmedia/README.md
   - docs/sdks/wistia/README.md
   - docs/types/rfcdate.md
   - eslint.config.mjs
   - examples/.env.template
   - examples/README.md
   - examples/package.json
-  - examples/projectsList.example.ts
+  - examples/projectsGetProjects.example.ts
   - jsr.json
   - package.json
   - src/core.ts
-  - src/funcs/accountGet.ts
-  - src/funcs/allowedDomainsCreate.ts
-  - src/funcs/allowedDomainsDelete.ts
-  - src/funcs/allowedDomainsGet.ts
-  - src/funcs/allowedDomainsList.ts
-  - src/funcs/backgroundJobStatusGet.ts
-  - src/funcs/captionsCreate.ts
-  - src/funcs/captionsCreateMultipart.ts
-  - src/funcs/captionsDelete.ts
-  - src/funcs/captionsGet.ts
-  - src/funcs/captionsList.ts
-  - src/funcs/captionsPurchase.ts
-  - src/funcs/captionsUpdate.ts
-  - src/funcs/captionsUpdateMultipart.ts
-  - src/funcs/channelEpisodesCreate.ts
-  - src/funcs/channelEpisodesGet.ts
-  - src/funcs/channelEpisodesList.ts
-  - src/funcs/channelEpisodesListByChannel.ts
-  - src/funcs/channelsGet.ts
-  - src/funcs/channelsList.ts
-  - src/funcs/customizationsCreate.ts
-  - src/funcs/customizationsDelete.ts
-  - src/funcs/customizationsGet.ts
-  - src/funcs/customizationsUpdate.ts
-  - src/funcs/expiringAccessTokensCreate.ts
-  - src/funcs/liveStreamEventsCreate.ts
-  - src/funcs/liveStreamEventsDelete.ts
-  - src/funcs/liveStreamEventsGet.ts
-  - src/funcs/liveStreamEventsList.ts
-  - src/funcs/liveStreamEventsUpdate.ts
-  - src/funcs/localizationsCreate.ts
-  - src/funcs/localizationsDelete.ts
-  - src/funcs/localizationsGet.ts
-  - src/funcs/localizationsList.ts
-  - src/funcs/mediaArchive.ts
-  - src/funcs/mediaCopy.ts
-  - src/funcs/mediaDelete.ts
-  - src/funcs/mediaGet.ts
-  - src/funcs/mediaList.ts
-  - src/funcs/mediaMove.ts
-  - src/funcs/mediaRestore.ts
-  - src/funcs/mediaStats.ts
-  - src/funcs/mediaSwap.ts
-  - src/funcs/mediaTranslate.ts
-  - src/funcs/mediaUpdate.ts
-  - src/funcs/projectSharingsCreate.ts
-  - src/funcs/projectSharingsDelete.ts
-  - src/funcs/projectSharingsGet.ts
-  - src/funcs/projectSharingsList.ts
-  - src/funcs/projectSharingsUpdate.ts
-  - src/funcs/projectsCopy.ts
-  - src/funcs/projectsCreate.ts
-  - src/funcs/projectsDelete.ts
-  - src/funcs/projectsGet.ts
-  - src/funcs/projectsList.ts
-  - src/funcs/projectsUpdate.ts
-  - src/funcs/searchGet.ts
-  - src/funcs/statsAccountGet.ts
-  - src/funcs/statsEventsGet.ts
-  - src/funcs/statsEventsList.ts
-  - src/funcs/statsMediaGetByDate.ts
-  - src/funcs/statsVisitorsGet.ts
-  - src/funcs/statsVisitorsList.ts
-  - src/funcs/subfoldersDeleteProjectsProjectIdSubfoldersSubfolderId.ts
-  - src/funcs/subfoldersGetProjectsProjectIdSubfolders.ts
-  - src/funcs/subfoldersGetProjectsProjectIdSubfoldersSubfolderId.ts
-  - src/funcs/subfoldersPostProjectsProjectIdSubfolders.ts
-  - src/funcs/subfoldersPutProjectsProjectIdSubfoldersSubfolderId.ts
-  - src/funcs/tagsCreate.ts
-  - src/funcs/tagsDelete.ts
-  - src/funcs/tagsList.ts
-  - src/funcs/trimsCreate.ts
-  - src/funcs/uploadOrImportMediaPostForm.ts
-  - src/funcs/uploadOrImportMediaPostMultipart.ts
+  - src/funcs/accountGetAccountDetails.ts
+  - src/funcs/allowedDomainsDeleteAllowedDomainsDomain.ts
+  - src/funcs/allowedDomainsGetAllowedDomains.ts
+  - src/funcs/allowedDomainsGetAllowedDomainsDomain.ts
+  - src/funcs/allowedDomainsPostAllowedDomains.ts
+  - src/funcs/backgroundJobStatusGetBackgroundJobStatusBackgroundJobStatusId.ts
+  - src/funcs/captionsDeleteMediasMediaHashedIdCaptionsLanguageCode.ts
+  - src/funcs/captionsGetMediasMediaHashedIdCaptions.ts
+  - src/funcs/captionsGetMediasMediaHashedIdCaptionsLanguageCode.ts
+  - src/funcs/captionsPostMediasMediaHashedIdCaptions.ts
+  - src/funcs/captionsPostMediasMediaHashedIdCaptionsMultipart.ts
+  - src/funcs/captionsPostMediasMediaHashedIdCaptionsPurchase.ts
+  - src/funcs/captionsPutMediasMediaHashedIdCaptionsLanguageCode.ts
+  - src/funcs/captionsPutMediasMediaHashedIdCaptionsLanguageCodeMultipart.ts
+  - src/funcs/channelEpisodesGetChannelEpisodes.ts
+  - src/funcs/channelEpisodesGetChannelsChannelHashedIdChannelEpisodes.ts
+  - src/funcs/channelEpisodesGetChannelsChannelHashedIdChannelEpisodesChannelEpisodeId.ts
+  - src/funcs/channelEpisodesPostChannelsChannelHashedIdChannelEpisodes.ts
+  - src/funcs/channelsGetChannels.ts
+  - src/funcs/channelsGetChannelsChannelHashedId.ts
+  - src/funcs/customizationsDeleteMediasMediaIdCustomizations.ts
+  - src/funcs/customizationsGetMediasMediaIdCustomizations.ts
+  - src/funcs/customizationsPostMediasMediaIdCustomizations.ts
+  - src/funcs/customizationsPutMediasMediaIdCustomizations.ts
+  - src/funcs/expiringAccessTokensPostExpiringToken.ts
+  - src/funcs/liveStreamEventsDeleteLiveStreamEventsId.ts
+  - src/funcs/liveStreamEventsGetLiveStreamEvents.ts
+  - src/funcs/liveStreamEventsGetLiveStreamEventsId.ts
+  - src/funcs/liveStreamEventsPostLiveStreamEvents.ts
+  - src/funcs/liveStreamEventsPutLiveStreamEventsId.ts
+  - src/funcs/localizationsDeleteMediasMediaHashedIdLocalizationsLocalizationHashedId.ts
+  - src/funcs/localizationsGetMediasMediaHashedIdLocalizations.ts
+  - src/funcs/localizationsGetMediasMediaHashedIdLocalizationsLocalizationHashedId.ts
+  - src/funcs/localizationsPostMediasMediaHashedIdLocalizations.ts
+  - src/funcs/mediaDeleteMediasMediaHashedId.ts
+  - src/funcs/mediaGetMedias.ts
+  - src/funcs/mediaGetMediasMediaHashedId.ts
+  - src/funcs/mediaGetMediasMediaHashedIdStats.ts
+  - src/funcs/mediaPostMediasMediaHashedIdCopy.ts
+  - src/funcs/mediaPostMediasMediaHashedIdTranslate.ts
+  - src/funcs/mediaPutMediasArchive.ts
+  - src/funcs/mediaPutMediasMediaHashedId.ts
+  - src/funcs/mediaPutMediasMediaHashedIdSwap.ts
+  - src/funcs/mediaPutMediasMove.ts
+  - src/funcs/mediaPutMediasRestore.ts
+  - src/funcs/projectSharingsDeleteProjectsProjectIdSharingsSharingId.ts
+  - src/funcs/projectSharingsGetProjectsProjectIdSharings.ts
+  - src/funcs/projectSharingsGetProjectsProjectIdSharingsSharingId.ts
+  - src/funcs/projectSharingsPostProjectsProjectIdSharings.ts
+  - src/funcs/projectSharingsPutProjectsProjectIdSharingsSharingId.ts
+  - src/funcs/projectsDeleteProjectsId.ts
+  - src/funcs/projectsGetProjects.ts
+  - src/funcs/projectsGetProjectsId.ts
+  - src/funcs/projectsPostProjects.ts
+  - src/funcs/projectsPostProjectsIdCopy.ts
+  - src/funcs/projectsPutProjectsId.ts
+  - src/funcs/searchGetSearch.ts
+  - src/funcs/statsAccountGetStatsAccount.ts
+  - src/funcs/statsEventsGetStatsEvents.ts
+  - src/funcs/statsEventsGetStatsEventsEventKey.ts
+  - src/funcs/statsMediaGetStatsMediasMediaIdByDate.ts
+  - src/funcs/statsVisitorsGetStatsVisitors.ts
+  - src/funcs/statsVisitorsGetStatsVisitorsVisitorKey.ts
+  - src/funcs/subfoldersCreate.ts
+  - src/funcs/subfoldersDelete.ts
+  - src/funcs/subfoldersGet.ts
+  - src/funcs/subfoldersList.ts
+  - src/funcs/subfoldersUpdate.ts
+  - src/funcs/tagsDeleteTagsName.ts
+  - src/funcs/tagsGetTags.ts
+  - src/funcs/tagsPostTags.ts
+  - src/funcs/trimsPostMediasMediaHashedIdTrims.ts
   - src/hooks/hooks.ts
   - src/hooks/index.ts
   - src/hooks/types.ts
@@ -471,13 +460,11 @@ generatedFiles:
   - src/models/errors/index.ts
   - src/models/errors/postalloweddomains.ts
   - src/models/errors/postexpiringtoken.ts
-  - src/models/errors/postform.ts
   - src/models/errors/postlivestreamevents.ts
   - src/models/errors/postmediasmediahashedidcaptionspurchase.ts
   - src/models/errors/postmediasmediahashedidcopy.ts
   - src/models/errors/postmediasmediahashedidlocalizations.ts
   - src/models/errors/postmediasmediahashedidtranslate.ts
-  - src/models/errors/postmultipart.ts
   - src/models/errors/postprojectsprojectidsubfolders.ts
   - src/models/errors/posttags.ts
   - src/models/errors/putlivestreameventsid.ts
@@ -502,6 +489,7 @@ generatedFiles:
   - src/models/localizationwithpurchasedata.ts
   - src/models/media.ts
   - src/models/mediashow.ts
+  - src/models/mediawithcursor.ts
   - src/models/mediawiththumbnailandprojectschemamedia.ts
   - src/models/noassetmediaschemamedia.ts
   - src/models/operations/deletealloweddomainsdomain.ts
@@ -514,7 +502,6 @@ generatedFiles:
   - src/models/operations/deleteprojectsprojectidsharingssharingid.ts
   - src/models/operations/deleteprojectsprojectidsubfolderssubfolderid.ts
   - src/models/operations/deletetagsname.ts
-  - src/models/operations/getaccountdetails.ts
   - src/models/operations/getalloweddomains.ts
   - src/models/operations/getalloweddomainsdomain.ts
   - src/models/operations/getbackgroundjobstatusbackgroundjobstatusid.ts
@@ -551,8 +538,6 @@ generatedFiles:
   - src/models/operations/postalloweddomains.ts
   - src/models/operations/postchannelschannelhashedidchannelepisodes.ts
   - src/models/operations/postexpiringtoken.ts
-  - src/models/operations/postform.ts
-  - src/models/operations/postlivestreamevents.ts
   - src/models/operations/postmediasmediahashedidcaptions.ts
   - src/models/operations/postmediasmediahashedidcaptionsmultipart.ts
   - src/models/operations/postmediasmediahashedidcaptionspurchase.ts
@@ -561,8 +546,6 @@ generatedFiles:
   - src/models/operations/postmediasmediahashedidtranslate.ts
   - src/models/operations/postmediasmediahashedidtrims.ts
   - src/models/operations/postmediasmediaidcustomizations.ts
-  - src/models/operations/postmultipart.ts
-  - src/models/operations/postprojects.ts
   - src/models/operations/postprojectsidcopy.ts
   - src/models/operations/postprojectsprojectidsharings.ts
   - src/models/operations/postprojectsprojectidsubfolders.ts
@@ -611,7 +594,6 @@ generatedFiles:
   - src/sdk/channelepisodes.ts
   - src/sdk/channels.ts
   - src/sdk/customizations.ts
-  - src/sdk/events.ts
   - src/sdk/expiringaccesstokens.ts
   - src/sdk/index.ts
   - src/sdk/livestreamevents.ts
@@ -621,7 +603,6 @@ generatedFiles:
   - src/sdk/projectsharings.ts
   - src/sdk/sdk.ts
   - src/sdk/search.ts
-  - src/sdk/stats.ts
   - src/sdk/statsaccount.ts
   - src/sdk/statsevents.ts
   - src/sdk/statsmedia.ts
@@ -629,7 +610,6 @@ generatedFiles:
   - src/sdk/subfolders.ts
   - src/sdk/tags.ts
   - src/sdk/trims.ts
-  - src/sdk/uploadorimportmedia.ts
   - src/types/async.ts
   - src/types/blobs.ts
   - src/types/constdatetime.ts
@@ -803,6 +783,8 @@ examples:
           application/json: {"error": "Invalid credentials."}
         "500":
           application/json: {"error": "Internal server error"}
+        "400":
+          application/json: {"error": "Bad request"}
   get_/medias/{media-hashed-id}:
     speakeasy-default-get-/medias/{media-hashed-id}:
       parameters:
@@ -1637,4 +1619,3 @@ examples:
         "400":
           application/json: {}
 examplesVersion: 1.0.2
-releaseNotes: "## Typescript SDK Changes Detected:\n* `wistia.media.delete()`:  `response.subfolder` **Changed** **Breaking** :warning:\n* `wistia.media.copy()`:  `response.subfolder` **Changed** **Breaking** :warning:\n* `wistia.subfolders.get/projects/{projectId}/subfolders()`: \n  *  `request.sortBy` **Changed**\n  *  `response.[]` **Changed** **Breaking** :warning:\n* `wistia.subfolders.post/projects/{projectId}/subfolders()`:  `response` **Changed** **Breaking** :warning:\n* `wistia.subfolders.get/projects/{projectId}/subfolders/{subfolderId}()`:  `response` **Changed** **Breaking** :warning:\n* `wistia.subfolders.put/projects/{projectId}/subfolders/{subfolderId}()`:  `response` **Changed** **Breaking** :warning:\n* `wistia.subfolders.delete/projects/{projectId}/subfolders/{subfolderId}()`:  `response` **Changed** **Breaking** :warning:\n* `wistia.media.list()`:  `response.[].subfolder` **Changed** **Breaking** :warning:\n* `wistia.media.get()`:  `response.subfolder` **Changed** **Breaking** :warning:\n* `wistia.media.swap()`:  `response.media.subfolder` **Changed** **Breaking** :warning:\n* `wistia.projects.get()`:  `response.medias.[].subfolder` **Changed** **Breaking** :warning:\n* `wistia.search.get()`:  `response.data.medias.[].subfolder` **Changed** **Breaking** :warning:\n* `wistia.media.update()`:  `response.subfolder` **Changed** **Breaking** :warning:\n* `wistia.customizations.get()`:  `response.plugin.captions-v1` **Added**\n* `wistia.customizations.create()`: \n  *  `request.videoCustomization.plugin.captions-v1` **Added**\n  *  `response.plugin.captions-v1` **Added**\n* `wistia.customizations.update()`: \n  *  `request.videoCustomization.plugin.captions-v1` **Added**\n  *  `response.plugin.captions-v1` **Added**\n* `wistia.tags.list()`: \n  *  `request.sortBy` **Changed**\n* `wistia.projects.list()`: \n  *  `request.sortBy` **Changed**\n* `wistia.channels.list()`: \n  *  `request.sortBy` **Changed**\n* `wistia.channelEpisodes.listByChannel()`: \n  *  `request.sortBy` **Changed**\n* `wistia.channelEpisodes.list()`: \n  *  `request.sortBy` **Changed**\n* `wistia.liveStreamEvents.list()`: \n  *  `request.sortBy` **Changed**\n"
