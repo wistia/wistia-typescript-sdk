@@ -5,9 +5,9 @@
 
 ### Available Operations
 
-* [getSearch](#getsearch) - Search
+* [search](#search) - Search
 
-## getSearch
+## search
 
 Search across projects, medias, channels, and channel episodes.
 
@@ -28,7 +28,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.search.getSearch({
+  const result = await wistia.search.search({
     q: "screencast",
   });
 
@@ -44,7 +44,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { searchGetSearch } from "@wistia/wistia-api-client/funcs/searchGetSearch.js";
+import { searchSearch } from "@wistia/wistia-api-client/funcs/searchSearch.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -53,14 +53,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await searchGetSearch(wistia, {
+  const res = await searchSearch(wistia, {
     q: "screencast",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("searchGetSearch failed:", res.error);
+    console.log("searchSearch failed:", res.error);
   }
 }
 

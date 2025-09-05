@@ -2,7 +2,7 @@ overlay: 1.0.0
 x-speakeasy-jsonpath: rfc9535
 info:
   title: Speakeasy Modifications
-  version: 0.0.3
+  version: 0.0.5
   x-speakeasy-metadata:
     after: ""
     before: ""
@@ -52,4 +52,642 @@ actions:
       before: sdk.Subfolders.post_/projects/{project-id}/subfolders()
       created_at: 1757093959792
       reviewed_at: 1757093982804
+      type: method-name
+  - target: $["paths"]["/medias/{media-hashed-id}/swap"]["put"]
+    update:
+      x-speakeasy-group: medias
+      x-speakeasy-name-override: swap
+    x-speakeasy-metadata:
+      after: sdk.medias.swap()
+      before: sdk.Media.put_/medias/{media-hashed-id}/swap()
+      created_at: 1757098397554
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/allowed_domains"]["get"]
+    update:
+      x-speakeasy-name-override: list
+    x-speakeasy-metadata:
+      after: sdk.allowedDomains.list()
+      before: sdk.AllowedDomains.get_/allowed_domains()
+      created_at: 1757098397554
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/projects/{project-id}/sharings/{sharing-id}"]["get"]
+    update:
+      x-speakeasy-group: projectSharings
+      x-speakeasy-name-override: get
+    x-speakeasy-metadata:
+      after: sdk.projectSharings.get()
+      before: sdk.Project Sharings.get_/projects/{project-id}/sharings/{sharing-id}()
+      created_at: 1757098397554
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/stats/account"]["get"]
+    update:
+      x-speakeasy-group: statsAccount
+      x-speakeasy-name-override: get
+    x-speakeasy-metadata:
+      after: sdk.statsAccount.get()
+      before: sdk.Stats:Account.get_/stats/account()
+      created_at: 1757098397554
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/projects/{project-id}/sharings/{sharing-id}"]["delete"]
+    update:
+      x-speakeasy-group: projectSharings
+      x-speakeasy-name-override: delete
+    x-speakeasy-metadata:
+      after: sdk.projectSharings.delete()
+      before: sdk.Project Sharings.delete_/projects/{project-id}/sharings/{sharing-id}()
+      created_at: 1757098397554
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/medias/{media-hashed-id}/copy"]["post"]
+    update:
+      x-speakeasy-name-override: copy
+    x-speakeasy-metadata:
+      after: sdk.media.copy()
+      before: sdk.Media.post_/medias/{media-hashed-id}/copy()
+      created_at: 1757098397554
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/medias/{media-hashed-id}/localizations"]["post"]
+    update:
+      x-speakeasy-name-override: create
+    x-speakeasy-metadata:
+      after: sdk.localizations.create()
+      before: sdk.Localizations.post_/medias/{media-hashed-id}/localizations()
+      created_at: 1757098397554
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/medias/{media-hashed-id}"]["get"]
+    update:
+      x-speakeasy-name-override: get
+    x-speakeasy-metadata:
+      after: sdk.media.get()
+      before: sdk.Media.get_/medias/{media-hashed-id}()
+      created_at: 1757098397554
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/allowed_domains"]["post"]
+    update:
+      x-speakeasy-name-override: create
+    x-speakeasy-metadata:
+      after: sdk.allowedDomains.create()
+      before: sdk.AllowedDomains.post_/allowed_domains()
+      created_at: 1757098397554
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/projects/{id}"]["put"]
+    update:
+      x-speakeasy-name-override: update
+    x-speakeasy-metadata:
+      after: sdk.projects.update()
+      before: sdk.Projects.put_/projects/{id}()
+      created_at: 1757098397554
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/projects/{project-id}/sharings"]["get"]
+    update:
+      x-speakeasy-group: projectSharings
+      x-speakeasy-name-override: list
+    x-speakeasy-metadata:
+      after: sdk.projectSharings.list()
+      before: sdk.Project Sharings.get_/projects/{project-id}/sharings()
+      created_at: 1757098397554
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/projects/{id}"]["get"]
+    update:
+      x-speakeasy-name-override: get
+    x-speakeasy-metadata:
+      after: sdk.projects.get()
+      before: sdk.Projects.get_/projects/{id}()
+      created_at: 1757098397554
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/stats/events/{event-key}"]["get"]
+    update:
+      x-speakeasy-group: statsEvents
+      x-speakeasy-name-override: get
+    x-speakeasy-metadata:
+      after: sdk.statsEvents.get()
+      before: sdk.Stats:Events.get_/stats/events/{event-key}()
+      created_at: 1757098397554
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/background_job_status/{background-job-status-id}"]["get"]
+    update:
+      x-speakeasy-group: backgroundJobStatus
+      x-speakeasy-name-override: get
+    x-speakeasy-metadata:
+      after: sdk.backgroundJobStatus.get()
+      before: sdk.Background Job Status.get_/background_job_status/{background-job-status-id}()
+      created_at: 1757098397554
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/allowed_domains/{domain}"]["get"]
+    update:
+      x-speakeasy-name-override: get
+    x-speakeasy-metadata:
+      after: sdk.allowedDomains.get()
+      before: sdk.AllowedDomains.get_/allowed_domains/{domain}()
+      created_at: 1757098397554
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/medias/{media-hashed-id}/captions"]["get"]
+    update:
+      x-speakeasy-name-override: list
+    x-speakeasy-metadata:
+      after: sdk.captions.list()
+      before: sdk.Captions.get_/medias/{media-hashed-id}/captions()
+      created_at: 1757098397554
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/channels/{channel-hashed-id}/channel_episodes/{channel-episode-id}"]["get"]
+    update:
+      x-speakeasy-group: channelEpisodes
+      x-speakeasy-name-override: get
+    x-speakeasy-metadata:
+      after: sdk.channelEpisodes.get()
+      before: sdk.Channel Episodes.get_/channels/{channel-hashed-id}/channel_episodes/{channel-episode-id}()
+      created_at: 1757098397554
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/tags/{name}"]["delete"]
+    update:
+      x-speakeasy-name-override: delete
+    x-speakeasy-metadata:
+      after: sdk.tags.delete()
+      before: sdk.Tags.delete_/tags/{name}()
+      created_at: 1757098397554
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/channels"]["get"]
+    update:
+      x-speakeasy-name-override: list
+    x-speakeasy-metadata:
+      after: sdk.channels.list()
+      before: sdk.Channels.get_/channels()
+      created_at: 1757098397554
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/medias/{media-id}/customizations"]["put"]
+    update:
+      x-speakeasy-name-override: update
+    x-speakeasy-metadata:
+      after: sdk.customizations.update()
+      before: sdk.Customizations.put_/medias/{media-id}/customizations()
+      created_at: 1757098397554
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/tags"]["post"]
+    update:
+      x-speakeasy-name-override: create
+    x-speakeasy-metadata:
+      after: sdk.tags.create()
+      before: sdk.Tags.post_/tags()
+      created_at: 1757098397554
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/channels/{channel-hashed-id}"]["get"]
+    update:
+      x-speakeasy-name-override: get
+    x-speakeasy-metadata:
+      after: sdk.channels.get()
+      before: sdk.Channels.get_/channels/{channel-hashed-id}()
+      created_at: 1757098397554
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/live_stream_events"]["get"]
+    update:
+      x-speakeasy-group: liveStreamEvents
+      x-speakeasy-name-override: list
+    x-speakeasy-metadata:
+      after: sdk.liveStreamEvents.list()
+      before: sdk.Live Stream Events.get_/live_stream_events()
+      created_at: 1757098397554
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/medias/{media-id}/customizations"]["post"]
+    update:
+      x-speakeasy-name-override: create
+    x-speakeasy-metadata:
+      after: sdk.customizations.create()
+      before: sdk.Customizations.post_/medias/{media-id}/customizations()
+      created_at: 1757098397554
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/stats/projects/{project-id}"]["get"]
+    update:
+      x-speakeasy-group: statsProjects
+      x-speakeasy-name-override: get
+    x-speakeasy-metadata:
+      after: sdk.statsProjects.get()
+      before: sdk.Stats:Projects.get_/stats/projects/{project-id}()
+      created_at: 1757098397554
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/medias/{media-hashed-id}/localizations"]["get"]
+    update:
+      x-speakeasy-name-override: list
+    x-speakeasy-metadata:
+      after: sdk.localizations.list()
+      before: sdk.Localizations.get_/medias/{media-hashed-id}/localizations()
+      created_at: 1757098397554
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/tags"]["get"]
+    update:
+      x-speakeasy-name-override: list
+    x-speakeasy-metadata:
+      after: sdk.tags.list()
+      before: sdk.Tags.get_/tags()
+      created_at: 1757098397554
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/projects"]["get"]
+    update:
+      x-speakeasy-name-override: list
+    x-speakeasy-metadata:
+      after: sdk.projects.list()
+      before: sdk.Projects.get_/projects()
+      created_at: 1757098397554
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/stats/visitors"]["get"]
+    update:
+      x-speakeasy-group: statsVisitors
+      x-speakeasy-name-override: list
+    x-speakeasy-metadata:
+      after: sdk.statsVisitors.list()
+      before: sdk.Stats:Visitors.get_/stats/visitors()
+      created_at: 1757098397554
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/channels/{channel-hashed-id}/channel_episodes"]["post"]
+    update:
+      x-speakeasy-group: channelEpisodes
+      x-speakeasy-name-override: create
+    x-speakeasy-metadata:
+      after: sdk.channelEpisodes.create()
+      before: sdk.Channel Episodes.post_/channels/{channel-hashed-id}/channel_episodes()
+      created_at: 1757098397554
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/medias/{media-hashed-id}"]["delete"]
+    update:
+      x-speakeasy-name-override: delete
+    x-speakeasy-metadata:
+      after: sdk.media.delete()
+      before: sdk.Media.delete_/medias/{media-hashed-id}()
+      created_at: 1757098397554
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/medias/restore"]["put"]
+    update:
+      x-speakeasy-name-override: restore
+    x-speakeasy-metadata:
+      after: sdk.media.restore()
+      before: sdk.Media.put_/medias/restore()
+      created_at: 1757098397554
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/medias"]["get"]
+    update:
+      x-speakeasy-name-override: list
+    x-speakeasy-metadata:
+      after: sdk.media.list()
+      before: sdk.Media.get_/medias()
+      created_at: 1757098397554
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/expiring_token"]["post"]
+    update:
+      x-speakeasy-group: expiringAccessTokens
+      x-speakeasy-name-override: create
+    x-speakeasy-metadata:
+      after: sdk.expiringAccessTokens.create()
+      before: sdk.Expiring Access Tokens.post_/expiring_token()
+      created_at: 1757098397554
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/medias/{media-hashed-id}/translate"]["post"]
+    update:
+      x-speakeasy-name-override: translate
+    x-speakeasy-metadata:
+      after: sdk.media.translate()
+      before: sdk.Media.post_/medias/{media-hashed-id}/translate()
+      created_at: 1757098397554
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/stats/events"]["get"]
+    update:
+      x-speakeasy-group: statsEvents
+      x-speakeasy-name-override: list
+    x-speakeasy-metadata:
+      after: sdk.statsEvents.list()
+      before: sdk.Stats:Events.get_/stats/events()
+      created_at: 1757098397555
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/stats/medias/{media-id}"]["get"]
+    update:
+      x-speakeasy-group: statsMedia
+      x-speakeasy-name-override: get
+    x-speakeasy-metadata:
+      after: sdk.statsMedia.get()
+      before: sdk.Stats:Media.get_/stats/medias/{media-id}()
+      created_at: 1757098397555
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/medias/{media-hashed-id}/captions/{language-code}"]["get"]
+    update:
+      x-speakeasy-name-override: get
+    x-speakeasy-metadata:
+      after: sdk.captions.get()
+      before: sdk.Captions.get_/medias/{media-hashed-id}/captions/{language-code}()
+      created_at: 1757098397555
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/search"]["get"]
+    update:
+      x-speakeasy-name-override: search
+    x-speakeasy-metadata:
+      after: sdk.search.search()
+      before: sdk.Search.get_/search()
+      created_at: 1757098397555
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/medias/{media-hashed-id}/stats"]["get"]
+    update:
+      x-speakeasy-name-override: stats
+    x-speakeasy-metadata:
+      after: sdk.media.stats()
+      before: sdk.Media.get_/medias/{media-hashed-id}/stats()
+      created_at: 1757098397555
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/medias/archive"]["put"]
+    update:
+      x-speakeasy-name-override: archive
+    x-speakeasy-metadata:
+      after: sdk.media.archive()
+      before: sdk.Media.put_/medias/archive()
+      created_at: 1757098397555
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/medias/move"]["put"]
+    update:
+      x-speakeasy-name-override: move
+    x-speakeasy-metadata:
+      after: sdk.media.move()
+      before: sdk.Media.put_/medias/move()
+      created_at: 1757098397555
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/channel_episodes"]["get"]
+    update:
+      x-speakeasy-group: channelEpisodes
+      x-speakeasy-name-override: list
+    x-speakeasy-metadata:
+      after: sdk.channelEpisodes.list()
+      before: sdk.Channel Episodes.get_/channel_episodes()
+      created_at: 1757098397555
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/projects"]["post"]
+    update:
+      x-speakeasy-name-override: create
+    x-speakeasy-metadata:
+      after: sdk.projects.create()
+      before: sdk.Projects.post_/projects()
+      created_at: 1757098397555
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/medias/{media-hashed-id}/localizations/{localization-hashed-id}"]["get"]
+    update:
+      x-speakeasy-name-override: get
+    x-speakeasy-metadata:
+      after: sdk.localizations.get()
+      before: sdk.Localizations.get_/medias/{media-hashed-id}/localizations/{localization-hashed-id}()
+      created_at: 1757098397555
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/medias/{media-hashed-id}/captions/purchase"]["post"]
+    update:
+      x-speakeasy-name-override: purchase
+    x-speakeasy-metadata:
+      after: sdk.captions.purchase()
+      before: sdk.Captions.post_/medias/{media-hashed-id}/captions/purchase()
+      created_at: 1757098397555
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/projects/{id}"]["delete"]
+    update:
+      x-speakeasy-name-override: delete
+    x-speakeasy-metadata:
+      after: sdk.projects.delete()
+      before: sdk.Projects.delete_/projects/{id}()
+      created_at: 1757098397555
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/stats/medias/{media-id}/engagement"]["get"]
+    update:
+      x-speakeasy-group: statsMedia
+      x-speakeasy-name-override: getEngagement
+    x-speakeasy-metadata:
+      after: sdk.statsMedia.getEngagement()
+      before: sdk.Stats:Media.get_/stats/medias/{media-id}/engagement()
+      created_at: 1757098397555
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/projects/{id}/copy"]["post"]
+    update:
+      x-speakeasy-name-override: copy
+    x-speakeasy-metadata:
+      after: sdk.projects.copy()
+      before: sdk.Projects.post_/projects/{id}/copy()
+      created_at: 1757098397555
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/live_stream_events"]["post"]
+    update:
+      x-speakeasy-group: liveStreamEvents
+      x-speakeasy-name-override: create
+    x-speakeasy-metadata:
+      after: sdk.liveStreamEvents.create()
+      before: sdk.Live Stream Events.post_/live_stream_events()
+      created_at: 1757098397555
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/medias/{media-id}/customizations"]["delete"]
+    update:
+      x-speakeasy-name-override: delete
+    x-speakeasy-metadata:
+      after: sdk.customizations.delete()
+      before: sdk.Customizations.delete_/medias/{media-id}/customizations()
+      created_at: 1757098397555
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/live_stream_events/{id}"]["delete"]
+    update:
+      x-speakeasy-group: liveStreamEvents
+      x-speakeasy-name-override: delete
+    x-speakeasy-metadata:
+      after: sdk.liveStreamEvents.delete()
+      before: sdk.Live Stream Events.delete_/live_stream_events/{id}()
+      created_at: 1757098397555
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/live_stream_events/{id}"]["get"]
+    update:
+      x-speakeasy-group: liveStreamEvents
+      x-speakeasy-name-override: get
+    x-speakeasy-metadata:
+      after: sdk.liveStreamEvents.get()
+      before: sdk.Live Stream Events.get_/live_stream_events/{id}()
+      created_at: 1757098397555
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/live_stream_events/{id}"]["put"]
+    update:
+      x-speakeasy-group: liveStreamEvents
+      x-speakeasy-name-override: update
+    x-speakeasy-metadata:
+      after: sdk.liveStreamEvents.update()
+      before: sdk.Live Stream Events.put_/live_stream_events/{id}()
+      created_at: 1757098397555
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/medias/{media-hashed-id}/trims"]["post"]
+    update:
+      x-speakeasy-name-override: create
+    x-speakeasy-metadata:
+      after: sdk.trims.create()
+      before: sdk.Trims.post_/medias/{media-hashed-id}/trims()
+      created_at: 1757098397555
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/projects/{project-id}/sharings"]["post"]
+    update:
+      x-speakeasy-group: projectSharings
+      x-speakeasy-name-override: create
+    x-speakeasy-metadata:
+      after: sdk.projectSharings.create()
+      before: sdk.Project Sharings.post_/projects/{project-id}/sharings()
+      created_at: 1757098397555
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/medias/{media-hashed-id}/captions"]["post"]
+    update:
+      x-speakeasy-name-override: create
+    x-speakeasy-metadata:
+      after: sdk.captions.create()
+      before: sdk.Captions.post_/medias/{media-hashed-id}/captions()
+      created_at: 1757098397555
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/medias/{media-hashed-id}"]["put"]
+    update:
+      x-speakeasy-name-override: update
+    x-speakeasy-metadata:
+      after: sdk.media.update()
+      before: sdk.Media.put_/medias/{media-hashed-id}()
+      created_at: 1757098397555
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/medias/{media-hashed-id}/localizations/{localization-hashed-id}"]["delete"]
+    update:
+      x-speakeasy-name-override: delete
+    x-speakeasy-metadata:
+      after: sdk.localizations.delete()
+      before: sdk.Localizations.delete_/medias/{media-hashed-id}/localizations/{localization-hashed-id}()
+      created_at: 1757098397555
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/account"]["get"]
+    update:
+      x-speakeasy-name-override: get
+    x-speakeasy-metadata:
+      after: sdk.account.get()
+      before: sdk.Account.getAccountDetails()
+      created_at: 1757098397555
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/medias/{media-hashed-id}/captions/{language-code}"]["put"]
+    update:
+      x-speakeasy-name-override: update
+    x-speakeasy-metadata:
+      after: sdk.captions.update()
+      before: sdk.Captions.put_/medias/{media-hashed-id}/captions/{language-code}()
+      created_at: 1757098397555
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/medias/{media-hashed-id}/captions/{language-code}"]["delete"]
+    update:
+      x-speakeasy-name-override: delete
+    x-speakeasy-metadata:
+      after: sdk.captions.delete()
+      before: sdk.Captions.delete_/medias/{media-hashed-id}/captions/{language-code}()
+      created_at: 1757098397555
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/allowed_domains/{domain}"]["delete"]
+    update:
+      x-speakeasy-name-override: delete
+    x-speakeasy-metadata:
+      after: sdk.allowedDomains.delete()
+      before: sdk.AllowedDomains.delete_/allowed_domains/{domain}()
+      created_at: 1757098397555
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/stats/medias/{media-id}/by_date"]["get"]
+    update:
+      x-speakeasy-group: statsMedia
+      x-speakeasy-name-override: getByDate
+    x-speakeasy-metadata:
+      after: sdk.statsMedia.getByDate()
+      before: sdk.Stats:Media.get_/stats/medias/{media-id}/by_date()
+      created_at: 1757098397555
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/channels/{channel-hashed-id}/channel_episodes"]["get"]
+    update:
+      x-speakeasy-group: channels.episodes
+      x-speakeasy-name-override: list
+    x-speakeasy-metadata:
+      after: sdk.channels.episodes.list()
+      before: sdk.Channel Episodes.get_/channels/{channel-hashed-id}/channel_episodes()
+      created_at: 1757098397555
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/projects/{project-id}/sharings/{sharing-id}"]["put"]
+    update:
+      x-speakeasy-group: projectSharings
+      x-speakeasy-name-override: update
+    x-speakeasy-metadata:
+      after: sdk.projectSharings.update()
+      before: sdk.Project Sharings.put_/projects/{project-id}/sharings/{sharing-id}()
+      created_at: 1757098397555
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/medias/{media-id}/customizations"]["get"]
+    update:
+      x-speakeasy-name-override: get
+    x-speakeasy-metadata:
+      after: sdk.customizations.get()
+      before: sdk.Customizations.get_/medias/{media-id}/customizations()
+      created_at: 1757098397555
+      reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/stats/visitors/{visitor-key}"]["get"]
+    update:
+      x-speakeasy-group: statsVisitors
+      x-speakeasy-name-override: get
+    x-speakeasy-metadata:
+      after: sdk.statsVisitors.get()
+      before: sdk.Stats:Visitors.get_/stats/visitors/{visitor-key}()
+      created_at: 1757098397555
+      reviewed_at: 1757098404550
       type: method-name

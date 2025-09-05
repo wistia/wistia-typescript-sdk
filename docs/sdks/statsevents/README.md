@@ -5,10 +5,10 @@
 
 ### Available Operations
 
-* [getStatsEvents](#getstatsevents) - Stats:Events List
-* [getStatsEventsEventKey](#getstatseventseventkey) - Stats:Events Show
+* [list](#list) - Stats:Events List
+* [get](#get) - Stats:Events Show
 
-## getStatsEvents
+## list
 
 Retrieve a list of events. Please note that due to our data retention policy,
 only events from the last 2 years are available.
@@ -32,7 +32,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.statsEvents.getStatsEvents();
+  const result = await wistia.statsEvents.list();
 
   console.log(result);
 }
@@ -46,7 +46,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { statsEventsGetStatsEvents } from "@wistia/wistia-api-client/funcs/statsEventsGetStatsEvents.js";
+import { statsEventsList } from "@wistia/wistia-api-client/funcs/statsEventsList.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -55,12 +55,12 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await statsEventsGetStatsEvents(wistia);
+  const res = await statsEventsList(wistia);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("statsEventsGetStatsEvents failed:", res.error);
+    console.log("statsEventsList failed:", res.error);
   }
 }
 
@@ -88,7 +88,7 @@ run();
 | errors.FiveHundredError       | 500                           | application/json              |
 | errors.WistiaDefaultError     | 4XX, 5XX                      | \*/\*                         |
 
-## getStatsEventsEventKey
+## get
 
 Retrieve information for a single event. Please note that due to our data retention policy,
 only events from the last 2 years are available.
@@ -112,7 +112,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.statsEvents.getStatsEventsEventKey({
+  const result = await wistia.statsEvents.get({
     eventKey: "<value>",
   });
 
@@ -128,7 +128,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { statsEventsGetStatsEventsEventKey } from "@wistia/wistia-api-client/funcs/statsEventsGetStatsEventsEventKey.js";
+import { statsEventsGet } from "@wistia/wistia-api-client/funcs/statsEventsGet.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -137,14 +137,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await statsEventsGetStatsEventsEventKey(wistia, {
+  const res = await statsEventsGet(wistia, {
     eventKey: "<value>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("statsEventsGetStatsEventsEventKey failed:", res.error);
+    console.log("statsEventsGet failed:", res.error);
   }
 }
 

@@ -5,13 +5,13 @@
 
 ### Available Operations
 
-* [getLiveStreamEvents](#getlivestreamevents) - Live Stream Events List
-* [postLiveStreamEvents](#postlivestreamevents) - Live Stream Event Create
-* [getLiveStreamEventsId](#getlivestreameventsid) - Live Stream Event Show
-* [putLiveStreamEventsId](#putlivestreameventsid) - Live Stream Event Update
-* [deleteLiveStreamEventsId](#deletelivestreameventsid) - Live Stream Event Delete
+* [list](#list) - Live Stream Events List
+* [create](#create) - Live Stream Event Create
+* [get](#get) - Live Stream Event Show
+* [update](#update) - Live Stream Event Update
+* [delete](#delete) - Live Stream Event Delete
 
-## getLiveStreamEvents
+## list
 
 Use this endpoint to request a list of Live Stream Events in your Wistia account. This request supports paging and sorting.
 
@@ -34,7 +34,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.liveStreamEvents.getLiveStreamEvents();
+  const result = await wistia.liveStreamEvents.list();
 
   console.log(result);
 }
@@ -48,7 +48,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { liveStreamEventsGetLiveStreamEvents } from "@wistia/wistia-api-client/funcs/liveStreamEventsGetLiveStreamEvents.js";
+import { liveStreamEventsList } from "@wistia/wistia-api-client/funcs/liveStreamEventsList.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -57,12 +57,12 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await liveStreamEventsGetLiveStreamEvents(wistia);
+  const res = await liveStreamEventsList(wistia);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("liveStreamEventsGetLiveStreamEvents failed:", res.error);
+    console.log("liveStreamEventsList failed:", res.error);
   }
 }
 
@@ -90,7 +90,7 @@ run();
 | errors.FiveHundredError       | 500                           | application/json              |
 | errors.WistiaDefaultError     | 4XX, 5XX                      | \*/\*                         |
 
-## postLiveStreamEvents
+## create
 
 Create a new live stream event. The event will be created synchronously and return the event details with audience and host links.
 
@@ -117,7 +117,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.liveStreamEvents.postLiveStreamEvents({
+  const result = await wistia.liveStreamEvents.create({
     title: "Wellness Session: Coping with Outie Memories",
     description: "A comprehensive session on managing work-life balance",
     scheduledFor: new Date("2024-03-20T15:30:00-05:00"),
@@ -136,7 +136,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { liveStreamEventsPostLiveStreamEvents } from "@wistia/wistia-api-client/funcs/liveStreamEventsPostLiveStreamEvents.js";
+import { liveStreamEventsCreate } from "@wistia/wistia-api-client/funcs/liveStreamEventsCreate.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -145,7 +145,7 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await liveStreamEventsPostLiveStreamEvents(wistia, {
+  const res = await liveStreamEventsCreate(wistia, {
     title: "Wellness Session: Coping with Outie Memories",
     description: "A comprehensive session on managing work-life balance",
     scheduledFor: new Date("2024-03-20T15:30:00-05:00"),
@@ -155,7 +155,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("liveStreamEventsPostLiveStreamEvents failed:", res.error);
+    console.log("liveStreamEventsCreate failed:", res.error);
   }
 }
 
@@ -185,7 +185,7 @@ run();
 | errors.InternalServerError                          | 500                                                 | application/json                                    |
 | errors.WistiaDefaultError                           | 4XX, 5XX                                            | \*/\*                                               |
 
-## getLiveStreamEventsId
+## get
 
 Retrieve information for a single live stream event.
 
@@ -208,7 +208,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.liveStreamEvents.getLiveStreamEventsId({
+  const result = await wistia.liveStreamEvents.get({
     id: "<id>",
   });
 
@@ -224,7 +224,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { liveStreamEventsGetLiveStreamEventsId } from "@wistia/wistia-api-client/funcs/liveStreamEventsGetLiveStreamEventsId.js";
+import { liveStreamEventsGet } from "@wistia/wistia-api-client/funcs/liveStreamEventsGet.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -233,14 +233,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await liveStreamEventsGetLiveStreamEventsId(wistia, {
+  const res = await liveStreamEventsGet(wistia, {
     id: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("liveStreamEventsGetLiveStreamEventsId failed:", res.error);
+    console.log("liveStreamEventsGet failed:", res.error);
   }
 }
 
@@ -268,7 +268,7 @@ run();
 | errors.FiveHundredError       | 500                           | application/json              |
 | errors.WistiaDefaultError     | 4XX, 5XX                      | \*/\*                         |
 
-## putLiveStreamEventsId
+## update
 
 Update an existing live stream event.
 
@@ -289,7 +289,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.liveStreamEvents.putLiveStreamEventsId({
+  const result = await wistia.liveStreamEvents.update({
     id: "<id>",
     updateLiveStreamEvent: {
       liveStreamEvent: {
@@ -313,7 +313,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { liveStreamEventsPutLiveStreamEventsId } from "@wistia/wistia-api-client/funcs/liveStreamEventsPutLiveStreamEventsId.js";
+import { liveStreamEventsUpdate } from "@wistia/wistia-api-client/funcs/liveStreamEventsUpdate.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -322,7 +322,7 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await liveStreamEventsPutLiveStreamEventsId(wistia, {
+  const res = await liveStreamEventsUpdate(wistia, {
     id: "<id>",
     updateLiveStreamEvent: {
       liveStreamEvent: {
@@ -337,7 +337,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("liveStreamEventsPutLiveStreamEventsId failed:", res.error);
+    console.log("liveStreamEventsUpdate failed:", res.error);
   }
 }
 
@@ -366,7 +366,7 @@ run();
 | errors.FiveHundredError                              | 500                                                  | application/json                                     |
 | errors.WistiaDefaultError                            | 4XX, 5XX                                             | \*/\*                                                |
 
-## deleteLiveStreamEventsId
+## delete
 
 Delete an existing live stream event.
 
@@ -387,7 +387,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.liveStreamEvents.deleteLiveStreamEventsId({
+  const result = await wistia.liveStreamEvents.delete({
     id: "<id>",
   });
 
@@ -403,7 +403,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { liveStreamEventsDeleteLiveStreamEventsId } from "@wistia/wistia-api-client/funcs/liveStreamEventsDeleteLiveStreamEventsId.js";
+import { liveStreamEventsDelete } from "@wistia/wistia-api-client/funcs/liveStreamEventsDelete.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -412,14 +412,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await liveStreamEventsDeleteLiveStreamEventsId(wistia, {
+  const res = await liveStreamEventsDelete(wistia, {
     id: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("liveStreamEventsDeleteLiveStreamEventsId failed:", res.error);
+    console.log("liveStreamEventsDelete failed:", res.error);
   }
 }
 

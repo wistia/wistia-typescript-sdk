@@ -5,16 +5,16 @@
 
 ### Available Operations
 
-* [getMediasMediaHashedIdCaptions](#getmediasmediahashedidcaptions) - Captions List
-* [postMediasMediaHashedIdCaptionsMultipart](#postmediasmediahashedidcaptionsmultipart) - Captions Create
-* [postMediasMediaHashedIdCaptions](#postmediasmediahashedidcaptions) - Captions Create
-* [postMediasMediaHashedIdCaptionsPurchase](#postmediasmediahashedidcaptionspurchase) - Captions Purchase
-* [getMediasMediaHashedIdCaptionsLanguageCode](#getmediasmediahashedidcaptionslanguagecode) - Captions Show
-* [putMediasMediaHashedIdCaptionsLanguageCode](#putmediasmediahashedidcaptionslanguagecode) - Captions Update
-* [putMediasMediaHashedIdCaptionsLanguageCodeMultipart](#putmediasmediahashedidcaptionslanguagecodemultipart) - Captions Update
-* [deleteMediasMediaHashedIdCaptionsLanguageCode](#deletemediasmediahashedidcaptionslanguagecode) - Captions Delete
+* [list](#list) - Captions List
+* [createMultipart](#createmultipart) - Captions Create
+* [create](#create) - Captions Create
+* [purchase](#purchase) - Captions Purchase
+* [get](#get) - Captions Show
+* [update](#update) - Captions Update
+* [updateMultipart](#updatemultipart) - Captions Update
+* [delete](#delete) - Captions Delete
 
-## getMediasMediaHashedIdCaptions
+## list
 
 Returns all the captions associated with a specified video.
 If captions do not exist for this video, the response will be an empty JSON array.
@@ -39,7 +39,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.captions.getMediasMediaHashedIdCaptions({
+  const result = await wistia.captions.list({
     mediaHashedId: "<id>",
   });
 
@@ -55,7 +55,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { captionsGetMediasMediaHashedIdCaptions } from "@wistia/wistia-api-client/funcs/captionsGetMediasMediaHashedIdCaptions.js";
+import { captionsList } from "@wistia/wistia-api-client/funcs/captionsList.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -64,14 +64,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await captionsGetMediasMediaHashedIdCaptions(wistia, {
+  const res = await captionsList(wistia, {
     mediaHashedId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("captionsGetMediasMediaHashedIdCaptions failed:", res.error);
+    console.log("captionsList failed:", res.error);
   }
 }
 
@@ -99,7 +99,7 @@ run();
 | errors.FiveHundredError       | 500                           | application/json              |
 | errors.WistiaDefaultError     | 4XX, 5XX                      | \*/\*                         |
 
-## postMediasMediaHashedIdCaptionsMultipart
+## createMultipart
 
 Adds captions to a specified video by providing an SRT file or its contents directly.
 
@@ -121,7 +121,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  await wistia.captions.postMediasMediaHashedIdCaptionsMultipart({
+  await wistia.captions.createMultipart({
     mediaHashedId: "<id>",
     requestBody: {
       captionFile: await openAsBlob("example.file"),
@@ -140,7 +140,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { captionsPostMediasMediaHashedIdCaptionsMultipart } from "@wistia/wistia-api-client/funcs/captionsPostMediasMediaHashedIdCaptionsMultipart.js";
+import { captionsCreateMultipart } from "@wistia/wistia-api-client/funcs/captionsCreateMultipart.js";
 import { openAsBlob } from "node:fs";
 
 // Use `WistiaCore` for best tree-shaking performance.
@@ -150,7 +150,7 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await captionsPostMediasMediaHashedIdCaptionsMultipart(wistia, {
+  const res = await captionsCreateMultipart(wistia, {
     mediaHashedId: "<id>",
     requestBody: {
       captionFile: await openAsBlob("example.file"),
@@ -160,7 +160,7 @@ async function run() {
     const { value: result } = res;
     
   } else {
-    console.log("captionsPostMediasMediaHashedIdCaptionsMultipart failed:", res.error);
+    console.log("captionsCreateMultipart failed:", res.error);
   }
 }
 
@@ -188,7 +188,7 @@ run();
 | errors.FiveHundredError       | 500                           | application/json              |
 | errors.WistiaDefaultError     | 4XX, 5XX                      | \*/\*                         |
 
-## postMediasMediaHashedIdCaptions
+## create
 
 Adds captions to a specified video by providing an SRT file or its contents directly.
 
@@ -209,7 +209,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  await wistia.captions.postMediasMediaHashedIdCaptions({
+  await wistia.captions.create({
     mediaHashedId: "<id>",
     requestBody: {
       captionFile: "" // Populate with string from file, for example example.file,
@@ -228,7 +228,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { captionsPostMediasMediaHashedIdCaptions } from "@wistia/wistia-api-client/funcs/captionsPostMediasMediaHashedIdCaptions.js";
+import { captionsCreate } from "@wistia/wistia-api-client/funcs/captionsCreate.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -237,7 +237,7 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await captionsPostMediasMediaHashedIdCaptions(wistia, {
+  const res = await captionsCreate(wistia, {
     mediaHashedId: "<id>",
     requestBody: {
       captionFile: "" // Populate with string from file, for example example.file,
@@ -247,7 +247,7 @@ async function run() {
     const { value: result } = res;
     
   } else {
-    console.log("captionsPostMediasMediaHashedIdCaptions failed:", res.error);
+    console.log("captionsCreate failed:", res.error);
   }
 }
 
@@ -275,7 +275,7 @@ run();
 | errors.FiveHundredError       | 500                           | application/json              |
 | errors.WistiaDefaultError     | 4XX, 5XX                      | \*/\*                         |
 
-## postMediasMediaHashedIdCaptionsPurchase
+## purchase
 
 This method is for purchasing English captions for a video. The request will charge the credit card on the account if successful. A saved credit card is required to use this endpoint.
 
@@ -296,7 +296,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.captions.postMediasMediaHashedIdCaptionsPurchase({
+  const result = await wistia.captions.purchase({
     mediaHashedId: "<id>",
     requestBody: {},
   });
@@ -313,7 +313,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { captionsPostMediasMediaHashedIdCaptionsPurchase } from "@wistia/wistia-api-client/funcs/captionsPostMediasMediaHashedIdCaptionsPurchase.js";
+import { captionsPurchase } from "@wistia/wistia-api-client/funcs/captionsPurchase.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -322,7 +322,7 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await captionsPostMediasMediaHashedIdCaptionsPurchase(wistia, {
+  const res = await captionsPurchase(wistia, {
     mediaHashedId: "<id>",
     requestBody: {},
   });
@@ -330,7 +330,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("captionsPostMediasMediaHashedIdCaptionsPurchase failed:", res.error);
+    console.log("captionsPurchase failed:", res.error);
   }
 }
 
@@ -359,7 +359,7 @@ run();
 | errors.FiveHundredError                                                | 500                                                                    | application/json                                                       |
 | errors.WistiaDefaultError                                              | 4XX, 5XX                                                               | \*/\*                                                                  |
 
-## getMediasMediaHashedIdCaptionsLanguageCode
+## get
 
 Returns a video's captions in the specified language.
 Supports multiple formats: JSON (default), SRT, VTT, and TXT.
@@ -384,7 +384,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.captions.getMediasMediaHashedIdCaptionsLanguageCode({
+  const result = await wistia.captions.get({
     mediaHashedId: "<id>",
     languageCode: "<value>",
   });
@@ -401,7 +401,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { captionsGetMediasMediaHashedIdCaptionsLanguageCode } from "@wistia/wistia-api-client/funcs/captionsGetMediasMediaHashedIdCaptionsLanguageCode.js";
+import { captionsGet } from "@wistia/wistia-api-client/funcs/captionsGet.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -410,7 +410,7 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await captionsGetMediasMediaHashedIdCaptionsLanguageCode(wistia, {
+  const res = await captionsGet(wistia, {
     mediaHashedId: "<id>",
     languageCode: "<value>",
   });
@@ -418,7 +418,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("captionsGetMediasMediaHashedIdCaptionsLanguageCode failed:", res.error);
+    console.log("captionsGet failed:", res.error);
   }
 }
 
@@ -446,7 +446,7 @@ run();
 | errors.FiveHundredError       | 500                           | application/json              |
 | errors.WistiaDefaultError     | 4XX, 5XX                      | \*/\*                         |
 
-## putMediasMediaHashedIdCaptionsLanguageCode
+## update
 
 This method is for replacing the captions on a video for the specified language.
 
@@ -467,7 +467,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  await wistia.captions.putMediasMediaHashedIdCaptionsLanguageCode({
+  await wistia.captions.update({
     mediaHashedId: "<id>",
     languageCode: "<value>",
     requestBody: {
@@ -487,7 +487,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { captionsPutMediasMediaHashedIdCaptionsLanguageCode } from "@wistia/wistia-api-client/funcs/captionsPutMediasMediaHashedIdCaptionsLanguageCode.js";
+import { captionsUpdate } from "@wistia/wistia-api-client/funcs/captionsUpdate.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -496,7 +496,7 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await captionsPutMediasMediaHashedIdCaptionsLanguageCode(wistia, {
+  const res = await captionsUpdate(wistia, {
     mediaHashedId: "<id>",
     languageCode: "<value>",
     requestBody: {
@@ -507,7 +507,7 @@ async function run() {
     const { value: result } = res;
     
   } else {
-    console.log("captionsPutMediasMediaHashedIdCaptionsLanguageCode failed:", res.error);
+    console.log("captionsUpdate failed:", res.error);
   }
 }
 
@@ -535,7 +535,7 @@ run();
 | errors.FiveHundredError       | 500                           | application/json              |
 | errors.WistiaDefaultError     | 4XX, 5XX                      | \*/\*                         |
 
-## putMediasMediaHashedIdCaptionsLanguageCodeMultipart
+## updateMultipart
 
 This method is for replacing the captions on a video for the specified language.
 
@@ -557,7 +557,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  await wistia.captions.putMediasMediaHashedIdCaptionsLanguageCodeMultipart({
+  await wistia.captions.updateMultipart({
     mediaHashedId: "<id>",
     languageCode: "<value>",
     requestBody: {
@@ -577,7 +577,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { captionsPutMediasMediaHashedIdCaptionsLanguageCodeMultipart } from "@wistia/wistia-api-client/funcs/captionsPutMediasMediaHashedIdCaptionsLanguageCodeMultipart.js";
+import { captionsUpdateMultipart } from "@wistia/wistia-api-client/funcs/captionsUpdateMultipart.js";
 import { openAsBlob } from "node:fs";
 
 // Use `WistiaCore` for best tree-shaking performance.
@@ -587,7 +587,7 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await captionsPutMediasMediaHashedIdCaptionsLanguageCodeMultipart(wistia, {
+  const res = await captionsUpdateMultipart(wistia, {
     mediaHashedId: "<id>",
     languageCode: "<value>",
     requestBody: {
@@ -598,7 +598,7 @@ async function run() {
     const { value: result } = res;
     
   } else {
-    console.log("captionsPutMediasMediaHashedIdCaptionsLanguageCodeMultipart failed:", res.error);
+    console.log("captionsUpdateMultipart failed:", res.error);
   }
 }
 
@@ -626,7 +626,7 @@ run();
 | errors.FiveHundredError       | 500                           | application/json              |
 | errors.WistiaDefaultError     | 4XX, 5XX                      | \*/\*                         |
 
-## deleteMediasMediaHashedIdCaptionsLanguageCode
+## delete
 
 This method is for removing the captions file from a video for the specified language.
 
@@ -647,7 +647,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  await wistia.captions.deleteMediasMediaHashedIdCaptionsLanguageCode({
+  await wistia.captions.delete({
     mediaHashedId: "<id>",
     languageCode: "<value>",
   });
@@ -664,7 +664,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { captionsDeleteMediasMediaHashedIdCaptionsLanguageCode } from "@wistia/wistia-api-client/funcs/captionsDeleteMediasMediaHashedIdCaptionsLanguageCode.js";
+import { captionsDelete } from "@wistia/wistia-api-client/funcs/captionsDelete.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -673,7 +673,7 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await captionsDeleteMediasMediaHashedIdCaptionsLanguageCode(wistia, {
+  const res = await captionsDelete(wistia, {
     mediaHashedId: "<id>",
     languageCode: "<value>",
   });
@@ -681,7 +681,7 @@ async function run() {
     const { value: result } = res;
     
   } else {
-    console.log("captionsDeleteMediasMediaHashedIdCaptionsLanguageCode failed:", res.error);
+    console.log("captionsDelete failed:", res.error);
   }
 }
 
