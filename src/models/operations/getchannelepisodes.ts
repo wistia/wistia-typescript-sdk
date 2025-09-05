@@ -9,10 +9,6 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
-export const GetChannelEpisodesServerList = [
-  "https://api.wistia.com/v1",
-] as const;
-
 export type GetChannelEpisodesRequest = {
   /**
    * Find episodes for a particular channel by providing the channel hashed ID

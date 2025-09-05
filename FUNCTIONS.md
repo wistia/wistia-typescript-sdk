@@ -20,22 +20,21 @@ specific category of applications.
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { projectsList } from "@wistia/wistia-api-client/funcs/projectsList.js";
+import { projectsGetProjects } from "@wistia/wistia-api-client/funcs/projectsGetProjects.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
-  serverURL: "https://api.example.com",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const res = await projectsList(wistia);
+  const res = await projectsGetProjects(wistia);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("projectsList failed:", res.error);
+    console.log("projectsGetProjects failed:", res.error);
   }
 }
 

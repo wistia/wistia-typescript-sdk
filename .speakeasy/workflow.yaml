@@ -9,6 +9,9 @@ sources:
         output: .speakeasy/out.openapi.yaml
         registry:
             location: registry.speakeasyapi.dev/wistia/wistia/data-api
+    upload-api:
+        inputs:
+            - location: https://wistia.github.io/wistia/api/openapi-upload.yaml
 targets:
     wistia:
         target: typescript

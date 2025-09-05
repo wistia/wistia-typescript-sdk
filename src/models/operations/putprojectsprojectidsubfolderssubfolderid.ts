@@ -8,10 +8,6 @@ import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export const PutProjectsProjectIdSubfoldersSubfolderIdServerList = [
-  "https://api.wistia.com/v1",
-] as const;
-
 /**
  * Updated subfolder data
  */

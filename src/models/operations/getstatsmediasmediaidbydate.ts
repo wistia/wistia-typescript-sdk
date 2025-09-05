@@ -9,10 +9,6 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { RFCDate } from "../../types/rfcdate.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export const GetStatsMediasMediaIdByDateServerList = [
-  "https://api.wistia.com/v1",
-] as const;
-
 export type GetStatsMediasMediaIdByDateRequest = {
   /**
    * The ID of the media

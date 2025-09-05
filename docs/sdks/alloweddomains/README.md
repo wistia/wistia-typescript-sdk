@@ -5,12 +5,12 @@
 
 ### Available Operations
 
-* [list](#list) - Allowed Domains List
-* [create](#create) - Allowed Domain Create
-* [get](#get) - Allowed Domain Show
-* [delete](#delete) - Allowed Domain Delete
+* [getAllowedDomains](#getalloweddomains) - Allowed Domains List
+* [postAllowedDomains](#postalloweddomains) - Allowed Domain Create
+* [getAllowedDomainsDomain](#getalloweddomainsdomain) - Allowed Domain Show
+* [deleteAllowedDomainsDomain](#deletealloweddomainsdomain) - Allowed Domain Delete
 
-## list
+## getAllowedDomains
 
 List all allowed domains for the account.
 
@@ -27,12 +27,11 @@ Read, update & delete anything
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
-  serverURL: "https://api.example.com",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const result = await wistia.allowedDomains.list({});
+  const result = await wistia.allowedDomains.getAllowedDomains({});
 
   console.log(result);
 }
@@ -46,22 +45,21 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { allowedDomainsList } from "@wistia/wistia-api-client/funcs/allowedDomainsList.js";
+import { allowedDomainsGetAllowedDomains } from "@wistia/wistia-api-client/funcs/allowedDomainsGetAllowedDomains.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
-  serverURL: "https://api.example.com",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const res = await allowedDomainsList(wistia, {});
+  const res = await allowedDomainsGetAllowedDomains(wistia, {});
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("allowedDomainsList failed:", res.error);
+    console.log("allowedDomainsGetAllowedDomains failed:", res.error);
   }
 }
 
@@ -76,7 +74,6 @@ run();
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-| `options.serverURL`                                                                                                                                                            | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | An optional server URL to use.                                                                                                                                                 |
 
 ### Response
 
@@ -90,7 +87,7 @@ run();
 | errors.FiveHundredError       | 500                           | application/json              |
 | errors.WistiaDefaultError     | 4XX, 5XX                      | \*/\*                         |
 
-## create
+## postAllowedDomains
 
 Create a new allowed domain for the account.
 
@@ -107,12 +104,11 @@ Read, update & delete anything
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
-  serverURL: "https://api.example.com",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const result = await wistia.allowedDomains.create({
+  const result = await wistia.allowedDomains.postAllowedDomains({
     domain: "example.com",
   });
 
@@ -128,24 +124,23 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { allowedDomainsCreate } from "@wistia/wistia-api-client/funcs/allowedDomainsCreate.js";
+import { allowedDomainsPostAllowedDomains } from "@wistia/wistia-api-client/funcs/allowedDomainsPostAllowedDomains.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
-  serverURL: "https://api.example.com",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const res = await allowedDomainsCreate(wistia, {
+  const res = await allowedDomainsPostAllowedDomains(wistia, {
     domain: "example.com",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("allowedDomainsCreate failed:", res.error);
+    console.log("allowedDomainsPostAllowedDomains failed:", res.error);
   }
 }
 
@@ -160,7 +155,6 @@ run();
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-| `options.serverURL`                                                                                                                                                            | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | An optional server URL to use.                                                                                                                                                 |
 
 ### Response
 
@@ -175,7 +169,7 @@ run();
 | errors.FiveHundredError                  | 500                                      | application/json                         |
 | errors.WistiaDefaultError                | 4XX, 5XX                                 | \*/\*                                    |
 
-## get
+## getAllowedDomainsDomain
 
 Get details for a specific allowed domain.
 
@@ -192,12 +186,11 @@ Read, update & delete anything
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
-  serverURL: "https://api.example.com",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const result = await wistia.allowedDomains.get({
+  const result = await wistia.allowedDomains.getAllowedDomainsDomain({
     domain: "example.com",
   });
 
@@ -213,24 +206,23 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { allowedDomainsGet } from "@wistia/wistia-api-client/funcs/allowedDomainsGet.js";
+import { allowedDomainsGetAllowedDomainsDomain } from "@wistia/wistia-api-client/funcs/allowedDomainsGetAllowedDomainsDomain.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
-  serverURL: "https://api.example.com",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const res = await allowedDomainsGet(wistia, {
+  const res = await allowedDomainsGetAllowedDomainsDomain(wistia, {
     domain: "example.com",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("allowedDomainsGet failed:", res.error);
+    console.log("allowedDomainsGetAllowedDomainsDomain failed:", res.error);
   }
 }
 
@@ -245,7 +237,6 @@ run();
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-| `options.serverURL`                                                                                                                                                            | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | An optional server URL to use.                                                                                                                                                 |
 
 ### Response
 
@@ -260,7 +251,7 @@ run();
 | errors.FiveHundredError                     | 500                                         | application/json                            |
 | errors.WistiaDefaultError                   | 4XX, 5XX                                    | \*/\*                                       |
 
-## delete
+## deleteAllowedDomainsDomain
 
 Delete an allowed domain from the account.
 
@@ -277,12 +268,11 @@ Read, update & delete anything
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
-  serverURL: "https://api.example.com",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const result = await wistia.allowedDomains.delete({
+  const result = await wistia.allowedDomains.deleteAllowedDomainsDomain({
     domain: "example.com",
   });
 
@@ -298,24 +288,23 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { allowedDomainsDelete } from "@wistia/wistia-api-client/funcs/allowedDomainsDelete.js";
+import { allowedDomainsDeleteAllowedDomainsDomain } from "@wistia/wistia-api-client/funcs/allowedDomainsDeleteAllowedDomainsDomain.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
-  serverURL: "https://api.example.com",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const res = await allowedDomainsDelete(wistia, {
+  const res = await allowedDomainsDeleteAllowedDomainsDomain(wistia, {
     domain: "example.com",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("allowedDomainsDelete failed:", res.error);
+    console.log("allowedDomainsDeleteAllowedDomainsDomain failed:", res.error);
   }
 }
 
@@ -330,7 +319,6 @@ run();
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-| `options.serverURL`                                                                                                                                                            | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | An optional server URL to use.                                                                                                                                                 |
 
 ### Response
 

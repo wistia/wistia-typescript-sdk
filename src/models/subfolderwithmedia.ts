@@ -33,7 +33,7 @@ export type SubfolderWithMedia = {
   /**
    * The position of this subfolder within its project, used for ordering.
    */
-  position: number;
+  position: number | null;
   /**
    * The date when the subfolder was created.
    */
@@ -57,7 +57,7 @@ export const SubfolderWithMedia$inboundSchema: z.ZodType<
   hashed_id: z.string(),
   name: z.nullable(z.string()).optional(),
   description: z.nullable(z.string()).optional(),
-  position: z.number().int(),
+  position: z.nullable(z.number().int()),
   created: z.nullable(
     z.string().datetime({ offset: true }).transform(v => new Date(v)),
   ),
@@ -76,7 +76,7 @@ export type SubfolderWithMedia$Outbound = {
   hashed_id: string;
   name?: string | null | undefined;
   description?: string | null | undefined;
-  position: number;
+  position: number | null;
   created: string | null;
   updated: string | null;
   medias?: Array<Media$Outbound> | undefined;
@@ -91,7 +91,7 @@ export const SubfolderWithMedia$outboundSchema: z.ZodType<
   hashedId: z.string(),
   name: z.nullable(z.string()).optional(),
   description: z.nullable(z.string()).optional(),
-  position: z.number().int(),
+  position: z.nullable(z.number().int()),
   created: z.nullable(z.date().transform(v => v.toISOString())),
   updated: z.nullable(z.date().transform(v => v.toISOString())),
   medias: z.array(Media$outboundSchema).optional(),
