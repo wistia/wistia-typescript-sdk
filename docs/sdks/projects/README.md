@@ -5,14 +5,14 @@
 
 ### Available Operations
 
-* [getProjects](#getprojects) - Project List
-* [postProjects](#postprojects) - Project Create
-* [getProjectsId](#getprojectsid) - Project Show
-* [putProjectsId](#putprojectsid) - Project Update
-* [deleteProjectsId](#deleteprojectsid) - Project Delete
-* [postProjectsIdCopy](#postprojectsidcopy) - Project Copy
+* [list](#list) - Project List
+* [create](#create) - Project Create
+* [get](#get) - Project Show
+* [update](#update) - Project Update
+* [delete](#delete) - Project Delete
+* [copy](#copy) - Project Copy
 
-## getProjects
+## list
 
 Use this endpoint to request a list of Projects in your Wistia account. This request supports paging and sorting.
 
@@ -35,7 +35,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.projects.getProjects();
+  const result = await wistia.projects.list();
 
   console.log(result);
 }
@@ -49,7 +49,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { projectsGetProjects } from "@wistia/wistia-api-client/funcs/projectsGetProjects.js";
+import { projectsList } from "@wistia/wistia-api-client/funcs/projectsList.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -58,12 +58,12 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await projectsGetProjects(wistia);
+  const res = await projectsList(wistia);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("projectsGetProjects failed:", res.error);
+    console.log("projectsList failed:", res.error);
   }
 }
 
@@ -91,7 +91,7 @@ run();
 | errors.FiveHundredError       | 500                           | application/json              |
 | errors.WistiaDefaultError     | 4XX, 5XX                      | \*/\*                         |
 
-## postProjects
+## create
 
 Create a new project. If the project is created successfully the Location HTTP header will point to the new project.
 
@@ -112,7 +112,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.projects.postProjects({
+  const result = await wistia.projects.create({
     name: "My New Project",
     adminEmail: "admin@example.com",
     public: false,
@@ -130,7 +130,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { projectsPostProjects } from "@wistia/wistia-api-client/funcs/projectsPostProjects.js";
+import { projectsCreate } from "@wistia/wistia-api-client/funcs/projectsCreate.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -139,7 +139,7 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await projectsPostProjects(wistia, {
+  const res = await projectsCreate(wistia, {
     name: "My New Project",
     adminEmail: "admin@example.com",
     public: false,
@@ -148,7 +148,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("projectsPostProjects failed:", res.error);
+    console.log("projectsCreate failed:", res.error);
   }
 }
 
@@ -176,7 +176,7 @@ run();
 | errors.FiveHundredError       | 500                           | application/json              |
 | errors.WistiaDefaultError     | 4XX, 5XX                      | \*/\*                         |
 
-## getProjectsId
+## get
 
 Retrieve a single project. Projects#show uses pagination by default - we’ll return up to the first 500 medias in a Project. If you have more than 500 medias in a Project, you’ll need to add a query param, page=2 to get the second page of medias (and the third, etc.). You can check how many pages you will need by looking at the media_count in your first request.
 
@@ -199,7 +199,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.projects.getProjectsId({
+  const result = await wistia.projects.get({
     id: "<id>",
   });
 
@@ -215,7 +215,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { projectsGetProjectsId } from "@wistia/wistia-api-client/funcs/projectsGetProjectsId.js";
+import { projectsGet } from "@wistia/wistia-api-client/funcs/projectsGet.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -224,14 +224,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await projectsGetProjectsId(wistia, {
+  const res = await projectsGet(wistia, {
     id: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("projectsGetProjectsId failed:", res.error);
+    console.log("projectsGet failed:", res.error);
   }
 }
 
@@ -260,7 +260,7 @@ run();
 | errors.FiveHundredError        | 500                            | application/json               |
 | errors.WistiaDefaultError      | 4XX, 5XX                       | \*/\*                          |
 
-## putProjectsId
+## update
 
 Update a project
 
@@ -281,7 +281,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.projects.putProjectsId({
+  const result = await wistia.projects.update({
     id: "<id>",
     updateProject: {
       name: "My New Project Name",
@@ -302,7 +302,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { projectsPutProjectsId } from "@wistia/wistia-api-client/funcs/projectsPutProjectsId.js";
+import { projectsUpdate } from "@wistia/wistia-api-client/funcs/projectsUpdate.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -311,7 +311,7 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await projectsPutProjectsId(wistia, {
+  const res = await projectsUpdate(wistia, {
     id: "<id>",
     updateProject: {
       name: "My New Project Name",
@@ -323,7 +323,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("projectsPutProjectsId failed:", res.error);
+    console.log("projectsUpdate failed:", res.error);
   }
 }
 
@@ -352,7 +352,7 @@ run();
 | errors.FiveHundredError        | 500                            | application/json               |
 | errors.WistiaDefaultError      | 4XX, 5XX                       | \*/\*                          |
 
-## deleteProjectsId
+## delete
 
 Delete a project
 
@@ -373,7 +373,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.projects.deleteProjectsId({
+  const result = await wistia.projects.delete({
     id: "<id>",
   });
 
@@ -389,7 +389,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { projectsDeleteProjectsId } from "@wistia/wistia-api-client/funcs/projectsDeleteProjectsId.js";
+import { projectsDelete } from "@wistia/wistia-api-client/funcs/projectsDelete.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -398,14 +398,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await projectsDeleteProjectsId(wistia, {
+  const res = await projectsDelete(wistia, {
     id: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("projectsDeleteProjectsId failed:", res.error);
+    console.log("projectsDelete failed:", res.error);
   }
 }
 
@@ -434,7 +434,7 @@ run();
 | errors.FiveHundredError        | 500                            | application/json               |
 | errors.WistiaDefaultError      | 4XX, 5XX                       | \*/\*                          |
 
-## postProjectsIdCopy
+## copy
 
 This method does not copy the project’s sharing information (i.e. users that could see the old project will not automatically be able to see the new one).
 For the request you can specify the owner of a new project by passing an optional parameter. The person you specify must be a Manager in the account.
@@ -457,7 +457,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.projects.postProjectsIdCopy({
+  const result = await wistia.projects.copy({
     id: "<id>",
     requestBody: {
       adminEmail: "admin@example.com",
@@ -476,7 +476,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { projectsPostProjectsIdCopy } from "@wistia/wistia-api-client/funcs/projectsPostProjectsIdCopy.js";
+import { projectsCopy } from "@wistia/wistia-api-client/funcs/projectsCopy.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -485,7 +485,7 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await projectsPostProjectsIdCopy(wistia, {
+  const res = await projectsCopy(wistia, {
     id: "<id>",
     requestBody: {
       adminEmail: "admin@example.com",
@@ -495,7 +495,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("projectsPostProjectsIdCopy failed:", res.error);
+    console.log("projectsCopy failed:", res.error);
   }
 }
 

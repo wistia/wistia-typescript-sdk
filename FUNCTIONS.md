@@ -20,7 +20,7 @@ specific category of applications.
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { projectsGetProjects } from "@wistia/wistia-api-client/funcs/projectsGetProjects.js";
+import { projectsList } from "@wistia/wistia-api-client/funcs/projectsList.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -29,12 +29,12 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await projectsGetProjects(wistia);
+  const res = await projectsList(wistia);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("projectsGetProjects failed:", res.error);
+    console.log("projectsList failed:", res.error);
   }
 }
 

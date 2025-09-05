@@ -5,12 +5,12 @@
 
 ### Available Operations
 
-* [getAllowedDomains](#getalloweddomains) - Allowed Domains List
-* [postAllowedDomains](#postalloweddomains) - Allowed Domain Create
-* [getAllowedDomainsDomain](#getalloweddomainsdomain) - Allowed Domain Show
-* [deleteAllowedDomainsDomain](#deletealloweddomainsdomain) - Allowed Domain Delete
+* [list](#list) - Allowed Domains List
+* [create](#create) - Allowed Domain Create
+* [get](#get) - Allowed Domain Show
+* [delete](#delete) - Allowed Domain Delete
 
-## getAllowedDomains
+## list
 
 List all allowed domains for the account.
 
@@ -31,7 +31,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.allowedDomains.getAllowedDomains({});
+  const result = await wistia.allowedDomains.list({});
 
   console.log(result);
 }
@@ -45,7 +45,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { allowedDomainsGetAllowedDomains } from "@wistia/wistia-api-client/funcs/allowedDomainsGetAllowedDomains.js";
+import { allowedDomainsList } from "@wistia/wistia-api-client/funcs/allowedDomainsList.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -54,12 +54,12 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await allowedDomainsGetAllowedDomains(wistia, {});
+  const res = await allowedDomainsList(wistia, {});
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("allowedDomainsGetAllowedDomains failed:", res.error);
+    console.log("allowedDomainsList failed:", res.error);
   }
 }
 
@@ -87,7 +87,7 @@ run();
 | errors.FiveHundredError       | 500                           | application/json              |
 | errors.WistiaDefaultError     | 4XX, 5XX                      | \*/\*                         |
 
-## postAllowedDomains
+## create
 
 Create a new allowed domain for the account.
 
@@ -108,7 +108,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.allowedDomains.postAllowedDomains({
+  const result = await wistia.allowedDomains.create({
     domain: "example.com",
   });
 
@@ -124,7 +124,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { allowedDomainsPostAllowedDomains } from "@wistia/wistia-api-client/funcs/allowedDomainsPostAllowedDomains.js";
+import { allowedDomainsCreate } from "@wistia/wistia-api-client/funcs/allowedDomainsCreate.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -133,14 +133,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await allowedDomainsPostAllowedDomains(wistia, {
+  const res = await allowedDomainsCreate(wistia, {
     domain: "example.com",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("allowedDomainsPostAllowedDomains failed:", res.error);
+    console.log("allowedDomainsCreate failed:", res.error);
   }
 }
 
@@ -169,7 +169,7 @@ run();
 | errors.FiveHundredError                  | 500                                      | application/json                         |
 | errors.WistiaDefaultError                | 4XX, 5XX                                 | \*/\*                                    |
 
-## getAllowedDomainsDomain
+## get
 
 Get details for a specific allowed domain.
 
@@ -190,7 +190,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.allowedDomains.getAllowedDomainsDomain({
+  const result = await wistia.allowedDomains.get({
     domain: "example.com",
   });
 
@@ -206,7 +206,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { allowedDomainsGetAllowedDomainsDomain } from "@wistia/wistia-api-client/funcs/allowedDomainsGetAllowedDomainsDomain.js";
+import { allowedDomainsGet } from "@wistia/wistia-api-client/funcs/allowedDomainsGet.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -215,14 +215,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await allowedDomainsGetAllowedDomainsDomain(wistia, {
+  const res = await allowedDomainsGet(wistia, {
     domain: "example.com",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("allowedDomainsGetAllowedDomainsDomain failed:", res.error);
+    console.log("allowedDomainsGet failed:", res.error);
   }
 }
 
@@ -251,7 +251,7 @@ run();
 | errors.FiveHundredError                     | 500                                         | application/json                            |
 | errors.WistiaDefaultError                   | 4XX, 5XX                                    | \*/\*                                       |
 
-## deleteAllowedDomainsDomain
+## delete
 
 Delete an allowed domain from the account.
 
@@ -272,7 +272,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.allowedDomains.deleteAllowedDomainsDomain({
+  const result = await wistia.allowedDomains.delete({
     domain: "example.com",
   });
 
@@ -288,7 +288,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { allowedDomainsDeleteAllowedDomainsDomain } from "@wistia/wistia-api-client/funcs/allowedDomainsDeleteAllowedDomainsDomain.js";
+import { allowedDomainsDelete } from "@wistia/wistia-api-client/funcs/allowedDomainsDelete.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -297,14 +297,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await allowedDomainsDeleteAllowedDomainsDomain(wistia, {
+  const res = await allowedDomainsDelete(wistia, {
     domain: "example.com",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("allowedDomainsDeleteAllowedDomainsDomain failed:", res.error);
+    console.log("allowedDomainsDelete failed:", res.error);
   }
 }
 

@@ -6,7 +6,6 @@ sources:
         sourceBlobDigest: sha256:4313d02cadcd20d9d649326023b6cafb2e3344c2be25cc55393111cc1f09dc5b
         tags:
             - latest
-            - speakeasy-sdk-regen-1757031194
             - 1.0.0
 targets:
     wistia:
@@ -15,7 +14,7 @@ targets:
         sourceRevisionDigest: sha256:54ab4b125d68ed7237d618630600a2fbba7edbf5abadf91a134c4883e814e270
         sourceBlobDigest: sha256:4313d02cadcd20d9d649326023b6cafb2e3344c2be25cc55393111cc1f09dc5b
         codeSamplesNamespace: data-api-typescript-code-samples
-        codeSamplesRevisionDigest: sha256:4ffc03ad7adeeac96f51801d89a4782bca05d11143dab81a92f299baa86a2c74
+        codeSamplesRevisionDigest: sha256:4da52c4432f2156be6babb8233986228bba465d48573c0b15f8925539fb5db32
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest

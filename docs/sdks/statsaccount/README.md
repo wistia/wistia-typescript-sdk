@@ -5,9 +5,9 @@
 
 ### Available Operations
 
-* [getStatsAccount](#getstatsaccount) - Stats:Account Show
+* [get](#get) - Stats:Account Show
 
-## getStatsAccount
+## get
 
 Retrieve account-wide video stats. Get statistics like the number of video loads, plays, and hours watched for the entire account.
 
@@ -30,7 +30,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.statsAccount.getStatsAccount();
+  const result = await wistia.statsAccount.get();
 
   console.log(result);
 }
@@ -44,7 +44,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { statsAccountGetStatsAccount } from "@wistia/wistia-api-client/funcs/statsAccountGetStatsAccount.js";
+import { statsAccountGet } from "@wistia/wistia-api-client/funcs/statsAccountGet.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -53,12 +53,12 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await statsAccountGetStatsAccount(wistia);
+  const res = await statsAccountGet(wistia);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("statsAccountGetStatsAccount failed:", res.error);
+    console.log("statsAccountGet failed:", res.error);
   }
 }
 

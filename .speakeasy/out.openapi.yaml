@@ -121,6 +121,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-name-override: list
     post:
       summary: Project Create
       description: >
@@ -155,6 +156,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-name-override: create
   /projects/{id}:
     get:
       summary: Project Show
@@ -199,6 +201,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-name-override: get
     put:
       summary: Project Update
       description: |
@@ -238,6 +241,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-name-override: update
     delete:
       summary: Project Delete
       description: |
@@ -272,6 +276,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-name-override: delete
   /projects/{id}/copy:
     post:
       summary: Project Copy
@@ -332,6 +337,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-name-override: copy
   /projects/{project-id}/subfolders:
     get:
       summary: Subfolder List
@@ -742,6 +748,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-group: projectSharings
+      x-speakeasy-name-override: list
     post:
       summary: Project Sharing Create
       description: >
@@ -801,6 +809,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-group: projectSharings
+      x-speakeasy-name-override: create
   /projects/{project-id}/sharings/{sharing-id}:
     get:
       summary: Project Sharing Show
@@ -843,6 +853,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-group: projectSharings
+      x-speakeasy-name-override: get
     put:
       summary: Project Sharing Update
       description: |
@@ -888,6 +900,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-group: projectSharings
+      x-speakeasy-name-override: update
     delete:
       summary: Project Sharing Delete
       description: |
@@ -928,6 +942,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-group: projectSharings
+      x-speakeasy-name-override: delete
   /medias:
     get:
       summary: Media List
@@ -1122,6 +1138,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-name-override: list
   /medias/{media-hashed-id}:
     get:
       summary: Media Show
@@ -1171,6 +1188,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-name-override: get
     put:
       summary: Media Update
       description: |
@@ -1232,6 +1250,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-name-override: update
     delete:
       summary: Media Delete
       description: |
@@ -1266,6 +1285,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-name-override: delete
   /medias/{media-hashed-id}/copy:
     post:
       summary: Media Copy
@@ -1341,6 +1361,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-name-override: copy
   /medias/{media-hashed-id}/swap:
     put:
       summary: Media Swap
@@ -1413,6 +1434,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-group: medias
+      x-speakeasy-name-override: swap
   /medias/{media-hashed-id}/stats:
     get:
       summary: Media Stats
@@ -1489,6 +1512,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-name-override: stats
   /medias/{media-hashed-id}/translate:
     post:
       summary: Media Translate
@@ -1559,6 +1583,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-name-override: translate
   /medias/archive:
     put:
       summary: Medias Archive
@@ -1628,6 +1653,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-name-override: archive
   /medias/move:
     put:
       summary: Media Move
@@ -1731,6 +1757,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-name-override: move
   /medias/restore:
     put:
       summary: Media Restore
@@ -1829,6 +1856,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-name-override: restore
   /account:
     get:
       summary: Account Show
@@ -1855,6 +1883,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-name-override: get
   /allowed_domains:
     get:
       summary: Allowed Domains List
@@ -1900,6 +1929,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-name-override: list
     post:
       summary: Allowed Domain Create
       description: |
@@ -1948,6 +1978,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-name-override: create
   /allowed_domains/{domain}:
     get:
       summary: Allowed Domain Show
@@ -1991,6 +2022,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-name-override: get
     delete:
       summary: Allowed Domain Delete
       description: |
@@ -2033,6 +2065,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-name-override: delete
   /background_job_status/{background-job-status-id}:
     get:
       summary: Background Job Status Show
@@ -2083,6 +2116,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-group: backgroundJobStatus
+      x-speakeasy-name-override: get
   /medias/{media-id}/customizations:
     get:
       summary: Customizations Show
@@ -2119,6 +2154,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-name-override: get
     post:
       summary: Customizations Create
       description: >
@@ -2161,6 +2197,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-name-override: create
     put:
       summary: Customizations Update
       description: >
@@ -2205,6 +2242,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-name-override: update
     delete:
       summary: Customizations Delete
       description: >
@@ -2239,6 +2277,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-name-override: delete
   /medias/{media-hashed-id}/captions:
     get:
       summary: Captions List
@@ -2288,6 +2327,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-name-override: list
     post:
       summary: Captions Create
       description: >
@@ -2356,6 +2396,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-name-override: create
   /medias/{media-hashed-id}/captions/purchase:
     post:
       summary: Captions Purchase
@@ -2450,6 +2491,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-name-override: purchase
   /medias/{media-hashed-id}/captions/{language-code}:
     get:
       summary: Captions Show
@@ -2511,6 +2553,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-name-override: get
     put:
       summary: Captions Update
       description: >
@@ -2577,6 +2620,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-name-override: update
     delete:
       summary: Captions Delete
       description: >
@@ -2619,6 +2663,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-name-override: delete
   /medias/{media-hashed-id}/trims:
     post:
       summary: Trims Create
@@ -2662,6 +2707,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-name-override: create
   /medias/{media-hashed-id}/localizations:
     get:
       summary: Localizations List
@@ -2707,6 +2753,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-name-override: list
     post:
       summary: Localizations Create
       description: |
@@ -2768,6 +2815,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-name-override: create
   /medias/{media-hashed-id}/localizations/{localization-hashed-id}:
     get:
       summary: Localizations Show
@@ -2817,6 +2865,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-name-override: get
     delete:
       summary: Localizations Delete
       description: |
@@ -2856,6 +2905,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-name-override: delete
   /tags:
     get:
       summary: Tags List
@@ -2923,6 +2973,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-name-override: list
     post:
       summary: Tags Create
       description: |
@@ -2978,6 +3029,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-name-override: create
   /tags/{name}:
     delete:
       summary: Tags Delete
@@ -3009,6 +3061,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-name-override: delete
   /search:
     get:
       summary: Search
@@ -3080,6 +3133,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-name-override: search
   /channels:
     get:
       summary: Channels List
@@ -3152,6 +3206,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-name-override: list
   /channels/{channel-hashed-id}:
     get:
       summary: Channels Show
@@ -3189,6 +3244,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-name-override: get
   /channels/{channel-hashed-id}/channel_episodes/{channel-episode-id}:
     get:
       summary: Channel Episodes Show
@@ -3231,6 +3287,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-group: channelEpisodes
+      x-speakeasy-name-override: get
   /channels/{channel-hashed-id}/channel_episodes:
     get:
       summary: Channel Episodes List filtered by channel
@@ -3282,6 +3340,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-group: channels.episodes
+      x-speakeasy-name-override: list
     post:
       summary: Channel Episode Create
       description: |
@@ -3321,6 +3381,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-group: channelEpisodes
+      x-speakeasy-name-override: create
   /channel_episodes:
     get:
       summary: Channel Episodes List
@@ -3373,6 +3435,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-group: channelEpisodes
+      x-speakeasy-name-override: list
   /expiring_token:
     post:
       summary: Create an expiring access token
@@ -3415,6 +3479,8 @@ paths:
                       Expiring tokens can only be created from non-expiring access tokens.
       security:
         - BearerAuth: []
+      x-speakeasy-group: expiringAccessTokens
+      x-speakeasy-name-override: create
   /live_stream_events:
     get:
       summary: Live Stream Events List
@@ -3491,6 +3557,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-group: liveStreamEvents
+      x-speakeasy-name-override: list
     post:
       summary: Live Stream Event Create
       description: >
@@ -3579,6 +3647,8 @@ paths:
                         An error occurred while creating the live stream event. Please try again.
       security:
         - BearerAuth: []
+      x-speakeasy-group: liveStreamEvents
+      x-speakeasy-name-override: create
   /live_stream_events/{id}:
     get:
       summary: Live Stream Event Show
@@ -3615,6 +3685,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-group: liveStreamEvents
+      x-speakeasy-name-override: get
     put:
       summary: Live Stream Event Update
       description: |
@@ -3668,6 +3740,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-group: liveStreamEvents
+      x-speakeasy-name-override: update
     delete:
       summary: Live Stream Event Delete
       description: |
@@ -3701,6 +3775,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-group: liveStreamEvents
+      x-speakeasy-name-override: delete
   /stats/account:
     get:
       summary: Stats:Account Show
@@ -3753,6 +3829,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-group: statsAccount
+      x-speakeasy-name-override: get
   /stats/projects/{project-id}:
     get:
       summary: Stats:Projects Show
@@ -3819,6 +3897,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-group: statsProjects
+      x-speakeasy-name-override: get
   /stats/medias/{media-id}:
     get:
       summary: Stats:Media Show
@@ -3911,6 +3991,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-group: statsMedia
+      x-speakeasy-name-override: get
   /stats/medias/{media-id}/by_date:
     get:
       summary: Stats:Media By Date
@@ -3983,6 +4065,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-group: statsMedia
+      x-speakeasy-name-override: getByDate
   /stats/medias/{media-id}/engagement:
     get:
       summary: Stats:Media Engagement
@@ -4049,6 +4133,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-group: statsMedia
+      x-speakeasy-name-override: getEngagement
   /stats/visitors:
     get:
       summary: Stats:Visitors List
@@ -4110,6 +4196,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-group: statsVisitors
+      x-speakeasy-name-override: list
   /stats/visitors/{visitor-key}:
     get:
       summary: Stats:Visitors Show
@@ -4147,6 +4235,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-group: statsVisitors
+      x-speakeasy-name-override: get
   /stats/events:
     get:
       summary: Stats:Events List
@@ -4218,6 +4308,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-group: statsEvents
+      x-speakeasy-name-override: list
   /stats/events/{event-key}:
     get:
       summary: Stats:Events Show
@@ -4264,6 +4356,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-group: statsEvents
+      x-speakeasy-name-override: get
 components:
   schemas:
     Account:
