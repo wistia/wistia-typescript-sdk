@@ -3,6 +3,8 @@ info:
   title: Data API
   description: Wistia Data API
   version: 1.0.0
+servers:
+  - url: https://api.wistia.com/v1
 tags:
   - name: Projects
     x-displayName: Projects
@@ -48,12 +50,8 @@ tags:
     x-displayName: Stats:Visitors
   - name: Stats:Events
     x-displayName: Stats:Events
-  - name: Upload or Import Media
-    x-displayName: Upload or Import Media
 paths:
   /projects:
-    servers:
-      - url: https://api.wistia.com/v1
     get:
       summary: Project List
       description: >
@@ -123,7 +121,6 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
-      x-speakeasy-name-override: list
     post:
       summary: Project Create
       description: >
@@ -158,10 +155,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
-      x-speakeasy-name-override: create
   /projects/{id}:
-    servers:
-      - url: https://api.wistia.com/v1
     get:
       summary: Project Show
       description: >
@@ -205,7 +199,6 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
-      x-speakeasy-name-override: get
     put:
       summary: Project Update
       description: |
@@ -245,7 +238,6 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
-      x-speakeasy-name-override: update
     delete:
       summary: Project Delete
       description: |
@@ -280,10 +272,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
-      x-speakeasy-name-override: delete
   /projects/{id}/copy:
-    servers:
-      - url: https://api.wistia.com/v1
     post:
       summary: Project Copy
       description: >
@@ -343,10 +332,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
-      x-speakeasy-name-override: copy
   /projects/{project-id}/subfolders:
-    servers:
-      - url: https://api.wistia.com/v1
     get:
       summary: Subfolder List
       description: >
@@ -440,6 +426,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-name-override: list
     post:
       summary: Create Subfolder
       description: >
@@ -497,9 +484,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-name-override: create
   /projects/{project-id}/subfolders/{subfolder-id}:
-    servers:
-      - url: https://api.wistia.com/v1
     get:
       summary: Show Subfolder
       description: >
@@ -567,6 +553,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-name-override: get
     put:
       summary: Update Subfolder
       description: "Update a subfolder's name and/or description. \n\n## Requires api token with one of the following permissions\n```\nRead, update & delete anything\n```\n"
@@ -632,6 +619,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-name-override: update
     delete:
       summary: Delete Subfolder
       description: >
@@ -697,9 +685,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      x-speakeasy-name-override: delete
   /projects/{project-id}/sharings:
-    servers:
-      - url: https://api.wistia.com/v1
     get:
       summary: Project Sharing List
       description: >
@@ -755,8 +742,6 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
-      x-speakeasy-group: projectSharings
-      x-speakeasy-name-override: list
     post:
       summary: Project Sharing Create
       description: >
@@ -816,11 +801,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
-      x-speakeasy-group: projectSharings
-      x-speakeasy-name-override: create
   /projects/{project-id}/sharings/{sharing-id}:
-    servers:
-      - url: https://api.wistia.com/v1
     get:
       summary: Project Sharing Show
       description: |
@@ -862,8 +843,6 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
-      x-speakeasy-group: projectSharings
-      x-speakeasy-name-override: get
     put:
       summary: Project Sharing Update
       description: |
@@ -909,8 +888,6 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
-      x-speakeasy-group: projectSharings
-      x-speakeasy-name-override: update
     delete:
       summary: Project Sharing Delete
       description: |
@@ -951,11 +928,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
-      x-speakeasy-group: projectSharings
-      x-speakeasy-name-override: delete
   /medias:
-    servers:
-      - url: https://api.wistia.com/v1
     get:
       summary: Media List
       description: >
@@ -979,19 +952,83 @@ paths:
       parameters:
         - name: page
           in: query
-          description: Page number to retrieve
+          description: |
+            The page number to retrieve. This cannot be combined with `cursor`,
+            pagination.
           required: false
           schema:
             type: integer
         - name: per_page
           in: query
-          description: Number of medias per page
+          description: >-
+            The number of medias per page. Use this for both offset pagination and cursor pagination.
           required: false
           schema:
             type: integer
+        - name: cursor
+          in: query
+          required: false
+          description: >
+            If `cursor` is set to 1 than cursor pagination is enabled and the
+
+            first set of records are fetched up to the `per_page`. Cursor
+
+            pagination will also be turned on if `cursor[before]` or `cursor[after]`
+
+            are set. Records returned will have a `cursor` property set which can be used to fetch more records in the same `sort_by` ordering.
+
+            The cursor value of the last record can be used to fetch records after the current result set and
+
+            the cursor of the first record can be used to fetch records before the result set.
+
+
+            NOTE: a cursor value is only valid if the `sort_by` value hasn't changed from the
+
+            last fetch. For example, you cannot fetch using `sort_by` id and than pass that
+
+            cursor value to a `sort_by` name.
+
+          style: deepObject
+          schema:
+            type: object
+            properties:
+              enabled:
+                type: integer
+                enum:
+                  - 0
+                  - 1
+                description: >
+                  If `cursor[enabled]` is set to 1, the first result set will be fetched with cursor pagination enabled. This
+
+                  values is ignored if `cursor[before]` or `cursor[after]` are set.
+
+              before:
+                type: string
+                description: >
+                  If `cursor[before]` is set than cursor pagination is enabled and all records
+
+                  before the cursor up to the `per_page` are returned. This feature is useful for
+
+                  fetching "new records", for example, in a "pull to refersh" feature when showing records in a descending
+
+                  order.
+
+              after:
+                type: string
+                description: >
+                  If `cursor[after]` is set than cursor pagination is enabled and all records
+
+                  after the cursor up to the `per_page` are returned.
+
         - name: sort_by
           in: query
-          description: Ordering
+          description: >
+            Ordering. When using cursor pagination (see cursor param),
+
+            only `id` and `created` are supported. All other sort_by options (`name`, `updated`, `position`)
+
+            require offset pagination.
+
           required: false
           schema:
             type: string
@@ -1076,17 +1113,16 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Media'
+                  $ref: '#/components/schemas/MediaWithCursor'
+        '400':
+          $ref: '#/components/responses/400'
         '401':
           $ref: '#/components/responses/401'
         '500':
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
-      x-speakeasy-name-override: list
   /medias/{media-hashed-id}:
-    servers:
-      - url: https://api.wistia.com/v1
     get:
       summary: Media Show
       description: >
@@ -1135,7 +1171,6 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
-      x-speakeasy-name-override: get
     put:
       summary: Media Update
       description: |
@@ -1197,7 +1232,6 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
-      x-speakeasy-name-override: update
     delete:
       summary: Media Delete
       description: |
@@ -1232,10 +1266,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
-      x-speakeasy-name-override: delete
   /medias/{media-hashed-id}/copy:
-    servers:
-      - url: https://api.wistia.com/v1
     post:
       summary: Media Copy
       description: |
@@ -1310,10 +1341,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
-      x-speakeasy-name-override: copy
   /medias/{media-hashed-id}/swap:
-    servers:
-      - url: https://api.wistia.com/v1
     put:
       summary: Media Swap
       description: >
@@ -1385,10 +1413,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
-      x-speakeasy-name-override: swap
   /medias/{media-hashed-id}/stats:
-    servers:
-      - url: https://api.wistia.com/v1
     get:
       summary: Media Stats
       description: |
@@ -1464,10 +1489,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
-      x-speakeasy-name-override: stats
   /medias/{media-hashed-id}/translate:
-    servers:
-      - url: https://api.wistia.com/v1
     post:
       summary: Media Translate
       description: |
@@ -1537,10 +1559,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
-      x-speakeasy-name-override: translate
   /medias/archive:
-    servers:
-      - url: https://api.wistia.com/v1
     put:
       summary: Medias Archive
       description: >
@@ -1609,10 +1628,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
-      x-speakeasy-name-override: archive
   /medias/move:
-    servers:
-      - url: https://api.wistia.com/v1
     put:
       summary: Media Move
       description: >
@@ -1715,10 +1731,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
-      x-speakeasy-name-override: move
   /medias/restore:
-    servers:
-      - url: https://api.wistia.com/v1
     put:
       summary: Media Restore
       description: >
@@ -1816,10 +1829,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
-      x-speakeasy-name-override: restore
   /account:
-    servers:
-      - url: https://api.wistia.com/v1
     get:
       summary: Account Show
       description: |
@@ -1845,10 +1855,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
-      x-speakeasy-name-override: get
   /allowed_domains:
-    servers:
-      - url: https://api.wistia.com/v1
     get:
       summary: Allowed Domains List
       description: |
@@ -1893,7 +1900,6 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
-      x-speakeasy-name-override: list
     post:
       summary: Allowed Domain Create
       description: |
@@ -1942,10 +1948,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
-      x-speakeasy-name-override: create
   /allowed_domains/{domain}:
-    servers:
-      - url: https://api.wistia.com/v1
     get:
       summary: Allowed Domain Show
       description: |
@@ -1988,7 +1991,6 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
-      x-speakeasy-name-override: get
     delete:
       summary: Allowed Domain Delete
       description: |
@@ -2031,10 +2033,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
-      x-speakeasy-name-override: delete
   /background_job_status/{background-job-status-id}:
-    servers:
-      - url: https://api.wistia.com/v1
     get:
       summary: Background Job Status Show
       description: |
@@ -2084,11 +2083,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
-      x-speakeasy-group: backgroundJobStatus
-      x-speakeasy-name-override: get
   /medias/{media-id}/customizations:
-    servers:
-      - url: https://api.wistia.com/v1
     get:
       summary: Customizations Show
       description: |
@@ -2124,7 +2119,6 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
-      x-speakeasy-name-override: get
     post:
       summary: Customizations Create
       description: >
@@ -2167,7 +2161,6 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
-      x-speakeasy-name-override: create
     put:
       summary: Customizations Update
       description: >
@@ -2212,7 +2205,6 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
-      x-speakeasy-name-override: update
     delete:
       summary: Customizations Delete
       description: >
@@ -2247,10 +2239,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
-      x-speakeasy-name-override: delete
   /medias/{media-hashed-id}/captions:
-    servers:
-      - url: https://api.wistia.com/v1
     get:
       summary: Captions List
       description: >
@@ -2299,7 +2288,6 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
-      x-speakeasy-name-override: list
     post:
       summary: Captions Create
       description: >
@@ -2368,10 +2356,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
-      x-speakeasy-name-override: create
   /medias/{media-hashed-id}/captions/purchase:
-    servers:
-      - url: https://api.wistia.com/v1
     post:
       summary: Captions Purchase
       description: >
@@ -2465,10 +2450,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
-      x-speakeasy-name-override: purchase
   /medias/{media-hashed-id}/captions/{language-code}:
-    servers:
-      - url: https://api.wistia.com/v1
     get:
       summary: Captions Show
       description: >
@@ -2529,7 +2511,6 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
-      x-speakeasy-name-override: get
     put:
       summary: Captions Update
       description: >
@@ -2596,7 +2577,6 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
-      x-speakeasy-name-override: update
     delete:
       summary: Captions Delete
       description: >
@@ -2639,10 +2619,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
-      x-speakeasy-name-override: delete
   /medias/{media-hashed-id}/trims:
-    servers:
-      - url: https://api.wistia.com/v1
     post:
       summary: Trims Create
       description: |
@@ -2685,10 +2662,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
-      x-speakeasy-name-override: create
   /medias/{media-hashed-id}/localizations:
-    servers:
-      - url: https://api.wistia.com/v1
     get:
       summary: Localizations List
       description: |
@@ -2733,7 +2707,6 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
-      x-speakeasy-name-override: list
     post:
       summary: Localizations Create
       description: |
@@ -2795,10 +2768,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
-      x-speakeasy-name-override: create
   /medias/{media-hashed-id}/localizations/{localization-hashed-id}:
-    servers:
-      - url: https://api.wistia.com/v1
     get:
       summary: Localizations Show
       description: |
@@ -2847,7 +2817,6 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
-      x-speakeasy-name-override: get
     delete:
       summary: Localizations Delete
       description: |
@@ -2887,10 +2856,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
-      x-speakeasy-name-override: delete
   /tags:
-    servers:
-      - url: https://api.wistia.com/v1
     get:
       summary: Tags List
       description: >
@@ -2957,7 +2923,6 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
-      x-speakeasy-name-override: list
     post:
       summary: Tags Create
       description: |
@@ -3013,10 +2978,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
-      x-speakeasy-name-override: create
   /tags/{name}:
-    servers:
-      - url: https://api.wistia.com/v1
     delete:
       summary: Tags Delete
       description: |
@@ -3047,10 +3009,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
-      x-speakeasy-name-override: delete
   /search:
-    servers:
-      - url: https://api.wistia.com/v1
     get:
       summary: Search
       description: |
@@ -3121,10 +3080,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
-      x-speakeasy-name-override: get
   /channels:
-    servers:
-      - url: https://api.wistia.com/v1
     get:
       summary: Channels List
       description: |
@@ -3196,10 +3152,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
-      x-speakeasy-name-override: list
   /channels/{channel-hashed-id}:
-    servers:
-      - url: https://api.wistia.com/v1
     get:
       summary: Channels Show
       description: |
@@ -3236,10 +3189,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
-      x-speakeasy-name-override: get
   /channels/{channel-hashed-id}/channel_episodes/{channel-episode-id}:
-    servers:
-      - url: https://api.wistia.com/v1
     get:
       summary: Channel Episodes Show
       description: |
@@ -3281,11 +3231,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
-      x-speakeasy-group: channelEpisodes
-      x-speakeasy-name-override: get
   /channels/{channel-hashed-id}/channel_episodes:
-    servers:
-      - url: https://api.wistia.com/v1
     get:
       summary: Channel Episodes List filtered by channel
       description: >
@@ -3336,8 +3282,6 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
-      x-speakeasy-group: channelEpisodes
-      x-speakeasy-name-override: listByChannel
     post:
       summary: Channel Episode Create
       description: |
@@ -3377,11 +3321,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
-      x-speakeasy-group: channelEpisodes
-      x-speakeasy-name-override: create
   /channel_episodes:
-    servers:
-      - url: https://api.wistia.com/v1
     get:
       summary: Channel Episodes List
       description: >
@@ -3433,11 +3373,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
-      x-speakeasy-group: channelEpisodes
-      x-speakeasy-name-override: list
   /expiring_token:
-    servers:
-      - url: https://api.wistia.com/v1
     post:
       summary: Create an expiring access token
       description: "```\n\U0001F6AB Alert\n\nThis API is still under development and can change at any time.\n```\n\nThis endpoint is for creating expiring access tokens which can be used for some iframe embeds.\n\n## Requires api token with one of the following permissions\n```\nRead, update & delete anything\n```\n"
@@ -3479,11 +3415,7 @@ paths:
                       Expiring tokens can only be created from non-expiring access tokens.
       security:
         - BearerAuth: []
-      x-speakeasy-group: expiringAccessTokens
-      x-speakeasy-name-override: create
   /live_stream_events:
-    servers:
-      - url: https://api.wistia.com/v1
     get:
       summary: Live Stream Events List
       description: >
@@ -3559,8 +3491,6 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
-      x-speakeasy-group: liveStreamEvents
-      x-speakeasy-name-override: list
     post:
       summary: Live Stream Event Create
       description: >
@@ -3649,11 +3579,7 @@ paths:
                         An error occurred while creating the live stream event. Please try again.
       security:
         - BearerAuth: []
-      x-speakeasy-group: liveStreamEvents
-      x-speakeasy-name-override: create
   /live_stream_events/{id}:
-    servers:
-      - url: https://api.wistia.com/v1
     get:
       summary: Live Stream Event Show
       description: |
@@ -3689,8 +3615,6 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
-      x-speakeasy-group: liveStreamEvents
-      x-speakeasy-name-override: get
     put:
       summary: Live Stream Event Update
       description: |
@@ -3744,8 +3668,6 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
-      x-speakeasy-group: liveStreamEvents
-      x-speakeasy-name-override: update
     delete:
       summary: Live Stream Event Delete
       description: |
@@ -3779,11 +3701,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
-      x-speakeasy-group: liveStreamEvents
-      x-speakeasy-name-override: delete
   /stats/account:
-    servers:
-      - url: https://api.wistia.com/v1
     get:
       summary: Stats:Account Show
       description: >
@@ -3835,11 +3753,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
-      x-speakeasy-group: stats.account
-      x-speakeasy-name-override: get
   /stats/projects/{project-id}:
-    servers:
-      - url: https://api.wistia.com/v1
     get:
       summary: Stats:Projects Show
       description: >
@@ -3905,11 +3819,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
-      x-speakeasy-group: statsProjects
-      x-speakeasy-name-override: get
   /stats/medias/{media-id}:
-    servers:
-      - url: https://api.wistia.com/v1
     get:
       summary: Stats:Media Show
       description: >
@@ -4001,11 +3911,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
-      x-speakeasy-group: stats.media
-      x-speakeasy-name-override: get
   /stats/medias/{media-id}/by_date:
-    servers:
-      - url: https://api.wistia.com/v1
     get:
       summary: Stats:Media By Date
       description: >
@@ -4077,11 +3983,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
-      x-speakeasy-group: statsMedia
-      x-speakeasy-name-override: getByDate
   /stats/medias/{media-id}/engagement:
-    servers:
-      - url: https://api.wistia.com/v1
     get:
       summary: Stats:Media Engagement
       description: >
@@ -4147,11 +4049,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
-      x-speakeasy-group: statsMedia
-      x-speakeasy-name-override: getEngagement
   /stats/visitors:
-    servers:
-      - url: https://api.wistia.com/v1
     get:
       summary: Stats:Visitors List
       description: >
@@ -4212,11 +4110,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
-      x-speakeasy-group: statsVisitors
-      x-speakeasy-name-override: list
   /stats/visitors/{visitor-key}:
-    servers:
-      - url: https://api.wistia.com/v1
     get:
       summary: Stats:Visitors Show
       description: |
@@ -4253,11 +4147,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
-      x-speakeasy-group: statsVisitors
-      x-speakeasy-name-override: get
   /stats/events:
-    servers:
-      - url: https://api.wistia.com/v1
     get:
       summary: Stats:Events List
       description: >
@@ -4328,11 +4218,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
-      x-speakeasy-group: statsEvents
-      x-speakeasy-name-override: list
   /stats/events/{event-key}:
-    servers:
-      - url: https://api.wistia.com/v1
     get:
       summary: Stats:Events Show
       description: >
@@ -4376,125 +4262,6 @@ paths:
           content: {}
         '500':
           $ref: '#/components/responses/500'
-      security:
-        - BearerAuth: []
-      x-speakeasy-group: stats.events
-      x-speakeasy-name-override: get
-  /:
-    servers:
-      - url: https://upload.wistia.com
-    post:
-      summary: Upload or Import Media
-      description: >
-        Endpoint to upload media files from a local system or import from a web URL.
-
-
-        - Use `multipart/form-data` with a `file` parameter to upload from local system
-
-        - Use `application/x-www-form-urlencoded` with a `url` parameter to import from web URL
-
-      tags:
-        - Upload or Import Media
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              allOf:
-                - $ref: '#/components/schemas/CommonUploadProperties'
-                - type: object
-                  required:
-                    - file
-                  properties:
-                    file:
-                      type: string
-                      format: binary
-                      description: >-
-                        The media file, multipart-form encoded into the request body.
-          application/x-www-form-urlencoded:
-            schema:
-              allOf:
-                - $ref: '#/components/schemas/CommonUploadProperties'
-                - type: object
-                  required:
-                    - url
-                  properties:
-                    url:
-                      type: string
-                      format: uri
-                      example: >-
-                        http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4
-                      description: The web location of the media file to import.
-                    low_priority:
-                      type: boolean
-                      example: true
-                      description: >-
-                        Inform the encoding service that this upload can be considered lower priority than others. This is especially useful for platform customers doing bulk uploads or migrations. Setting this to "false" has no effect.
-      responses:
-        '200':
-          description: Successfully uploaded or imported.
-          content:
-            application/json:
-              schema:
-                type: object
-                description: Response after successfully uploading or importing media
-                properties:
-                  id:
-                    type: integer
-                    description: >-
-                      A unique numeric identifier for the media within the system.
-                  name:
-                    type: string
-                    description: The display name of the media.
-                  type:
-                    type: string
-                    description: A string representing what type of media this is.
-                  created:
-                    type: string
-                    format: date-time
-                    description: The date when the media was originally uploaded.
-                  updated:
-                    type: string
-                    format: date-time
-                    description: The date when the media was last changed.
-                  duration:
-                    type: number
-                    description: >-
-                      Specifies the length (in seconds) for audio and video files.
-                  hashed_id:
-                    type: string
-                    description: A unique alphanumeric identifier for this media.
-                  progress:
-                    type: number
-                    minimum: 0
-                    maximum: 1
-                    description: >-
-                      A floating point value between 0 and 1 that indicates the progress of the processing for this file.
-                  thumbnail:
-                    $ref: '#/components/schemas/Thumbnail'
-        '400':
-          description: >-
-            Error due to reaching the video limit of your account or other issues.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: object
-                    properties:
-                      code:
-                        type: string
-                      detail:
-                        type: string
-              examples:
-                missing_credentials:
-                  value:
-                    code: upload_failed
-                    detail: '''api_password'' or ''access_token'' are required'
-        '401':
-          description: Authorization error. Check your access_token.
-          content:
-            text/html: {}
       security:
         - BearerAuth: []
 components:
@@ -5592,6 +5359,7 @@ components:
           example: Collection of all marketing and promotional videos
         position:
           type: integer
+          nullable: true
           description: >-
             The position of this subfolder within its project, used for ordering.
           example: 1
@@ -5922,6 +5690,16 @@ components:
             isAdmin:
               type: boolean
               description: Give this user admin rights to the project.
+    MediaWithCursor:
+      allOf:
+        - $ref: '#/components/schemas/Media'
+        - type: object
+          properties:
+            cursor:
+              type: string
+              description: >-
+                A cursor for stable pagination based on current `sort_by` order. You can pass this to `cursor_before` or `cursor_after` as a parameter to fetch the records before or after this record in the same sort order. This is only populated if medias were fetched with `use_cursor`, or `cursor_before` or `cursor_after`.
+              nullable: true
     MediaShow:
       type: object
       properties:
@@ -6499,27 +6277,6 @@ components:
             mobile:
               type: boolean
           description: Details about the user agent of the viewer.
-    CommonUploadProperties:
-      type: object
-      properties:
-        project_id:
-          type: string
-          description: The hashed id of the project to upload media into.
-        name:
-          type: string
-          maxLength: 255
-          description: A display name to use for the media in Wistia.
-        description:
-          type: string
-          description: A description to use for the media in Wistia.
-        contact_id:
-          type: integer
-          description: A Wistia contact id.
-        access_token:
-          type: string
-          deprecated: true
-          description: >-
-            A 64 character hex string. This parameter can be found on your API access page OR can be the token you received from authenticating via Oauth2. Note this approach is legacy and discouraged. We recommend using Bearer Token authentication.
   securitySchemes:
     BearerAuth:
       type: http
@@ -6678,6 +6435,3 @@ x-tagGroups:
       - Stats:Media
       - Stats:Visitors
       - Stats:Events
-  - name: Upload API
-    tags:
-      - Upload or Import Media

@@ -1,21 +1,20 @@
-speakeasyVersion: 1.607.0
+speakeasyVersion: 1.611.0
 sources:
     Data API:
         sourceNamespace: data-api
-        sourceRevisionDigest: sha256:3125696514afe09f7710766fc779861b858a248644c818395213135a5102766d
-        sourceBlobDigest: sha256:2a0708636b785236316936e6a80b1d333e761344a440c5f1eae4001f53b0e47b
+        sourceRevisionDigest: sha256:cbdde0726d7675a65ad0721080d815f9041ff759875408575e0a74999f39950f
+        sourceBlobDigest: sha256:4a7c1bf029998f9899e43a1230e331044c736837372eaf1f22eea63883b83fa0
         tags:
             - latest
-            - speakeasy-sdk-regen-1756253607
             - 1.0.0
 targets:
     wistia:
         source: Data API
         sourceNamespace: data-api
-        sourceRevisionDigest: sha256:3125696514afe09f7710766fc779861b858a248644c818395213135a5102766d
-        sourceBlobDigest: sha256:2a0708636b785236316936e6a80b1d333e761344a440c5f1eae4001f53b0e47b
+        sourceRevisionDigest: sha256:cbdde0726d7675a65ad0721080d815f9041ff759875408575e0a74999f39950f
+        sourceBlobDigest: sha256:4a7c1bf029998f9899e43a1230e331044c736837372eaf1f22eea63883b83fa0
         codeSamplesNamespace: data-api-typescript-code-samples
-        codeSamplesRevisionDigest: sha256:4b7d3c6cd9b54255bf034ee0ca8ba90bb9226fb23a3c4ac1fe41ed50f034dd44
+        codeSamplesRevisionDigest: sha256:70ea09b921f4704fb9eaf107f6c696b873a8ecc7050b797de1fe4590405ae700
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
@@ -28,6 +27,9 @@ workflow:
             output: .speakeasy/out.openapi.yaml
             registry:
                 location: registry.speakeasyapi.dev/wistia/wistia/data-api
+        upload-api:
+            inputs:
+                - location: https://wistia.github.io/wistia/api/openapi-upload.yaml
     targets:
         wistia:
             target: typescript

@@ -25,6 +25,7 @@ export * from "./localizationtranscript.js";
 export * from "./localizationwithpurchasedata.js";
 export * from "./media.js";
 export * from "./mediashow.js";
+export * from "./mediawithcursor.js";
 export * from "./mediawiththumbnailandprojectschemamedia.js";
 export * from "./noassetmediaschemamedia.js";
 export * from "./project.js";

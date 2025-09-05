@@ -5,9 +5,9 @@
 
 ### Available Operations
 
-* [get](#get) - Background Job Status Show
+* [getBackgroundJobStatusBackgroundJobStatusId](#getbackgroundjobstatusbackgroundjobstatusid) - Background Job Status Show
 
-## get
+## getBackgroundJobStatusBackgroundJobStatusId
 
 Retrieve the status of a background job.
 ## Requires api token with one of the following permissions
@@ -24,12 +24,11 @@ Read all data
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
-  serverURL: "https://api.example.com",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const result = await wistia.backgroundJobStatus.get({
+  const result = await wistia.backgroundJobStatus.getBackgroundJobStatusBackgroundJobStatusId({
     backgroundJobStatusId: 350035,
   });
 
@@ -45,24 +44,23 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { backgroundJobStatusGet } from "@wistia/wistia-api-client/funcs/backgroundJobStatusGet.js";
+import { backgroundJobStatusGetBackgroundJobStatusBackgroundJobStatusId } from "@wistia/wistia-api-client/funcs/backgroundJobStatusGetBackgroundJobStatusBackgroundJobStatusId.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
-  serverURL: "https://api.example.com",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const res = await backgroundJobStatusGet(wistia, {
+  const res = await backgroundJobStatusGetBackgroundJobStatusBackgroundJobStatusId(wistia, {
     backgroundJobStatusId: 350035,
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("backgroundJobStatusGet failed:", res.error);
+    console.log("backgroundJobStatusGetBackgroundJobStatusBackgroundJobStatusId failed:", res.error);
   }
 }
 
@@ -77,7 +75,6 @@ run();
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-| `options.serverURL`                                                                                                                                                            | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | An optional server URL to use.                                                                                                                                                 |
 
 ### Response
 

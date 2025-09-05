@@ -5,13 +5,13 @@
 
 ### Available Operations
 
-* [list](#list) - Live Stream Events List
-* [create](#create) - Live Stream Event Create
-* [get](#get) - Live Stream Event Show
-* [update](#update) - Live Stream Event Update
-* [delete](#delete) - Live Stream Event Delete
+* [getLiveStreamEvents](#getlivestreamevents) - Live Stream Events List
+* [postLiveStreamEvents](#postlivestreamevents) - Live Stream Event Create
+* [getLiveStreamEventsId](#getlivestreameventsid) - Live Stream Event Show
+* [putLiveStreamEventsId](#putlivestreameventsid) - Live Stream Event Update
+* [deleteLiveStreamEventsId](#deletelivestreameventsid) - Live Stream Event Delete
 
-## list
+## getLiveStreamEvents
 
 Use this endpoint to request a list of Live Stream Events in your Wistia account. This request supports paging and sorting.
 
@@ -30,12 +30,11 @@ Read all project and video data
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
-  serverURL: "https://api.example.com",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const result = await wistia.liveStreamEvents.list();
+  const result = await wistia.liveStreamEvents.getLiveStreamEvents();
 
   console.log(result);
 }
@@ -49,22 +48,21 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { liveStreamEventsList } from "@wistia/wistia-api-client/funcs/liveStreamEventsList.js";
+import { liveStreamEventsGetLiveStreamEvents } from "@wistia/wistia-api-client/funcs/liveStreamEventsGetLiveStreamEvents.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
-  serverURL: "https://api.example.com",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const res = await liveStreamEventsList(wistia);
+  const res = await liveStreamEventsGetLiveStreamEvents(wistia);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("liveStreamEventsList failed:", res.error);
+    console.log("liveStreamEventsGetLiveStreamEvents failed:", res.error);
   }
 }
 
@@ -79,7 +77,6 @@ run();
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-| `options.serverURL`                                                                                                                                                            | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | An optional server URL to use.                                                                                                                                                 |
 
 ### Response
 
@@ -93,7 +90,7 @@ run();
 | errors.FiveHundredError       | 500                           | application/json              |
 | errors.WistiaDefaultError     | 4XX, 5XX                      | \*/\*                         |
 
-## create
+## postLiveStreamEvents
 
 Create a new live stream event. The event will be created synchronously and return the event details with audience and host links.
 
@@ -116,12 +113,11 @@ This endpoint requires the live streaming feature to be enabled on your account 
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
-  serverURL: "https://api.example.com",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const result = await wistia.liveStreamEvents.create({
+  const result = await wistia.liveStreamEvents.postLiveStreamEvents({
     title: "Wellness Session: Coping with Outie Memories",
     description: "A comprehensive session on managing work-life balance",
     scheduledFor: new Date("2024-03-20T15:30:00-05:00"),
@@ -140,17 +136,16 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { liveStreamEventsCreate } from "@wistia/wistia-api-client/funcs/liveStreamEventsCreate.js";
+import { liveStreamEventsPostLiveStreamEvents } from "@wistia/wistia-api-client/funcs/liveStreamEventsPostLiveStreamEvents.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
-  serverURL: "https://api.example.com",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const res = await liveStreamEventsCreate(wistia, {
+  const res = await liveStreamEventsPostLiveStreamEvents(wistia, {
     title: "Wellness Session: Coping with Outie Memories",
     description: "A comprehensive session on managing work-life balance",
     scheduledFor: new Date("2024-03-20T15:30:00-05:00"),
@@ -160,7 +155,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("liveStreamEventsCreate failed:", res.error);
+    console.log("liveStreamEventsPostLiveStreamEvents failed:", res.error);
   }
 }
 
@@ -175,7 +170,6 @@ run();
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-| `options.serverURL`                                                                                                                                                            | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | An optional server URL to use.                                                                                                                                                 |
 
 ### Response
 
@@ -191,7 +185,7 @@ run();
 | errors.InternalServerError                          | 500                                                 | application/json                                    |
 | errors.WistiaDefaultError                           | 4XX, 5XX                                            | \*/\*                                               |
 
-## get
+## getLiveStreamEventsId
 
 Retrieve information for a single live stream event.
 
@@ -210,12 +204,11 @@ Read all project and video data
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
-  serverURL: "https://api.example.com",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const result = await wistia.liveStreamEvents.get({
+  const result = await wistia.liveStreamEvents.getLiveStreamEventsId({
     id: "<id>",
   });
 
@@ -231,24 +224,23 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { liveStreamEventsGet } from "@wistia/wistia-api-client/funcs/liveStreamEventsGet.js";
+import { liveStreamEventsGetLiveStreamEventsId } from "@wistia/wistia-api-client/funcs/liveStreamEventsGetLiveStreamEventsId.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
-  serverURL: "https://api.example.com",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const res = await liveStreamEventsGet(wistia, {
+  const res = await liveStreamEventsGetLiveStreamEventsId(wistia, {
     id: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("liveStreamEventsGet failed:", res.error);
+    console.log("liveStreamEventsGetLiveStreamEventsId failed:", res.error);
   }
 }
 
@@ -263,7 +255,6 @@ run();
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-| `options.serverURL`                                                                                                                                                            | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | An optional server URL to use.                                                                                                                                                 |
 
 ### Response
 
@@ -277,7 +268,7 @@ run();
 | errors.FiveHundredError       | 500                           | application/json              |
 | errors.WistiaDefaultError     | 4XX, 5XX                      | \*/\*                         |
 
-## update
+## putLiveStreamEventsId
 
 Update an existing live stream event.
 
@@ -294,12 +285,11 @@ Read, update & delete anything
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
-  serverURL: "https://api.example.com",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const result = await wistia.liveStreamEvents.update({
+  const result = await wistia.liveStreamEvents.putLiveStreamEventsId({
     id: "<id>",
     updateLiveStreamEvent: {
       liveStreamEvent: {
@@ -323,17 +313,16 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { liveStreamEventsUpdate } from "@wistia/wistia-api-client/funcs/liveStreamEventsUpdate.js";
+import { liveStreamEventsPutLiveStreamEventsId } from "@wistia/wistia-api-client/funcs/liveStreamEventsPutLiveStreamEventsId.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
-  serverURL: "https://api.example.com",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const res = await liveStreamEventsUpdate(wistia, {
+  const res = await liveStreamEventsPutLiveStreamEventsId(wistia, {
     id: "<id>",
     updateLiveStreamEvent: {
       liveStreamEvent: {
@@ -348,7 +337,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("liveStreamEventsUpdate failed:", res.error);
+    console.log("liveStreamEventsPutLiveStreamEventsId failed:", res.error);
   }
 }
 
@@ -363,7 +352,6 @@ run();
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-| `options.serverURL`                                                                                                                                                            | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | An optional server URL to use.                                                                                                                                                 |
 
 ### Response
 
@@ -378,7 +366,7 @@ run();
 | errors.FiveHundredError                              | 500                                                  | application/json                                     |
 | errors.WistiaDefaultError                            | 4XX, 5XX                                             | \*/\*                                                |
 
-## delete
+## deleteLiveStreamEventsId
 
 Delete an existing live stream event.
 
@@ -395,12 +383,11 @@ Read, update & delete anything
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
-  serverURL: "https://api.example.com",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const result = await wistia.liveStreamEvents.delete({
+  const result = await wistia.liveStreamEvents.deleteLiveStreamEventsId({
     id: "<id>",
   });
 
@@ -416,24 +403,23 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { liveStreamEventsDelete } from "@wistia/wistia-api-client/funcs/liveStreamEventsDelete.js";
+import { liveStreamEventsDeleteLiveStreamEventsId } from "@wistia/wistia-api-client/funcs/liveStreamEventsDeleteLiveStreamEventsId.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
-  serverURL: "https://api.example.com",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const res = await liveStreamEventsDelete(wistia, {
+  const res = await liveStreamEventsDeleteLiveStreamEventsId(wistia, {
     id: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("liveStreamEventsDelete failed:", res.error);
+    console.log("liveStreamEventsDeleteLiveStreamEventsId failed:", res.error);
   }
 }
 
@@ -448,7 +434,6 @@ run();
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-| `options.serverURL`                                                                                                                                                            | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | An optional server URL to use.                                                                                                                                                 |
 
 ### Response
 

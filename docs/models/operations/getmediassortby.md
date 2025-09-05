@@ -1,6 +1,9 @@
 # GetMediasSortBy
 
-Ordering
+Ordering. When using cursor pagination (see cursor param),
+only `id` and `created` are supported. All other sort_by options (`name`, `updated`, `position`)
+require offset pagination.
+
 
 ## Example Usage
 

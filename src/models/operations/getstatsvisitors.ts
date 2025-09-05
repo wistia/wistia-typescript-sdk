@@ -9,10 +9,6 @@ import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export const GetStatsVisitorsServerList = [
-  "https://api.wistia.com/v1",
-] as const;
-
 /**
  * Filtering parameter to narrow down the list of visitors.
  */

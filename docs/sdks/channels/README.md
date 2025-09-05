@@ -5,10 +5,10 @@
 
 ### Available Operations
 
-* [list](#list) - Channels List
-* [get](#get) - Channels Show
+* [getChannels](#getchannels) - Channels List
+* [getChannelsChannelHashedId](#getchannelschannelhashedid) - Channels Show
 
-## list
+## getChannels
 
 Returns all the Channels associated with the account.
 
@@ -27,12 +27,11 @@ Read all project and video data
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
-  serverURL: "https://api.example.com",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const result = await wistia.channels.list();
+  const result = await wistia.channels.getChannels();
 
   console.log(result);
 }
@@ -46,22 +45,21 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { channelsList } from "@wistia/wistia-api-client/funcs/channelsList.js";
+import { channelsGetChannels } from "@wistia/wistia-api-client/funcs/channelsGetChannels.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
-  serverURL: "https://api.example.com",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const res = await channelsList(wistia);
+  const res = await channelsGetChannels(wistia);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("channelsList failed:", res.error);
+    console.log("channelsGetChannels failed:", res.error);
   }
 }
 
@@ -76,7 +74,6 @@ run();
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-| `options.serverURL`                                                                                                                                                            | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | An optional server URL to use.                                                                                                                                                 |
 
 ### Response
 
@@ -90,7 +87,7 @@ run();
 | errors.FiveHundredError       | 500                           | application/json              |
 | errors.WistiaDefaultError     | 4XX, 5XX                      | \*/\*                         |
 
-## get
+## getChannelsChannelHashedId
 
 Returns the Channel associated with the hashedId.
 
@@ -109,12 +106,11 @@ Read all project and video data
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
-  serverURL: "https://api.example.com",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const result = await wistia.channels.get({
+  const result = await wistia.channels.getChannelsChannelHashedId({
     channelHashedId: "<id>",
   });
 
@@ -130,24 +126,23 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { channelsGet } from "@wistia/wistia-api-client/funcs/channelsGet.js";
+import { channelsGetChannelsChannelHashedId } from "@wistia/wistia-api-client/funcs/channelsGetChannelsChannelHashedId.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
-  serverURL: "https://api.example.com",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const res = await channelsGet(wistia, {
+  const res = await channelsGetChannelsChannelHashedId(wistia, {
     channelHashedId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("channelsGet failed:", res.error);
+    console.log("channelsGetChannelsChannelHashedId failed:", res.error);
   }
 }
 
@@ -162,7 +157,6 @@ run();
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-| `options.serverURL`                                                                                                                                                            | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | An optional server URL to use.                                                                                                                                                 |
 
 ### Response
 

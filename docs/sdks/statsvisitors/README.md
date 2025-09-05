@@ -5,10 +5,10 @@
 
 ### Available Operations
 
-* [list](#list) - Stats:Visitors List
-* [get](#get) - Stats:Visitors Show
+* [getStatsVisitors](#getstatsvisitors) - Stats:Visitors List
+* [getStatsVisitorsVisitorKey](#getstatsvisitorsvisitorkey) - Stats:Visitors Show
 
-## list
+## getStatsVisitors
 
 This endpoint provides a list of visitors that have watched videos in your account.
 
@@ -27,12 +27,11 @@ Read all project and video data
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
-  serverURL: "https://api.example.com",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const result = await wistia.statsVisitors.list();
+  const result = await wistia.statsVisitors.getStatsVisitors();
 
   console.log(result);
 }
@@ -46,22 +45,21 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { statsVisitorsList } from "@wistia/wistia-api-client/funcs/statsVisitorsList.js";
+import { statsVisitorsGetStatsVisitors } from "@wistia/wistia-api-client/funcs/statsVisitorsGetStatsVisitors.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
-  serverURL: "https://api.example.com",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const res = await statsVisitorsList(wistia);
+  const res = await statsVisitorsGetStatsVisitors(wistia);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("statsVisitorsList failed:", res.error);
+    console.log("statsVisitorsGetStatsVisitors failed:", res.error);
   }
 }
 
@@ -76,7 +74,6 @@ run();
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-| `options.serverURL`                                                                                                                                                            | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | An optional server URL to use.                                                                                                                                                 |
 
 ### Response
 
@@ -90,7 +87,7 @@ run();
 | errors.FiveHundredError       | 500                           | application/json              |
 | errors.WistiaDefaultError     | 4XX, 5XX                      | \*/\*                         |
 
-## get
+## getStatsVisitorsVisitorKey
 
 This endpoint provides detailed information about a specific visitor.
 
@@ -109,12 +106,11 @@ Read all project and video data
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
-  serverURL: "https://api.example.com",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const result = await wistia.statsVisitors.get({
+  const result = await wistia.statsVisitors.getStatsVisitorsVisitorKey({
     visitorKey: "<value>",
   });
 
@@ -130,24 +126,23 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { statsVisitorsGet } from "@wistia/wistia-api-client/funcs/statsVisitorsGet.js";
+import { statsVisitorsGetStatsVisitorsVisitorKey } from "@wistia/wistia-api-client/funcs/statsVisitorsGetStatsVisitorsVisitorKey.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
-  serverURL: "https://api.example.com",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const res = await statsVisitorsGet(wistia, {
+  const res = await statsVisitorsGetStatsVisitorsVisitorKey(wistia, {
     visitorKey: "<value>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("statsVisitorsGet failed:", res.error);
+    console.log("statsVisitorsGetStatsVisitorsVisitorKey failed:", res.error);
   }
 }
 
@@ -162,7 +157,6 @@ run();
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-| `options.serverURL`                                                                                                                                                            | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | An optional server URL to use.                                                                                                                                                 |
 
 ### Response
 

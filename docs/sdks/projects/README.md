@@ -5,14 +5,14 @@
 
 ### Available Operations
 
-* [list](#list) - Project List
-* [create](#create) - Project Create
-* [get](#get) - Project Show
-* [update](#update) - Project Update
-* [delete](#delete) - Project Delete
-* [copy](#copy) - Project Copy
+* [getProjects](#getprojects) - Project List
+* [postProjects](#postprojects) - Project Create
+* [getProjectsId](#getprojectsid) - Project Show
+* [putProjectsId](#putprojectsid) - Project Update
+* [deleteProjectsId](#deleteprojectsid) - Project Delete
+* [postProjectsIdCopy](#postprojectsidcopy) - Project Copy
 
-## list
+## getProjects
 
 Use this endpoint to request a list of Projects in your Wistia account. This request supports paging and sorting.
 
@@ -31,12 +31,11 @@ Read all project and video data
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
-  serverURL: "https://api.example.com",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const result = await wistia.projects.list();
+  const result = await wistia.projects.getProjects();
 
   console.log(result);
 }
@@ -50,22 +49,21 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { projectsList } from "@wistia/wistia-api-client/funcs/projectsList.js";
+import { projectsGetProjects } from "@wistia/wistia-api-client/funcs/projectsGetProjects.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
-  serverURL: "https://api.example.com",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const res = await projectsList(wistia);
+  const res = await projectsGetProjects(wistia);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("projectsList failed:", res.error);
+    console.log("projectsGetProjects failed:", res.error);
   }
 }
 
@@ -80,7 +78,6 @@ run();
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-| `options.serverURL`                                                                                                                                                            | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | An optional server URL to use.                                                                                                                                                 |
 
 ### Response
 
@@ -94,7 +91,7 @@ run();
 | errors.FiveHundredError       | 500                           | application/json              |
 | errors.WistiaDefaultError     | 4XX, 5XX                      | \*/\*                         |
 
-## create
+## postProjects
 
 Create a new project. If the project is created successfully the Location HTTP header will point to the new project.
 
@@ -111,12 +108,11 @@ Read, update & delete anything
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
-  serverURL: "https://api.example.com",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const result = await wistia.projects.create({
+  const result = await wistia.projects.postProjects({
     name: "My New Project",
     adminEmail: "admin@example.com",
     public: false,
@@ -134,17 +130,16 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { projectsCreate } from "@wistia/wistia-api-client/funcs/projectsCreate.js";
+import { projectsPostProjects } from "@wistia/wistia-api-client/funcs/projectsPostProjects.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
-  serverURL: "https://api.example.com",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const res = await projectsCreate(wistia, {
+  const res = await projectsPostProjects(wistia, {
     name: "My New Project",
     adminEmail: "admin@example.com",
     public: false,
@@ -153,7 +148,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("projectsCreate failed:", res.error);
+    console.log("projectsPostProjects failed:", res.error);
   }
 }
 
@@ -168,7 +163,6 @@ run();
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-| `options.serverURL`                                                                                                                                                            | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | An optional server URL to use.                                                                                                                                                 |
 
 ### Response
 
@@ -182,7 +176,7 @@ run();
 | errors.FiveHundredError       | 500                           | application/json              |
 | errors.WistiaDefaultError     | 4XX, 5XX                      | \*/\*                         |
 
-## get
+## getProjectsId
 
 Retrieve a single project. Projects#show uses pagination by default - we’ll return up to the first 500 medias in a Project. If you have more than 500 medias in a Project, you’ll need to add a query param, page=2 to get the second page of medias (and the third, etc.). You can check how many pages you will need by looking at the media_count in your first request.
 
@@ -201,12 +195,11 @@ Read all project and video data
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
-  serverURL: "https://api.example.com",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const result = await wistia.projects.get({
+  const result = await wistia.projects.getProjectsId({
     id: "<id>",
   });
 
@@ -222,24 +215,23 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { projectsGet } from "@wistia/wistia-api-client/funcs/projectsGet.js";
+import { projectsGetProjectsId } from "@wistia/wistia-api-client/funcs/projectsGetProjectsId.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
-  serverURL: "https://api.example.com",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const res = await projectsGet(wistia, {
+  const res = await projectsGetProjectsId(wistia, {
     id: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("projectsGet failed:", res.error);
+    console.log("projectsGetProjectsId failed:", res.error);
   }
 }
 
@@ -254,7 +246,6 @@ run();
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-| `options.serverURL`                                                                                                                                                            | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | An optional server URL to use.                                                                                                                                                 |
 
 ### Response
 
@@ -269,7 +260,7 @@ run();
 | errors.FiveHundredError        | 500                            | application/json               |
 | errors.WistiaDefaultError      | 4XX, 5XX                       | \*/\*                          |
 
-## update
+## putProjectsId
 
 Update a project
 
@@ -286,12 +277,11 @@ Read, update & delete anything
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
-  serverURL: "https://api.example.com",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const result = await wistia.projects.update({
+  const result = await wistia.projects.putProjectsId({
     id: "<id>",
     updateProject: {
       name: "My New Project Name",
@@ -312,17 +302,16 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { projectsUpdate } from "@wistia/wistia-api-client/funcs/projectsUpdate.js";
+import { projectsPutProjectsId } from "@wistia/wistia-api-client/funcs/projectsPutProjectsId.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
-  serverURL: "https://api.example.com",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const res = await projectsUpdate(wistia, {
+  const res = await projectsPutProjectsId(wistia, {
     id: "<id>",
     updateProject: {
       name: "My New Project Name",
@@ -334,7 +323,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("projectsUpdate failed:", res.error);
+    console.log("projectsPutProjectsId failed:", res.error);
   }
 }
 
@@ -349,7 +338,6 @@ run();
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-| `options.serverURL`                                                                                                                                                            | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | An optional server URL to use.                                                                                                                                                 |
 
 ### Response
 
@@ -364,7 +352,7 @@ run();
 | errors.FiveHundredError        | 500                            | application/json               |
 | errors.WistiaDefaultError      | 4XX, 5XX                       | \*/\*                          |
 
-## delete
+## deleteProjectsId
 
 Delete a project
 
@@ -381,12 +369,11 @@ Read, update & delete anything
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
-  serverURL: "https://api.example.com",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const result = await wistia.projects.delete({
+  const result = await wistia.projects.deleteProjectsId({
     id: "<id>",
   });
 
@@ -402,24 +389,23 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { projectsDelete } from "@wistia/wistia-api-client/funcs/projectsDelete.js";
+import { projectsDeleteProjectsId } from "@wistia/wistia-api-client/funcs/projectsDeleteProjectsId.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
-  serverURL: "https://api.example.com",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const res = await projectsDelete(wistia, {
+  const res = await projectsDeleteProjectsId(wistia, {
     id: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("projectsDelete failed:", res.error);
+    console.log("projectsDeleteProjectsId failed:", res.error);
   }
 }
 
@@ -434,7 +420,6 @@ run();
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-| `options.serverURL`                                                                                                                                                            | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | An optional server URL to use.                                                                                                                                                 |
 
 ### Response
 
@@ -449,7 +434,7 @@ run();
 | errors.FiveHundredError        | 500                            | application/json               |
 | errors.WistiaDefaultError      | 4XX, 5XX                       | \*/\*                          |
 
-## copy
+## postProjectsIdCopy
 
 This method does not copy the project’s sharing information (i.e. users that could see the old project will not automatically be able to see the new one).
 For the request you can specify the owner of a new project by passing an optional parameter. The person you specify must be a Manager in the account.
@@ -468,12 +453,11 @@ Read, update & delete anything
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
-  serverURL: "https://api.example.com",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const result = await wistia.projects.copy({
+  const result = await wistia.projects.postProjectsIdCopy({
     id: "<id>",
     requestBody: {
       adminEmail: "admin@example.com",
@@ -492,17 +476,16 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { projectsCopy } from "@wistia/wistia-api-client/funcs/projectsCopy.js";
+import { projectsPostProjectsIdCopy } from "@wistia/wistia-api-client/funcs/projectsPostProjectsIdCopy.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
-  serverURL: "https://api.example.com",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const res = await projectsCopy(wistia, {
+  const res = await projectsPostProjectsIdCopy(wistia, {
     id: "<id>",
     requestBody: {
       adminEmail: "admin@example.com",
@@ -512,7 +495,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("projectsCopy failed:", res.error);
+    console.log("projectsPostProjectsIdCopy failed:", res.error);
   }
 }
 
@@ -527,7 +510,6 @@ run();
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-| `options.serverURL`                                                                                                                                                            | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | An optional server URL to use.                                                                                                                                                 |
 
 ### Response
 

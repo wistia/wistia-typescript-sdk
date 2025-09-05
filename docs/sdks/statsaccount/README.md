@@ -1,13 +1,13 @@
 # StatsAccount
-(*stats.account*)
+(*statsAccount*)
 
 ## Overview
 
 ### Available Operations
 
-* [get](#get) - Stats:Account Show
+* [getStatsAccount](#getstatsaccount) - Stats:Account Show
 
-## get
+## getStatsAccount
 
 Retrieve account-wide video stats. Get statistics like the number of video loads, plays, and hours watched for the entire account.
 
@@ -26,12 +26,11 @@ Read all project and video data
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
-  serverURL: "https://api.example.com",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const result = await wistia.stats.account.get();
+  const result = await wistia.statsAccount.getStatsAccount();
 
   console.log(result);
 }
@@ -45,22 +44,21 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { statsAccountGet } from "@wistia/wistia-api-client/funcs/statsAccountGet.js";
+import { statsAccountGetStatsAccount } from "@wistia/wistia-api-client/funcs/statsAccountGetStatsAccount.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
-  serverURL: "https://api.example.com",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const res = await statsAccountGet(wistia);
+  const res = await statsAccountGetStatsAccount(wistia);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("statsAccountGet failed:", res.error);
+    console.log("statsAccountGetStatsAccount failed:", res.error);
   }
 }
 
@@ -74,7 +72,6 @@ run();
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-| `options.serverURL`                                                                                                                                                            | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | An optional server URL to use.                                                                                                                                                 |
 
 ### Response
 
