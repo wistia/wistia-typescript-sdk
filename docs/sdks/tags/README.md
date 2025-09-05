@@ -5,11 +5,11 @@
 
 ### Available Operations
 
-* [list](#list) - Tags List
-* [create](#create) - Tags Create
-* [delete](#delete) - Tags Delete
+* [getTags](#gettags) - Tags List
+* [postTags](#posttags) - Tags Create
+* [deleteTagsName](#deletetagsname) - Tags Delete
 
-## list
+## getTags
 
 Use this endpoint to request a list of Tags in your Wistia account. This request supports paging and sorting.
 
@@ -27,12 +27,11 @@ Read all data
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
-  serverURL: "https://api.example.com",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const result = await wistia.tags.list();
+  const result = await wistia.tags.getTags();
 
   console.log(result);
 }
@@ -46,22 +45,21 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { tagsList } from "@wistia/wistia-api-client/funcs/tagsList.js";
+import { tagsGetTags } from "@wistia/wistia-api-client/funcs/tagsGetTags.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
-  serverURL: "https://api.example.com",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const res = await tagsList(wistia);
+  const res = await tagsGetTags(wistia);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("tagsList failed:", res.error);
+    console.log("tagsGetTags failed:", res.error);
   }
 }
 
@@ -76,7 +74,6 @@ run();
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-| `options.serverURL`                                                                                                                                                            | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | An optional server URL to use.                                                                                                                                                 |
 
 ### Response
 
@@ -90,7 +87,7 @@ run();
 | errors.FiveHundredError       | 500                           | application/json              |
 | errors.WistiaDefaultError     | 4XX, 5XX                      | \*/\*                         |
 
-## create
+## postTags
 
 Create a new tag.
 
@@ -107,12 +104,11 @@ Read, update & delete anything
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
-  serverURL: "https://api.example.com",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const result = await wistia.tags.create({
+  const result = await wistia.tags.postTags({
     name: "<value>",
   });
 
@@ -128,24 +124,23 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { tagsCreate } from "@wistia/wistia-api-client/funcs/tagsCreate.js";
+import { tagsPostTags } from "@wistia/wistia-api-client/funcs/tagsPostTags.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
-  serverURL: "https://api.example.com",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const res = await tagsCreate(wistia, {
+  const res = await tagsPostTags(wistia, {
     name: "<value>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("tagsCreate failed:", res.error);
+    console.log("tagsPostTags failed:", res.error);
   }
 }
 
@@ -160,7 +155,6 @@ run();
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-| `options.serverURL`                                                                                                                                                            | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | An optional server URL to use.                                                                                                                                                 |
 
 ### Response
 
@@ -176,7 +170,7 @@ run();
 | errors.FiveHundredError                 | 500                                     | application/json                        |
 | errors.WistiaDefaultError               | 4XX, 5XX                                | \*/\*                                   |
 
-## delete
+## deleteTagsName
 
 Delete a tag
 
@@ -193,12 +187,11 @@ Read, update & delete anything
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
-  serverURL: "https://api.example.com",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  await wistia.tags.delete({
+  await wistia.tags.deleteTagsName({
     name: "<value>",
   });
 
@@ -214,24 +207,23 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { tagsDelete } from "@wistia/wistia-api-client/funcs/tagsDelete.js";
+import { tagsDeleteTagsName } from "@wistia/wistia-api-client/funcs/tagsDeleteTagsName.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
-  serverURL: "https://api.example.com",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const res = await tagsDelete(wistia, {
+  const res = await tagsDeleteTagsName(wistia, {
     name: "<value>",
   });
   if (res.ok) {
     const { value: result } = res;
     
   } else {
-    console.log("tagsDelete failed:", res.error);
+    console.log("tagsDeleteTagsName failed:", res.error);
   }
 }
 
@@ -246,7 +238,6 @@ run();
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-| `options.serverURL`                                                                                                                                                            | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | An optional server URL to use.                                                                                                                                                 |
 
 ### Response
 

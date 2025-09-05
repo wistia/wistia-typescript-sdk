@@ -11,7 +11,7 @@ import { Params, pathToFunc } from "./url.js";
  * Contains the list of servers available to the SDK
  */
 export const ServerList = [
-  "/",
+  "https://api.wistia.com/v1",
 ] as const;
 
 export type SDKOptions = {
@@ -23,9 +23,9 @@ export type SDKOptions = {
    */
   serverIdx?: number | undefined;
   /**
-   * Specifies the server URL to be used by the SDK
+   * Allows overriding the default server URL used by the SDK
    */
-  serverURL: string;
+  serverURL?: string | undefined;
   /**
    * Allows overriding the default user agent used by the SDK
    */
@@ -59,7 +59,7 @@ export const SDK_METADATA = {
   language: "typescript",
   openapiDocVersion: "1.0.0",
   sdkVersion: "2025.9.1",
-  genVersion: "2.690.1",
+  genVersion: "2.694.1",
   userAgent:
-    "speakeasy-sdk/typescript 2025.9.1 2.690.1 1.0.0 @wistia/wistia-api-client",
+    "speakeasy-sdk/typescript 2025.9.1 2.694.1 1.0.0 @wistia/wistia-api-client",
 } as const;

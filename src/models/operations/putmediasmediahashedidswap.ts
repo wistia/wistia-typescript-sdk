@@ -9,10 +9,6 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
-export const PutMediasMediaHashedIdSwapServerList = [
-  "https://api.wistia.com/v1",
-] as const;
-
 export type PutMediasMediaHashedIdSwapRequestBody = {
   /**
    * The hashed ID of the media that will replace the original media. Must be the same media type as the original.

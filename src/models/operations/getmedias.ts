@@ -9,12 +9,70 @@ import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export const GetMediasServerList = [
-  "https://api.wistia.com/v1",
-] as const;
+/**
+ * If `cursor[enabled]` is set to 1, the first result set will be fetched with cursor pagination enabled. This
+ *
+ * @remarks
+ * values is ignored if `cursor[before]` or `cursor[after]` are set.
+ */
+export const Enabled = {
+  Zero: 0,
+  One: 1,
+} as const;
+/**
+ * If `cursor[enabled]` is set to 1, the first result set will be fetched with cursor pagination enabled. This
+ *
+ * @remarks
+ * values is ignored if `cursor[before]` or `cursor[after]` are set.
+ */
+export type Enabled = ClosedEnum<typeof Enabled>;
 
 /**
- * Ordering
+ * If `cursor` is set to 1 than cursor pagination is enabled and the
+ *
+ * @remarks
+ * first set of records are fetched up to the `per_page`. Cursor
+ * pagination will also be turned on if `cursor[before]` or `cursor[after]`
+ * are set. Records returned will have a `cursor` property set which can be used to fetch more records in the same `sort_by` ordering.
+ * The cursor value of the last record can be used to fetch records after the current result set and
+ * the cursor of the first record can be used to fetch records before the result set.
+ *
+ * NOTE: a cursor value is only valid if the `sort_by` value hasn't changed from the
+ * last fetch. For example, you cannot fetch using `sort_by` id and than pass that
+ * cursor value to a `sort_by` name.
+ */
+export type Cursor = {
+  /**
+   * If `cursor[enabled]` is set to 1, the first result set will be fetched with cursor pagination enabled. This
+   *
+   * @remarks
+   * values is ignored if `cursor[before]` or `cursor[after]` are set.
+   */
+  enabled?: Enabled | undefined;
+  /**
+   * If `cursor[before]` is set than cursor pagination is enabled and all records
+   *
+   * @remarks
+   * before the cursor up to the `per_page` are returned. This feature is useful for
+   * fetching "new records", for example, in a "pull to refersh" feature when showing records in a descending
+   * order.
+   */
+  before?: string | undefined;
+  /**
+   * If `cursor[after]` is set than cursor pagination is enabled and all records
+   *
+   * @remarks
+   * after the cursor up to the `per_page` are returned.
+   */
+  after?: string | undefined;
+};
+
+/**
+ * Ordering. When using cursor pagination (see cursor param),
+ *
+ * @remarks
+ * only `id` and `created` are supported. All other sort_by options (`name`, `updated`, `position`)
+ * require offset pagination.
  */
 export const GetMediasSortBy = {
   Name: "name",
@@ -23,7 +81,11 @@ export const GetMediasSortBy = {
   Position: "position",
 } as const;
 /**
- * Ordering
+ * Ordering. When using cursor pagination (see cursor param),
+ *
+ * @remarks
+ * only `id` and `created` are supported. All other sort_by options (`name`, `updated`, `position`)
+ * require offset pagination.
  */
 export type GetMediasSortBy = ClosedEnum<typeof GetMediasSortBy>;
 
@@ -58,15 +120,37 @@ export type Type = ClosedEnum<typeof Type>;
 
 export type GetMediasRequest = {
   /**
-   * Page number to retrieve
+   * The page number to retrieve. This cannot be combined with `cursor`,
+   *
+   * @remarks
+   * pagination.
    */
   page?: number | undefined;
   /**
-   * Number of medias per page
+   * The number of medias per page. Use this for both offset pagination and cursor pagination.
    */
   perPage?: number | undefined;
   /**
-   * Ordering
+   * If `cursor` is set to 1 than cursor pagination is enabled and the
+   *
+   * @remarks
+   * first set of records are fetched up to the `per_page`. Cursor
+   * pagination will also be turned on if `cursor[before]` or `cursor[after]`
+   * are set. Records returned will have a `cursor` property set which can be used to fetch more records in the same `sort_by` ordering.
+   * The cursor value of the last record can be used to fetch records after the current result set and
+   * the cursor of the first record can be used to fetch records before the result set.
+   *
+   * NOTE: a cursor value is only valid if the `sort_by` value hasn't changed from the
+   * last fetch. For example, you cannot fetch using `sort_by` id and than pass that
+   * cursor value to a `sort_by` name.
+   */
+  cursor?: Cursor | undefined;
+  /**
+   * Ordering. When using cursor pagination (see cursor param),
+   *
+   * @remarks
+   * only `id` and `created` are supported. All other sort_by options (`name`, `updated`, `position`)
+   * require offset pagination.
    */
   sortBy?: GetMediasSortBy | undefined;
   /**
@@ -102,6 +186,78 @@ export type GetMediasRequest = {
    */
   archived?: boolean | undefined;
 };
+
+/** @internal */
+export const Enabled$inboundSchema: z.ZodNativeEnum<typeof Enabled> = z
+  .nativeEnum(Enabled);
+
+/** @internal */
+export const Enabled$outboundSchema: z.ZodNativeEnum<typeof Enabled> =
+  Enabled$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace Enabled$ {
+  /** @deprecated use `Enabled$inboundSchema` instead. */
+  export const inboundSchema = Enabled$inboundSchema;
+  /** @deprecated use `Enabled$outboundSchema` instead. */
+  export const outboundSchema = Enabled$outboundSchema;
+}
+
+/** @internal */
+export const Cursor$inboundSchema: z.ZodType<Cursor, z.ZodTypeDef, unknown> = z
+  .object({
+    enabled: Enabled$inboundSchema.optional(),
+    before: z.string().optional(),
+    after: z.string().optional(),
+  });
+
+/** @internal */
+export type Cursor$Outbound = {
+  enabled?: number | undefined;
+  before?: string | undefined;
+  after?: string | undefined;
+};
+
+/** @internal */
+export const Cursor$outboundSchema: z.ZodType<
+  Cursor$Outbound,
+  z.ZodTypeDef,
+  Cursor
+> = z.object({
+  enabled: Enabled$outboundSchema.optional(),
+  before: z.string().optional(),
+  after: z.string().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace Cursor$ {
+  /** @deprecated use `Cursor$inboundSchema` instead. */
+  export const inboundSchema = Cursor$inboundSchema;
+  /** @deprecated use `Cursor$outboundSchema` instead. */
+  export const outboundSchema = Cursor$outboundSchema;
+  /** @deprecated use `Cursor$Outbound` instead. */
+  export type Outbound = Cursor$Outbound;
+}
+
+export function cursorToJSON(cursor: Cursor): string {
+  return JSON.stringify(Cursor$outboundSchema.parse(cursor));
+}
+
+export function cursorFromJSON(
+  jsonString: string,
+): SafeParseResult<Cursor, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Cursor$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Cursor' from JSON`,
+  );
+}
 
 /** @internal */
 export const GetMediasSortBy$inboundSchema: z.ZodNativeEnum<
@@ -173,6 +329,7 @@ export const GetMediasRequest$inboundSchema: z.ZodType<
 > = z.object({
   page: z.number().int().optional(),
   per_page: z.number().int().optional(),
+  cursor: z.lazy(() => Cursor$inboundSchema).optional(),
   sort_by: GetMediasSortBy$inboundSchema.optional(),
   sort_direction: GetMediasSortDirection$inboundSchema.optional(),
   project_id: z.string().optional(),
@@ -197,6 +354,7 @@ export const GetMediasRequest$inboundSchema: z.ZodType<
 export type GetMediasRequest$Outbound = {
   page?: number | undefined;
   per_page?: number | undefined;
+  cursor?: Cursor$Outbound | undefined;
   sort_by?: string | undefined;
   sort_direction?: number | undefined;
   project_id?: string | undefined;
@@ -216,6 +374,7 @@ export const GetMediasRequest$outboundSchema: z.ZodType<
 > = z.object({
   page: z.number().int().optional(),
   perPage: z.number().int().optional(),
+  cursor: z.lazy(() => Cursor$outboundSchema).optional(),
   sortBy: GetMediasSortBy$outboundSchema.optional(),
   sortDirection: GetMediasSortDirection$outboundSchema.optional(),
   projectId: z.string().optional(),

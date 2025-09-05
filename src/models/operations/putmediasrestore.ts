@@ -9,10 +9,6 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
-export const PutMediasRestoreServerList = [
-  "https://api.wistia.com/v1",
-] as const;
-
 export type PutMediasRestoreRequest = {
   /**
    * An array of the media hashed IDs to be restored.

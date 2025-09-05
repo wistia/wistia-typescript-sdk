@@ -8,10 +8,6 @@ import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export const GetProjectsProjectIdSharingsSharingIdServerList = [
-  "https://api.wistia.com/v1",
-] as const;
-
 export type GetProjectsProjectIdSharingsSharingIdRequest = {
   /**
    * Hashed ID for the project for which you'd like to see sharings.

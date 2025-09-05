@@ -3,12 +3,11 @@
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
-  serverURL: "https://api.example.com",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const result = await wistia.projects.list();
+  const result = await wistia.projects.getProjects();
 
   console.log(result);
 }
