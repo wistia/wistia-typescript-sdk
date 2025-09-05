@@ -5,8 +5,8 @@ management:
   docVersion: 1.0.0
   speakeasyVersion: 1.611.0
   generationVersion: 2.694.1
-  releaseVersion: 2025.11.1
-  configChecksum: 9cdba5918ee7782f76a00582cdbb5ea6
+  releaseVersion: 2025.9.1
+  configChecksum: 79634be8b0e8dd88eb895a5623bd07c9
   repoURL: https://github.com/speakeasy-sdks/wistia-typescript-sdk.git
   installationURL: https://github.com/speakeasy-sdks/wistia-typescript-sdk
   published: true
@@ -1619,3 +1619,149 @@ examples:
         "400":
           application/json: {}
 examplesVersion: 1.0.2
+releaseNotes: |
+  ## Typescript SDK Changes Detected:
+  * `wistia.projects.get/projects()`: **Added**
+  * `wistia.projects.post/projects()`: **Added**
+  * `wistia.projects.get/projects/{id}()`: **Added**
+  * `wistia.projects.put/projects/{id}()`: **Added**
+  * `wistia.projects.delete/projects/{id}()`: **Added**
+  * `wistia.projects.post/projects/{id}/copy()`: **Added**
+  * `wistia.subfolders.list()`: **Added**
+  * `wistia.subfolders.create()`: **Added**
+  * `wistia.subfolders.get()`: **Added**
+  * `wistia.subfolders.update()`: **Added**
+  * `wistia.subfolders.delete()`: **Added**
+  * `wistia.projectSharings.get/projects/{projectId}/sharings()`: **Added**
+  * `wistia.projectSharings.post/projects/{projectId}/sharings()`: **Added**
+  * `wistia.projectSharings.get/projects/{projectId}/sharings/{sharingId}()`: **Added**
+  * `wistia.projectSharings.put/projects/{projectId}/sharings/{sharingId}()`: **Added**
+  * `wistia.projectSharings.delete/projects/{projectId}/sharings/{sharingId}()`: **Added**
+  * `wistia.media.get/medias()`: **Added**
+  * `wistia.media.get/medias/{mediaHashedId}()`: **Added**
+  * `wistia.media.put/medias/{mediaHashedId}()`: **Added**
+  * `wistia.media.delete/medias/{mediaHashedId}()`: **Added**
+  * `wistia.media.post/medias/{mediaHashedId}/copy()`: **Added**
+  * `wistia.media.put/medias/{mediaHashedId}/swap()`: **Added**
+  * `wistia.media.get/medias/{mediaHashedId}/stats()`: **Added**
+  * `wistia.media.post/medias/{mediaHashedId}/translate()`: **Added**
+  * `wistia.media.put/medias/archive()`: **Added**
+  * `wistia.media.put/medias/move()`: **Added**
+  * `wistia.media.put/medias/restore()`: **Added**
+  * `wistia.account.getAccountDetails()`: **Added**
+  * `wistia.allowedDomains.get/allowedDomains()`: **Added**
+  * `wistia.allowedDomains.post/allowedDomains()`: **Added**
+  * `wistia.allowedDomains.get/allowedDomains/{domain}()`: **Added**
+  * `wistia.allowedDomains.delete/allowedDomains/{domain}()`: **Added**
+  * `wistia.backgroundJobStatus.get/backgroundJobStatus/{backgroundJobStatusId}()`: **Added**
+  * `wistia.customizations.get/medias/{mediaId}/customizations()`: **Added**
+  * `wistia.customizations.post/medias/{mediaId}/customizations()`: **Added**
+  * `wistia.customizations.put/medias/{mediaId}/customizations()`: **Added**
+  * `wistia.customizations.delete/medias/{mediaId}/customizations()`: **Added**
+  * `wistia.captions.get/medias/{mediaHashedId}/captions()`: **Added**
+  * `wistia.captions.post/medias/{mediaHashedId}/captionsMultipart()`: **Added**
+  * `wistia.captions.post/medias/{mediaHashedId}/captions()`: **Added**
+  * `wistia.captions.post/medias/{mediaHashedId}/captions/purchase()`: **Added**
+  * `wistia.captions.get/medias/{mediaHashedId}/captions/{languageCode}()`: **Added**
+  * `wistia.captions.put/medias/{mediaHashedId}/captions/{languageCode}()`: **Added**
+  * `wistia.captions.put/medias/{mediaHashedId}/captions/{languageCode}Multipart()`: **Added**
+  * `wistia.captions.delete/medias/{mediaHashedId}/captions/{languageCode}()`: **Added**
+  * `wistia.trims.post/medias/{mediaHashedId}/trims()`: **Added**
+  * `wistia.localizations.get/medias/{mediaHashedId}/localizations()`: **Added**
+  * `wistia.localizations.post/medias/{mediaHashedId}/localizations()`: **Added**
+  * `wistia.localizations.get/medias/{mediaHashedId}/localizations/{localizationHashedId}()`: **Added**
+  * `wistia.localizations.delete/medias/{mediaHashedId}/localizations/{localizationHashedId}()`: **Added**
+  * `wistia.tags.get/tags()`: **Added**
+  * `wistia.tags.post/tags()`: **Added**
+  * `wistia.tags.delete/tags/{name}()`: **Added**
+  * `wistia.search.get/search()`: **Added**
+  * `wistia.channels.get/channels()`: **Added**
+  * `wistia.channels.get/channels/{channelHashedId}()`: **Added**
+  * `wistia.channelEpisodes.get/channels/{channelHashedId}/channelEpisodes/{channelEpisodeId}()`: **Added**
+  * `wistia.channelEpisodes.get/channels/{channelHashedId}/channelEpisodes()`: **Added**
+  * `wistia.channelEpisodes.post/channels/{channelHashedId}/channelEpisodes()`: **Added**
+  * `wistia.channelEpisodes.get/channelEpisodes()`: **Added**
+  * `wistia.expiringAccessTokens.post/expiringToken()`: **Added**
+  * `wistia.liveStreamEvents.get/liveStreamEvents()`: **Added**
+  * `wistia.liveStreamEvents.post/liveStreamEvents()`: **Added**
+  * `wistia.liveStreamEvents.get/liveStreamEvents/{id}()`: **Added**
+  * `wistia.liveStreamEvents.put/liveStreamEvents/{id}()`: **Added**
+  * `wistia.liveStreamEvents.delete/liveStreamEvents/{id}()`: **Added**
+  * `wistia.stats:account.get/stats/account()`: **Added**
+  * `wistia.stats:media.get/stats/medias/{mediaId}/byDate()`: **Added**
+  * `wistia.stats:visitors.get/stats/visitors()`: **Added**
+  * `wistia.stats:visitors.get/stats/visitors/{visitorKey}()`: **Added**
+  * `wistia.stats:events.get/stats/events()`: **Added**
+  * `wistia.stats:events.get/stats/events/{eventKey}()`: **Added**
+  * `wistia.projects.list()`: **Deleted** **Breaking** :warning:
+  * `wistia.projects.create()`: **Deleted** **Breaking** :warning:
+  * `wistia.projects.get()`: **Deleted** **Breaking** :warning:
+  * `wistia.projects.update()`: **Deleted** **Breaking** :warning:
+  * `wistia.projects.delete()`: **Deleted** **Breaking** :warning:
+  * `wistia.projects.copy()`: **Deleted** **Breaking** :warning:
+  * `wistia.subfolders.get/projects/{projectId}/subfolders()`: **Deleted** **Breaking** :warning:
+  * `wistia.subfolders.post/projects/{projectId}/subfolders()`: **Deleted** **Breaking** :warning:
+  * `wistia.subfolders.get/projects/{projectId}/subfolders/{subfolderId}()`: **Deleted** **Breaking** :warning:
+  * `wistia.subfolders.put/projects/{projectId}/subfolders/{subfolderId}()`: **Deleted** **Breaking** :warning:
+  * `wistia.subfolders.delete/projects/{projectId}/subfolders/{subfolderId}()`: **Deleted** **Breaking** :warning:
+  * `wistia.projectSharings.list()`: **Deleted** **Breaking** :warning:
+  * `wistia.projectSharings.create()`: **Deleted** **Breaking** :warning:
+  * `wistia.projectSharings.get()`: **Deleted** **Breaking** :warning:
+  * `wistia.projectSharings.update()`: **Deleted** **Breaking** :warning:
+  * `wistia.projectSharings.delete()`: **Deleted** **Breaking** :warning:
+  * `wistia.media.list()`: **Deleted** **Breaking** :warning:
+  * `wistia.media.get()`: **Deleted** **Breaking** :warning:
+  * `wistia.media.update()`: **Deleted** **Breaking** :warning:
+  * `wistia.media.delete()`: **Deleted** **Breaking** :warning:
+  * `wistia.media.copy()`: **Deleted** **Breaking** :warning:
+  * `wistia.media.swap()`: **Deleted** **Breaking** :warning:
+  * `wistia.media.stats()`: **Deleted** **Breaking** :warning:
+  * `wistia.media.translate()`: **Deleted** **Breaking** :warning:
+  * `wistia.media.archive()`: **Deleted** **Breaking** :warning:
+  * `wistia.media.move()`: **Deleted** **Breaking** :warning:
+  * `wistia.media.restore()`: **Deleted** **Breaking** :warning:
+  * `wistia.account.get()`: **Deleted** **Breaking** :warning:
+  * `wistia.allowedDomains.list()`: **Deleted** **Breaking** :warning:
+  * `wistia.allowedDomains.create()`: **Deleted** **Breaking** :warning:
+  * `wistia.allowedDomains.get()`: **Deleted** **Breaking** :warning:
+  * `wistia.allowedDomains.delete()`: **Deleted** **Breaking** :warning:
+  * `wistia.backgroundJobStatus.get()`: **Deleted** **Breaking** :warning:
+  * `wistia.customizations.get()`: **Deleted** **Breaking** :warning:
+  * `wistia.customizations.create()`: **Deleted** **Breaking** :warning:
+  * `wistia.customizations.update()`: **Deleted** **Breaking** :warning:
+  * `wistia.customizations.delete()`: **Deleted** **Breaking** :warning:
+  * `wistia.captions.list()`: **Deleted** **Breaking** :warning:
+  * `wistia.captions.createMultipart()`: **Deleted** **Breaking** :warning:
+  * `wistia.captions.create()`: **Deleted** **Breaking** :warning:
+  * `wistia.captions.purchase()`: **Deleted** **Breaking** :warning:
+  * `wistia.captions.get()`: **Deleted** **Breaking** :warning:
+  * `wistia.captions.update()`: **Deleted** **Breaking** :warning:
+  * `wistia.captions.updateMultipart()`: **Deleted** **Breaking** :warning:
+  * `wistia.captions.delete()`: **Deleted** **Breaking** :warning:
+  * `wistia.trims.create()`: **Deleted** **Breaking** :warning:
+  * `wistia.localizations.list()`: **Deleted** **Breaking** :warning:
+  * `wistia.localizations.create()`: **Deleted** **Breaking** :warning:
+  * `wistia.localizations.get()`: **Deleted** **Breaking** :warning:
+  * `wistia.localizations.delete()`: **Deleted** **Breaking** :warning:
+  * `wistia.tags.list()`: **Deleted** **Breaking** :warning:
+  * `wistia.tags.create()`: **Deleted** **Breaking** :warning:
+  * `wistia.tags.delete()`: **Deleted** **Breaking** :warning:
+  * `wistia.search.get()`: **Deleted** **Breaking** :warning:
+  * `wistia.channels.list()`: **Deleted** **Breaking** :warning:
+  * `wistia.channels.get()`: **Deleted** **Breaking** :warning:
+  * `wistia.channelEpisodes.get()`: **Deleted** **Breaking** :warning:
+  * `wistia.channelEpisodes.listByChannel()`: **Deleted** **Breaking** :warning:
+  * `wistia.channelEpisodes.create()`: **Deleted** **Breaking** :warning:
+  * `wistia.channelEpisodes.list()`: **Deleted** **Breaking** :warning:
+  * `wistia.expiringAccessTokens.create()`: **Deleted** **Breaking** :warning:
+  * `wistia.liveStreamEvents.list()`: **Deleted** **Breaking** :warning:
+  * `wistia.liveStreamEvents.create()`: **Deleted** **Breaking** :warning:
+  * `wistia.liveStreamEvents.get()`: **Deleted** **Breaking** :warning:
+  * `wistia.liveStreamEvents.update()`: **Deleted** **Breaking** :warning:
+  * `wistia.liveStreamEvents.delete()`: **Deleted** **Breaking** :warning:
+  * `wistia.stats.account.get()`: **Deleted** **Breaking** :warning:
+  * `wistia.stats.events.get()`: **Deleted** **Breaking** :warning:
+  * `wistia.statsMedia.getByDate()`: **Deleted** **Breaking** :warning:
+  * `wistia.statsVisitors.list()`: **Deleted** **Breaking** :warning:
+  * `wistia.statsVisitors.get()`: **Deleted** **Breaking** :warning:
+  * `wistia.statsEvents.list()`: **Deleted** **Breaking** :warning:
