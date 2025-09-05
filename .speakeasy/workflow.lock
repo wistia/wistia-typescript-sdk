@@ -2,8 +2,8 @@ speakeasyVersion: 1.611.0
 sources:
     Data API:
         sourceNamespace: data-api
-        sourceRevisionDigest: sha256:54ab4b125d68ed7237d618630600a2fbba7edbf5abadf91a134c4883e814e270
-        sourceBlobDigest: sha256:4313d02cadcd20d9d649326023b6cafb2e3344c2be25cc55393111cc1f09dc5b
+        sourceRevisionDigest: sha256:57631dd04df5debe44d337b3450e5fc77e1ca1288134535e6d10c820cbac5d18
+        sourceBlobDigest: sha256:55c1ba524bee168f320801fb895e2e1161a9dc01155fd373be62a78ae823d38d
         tags:
             - latest
             - 1.0.0
@@ -11,10 +11,10 @@ targets:
     wistia:
         source: Data API
         sourceNamespace: data-api
-        sourceRevisionDigest: sha256:54ab4b125d68ed7237d618630600a2fbba7edbf5abadf91a134c4883e814e270
-        sourceBlobDigest: sha256:4313d02cadcd20d9d649326023b6cafb2e3344c2be25cc55393111cc1f09dc5b
+        sourceRevisionDigest: sha256:57631dd04df5debe44d337b3450e5fc77e1ca1288134535e6d10c820cbac5d18
+        sourceBlobDigest: sha256:55c1ba524bee168f320801fb895e2e1161a9dc01155fd373be62a78ae823d38d
         codeSamplesNamespace: data-api-typescript-code-samples
-        codeSamplesRevisionDigest: sha256:4da52c4432f2156be6babb8233986228bba465d48573c0b15f8925539fb5db32
+        codeSamplesRevisionDigest: sha256:1cbea5968bca41d884566104a2db1f66e16fed2ba8dd89cf895547b23af433e4
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
@@ -22,14 +22,12 @@ workflow:
         Data API:
             inputs:
                 - location: https://wistia.github.io/wistia/api/openapi.yaml
+                - location: https://wistia.github.io/wistia/api/openapi-upload.yaml
             overlays:
                 - location: .speakeasy/speakeasy-modifications-overlay.yaml
             output: .speakeasy/out.openapi.yaml
             registry:
                 location: registry.speakeasyapi.dev/wistia/wistia/data-api
-        upload-api:
-            inputs:
-                - location: https://wistia.github.io/wistia/api/openapi-upload.yaml
     targets:
         wistia:
             target: typescript

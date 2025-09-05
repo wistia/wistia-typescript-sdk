@@ -20,6 +20,7 @@ import { ResponseValidationError } from "../models/errors/responsevalidationerro
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import { WistiaError } from "../models/errors/wistiaerror.js";
 import * as models from "../models/index.js";
+import { GetAccountDetailsServerList } from "../models/operations/getaccountdetails.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
@@ -79,6 +80,11 @@ async function $do(
     APICall,
   ]
 > {
+  const baseURL = options?.serverURL
+    || pathToFunc(GetAccountDetailsServerList[0], {
+      charEncoding: "percent",
+    })();
+
   const path = pathToFunc("/account")();
 
   const headers = new Headers(compactMap({
@@ -91,7 +97,7 @@ async function $do(
 
   const context = {
     options: client._options,
-    baseURL: options?.serverURL ?? client._baseURL ?? "",
+    baseURL: baseURL ?? "",
     operationID: "getAccountDetails",
     oAuth2Scopes: [],
 
@@ -107,7 +113,7 @@ async function $do(
   const requestRes = client._createRequest(context, {
     security: requestSecurity,
     method: "GET",
-    baseURL: options?.serverURL,
+    baseURL: baseURL,
     path: path,
     headers: headers,
     userAgent: client._options.userAgent,

@@ -9,6 +9,10 @@ import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
+export const GetProjectsProjectIdSubfoldersSubfolderIdServerList = [
+  "https://api.wistia.com/v1",
+] as const;
+
 /**
  * Format for media descriptions
  */

@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 7b32ab6a-5908-41aa-b82f-7906605d30ce
 management:
-  docChecksum: dbf072b643bcd0d287b18406e0382af3
+  docChecksum: 5c03f144a7485eb97a7c7af9846ab26d
   docVersion: 1.0.0
   speakeasyVersion: 1.611.0
   generationVersion: 2.694.1
-  releaseVersion: 2025.10.0
-  configChecksum: ea45c369f32ac86b8db6a239a97ab0c7
+  releaseVersion: 2025.11.0
+  configChecksum: d334cb95309bfb21380b25cdd4eb688c
   repoURL: https://github.com/speakeasy-sdks/wistia-typescript-sdk.git
   installationURL: https://github.com/speakeasy-sdks/wistia-typescript-sdk
   published: true
@@ -27,6 +27,7 @@ features:
     globalServerURLs: 2.82.5
     groups: 2.81.2
     methodArguments: 0.1.2
+    methodServerURLs: 2.82.1
     nameOverrides: 2.81.2
     nullables: 0.1.1
     responseFormat: 0.2.3
@@ -92,12 +93,14 @@ generatedFiles:
   - docs/models/errors/methodnotallowederror.md
   - docs/models/errors/notimplementederror.md
   - docs/models/errors/postalloweddomainsbadrequesterror.md
+  - docs/models/errors/postformbadrequesterror.md
   - docs/models/errors/postlivestreameventsforbiddenerror.md
   - docs/models/errors/postlivestreameventsunprocessableentityerror.md
   - docs/models/errors/postmediasmediahashedidcaptionspurchaseunprocessableentityerror.md
   - docs/models/errors/postmediasmediahashedidcopybadrequesterror.md
   - docs/models/errors/postmediasmediahashedidlocalizationsunprocessableentityerror.md
   - docs/models/errors/postmediasmediahashedidtranslateunprocessableentityerror.md
+  - docs/models/errors/postmultipartbadrequesterror.md
   - docs/models/errors/postprojectsprojectidsubfoldersnotfounderror.md
   - docs/models/errors/posttagsbadrequesterror.md
   - docs/models/errors/posttagsunprocessableentityerror.md
@@ -148,6 +151,7 @@ generatedFiles:
   - docs/models/operations/deletetagsnamerequest.md
   - docs/models/operations/descriptionformat.md
   - docs/models/operations/enabled.md
+  - docs/models/operations/filet.md
   - docs/models/operations/filter.md
   - docs/models/operations/getalloweddomainsdomainrequest.md
   - docs/models/operations/getalloweddomainsrequest.md
@@ -202,6 +206,9 @@ generatedFiles:
   - docs/models/operations/postalloweddomainsrequest.md
   - docs/models/operations/postchannelschannelhashedidchannelepisodesrequest.md
   - docs/models/operations/postexpiringtokenrequest.md
+  - docs/models/operations/postformerror.md
+  - docs/models/operations/postformrequest.md
+  - docs/models/operations/postformresponse.md
   - docs/models/operations/postmediasmediahashedidcaptionsmultipartcaptionfile.md
   - docs/models/operations/postmediasmediahashedidcaptionsmultipartrequest.md
   - docs/models/operations/postmediasmediahashedidcaptionsmultipartrequestbody.md
@@ -221,6 +228,9 @@ generatedFiles:
   - docs/models/operations/postmediasmediahashedidtrimsrequest.md
   - docs/models/operations/postmediasmediahashedidtrimsresponse.md
   - docs/models/operations/postmediasmediaidcustomizationsrequest.md
+  - docs/models/operations/postmultiparterror.md
+  - docs/models/operations/postmultipartrequest.md
+  - docs/models/operations/postmultipartresponse.md
   - docs/models/operations/postprojectsidcopyrequest.md
   - docs/models/operations/postprojectsidcopyrequestbody.md
   - docs/models/operations/postprojectsidcopyresponse.md
@@ -333,6 +343,7 @@ generatedFiles:
   - docs/sdks/subfolders/README.md
   - docs/sdks/tags/README.md
   - docs/sdks/trims/README.md
+  - docs/sdks/uploadorimportmedia/README.md
   - docs/sdks/wistia/README.md
   - docs/types/rfcdate.md
   - eslint.config.mjs
@@ -415,6 +426,8 @@ generatedFiles:
   - src/funcs/tagsDelete.ts
   - src/funcs/tagsList.ts
   - src/funcs/trimsCreate.ts
+  - src/funcs/uploadOrImportMediaPostForm.ts
+  - src/funcs/uploadOrImportMediaPostMultipart.ts
   - src/hooks/hooks.ts
   - src/hooks/index.ts
   - src/hooks/types.ts
@@ -463,11 +476,13 @@ generatedFiles:
   - src/models/errors/index.ts
   - src/models/errors/postalloweddomains.ts
   - src/models/errors/postexpiringtoken.ts
+  - src/models/errors/postform.ts
   - src/models/errors/postlivestreamevents.ts
   - src/models/errors/postmediasmediahashedidcaptionspurchase.ts
   - src/models/errors/postmediasmediahashedidcopy.ts
   - src/models/errors/postmediasmediahashedidlocalizations.ts
   - src/models/errors/postmediasmediahashedidtranslate.ts
+  - src/models/errors/postmultipart.ts
   - src/models/errors/postprojectsprojectidsubfolders.ts
   - src/models/errors/posttags.ts
   - src/models/errors/putlivestreameventsid.ts
@@ -505,6 +520,7 @@ generatedFiles:
   - src/models/operations/deleteprojectsprojectidsharingssharingid.ts
   - src/models/operations/deleteprojectsprojectidsubfolderssubfolderid.ts
   - src/models/operations/deletetagsname.ts
+  - src/models/operations/getaccountdetails.ts
   - src/models/operations/getalloweddomains.ts
   - src/models/operations/getalloweddomainsdomain.ts
   - src/models/operations/getbackgroundjobstatusbackgroundjobstatusid.ts
@@ -541,6 +557,8 @@ generatedFiles:
   - src/models/operations/postalloweddomains.ts
   - src/models/operations/postchannelschannelhashedidchannelepisodes.ts
   - src/models/operations/postexpiringtoken.ts
+  - src/models/operations/postform.ts
+  - src/models/operations/postlivestreamevents.ts
   - src/models/operations/postmediasmediahashedidcaptions.ts
   - src/models/operations/postmediasmediahashedidcaptionsmultipart.ts
   - src/models/operations/postmediasmediahashedidcaptionspurchase.ts
@@ -549,6 +567,8 @@ generatedFiles:
   - src/models/operations/postmediasmediahashedidtranslate.ts
   - src/models/operations/postmediasmediahashedidtrims.ts
   - src/models/operations/postmediasmediaidcustomizations.ts
+  - src/models/operations/postmultipart.ts
+  - src/models/operations/postprojects.ts
   - src/models/operations/postprojectsidcopy.ts
   - src/models/operations/postprojectsprojectidsharings.ts
   - src/models/operations/postprojectsprojectidsubfolders.ts
@@ -615,6 +635,7 @@ generatedFiles:
   - src/sdk/subfolders.ts
   - src/sdk/tags.ts
   - src/sdk/trims.ts
+  - src/sdk/uploadorimportmedia.ts
   - src/types/async.ts
   - src/types/blobs.ts
   - src/types/constdatetime.ts

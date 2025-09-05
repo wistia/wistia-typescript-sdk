@@ -1,10 +1,7 @@
 openapi: 3.0.3
 info:
-  title: Data API
-  description: Wistia Data API
+  title: Upload API
   version: 1.0.0
-servers:
-  - url: https://api.wistia.com/v1
 tags:
   - name: Projects
     x-displayName: Projects
@@ -121,6 +118,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-name-override: list
     post:
       summary: Project Create
@@ -156,6 +155,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-name-override: create
   /projects/{id}:
     get:
@@ -201,6 +202,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-name-override: get
     put:
       summary: Project Update
@@ -241,6 +244,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-name-override: update
     delete:
       summary: Project Delete
@@ -276,6 +281,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-name-override: delete
   /projects/{id}/copy:
     post:
@@ -337,6 +344,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-name-override: copy
   /projects/{project-id}/subfolders:
     get:
@@ -432,6 +441,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-name-override: list
     post:
       summary: Create Subfolder
@@ -490,6 +501,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-name-override: create
   /projects/{project-id}/subfolders/{subfolder-id}:
     get:
@@ -559,6 +572,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-name-override: get
     put:
       summary: Update Subfolder
@@ -625,6 +640,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-name-override: update
     delete:
       summary: Delete Subfolder
@@ -691,6 +708,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-name-override: delete
   /projects/{project-id}/sharings:
     get:
@@ -748,6 +767,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-group: projectSharings
       x-speakeasy-name-override: list
     post:
@@ -809,6 +830,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-group: projectSharings
       x-speakeasy-name-override: create
   /projects/{project-id}/sharings/{sharing-id}:
@@ -853,6 +876,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-group: projectSharings
       x-speakeasy-name-override: get
     put:
@@ -900,6 +925,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-group: projectSharings
       x-speakeasy-name-override: update
     delete:
@@ -942,6 +969,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-group: projectSharings
       x-speakeasy-name-override: delete
   /medias:
@@ -1138,6 +1167,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-name-override: list
   /medias/{media-hashed-id}:
     get:
@@ -1188,6 +1219,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-name-override: get
     put:
       summary: Media Update
@@ -1250,6 +1283,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-name-override: update
     delete:
       summary: Media Delete
@@ -1285,6 +1320,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-name-override: delete
   /medias/{media-hashed-id}/copy:
     post:
@@ -1361,6 +1398,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-name-override: copy
   /medias/{media-hashed-id}/swap:
     put:
@@ -1434,6 +1473,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-group: medias
       x-speakeasy-name-override: swap
   /medias/{media-hashed-id}/stats:
@@ -1512,6 +1553,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-name-override: stats
   /medias/{media-hashed-id}/translate:
     post:
@@ -1583,6 +1626,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-name-override: translate
   /medias/archive:
     put:
@@ -1653,6 +1698,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-name-override: archive
   /medias/move:
     put:
@@ -1757,6 +1804,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-name-override: move
   /medias/restore:
     put:
@@ -1856,6 +1905,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-name-override: restore
   /account:
     get:
@@ -1883,6 +1934,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-name-override: get
   /allowed_domains:
     get:
@@ -1929,6 +1982,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-name-override: list
     post:
       summary: Allowed Domain Create
@@ -1978,6 +2033,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-name-override: create
   /allowed_domains/{domain}:
     get:
@@ -2022,6 +2079,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-name-override: get
     delete:
       summary: Allowed Domain Delete
@@ -2065,6 +2124,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-name-override: delete
   /background_job_status/{background-job-status-id}:
     get:
@@ -2116,6 +2177,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-group: backgroundJobStatus
       x-speakeasy-name-override: get
   /medias/{media-id}/customizations:
@@ -2154,6 +2217,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-name-override: get
     post:
       summary: Customizations Create
@@ -2197,6 +2262,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-name-override: create
     put:
       summary: Customizations Update
@@ -2242,6 +2309,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-name-override: update
     delete:
       summary: Customizations Delete
@@ -2277,6 +2346,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-name-override: delete
   /medias/{media-hashed-id}/captions:
     get:
@@ -2327,6 +2398,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-name-override: list
     post:
       summary: Captions Create
@@ -2396,6 +2469,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-name-override: create
   /medias/{media-hashed-id}/captions/purchase:
     post:
@@ -2491,6 +2566,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-name-override: purchase
   /medias/{media-hashed-id}/captions/{language-code}:
     get:
@@ -2553,6 +2630,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-name-override: get
     put:
       summary: Captions Update
@@ -2620,6 +2699,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-name-override: update
     delete:
       summary: Captions Delete
@@ -2663,6 +2744,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-name-override: delete
   /medias/{media-hashed-id}/trims:
     post:
@@ -2707,6 +2790,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-name-override: create
   /medias/{media-hashed-id}/localizations:
     get:
@@ -2753,6 +2838,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-name-override: list
     post:
       summary: Localizations Create
@@ -2815,6 +2902,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-name-override: create
   /medias/{media-hashed-id}/localizations/{localization-hashed-id}:
     get:
@@ -2865,6 +2954,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-name-override: get
     delete:
       summary: Localizations Delete
@@ -2905,6 +2996,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-name-override: delete
   /tags:
     get:
@@ -2973,6 +3066,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-name-override: list
     post:
       summary: Tags Create
@@ -3029,6 +3124,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-name-override: create
   /tags/{name}:
     delete:
@@ -3061,6 +3158,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-name-override: delete
   /search:
     get:
@@ -3133,6 +3232,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-name-override: search
   /channels:
     get:
@@ -3206,6 +3307,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-name-override: list
   /channels/{channel-hashed-id}:
     get:
@@ -3244,6 +3347,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-name-override: get
   /channels/{channel-hashed-id}/channel_episodes/{channel-episode-id}:
     get:
@@ -3287,6 +3392,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-group: channelEpisodes
       x-speakeasy-name-override: get
   /channels/{channel-hashed-id}/channel_episodes:
@@ -3340,6 +3447,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-group: channels.episodes
       x-speakeasy-name-override: list
     post:
@@ -3381,6 +3490,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-group: channelEpisodes
       x-speakeasy-name-override: create
   /channel_episodes:
@@ -3435,6 +3546,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-group: channelEpisodes
       x-speakeasy-name-override: list
   /expiring_token:
@@ -3479,6 +3592,8 @@ paths:
                       Expiring tokens can only be created from non-expiring access tokens.
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-group: expiringAccessTokens
       x-speakeasy-name-override: create
   /live_stream_events:
@@ -3557,6 +3672,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-group: liveStreamEvents
       x-speakeasy-name-override: list
     post:
@@ -3647,6 +3764,8 @@ paths:
                         An error occurred while creating the live stream event. Please try again.
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-group: liveStreamEvents
       x-speakeasy-name-override: create
   /live_stream_events/{id}:
@@ -3685,6 +3804,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-group: liveStreamEvents
       x-speakeasy-name-override: get
     put:
@@ -3740,6 +3861,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-group: liveStreamEvents
       x-speakeasy-name-override: update
     delete:
@@ -3775,6 +3898,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-group: liveStreamEvents
       x-speakeasy-name-override: delete
   /stats/account:
@@ -3829,6 +3954,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-group: statsAccount
       x-speakeasy-name-override: get
   /stats/projects/{project-id}:
@@ -3892,11 +4019,12 @@ paths:
           $ref: '#/components/responses/401'
         '404':
           description: Project not found or does not belong to account
-          content: {}
         '500':
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-group: statsProjects
       x-speakeasy-name-override: get
   /stats/medias/{media-id}:
@@ -3986,11 +4114,12 @@ paths:
           $ref: '#/components/responses/401'
         '404':
           description: Media not found or does not belong to account
-          content: {}
         '500':
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-group: statsMedia
       x-speakeasy-name-override: get
   /stats/medias/{media-id}/by_date:
@@ -4060,11 +4189,12 @@ paths:
           $ref: '#/components/responses/401'
         '404':
           description: Media not found or does not belong to account
-          content: {}
         '500':
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-group: statsMedia
       x-speakeasy-name-override: getByDate
   /stats/medias/{media-id}/engagement:
@@ -4128,11 +4258,12 @@ paths:
           $ref: '#/components/responses/401'
         '404':
           description: Media not found or does not belong to account
-          content: {}
         '500':
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-group: statsMedia
       x-speakeasy-name-override: getEngagement
   /stats/visitors:
@@ -4196,6 +4327,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-group: statsVisitors
       x-speakeasy-name-override: list
   /stats/visitors/{visitor-key}:
@@ -4230,11 +4363,12 @@ paths:
           $ref: '#/components/responses/401'
         '404':
           description: Visitor not found
-          content: {}
         '500':
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-group: statsVisitors
       x-speakeasy-name-override: get
   /stats/events:
@@ -4308,6 +4442,8 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-group: statsEvents
       x-speakeasy-name-override: list
   /stats/events/{event-key}:
@@ -4351,13 +4487,119 @@ paths:
           $ref: '#/components/responses/401'
         '404':
           description: Event not found
-          content: {}
         '500':
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
+      servers:
+        - url: https://api.wistia.com/v1
       x-speakeasy-group: statsEvents
       x-speakeasy-name-override: get
+  /:
+    post:
+      summary: Upload or Import Media
+      description: |
+        Endpoint to upload media files from a local system or import from a web URL.
+
+        - Use `multipart/form-data` with a `file` parameter to upload from local system
+        - Use `application/x-www-form-urlencoded` with a `url` parameter to import from web URL
+      tags:
+        - Upload or Import Media
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/CommonUploadProperties'
+                - type: object
+                  required:
+                    - file
+                  properties:
+                    file:
+                      type: string
+                      format: binary
+                      description: The media file, multipart-form encoded into the request body.
+          application/x-www-form-urlencoded:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/CommonUploadProperties'
+                - type: object
+                  required:
+                    - url
+                  properties:
+                    url:
+                      type: string
+                      format: uri
+                      example: http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4
+                      description: The web location of the media file to import.
+                    low_priority:
+                      type: boolean
+                      example: true
+                      description: Inform the encoding service that this upload can be considered lower priority than others. This is especially useful for platform customers doing bulk uploads or migrations. Setting this to "false" has no effect.
+      responses:
+        '200':
+          description: Successfully uploaded or imported.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: Response after successfully uploading or importing media
+                properties:
+                  id:
+                    type: integer
+                    description: A unique numeric identifier for the media within the system.
+                  name:
+                    type: string
+                    description: The display name of the media.
+                  type:
+                    type: string
+                    description: A string representing what type of media this is.
+                  created:
+                    type: string
+                    format: date-time
+                    description: The date when the media was originally uploaded.
+                  updated:
+                    type: string
+                    format: date-time
+                    description: The date when the media was last changed.
+                  duration:
+                    type: number
+                    description: Specifies the length (in seconds) for audio and video files.
+                  hashed_id:
+                    type: string
+                    description: A unique alphanumeric identifier for this media.
+                  progress:
+                    type: number
+                    minimum: 0
+                    maximum: 1
+                    description: A floating point value between 0 and 1 that indicates the progress of the processing for this file.
+                  thumbnail:
+                    $ref: '#/components/schemas/Thumbnail'
+        '400':
+          description: Error due to reaching the video limit of your account or other issues.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                      detail:
+                        type: string
+              examples:
+                missing_credentials:
+                  value:
+                    code: upload_failed
+                    detail: '''api_password'' or ''access_token'' are required'
+        '401':
+          description: Authorization error. Check your access_token.
+          content:
+            text/html: {}
+      servers:
+        - url: https://upload.wistia.com
 components:
   schemas:
     Account:
@@ -6371,6 +6613,26 @@ components:
             mobile:
               type: boolean
           description: Details about the user agent of the viewer.
+    CommonUploadProperties:
+      type: object
+      properties:
+        project_id:
+          type: string
+          description: The hashed id of the project to upload media into.
+        name:
+          type: string
+          maxLength: 255
+          description: A display name to use for the media in Wistia.
+        description:
+          type: string
+          description: A description to use for the media in Wistia.
+        contact_id:
+          type: integer
+          description: A Wistia contact id.
+        access_token:
+          type: string
+          deprecated: true
+          description: A 64 character hex string. This parameter can be found on your API access page OR can be the token you received from authenticating via Oauth2. Note this approach is legacy and discouraged. We recommend using Bearer Token authentication.
   securitySchemes:
     BearerAuth:
       type: http
@@ -6529,3 +6791,5 @@ x-tagGroups:
       - Stats:Media
       - Stats:Visitors
       - Stats:Events
+security:
+  - BearerAuth: []

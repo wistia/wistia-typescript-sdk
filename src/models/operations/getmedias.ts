@@ -9,6 +9,10 @@ import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
+export const GetMediasServerList = [
+  "https://api.wistia.com/v1",
+] as const;
+
 /**
  * If `cursor[enabled]` is set to 1, the first result set will be fetched with cursor pagination enabled. This
  *

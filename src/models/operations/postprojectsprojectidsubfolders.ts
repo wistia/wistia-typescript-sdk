@@ -9,6 +9,10 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
+export const PostProjectsProjectIdSubfoldersServerList = [
+  "https://api.wistia.com/v1",
+] as const;
+
 export type PostProjectsProjectIdSubfoldersRequest = {
   /**
    * The hashed ID of the project

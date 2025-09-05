@@ -22,6 +22,7 @@ import * as errors from "../models/errors/index.js";
 import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import { WistiaError } from "../models/errors/wistiaerror.js";
+import { DeleteMediasMediaHashedIdCaptionsLanguageCodeServerList } from "../models/operations/deletemediasmediahashedidcaptionslanguagecode.js";
 import * as operations from "../models/operations/index.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
@@ -99,6 +100,11 @@ async function $do(
   const payload = parsed.value;
   const body = null;
 
+  const baseURL = options?.serverURL
+    || pathToFunc(DeleteMediasMediaHashedIdCaptionsLanguageCodeServerList[0], {
+      charEncoding: "percent",
+    })();
+
   const pathParams = {
     "language-code": encodeSimple("language-code", payload["language-code"], {
       explode: false,
@@ -125,7 +131,7 @@ async function $do(
 
   const context = {
     options: client._options,
-    baseURL: options?.serverURL ?? client._baseURL ?? "",
+    baseURL: baseURL ?? "",
     operationID: "delete_/medias/{media-hashed-id}/captions/{language-code}",
     oAuth2Scopes: [],
 
@@ -141,7 +147,7 @@ async function $do(
   const requestRes = client._createRequest(context, {
     security: requestSecurity,
     method: "DELETE",
-    baseURL: options?.serverURL,
+    baseURL: baseURL,
     path: path,
     headers: headers,
     body: body,

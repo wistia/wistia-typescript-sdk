@@ -22,6 +22,7 @@ import { ResponseValidationError } from "../models/errors/responsevalidationerro
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import { WistiaError } from "../models/errors/wistiaerror.js";
 import * as operations from "../models/operations/index.js";
+import { PutMediasMoveServerList } from "../models/operations/putmediasmove.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
@@ -106,6 +107,9 @@ async function $do(
   const payload = parsed.value;
   const body = encodeJSON("body", payload, { explode: true });
 
+  const baseURL = options?.serverURL
+    || pathToFunc(PutMediasMoveServerList[0], { charEncoding: "percent" })();
+
   const path = pathToFunc("/medias/move")();
 
   const headers = new Headers(compactMap({
@@ -119,7 +123,7 @@ async function $do(
 
   const context = {
     options: client._options,
-    baseURL: options?.serverURL ?? client._baseURL ?? "",
+    baseURL: baseURL ?? "",
     operationID: "put_/medias/move",
     oAuth2Scopes: [],
 
@@ -135,7 +139,7 @@ async function $do(
   const requestRes = client._createRequest(context, {
     security: requestSecurity,
     method: "PUT",
-    baseURL: options?.serverURL,
+    baseURL: baseURL,
     path: path,
     headers: headers,
     body: body,
