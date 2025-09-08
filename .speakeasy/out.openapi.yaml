@@ -1,10 +1,7 @@
 openapi: 3.0.3
 info:
-  title: Data API
-  description: Wistia Data API
+  title: Upload API
   version: 1.0.0
-servers:
-  - url: https://api.wistia.com/v1
 tags:
   - name: Projects
     x-displayName: Projects
@@ -3892,7 +3889,6 @@ paths:
           $ref: '#/components/responses/401'
         '404':
           description: Project not found or does not belong to account
-          content: {}
         '500':
           $ref: '#/components/responses/500'
       security:
@@ -3986,7 +3982,6 @@ paths:
           $ref: '#/components/responses/401'
         '404':
           description: Media not found or does not belong to account
-          content: {}
         '500':
           $ref: '#/components/responses/500'
       security:
@@ -4060,7 +4055,6 @@ paths:
           $ref: '#/components/responses/401'
         '404':
           description: Media not found or does not belong to account
-          content: {}
         '500':
           $ref: '#/components/responses/500'
       security:
@@ -4128,7 +4122,6 @@ paths:
           $ref: '#/components/responses/401'
         '404':
           description: Media not found or does not belong to account
-          content: {}
         '500':
           $ref: '#/components/responses/500'
       security:
@@ -4230,7 +4223,6 @@ paths:
           $ref: '#/components/responses/401'
         '404':
           description: Visitor not found
-          content: {}
         '500':
           $ref: '#/components/responses/500'
       security:
@@ -4351,13 +4343,117 @@ paths:
           $ref: '#/components/responses/401'
         '404':
           description: Event not found
-          content: {}
         '500':
           $ref: '#/components/responses/500'
       security:
         - BearerAuth: []
       x-speakeasy-group: statsEvents
       x-speakeasy-name-override: get
+  /:
+    post:
+      summary: Upload or Import Media
+      description: |
+        Endpoint to upload media files from a local system or import from a web URL.
+
+        - Use `multipart/form-data` with a `file` parameter to upload from local system
+        - Use `application/x-www-form-urlencoded` with a `url` parameter to import from web URL
+      tags:
+        - Upload or Import Media
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/CommonUploadProperties'
+                - type: object
+                  required:
+                    - file
+                  properties:
+                    file:
+                      type: string
+                      format: binary
+                      description: The media file, multipart-form encoded into the request body.
+          application/x-www-form-urlencoded:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/CommonUploadProperties'
+                - type: object
+                  required:
+                    - url
+                  properties:
+                    url:
+                      type: string
+                      format: uri
+                      example: http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4
+                      description: The web location of the media file to import.
+                    low_priority:
+                      type: boolean
+                      example: true
+                      description: Inform the encoding service that this upload can be considered lower priority than others. This is especially useful for platform customers doing bulk uploads or migrations. Setting this to "false" has no effect.
+      responses:
+        '200':
+          description: Successfully uploaded or imported.
+          content:
+            application/json:
+              schema:
+                type: object
+                description: Response after successfully uploading or importing media
+                properties:
+                  id:
+                    type: integer
+                    description: A unique numeric identifier for the media within the system.
+                  name:
+                    type: string
+                    description: The display name of the media.
+                  type:
+                    type: string
+                    description: A string representing what type of media this is.
+                  created:
+                    type: string
+                    format: date-time
+                    description: The date when the media was originally uploaded.
+                  updated:
+                    type: string
+                    format: date-time
+                    description: The date when the media was last changed.
+                  duration:
+                    type: number
+                    description: Specifies the length (in seconds) for audio and video files.
+                  hashed_id:
+                    type: string
+                    description: A unique alphanumeric identifier for this media.
+                  progress:
+                    type: number
+                    minimum: 0
+                    maximum: 1
+                    description: A floating point value between 0 and 1 that indicates the progress of the processing for this file.
+                  thumbnail:
+                    $ref: '#/components/schemas/Thumbnail'
+        '400':
+          description: Error due to reaching the video limit of your account or other issues.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                      detail:
+                        type: string
+              examples:
+                missing_credentials:
+                  value:
+                    code: upload_failed
+                    detail: '''api_password'' or ''access_token'' are required'
+        '401':
+          description: Authorization error. Check your access_token.
+          content:
+            text/html: {}
+    servers:
+      - url: https://upload.wistia.com
 components:
   schemas:
     Account:
@@ -6371,6 +6467,26 @@ components:
             mobile:
               type: boolean
           description: Details about the user agent of the viewer.
+    CommonUploadProperties:
+      type: object
+      properties:
+        project_id:
+          type: string
+          description: The hashed id of the project to upload media into.
+        name:
+          type: string
+          maxLength: 255
+          description: A display name to use for the media in Wistia.
+        description:
+          type: string
+          description: A description to use for the media in Wistia.
+        contact_id:
+          type: integer
+          description: A Wistia contact id.
+        access_token:
+          type: string
+          deprecated: true
+          description: A 64 character hex string. This parameter can be found on your API access page OR can be the token you received from authenticating via Oauth2. Note this approach is legacy and discouraged. We recommend using Bearer Token authentication.
   securitySchemes:
     BearerAuth:
       type: http
@@ -6529,3 +6645,7 @@ x-tagGroups:
       - Stats:Media
       - Stats:Visitors
       - Stats:Events
+security:
+  - BearerAuth: []
+servers:
+  - url: https://api.wistia.com/v1
