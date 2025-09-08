@@ -1,21 +1,21 @@
-speakeasyVersion: 1.611.0
+speakeasyVersion: 1.613.0
 sources:
     Data API:
         sourceNamespace: data-api
-        sourceRevisionDigest: sha256:59f9cebcca1650cc546de2a9f5fa41e73403dea524b1dd88e42d6c6c96878dd8
-        sourceBlobDigest: sha256:50dd4bb65d3cd19d184dd9d3e780dc70cc81f200f5f25bc7c90527674109fe94
+        sourceRevisionDigest: sha256:58fe3768de92469211576050bcb68102547df886b607b81ecfd4f9c7ac7968c7
+        sourceBlobDigest: sha256:c17f163e496dd99671497e34fc51e763e4519c82f6360f64557d38ec77ff3f12
         tags:
             - latest
-            - speakeasy-sdk-regen-1757098599
+            - speakeasy-sdk-regen-1757367419
             - 1.0.0
 targets:
     wistia:
         source: Data API
         sourceNamespace: data-api
-        sourceRevisionDigest: sha256:59f9cebcca1650cc546de2a9f5fa41e73403dea524b1dd88e42d6c6c96878dd8
-        sourceBlobDigest: sha256:50dd4bb65d3cd19d184dd9d3e780dc70cc81f200f5f25bc7c90527674109fe94
+        sourceRevisionDigest: sha256:58fe3768de92469211576050bcb68102547df886b607b81ecfd4f9c7ac7968c7
+        sourceBlobDigest: sha256:c17f163e496dd99671497e34fc51e763e4519c82f6360f64557d38ec77ff3f12
         codeSamplesNamespace: data-api-typescript-code-samples
-        codeSamplesRevisionDigest: sha256:028fd824bc56ba548e4281227957f0ed35dca4f050d225c14694a0cbf1fe07d3
+        codeSamplesRevisionDigest: sha256:0037e4c96eea42a5141007a30afbff8a33ae9f58e703634125cbc86bcc91c776
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
@@ -23,8 +23,10 @@ workflow:
         Data API:
             inputs:
                 - location: https://wistia.github.io/wistia/api/openapi.yaml
+                - location: https://wistia.github.io/wistia/api/openapi-upload.yaml
             overlays:
                 - location: .speakeasy/speakeasy-modifications-overlay.yaml
+                - location: .speakeasy/servers-overlay.yaml
             output: .speakeasy/out.openapi.yaml
             registry:
                 location: registry.speakeasyapi.dev/wistia/wistia/data-api

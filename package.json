@@ -1,6 +1,6 @@
 {
   "name": "@wistia/wistia-api-client",
-  "version": "2025.9.6",
+  "version": "2025.9.7",
   "author": "Speakeasy",
   "type": "module",
   "tshy": {

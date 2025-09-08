@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 7b32ab6a-5908-41aa-b82f-7906605d30ce
 management:
-  docChecksum: dbf072b643bcd0d287b18406e0382af3
+  docChecksum: 319bc7f3d5764f9a09d0938d768d4d28
   docVersion: 1.0.0
-  speakeasyVersion: 1.611.0
-  generationVersion: 2.694.1
-  releaseVersion: 2025.9.6
-  configChecksum: 6736c7fb21b6397840412d221c119e0c
+  speakeasyVersion: 1.613.0
+  generationVersion: 2.696.0
+  releaseVersion: 2025.9.7
+  configChecksum: 54e275be149934f4aefe78841c397eea
   repoURL: https://github.com/speakeasy-sdks/wistia-typescript-sdk.git
   installationURL: https://github.com/speakeasy-sdks/wistia-typescript-sdk
   published: true
@@ -27,6 +27,7 @@ features:
     globalServerURLs: 2.82.5
     groups: 2.81.2
     methodArguments: 0.1.2
+    methodServerURLs: 2.82.1
     nameOverrides: 2.81.2
     nullables: 0.1.1
     responseFormat: 0.2.3
@@ -92,12 +93,14 @@ generatedFiles:
   - docs/models/errors/methodnotallowederror.md
   - docs/models/errors/notimplementederror.md
   - docs/models/errors/postalloweddomainsbadrequesterror.md
+  - docs/models/errors/postformbadrequesterror.md
   - docs/models/errors/postlivestreameventsforbiddenerror.md
   - docs/models/errors/postlivestreameventsunprocessableentityerror.md
   - docs/models/errors/postmediasmediahashedidcaptionspurchaseunprocessableentityerror.md
   - docs/models/errors/postmediasmediahashedidcopybadrequesterror.md
   - docs/models/errors/postmediasmediahashedidlocalizationsunprocessableentityerror.md
   - docs/models/errors/postmediasmediahashedidtranslateunprocessableentityerror.md
+  - docs/models/errors/postmultipartbadrequesterror.md
   - docs/models/errors/postprojectsprojectidsubfoldersnotfounderror.md
   - docs/models/errors/posttagsbadrequesterror.md
   - docs/models/errors/posttagsunprocessableentityerror.md
@@ -148,6 +151,7 @@ generatedFiles:
   - docs/models/operations/deletetagsnamerequest.md
   - docs/models/operations/descriptionformat.md
   - docs/models/operations/enabled.md
+  - docs/models/operations/filet.md
   - docs/models/operations/filter.md
   - docs/models/operations/getalloweddomainsdomainrequest.md
   - docs/models/operations/getalloweddomainsrequest.md
@@ -202,6 +206,9 @@ generatedFiles:
   - docs/models/operations/postalloweddomainsrequest.md
   - docs/models/operations/postchannelschannelhashedidchannelepisodesrequest.md
   - docs/models/operations/postexpiringtokenrequest.md
+  - docs/models/operations/postformerror.md
+  - docs/models/operations/postformrequest.md
+  - docs/models/operations/postformresponse.md
   - docs/models/operations/postmediasmediahashedidcaptionsmultipartcaptionfile.md
   - docs/models/operations/postmediasmediahashedidcaptionsmultipartrequest.md
   - docs/models/operations/postmediasmediahashedidcaptionsmultipartrequestbody.md
@@ -221,6 +228,9 @@ generatedFiles:
   - docs/models/operations/postmediasmediahashedidtrimsrequest.md
   - docs/models/operations/postmediasmediahashedidtrimsresponse.md
   - docs/models/operations/postmediasmediaidcustomizationsrequest.md
+  - docs/models/operations/postmultiparterror.md
+  - docs/models/operations/postmultipartrequest.md
+  - docs/models/operations/postmultipartresponse.md
   - docs/models/operations/postprojectsidcopyrequest.md
   - docs/models/operations/postprojectsidcopyrequestbody.md
   - docs/models/operations/postprojectsidcopyresponse.md
@@ -333,6 +343,7 @@ generatedFiles:
   - docs/sdks/subfolders/README.md
   - docs/sdks/tags/README.md
   - docs/sdks/trims/README.md
+  - docs/sdks/uploadorimportmedia/README.md
   - docs/sdks/wistia/README.md
   - docs/types/rfcdate.md
   - eslint.config.mjs
@@ -415,6 +426,8 @@ generatedFiles:
   - src/funcs/tagsDelete.ts
   - src/funcs/tagsList.ts
   - src/funcs/trimsCreate.ts
+  - src/funcs/uploadOrImportMediaPostForm.ts
+  - src/funcs/uploadOrImportMediaPostMultipart.ts
   - src/hooks/hooks.ts
   - src/hooks/index.ts
   - src/hooks/types.ts
@@ -463,11 +476,13 @@ generatedFiles:
   - src/models/errors/index.ts
   - src/models/errors/postalloweddomains.ts
   - src/models/errors/postexpiringtoken.ts
+  - src/models/errors/postform.ts
   - src/models/errors/postlivestreamevents.ts
   - src/models/errors/postmediasmediahashedidcaptionspurchase.ts
   - src/models/errors/postmediasmediahashedidcopy.ts
   - src/models/errors/postmediasmediahashedidlocalizations.ts
   - src/models/errors/postmediasmediahashedidtranslate.ts
+  - src/models/errors/postmultipart.ts
   - src/models/errors/postprojectsprojectidsubfolders.ts
   - src/models/errors/posttags.ts
   - src/models/errors/putlivestreameventsid.ts
@@ -541,6 +556,7 @@ generatedFiles:
   - src/models/operations/postalloweddomains.ts
   - src/models/operations/postchannelschannelhashedidchannelepisodes.ts
   - src/models/operations/postexpiringtoken.ts
+  - src/models/operations/postform.ts
   - src/models/operations/postmediasmediahashedidcaptions.ts
   - src/models/operations/postmediasmediahashedidcaptionsmultipart.ts
   - src/models/operations/postmediasmediahashedidcaptionspurchase.ts
@@ -549,6 +565,7 @@ generatedFiles:
   - src/models/operations/postmediasmediahashedidtranslate.ts
   - src/models/operations/postmediasmediahashedidtrims.ts
   - src/models/operations/postmediasmediaidcustomizations.ts
+  - src/models/operations/postmultipart.ts
   - src/models/operations/postprojectsidcopy.ts
   - src/models/operations/postprojectsprojectidsharings.ts
   - src/models/operations/postprojectsprojectidsubfolders.ts
@@ -615,6 +632,7 @@ generatedFiles:
   - src/sdk/subfolders.ts
   - src/sdk/tags.ts
   - src/sdk/trims.ts
+  - src/sdk/uploadorimportmedia.ts
   - src/types/async.ts
   - src/types/blobs.ts
   - src/types/constdatetime.ts
@@ -1626,137 +1644,5 @@ examples:
 examplesVersion: 1.0.2
 releaseNotes: |
   ## Typescript SDK Changes Detected:
-  * `wistia.projects.list()`: **Added**
-  * `wistia.projects.create()`: **Added**
-  * `wistia.projects.get()`: **Added**
-  * `wistia.projects.update()`: **Added**
-  * `wistia.projects.delete()`: **Added**
-  * `wistia.projects.copy()`: **Added**
-  * `wistia.projectSharings.list()`: **Added**
-  * `wistia.projectSharings.create()`: **Added**
-  * `wistia.projectSharings.get()`: **Added**
-  * `wistia.projectSharings.update()`: **Added**
-  * `wistia.projectSharings.delete()`: **Added**
-  * `wistia.media.list()`: **Added**
-  * `wistia.media.get()`: **Added**
-  * `wistia.media.update()`: **Added**
-  * `wistia.media.delete()`: **Added**
-  * `wistia.media.copy()`: **Added**
-  * `wistia.media.stats()`: **Added**
-  * `wistia.media.translate()`: **Added**
-  * `wistia.media.archive()`: **Added**
-  * `wistia.media.move()`: **Added**
-  * `wistia.media.restore()`: **Added**
-  * `wistia.medias.swap()`: **Added**
-  * `wistia.account.get()`: **Added**
-  * `wistia.allowedDomains.list()`: **Added**
-  * `wistia.allowedDomains.create()`: **Added**
-  * `wistia.allowedDomains.get()`: **Added**
-  * `wistia.allowedDomains.delete()`: **Added**
-  * `wistia.backgroundJobStatus.get()`: **Added**
-  * `wistia.customizations.get()`: **Added**
-  * `wistia.customizations.create()`: **Added**
-  * `wistia.customizations.update()`: **Added**
-  * `wistia.customizations.delete()`: **Added**
-  * `wistia.captions.list()`: **Added**
-  * `wistia.captions.createMultipart()`: **Added**
-  * `wistia.captions.create()`: **Added**
-  * `wistia.captions.purchase()`: **Added**
-  * `wistia.captions.get()`: **Added**
-  * `wistia.captions.update()`: **Added**
-  * `wistia.captions.updateMultipart()`: **Added**
-  * `wistia.captions.delete()`: **Added**
-  * `wistia.trims.create()`: **Added**
-  * `wistia.localizations.list()`: **Added**
-  * `wistia.localizations.create()`: **Added**
-  * `wistia.localizations.get()`: **Added**
-  * `wistia.localizations.delete()`: **Added**
-  * `wistia.tags.list()`: **Added**
-  * `wistia.tags.create()`: **Added**
-  * `wistia.tags.delete()`: **Added**
-  * `wistia.search.search()`: **Added**
-  * `wistia.channels.list()`: **Added**
-  * `wistia.channels.get()`: **Added**
-  * `wistia.channels.episodes.list()`: **Added**
-  * `wistia.channelEpisodes.get()`: **Added**
-  * `wistia.channelEpisodes.create()`: **Added**
-  * `wistia.channelEpisodes.list()`: **Added**
-  * `wistia.expiringAccessTokens.create()`: **Added**
-  * `wistia.liveStreamEvents.list()`: **Added**
-  * `wistia.liveStreamEvents.create()`: **Added**
-  * `wistia.liveStreamEvents.get()`: **Added**
-  * `wistia.liveStreamEvents.update()`: **Added**
-  * `wistia.liveStreamEvents.delete()`: **Added**
-  * `wistia.statsAccount.get()`: **Added**
-  * `wistia.statsMedia.getByDate()`: **Added**
-  * `wistia.statsVisitors.list()`: **Added**
-  * `wistia.statsVisitors.get()`: **Added**
-  * `wistia.statsEvents.list()`: **Added**
-  * `wistia.statsEvents.get()`: **Added**
-  * `wistia.projects.get/projects()`: **Deleted** **Breaking** :warning:
-  * `wistia.projects.post/projects()`: **Deleted** **Breaking** :warning:
-  * `wistia.projects.get/projects/{id}()`: **Deleted** **Breaking** :warning:
-  * `wistia.projects.put/projects/{id}()`: **Deleted** **Breaking** :warning:
-  * `wistia.projects.delete/projects/{id}()`: **Deleted** **Breaking** :warning:
-  * `wistia.projects.post/projects/{id}/copy()`: **Deleted** **Breaking** :warning:
-  * `wistia.projectSharings.get/projects/{projectId}/sharings()`: **Deleted** **Breaking** :warning:
-  * `wistia.projectSharings.post/projects/{projectId}/sharings()`: **Deleted** **Breaking** :warning:
-  * `wistia.projectSharings.get/projects/{projectId}/sharings/{sharingId}()`: **Deleted** **Breaking** :warning:
-  * `wistia.projectSharings.put/projects/{projectId}/sharings/{sharingId}()`: **Deleted** **Breaking** :warning:
-  * `wistia.projectSharings.delete/projects/{projectId}/sharings/{sharingId}()`: **Deleted** **Breaking** :warning:
-  * `wistia.media.get/medias()`: **Deleted** **Breaking** :warning:
-  * `wistia.media.get/medias/{mediaHashedId}()`: **Deleted** **Breaking** :warning:
-  * `wistia.media.put/medias/{mediaHashedId}()`: **Deleted** **Breaking** :warning:
-  * `wistia.media.delete/medias/{mediaHashedId}()`: **Deleted** **Breaking** :warning:
-  * `wistia.media.post/medias/{mediaHashedId}/copy()`: **Deleted** **Breaking** :warning:
-  * `wistia.media.put/medias/{mediaHashedId}/swap()`: **Deleted** **Breaking** :warning:
-  * `wistia.media.get/medias/{mediaHashedId}/stats()`: **Deleted** **Breaking** :warning:
-  * `wistia.media.post/medias/{mediaHashedId}/translate()`: **Deleted** **Breaking** :warning:
-  * `wistia.media.put/medias/archive()`: **Deleted** **Breaking** :warning:
-  * `wistia.media.put/medias/move()`: **Deleted** **Breaking** :warning:
-  * `wistia.media.put/medias/restore()`: **Deleted** **Breaking** :warning:
-  * `wistia.account.getAccountDetails()`: **Deleted** **Breaking** :warning:
-  * `wistia.allowedDomains.get/allowedDomains()`: **Deleted** **Breaking** :warning:
-  * `wistia.allowedDomains.post/allowedDomains()`: **Deleted** **Breaking** :warning:
-  * `wistia.allowedDomains.get/allowedDomains/{domain}()`: **Deleted** **Breaking** :warning:
-  * `wistia.allowedDomains.delete/allowedDomains/{domain}()`: **Deleted** **Breaking** :warning:
-  * `wistia.backgroundJobStatus.get/backgroundJobStatus/{backgroundJobStatusId}()`: **Deleted** **Breaking** :warning:
-  * `wistia.customizations.get/medias/{mediaId}/customizations()`: **Deleted** **Breaking** :warning:
-  * `wistia.customizations.post/medias/{mediaId}/customizations()`: **Deleted** **Breaking** :warning:
-  * `wistia.customizations.put/medias/{mediaId}/customizations()`: **Deleted** **Breaking** :warning:
-  * `wistia.customizations.delete/medias/{mediaId}/customizations()`: **Deleted** **Breaking** :warning:
-  * `wistia.captions.get/medias/{mediaHashedId}/captions()`: **Deleted** **Breaking** :warning:
-  * `wistia.captions.post/medias/{mediaHashedId}/captionsMultipart()`: **Deleted** **Breaking** :warning:
-  * `wistia.captions.post/medias/{mediaHashedId}/captions()`: **Deleted** **Breaking** :warning:
-  * `wistia.captions.post/medias/{mediaHashedId}/captions/purchase()`: **Deleted** **Breaking** :warning:
-  * `wistia.captions.get/medias/{mediaHashedId}/captions/{languageCode}()`: **Deleted** **Breaking** :warning:
-  * `wistia.captions.put/medias/{mediaHashedId}/captions/{languageCode}()`: **Deleted** **Breaking** :warning:
-  * `wistia.captions.put/medias/{mediaHashedId}/captions/{languageCode}Multipart()`: **Deleted** **Breaking** :warning:
-  * `wistia.captions.delete/medias/{mediaHashedId}/captions/{languageCode}()`: **Deleted** **Breaking** :warning:
-  * `wistia.trims.post/medias/{mediaHashedId}/trims()`: **Deleted** **Breaking** :warning:
-  * `wistia.localizations.get/medias/{mediaHashedId}/localizations()`: **Deleted** **Breaking** :warning:
-  * `wistia.localizations.post/medias/{mediaHashedId}/localizations()`: **Deleted** **Breaking** :warning:
-  * `wistia.localizations.get/medias/{mediaHashedId}/localizations/{localizationHashedId}()`: **Deleted** **Breaking** :warning:
-  * `wistia.localizations.delete/medias/{mediaHashedId}/localizations/{localizationHashedId}()`: **Deleted** **Breaking** :warning:
-  * `wistia.tags.get/tags()`: **Deleted** **Breaking** :warning:
-  * `wistia.tags.post/tags()`: **Deleted** **Breaking** :warning:
-  * `wistia.tags.delete/tags/{name}()`: **Deleted** **Breaking** :warning:
-  * `wistia.search.get/search()`: **Deleted** **Breaking** :warning:
-  * `wistia.channels.get/channels()`: **Deleted** **Breaking** :warning:
-  * `wistia.channels.get/channels/{channelHashedId}()`: **Deleted** **Breaking** :warning:
-  * `wistia.channelEpisodes.get/channels/{channelHashedId}/channelEpisodes/{channelEpisodeId}()`: **Deleted** **Breaking** :warning:
-  * `wistia.channelEpisodes.get/channels/{channelHashedId}/channelEpisodes()`: **Deleted** **Breaking** :warning:
-  * `wistia.channelEpisodes.post/channels/{channelHashedId}/channelEpisodes()`: **Deleted** **Breaking** :warning:
-  * `wistia.channelEpisodes.get/channelEpisodes()`: **Deleted** **Breaking** :warning:
-  * `wistia.expiringAccessTokens.post/expiringToken()`: **Deleted** **Breaking** :warning:
-  * `wistia.liveStreamEvents.get/liveStreamEvents()`: **Deleted** **Breaking** :warning:
-  * `wistia.liveStreamEvents.post/liveStreamEvents()`: **Deleted** **Breaking** :warning:
-  * `wistia.liveStreamEvents.get/liveStreamEvents/{id}()`: **Deleted** **Breaking** :warning:
-  * `wistia.liveStreamEvents.put/liveStreamEvents/{id}()`: **Deleted** **Breaking** :warning:
-  * `wistia.liveStreamEvents.delete/liveStreamEvents/{id}()`: **Deleted** **Breaking** :warning:
-  * `wistia.stats:account.get/stats/account()`: **Deleted** **Breaking** :warning:
-  * `wistia.stats:media.get/stats/medias/{mediaId}/byDate()`: **Deleted** **Breaking** :warning:
-  * `wistia.stats:visitors.get/stats/visitors()`: **Deleted** **Breaking** :warning:
-  * `wistia.stats:visitors.get/stats/visitors/{visitorKey}()`: **Deleted** **Breaking** :warning:
-  * `wistia.stats:events.get/stats/events()`: **Deleted** **Breaking** :warning:
-  * `wistia.stats:events.get/stats/events/{eventKey}()`: **Deleted** **Breaking** :warning:
+  * `wistia.uploadOrImportMedia.post/Multipart()`: **Added**
+  * `wistia.uploadOrImportMedia.post/Form()`: **Added**
