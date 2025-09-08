@@ -9,7 +9,7 @@ let value: PostProjectsProjectIdSharingsRequest = {
   projectId: "<id>",
   createProjectSharing: {
     sharing: {
-      with: "Orlando.Dietrich-Blick44@yahoo.com",
+      with: "Ada67@yahoo.com",
       requirePassword: false,
       canShare: false,
       canDownload: false,
