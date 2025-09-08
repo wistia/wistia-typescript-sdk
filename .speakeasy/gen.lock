@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 7b32ab6a-5908-41aa-b82f-7906605d30ce
 management:
-  docChecksum: 319bc7f3d5764f9a09d0938d768d4d28
+  docChecksum: bfc5aafd086ad891c4a12ebc86559f36
   docVersion: 1.0.0
   speakeasyVersion: 1.613.0
   generationVersion: 2.696.0
-  releaseVersion: 2025.9.7
-  configChecksum: 54e275be149934f4aefe78841c397eea
+  releaseVersion: 2025.9.11
+  configChecksum: dfdac2b9748e221ea23d26355487a6d3
   repoURL: https://github.com/speakeasy-sdks/wistia-typescript-sdk.git
   installationURL: https://github.com/speakeasy-sdks/wistia-typescript-sdk
   published: true
@@ -343,14 +343,13 @@ generatedFiles:
   - docs/sdks/subfolders/README.md
   - docs/sdks/tags/README.md
   - docs/sdks/trims/README.md
-  - docs/sdks/uploadorimportmedia/README.md
   - docs/sdks/wistia/README.md
   - docs/types/rfcdate.md
   - eslint.config.mjs
   - examples/.env.template
   - examples/README.md
+  - examples/mediaUploadMultipart.example.ts
   - examples/package.json
-  - examples/projectsList.example.ts
   - jsr.json
   - package.json
   - src/core.ts
@@ -398,6 +397,8 @@ generatedFiles:
   - src/funcs/mediaStats.ts
   - src/funcs/mediaTranslate.ts
   - src/funcs/mediaUpdate.ts
+  - src/funcs/mediaUploadForm.ts
+  - src/funcs/mediaUploadMultipart.ts
   - src/funcs/mediasSwap.ts
   - src/funcs/projectSharingsCreate.ts
   - src/funcs/projectSharingsDelete.ts
@@ -426,8 +427,6 @@ generatedFiles:
   - src/funcs/tagsDelete.ts
   - src/funcs/tagsList.ts
   - src/funcs/trimsCreate.ts
-  - src/funcs/uploadOrImportMediaPostForm.ts
-  - src/funcs/uploadOrImportMediaPostMultipart.ts
   - src/hooks/hooks.ts
   - src/hooks/index.ts
   - src/hooks/types.ts
@@ -632,7 +631,6 @@ generatedFiles:
   - src/sdk/subfolders.ts
   - src/sdk/tags.ts
   - src/sdk/trims.ts
-  - src/sdk/uploadorimportmedia.ts
   - src/types/async.ts
   - src/types/blobs.ts
   - src/types/constdatetime.ts
@@ -1642,7 +1640,3 @@ examples:
         "400":
           application/json: {}
 examplesVersion: 1.0.2
-releaseNotes: |
-  ## Typescript SDK Changes Detected:
-  * `wistia.uploadOrImportMedia.post/Multipart()`: **Added**
-  * `wistia.uploadOrImportMedia.post/Form()`: **Added**

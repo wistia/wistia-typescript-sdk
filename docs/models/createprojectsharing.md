@@ -7,7 +7,7 @@ import { CreateProjectSharing } from "@wistia/wistia-api-client/models";
 
 let value: CreateProjectSharing = {
   sharing: {
-    with: "Orlando.Dietrich-Blick44@yahoo.com",
+    with: "Ada67@yahoo.com",
     requirePassword: false,
     canShare: false,
     canDownload: false,

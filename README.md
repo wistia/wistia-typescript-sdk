@@ -11,7 +11,7 @@
 <!-- Start Summary [summary] -->
 ## Summary
 
-
+Data API: Wistia Data API
 <!-- End Summary [summary] -->
 
 <!-- Start Table of Contents [toc] -->
@@ -84,13 +84,16 @@ For supported JavaScript runtimes, please consult [RUNTIMES.md](RUNTIMES.md).
 
 ```typescript
 import { Wistia } from "@wistia/wistia-api-client";
+import { openAsBlob } from "node:fs";
 
 const wistia = new Wistia({
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const result = await wistia.projects.list();
+  const result = await wistia.media.uploadMultipart({
+    file: await openAsBlob("example.file"),
+  });
 
   console.log(result);
 }
@@ -114,13 +117,16 @@ This SDK supports the following security scheme globally:
 To authenticate with the API the `bearerAuth` parameter must be set when initializing the SDK client instance. For example:
 ```typescript
 import { Wistia } from "@wistia/wistia-api-client";
+import { openAsBlob } from "node:fs";
 
 const wistia = new Wistia({
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const result = await wistia.projects.list();
+  const result = await wistia.media.uploadMultipart({
+    file: await openAsBlob("example.file"),
+  });
 
   console.log(result);
 }
@@ -205,6 +211,8 @@ run();
 
 ### [media](docs/sdks/media/README.md)
 
+* [uploadMultipart](docs/sdks/media/README.md#uploadmultipart) - Upload or Import Media
+* [uploadForm](docs/sdks/media/README.md#uploadform) - Upload or Import Media
 * [list](docs/sdks/media/README.md#list) - Media List
 * [get](docs/sdks/media/README.md#get) - Media Show
 * [update](docs/sdks/media/README.md#update) - Media Update
@@ -277,11 +285,6 @@ run();
 
 * [create](docs/sdks/trims/README.md#create) - Trims Create
 
-### [uploadOrImportMedia](docs/sdks/uploadorimportmedia/README.md)
-
-* [postMultipart](docs/sdks/uploadorimportmedia/README.md#postmultipart) - Upload or Import Media
-* [postForm](docs/sdks/uploadorimportmedia/README.md#postform) - Upload or Import Media
-
 
 </details>
 <!-- End Available Resources and Operations [operations] -->
@@ -346,6 +349,8 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`mediaStats`](docs/sdks/media/README.md#stats) - Media Stats
 - [`mediaTranslate`](docs/sdks/media/README.md#translate) - Media Translate
 - [`mediaUpdate`](docs/sdks/media/README.md#update) - Media Update
+- [`mediaUploadForm`](docs/sdks/media/README.md#uploadform) - Upload or Import Media
+- [`mediaUploadMultipart`](docs/sdks/media/README.md#uploadmultipart) - Upload or Import Media
 - [`projectsCopy`](docs/sdks/projects/README.md#copy) - Project Copy
 - [`projectsCreate`](docs/sdks/projects/README.md#create) - Project Create
 - [`projectsDelete`](docs/sdks/projects/README.md#delete) - Project Delete
@@ -373,8 +378,6 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`tagsDelete`](docs/sdks/tags/README.md#delete) - Tags Delete
 - [`tagsList`](docs/sdks/tags/README.md#list) - Tags List
 - [`trimsCreate`](docs/sdks/trims/README.md#create) - Trims Create
-- [`uploadOrImportMediaPostForm`](docs/sdks/uploadorimportmedia/README.md#postform) - Upload or Import Media
-- [`uploadOrImportMediaPostMultipart`](docs/sdks/uploadorimportmedia/README.md#postmultipart) - Upload or Import Media
 
 </details>
 <!-- End Standalone functions [standalone-funcs] -->
@@ -402,12 +405,11 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  await wistia.captions.createMultipart({
-    mediaHashedId: "<id>",
-    requestBody: {
-      captionFile: await openAsBlob("example.file"),
-    },
+  const result = await wistia.media.uploadMultipart({
+    file: await openAsBlob("example.file"),
   });
+
+  console.log(result);
 }
 
 run();
@@ -423,13 +425,16 @@ Some of the endpoints in this SDK support retries.  If you use the SDK without a
 To change the default retry strategy for a single API call, simply provide a retryConfig object to the call:
 ```typescript
 import { Wistia } from "@wistia/wistia-api-client";
+import { openAsBlob } from "node:fs";
 
 const wistia = new Wistia({
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const result = await wistia.projects.list({
+  const result = await wistia.media.uploadMultipart({
+    file: await openAsBlob("example.file"),
+  }, {
     retries: {
       strategy: "backoff",
       backoff: {
@@ -452,6 +457,7 @@ run();
 If you'd like to override the default retry strategy for all operations that support retries, you can provide a retryConfig at SDK initialization:
 ```typescript
 import { Wistia } from "@wistia/wistia-api-client";
+import { openAsBlob } from "node:fs";
 
 const wistia = new Wistia({
   retryConfig: {
@@ -468,7 +474,9 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.projects.list();
+  const result = await wistia.media.uploadMultipart({
+    file: await openAsBlob("example.file"),
+  });
 
   console.log(result);
 }
@@ -496,6 +504,7 @@ run();
 ```typescript
 import { Wistia } from "@wistia/wistia-api-client";
 import * as errors from "@wistia/wistia-api-client/models/errors";
+import { openAsBlob } from "node:fs";
 
 const wistia = new Wistia({
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
@@ -503,7 +512,9 @@ const wistia = new Wistia({
 
 async function run() {
   try {
-    const result = await wistia.projects.list();
+    const result = await wistia.media.uploadMultipart({
+      file: await openAsBlob("example.file"),
+    });
 
     console.log(result);
   } catch (error) {
@@ -515,8 +526,8 @@ async function run() {
       console.log(error.headers);
 
       // Depending on the method different errors may be thrown
-      if (error instanceof errors.FourHundredAndOneError) {
-        console.log(error.data$.error); // string
+      if (error instanceof errors.PostMultipartBadRequestError) {
+        console.log(error.data$.error); // operations.PostMultipartError
       }
     }
   }
@@ -548,14 +559,14 @@ run();
 * [`FourHundredAndFourError`](./src/models/errors/fourhundredandfourerror.ts): Resource not found. Status code `404`. Applicable to 24 of 74 methods.*
 * [`FourHundredError`](./src/models/errors/fourhundrederror.ts): Bad request. Status code `400`. Applicable to 6 of 74 methods.*
 * [`FourHundredAndTwentyTwoError`](./src/models/errors/fourhundredandtwentytwoerror.ts): Unprocessible entity, parameters provided were invalid. Status code `422`. Applicable to 2 of 74 methods.*
+* [`PostMultipartBadRequestError`](./src/models/errors/postmultipartbadrequesterror.ts): Error due to reaching the video limit of your account or other issues. Status code `400`. Applicable to 1 of 74 methods.*
+* [`PostFormBadRequestError`](./src/models/errors/postformbadrequesterror.ts): Error due to reaching the video limit of your account or other issues. Status code `400`. Applicable to 1 of 74 methods.*
 * [`PostMediasMediaHashedIdCopyBadRequestError`](./src/models/errors/postmediasmediahashedidcopybadrequesterror.ts): Bad request, e.g. copy failure. Status code `400`. Applicable to 1 of 74 methods.*
 * [`PutMediasMoveBadRequestError`](./src/models/errors/putmediasmovebadrequesterror.ts): Invalid request. Status code `400`. Applicable to 1 of 74 methods.*
 * [`PutMediasMediaHashedIdSwapBadRequestError`](./src/models/errors/putmediasmediahashedidswapbadrequesterror.ts): Bad request, e.g. missing replacement_media_id or media type mismatch. Status code `400`. Applicable to 1 of 74 methods.*
 * [`PostAllowedDomainsBadRequestError`](./src/models/errors/postalloweddomainsbadrequesterror.ts): Bad request - missing or invalid domain. Status code `400`. Applicable to 1 of 74 methods.*
 * [`PostTagsBadRequestError`](./src/models/errors/posttagsbadrequesterror.ts): Bad request - missing or invalid parameters. Status code `400`. Applicable to 1 of 74 methods.*
 * [`GetSearchBadRequestError`](./src/models/errors/getsearchbadrequesterror.ts): Bad request - missing query parameter. Status code `400`. Applicable to 1 of 74 methods.*
-* [`PostMultipartBadRequestError`](./src/models/errors/postmultipartbadrequesterror.ts): Error due to reaching the video limit of your account or other issues. Status code `400`. Applicable to 1 of 74 methods.*
-* [`PostFormBadRequestError`](./src/models/errors/postformbadrequesterror.ts): Error due to reaching the video limit of your account or other issues. Status code `400`. Applicable to 1 of 74 methods.*
 * [`PutMediasArchiveForbiddenError`](./src/models/errors/putmediasarchiveforbiddenerror.ts): Forbidden, e.g. account does not have access to archiving. Status code `403`. Applicable to 1 of 74 methods.*
 * [`PutMediasRestoreForbiddenError`](./src/models/errors/putmediasrestoreforbiddenerror.ts): Forbidden, e.g. account does not have access to archiving. Status code `403`. Applicable to 1 of 74 methods.*
 * [`GetBackgroundJobStatusBackgroundJobStatusIdForbiddenError`](./src/models/errors/getbackgroundjobstatusbackgroundjobstatusidforbiddenerror.ts): Background Job Status Not Associated with An Authorized Object. Status code `403`. Applicable to 1 of 74 methods.*
@@ -593,6 +604,7 @@ run();
 The default server can be overridden globally by passing a URL to the `serverURL: string` optional parameter when initializing the SDK client instance. For example:
 ```typescript
 import { Wistia } from "@wistia/wistia-api-client";
+import { openAsBlob } from "node:fs";
 
 const wistia = new Wistia({
   serverURL: "https://api.wistia.com/v1",
@@ -600,7 +612,9 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.projects.list();
+  const result = await wistia.media.uploadMultipart({
+    file: await openAsBlob("example.file"),
+  });
 
   console.log(result);
 }
@@ -621,7 +635,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.uploadOrImportMedia.postMultipart({
+  const result = await wistia.media.uploadMultipart({
     file: await openAsBlob("example.file"),
   }, {
     serverURL: "https://upload.wistia.com",
