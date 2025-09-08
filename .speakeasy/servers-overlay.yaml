@@ -1,0 +1,20 @@
+overlay: 1.0.0
+info:
+  title: Wistia API Servers Configuration Overlay
+  version: 1.0.0
+actions:
+  # Step 1: Remove all existing 'servers' entries throughout the document
+  - target: "$..servers"
+    remove: true
+
+  # Step 2: Add root-level 'servers' configuration (default for all endpoints)
+  - target: "$"
+    update:
+      servers:
+        - url: https://api.wistia.com/v1
+
+  # Step 3: Add back the specific 'servers' entry for the upload route
+  - target: "$.paths['/']"
+    update:
+      servers:
+        - url: https://upload.wistia.com
