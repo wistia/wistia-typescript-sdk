@@ -2,7 +2,7 @@ overlay: 1.0.0
 x-speakeasy-jsonpath: rfc9535
 info:
   title: Speakeasy Modifications
-  version: 0.0.5
+  version: 0.0.7
   x-speakeasy-metadata:
     after: ""
     before: ""
@@ -690,4 +690,14 @@ actions:
       before: sdk.Stats:Visitors.get_/stats/visitors/{visitor-key}()
       created_at: 1757098397555
       reviewed_at: 1757098404550
+      type: method-name
+  - target: $["paths"]["/"]["post"]
+    update:
+      x-speakeasy-group: media
+      x-speakeasy-name-override: upload
+    x-speakeasy-metadata:
+      after: sdk.media.upload()
+      before: sdk.Upload or Import Media.post_/()
+      created_at: 1757368383637
+      reviewed_at: 1757368434659
       type: method-name

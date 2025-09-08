@@ -20,7 +20,8 @@ specific category of applications.
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { projectsList } from "@wistia/wistia-api-client/funcs/projectsList.js";
+import { mediaUploadMultipart } from "@wistia/wistia-api-client/funcs/mediaUploadMultipart.js";
+import { openAsBlob } from "node:fs";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -29,12 +30,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await projectsList(wistia);
+  const res = await mediaUploadMultipart(wistia, {
+    file: await openAsBlob("example.file"),
+  });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("projectsList failed:", res.error);
+    console.log("mediaUploadMultipart failed:", res.error);
   }
 }
 
