@@ -25,6 +25,7 @@ import { StatsVisitors } from "./statsvisitors.js";
 import { Subfolders } from "./subfolders.js";
 import { Tags } from "./tags.js";
 import { Trims } from "./trims.js";
+import { UploadOrImportMedia } from "./uploadorimportmedia.js";
 
 export class Wistia extends ClientSDK {
   private _projects?: Projects;
@@ -139,5 +140,12 @@ export class Wistia extends ClientSDK {
   private _statsEvents?: StatsEvents;
   get statsEvents(): StatsEvents {
     return (this._statsEvents ??= new StatsEvents(this._options));
+  }
+
+  private _uploadOrImportMedia?: UploadOrImportMedia;
+  get uploadOrImportMedia(): UploadOrImportMedia {
+    return (this._uploadOrImportMedia ??= new UploadOrImportMedia(
+      this._options,
+    ));
   }
 }

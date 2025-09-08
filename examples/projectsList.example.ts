@@ -18,7 +18,7 @@ const wistia = new Wistia({
 });
 
 async function main() {
-  const result = await wistia.list();
+  const result = await wistia.projects.list();
 
   console.log(result);
 }
