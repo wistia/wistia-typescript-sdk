@@ -3,7 +3,11 @@
  */
 
 import { WistiaCore } from "../core.js";
-import { encodeBodyForm } from "../lib/encodings.js";
+import { appendForm } from "../lib/encodings.js";
+import {
+  getContentTypeFromFileName,
+  readableStreamToArrayBuffer,
+} from "../lib/files.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -22,9 +26,11 @@ import { ResponseValidationError } from "../models/errors/responsevalidationerro
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import { WistiaError } from "../models/errors/wistiaerror.js";
 import * as operations from "../models/operations/index.js";
-import { PostFormServerList } from "../models/operations/postform.js";
+import { PostMultipartServerList } from "../models/operations/postmultipart.js";
 import { APICall, APIPromise } from "../types/async.js";
+import { isBlobLike } from "../types/blobs.js";
 import { Result } from "../types/fp.js";
+import { isReadableStream } from "../types/streams.js";
 
 /**
  * Upload or Import Media
@@ -35,14 +41,14 @@ import { Result } from "../types/fp.js";
  * - Use `multipart/form-data` with a `file` parameter to upload from local system
  * - Use `application/x-www-form-urlencoded` with a `url` parameter to import from web URL
  */
-export function uploadOrImportMediaPostForm(
+export function mediaUploadMultipart(
   client: WistiaCore,
-  request?: operations.PostFormRequest | undefined,
+  request?: operations.PostMultipartRequest | undefined,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.PostFormResponse,
-    | errors.PostFormBadRequestError
+    operations.PostMultipartResponse,
+    | errors.PostMultipartBadRequestError
     | WistiaError
     | ResponseValidationError
     | ConnectionError
@@ -62,13 +68,13 @@ export function uploadOrImportMediaPostForm(
 
 async function $do(
   client: WistiaCore,
-  request?: operations.PostFormRequest | undefined,
+  request?: operations.PostMultipartRequest | undefined,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.PostFormResponse,
-      | errors.PostFormBadRequestError
+      operations.PostMultipartResponse,
+      | errors.PostMultipartBadRequestError
       | WistiaError
       | ResponseValidationError
       | ConnectionError
@@ -84,25 +90,56 @@ async function $do(
   const parsed = safeParse(
     request,
     (value) =>
-      operations.PostFormRequest$outboundSchema.optional().parse(value),
+      operations.PostMultipartRequest$outboundSchema.optional().parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
     return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
-
-  const body = Object.entries(payload || {}).map(([k, v]) => {
-    return encodeBodyForm(k, v, { charEncoding: "percent" });
-  }).join("&");
+  const body = new FormData();
+  if (payload != null) {
+    if (isBlobLike(payload?.file)) {
+      appendForm(body, "file", payload?.file);
+    } else if (isReadableStream(payload?.file.content)) {
+      const buffer = await readableStreamToArrayBuffer(payload?.file.content);
+      const contentType = getContentTypeFromFileName(payload?.file.fileName)
+        || "application/octet-stream";
+      const blob = new Blob([buffer], { type: contentType });
+      appendForm(body, "file", blob, payload?.file.fileName);
+    } else {
+      const contentType = getContentTypeFromFileName(payload?.file.fileName)
+        || "application/octet-stream";
+      appendForm(
+        body,
+        "file",
+        new Blob([payload?.file.content], { type: contentType }),
+        payload?.file.fileName,
+      );
+    }
+    if (payload?.access_token !== undefined) {
+      appendForm(body, "access_token", payload?.access_token);
+    }
+    if (payload?.contact_id !== undefined) {
+      appendForm(body, "contact_id", payload?.contact_id);
+    }
+    if (payload?.description !== undefined) {
+      appendForm(body, "description", payload?.description);
+    }
+    if (payload?.name !== undefined) {
+      appendForm(body, "name", payload?.name);
+    }
+    if (payload?.project_id !== undefined) {
+      appendForm(body, "project_id", payload?.project_id);
+    }
+  }
 
   const baseURL = options?.serverURL
-    || pathToFunc(PostFormServerList[0], { charEncoding: "percent" })();
+    || pathToFunc(PostMultipartServerList[0], { charEncoding: "percent" })();
 
   const path = pathToFunc("/")();
 
   const headers = new Headers(compactMap({
-    "Content-Type": "application/x-www-form-urlencoded",
     Accept: "application/json",
   }));
 
@@ -113,7 +150,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: baseURL ?? "",
-    operationID: "post_/_form",
+    operationID: "post_/_multipart",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -156,8 +193,8 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.PostFormResponse,
-    | errors.PostFormBadRequestError
+    operations.PostMultipartResponse,
+    | errors.PostMultipartBadRequestError
     | WistiaError
     | ResponseValidationError
     | ConnectionError
@@ -167,8 +204,8 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.PostFormResponse$inboundSchema),
-    M.jsonErr(400, errors.PostFormBadRequestError$inboundSchema),
+    M.json(200, operations.PostMultipartResponse$inboundSchema),
+    M.jsonErr(400, errors.PostMultipartBadRequestError$inboundSchema),
     M.fail([401, "4XX"]),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

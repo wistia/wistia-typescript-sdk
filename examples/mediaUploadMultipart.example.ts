@@ -8,17 +8,20 @@ dotenv.config();
  * Example usage of the @wistia/wistia-api-client SDK
  *
  * To run this example from the examples directory:
- * npm run build && npx tsx projectsList.example.ts
+ * npm run build && npx tsx mediaUploadMultipart.example.ts
  */
 
 import { Wistia } from "@wistia/wistia-api-client";
+import { openAsBlob } from "node:fs";
 
 const wistia = new Wistia({
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function main() {
-  const result = await wistia.projects.list();
+  const result = await wistia.media.uploadMultipart({
+    file: await openAsBlob("example.file"),
+  });
 
   console.log(result);
 }

@@ -12,12 +12,54 @@ import { mediaRestore } from "../funcs/mediaRestore.js";
 import { mediaStats } from "../funcs/mediaStats.js";
 import { mediaTranslate } from "../funcs/mediaTranslate.js";
 import { mediaUpdate } from "../funcs/mediaUpdate.js";
+import { mediaUploadForm } from "../funcs/mediaUploadForm.js";
+import { mediaUploadMultipart } from "../funcs/mediaUploadMultipart.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
 export class Media extends ClientSDK {
+  /**
+   * Upload or Import Media
+   *
+   * @remarks
+   * Endpoint to upload media files from a local system or import from a web URL.
+   *
+   * - Use `multipart/form-data` with a `file` parameter to upload from local system
+   * - Use `application/x-www-form-urlencoded` with a `url` parameter to import from web URL
+   */
+  async uploadMultipart(
+    request?: operations.PostMultipartRequest | undefined,
+    options?: RequestOptions,
+  ): Promise<operations.PostMultipartResponse> {
+    return unwrapAsync(mediaUploadMultipart(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Upload or Import Media
+   *
+   * @remarks
+   * Endpoint to upload media files from a local system or import from a web URL.
+   *
+   * - Use `multipart/form-data` with a `file` parameter to upload from local system
+   * - Use `application/x-www-form-urlencoded` with a `url` parameter to import from web URL
+   */
+  async uploadForm(
+    request?: operations.PostFormRequest | undefined,
+    options?: RequestOptions,
+  ): Promise<operations.PostFormResponse> {
+    return unwrapAsync(mediaUploadForm(
+      this,
+      request,
+      options,
+    ));
+  }
+
   /**
    * Media List
    *
