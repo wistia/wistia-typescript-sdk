@@ -155,37 +155,40 @@ run();
 
 ### [backgroundJobStatus](docs/sdks/backgroundjobstatus/README.md)
 
-* [getBackgroundJobStatusBackgroundJobStatusId](docs/sdks/backgroundjobstatus/README.md#getbackgroundjobstatusbackgroundjobstatusid) - Background Job Status Show
+* [get](docs/sdks/backgroundjobstatus/README.md#get) - Background Job Status Show
 
 ### [captions](docs/sdks/captions/README.md)
 
-* [getMediasMediaHashedIdCaptions](docs/sdks/captions/README.md#getmediasmediahashedidcaptions) - Captions List
-* [postMediasMediaHashedIdCaptionsMultipart](docs/sdks/captions/README.md#postmediasmediahashedidcaptionsmultipart) - Captions Create
-* [postMediasMediaHashedIdCaptions](docs/sdks/captions/README.md#postmediasmediahashedidcaptions) - Captions Create
-* [postMediasMediaHashedIdCaptionsPurchase](docs/sdks/captions/README.md#postmediasmediahashedidcaptionspurchase) - Captions Purchase
-* [getMediasMediaHashedIdCaptionsLanguageCode](docs/sdks/captions/README.md#getmediasmediahashedidcaptionslanguagecode) - Captions Show
-* [putMediasMediaHashedIdCaptionsLanguageCode](docs/sdks/captions/README.md#putmediasmediahashedidcaptionslanguagecode) - Captions Update
-* [putMediasMediaHashedIdCaptionsLanguageCodeMultipart](docs/sdks/captions/README.md#putmediasmediahashedidcaptionslanguagecodemultipart) - Captions Update
-* [deleteMediasMediaHashedIdCaptionsLanguageCode](docs/sdks/captions/README.md#deletemediasmediahashedidcaptionslanguagecode) - Captions Delete
+* [list](docs/sdks/captions/README.md#list) - Captions List
+* [createMultipart](docs/sdks/captions/README.md#createmultipart) - Captions Create
+* [create](docs/sdks/captions/README.md#create) - Captions Create
+* [purchase](docs/sdks/captions/README.md#purchase) - Captions Purchase
+* [get](docs/sdks/captions/README.md#get) - Captions Show
+* [update](docs/sdks/captions/README.md#update) - Captions Update
+* [updateMultipart](docs/sdks/captions/README.md#updatemultipart) - Captions Update
+* [delete](docs/sdks/captions/README.md#delete) - Captions Delete
 
 ### [channelEpisodes](docs/sdks/channelepisodes/README.md)
 
-* [getChannelsChannelHashedIdChannelEpisodesChannelEpisodeId](docs/sdks/channelepisodes/README.md#getchannelschannelhashedidchannelepisodeschannelepisodeid) - Channel Episodes Show
-* [getChannelsChannelHashedIdChannelEpisodes](docs/sdks/channelepisodes/README.md#getchannelschannelhashedidchannelepisodes) - Channel Episodes List filtered by channel
-* [postChannelsChannelHashedIdChannelEpisodes](docs/sdks/channelepisodes/README.md#postchannelschannelhashedidchannelepisodes) - Channel Episode Create
+* [get](docs/sdks/channelepisodes/README.md#get) - Channel Episodes Show
+* [create](docs/sdks/channelepisodes/README.md#create) - Channel Episode Create
 * [list](docs/sdks/channelepisodes/README.md#list) - Channel Episodes List
 
 ### [channels](docs/sdks/channels/README.md)
 
 * [list](docs/sdks/channels/README.md#list) - Channels List
-* [getChannelsChannelHashedId](docs/sdks/channels/README.md#getchannelschannelhashedid) - Channels Show
+* [get](docs/sdks/channels/README.md#get) - Channels Show
+
+#### [channels.channelEpisodes](docs/sdks/channelschannelepisodes/README.md)
+
+* [list](docs/sdks/channelschannelepisodes/README.md#list) - Channel Episodes List filtered by channel
 
 ### [customizations](docs/sdks/customizations/README.md)
 
-* [getMediasMediaIdCustomizations](docs/sdks/customizations/README.md#getmediasmediaidcustomizations) - Customizations Show
-* [postMediasMediaIdCustomizations](docs/sdks/customizations/README.md#postmediasmediaidcustomizations) - Customizations Create
-* [putMediasMediaIdCustomizations](docs/sdks/customizations/README.md#putmediasmediaidcustomizations) - Customizations Update
-* [deleteMediasMediaIdCustomizations](docs/sdks/customizations/README.md#deletemediasmediaidcustomizations) - Customizations Delete
+* [get](docs/sdks/customizations/README.md#get) - Customizations Show
+* [create](docs/sdks/customizations/README.md#create) - Customizations Create
+* [update](docs/sdks/customizations/README.md#update) - Customizations Update
+* [delete](docs/sdks/customizations/README.md#delete) - Customizations Delete
 
 ### [expiringAccessTokens](docs/sdks/expiringaccesstokens/README.md)
 
@@ -201,23 +204,23 @@ run();
 
 ### [localizations](docs/sdks/localizations/README.md)
 
-* [getMediasMediaHashedIdLocalizations](docs/sdks/localizations/README.md#getmediasmediahashedidlocalizations) - Localizations List
-* [postMediasMediaHashedIdLocalizations](docs/sdks/localizations/README.md#postmediasmediahashedidlocalizations) - Localizations Create
-* [getMediasMediaHashedIdLocalizationsLocalizationHashedId](docs/sdks/localizations/README.md#getmediasmediahashedidlocalizationslocalizationhashedid) - Localizations Show
-* [deleteMediasMediaHashedIdLocalizationsLocalizationHashedId](docs/sdks/localizations/README.md#deletemediasmediahashedidlocalizationslocalizationhashedid) - Localizations Delete
+* [list](docs/sdks/localizations/README.md#list) - Localizations List
+* [create](docs/sdks/localizations/README.md#create) - Localizations Create
+* [get](docs/sdks/localizations/README.md#get) - Localizations Show
+* [delete](docs/sdks/localizations/README.md#delete) - Localizations Delete
 
 ### [media](docs/sdks/media/README.md)
 
 * [uploadMultipart](docs/sdks/media/README.md#uploadmultipart) - Upload or Import Media
 * [uploadForm](docs/sdks/media/README.md#uploadform) - Upload or Import Media
 * [list](docs/sdks/media/README.md#list) - Media List
-* [getMediasMediaHashedId](docs/sdks/media/README.md#getmediasmediahashedid) - Media Show
-* [putMediasMediaHashedId](docs/sdks/media/README.md#putmediasmediahashedid) - Media Update
-* [deleteMediasMediaHashedId](docs/sdks/media/README.md#deletemediasmediahashedid) - Media Delete
-* [postMediasMediaHashedIdCopy](docs/sdks/media/README.md#postmediasmediahashedidcopy) - Media Copy
-* [putMediasMediaHashedIdSwap](docs/sdks/media/README.md#putmediasmediahashedidswap) - Media Swap
-* [getMediasMediaHashedIdStats](docs/sdks/media/README.md#getmediasmediahashedidstats) - Media Stats
-* [postMediasMediaHashedIdTranslate](docs/sdks/media/README.md#postmediasmediahashedidtranslate) - Media Translate
+* [get](docs/sdks/media/README.md#get) - Media Show
+* [update](docs/sdks/media/README.md#update) - Media Update
+* [delete](docs/sdks/media/README.md#delete) - Media Delete
+* [copy](docs/sdks/media/README.md#copy) - Media Copy
+* [swap](docs/sdks/media/README.md#swap) - Media Swap
+* [getStats](docs/sdks/media/README.md#getstats) - Media Stats
+* [translate](docs/sdks/media/README.md#translate) - Media Translate
 * [archive](docs/sdks/media/README.md#archive) - Medias Archive
 * [move](docs/sdks/media/README.md#move) - Media Move
 * [restore](docs/sdks/media/README.md#restore) - Media Restore
@@ -233,11 +236,11 @@ run();
 
 ### [projectSharings](docs/sdks/projectsharings/README.md)
 
-* [getProjectsProjectIdSharings](docs/sdks/projectsharings/README.md#getprojectsprojectidsharings) - Project Sharing List
-* [postProjectsProjectIdSharings](docs/sdks/projectsharings/README.md#postprojectsprojectidsharings) - Project Sharing Create
-* [getProjectsProjectIdSharingsSharingId](docs/sdks/projectsharings/README.md#getprojectsprojectidsharingssharingid) - Project Sharing Show
-* [putProjectsProjectIdSharingsSharingId](docs/sdks/projectsharings/README.md#putprojectsprojectidsharingssharingid) - Project Sharing Update
-* [deleteProjectsProjectIdSharingsSharingId](docs/sdks/projectsharings/README.md#deleteprojectsprojectidsharingssharingid) - Project Sharing Delete
+* [list](docs/sdks/projectsharings/README.md#list) - Project Sharing List
+* [create](docs/sdks/projectsharings/README.md#create) - Project Sharing Create
+* [get](docs/sdks/projectsharings/README.md#get) - Project Sharing Show
+* [update](docs/sdks/projectsharings/README.md#update) - Project Sharing Update
+* [delete](docs/sdks/projectsharings/README.md#delete) - Project Sharing Delete
 
 ### [search](docs/sdks/search/README.md)
 
@@ -250,24 +253,24 @@ run();
 ### [statsEvents](docs/sdks/statsevents/README.md)
 
 * [list](docs/sdks/statsevents/README.md#list) - Stats:Events List
-* [getStatsEventsEventKey](docs/sdks/statsevents/README.md#getstatseventseventkey) - Stats:Events Show
+* [get](docs/sdks/statsevents/README.md#get) - Stats:Events Show
 
 ### [statsMedia](docs/sdks/statsmedia/README.md)
 
-* [getStatsMediasMediaIdByDate](docs/sdks/statsmedia/README.md#getstatsmediasmediaidbydate) - Stats:Media By Date
+* [getByDate](docs/sdks/statsmedia/README.md#getbydate) - Stats:Media By Date
 
 ### [statsVisitors](docs/sdks/statsvisitors/README.md)
 
 * [list](docs/sdks/statsvisitors/README.md#list) - Stats:Visitors List
-* [getStatsVisitorsVisitorKey](docs/sdks/statsvisitors/README.md#getstatsvisitorsvisitorkey) - Stats:Visitors Show
+* [get](docs/sdks/statsvisitors/README.md#get) - Stats:Visitors Show
 
 ### [subfolders](docs/sdks/subfolders/README.md)
 
-* [getProjectsProjectIdSubfolders](docs/sdks/subfolders/README.md#getprojectsprojectidsubfolders) - Subfolder List
-* [postProjectsProjectIdSubfolders](docs/sdks/subfolders/README.md#postprojectsprojectidsubfolders) - Create Subfolder
-* [getProjectsProjectIdSubfoldersSubfolderId](docs/sdks/subfolders/README.md#getprojectsprojectidsubfolderssubfolderid) - Show Subfolder
-* [putProjectsProjectIdSubfoldersSubfolderId](docs/sdks/subfolders/README.md#putprojectsprojectidsubfolderssubfolderid) - Update Subfolder
-* [deleteProjectsProjectIdSubfoldersSubfolderId](docs/sdks/subfolders/README.md#deleteprojectsprojectidsubfolderssubfolderid) - Delete Subfolder
+* [list](docs/sdks/subfolders/README.md#list) - Subfolder List
+* [create](docs/sdks/subfolders/README.md#create) - Create Subfolder
+* [get](docs/sdks/subfolders/README.md#get) - Show Subfolder
+* [update](docs/sdks/subfolders/README.md#update) - Update Subfolder
+* [deleteSubfolder](docs/sdks/subfolders/README.md#deletesubfolder) - Delete Subfolder
 
 ### [tags](docs/sdks/tags/README.md)
 
@@ -277,7 +280,7 @@ run();
 
 ### [trims](docs/sdks/trims/README.md)
 
-* [postMediasMediaHashedIdTrims](docs/sdks/trims/README.md#postmediasmediahashedidtrims) - Trims Create
+* [create](docs/sdks/trims/README.md#create) - Trims Create
 
 
 </details>
@@ -303,75 +306,75 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`allowedDomainsDelete`](docs/sdks/alloweddomains/README.md#delete) - Allowed Domain Delete
 - [`allowedDomainsGet`](docs/sdks/alloweddomains/README.md#get) - Allowed Domain Show
 - [`allowedDomainsList`](docs/sdks/alloweddomains/README.md#list) - Allowed Domains List
-- [`backgroundJobStatusGetBackgroundJobStatusBackgroundJobStatusId`](docs/sdks/backgroundjobstatus/README.md#getbackgroundjobstatusbackgroundjobstatusid) - Background Job Status Show
-- [`captionsDeleteMediasMediaHashedIdCaptionsLanguageCode`](docs/sdks/captions/README.md#deletemediasmediahashedidcaptionslanguagecode) - Captions Delete
-- [`captionsGetMediasMediaHashedIdCaptions`](docs/sdks/captions/README.md#getmediasmediahashedidcaptions) - Captions List
-- [`captionsGetMediasMediaHashedIdCaptionsLanguageCode`](docs/sdks/captions/README.md#getmediasmediahashedidcaptionslanguagecode) - Captions Show
-- [`captionsPostMediasMediaHashedIdCaptions`](docs/sdks/captions/README.md#postmediasmediahashedidcaptions) - Captions Create
-- [`captionsPostMediasMediaHashedIdCaptionsMultipart`](docs/sdks/captions/README.md#postmediasmediahashedidcaptionsmultipart) - Captions Create
-- [`captionsPostMediasMediaHashedIdCaptionsPurchase`](docs/sdks/captions/README.md#postmediasmediahashedidcaptionspurchase) - Captions Purchase
-- [`captionsPutMediasMediaHashedIdCaptionsLanguageCode`](docs/sdks/captions/README.md#putmediasmediahashedidcaptionslanguagecode) - Captions Update
-- [`captionsPutMediasMediaHashedIdCaptionsLanguageCodeMultipart`](docs/sdks/captions/README.md#putmediasmediahashedidcaptionslanguagecodemultipart) - Captions Update
-- [`channelEpisodesGetChannelsChannelHashedIdChannelEpisodes`](docs/sdks/channelepisodes/README.md#getchannelschannelhashedidchannelepisodes) - Channel Episodes List filtered by channel
-- [`channelEpisodesGetChannelsChannelHashedIdChannelEpisodesChannelEpisodeId`](docs/sdks/channelepisodes/README.md#getchannelschannelhashedidchannelepisodeschannelepisodeid) - Channel Episodes Show
+- [`backgroundJobStatusGet`](docs/sdks/backgroundjobstatus/README.md#get) - Background Job Status Show
+- [`captionsCreate`](docs/sdks/captions/README.md#create) - Captions Create
+- [`captionsCreateMultipart`](docs/sdks/captions/README.md#createmultipart) - Captions Create
+- [`captionsDelete`](docs/sdks/captions/README.md#delete) - Captions Delete
+- [`captionsGet`](docs/sdks/captions/README.md#get) - Captions Show
+- [`captionsList`](docs/sdks/captions/README.md#list) - Captions List
+- [`captionsPurchase`](docs/sdks/captions/README.md#purchase) - Captions Purchase
+- [`captionsUpdate`](docs/sdks/captions/README.md#update) - Captions Update
+- [`captionsUpdateMultipart`](docs/sdks/captions/README.md#updatemultipart) - Captions Update
+- [`channelEpisodesCreate`](docs/sdks/channelepisodes/README.md#create) - Channel Episode Create
+- [`channelEpisodesGet`](docs/sdks/channelepisodes/README.md#get) - Channel Episodes Show
 - [`channelEpisodesList`](docs/sdks/channelepisodes/README.md#list) - Channel Episodes List
-- [`channelEpisodesPostChannelsChannelHashedIdChannelEpisodes`](docs/sdks/channelepisodes/README.md#postchannelschannelhashedidchannelepisodes) - Channel Episode Create
-- [`channelsGetChannelsChannelHashedId`](docs/sdks/channels/README.md#getchannelschannelhashedid) - Channels Show
+- [`channelsChannelEpisodesList`](docs/sdks/channelschannelepisodes/README.md#list) - Channel Episodes List filtered by channel
+- [`channelsGet`](docs/sdks/channels/README.md#get) - Channels Show
 - [`channelsList`](docs/sdks/channels/README.md#list) - Channels List
-- [`customizationsDeleteMediasMediaIdCustomizations`](docs/sdks/customizations/README.md#deletemediasmediaidcustomizations) - Customizations Delete
-- [`customizationsGetMediasMediaIdCustomizations`](docs/sdks/customizations/README.md#getmediasmediaidcustomizations) - Customizations Show
-- [`customizationsPostMediasMediaIdCustomizations`](docs/sdks/customizations/README.md#postmediasmediaidcustomizations) - Customizations Create
-- [`customizationsPutMediasMediaIdCustomizations`](docs/sdks/customizations/README.md#putmediasmediaidcustomizations) - Customizations Update
+- [`customizationsCreate`](docs/sdks/customizations/README.md#create) - Customizations Create
+- [`customizationsDelete`](docs/sdks/customizations/README.md#delete) - Customizations Delete
+- [`customizationsGet`](docs/sdks/customizations/README.md#get) - Customizations Show
+- [`customizationsUpdate`](docs/sdks/customizations/README.md#update) - Customizations Update
 - [`expiringAccessTokensCreate`](docs/sdks/expiringaccesstokens/README.md#create) - Create an expiring access token
 - [`liveStreamEventsCreate`](docs/sdks/livestreamevents/README.md#create) - Live Stream Event Create
 - [`liveStreamEventsDelete`](docs/sdks/livestreamevents/README.md#delete) - Live Stream Event Delete
 - [`liveStreamEventsGet`](docs/sdks/livestreamevents/README.md#get) - Live Stream Event Show
 - [`liveStreamEventsList`](docs/sdks/livestreamevents/README.md#list) - Live Stream Events List
 - [`liveStreamEventsUpdate`](docs/sdks/livestreamevents/README.md#update) - Live Stream Event Update
-- [`localizationsDeleteMediasMediaHashedIdLocalizationsLocalizationHashedId`](docs/sdks/localizations/README.md#deletemediasmediahashedidlocalizationslocalizationhashedid) - Localizations Delete
-- [`localizationsGetMediasMediaHashedIdLocalizations`](docs/sdks/localizations/README.md#getmediasmediahashedidlocalizations) - Localizations List
-- [`localizationsGetMediasMediaHashedIdLocalizationsLocalizationHashedId`](docs/sdks/localizations/README.md#getmediasmediahashedidlocalizationslocalizationhashedid) - Localizations Show
-- [`localizationsPostMediasMediaHashedIdLocalizations`](docs/sdks/localizations/README.md#postmediasmediahashedidlocalizations) - Localizations Create
+- [`localizationsCreate`](docs/sdks/localizations/README.md#create) - Localizations Create
+- [`localizationsDelete`](docs/sdks/localizations/README.md#delete) - Localizations Delete
+- [`localizationsGet`](docs/sdks/localizations/README.md#get) - Localizations Show
+- [`localizationsList`](docs/sdks/localizations/README.md#list) - Localizations List
 - [`mediaArchive`](docs/sdks/media/README.md#archive) - Medias Archive
-- [`mediaDeleteMediasMediaHashedId`](docs/sdks/media/README.md#deletemediasmediahashedid) - Media Delete
-- [`mediaGetMediasMediaHashedId`](docs/sdks/media/README.md#getmediasmediahashedid) - Media Show
-- [`mediaGetMediasMediaHashedIdStats`](docs/sdks/media/README.md#getmediasmediahashedidstats) - Media Stats
+- [`mediaCopy`](docs/sdks/media/README.md#copy) - Media Copy
+- [`mediaDelete`](docs/sdks/media/README.md#delete) - Media Delete
+- [`mediaGet`](docs/sdks/media/README.md#get) - Media Show
+- [`mediaGetStats`](docs/sdks/media/README.md#getstats) - Media Stats
 - [`mediaList`](docs/sdks/media/README.md#list) - Media List
 - [`mediaMove`](docs/sdks/media/README.md#move) - Media Move
-- [`mediaPostMediasMediaHashedIdCopy`](docs/sdks/media/README.md#postmediasmediahashedidcopy) - Media Copy
-- [`mediaPostMediasMediaHashedIdTranslate`](docs/sdks/media/README.md#postmediasmediahashedidtranslate) - Media Translate
-- [`mediaPutMediasMediaHashedId`](docs/sdks/media/README.md#putmediasmediahashedid) - Media Update
-- [`mediaPutMediasMediaHashedIdSwap`](docs/sdks/media/README.md#putmediasmediahashedidswap) - Media Swap
 - [`mediaRestore`](docs/sdks/media/README.md#restore) - Media Restore
+- [`mediaSwap`](docs/sdks/media/README.md#swap) - Media Swap
+- [`mediaTranslate`](docs/sdks/media/README.md#translate) - Media Translate
+- [`mediaUpdate`](docs/sdks/media/README.md#update) - Media Update
 - [`mediaUploadForm`](docs/sdks/media/README.md#uploadform) - Upload or Import Media
 - [`mediaUploadMultipart`](docs/sdks/media/README.md#uploadmultipart) - Upload or Import Media
 - [`projectsCopy`](docs/sdks/projects/README.md#copy) - Project Copy
 - [`projectsCreate`](docs/sdks/projects/README.md#create) - Project Create
 - [`projectsDelete`](docs/sdks/projects/README.md#delete) - Project Delete
 - [`projectsGet`](docs/sdks/projects/README.md#get) - Project Show
-- [`projectSharingsDeleteProjectsProjectIdSharingsSharingId`](docs/sdks/projectsharings/README.md#deleteprojectsprojectidsharingssharingid) - Project Sharing Delete
-- [`projectSharingsGetProjectsProjectIdSharings`](docs/sdks/projectsharings/README.md#getprojectsprojectidsharings) - Project Sharing List
-- [`projectSharingsGetProjectsProjectIdSharingsSharingId`](docs/sdks/projectsharings/README.md#getprojectsprojectidsharingssharingid) - Project Sharing Show
-- [`projectSharingsPostProjectsProjectIdSharings`](docs/sdks/projectsharings/README.md#postprojectsprojectidsharings) - Project Sharing Create
-- [`projectSharingsPutProjectsProjectIdSharingsSharingId`](docs/sdks/projectsharings/README.md#putprojectsprojectidsharingssharingid) - Project Sharing Update
+- [`projectSharingsCreate`](docs/sdks/projectsharings/README.md#create) - Project Sharing Create
+- [`projectSharingsDelete`](docs/sdks/projectsharings/README.md#delete) - Project Sharing Delete
+- [`projectSharingsGet`](docs/sdks/projectsharings/README.md#get) - Project Sharing Show
+- [`projectSharingsList`](docs/sdks/projectsharings/README.md#list) - Project Sharing List
+- [`projectSharingsUpdate`](docs/sdks/projectsharings/README.md#update) - Project Sharing Update
 - [`projectsList`](docs/sdks/projects/README.md#list) - Project List
 - [`projectsUpdate`](docs/sdks/projects/README.md#update) - Project Update
 - [`searchSearch`](docs/sdks/search/README.md#search) - Search
 - [`statsAccountGet`](docs/sdks/statsaccount/README.md#get) - Stats:Account Show
-- [`statsEventsGetStatsEventsEventKey`](docs/sdks/statsevents/README.md#getstatseventseventkey) - Stats:Events Show
+- [`statsEventsGet`](docs/sdks/statsevents/README.md#get) - Stats:Events Show
 - [`statsEventsList`](docs/sdks/statsevents/README.md#list) - Stats:Events List
-- [`statsMediaGetStatsMediasMediaIdByDate`](docs/sdks/statsmedia/README.md#getstatsmediasmediaidbydate) - Stats:Media By Date
-- [`statsVisitorsGetStatsVisitorsVisitorKey`](docs/sdks/statsvisitors/README.md#getstatsvisitorsvisitorkey) - Stats:Visitors Show
+- [`statsMediaGetByDate`](docs/sdks/statsmedia/README.md#getbydate) - Stats:Media By Date
+- [`statsVisitorsGet`](docs/sdks/statsvisitors/README.md#get) - Stats:Visitors Show
 - [`statsVisitorsList`](docs/sdks/statsvisitors/README.md#list) - Stats:Visitors List
-- [`subfoldersDeleteProjectsProjectIdSubfoldersSubfolderId`](docs/sdks/subfolders/README.md#deleteprojectsprojectidsubfolderssubfolderid) - Delete Subfolder
-- [`subfoldersGetProjectsProjectIdSubfolders`](docs/sdks/subfolders/README.md#getprojectsprojectidsubfolders) - Subfolder List
-- [`subfoldersGetProjectsProjectIdSubfoldersSubfolderId`](docs/sdks/subfolders/README.md#getprojectsprojectidsubfolderssubfolderid) - Show Subfolder
-- [`subfoldersPostProjectsProjectIdSubfolders`](docs/sdks/subfolders/README.md#postprojectsprojectidsubfolders) - Create Subfolder
-- [`subfoldersPutProjectsProjectIdSubfoldersSubfolderId`](docs/sdks/subfolders/README.md#putprojectsprojectidsubfolderssubfolderid) - Update Subfolder
+- [`subfoldersCreate`](docs/sdks/subfolders/README.md#create) - Create Subfolder
+- [`subfoldersDeleteSubfolder`](docs/sdks/subfolders/README.md#deletesubfolder) - Delete Subfolder
+- [`subfoldersGet`](docs/sdks/subfolders/README.md#get) - Show Subfolder
+- [`subfoldersList`](docs/sdks/subfolders/README.md#list) - Subfolder List
+- [`subfoldersUpdate`](docs/sdks/subfolders/README.md#update) - Update Subfolder
 - [`tagsCreate`](docs/sdks/tags/README.md#create) - Tags Create
 - [`tagsDelete`](docs/sdks/tags/README.md#delete) - Tags Delete
 - [`tagsList`](docs/sdks/tags/README.md#list) - Tags List
-- [`trimsPostMediasMediaHashedIdTrims`](docs/sdks/trims/README.md#postmediasmediahashedidtrims) - Trims Create
+- [`trimsCreate`](docs/sdks/trims/README.md#create) - Trims Create
 
 </details>
 <!-- End Standalone functions [standalone-funcs] -->

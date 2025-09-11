@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 7b32ab6a-5908-41aa-b82f-7906605d30ce
 management:
-  docChecksum: b9b17780ac22a16837e0b16879f352ab
+  docChecksum: 89793fb641e8e8926fc52a57d07b2cdf
   docVersion: 1.0.0
   speakeasyVersion: 1.615.2
   generationVersion: 2.698.4
-  releaseVersion: 2025.9.12
-  configChecksum: c0fc44d0ce9051fb0ceb8021b201acde
+  releaseVersion: 2025.9.15
+  configChecksum: f15631ef813de54acbfeb930390e1dc1
   repoURL: https://github.com/speakeasy-sdks/wistia-typescript-sdk.git
   installationURL: https://github.com/speakeasy-sdks/wistia-typescript-sdk
   published: true
@@ -326,6 +326,7 @@ generatedFiles:
   - docs/sdks/captions/README.md
   - docs/sdks/channelepisodes/README.md
   - docs/sdks/channels/README.md
+  - docs/sdks/channelschannelepisodes/README.md
   - docs/sdks/customizations/README.md
   - docs/sdks/expiringaccesstokens/README.md
   - docs/sdks/livestreamevents/README.md
@@ -356,53 +357,53 @@ generatedFiles:
   - src/funcs/allowedDomainsDelete.ts
   - src/funcs/allowedDomainsGet.ts
   - src/funcs/allowedDomainsList.ts
-  - src/funcs/backgroundJobStatusGetBackgroundJobStatusBackgroundJobStatusId.ts
-  - src/funcs/captionsDeleteMediasMediaHashedIdCaptionsLanguageCode.ts
-  - src/funcs/captionsGetMediasMediaHashedIdCaptions.ts
-  - src/funcs/captionsGetMediasMediaHashedIdCaptionsLanguageCode.ts
-  - src/funcs/captionsPostMediasMediaHashedIdCaptions.ts
-  - src/funcs/captionsPostMediasMediaHashedIdCaptionsMultipart.ts
-  - src/funcs/captionsPostMediasMediaHashedIdCaptionsPurchase.ts
-  - src/funcs/captionsPutMediasMediaHashedIdCaptionsLanguageCode.ts
-  - src/funcs/captionsPutMediasMediaHashedIdCaptionsLanguageCodeMultipart.ts
-  - src/funcs/channelEpisodesGetChannelsChannelHashedIdChannelEpisodes.ts
-  - src/funcs/channelEpisodesGetChannelsChannelHashedIdChannelEpisodesChannelEpisodeId.ts
+  - src/funcs/backgroundJobStatusGet.ts
+  - src/funcs/captionsCreate.ts
+  - src/funcs/captionsCreateMultipart.ts
+  - src/funcs/captionsDelete.ts
+  - src/funcs/captionsGet.ts
+  - src/funcs/captionsList.ts
+  - src/funcs/captionsPurchase.ts
+  - src/funcs/captionsUpdate.ts
+  - src/funcs/captionsUpdateMultipart.ts
+  - src/funcs/channelEpisodesCreate.ts
+  - src/funcs/channelEpisodesGet.ts
   - src/funcs/channelEpisodesList.ts
-  - src/funcs/channelEpisodesPostChannelsChannelHashedIdChannelEpisodes.ts
-  - src/funcs/channelsGetChannelsChannelHashedId.ts
+  - src/funcs/channelsChannelEpisodesList.ts
+  - src/funcs/channelsGet.ts
   - src/funcs/channelsList.ts
-  - src/funcs/customizationsDeleteMediasMediaIdCustomizations.ts
-  - src/funcs/customizationsGetMediasMediaIdCustomizations.ts
-  - src/funcs/customizationsPostMediasMediaIdCustomizations.ts
-  - src/funcs/customizationsPutMediasMediaIdCustomizations.ts
+  - src/funcs/customizationsCreate.ts
+  - src/funcs/customizationsDelete.ts
+  - src/funcs/customizationsGet.ts
+  - src/funcs/customizationsUpdate.ts
   - src/funcs/expiringAccessTokensCreate.ts
   - src/funcs/liveStreamEventsCreate.ts
   - src/funcs/liveStreamEventsDelete.ts
   - src/funcs/liveStreamEventsGet.ts
   - src/funcs/liveStreamEventsList.ts
   - src/funcs/liveStreamEventsUpdate.ts
-  - src/funcs/localizationsDeleteMediasMediaHashedIdLocalizationsLocalizationHashedId.ts
-  - src/funcs/localizationsGetMediasMediaHashedIdLocalizations.ts
-  - src/funcs/localizationsGetMediasMediaHashedIdLocalizationsLocalizationHashedId.ts
-  - src/funcs/localizationsPostMediasMediaHashedIdLocalizations.ts
+  - src/funcs/localizationsCreate.ts
+  - src/funcs/localizationsDelete.ts
+  - src/funcs/localizationsGet.ts
+  - src/funcs/localizationsList.ts
   - src/funcs/mediaArchive.ts
-  - src/funcs/mediaDeleteMediasMediaHashedId.ts
-  - src/funcs/mediaGetMediasMediaHashedId.ts
-  - src/funcs/mediaGetMediasMediaHashedIdStats.ts
+  - src/funcs/mediaCopy.ts
+  - src/funcs/mediaDelete.ts
+  - src/funcs/mediaGet.ts
+  - src/funcs/mediaGetStats.ts
   - src/funcs/mediaList.ts
   - src/funcs/mediaMove.ts
-  - src/funcs/mediaPostMediasMediaHashedIdCopy.ts
-  - src/funcs/mediaPostMediasMediaHashedIdTranslate.ts
-  - src/funcs/mediaPutMediasMediaHashedId.ts
-  - src/funcs/mediaPutMediasMediaHashedIdSwap.ts
   - src/funcs/mediaRestore.ts
+  - src/funcs/mediaSwap.ts
+  - src/funcs/mediaTranslate.ts
+  - src/funcs/mediaUpdate.ts
   - src/funcs/mediaUploadForm.ts
   - src/funcs/mediaUploadMultipart.ts
-  - src/funcs/projectSharingsDeleteProjectsProjectIdSharingsSharingId.ts
-  - src/funcs/projectSharingsGetProjectsProjectIdSharings.ts
-  - src/funcs/projectSharingsGetProjectsProjectIdSharingsSharingId.ts
-  - src/funcs/projectSharingsPostProjectsProjectIdSharings.ts
-  - src/funcs/projectSharingsPutProjectsProjectIdSharingsSharingId.ts
+  - src/funcs/projectSharingsCreate.ts
+  - src/funcs/projectSharingsDelete.ts
+  - src/funcs/projectSharingsGet.ts
+  - src/funcs/projectSharingsList.ts
+  - src/funcs/projectSharingsUpdate.ts
   - src/funcs/projectsCopy.ts
   - src/funcs/projectsCreate.ts
   - src/funcs/projectsDelete.ts
@@ -411,20 +412,20 @@ generatedFiles:
   - src/funcs/projectsUpdate.ts
   - src/funcs/searchSearch.ts
   - src/funcs/statsAccountGet.ts
-  - src/funcs/statsEventsGetStatsEventsEventKey.ts
+  - src/funcs/statsEventsGet.ts
   - src/funcs/statsEventsList.ts
-  - src/funcs/statsMediaGetStatsMediasMediaIdByDate.ts
-  - src/funcs/statsVisitorsGetStatsVisitorsVisitorKey.ts
+  - src/funcs/statsMediaGetByDate.ts
+  - src/funcs/statsVisitorsGet.ts
   - src/funcs/statsVisitorsList.ts
-  - src/funcs/subfoldersDeleteProjectsProjectIdSubfoldersSubfolderId.ts
-  - src/funcs/subfoldersGetProjectsProjectIdSubfolders.ts
-  - src/funcs/subfoldersGetProjectsProjectIdSubfoldersSubfolderId.ts
-  - src/funcs/subfoldersPostProjectsProjectIdSubfolders.ts
-  - src/funcs/subfoldersPutProjectsProjectIdSubfoldersSubfolderId.ts
+  - src/funcs/subfoldersCreate.ts
+  - src/funcs/subfoldersDeleteSubfolder.ts
+  - src/funcs/subfoldersGet.ts
+  - src/funcs/subfoldersList.ts
+  - src/funcs/subfoldersUpdate.ts
   - src/funcs/tagsCreate.ts
   - src/funcs/tagsDelete.ts
   - src/funcs/tagsList.ts
-  - src/funcs/trimsPostMediasMediaHashedIdTrims.ts
+  - src/funcs/trimsCreate.ts
   - src/hooks/hooks.ts
   - src/hooks/index.ts
   - src/hooks/types.ts
@@ -610,6 +611,7 @@ generatedFiles:
   - src/sdk/captions.ts
   - src/sdk/channelepisodes.ts
   - src/sdk/channels.ts
+  - src/sdk/channelschannelepisodes.ts
   - src/sdk/customizations.ts
   - src/sdk/expiringaccesstokens.ts
   - src/sdk/index.ts
@@ -2253,91 +2255,3 @@ examples:
         "500":
           application/json: {"error": "Internal server error"}
 examplesVersion: 1.0.2
-releaseNotes: |
-  ## Typescript SDK Changes Detected:
-  * `wistia.media.get/medias/{mediaHashedId}()`: **Added**
-  * `wistia.media.put/medias/{mediaHashedId}()`: **Added**
-  * `wistia.media.delete/medias/{mediaHashedId}()`: **Added**
-  * `wistia.media.post/medias/{mediaHashedId}/copy()`: **Added**
-  * `wistia.media.put/medias/{mediaHashedId}/swap()`: **Added**
-  * `wistia.media.get/medias/{mediaHashedId}/stats()`: **Added**
-  * `wistia.media.post/medias/{mediaHashedId}/translate()`: **Added**
-  * `wistia.subfolders.get/projects/{projectId}/subfolders()`: **Added**
-  * `wistia.subfolders.post/projects/{projectId}/subfolders()`: **Added**
-  * `wistia.subfolders.get/projects/{projectId}/subfolders/{subfolderId}()`: **Added**
-  * `wistia.subfolders.put/projects/{projectId}/subfolders/{subfolderId}()`: **Added**
-  * `wistia.subfolders.delete/projects/{projectId}/subfolders/{subfolderId}()`: **Added**
-  * `wistia.projectSharings.get/projects/{projectId}/sharings()`: **Added**
-  * `wistia.projectSharings.post/projects/{projectId}/sharings()`: **Added**
-  * `wistia.projectSharings.get/projects/{projectId}/sharings/{sharingId}()`: **Added**
-  * `wistia.projectSharings.put/projects/{projectId}/sharings/{sharingId}()`: **Added**
-  * `wistia.projectSharings.delete/projects/{projectId}/sharings/{sharingId}()`: **Added**
-  * `wistia.backgroundJobStatus.get/backgroundJobStatus/{backgroundJobStatusId}()`: **Added**
-  * `wistia.customizations.get/medias/{mediaId}/customizations()`: **Added**
-  * `wistia.customizations.post/medias/{mediaId}/customizations()`: **Added**
-  * `wistia.customizations.put/medias/{mediaId}/customizations()`: **Added**
-  * `wistia.customizations.delete/medias/{mediaId}/customizations()`: **Added**
-  * `wistia.captions.get/medias/{mediaHashedId}/captions()`: **Added**
-  * `wistia.captions.post/medias/{mediaHashedId}/captionsMultipart()`: **Added**
-  * `wistia.captions.post/medias/{mediaHashedId}/captions()`: **Added**
-  * `wistia.captions.post/medias/{mediaHashedId}/captions/purchase()`: **Added**
-  * `wistia.captions.get/medias/{mediaHashedId}/captions/{languageCode}()`: **Added**
-  * `wistia.captions.put/medias/{mediaHashedId}/captions/{languageCode}()`: **Added**
-  * `wistia.captions.put/medias/{mediaHashedId}/captions/{languageCode}Multipart()`: **Added**
-  * `wistia.captions.delete/medias/{mediaHashedId}/captions/{languageCode}()`: **Added**
-  * `wistia.trims.post/medias/{mediaHashedId}/trims()`: **Added**
-  * `wistia.localizations.get/medias/{mediaHashedId}/localizations()`: **Added**
-  * `wistia.localizations.post/medias/{mediaHashedId}/localizations()`: **Added**
-  * `wistia.localizations.get/medias/{mediaHashedId}/localizations/{localizationHashedId}()`: **Added**
-  * `wistia.localizations.delete/medias/{mediaHashedId}/localizations/{localizationHashedId}()`: **Added**
-  * `wistia.channels.get/channels/{channelHashedId}()`: **Added**
-  * `wistia.channelEpisodes.get/channels/{channelHashedId}/channelEpisodes/{channelEpisodeId}()`: **Added**
-  * `wistia.channelEpisodes.get/channels/{channelHashedId}/channelEpisodes()`: **Added**
-  * `wistia.channelEpisodes.post/channels/{channelHashedId}/channelEpisodes()`: **Added**
-  * `wistia.channelEpisodes.list()`: **Added**
-  * `wistia.stats:media.get/stats/medias/{mediaId}/byDate()`: **Added**
-  * `wistia.statsVisitors.get/stats/visitors/{visitorKey}()`: **Added**
-  * `wistia.statsEvents.get/stats/events/{eventKey}()`: **Added**
-  * `wistia.media.get()`: **Deleted** **Breaking** :warning:
-  * `wistia.media.update()`: **Deleted** **Breaking** :warning:
-  * `wistia.media.delete()`: **Deleted** **Breaking** :warning:
-  * `wistia.media.copy()`: **Deleted** **Breaking** :warning:
-  * `wistia.media.stats()`: **Deleted** **Breaking** :warning:
-  * `wistia.media.translate()`: **Deleted** **Breaking** :warning:
-  * `wistia.subfolders.list()`: **Deleted** **Breaking** :warning:
-  * `wistia.subfolders.create()`: **Deleted** **Breaking** :warning:
-  * `wistia.subfolders.get()`: **Deleted** **Breaking** :warning:
-  * `wistia.subfolders.update()`: **Deleted** **Breaking** :warning:
-  * `wistia.subfolders.delete()`: **Deleted** **Breaking** :warning:
-  * `wistia.projectSharings.list()`: **Deleted** **Breaking** :warning:
-  * `wistia.projectSharings.create()`: **Deleted** **Breaking** :warning:
-  * `wistia.projectSharings.get()`: **Deleted** **Breaking** :warning:
-  * `wistia.projectSharings.update()`: **Deleted** **Breaking** :warning:
-  * `wistia.projectSharings.delete()`: **Deleted** **Breaking** :warning:
-  * `wistia.medias.swap()`: **Deleted** **Breaking** :warning:
-  * `wistia.backgroundJobStatus.get()`: **Deleted** **Breaking** :warning:
-  * `wistia.customizations.get()`: **Deleted** **Breaking** :warning:
-  * `wistia.customizations.create()`: **Deleted** **Breaking** :warning:
-  * `wistia.customizations.update()`: **Deleted** **Breaking** :warning:
-  * `wistia.customizations.delete()`: **Deleted** **Breaking** :warning:
-  * `wistia.captions.list()`: **Deleted** **Breaking** :warning:
-  * `wistia.captions.createMultipart()`: **Deleted** **Breaking** :warning:
-  * `wistia.captions.create()`: **Deleted** **Breaking** :warning:
-  * `wistia.captions.purchase()`: **Deleted** **Breaking** :warning:
-  * `wistia.captions.get()`: **Deleted** **Breaking** :warning:
-  * `wistia.captions.update()`: **Deleted** **Breaking** :warning:
-  * `wistia.captions.updateMultipart()`: **Deleted** **Breaking** :warning:
-  * `wistia.captions.delete()`: **Deleted** **Breaking** :warning:
-  * `wistia.trims.create()`: **Deleted** **Breaking** :warning:
-  * `wistia.localizations.list()`: **Deleted** **Breaking** :warning:
-  * `wistia.localizations.create()`: **Deleted** **Breaking** :warning:
-  * `wistia.localizations.get()`: **Deleted** **Breaking** :warning:
-  * `wistia.localizations.delete()`: **Deleted** **Breaking** :warning:
-  * `wistia.channels.get()`: **Deleted** **Breaking** :warning:
-  * `wistia.channels.episodes.list()`: **Deleted** **Breaking** :warning:
-  * `wistia.channelEpisodes.get()`: **Deleted** **Breaking** :warning:
-  * `wistia.channelEpisodes.create()`: **Deleted** **Breaking** :warning:
-  * `wistia.channelEpisodes.list()`: **Deleted** **Breaking** :warning:
-  * `wistia.statsMedia.getByDate()`: **Deleted** **Breaking** :warning:
-  * `wistia.statsVisitors.get()`: **Deleted** **Breaking** :warning:
-  * `wistia.statsEvents.get()`: **Deleted** **Breaking** :warning:

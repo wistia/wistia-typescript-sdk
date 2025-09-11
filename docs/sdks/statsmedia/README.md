@@ -5,9 +5,9 @@
 
 ### Available Operations
 
-* [getStatsMediasMediaIdByDate](#getstatsmediasmediaidbydate) - Stats:Media By Date
+* [getByDate](#getbydate) - Stats:Media By Date
 
-## getStatsMediasMediaIdByDate
+## getByDate
 
 Retrieve stats for a media organized by day, between a start and end date paramater (inclusive). If start and end date are not provided, defaults to yesterday and today.
 
@@ -31,7 +31,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.statsMedia.getStatsMediasMediaIdByDate({
+  const result = await wistia.statsMedia.getByDate({
     mediaId: "<id>",
     startDate: new RFCDate("2024-02-21"),
     endDate: new RFCDate("2024-02-23"),
@@ -49,7 +49,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { statsMediaGetStatsMediasMediaIdByDate } from "@wistia/wistia-api-client/funcs/statsMediaGetStatsMediasMediaIdByDate.js";
+import { statsMediaGetByDate } from "@wistia/wistia-api-client/funcs/statsMediaGetByDate.js";
 import { RFCDate } from "@wistia/wistia-api-client/types";
 
 // Use `WistiaCore` for best tree-shaking performance.
@@ -59,7 +59,7 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await statsMediaGetStatsMediasMediaIdByDate(wistia, {
+  const res = await statsMediaGetByDate(wistia, {
     mediaId: "<id>",
     startDate: new RFCDate("2024-02-21"),
     endDate: new RFCDate("2024-02-23"),
@@ -68,7 +68,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("statsMediaGetStatsMediasMediaIdByDate failed:", res.error);
+    console.log("statsMediaGetByDate failed:", res.error);
   }
 }
 

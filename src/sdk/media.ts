@@ -3,16 +3,16 @@
  */
 
 import { mediaArchive } from "../funcs/mediaArchive.js";
-import { mediaDeleteMediasMediaHashedId } from "../funcs/mediaDeleteMediasMediaHashedId.js";
-import { mediaGetMediasMediaHashedId } from "../funcs/mediaGetMediasMediaHashedId.js";
-import { mediaGetMediasMediaHashedIdStats } from "../funcs/mediaGetMediasMediaHashedIdStats.js";
+import { mediaCopy } from "../funcs/mediaCopy.js";
+import { mediaDelete } from "../funcs/mediaDelete.js";
+import { mediaGet } from "../funcs/mediaGet.js";
+import { mediaGetStats } from "../funcs/mediaGetStats.js";
 import { mediaList } from "../funcs/mediaList.js";
 import { mediaMove } from "../funcs/mediaMove.js";
-import { mediaPostMediasMediaHashedIdCopy } from "../funcs/mediaPostMediasMediaHashedIdCopy.js";
-import { mediaPostMediasMediaHashedIdTranslate } from "../funcs/mediaPostMediasMediaHashedIdTranslate.js";
-import { mediaPutMediasMediaHashedId } from "../funcs/mediaPutMediasMediaHashedId.js";
-import { mediaPutMediasMediaHashedIdSwap } from "../funcs/mediaPutMediasMediaHashedIdSwap.js";
 import { mediaRestore } from "../funcs/mediaRestore.js";
+import { mediaSwap } from "../funcs/mediaSwap.js";
+import { mediaTranslate } from "../funcs/mediaTranslate.js";
+import { mediaUpdate } from "../funcs/mediaUpdate.js";
 import { mediaUploadForm } from "../funcs/mediaUploadForm.js";
 import { mediaUploadMultipart } from "../funcs/mediaUploadMultipart.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
@@ -101,11 +101,11 @@ export class Media extends ClientSDK {
    * Read all project and video data
    * ```
    */
-  async getMediasMediaHashedId(
+  async get(
     request: operations.GetMediasMediaHashedIdRequest,
     options?: RequestOptions,
   ): Promise<models.MediaShow> {
-    return unwrapAsync(mediaGetMediasMediaHashedId(
+    return unwrapAsync(mediaGet(
       this,
       request,
       options,
@@ -123,11 +123,11 @@ export class Media extends ClientSDK {
    * Read, update & delete anything
    * ```
    */
-  async putMediasMediaHashedId(
+  async update(
     request: operations.PutMediasMediaHashedIdRequest,
     options?: RequestOptions,
   ): Promise<models.Media> {
-    return unwrapAsync(mediaPutMediasMediaHashedId(
+    return unwrapAsync(mediaUpdate(
       this,
       request,
       options,
@@ -145,11 +145,11 @@ export class Media extends ClientSDK {
    * Read, update & delete anything
    * ```
    */
-  async deleteMediasMediaHashedId(
+  async delete(
     request: operations.DeleteMediasMediaHashedIdRequest,
     options?: RequestOptions,
   ): Promise<models.MediaSchemaMedia> {
-    return unwrapAsync(mediaDeleteMediasMediaHashedId(
+    return unwrapAsync(mediaDelete(
       this,
       request,
       options,
@@ -167,11 +167,11 @@ export class Media extends ClientSDK {
    * Read, update & delete anything
    * ```
    */
-  async postMediasMediaHashedIdCopy(
+  async copy(
     request: operations.PostMediasMediaHashedIdCopyRequest,
     options?: RequestOptions,
   ): Promise<operations.PostMediasMediaHashedIdCopyResponse> {
-    return unwrapAsync(mediaPostMediasMediaHashedIdCopy(
+    return unwrapAsync(mediaCopy(
       this,
       request,
       options,
@@ -189,11 +189,11 @@ export class Media extends ClientSDK {
    * Read, update & delete anything
    * ```
    */
-  async putMediasMediaHashedIdSwap(
+  async swap(
     request: operations.PutMediasMediaHashedIdSwapRequest,
     options?: RequestOptions,
   ): Promise<operations.PutMediasMediaHashedIdSwapResponse> {
-    return unwrapAsync(mediaPutMediasMediaHashedIdSwap(
+    return unwrapAsync(mediaSwap(
       this,
       request,
       options,
@@ -213,11 +213,11 @@ export class Media extends ClientSDK {
    * Read all project and video data
    * ```
    */
-  async getMediasMediaHashedIdStats(
+  async getStats(
     request: operations.GetMediasMediaHashedIdStatsRequest,
     options?: RequestOptions,
   ): Promise<operations.GetMediasMediaHashedIdStatsResponse> {
-    return unwrapAsync(mediaGetMediasMediaHashedIdStats(
+    return unwrapAsync(mediaGetStats(
       this,
       request,
       options,
@@ -235,11 +235,11 @@ export class Media extends ClientSDK {
    * Read, update & delete anything
    * ```
    */
-  async postMediasMediaHashedIdTranslate(
+  async translate(
     request: operations.PostMediasMediaHashedIdTranslateRequest,
     options?: RequestOptions,
   ): Promise<operations.PostMediasMediaHashedIdTranslateResponse> {
-    return unwrapAsync(mediaPostMediasMediaHashedIdTranslate(
+    return unwrapAsync(mediaTranslate(
       this,
       request,
       options,

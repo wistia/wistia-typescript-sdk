@@ -6,7 +6,7 @@
 ### Available Operations
 
 * [list](#list) - Channels List
-* [getChannelsChannelHashedId](#getchannelschannelhashedid) - Channels Show
+* [get](#get) - Channels Show
 
 ## list
 
@@ -87,7 +87,7 @@ run();
 | errors.FiveHundredError       | 500                           | application/json              |
 | errors.WistiaDefaultError     | 4XX, 5XX                      | \*/\*                         |
 
-## getChannelsChannelHashedId
+## get
 
 Returns the Channel associated with the hashedId.
 
@@ -110,7 +110,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.channels.getChannelsChannelHashedId({
+  const result = await wistia.channels.get({
     channelHashedId: "<id>",
   });
 
@@ -126,7 +126,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { channelsGetChannelsChannelHashedId } from "@wistia/wistia-api-client/funcs/channelsGetChannelsChannelHashedId.js";
+import { channelsGet } from "@wistia/wistia-api-client/funcs/channelsGet.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -135,14 +135,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await channelsGetChannelsChannelHashedId(wistia, {
+  const res = await channelsGet(wistia, {
     channelHashedId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("channelsGetChannelsChannelHashedId failed:", res.error);
+    console.log("channelsGet failed:", res.error);
   }
 }
 

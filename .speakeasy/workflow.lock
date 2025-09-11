@@ -6,7 +6,6 @@ sources:
         sourceBlobDigest: sha256:2b9dc393c054dc555785fd4e8f5251ade565cf5d5f50685353cb73b7cacf141f
         tags:
             - latest
-            - speakeasy-sdk-regen-1757463168
             - 1.0.0
 targets:
     wistia:
@@ -15,7 +14,7 @@ targets:
         sourceRevisionDigest: sha256:3a52733bd4a9261f7a3e7efd2558753f581a10c6d4ba4a98347f48b1a4e6dc34
         sourceBlobDigest: sha256:2b9dc393c054dc555785fd4e8f5251ade565cf5d5f50685353cb73b7cacf141f
         codeSamplesNamespace: data-api-typescript-code-samples
-        codeSamplesRevisionDigest: sha256:78311e7701dc6ccade51cf2826ba99e7db30f8033f596737baeb2fb88bc9b47b
+        codeSamplesRevisionDigest: sha256:7fe070436e4a8f6f4d6e3763422acd0e6b94f31a2c4196f160016348822fd947
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
@@ -41,6 +40,7 @@ workflow:
                 npm:
                     token: $npm_token
             codeSamples:
+                output: code-samples.yaml
                 registry:
                     location: registry.speakeasyapi.dev/wistia/wistia/data-api-typescript-code-samples
                 labelOverride:

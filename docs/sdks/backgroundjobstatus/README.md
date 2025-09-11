@@ -5,9 +5,9 @@
 
 ### Available Operations
 
-* [getBackgroundJobStatusBackgroundJobStatusId](#getbackgroundjobstatusbackgroundjobstatusid) - Background Job Status Show
+* [get](#get) - Background Job Status Show
 
-## getBackgroundJobStatusBackgroundJobStatusId
+## get
 
 Retrieve the status of a background job.
 ## Requires api token with one of the following permissions
@@ -28,7 +28,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.backgroundJobStatus.getBackgroundJobStatusBackgroundJobStatusId({
+  const result = await wistia.backgroundJobStatus.get({
     backgroundJobStatusId: 108030,
   });
 
@@ -44,7 +44,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { backgroundJobStatusGetBackgroundJobStatusBackgroundJobStatusId } from "@wistia/wistia-api-client/funcs/backgroundJobStatusGetBackgroundJobStatusBackgroundJobStatusId.js";
+import { backgroundJobStatusGet } from "@wistia/wistia-api-client/funcs/backgroundJobStatusGet.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -53,14 +53,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await backgroundJobStatusGetBackgroundJobStatusBackgroundJobStatusId(wistia, {
+  const res = await backgroundJobStatusGet(wistia, {
     backgroundJobStatusId: 108030,
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("backgroundJobStatusGetBackgroundJobStatusBackgroundJobStatusId failed:", res.error);
+    console.log("backgroundJobStatusGet failed:", res.error);
   }
 }
 
