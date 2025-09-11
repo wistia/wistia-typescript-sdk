@@ -8,13 +8,13 @@
 * [uploadMultipart](#uploadmultipart) - Upload or Import Media
 * [uploadForm](#uploadform) - Upload or Import Media
 * [list](#list) - Media List
-* [getMediasMediaHashedId](#getmediasmediahashedid) - Media Show
-* [putMediasMediaHashedId](#putmediasmediahashedid) - Media Update
-* [deleteMediasMediaHashedId](#deletemediasmediahashedid) - Media Delete
-* [postMediasMediaHashedIdCopy](#postmediasmediahashedidcopy) - Media Copy
-* [putMediasMediaHashedIdSwap](#putmediasmediahashedidswap) - Media Swap
-* [getMediasMediaHashedIdStats](#getmediasmediahashedidstats) - Media Stats
-* [postMediasMediaHashedIdTranslate](#postmediasmediahashedidtranslate) - Media Translate
+* [get](#get) - Media Show
+* [update](#update) - Media Update
+* [delete](#delete) - Media Delete
+* [copy](#copy) - Media Copy
+* [swap](#swap) - Media Swap
+* [getStats](#getstats) - Media Stats
+* [translate](#translate) - Media Translate
 * [archive](#archive) - Medias Archive
 * [move](#move) - Media Move
 * [restore](#restore) - Media Restore
@@ -261,7 +261,7 @@ run();
 | errors.FiveHundredError       | 500                           | application/json              |
 | errors.WistiaDefaultError     | 4XX, 5XX                      | \*/\*                         |
 
-## getMediasMediaHashedId
+## get
 
 Fetch detailed information about a media you’ve uploaded to your account using its hashed_id.
 
@@ -287,7 +287,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.media.getMediasMediaHashedId({
+  const result = await wistia.media.get({
     mediaHashedId: "<id>",
   });
 
@@ -303,7 +303,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { mediaGetMediasMediaHashedId } from "@wistia/wistia-api-client/funcs/mediaGetMediasMediaHashedId.js";
+import { mediaGet } from "@wistia/wistia-api-client/funcs/mediaGet.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -312,14 +312,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await mediaGetMediasMediaHashedId(wistia, {
+  const res = await mediaGet(wistia, {
     mediaHashedId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("mediaGetMediasMediaHashedId failed:", res.error);
+    console.log("mediaGet failed:", res.error);
   }
 }
 
@@ -348,7 +348,7 @@ run();
 | errors.FiveHundredError        | 500                            | application/json               |
 | errors.WistiaDefaultError      | 4XX, 5XX                       | \*/\*                          |
 
-## putMediasMediaHashedId
+## update
 
 Update attributes on a media.
 
@@ -369,7 +369,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.media.putMediasMediaHashedId({
+  const result = await wistia.media.update({
     mediaHashedId: "<id>",
   });
 
@@ -385,7 +385,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { mediaPutMediasMediaHashedId } from "@wistia/wistia-api-client/funcs/mediaPutMediasMediaHashedId.js";
+import { mediaUpdate } from "@wistia/wistia-api-client/funcs/mediaUpdate.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -394,14 +394,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await mediaPutMediasMediaHashedId(wistia, {
+  const res = await mediaUpdate(wistia, {
     mediaHashedId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("mediaPutMediasMediaHashedId failed:", res.error);
+    console.log("mediaUpdate failed:", res.error);
   }
 }
 
@@ -431,7 +431,7 @@ run();
 | errors.FiveHundredError        | 500                            | application/json               |
 | errors.WistiaDefaultError      | 4XX, 5XX                       | \*/\*                          |
 
-## deleteMediasMediaHashedId
+## delete
 
 Delete a media.
 
@@ -452,7 +452,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.media.deleteMediasMediaHashedId({
+  const result = await wistia.media.delete({
     mediaHashedId: "<id>",
   });
 
@@ -468,7 +468,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { mediaDeleteMediasMediaHashedId } from "@wistia/wistia-api-client/funcs/mediaDeleteMediasMediaHashedId.js";
+import { mediaDelete } from "@wistia/wistia-api-client/funcs/mediaDelete.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -477,14 +477,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await mediaDeleteMediasMediaHashedId(wistia, {
+  const res = await mediaDelete(wistia, {
     mediaHashedId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("mediaDeleteMediasMediaHashedId failed:", res.error);
+    console.log("mediaDelete failed:", res.error);
   }
 }
 
@@ -513,7 +513,7 @@ run();
 | errors.FiveHundredError        | 500                            | application/json               |
 | errors.WistiaDefaultError      | 4XX, 5XX                       | \*/\*                          |
 
-## postMediasMediaHashedIdCopy
+## copy
 
 Copy a media.
 
@@ -534,7 +534,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.media.postMediasMediaHashedIdCopy({
+  const result = await wistia.media.copy({
     mediaHashedId: "<id>",
   });
 
@@ -550,7 +550,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { mediaPostMediasMediaHashedIdCopy } from "@wistia/wistia-api-client/funcs/mediaPostMediasMediaHashedIdCopy.js";
+import { mediaCopy } from "@wistia/wistia-api-client/funcs/mediaCopy.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -559,14 +559,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await mediaPostMediasMediaHashedIdCopy(wistia, {
+  const res = await mediaCopy(wistia, {
     mediaHashedId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("mediaPostMediasMediaHashedIdCopy failed:", res.error);
+    console.log("mediaCopy failed:", res.error);
   }
 }
 
@@ -597,7 +597,7 @@ run();
 | errors.FiveHundredError                           | 500                                               | application/json                                  |
 | errors.WistiaDefaultError                         | 4XX, 5XX                                          | \*/\*                                             |
 
-## putMediasMediaHashedIdSwap
+## swap
 
 Swap one media with another media. This operation queues a background job to replace the original media with the replacement media while preserving the original media's hashed ID and URLs.
 
@@ -618,7 +618,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.media.putMediasMediaHashedIdSwap({
+  const result = await wistia.media.swap({
     mediaHashedId: "<id>",
   });
 
@@ -634,7 +634,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { mediaPutMediasMediaHashedIdSwap } from "@wistia/wistia-api-client/funcs/mediaPutMediasMediaHashedIdSwap.js";
+import { mediaSwap } from "@wistia/wistia-api-client/funcs/mediaSwap.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -643,14 +643,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await mediaPutMediasMediaHashedIdSwap(wistia, {
+  const res = await mediaSwap(wistia, {
     mediaHashedId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("mediaPutMediasMediaHashedIdSwap failed:", res.error);
+    console.log("mediaSwap failed:", res.error);
   }
 }
 
@@ -680,7 +680,7 @@ run();
 | errors.FiveHundredError                          | 500                                              | application/json                                 |
 | errors.WistiaDefaultError                        | 4XX, 5XX                                         | \*/\*                                            |
 
-## getMediasMediaHashedIdStats
+## getStats
 
 Aggregated tracking statistics for a video embedded on your site.
 
@@ -703,7 +703,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.media.getMediasMediaHashedIdStats({
+  const result = await wistia.media.getStats({
     mediaHashedId: "<id>",
   });
 
@@ -719,7 +719,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { mediaGetMediasMediaHashedIdStats } from "@wistia/wistia-api-client/funcs/mediaGetMediasMediaHashedIdStats.js";
+import { mediaGetStats } from "@wistia/wistia-api-client/funcs/mediaGetStats.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -728,14 +728,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await mediaGetMediasMediaHashedIdStats(wistia, {
+  const res = await mediaGetStats(wistia, {
     mediaHashedId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("mediaGetMediasMediaHashedIdStats failed:", res.error);
+    console.log("mediaGetStats failed:", res.error);
   }
 }
 
@@ -765,7 +765,7 @@ run();
 | errors.FiveHundredError        | 500                            | application/json               |
 | errors.WistiaDefaultError      | 4XX, 5XX                       | \*/\*                          |
 
-## postMediasMediaHashedIdTranslate
+## translate
 
 Translate the transcript for a media.
 
@@ -786,7 +786,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.media.postMediasMediaHashedIdTranslate({
+  const result = await wistia.media.translate({
     mediaHashedId: "<id>",
   });
 
@@ -802,7 +802,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { mediaPostMediasMediaHashedIdTranslate } from "@wistia/wistia-api-client/funcs/mediaPostMediasMediaHashedIdTranslate.js";
+import { mediaTranslate } from "@wistia/wistia-api-client/funcs/mediaTranslate.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -811,14 +811,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await mediaPostMediasMediaHashedIdTranslate(wistia, {
+  const res = await mediaTranslate(wistia, {
     mediaHashedId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("mediaPostMediasMediaHashedIdTranslate failed:", res.error);
+    console.log("mediaTranslate failed:", res.error);
   }
 }
 
