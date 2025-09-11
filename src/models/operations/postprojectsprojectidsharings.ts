@@ -28,18 +28,17 @@ export const PostProjectsProjectIdSharingsRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  "project-id": z.string(),
+  projectId: z.string(),
   CreateProjectSharing: models.CreateProjectSharing$inboundSchema,
 }).transform((v) => {
   return remap$(v, {
-    "project-id": "projectId",
     "CreateProjectSharing": "createProjectSharing",
   });
 });
 
 /** @internal */
 export type PostProjectsProjectIdSharingsRequest$Outbound = {
-  "project-id": string;
+  projectId: string;
   CreateProjectSharing: models.CreateProjectSharing$Outbound;
 };
 
@@ -53,7 +52,6 @@ export const PostProjectsProjectIdSharingsRequest$outboundSchema: z.ZodType<
   createProjectSharing: models.CreateProjectSharing$outboundSchema,
 }).transform((v) => {
   return remap$(v, {
-    projectId: "project-id",
     createProjectSharing: "CreateProjectSharing",
   });
 });

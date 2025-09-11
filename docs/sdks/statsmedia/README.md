@@ -5,9 +5,9 @@
 
 ### Available Operations
 
-* [getByDate](#getbydate) - Stats:Media By Date
+* [getStatsMediasMediaIdByDate](#getstatsmediasmediaidbydate) - Stats:Media By Date
 
-## getByDate
+## getStatsMediasMediaIdByDate
 
 Retrieve stats for a media organized by day, between a start and end date paramater (inclusive). If start and end date are not provided, defaults to yesterday and today.
 
@@ -21,7 +21,7 @@ Read all project and video data
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get_/stats/medias/{media-id}/by_date" method="get" path="/stats/medias/{media-id}/by_date" -->
+<!-- UsageSnippet language="typescript" operationID="get_/stats/medias/{mediaId}/by_date" method="get" path="/stats/medias/{mediaId}/by_date" -->
 ```typescript
 import { Wistia } from "@wistia/wistia-api-client";
 import { RFCDate } from "@wistia/wistia-api-client/types";
@@ -31,7 +31,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.statsMedia.getByDate({
+  const result = await wistia.statsMedia.getStatsMediasMediaIdByDate({
     mediaId: "<id>",
     startDate: new RFCDate("2024-02-21"),
     endDate: new RFCDate("2024-02-23"),
@@ -49,7 +49,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { statsMediaGetByDate } from "@wistia/wistia-api-client/funcs/statsMediaGetByDate.js";
+import { statsMediaGetStatsMediasMediaIdByDate } from "@wistia/wistia-api-client/funcs/statsMediaGetStatsMediasMediaIdByDate.js";
 import { RFCDate } from "@wistia/wistia-api-client/types";
 
 // Use `WistiaCore` for best tree-shaking performance.
@@ -59,7 +59,7 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await statsMediaGetByDate(wistia, {
+  const res = await statsMediaGetStatsMediasMediaIdByDate(wistia, {
     mediaId: "<id>",
     startDate: new RFCDate("2024-02-21"),
     endDate: new RFCDate("2024-02-23"),
@@ -68,7 +68,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("statsMediaGetByDate failed:", res.error);
+    console.log("statsMediaGetStatsMediasMediaIdByDate failed:", res.error);
   }
 }
 

@@ -23,18 +23,17 @@ export type GetMediasMediaHashedIdLocalizationsRequest = {
 export const GetMediasMediaHashedIdLocalizationsRequest$inboundSchema:
   z.ZodType<GetMediasMediaHashedIdLocalizationsRequest, z.ZodTypeDef, unknown> =
     z.object({
-      "media-hashed-id": z.string(),
+      mediaHashedId: z.string(),
       include_transcript: z.boolean().default(false),
     }).transform((v) => {
       return remap$(v, {
-        "media-hashed-id": "mediaHashedId",
         "include_transcript": "includeTranscript",
       });
     });
 
 /** @internal */
 export type GetMediasMediaHashedIdLocalizationsRequest$Outbound = {
-  "media-hashed-id": string;
+  mediaHashedId: string;
   include_transcript: boolean;
 };
 
@@ -49,7 +48,6 @@ export const GetMediasMediaHashedIdLocalizationsRequest$outboundSchema:
     includeTranscript: z.boolean().default(false),
   }).transform((v) => {
     return remap$(v, {
-      mediaHashedId: "media-hashed-id",
       includeTranscript: "include_transcript",
     });
   });

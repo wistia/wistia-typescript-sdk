@@ -5,13 +5,13 @@
 
 ### Available Operations
 
-* [list](#list) - Project Sharing List
-* [create](#create) - Project Sharing Create
-* [get](#get) - Project Sharing Show
-* [update](#update) - Project Sharing Update
-* [delete](#delete) - Project Sharing Delete
+* [getProjectsProjectIdSharings](#getprojectsprojectidsharings) - Project Sharing List
+* [postProjectsProjectIdSharings](#postprojectsprojectidsharings) - Project Sharing Create
+* [getProjectsProjectIdSharingsSharingId](#getprojectsprojectidsharingssharingid) - Project Sharing Show
+* [putProjectsProjectIdSharingsSharingId](#putprojectsprojectidsharingssharingid) - Project Sharing Update
+* [deleteProjectsProjectIdSharingsSharingId](#deleteprojectsprojectidsharingssharingid) - Project Sharing Delete
 
-## list
+## getProjectsProjectIdSharings
 
 A sharing is an object that links either a contact or a contact group to a project, including information about the contacts' permissions to that project.
 Retrieve a list of all sharings for a given project. Supports paging and sorting.
@@ -25,7 +25,7 @@ Read all data
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get_/projects/{project-id}/sharings" method="get" path="/projects/{project-id}/sharings" -->
+<!-- UsageSnippet language="typescript" operationID="get_/projects/{projectId}/sharings" method="get" path="/projects/{projectId}/sharings" -->
 ```typescript
 import { Wistia } from "@wistia/wistia-api-client";
 
@@ -34,7 +34,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.projectSharings.list({
+  const result = await wistia.projectSharings.getProjectsProjectIdSharings({
     projectId: "<id>",
   });
 
@@ -50,7 +50,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { projectSharingsList } from "@wistia/wistia-api-client/funcs/projectSharingsList.js";
+import { projectSharingsGetProjectsProjectIdSharings } from "@wistia/wistia-api-client/funcs/projectSharingsGetProjectsProjectIdSharings.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -59,14 +59,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await projectSharingsList(wistia, {
+  const res = await projectSharingsGetProjectsProjectIdSharings(wistia, {
     projectId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("projectSharingsList failed:", res.error);
+    console.log("projectSharingsGetProjectsProjectIdSharings failed:", res.error);
   }
 }
 
@@ -94,7 +94,7 @@ run();
 | errors.FiveHundredError       | 500                           | application/json              |
 | errors.WistiaDefaultError     | 4XX, 5XX                      | \*/\*                         |
 
-## create
+## postProjectsProjectIdSharings
 
 Create a new sharing object for a project by specifying the email of the person to share with and other optional parameters.
 
@@ -106,7 +106,7 @@ Read, update & delete anything
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="post_/projects/{project-id}/sharings" method="post" path="/projects/{project-id}/sharings" -->
+<!-- UsageSnippet language="typescript" operationID="post_/projects/{projectId}/sharings" method="post" path="/projects/{projectId}/sharings" -->
 ```typescript
 import { Wistia } from "@wistia/wistia-api-client";
 
@@ -115,11 +115,11 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.projectSharings.create({
+  const result = await wistia.projectSharings.postProjectsProjectIdSharings({
     projectId: "<id>",
     createProjectSharing: {
       sharing: {
-        with: "Darien64@yahoo.com",
+        with: "Dallas_Spinka@yahoo.com",
         requirePassword: false,
         canShare: false,
         canDownload: false,
@@ -140,7 +140,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { projectSharingsCreate } from "@wistia/wistia-api-client/funcs/projectSharingsCreate.js";
+import { projectSharingsPostProjectsProjectIdSharings } from "@wistia/wistia-api-client/funcs/projectSharingsPostProjectsProjectIdSharings.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -149,11 +149,11 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await projectSharingsCreate(wistia, {
+  const res = await projectSharingsPostProjectsProjectIdSharings(wistia, {
     projectId: "<id>",
     createProjectSharing: {
       sharing: {
-        with: "Darien64@yahoo.com",
+        with: "Dallas_Spinka@yahoo.com",
         requirePassword: false,
         canShare: false,
         canDownload: false,
@@ -165,7 +165,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("projectSharingsCreate failed:", res.error);
+    console.log("projectSharingsPostProjectsProjectIdSharings failed:", res.error);
   }
 }
 
@@ -193,7 +193,7 @@ run();
 | errors.FiveHundredError       | 500                           | application/json              |
 | errors.WistiaDefaultError     | 4XX, 5XX                      | \*/\*                         |
 
-## get
+## getProjectsProjectIdSharingsSharingId
 
 Retrieve the details of a specific sharing object for a given project.
 
@@ -206,7 +206,7 @@ Read all data
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get_/projects/{project-id}/sharings/{sharing-id}" method="get" path="/projects/{project-id}/sharings/{sharing-id}" -->
+<!-- UsageSnippet language="typescript" operationID="get_/projects/{projectId}/sharings/{sharingId}" method="get" path="/projects/{projectId}/sharings/{sharingId}" -->
 ```typescript
 import { Wistia } from "@wistia/wistia-api-client";
 
@@ -215,9 +215,9 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.projectSharings.get({
+  const result = await wistia.projectSharings.getProjectsProjectIdSharingsSharingId({
     projectId: "<id>",
-    sharingId: 176565,
+    sharingId: 495335,
   });
 
   console.log(result);
@@ -232,7 +232,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { projectSharingsGet } from "@wistia/wistia-api-client/funcs/projectSharingsGet.js";
+import { projectSharingsGetProjectsProjectIdSharingsSharingId } from "@wistia/wistia-api-client/funcs/projectSharingsGetProjectsProjectIdSharingsSharingId.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -241,15 +241,15 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await projectSharingsGet(wistia, {
+  const res = await projectSharingsGetProjectsProjectIdSharingsSharingId(wistia, {
     projectId: "<id>",
-    sharingId: 176565,
+    sharingId: 495335,
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("projectSharingsGet failed:", res.error);
+    console.log("projectSharingsGetProjectsProjectIdSharingsSharingId failed:", res.error);
   }
 }
 
@@ -278,7 +278,7 @@ run();
 | errors.FiveHundredError        | 500                            | application/json               |
 | errors.WistiaDefaultError      | 4XX, 5XX                       | \*/\*                          |
 
-## update
+## putProjectsProjectIdSharingsSharingId
 
 Update a sharing on a project.
 
@@ -290,7 +290,7 @@ Read, update & delete anything
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="put_/projects/{project-id}/sharings/{sharing-id}" method="put" path="/projects/{project-id}/sharings/{sharing-id}" -->
+<!-- UsageSnippet language="typescript" operationID="put_/projects/{projectId}/sharings/{sharingId}" method="put" path="/projects/{projectId}/sharings/{sharingId}" -->
 ```typescript
 import { Wistia } from "@wistia/wistia-api-client";
 
@@ -299,7 +299,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.projectSharings.update({
+  const result = await wistia.projectSharings.putProjectsProjectIdSharingsSharingId({
     projectId: "<id>",
     sharingId: "<id>",
     updateSharingRequest: {},
@@ -317,7 +317,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { projectSharingsUpdate } from "@wistia/wistia-api-client/funcs/projectSharingsUpdate.js";
+import { projectSharingsPutProjectsProjectIdSharingsSharingId } from "@wistia/wistia-api-client/funcs/projectSharingsPutProjectsProjectIdSharingsSharingId.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -326,7 +326,7 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await projectSharingsUpdate(wistia, {
+  const res = await projectSharingsPutProjectsProjectIdSharingsSharingId(wistia, {
     projectId: "<id>",
     sharingId: "<id>",
     updateSharingRequest: {},
@@ -335,7 +335,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("projectSharingsUpdate failed:", res.error);
+    console.log("projectSharingsPutProjectsProjectIdSharingsSharingId failed:", res.error);
   }
 }
 
@@ -364,7 +364,7 @@ run();
 | errors.FiveHundredError        | 500                            | application/json               |
 | errors.WistiaDefaultError      | 4XX, 5XX                       | \*/\*                          |
 
-## delete
+## deleteProjectsProjectIdSharingsSharingId
 
 Delete a sharing on a project.
 
@@ -376,7 +376,7 @@ Read, update & delete anything
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="delete_/projects/{project-id}/sharings/{sharing-id}" method="delete" path="/projects/{project-id}/sharings/{sharing-id}" -->
+<!-- UsageSnippet language="typescript" operationID="delete_/projects/{projectId}/sharings/{sharingId}" method="delete" path="/projects/{projectId}/sharings/{sharingId}" -->
 ```typescript
 import { Wistia } from "@wistia/wistia-api-client";
 
@@ -385,7 +385,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.projectSharings.delete({
+  const result = await wistia.projectSharings.deleteProjectsProjectIdSharingsSharingId({
     projectId: "<id>",
     sharingId: "<id>",
   });
@@ -402,7 +402,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { projectSharingsDelete } from "@wistia/wistia-api-client/funcs/projectSharingsDelete.js";
+import { projectSharingsDeleteProjectsProjectIdSharingsSharingId } from "@wistia/wistia-api-client/funcs/projectSharingsDeleteProjectsProjectIdSharingsSharingId.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -411,7 +411,7 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await projectSharingsDelete(wistia, {
+  const res = await projectSharingsDeleteProjectsProjectIdSharingsSharingId(wistia, {
     projectId: "<id>",
     sharingId: "<id>",
   });
@@ -419,7 +419,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("projectSharingsDelete failed:", res.error);
+    console.log("projectSharingsDeleteProjectsProjectIdSharingsSharingId failed:", res.error);
   }
 }
 

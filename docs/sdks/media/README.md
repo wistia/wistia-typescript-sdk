@@ -8,12 +8,13 @@
 * [uploadMultipart](#uploadmultipart) - Upload or Import Media
 * [uploadForm](#uploadform) - Upload or Import Media
 * [list](#list) - Media List
-* [get](#get) - Media Show
-* [update](#update) - Media Update
-* [delete](#delete) - Media Delete
-* [copy](#copy) - Media Copy
-* [stats](#stats) - Media Stats
-* [translate](#translate) - Media Translate
+* [getMediasMediaHashedId](#getmediasmediahashedid) - Media Show
+* [putMediasMediaHashedId](#putmediasmediahashedid) - Media Update
+* [deleteMediasMediaHashedId](#deletemediasmediahashedid) - Media Delete
+* [postMediasMediaHashedIdCopy](#postmediasmediahashedidcopy) - Media Copy
+* [putMediasMediaHashedIdSwap](#putmediasmediahashedidswap) - Media Swap
+* [getMediasMediaHashedIdStats](#getmediasmediahashedidstats) - Media Stats
+* [postMediasMediaHashedIdTranslate](#postmediasmediahashedidtranslate) - Media Translate
 * [archive](#archive) - Medias Archive
 * [move](#move) - Media Move
 * [restore](#restore) - Media Restore
@@ -260,7 +261,7 @@ run();
 | errors.FiveHundredError       | 500                           | application/json              |
 | errors.WistiaDefaultError     | 4XX, 5XX                      | \*/\*                         |
 
-## get
+## getMediasMediaHashedId
 
 Fetch detailed information about a media you’ve uploaded to your account using its hashed_id.
 
@@ -277,7 +278,7 @@ Read all project and video data
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get_/medias/{media-hashed-id}" method="get" path="/medias/{media-hashed-id}" -->
+<!-- UsageSnippet language="typescript" operationID="get_/medias/{mediaHashedId}" method="get" path="/medias/{mediaHashedId}" -->
 ```typescript
 import { Wistia } from "@wistia/wistia-api-client";
 
@@ -286,7 +287,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.media.get({
+  const result = await wistia.media.getMediasMediaHashedId({
     mediaHashedId: "<id>",
   });
 
@@ -302,7 +303,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { mediaGet } from "@wistia/wistia-api-client/funcs/mediaGet.js";
+import { mediaGetMediasMediaHashedId } from "@wistia/wistia-api-client/funcs/mediaGetMediasMediaHashedId.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -311,14 +312,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await mediaGet(wistia, {
+  const res = await mediaGetMediasMediaHashedId(wistia, {
     mediaHashedId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("mediaGet failed:", res.error);
+    console.log("mediaGetMediasMediaHashedId failed:", res.error);
   }
 }
 
@@ -347,7 +348,7 @@ run();
 | errors.FiveHundredError        | 500                            | application/json               |
 | errors.WistiaDefaultError      | 4XX, 5XX                       | \*/\*                          |
 
-## update
+## putMediasMediaHashedId
 
 Update attributes on a media.
 
@@ -359,7 +360,7 @@ Read, update & delete anything
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="put_/medias/{media-hashed-id}" method="put" path="/medias/{media-hashed-id}" -->
+<!-- UsageSnippet language="typescript" operationID="put_/medias/{mediaHashedId}" method="put" path="/medias/{mediaHashedId}" -->
 ```typescript
 import { Wistia } from "@wistia/wistia-api-client";
 
@@ -368,7 +369,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.media.update({
+  const result = await wistia.media.putMediasMediaHashedId({
     mediaHashedId: "<id>",
   });
 
@@ -384,7 +385,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { mediaUpdate } from "@wistia/wistia-api-client/funcs/mediaUpdate.js";
+import { mediaPutMediasMediaHashedId } from "@wistia/wistia-api-client/funcs/mediaPutMediasMediaHashedId.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -393,14 +394,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await mediaUpdate(wistia, {
+  const res = await mediaPutMediasMediaHashedId(wistia, {
     mediaHashedId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("mediaUpdate failed:", res.error);
+    console.log("mediaPutMediasMediaHashedId failed:", res.error);
   }
 }
 
@@ -418,7 +419,7 @@ run();
 
 ### Response
 
-**Promise\<[models.NoAssetMediaSchemaMedia](../../models/noassetmediaschemamedia.md)\>**
+**Promise\<[models.Media](../../models/media.md)\>**
 
 ### Errors
 
@@ -430,7 +431,7 @@ run();
 | errors.FiveHundredError        | 500                            | application/json               |
 | errors.WistiaDefaultError      | 4XX, 5XX                       | \*/\*                          |
 
-## delete
+## deleteMediasMediaHashedId
 
 Delete a media.
 
@@ -442,7 +443,7 @@ Read, update & delete anything
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="delete_/medias/{media-hashed-id}" method="delete" path="/medias/{media-hashed-id}" -->
+<!-- UsageSnippet language="typescript" operationID="delete_/medias/{mediaHashedId}" method="delete" path="/medias/{mediaHashedId}" -->
 ```typescript
 import { Wistia } from "@wistia/wistia-api-client";
 
@@ -451,7 +452,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.media.delete({
+  const result = await wistia.media.deleteMediasMediaHashedId({
     mediaHashedId: "<id>",
   });
 
@@ -467,7 +468,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { mediaDelete } from "@wistia/wistia-api-client/funcs/mediaDelete.js";
+import { mediaDeleteMediasMediaHashedId } from "@wistia/wistia-api-client/funcs/mediaDeleteMediasMediaHashedId.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -476,14 +477,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await mediaDelete(wistia, {
+  const res = await mediaDeleteMediasMediaHashedId(wistia, {
     mediaHashedId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("mediaDelete failed:", res.error);
+    console.log("mediaDeleteMediasMediaHashedId failed:", res.error);
   }
 }
 
@@ -501,7 +502,7 @@ run();
 
 ### Response
 
-**Promise\<[models.Media](../../models/media.md)\>**
+**Promise\<[models.MediaSchemaMedia](../../models/mediaschemamedia.md)\>**
 
 ### Errors
 
@@ -512,7 +513,7 @@ run();
 | errors.FiveHundredError        | 500                            | application/json               |
 | errors.WistiaDefaultError      | 4XX, 5XX                       | \*/\*                          |
 
-## copy
+## postMediasMediaHashedIdCopy
 
 Copy a media.
 
@@ -524,7 +525,7 @@ Read, update & delete anything
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="post_/medias/{media-hashed-id}/copy" method="post" path="/medias/{media-hashed-id}/copy" -->
+<!-- UsageSnippet language="typescript" operationID="post_/medias/{mediaHashedId}/copy" method="post" path="/medias/{mediaHashedId}/copy" -->
 ```typescript
 import { Wistia } from "@wistia/wistia-api-client";
 
@@ -533,7 +534,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.media.copy({
+  const result = await wistia.media.postMediasMediaHashedIdCopy({
     mediaHashedId: "<id>",
   });
 
@@ -549,7 +550,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { mediaCopy } from "@wistia/wistia-api-client/funcs/mediaCopy.js";
+import { mediaPostMediasMediaHashedIdCopy } from "@wistia/wistia-api-client/funcs/mediaPostMediasMediaHashedIdCopy.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -558,14 +559,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await mediaCopy(wistia, {
+  const res = await mediaPostMediasMediaHashedIdCopy(wistia, {
     mediaHashedId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("mediaCopy failed:", res.error);
+    console.log("mediaPostMediasMediaHashedIdCopy failed:", res.error);
   }
 }
 
@@ -596,21 +597,19 @@ run();
 | errors.FiveHundredError                           | 500                                               | application/json                                  |
 | errors.WistiaDefaultError                         | 4XX, 5XX                                          | \*/\*                                             |
 
-## stats
+## putMediasMediaHashedIdSwap
 
-Aggregated tracking statistics for a video embedded on your site.
+Swap one media with another media. This operation queues a background job to replace the original media with the replacement media while preserving the original media's hashed ID and URLs.
 
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
-Read all data
-Read all project and video data
 ```
 
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get_/medias/{media-hashed-id}/stats" method="get" path="/medias/{media-hashed-id}/stats" -->
+<!-- UsageSnippet language="typescript" operationID="put_/medias/{mediaHashedId}/swap" method="put" path="/medias/{mediaHashedId}/swap" -->
 ```typescript
 import { Wistia } from "@wistia/wistia-api-client";
 
@@ -619,7 +618,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.media.stats({
+  const result = await wistia.media.putMediasMediaHashedIdSwap({
     mediaHashedId: "<id>",
   });
 
@@ -635,7 +634,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { mediaStats } from "@wistia/wistia-api-client/funcs/mediaStats.js";
+import { mediaPutMediasMediaHashedIdSwap } from "@wistia/wistia-api-client/funcs/mediaPutMediasMediaHashedIdSwap.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -644,14 +643,99 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await mediaStats(wistia, {
+  const res = await mediaPutMediasMediaHashedIdSwap(wistia, {
     mediaHashedId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("mediaStats failed:", res.error);
+    console.log("mediaPutMediasMediaHashedIdSwap failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.PutMediasMediaHashedIdSwapRequest](../../models/operations/putmediasmediahashedidswaprequest.md)                                                                   | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[operations.PutMediasMediaHashedIdSwapResponse](../../models/operations/putmediasmediahashedidswapresponse.md)\>**
+
+### Errors
+
+| Error Type                                       | Status Code                                      | Content Type                                     |
+| ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ |
+| errors.PutMediasMediaHashedIdSwapBadRequestError | 400                                              | application/json                                 |
+| errors.FourHundredAndOneError                    | 401                                              | application/json                                 |
+| errors.FourHundredAndFourError                   | 404                                              | application/json                                 |
+| errors.FiveHundredError                          | 500                                              | application/json                                 |
+| errors.WistiaDefaultError                        | 4XX, 5XX                                         | \*/\*                                            |
+
+## getMediasMediaHashedIdStats
+
+Aggregated tracking statistics for a video embedded on your site.
+
+## Requires api token with one of the following permissions
+```
+Read, update & delete anything
+Read all data
+Read all project and video data
+```
+
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="get_/medias/{mediaHashedId}/stats" method="get" path="/medias/{mediaHashedId}/stats" -->
+```typescript
+import { Wistia } from "@wistia/wistia-api-client";
+
+const wistia = new Wistia({
+  bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
+});
+
+async function run() {
+  const result = await wistia.media.getMediasMediaHashedIdStats({
+    mediaHashedId: "<id>",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { WistiaCore } from "@wistia/wistia-api-client/core.js";
+import { mediaGetMediasMediaHashedIdStats } from "@wistia/wistia-api-client/funcs/mediaGetMediasMediaHashedIdStats.js";
+
+// Use `WistiaCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const wistia = new WistiaCore({
+  bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
+});
+
+async function run() {
+  const res = await mediaGetMediasMediaHashedIdStats(wistia, {
+    mediaHashedId: "<id>",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("mediaGetMediasMediaHashedIdStats failed:", res.error);
   }
 }
 
@@ -681,7 +765,7 @@ run();
 | errors.FiveHundredError        | 500                            | application/json               |
 | errors.WistiaDefaultError      | 4XX, 5XX                       | \*/\*                          |
 
-## translate
+## postMediasMediaHashedIdTranslate
 
 Translate the transcript for a media.
 
@@ -693,7 +777,7 @@ Read, update & delete anything
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="post_/medias/{media-hashed-id}/translate" method="post" path="/medias/{media-hashed-id}/translate" -->
+<!-- UsageSnippet language="typescript" operationID="post_/medias/{mediaHashedId}/translate" method="post" path="/medias/{mediaHashedId}/translate" -->
 ```typescript
 import { Wistia } from "@wistia/wistia-api-client";
 
@@ -702,7 +786,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.media.translate({
+  const result = await wistia.media.postMediasMediaHashedIdTranslate({
     mediaHashedId: "<id>",
   });
 
@@ -718,7 +802,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { mediaTranslate } from "@wistia/wistia-api-client/funcs/mediaTranslate.js";
+import { mediaPostMediasMediaHashedIdTranslate } from "@wistia/wistia-api-client/funcs/mediaPostMediasMediaHashedIdTranslate.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -727,14 +811,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await mediaTranslate(wistia, {
+  const res = await mediaPostMediasMediaHashedIdTranslate(wistia, {
     mediaHashedId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("mediaTranslate failed:", res.error);
+    console.log("mediaPostMediasMediaHashedIdTranslate failed:", res.error);
   }
 }
 

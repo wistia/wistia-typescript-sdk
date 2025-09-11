@@ -24,18 +24,17 @@ export const PostChannelsChannelHashedIdChannelEpisodesRequest$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    "channel-hashed-id": z.string(),
+    channelHashedId: z.string(),
     CreateChannelEpisode: models.CreateChannelEpisode$inboundSchema,
   }).transform((v) => {
     return remap$(v, {
-      "channel-hashed-id": "channelHashedId",
       "CreateChannelEpisode": "createChannelEpisode",
     });
   });
 
 /** @internal */
 export type PostChannelsChannelHashedIdChannelEpisodesRequest$Outbound = {
-  "channel-hashed-id": string;
+  channelHashedId: string;
   CreateChannelEpisode: models.CreateChannelEpisode$Outbound;
 };
 
@@ -50,7 +49,6 @@ export const PostChannelsChannelHashedIdChannelEpisodesRequest$outboundSchema:
     createChannelEpisode: models.CreateChannelEpisode$outboundSchema,
   }).transform((v) => {
     return remap$(v, {
-      channelHashedId: "channel-hashed-id",
       createChannelEpisode: "CreateChannelEpisode",
     });
   });

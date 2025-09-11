@@ -6,7 +6,7 @@
 ### Available Operations
 
 * [list](#list) - Channels List
-* [get](#get) - Channels Show
+* [getChannelsChannelHashedId](#getchannelschannelhashedid) - Channels Show
 
 ## list
 
@@ -87,7 +87,7 @@ run();
 | errors.FiveHundredError       | 500                           | application/json              |
 | errors.WistiaDefaultError     | 4XX, 5XX                      | \*/\*                         |
 
-## get
+## getChannelsChannelHashedId
 
 Returns the Channel associated with the hashedId.
 
@@ -101,7 +101,7 @@ Read all project and video data
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get_/channels/{channel-hashed-id}" method="get" path="/channels/{channel-hashed-id}" -->
+<!-- UsageSnippet language="typescript" operationID="get_/channels/{channelHashedId}" method="get" path="/channels/{channelHashedId}" -->
 ```typescript
 import { Wistia } from "@wistia/wistia-api-client";
 
@@ -110,7 +110,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.channels.get({
+  const result = await wistia.channels.getChannelsChannelHashedId({
     channelHashedId: "<id>",
   });
 
@@ -126,7 +126,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { channelsGet } from "@wistia/wistia-api-client/funcs/channelsGet.js";
+import { channelsGetChannelsChannelHashedId } from "@wistia/wistia-api-client/funcs/channelsGetChannelsChannelHashedId.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -135,14 +135,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await channelsGet(wistia, {
+  const res = await channelsGetChannelsChannelHashedId(wistia, {
     channelHashedId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("channelsGet failed:", res.error);
+    console.log("channelsGetChannelsChannelHashedId failed:", res.error);
   }
 }
 

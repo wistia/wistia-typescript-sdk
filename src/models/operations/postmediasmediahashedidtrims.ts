@@ -33,18 +33,17 @@ export const PostMediasMediaHashedIdTrimsRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  "media-hashed-id": z.string(),
+  mediaHashedId: z.string(),
   Trims: models.Trims$inboundSchema,
 }).transform((v) => {
   return remap$(v, {
-    "media-hashed-id": "mediaHashedId",
     "Trims": "trims",
   });
 });
 
 /** @internal */
 export type PostMediasMediaHashedIdTrimsRequest$Outbound = {
-  "media-hashed-id": string;
+  mediaHashedId: string;
   Trims: models.Trims$Outbound;
 };
 
@@ -58,7 +57,6 @@ export const PostMediasMediaHashedIdTrimsRequest$outboundSchema: z.ZodType<
   trims: models.Trims$outboundSchema,
 }).transform((v) => {
   return remap$(v, {
-    mediaHashedId: "media-hashed-id",
     trims: "Trims",
   });
 });

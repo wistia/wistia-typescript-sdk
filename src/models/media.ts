@@ -5,21 +5,8 @@
 import * as z from "zod";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  Asset,
-  Asset$inboundSchema,
-  Asset$Outbound,
-  Asset$outboundSchema,
-} from "./asset.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  SlimProjectSchemaProject,
-  SlimProjectSchemaProject$inboundSchema,
-  SlimProjectSchemaProject$Outbound,
-  SlimProjectSchemaProject$outboundSchema,
-} from "./slimprojectschemaproject.js";
 import {
   Subfolder,
   Subfolder$inboundSchema,
@@ -33,41 +20,6 @@ import {
   Thumbnail$outboundSchema,
 } from "./thumbnail.js";
 
-/**
- * A string representing what type of media this is.
- */
-export const MediaType = {
-  Video: "Video",
-  Audio: "Audio",
-  Image: "Image",
-  PdfDocument: "PdfDocument",
-  MicrosoftOfficeDocument: "MicrosoftOfficeDocument",
-  Swf: "Swf",
-  UnknownType: "UnknownType",
-} as const;
-/**
- * A string representing what type of media this is.
- */
-export type MediaType = ClosedEnum<typeof MediaType>;
-
-/**
- * Post upload processing status. - `queued`: the file is waiting in the queue to be processed. - `processing`: the file is actively being processed. - `ready`: the file has been fully processed and is ready for embedding and viewing. - `failed`: the file was unable to be processed (usually a format or size error).
- *
- * @remarks
- */
-export const MediaStatus = {
-  Queued: "queued",
-  Processing: "processing",
-  Ready: "ready",
-  Failed: "failed",
-} as const;
-/**
- * Post upload processing status. - `queued`: the file is waiting in the queue to be processed. - `processing`: the file is actively being processed. - `ready`: the file has been fully processed and is ready for embedding and viewing. - `failed`: the file was unable to be processed (usually a format or size error).
- *
- * @remarks
- */
-export type MediaStatus = ClosedEnum<typeof MediaStatus>;
-
 export type Media = {
   /**
    * A unique numeric identifier for the media within the system.
@@ -80,7 +32,7 @@ export type Media = {
   /**
    * A string representing what type of media this is.
    */
-  type?: MediaType | undefined;
+  type?: string | undefined;
   /**
    * Whether or not the media is archived, either true or false.
    */
@@ -98,14 +50,6 @@ export type Media = {
    */
   duration?: number | undefined;
   /**
-   * DEPRECATED: If you want to programmatically embed videos, follow the construct an embed code guide.
-   *
-   * @remarks
-   *
-   * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
-   */
-  embedCode?: string | undefined;
-  /**
    * A unique alphanumeric identifier for this media.
    */
   hashedId?: string | undefined;
@@ -122,83 +66,32 @@ export type Media = {
    *
    * @remarks
    */
-  status?: MediaStatus | undefined;
-  /**
-   * The title of the section in which the media appears. This attribute is omitted if the media is not in a section (default).
-   */
-  section?: string | undefined;
+  status?: string | undefined;
   /**
    * A subfolder within a project that contains media files.
    */
   subfolder?: Subfolder | undefined;
   thumbnail?: Thumbnail | undefined;
-  project?: SlimProjectSchemaProject | undefined;
-  /**
-   * An array of the assets available for this media.
-   */
-  assets?: Array<Asset> | undefined;
 };
-
-/** @internal */
-export const MediaType$inboundSchema: z.ZodNativeEnum<typeof MediaType> = z
-  .nativeEnum(MediaType);
-
-/** @internal */
-export const MediaType$outboundSchema: z.ZodNativeEnum<typeof MediaType> =
-  MediaType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MediaType$ {
-  /** @deprecated use `MediaType$inboundSchema` instead. */
-  export const inboundSchema = MediaType$inboundSchema;
-  /** @deprecated use `MediaType$outboundSchema` instead. */
-  export const outboundSchema = MediaType$outboundSchema;
-}
-
-/** @internal */
-export const MediaStatus$inboundSchema: z.ZodNativeEnum<typeof MediaStatus> = z
-  .nativeEnum(MediaStatus);
-
-/** @internal */
-export const MediaStatus$outboundSchema: z.ZodNativeEnum<typeof MediaStatus> =
-  MediaStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MediaStatus$ {
-  /** @deprecated use `MediaStatus$inboundSchema` instead. */
-  export const inboundSchema = MediaStatus$inboundSchema;
-  /** @deprecated use `MediaStatus$outboundSchema` instead. */
-  export const outboundSchema = MediaStatus$outboundSchema;
-}
 
 /** @internal */
 export const Media$inboundSchema: z.ZodType<Media, z.ZodTypeDef, unknown> = z
   .object({
     id: z.number().int().optional(),
     name: z.string().optional(),
-    type: MediaType$inboundSchema.optional(),
+    type: z.string().optional(),
     archived: z.boolean().optional(),
     created: z.string().datetime({ offset: true }).transform(v => new Date(v))
       .optional(),
     updated: z.string().datetime({ offset: true }).transform(v => new Date(v))
       .optional(),
     duration: z.number().optional(),
-    embedCode: z.string().optional(),
     hashed_id: z.string().optional(),
     description: z.string().optional(),
     progress: z.number().optional(),
-    status: MediaStatus$inboundSchema.optional(),
-    section: z.string().optional(),
+    status: z.string().optional(),
     subfolder: Subfolder$inboundSchema.optional(),
     thumbnail: Thumbnail$inboundSchema.optional(),
-    project: SlimProjectSchemaProject$inboundSchema.optional(),
-    assets: z.array(Asset$inboundSchema).optional(),
   }).transform((v) => {
     return remap$(v, {
       "hashed_id": "hashedId",
@@ -214,16 +107,12 @@ export type Media$Outbound = {
   created?: string | undefined;
   updated?: string | undefined;
   duration?: number | undefined;
-  embedCode?: string | undefined;
   hashed_id?: string | undefined;
   description?: string | undefined;
   progress?: number | undefined;
   status?: string | undefined;
-  section?: string | undefined;
   subfolder?: Subfolder$Outbound | undefined;
   thumbnail?: Thumbnail$Outbound | undefined;
-  project?: SlimProjectSchemaProject$Outbound | undefined;
-  assets?: Array<Asset$Outbound> | undefined;
 };
 
 /** @internal */
@@ -234,21 +123,17 @@ export const Media$outboundSchema: z.ZodType<
 > = z.object({
   id: z.number().int().optional(),
   name: z.string().optional(),
-  type: MediaType$outboundSchema.optional(),
+  type: z.string().optional(),
   archived: z.boolean().optional(),
   created: z.date().transform(v => v.toISOString()).optional(),
   updated: z.date().transform(v => v.toISOString()).optional(),
   duration: z.number().optional(),
-  embedCode: z.string().optional(),
   hashedId: z.string().optional(),
   description: z.string().optional(),
   progress: z.number().optional(),
-  status: MediaStatus$outboundSchema.optional(),
-  section: z.string().optional(),
+  status: z.string().optional(),
   subfolder: Subfolder$outboundSchema.optional(),
   thumbnail: Thumbnail$outboundSchema.optional(),
-  project: SlimProjectSchemaProject$outboundSchema.optional(),
-  assets: z.array(Asset$outboundSchema).optional(),
 }).transform((v) => {
   return remap$(v, {
     hashedId: "hashed_id",

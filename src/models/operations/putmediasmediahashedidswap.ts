@@ -29,7 +29,7 @@ export type PutMediasMediaHashedIdSwapRequest = {
  */
 export type PutMediasMediaHashedIdSwapResponse = {
   message?: string | undefined;
-  media?: models.Media | undefined;
+  media?: models.MediaSchemaMedia | undefined;
   /**
    * Status of the background job.
    */
@@ -109,19 +109,18 @@ export const PutMediasMediaHashedIdSwapRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  "media-hashed-id": z.string(),
+  mediaHashedId: z.string(),
   RequestBody: z.lazy(() => PutMediasMediaHashedIdSwapRequestBody$inboundSchema)
     .optional(),
 }).transform((v) => {
   return remap$(v, {
-    "media-hashed-id": "mediaHashedId",
     "RequestBody": "requestBody",
   });
 });
 
 /** @internal */
 export type PutMediasMediaHashedIdSwapRequest$Outbound = {
-  "media-hashed-id": string;
+  mediaHashedId: string;
   RequestBody?: PutMediasMediaHashedIdSwapRequestBody$Outbound | undefined;
 };
 
@@ -137,7 +136,6 @@ export const PutMediasMediaHashedIdSwapRequest$outboundSchema: z.ZodType<
   ).optional(),
 }).transform((v) => {
   return remap$(v, {
-    mediaHashedId: "media-hashed-id",
     requestBody: "RequestBody",
   });
 });
@@ -183,7 +181,7 @@ export const PutMediasMediaHashedIdSwapResponse$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   message: z.string().optional(),
-  media: models.Media$inboundSchema.optional(),
+  media: models.MediaSchemaMedia$inboundSchema.optional(),
   background_job_status: models.BackgroundJobStatus$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
@@ -194,7 +192,7 @@ export const PutMediasMediaHashedIdSwapResponse$inboundSchema: z.ZodType<
 /** @internal */
 export type PutMediasMediaHashedIdSwapResponse$Outbound = {
   message?: string | undefined;
-  media?: models.Media$Outbound | undefined;
+  media?: models.MediaSchemaMedia$Outbound | undefined;
   background_job_status?: models.BackgroundJobStatus$Outbound | undefined;
 };
 
@@ -205,7 +203,7 @@ export const PutMediasMediaHashedIdSwapResponse$outboundSchema: z.ZodType<
   PutMediasMediaHashedIdSwapResponse
 > = z.object({
   message: z.string().optional(),
-  media: models.Media$outboundSchema.optional(),
+  media: models.MediaSchemaMedia$outboundSchema.optional(),
   backgroundJobStatus: models.BackgroundJobStatus$outboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {

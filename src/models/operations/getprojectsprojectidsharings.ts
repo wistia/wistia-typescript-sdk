@@ -29,19 +29,18 @@ export const GetProjectsProjectIdSharingsRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  "project-id": z.string(),
+  projectId: z.string(),
   page: z.number().int().optional(),
   per_page: z.number().int().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "project-id": "projectId",
     "per_page": "perPage",
   });
 });
 
 /** @internal */
 export type GetProjectsProjectIdSharingsRequest$Outbound = {
-  "project-id": string;
+  projectId: string;
   page?: number | undefined;
   per_page?: number | undefined;
 };
@@ -57,7 +56,6 @@ export const GetProjectsProjectIdSharingsRequest$outboundSchema: z.ZodType<
   perPage: z.number().int().optional(),
 }).transform((v) => {
   return remap$(v, {
-    projectId: "project-id",
     perPage: "per_page",
   });
 });

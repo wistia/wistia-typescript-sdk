@@ -3,7 +3,6 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -21,16 +20,12 @@ export const GetMediasMediaIdCustomizationsRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  "media-id": z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "media-id": "mediaId",
-  });
+  mediaId: z.string(),
 });
 
 /** @internal */
 export type GetMediasMediaIdCustomizationsRequest$Outbound = {
-  "media-id": string;
+  mediaId: string;
 };
 
 /** @internal */
@@ -40,10 +35,6 @@ export const GetMediasMediaIdCustomizationsRequest$outboundSchema: z.ZodType<
   GetMediasMediaIdCustomizationsRequest
 > = z.object({
   mediaId: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    mediaId: "media-id",
-  });
 });
 
 /**

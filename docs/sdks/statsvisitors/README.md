@@ -6,7 +6,7 @@
 ### Available Operations
 
 * [list](#list) - Stats:Visitors List
-* [get](#get) - Stats:Visitors Show
+* [getStatsVisitorsVisitorKey](#getstatsvisitorsvisitorkey) - Stats:Visitors Show
 
 ## list
 
@@ -87,7 +87,7 @@ run();
 | errors.FiveHundredError       | 500                           | application/json              |
 | errors.WistiaDefaultError     | 4XX, 5XX                      | \*/\*                         |
 
-## get
+## getStatsVisitorsVisitorKey
 
 This endpoint provides detailed information about a specific visitor.
 
@@ -101,7 +101,7 @@ Read all project and video data
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get_/stats/visitors/{visitor-key}" method="get" path="/stats/visitors/{visitor-key}" -->
+<!-- UsageSnippet language="typescript" operationID="get_/stats/visitors/{visitorKey}" method="get" path="/stats/visitors/{visitorKey}" -->
 ```typescript
 import { Wistia } from "@wistia/wistia-api-client";
 
@@ -110,7 +110,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.statsVisitors.get({
+  const result = await wistia.statsVisitors.getStatsVisitorsVisitorKey({
     visitorKey: "<value>",
   });
 
@@ -126,7 +126,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { statsVisitorsGet } from "@wistia/wistia-api-client/funcs/statsVisitorsGet.js";
+import { statsVisitorsGetStatsVisitorsVisitorKey } from "@wistia/wistia-api-client/funcs/statsVisitorsGetStatsVisitorsVisitorKey.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -135,14 +135,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await statsVisitorsGet(wistia, {
+  const res = await statsVisitorsGetStatsVisitorsVisitorKey(wistia, {
     visitorKey: "<value>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("statsVisitorsGet failed:", res.error);
+    console.log("statsVisitorsGetStatsVisitorsVisitorKey failed:", res.error);
   }
 }
 
