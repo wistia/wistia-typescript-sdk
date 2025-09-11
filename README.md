@@ -179,9 +179,9 @@ run();
 * [list](docs/sdks/channels/README.md#list) - Channels List
 * [get](docs/sdks/channels/README.md#get) - Channels Show
 
-#### [channels.episodes](docs/sdks/episodes/README.md)
+#### [channels.channelEpisodes](docs/sdks/channelschannelepisodes/README.md)
 
-* [list](docs/sdks/episodes/README.md#list) - Channel Episodes List filtered by channel
+* [list](docs/sdks/channelschannelepisodes/README.md#list) - Channel Episodes List filtered by channel
 
 ### [customizations](docs/sdks/customizations/README.md)
 
@@ -218,15 +218,12 @@ run();
 * [update](docs/sdks/media/README.md#update) - Media Update
 * [delete](docs/sdks/media/README.md#delete) - Media Delete
 * [copy](docs/sdks/media/README.md#copy) - Media Copy
-* [stats](docs/sdks/media/README.md#stats) - Media Stats
+* [swap](docs/sdks/media/README.md#swap) - Media Swap
+* [getStats](docs/sdks/media/README.md#getstats) - Media Stats
 * [translate](docs/sdks/media/README.md#translate) - Media Translate
 * [archive](docs/sdks/media/README.md#archive) - Medias Archive
 * [move](docs/sdks/media/README.md#move) - Media Move
 * [restore](docs/sdks/media/README.md#restore) - Media Restore
-
-### [medias](docs/sdks/medias/README.md)
-
-* [swap](docs/sdks/medias/README.md#swap) - Media Swap
 
 ### [projects](docs/sdks/projects/README.md)
 
@@ -273,7 +270,7 @@ run();
 * [create](docs/sdks/subfolders/README.md#create) - Create Subfolder
 * [get](docs/sdks/subfolders/README.md#get) - Show Subfolder
 * [update](docs/sdks/subfolders/README.md#update) - Update Subfolder
-* [delete](docs/sdks/subfolders/README.md#delete) - Delete Subfolder
+* [deleteSubfolder](docs/sdks/subfolders/README.md#deletesubfolder) - Delete Subfolder
 
 ### [tags](docs/sdks/tags/README.md)
 
@@ -321,7 +318,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`channelEpisodesCreate`](docs/sdks/channelepisodes/README.md#create) - Channel Episode Create
 - [`channelEpisodesGet`](docs/sdks/channelepisodes/README.md#get) - Channel Episodes Show
 - [`channelEpisodesList`](docs/sdks/channelepisodes/README.md#list) - Channel Episodes List
-- [`channelsEpisodesList`](docs/sdks/episodes/README.md#list) - Channel Episodes List filtered by channel
+- [`channelsChannelEpisodesList`](docs/sdks/channelschannelepisodes/README.md#list) - Channel Episodes List filtered by channel
 - [`channelsGet`](docs/sdks/channels/README.md#get) - Channels Show
 - [`channelsList`](docs/sdks/channels/README.md#list) - Channels List
 - [`customizationsCreate`](docs/sdks/customizations/README.md#create) - Customizations Create
@@ -342,11 +339,11 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`mediaCopy`](docs/sdks/media/README.md#copy) - Media Copy
 - [`mediaDelete`](docs/sdks/media/README.md#delete) - Media Delete
 - [`mediaGet`](docs/sdks/media/README.md#get) - Media Show
+- [`mediaGetStats`](docs/sdks/media/README.md#getstats) - Media Stats
 - [`mediaList`](docs/sdks/media/README.md#list) - Media List
 - [`mediaMove`](docs/sdks/media/README.md#move) - Media Move
 - [`mediaRestore`](docs/sdks/media/README.md#restore) - Media Restore
-- [`mediasSwap`](docs/sdks/medias/README.md#swap) - Media Swap
-- [`mediaStats`](docs/sdks/media/README.md#stats) - Media Stats
+- [`mediaSwap`](docs/sdks/media/README.md#swap) - Media Swap
 - [`mediaTranslate`](docs/sdks/media/README.md#translate) - Media Translate
 - [`mediaUpdate`](docs/sdks/media/README.md#update) - Media Update
 - [`mediaUploadForm`](docs/sdks/media/README.md#uploadform) - Upload or Import Media
@@ -370,7 +367,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`statsVisitorsGet`](docs/sdks/statsvisitors/README.md#get) - Stats:Visitors Show
 - [`statsVisitorsList`](docs/sdks/statsvisitors/README.md#list) - Stats:Visitors List
 - [`subfoldersCreate`](docs/sdks/subfolders/README.md#create) - Create Subfolder
-- [`subfoldersDelete`](docs/sdks/subfolders/README.md#delete) - Delete Subfolder
+- [`subfoldersDeleteSubfolder`](docs/sdks/subfolders/README.md#deletesubfolder) - Delete Subfolder
 - [`subfoldersGet`](docs/sdks/subfolders/README.md#get) - Show Subfolder
 - [`subfoldersList`](docs/sdks/subfolders/README.md#list) - Subfolder List
 - [`subfoldersUpdate`](docs/sdks/subfolders/README.md#update) - Update Subfolder
@@ -562,8 +559,8 @@ run();
 * [`PostMultipartBadRequestError`](./src/models/errors/postmultipartbadrequesterror.ts): Error due to reaching the video limit of your account or other issues. Status code `400`. Applicable to 1 of 74 methods.*
 * [`PostFormBadRequestError`](./src/models/errors/postformbadrequesterror.ts): Error due to reaching the video limit of your account or other issues. Status code `400`. Applicable to 1 of 74 methods.*
 * [`PostMediasMediaHashedIdCopyBadRequestError`](./src/models/errors/postmediasmediahashedidcopybadrequesterror.ts): Bad request, e.g. copy failure. Status code `400`. Applicable to 1 of 74 methods.*
-* [`PutMediasMoveBadRequestError`](./src/models/errors/putmediasmovebadrequesterror.ts): Invalid request. Status code `400`. Applicable to 1 of 74 methods.*
 * [`PutMediasMediaHashedIdSwapBadRequestError`](./src/models/errors/putmediasmediahashedidswapbadrequesterror.ts): Bad request, e.g. missing replacement_media_id or media type mismatch. Status code `400`. Applicable to 1 of 74 methods.*
+* [`PutMediasMoveBadRequestError`](./src/models/errors/putmediasmovebadrequesterror.ts): Invalid request. Status code `400`. Applicable to 1 of 74 methods.*
 * [`PostAllowedDomainsBadRequestError`](./src/models/errors/postalloweddomainsbadrequesterror.ts): Bad request - missing or invalid domain. Status code `400`. Applicable to 1 of 74 methods.*
 * [`PostTagsBadRequestError`](./src/models/errors/posttagsbadrequesterror.ts): Bad request - missing or invalid parameters. Status code `400`. Applicable to 1 of 74 methods.*
 * [`GetSearchBadRequestError`](./src/models/errors/getsearchbadrequesterror.ts): Bad request - missing query parameter. Status code `400`. Applicable to 1 of 74 methods.*

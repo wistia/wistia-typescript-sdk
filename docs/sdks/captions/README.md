@@ -30,7 +30,7 @@ Read all project and video data
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get_/medias/{media-hashed-id}/captions" method="get" path="/medias/{media-hashed-id}/captions" -->
+<!-- UsageSnippet language="typescript" operationID="get_/medias/{mediaHashedId}/captions" method="get" path="/medias/{mediaHashedId}/captions" -->
 ```typescript
 import { Wistia } from "@wistia/wistia-api-client";
 
@@ -111,7 +111,7 @@ Read, update & delete anything
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="post_/medias/{media-hashed-id}/captions_multipart" method="post" path="/medias/{media-hashed-id}/captions" -->
+<!-- UsageSnippet language="typescript" operationID="post_/medias/{mediaHashedId}/captions_multipart" method="post" path="/medias/{mediaHashedId}/captions" -->
 ```typescript
 import { Wistia } from "@wistia/wistia-api-client";
 import { openAsBlob } from "node:fs";
@@ -200,7 +200,7 @@ Read, update & delete anything
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="post_/medias/{media-hashed-id}/captions" method="post" path="/medias/{media-hashed-id}/captions" -->
+<!-- UsageSnippet language="typescript" operationID="post_/medias/{mediaHashedId}/captions" method="post" path="/medias/{mediaHashedId}/captions" -->
 ```typescript
 import { Wistia } from "@wistia/wistia-api-client";
 
@@ -287,7 +287,7 @@ Read, update & delete anything
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="post_/medias/{media-hashed-id}/captions/purchase" method="post" path="/medias/{media-hashed-id}/captions/purchase" -->
+<!-- UsageSnippet language="typescript" operationID="post_/medias/{mediaHashedId}/captions/purchase" method="post" path="/medias/{mediaHashedId}/captions/purchase" -->
 ```typescript
 import { Wistia } from "@wistia/wistia-api-client";
 
@@ -375,7 +375,7 @@ Read all project and video data
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get_/medias/{media-hashed-id}/captions/{language-code}" method="get" path="/medias/{media-hashed-id}/captions/{language-code}" -->
+<!-- UsageSnippet language="typescript" operationID="get_/medias/{mediaHashedId}/captions/{languageCode}" method="get" path="/medias/{mediaHashedId}/captions/{languageCode}" -->
 ```typescript
 import { Wistia } from "@wistia/wistia-api-client";
 
@@ -458,7 +458,7 @@ Read, update & delete anything
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="put_/medias/{media-hashed-id}/captions/{language-code}" method="put" path="/medias/{media-hashed-id}/captions/{language-code}" -->
+<!-- UsageSnippet language="typescript" operationID="put_/medias/{mediaHashedId}/captions/{languageCode}" method="put" path="/medias/{mediaHashedId}/captions/{languageCode}" -->
 ```typescript
 import { Wistia } from "@wistia/wistia-api-client";
 
@@ -547,7 +547,7 @@ Read, update & delete anything
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="put_/medias/{media-hashed-id}/captions/{language-code}_multipart" method="put" path="/medias/{media-hashed-id}/captions/{language-code}" -->
+<!-- UsageSnippet language="typescript" operationID="put_/medias/{mediaHashedId}/captions/{languageCode}_multipart" method="put" path="/medias/{mediaHashedId}/captions/{languageCode}" -->
 ```typescript
 import { Wistia } from "@wistia/wistia-api-client";
 import { openAsBlob } from "node:fs";
@@ -638,7 +638,7 @@ Read, update & delete anything
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="delete_/medias/{media-hashed-id}/captions/{language-code}" method="delete" path="/medias/{media-hashed-id}/captions/{language-code}" -->
+<!-- UsageSnippet language="typescript" operationID="delete_/medias/{mediaHashedId}/captions/{languageCode}" method="delete" path="/medias/{mediaHashedId}/captions/{languageCode}" -->
 ```typescript
 import { Wistia } from "@wistia/wistia-api-client";
 

@@ -3,7 +3,7 @@
  */
 
 import { WistiaCore } from "../core.js";
-import { encodeSimple } from "../lib/encodings.js";
+import { encodeJSON, encodeSimple } from "../lib/encodings.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -26,26 +26,24 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Media Stats
+ * Media Swap
  *
  * @remarks
- * Aggregated tracking statistics for a video embedded on your site.
+ * Swap one media with another media. This operation queues a background job to replace the original media with the replacement media while preserving the original media's hashed ID and URLs.
  *
  * ## Requires api token with one of the following permissions
  * ```
  * Read, update & delete anything
- * Read all data
- * Read all project and video data
  * ```
  */
-export function mediaStats(
+export function mediaSwap(
   client: WistiaCore,
-  request: operations.GetMediasMediaHashedIdStatsRequest,
+  request: operations.PutMediasMediaHashedIdSwapRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.GetMediasMediaHashedIdStatsResponse,
-    | errors.FourHundredError
+    operations.PutMediasMediaHashedIdSwapResponse,
+    | errors.PutMediasMediaHashedIdSwapBadRequestError
     | errors.FourHundredAndOneError
     | errors.FourHundredAndFourError
     | errors.FiveHundredError
@@ -68,13 +66,13 @@ export function mediaStats(
 
 async function $do(
   client: WistiaCore,
-  request: operations.GetMediasMediaHashedIdStatsRequest,
+  request: operations.PutMediasMediaHashedIdSwapRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.GetMediasMediaHashedIdStatsResponse,
-      | errors.FourHundredError
+      operations.PutMediasMediaHashedIdSwapResponse,
+      | errors.PutMediasMediaHashedIdSwapBadRequestError
       | errors.FourHundredAndOneError
       | errors.FourHundredAndFourError
       | errors.FiveHundredError
@@ -93,26 +91,26 @@ async function $do(
   const parsed = safeParse(
     request,
     (value) =>
-      operations.GetMediasMediaHashedIdStatsRequest$outboundSchema.parse(value),
+      operations.PutMediasMediaHashedIdSwapRequest$outboundSchema.parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
     return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
-  const body = null;
+  const body = encodeJSON("body", payload.RequestBody, { explode: true });
 
   const pathParams = {
-    "media-hashed-id": encodeSimple(
-      "media-hashed-id",
-      payload["media-hashed-id"],
-      { explode: false, charEncoding: "percent" },
-    ),
+    mediaHashedId: encodeSimple("mediaHashedId", payload.mediaHashedId, {
+      explode: false,
+      charEncoding: "percent",
+    }),
   };
 
-  const path = pathToFunc("/medias/{media-hashed-id}/stats")(pathParams);
+  const path = pathToFunc("/medias/{mediaHashedId}/swap")(pathParams);
 
   const headers = new Headers(compactMap({
+    "Content-Type": "application/json",
     Accept: "application/json",
   }));
 
@@ -123,7 +121,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "get_/medias/{media-hashed-id}/stats",
+    operationID: "put_/medias/{mediaHashedId}/swap",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -137,7 +135,7 @@ async function $do(
 
   const requestRes = client._createRequest(context, {
     security: requestSecurity,
-    method: "GET",
+    method: "PUT",
     baseURL: options?.serverURL,
     path: path,
     headers: headers,
@@ -166,8 +164,8 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.GetMediasMediaHashedIdStatsResponse,
-    | errors.FourHundredError
+    operations.PutMediasMediaHashedIdSwapResponse,
+    | errors.PutMediasMediaHashedIdSwapBadRequestError
     | errors.FourHundredAndOneError
     | errors.FourHundredAndFourError
     | errors.FiveHundredError
@@ -180,8 +178,11 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.GetMediasMediaHashedIdStatsResponse$inboundSchema),
-    M.jsonErr(400, errors.FourHundredError$inboundSchema),
+    M.json(200, operations.PutMediasMediaHashedIdSwapResponse$inboundSchema),
+    M.jsonErr(
+      400,
+      errors.PutMediasMediaHashedIdSwapBadRequestError$inboundSchema,
+    ),
     M.jsonErr(401, errors.FourHundredAndOneError$inboundSchema),
     M.jsonErr(404, errors.FourHundredAndFourError$inboundSchema),
     M.jsonErr(500, errors.FiveHundredError$inboundSchema),

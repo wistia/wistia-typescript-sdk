@@ -100,14 +100,13 @@ async function $do(
   const body = encodeJSON("body", payload.RequestBody, { explode: true });
 
   const pathParams = {
-    "media-hashed-id": encodeSimple(
-      "media-hashed-id",
-      payload["media-hashed-id"],
-      { explode: false, charEncoding: "percent" },
-    ),
+    mediaHashedId: encodeSimple("mediaHashedId", payload.mediaHashedId, {
+      explode: false,
+      charEncoding: "percent",
+    }),
   };
 
-  const path = pathToFunc("/medias/{media-hashed-id}/captions")(pathParams);
+  const path = pathToFunc("/medias/{mediaHashedId}/captions")(pathParams);
 
   const headers = new Headers(compactMap({
     "Content-Type": "application/json",
@@ -121,7 +120,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "post_/medias/{media-hashed-id}/captions",
+    operationID: "post_/medias/{mediaHashedId}/captions",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,

@@ -100,18 +100,17 @@ async function $do(
   const body = null;
 
   const pathParams = {
-    "language-code": encodeSimple("language-code", payload["language-code"], {
+    languageCode: encodeSimple("languageCode", payload.languageCode, {
       explode: false,
       charEncoding: "percent",
     }),
-    "media-hashed-id": encodeSimple(
-      "media-hashed-id",
-      payload["media-hashed-id"],
-      { explode: false, charEncoding: "percent" },
-    ),
+    mediaHashedId: encodeSimple("mediaHashedId", payload.mediaHashedId, {
+      explode: false,
+      charEncoding: "percent",
+    }),
   };
 
-  const path = pathToFunc("/medias/{media-hashed-id}/captions/{language-code}")(
+  const path = pathToFunc("/medias/{mediaHashedId}/captions/{languageCode}")(
     pathParams,
   );
 
@@ -126,7 +125,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "delete_/medias/{media-hashed-id}/captions/{language-code}",
+    operationID: "delete_/medias/{mediaHashedId}/captions/{languageCode}",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,

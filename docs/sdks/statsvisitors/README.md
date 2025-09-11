@@ -101,7 +101,7 @@ Read all project and video data
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get_/stats/visitors/{visitor-key}" method="get" path="/stats/visitors/{visitor-key}" -->
+<!-- UsageSnippet language="typescript" operationID="get_/stats/visitors/{visitorKey}" method="get" path="/stats/visitors/{visitorKey}" -->
 ```typescript
 import { Wistia } from "@wistia/wistia-api-client";
 

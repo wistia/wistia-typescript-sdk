@@ -19,7 +19,7 @@ Read, update & delete anything
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="post_/medias/{media-hashed-id}/trims" method="post" path="/medias/{media-hashed-id}/trims" -->
+<!-- UsageSnippet language="typescript" operationID="post_/medias/{mediaHashedId}/trims" method="post" path="/medias/{mediaHashedId}/trims" -->
 ```typescript
 import { Wistia } from "@wistia/wistia-api-client";
 

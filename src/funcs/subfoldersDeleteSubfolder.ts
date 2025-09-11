@@ -39,7 +39,7 @@ import { Result } from "../types/fp.js";
  * Read, update & delete anything
  * ```
  */
-export function subfoldersDelete(
+export function subfoldersDeleteSubfolder(
   client: WistiaCore,
   request: operations.DeleteProjectsProjectIdSubfoldersSubfolderIdRequest,
   options?: RequestOptions,
@@ -104,17 +104,17 @@ async function $do(
   const body = null;
 
   const pathParams = {
-    "project-id": encodeSimple("project-id", payload["project-id"], {
+    projectId: encodeSimple("projectId", payload.projectId, {
       explode: false,
       charEncoding: "percent",
     }),
-    "subfolder-id": encodeSimple("subfolder-id", payload["subfolder-id"], {
+    subfolderId: encodeSimple("subfolderId", payload.subfolderId, {
       explode: false,
       charEncoding: "percent",
     }),
   };
 
-  const path = pathToFunc("/projects/{project-id}/subfolders/{subfolder-id}")(
+  const path = pathToFunc("/projects/{projectId}/subfolders/{subfolderId}")(
     pathParams,
   );
 
@@ -129,7 +129,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "delete_/projects/{project-id}/subfolders/{subfolder-id}",
+    operationID: "delete_/projects/{projectId}/subfolders/{subfolderId}",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,

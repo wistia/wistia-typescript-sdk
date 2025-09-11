@@ -101,13 +101,13 @@ async function $do(
   const body = null;
 
   const pathParams = {
-    "event-key": encodeSimple("event-key", payload["event-key"], {
+    eventKey: encodeSimple("eventKey", payload.eventKey, {
       explode: false,
       charEncoding: "percent",
     }),
   };
 
-  const path = pathToFunc("/stats/events/{event-key}")(pathParams);
+  const path = pathToFunc("/stats/events/{eventKey}")(pathParams);
 
   const headers = new Headers(compactMap({
     Accept: "application/json",
@@ -120,7 +120,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "get_/stats/events/{event-key}",
+    operationID: "get_/stats/events/{eventKey}",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,

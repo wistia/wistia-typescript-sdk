@@ -105,14 +105,13 @@ async function $do(
   const body = null;
 
   const pathParams = {
-    "media-hashed-id": encodeSimple(
-      "media-hashed-id",
-      payload["media-hashed-id"],
-      { explode: false, charEncoding: "percent" },
-    ),
+    mediaHashedId: encodeSimple("mediaHashedId", payload.mediaHashedId, {
+      explode: false,
+      charEncoding: "percent",
+    }),
   };
 
-  const path = pathToFunc("/medias/{media-hashed-id}")(pathParams);
+  const path = pathToFunc("/medias/{mediaHashedId}")(pathParams);
 
   const headers = new Headers(compactMap({
     Accept: "application/json",
@@ -125,7 +124,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "get_/medias/{media-hashed-id}",
+    operationID: "get_/medias/{mediaHashedId}",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,

@@ -55,7 +55,7 @@ export const GetChannelsChannelHashedIdChannelEpisodesRequest$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    "channel-hashed-id": z.string(),
+    channelHashedId: z.string(),
     sort_by: models.SortBy$inboundSchema.optional(),
     sort_direction: models.SortDirection$inboundSchema.optional(),
     page: z.number().int().optional(),
@@ -66,7 +66,6 @@ export const GetChannelsChannelHashedIdChannelEpisodesRequest$inboundSchema:
     title: z.string().optional(),
   }).transform((v) => {
     return remap$(v, {
-      "channel-hashed-id": "channelHashedId",
       "sort_by": "sortBy",
       "sort_direction": "sortDirection",
       "per_page": "perPage",
@@ -77,7 +76,7 @@ export const GetChannelsChannelHashedIdChannelEpisodesRequest$inboundSchema:
 
 /** @internal */
 export type GetChannelsChannelHashedIdChannelEpisodesRequest$Outbound = {
-  "channel-hashed-id": string;
+  channelHashedId: string;
   sort_by?: string | undefined;
   sort_direction?: number | undefined;
   page?: number | undefined;
@@ -106,7 +105,6 @@ export const GetChannelsChannelHashedIdChannelEpisodesRequest$outboundSchema:
     title: z.string().optional(),
   }).transform((v) => {
     return remap$(v, {
-      channelHashedId: "channel-hashed-id",
       sortBy: "sort_by",
       sortDirection: "sort_direction",
       perPage: "per_page",

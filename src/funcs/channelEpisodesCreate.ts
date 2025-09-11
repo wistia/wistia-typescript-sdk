@@ -105,14 +105,13 @@ async function $do(
   });
 
   const pathParams = {
-    "channel-hashed-id": encodeSimple(
-      "channel-hashed-id",
-      payload["channel-hashed-id"],
-      { explode: false, charEncoding: "percent" },
-    ),
+    channelHashedId: encodeSimple("channelHashedId", payload.channelHashedId, {
+      explode: false,
+      charEncoding: "percent",
+    }),
   };
 
-  const path = pathToFunc("/channels/{channel-hashed-id}/channel_episodes")(
+  const path = pathToFunc("/channels/{channelHashedId}/channel_episodes")(
     pathParams,
   );
 
@@ -128,7 +127,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "post_/channels/{channel-hashed-id}/channel_episodes",
+    operationID: "post_/channels/{channelHashedId}/channel_episodes",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,

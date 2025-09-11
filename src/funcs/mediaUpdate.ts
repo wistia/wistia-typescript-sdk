@@ -43,7 +43,7 @@ export function mediaUpdate(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    models.NoAssetMediaSchemaMedia,
+    models.Media,
     | errors.FourHundredError
     | errors.FourHundredAndOneError
     | errors.FourHundredAndFourError
@@ -72,7 +72,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      models.NoAssetMediaSchemaMedia,
+      models.Media,
       | errors.FourHundredError
       | errors.FourHundredAndOneError
       | errors.FourHundredAndFourError
@@ -102,14 +102,13 @@ async function $do(
   const body = encodeJSON("body", payload.RequestBody, { explode: true });
 
   const pathParams = {
-    "media-hashed-id": encodeSimple(
-      "media-hashed-id",
-      payload["media-hashed-id"],
-      { explode: false, charEncoding: "percent" },
-    ),
+    mediaHashedId: encodeSimple("mediaHashedId", payload.mediaHashedId, {
+      explode: false,
+      charEncoding: "percent",
+    }),
   };
 
-  const path = pathToFunc("/medias/{media-hashed-id}")(pathParams);
+  const path = pathToFunc("/medias/{mediaHashedId}")(pathParams);
 
   const headers = new Headers(compactMap({
     "Content-Type": "application/json",
@@ -123,7 +122,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "put_/medias/{media-hashed-id}",
+    operationID: "put_/medias/{mediaHashedId}",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -166,7 +165,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    models.NoAssetMediaSchemaMedia,
+    models.Media,
     | errors.FourHundredError
     | errors.FourHundredAndOneError
     | errors.FourHundredAndFourError
@@ -180,7 +179,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, models.NoAssetMediaSchemaMedia$inboundSchema),
+    M.json(200, models.Media$inboundSchema),
     M.jsonErr(400, errors.FourHundredError$inboundSchema),
     M.jsonErr(401, errors.FourHundredAndOneError$inboundSchema),
     M.jsonErr(404, errors.FourHundredAndFourError$inboundSchema),

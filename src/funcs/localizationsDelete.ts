@@ -104,20 +104,19 @@ async function $do(
   const body = null;
 
   const pathParams = {
-    "localization-hashed-id": encodeSimple(
-      "localization-hashed-id",
-      payload["localization-hashed-id"],
+    localizationHashedId: encodeSimple(
+      "localizationHashedId",
+      payload.localizationHashedId,
       { explode: false, charEncoding: "percent" },
     ),
-    "media-hashed-id": encodeSimple(
-      "media-hashed-id",
-      payload["media-hashed-id"],
-      { explode: false, charEncoding: "percent" },
-    ),
+    mediaHashedId: encodeSimple("mediaHashedId", payload.mediaHashedId, {
+      explode: false,
+      charEncoding: "percent",
+    }),
   };
 
   const path = pathToFunc(
-    "/medias/{media-hashed-id}/localizations/{localization-hashed-id}",
+    "/medias/{mediaHashedId}/localizations/{localizationHashedId}",
   )(pathParams);
 
   const headers = new Headers(compactMap({
@@ -132,7 +131,7 @@ async function $do(
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
     operationID:
-      "delete_/medias/{media-hashed-id}/localizations/{localization-hashed-id}",
+      "delete_/medias/{mediaHashedId}/localizations/{localizationHashedId}",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,

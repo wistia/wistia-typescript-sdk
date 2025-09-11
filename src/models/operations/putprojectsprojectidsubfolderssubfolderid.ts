@@ -115,23 +115,21 @@ export const PutProjectsProjectIdSubfoldersSubfolderIdRequest$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    "project-id": z.string(),
-    "subfolder-id": z.string(),
+    projectId: z.string(),
+    subfolderId: z.string(),
     RequestBody: z.lazy(() =>
       PutProjectsProjectIdSubfoldersSubfolderIdRequestBody$inboundSchema
     ),
   }).transform((v) => {
     return remap$(v, {
-      "project-id": "projectId",
-      "subfolder-id": "subfolderId",
       "RequestBody": "requestBody",
     });
   });
 
 /** @internal */
 export type PutProjectsProjectIdSubfoldersSubfolderIdRequest$Outbound = {
-  "project-id": string;
-  "subfolder-id": string;
+  projectId: string;
+  subfolderId: string;
   RequestBody: PutProjectsProjectIdSubfoldersSubfolderIdRequestBody$Outbound;
 };
 
@@ -149,8 +147,6 @@ export const PutProjectsProjectIdSubfoldersSubfolderIdRequest$outboundSchema:
     ),
   }).transform((v) => {
     return remap$(v, {
-      projectId: "project-id",
-      subfolderId: "subfolder-id",
       requestBody: "RequestBody",
     });
   });

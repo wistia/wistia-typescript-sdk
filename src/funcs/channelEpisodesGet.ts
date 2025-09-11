@@ -104,20 +104,19 @@ async function $do(
   const body = null;
 
   const pathParams = {
-    "channel-episode-id": encodeSimple(
-      "channel-episode-id",
-      payload["channel-episode-id"],
+    channelEpisodeId: encodeSimple(
+      "channelEpisodeId",
+      payload.channelEpisodeId,
       { explode: false, charEncoding: "percent" },
     ),
-    "channel-hashed-id": encodeSimple(
-      "channel-hashed-id",
-      payload["channel-hashed-id"],
-      { explode: false, charEncoding: "percent" },
-    ),
+    channelHashedId: encodeSimple("channelHashedId", payload.channelHashedId, {
+      explode: false,
+      charEncoding: "percent",
+    }),
   };
 
   const path = pathToFunc(
-    "/channels/{channel-hashed-id}/channel_episodes/{channel-episode-id}",
+    "/channels/{channelHashedId}/channel_episodes/{channelEpisodeId}",
   )(pathParams);
 
   const headers = new Headers(compactMap({
@@ -132,7 +131,7 @@ async function $do(
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
     operationID:
-      "get_/channels/{channel-hashed-id}/channel_episodes/{channel-episode-id}",
+      "get_/channels/{channelHashedId}/channel_episodes/{channelEpisodeId}",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,

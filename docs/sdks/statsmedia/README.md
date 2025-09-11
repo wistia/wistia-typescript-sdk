@@ -21,7 +21,7 @@ Read all project and video data
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get_/stats/medias/{media-id}/by_date" method="get" path="/stats/medias/{media-id}/by_date" -->
+<!-- UsageSnippet language="typescript" operationID="get_/stats/medias/{mediaId}/by_date" method="get" path="/stats/medias/{mediaId}/by_date" -->
 ```typescript
 import { Wistia } from "@wistia/wistia-api-client";
 import { RFCDate } from "@wistia/wistia-api-client/types";

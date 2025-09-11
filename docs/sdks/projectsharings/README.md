@@ -25,7 +25,7 @@ Read all data
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get_/projects/{project-id}/sharings" method="get" path="/projects/{project-id}/sharings" -->
+<!-- UsageSnippet language="typescript" operationID="get_/projects/{projectId}/sharings" method="get" path="/projects/{projectId}/sharings" -->
 ```typescript
 import { Wistia } from "@wistia/wistia-api-client";
 
@@ -106,7 +106,7 @@ Read, update & delete anything
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="post_/projects/{project-id}/sharings" method="post" path="/projects/{project-id}/sharings" -->
+<!-- UsageSnippet language="typescript" operationID="post_/projects/{projectId}/sharings" method="post" path="/projects/{projectId}/sharings" -->
 ```typescript
 import { Wistia } from "@wistia/wistia-api-client";
 
@@ -119,7 +119,7 @@ async function run() {
     projectId: "<id>",
     createProjectSharing: {
       sharing: {
-        with: "Darien64@yahoo.com",
+        with: "Dallas_Spinka@yahoo.com",
         requirePassword: false,
         canShare: false,
         canDownload: false,
@@ -153,7 +153,7 @@ async function run() {
     projectId: "<id>",
     createProjectSharing: {
       sharing: {
-        with: "Darien64@yahoo.com",
+        with: "Dallas_Spinka@yahoo.com",
         requirePassword: false,
         canShare: false,
         canDownload: false,
@@ -206,7 +206,7 @@ Read all data
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get_/projects/{project-id}/sharings/{sharing-id}" method="get" path="/projects/{project-id}/sharings/{sharing-id}" -->
+<!-- UsageSnippet language="typescript" operationID="get_/projects/{projectId}/sharings/{sharingId}" method="get" path="/projects/{projectId}/sharings/{sharingId}" -->
 ```typescript
 import { Wistia } from "@wistia/wistia-api-client";
 
@@ -217,7 +217,7 @@ const wistia = new Wistia({
 async function run() {
   const result = await wistia.projectSharings.get({
     projectId: "<id>",
-    sharingId: 176565,
+    sharingId: 495335,
   });
 
   console.log(result);
@@ -243,7 +243,7 @@ const wistia = new WistiaCore({
 async function run() {
   const res = await projectSharingsGet(wistia, {
     projectId: "<id>",
-    sharingId: 176565,
+    sharingId: 495335,
   });
   if (res.ok) {
     const { value: result } = res;
@@ -290,7 +290,7 @@ Read, update & delete anything
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="put_/projects/{project-id}/sharings/{sharing-id}" method="put" path="/projects/{project-id}/sharings/{sharing-id}" -->
+<!-- UsageSnippet language="typescript" operationID="put_/projects/{projectId}/sharings/{sharingId}" method="put" path="/projects/{projectId}/sharings/{sharingId}" -->
 ```typescript
 import { Wistia } from "@wistia/wistia-api-client";
 
@@ -376,7 +376,7 @@ Read, update & delete anything
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="delete_/projects/{project-id}/sharings/{sharing-id}" method="delete" path="/projects/{project-id}/sharings/{sharing-id}" -->
+<!-- UsageSnippet language="typescript" operationID="delete_/projects/{projectId}/sharings/{sharingId}" method="delete" path="/projects/{projectId}/sharings/{sharingId}" -->
 ```typescript
 import { Wistia } from "@wistia/wistia-api-client";
 

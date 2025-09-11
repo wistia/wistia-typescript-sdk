@@ -3,7 +3,6 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -21,16 +20,12 @@ export const GetStatsVisitorsVisitorKeyRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  "visitor-key": z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "visitor-key": "visitorKey",
-  });
+  visitorKey: z.string(),
 });
 
 /** @internal */
 export type GetStatsVisitorsVisitorKeyRequest$Outbound = {
-  "visitor-key": string;
+  visitorKey: string;
 };
 
 /** @internal */
@@ -40,10 +35,6 @@ export const GetStatsVisitorsVisitorKeyRequest$outboundSchema: z.ZodType<
   GetStatsVisitorsVisitorKeyRequest
 > = z.object({
   visitorKey: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    visitorKey: "visitor-key",
-  });
 });
 
 /**

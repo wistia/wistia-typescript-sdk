@@ -24,7 +24,7 @@ Read all project and video data
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get_/medias/{media-hashed-id}/localizations" method="get" path="/medias/{media-hashed-id}/localizations" -->
+<!-- UsageSnippet language="typescript" operationID="get_/medias/{mediaHashedId}/localizations" method="get" path="/medias/{mediaHashedId}/localizations" -->
 ```typescript
 import { Wistia } from "@wistia/wistia-api-client";
 
@@ -106,7 +106,7 @@ Read, update & delete anything
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="post_/medias/{media-hashed-id}/localizations" method="post" path="/medias/{media-hashed-id}/localizations" -->
+<!-- UsageSnippet language="typescript" operationID="post_/medias/{mediaHashedId}/localizations" method="post" path="/medias/{mediaHashedId}/localizations" -->
 ```typescript
 import { Wistia } from "@wistia/wistia-api-client";
 
@@ -192,7 +192,7 @@ Read all project and video data
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get_/medias/{media-hashed-id}/localizations/{localization-hashed-id}" method="get" path="/medias/{media-hashed-id}/localizations/{localization-hashed-id}" -->
+<!-- UsageSnippet language="typescript" operationID="get_/medias/{mediaHashedId}/localizations/{localizationHashedId}" method="get" path="/medias/{mediaHashedId}/localizations/{localizationHashedId}" -->
 ```typescript
 import { Wistia } from "@wistia/wistia-api-client";
 
@@ -276,7 +276,7 @@ Read, update & delete anything
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="delete_/medias/{media-hashed-id}/localizations/{localization-hashed-id}" method="delete" path="/medias/{media-hashed-id}/localizations/{localization-hashed-id}" -->
+<!-- UsageSnippet language="typescript" operationID="delete_/medias/{mediaHashedId}/localizations/{localizationHashedId}" method="delete" path="/medias/{mediaHashedId}/localizations/{localizationHashedId}" -->
 ```typescript
 import { Wistia } from "@wistia/wistia-api-client";
 

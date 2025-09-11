@@ -43,7 +43,7 @@ export function mediaDelete(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    models.Media,
+    models.MediaSchemaMedia,
     | errors.FourHundredAndOneError
     | errors.FourHundredAndFourError
     | errors.FiveHundredError
@@ -71,7 +71,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      models.Media,
+      models.MediaSchemaMedia,
       | errors.FourHundredAndOneError
       | errors.FourHundredAndFourError
       | errors.FiveHundredError
@@ -100,14 +100,13 @@ async function $do(
   const body = null;
 
   const pathParams = {
-    "media-hashed-id": encodeSimple(
-      "media-hashed-id",
-      payload["media-hashed-id"],
-      { explode: false, charEncoding: "percent" },
-    ),
+    mediaHashedId: encodeSimple("mediaHashedId", payload.mediaHashedId, {
+      explode: false,
+      charEncoding: "percent",
+    }),
   };
 
-  const path = pathToFunc("/medias/{media-hashed-id}")(pathParams);
+  const path = pathToFunc("/medias/{mediaHashedId}")(pathParams);
 
   const headers = new Headers(compactMap({
     Accept: "application/json",
@@ -120,7 +119,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "delete_/medias/{media-hashed-id}",
+    operationID: "delete_/medias/{mediaHashedId}",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -163,7 +162,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    models.Media,
+    models.MediaSchemaMedia,
     | errors.FourHundredAndOneError
     | errors.FourHundredAndFourError
     | errors.FiveHundredError
@@ -176,7 +175,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, models.Media$inboundSchema),
+    M.json(200, models.MediaSchemaMedia$inboundSchema),
     M.jsonErr(401, errors.FourHundredAndOneError$inboundSchema),
     M.jsonErr(404, errors.FourHundredAndFourError$inboundSchema),
     M.jsonErr(500, errors.FiveHundredError$inboundSchema),

@@ -9,7 +9,7 @@
 * [create](#create) - Create Subfolder
 * [get](#get) - Show Subfolder
 * [update](#update) - Update Subfolder
-* [delete](#delete) - Delete Subfolder
+* [deleteSubfolder](#deletesubfolder) - Delete Subfolder
 
 ## list
 
@@ -25,7 +25,7 @@ Read all project and video data
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get_/projects/{project-id}/subfolders" method="get" path="/projects/{project-id}/subfolders" -->
+<!-- UsageSnippet language="typescript" operationID="get_/projects/{projectId}/subfolders" method="get" path="/projects/{projectId}/subfolders" -->
 ```typescript
 import { Wistia } from "@wistia/wistia-api-client";
 
@@ -107,7 +107,7 @@ Read, update & delete anything
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="post_/projects/{project-id}/subfolders" method="post" path="/projects/{project-id}/subfolders" -->
+<!-- UsageSnippet language="typescript" operationID="post_/projects/{projectId}/subfolders" method="post" path="/projects/{projectId}/subfolders" -->
 ```typescript
 import { Wistia } from "@wistia/wistia-api-client";
 
@@ -199,7 +199,7 @@ Read all project and video data
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get_/projects/{project-id}/subfolders/{subfolder-id}" method="get" path="/projects/{project-id}/subfolders/{subfolder-id}" -->
+<!-- UsageSnippet language="typescript" operationID="get_/projects/{projectId}/subfolders/{subfolderId}" method="get" path="/projects/{projectId}/subfolders/{subfolderId}" -->
 ```typescript
 import { Wistia } from "@wistia/wistia-api-client";
 
@@ -285,7 +285,7 @@ Read, update & delete anything
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="put_/projects/{project-id}/subfolders/{subfolder-id}" method="put" path="/projects/{project-id}/subfolders/{subfolder-id}" -->
+<!-- UsageSnippet language="typescript" operationID="put_/projects/{projectId}/subfolders/{subfolderId}" method="put" path="/projects/{projectId}/subfolders/{subfolderId}" -->
 ```typescript
 import { Wistia } from "@wistia/wistia-api-client";
 
@@ -365,7 +365,7 @@ run();
 | errors.FiveHundredError                                       | 500                                                           | application/json                                              |
 | errors.WistiaDefaultError                                     | 4XX, 5XX                                                      | \*/\*                                                         |
 
-## delete
+## deleteSubfolder
 
 Delete a subfolder from a project. All media files in the subfolder will be moved to the project's root level.
 
@@ -379,7 +379,7 @@ Read, update & delete anything
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="delete_/projects/{project-id}/subfolders/{subfolder-id}" method="delete" path="/projects/{project-id}/subfolders/{subfolder-id}" -->
+<!-- UsageSnippet language="typescript" operationID="delete_/projects/{projectId}/subfolders/{subfolderId}" method="delete" path="/projects/{projectId}/subfolders/{subfolderId}" -->
 ```typescript
 import { Wistia } from "@wistia/wistia-api-client";
 
@@ -388,7 +388,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.subfolders.delete({
+  const result = await wistia.subfolders.deleteSubfolder({
     projectId: "abc123def4",
     subfolderId: "xyz789ghi0",
   });
@@ -405,7 +405,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { subfoldersDelete } from "@wistia/wistia-api-client/funcs/subfoldersDelete.js";
+import { subfoldersDeleteSubfolder } from "@wistia/wistia-api-client/funcs/subfoldersDeleteSubfolder.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -414,7 +414,7 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await subfoldersDelete(wistia, {
+  const res = await subfoldersDeleteSubfolder(wistia, {
     projectId: "abc123def4",
     subfolderId: "xyz789ghi0",
   });
@@ -422,7 +422,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("subfoldersDelete failed:", res.error);
+    console.log("subfoldersDeleteSubfolder failed:", res.error);
   }
 }
 

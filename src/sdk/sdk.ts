@@ -14,7 +14,6 @@ import { ExpiringAccessTokens } from "./expiringaccesstokens.js";
 import { LiveStreamEvents } from "./livestreamevents.js";
 import { Localizations } from "./localizations.js";
 import { Media } from "./media.js";
-import { Medias } from "./medias.js";
 import { Projects } from "./projects.js";
 import { ProjectSharings } from "./projectsharings.js";
 import { Search } from "./search.js";
@@ -45,11 +44,6 @@ export class Wistia extends ClientSDK {
   private _projectSharings?: ProjectSharings;
   get projectSharings(): ProjectSharings {
     return (this._projectSharings ??= new ProjectSharings(this._options));
-  }
-
-  private _medias?: Medias;
-  get medias(): Medias {
-    return (this._medias ??= new Medias(this._options));
   }
 
   private _account?: Account;

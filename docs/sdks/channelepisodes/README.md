@@ -23,7 +23,7 @@ Read all project and video data
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get_/channels/{channel-hashed-id}/channel_episodes/{channel-episode-id}" method="get" path="/channels/{channel-hashed-id}/channel_episodes/{channel-episode-id}" -->
+<!-- UsageSnippet language="typescript" operationID="get_/channels/{channelHashedId}/channel_episodes/{channelEpisodeId}" method="get" path="/channels/{channelHashedId}/channel_episodes/{channelEpisodeId}" -->
 ```typescript
 import { Wistia } from "@wistia/wistia-api-client";
 
@@ -106,7 +106,7 @@ Read, update & delete anything
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="post_/channels/{channel-hashed-id}/channel_episodes" method="post" path="/channels/{channel-hashed-id}/channel_episodes" -->
+<!-- UsageSnippet language="typescript" operationID="post_/channels/{channelHashedId}/channel_episodes" method="post" path="/channels/{channelHashedId}/channel_episodes" -->
 ```typescript
 import { Wistia } from "@wistia/wistia-api-client";
 
