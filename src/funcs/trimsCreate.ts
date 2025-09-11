@@ -101,14 +101,13 @@ async function $do(
   const body = encodeJSON("body", payload.Trims, { explode: true });
 
   const pathParams = {
-    "media-hashed-id": encodeSimple(
-      "media-hashed-id",
-      payload["media-hashed-id"],
-      { explode: false, charEncoding: "percent" },
-    ),
+    mediaHashedId: encodeSimple("mediaHashedId", payload.mediaHashedId, {
+      explode: false,
+      charEncoding: "percent",
+    }),
   };
 
-  const path = pathToFunc("/medias/{media-hashed-id}/trims")(pathParams);
+  const path = pathToFunc("/medias/{mediaHashedId}/trims")(pathParams);
 
   const headers = new Headers(compactMap({
     "Content-Type": "application/json",
@@ -122,7 +121,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "post_/medias/{media-hashed-id}/trims",
+    operationID: "post_/medias/{mediaHashedId}/trims",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,

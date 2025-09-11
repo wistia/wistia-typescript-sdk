@@ -23,18 +23,17 @@ export const PostMediasMediaIdCustomizationsRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  "media-id": z.string(),
+  mediaId: z.string(),
   VideoCustomization: models.VideoCustomization$inboundSchema,
 }).transform((v) => {
   return remap$(v, {
-    "media-id": "mediaId",
     "VideoCustomization": "videoCustomization",
   });
 });
 
 /** @internal */
 export type PostMediasMediaIdCustomizationsRequest$Outbound = {
-  "media-id": string;
+  mediaId: string;
   VideoCustomization: models.VideoCustomization$Outbound;
 };
 
@@ -48,7 +47,6 @@ export const PostMediasMediaIdCustomizationsRequest$outboundSchema: z.ZodType<
   videoCustomization: models.VideoCustomization$outboundSchema,
 }).transform((v) => {
   return remap$(v, {
-    mediaId: "media-id",
     videoCustomization: "VideoCustomization",
   });
 });

@@ -102,13 +102,13 @@ async function $do(
   const body = encodeJSON("body", payload.SubfolderInput, { explode: true });
 
   const pathParams = {
-    "project-id": encodeSimple("project-id", payload["project-id"], {
+    projectId: encodeSimple("projectId", payload.projectId, {
       explode: false,
       charEncoding: "percent",
     }),
   };
 
-  const path = pathToFunc("/projects/{project-id}/subfolders")(pathParams);
+  const path = pathToFunc("/projects/{projectId}/subfolders")(pathParams);
 
   const headers = new Headers(compactMap({
     "Content-Type": "application/json",
@@ -122,7 +122,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "post_/projects/{project-id}/subfolders",
+    operationID: "post_/projects/{projectId}/subfolders",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,

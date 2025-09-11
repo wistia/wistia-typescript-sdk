@@ -8,12 +8,14 @@ import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
-import { Episodes } from "./episodes.js";
+import { ChannelsChannelEpisodes } from "./channelschannelepisodes.js";
 
 export class Channels extends ClientSDK {
-  private _episodes?: Episodes;
-  get episodes(): Episodes {
-    return (this._episodes ??= new Episodes(this._options));
+  private _channelEpisodes?: ChannelsChannelEpisodes;
+  get channelEpisodes(): ChannelsChannelEpisodes {
+    return (this._channelEpisodes ??= new ChannelsChannelEpisodes(
+      this._options,
+    ));
   }
 
   /**

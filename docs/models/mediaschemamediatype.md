@@ -1,13 +1,13 @@
-# MediaType
+# MediaSchemaMediaType
 
 A string representing what type of media this is.
 
 ## Example Usage
 
 ```typescript
-import { MediaType } from "@wistia/wistia-api-client/models";
+import { MediaSchemaMediaType } from "@wistia/wistia-api-client/models";
 
-let value: MediaType = "Swf";
+let value: MediaSchemaMediaType = "Swf";
 ```
 
 ## Values

@@ -3,7 +3,6 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -26,19 +25,14 @@ export const DeleteProjectsProjectIdSubfoldersSubfolderIdRequest$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    "project-id": z.string(),
-    "subfolder-id": z.string(),
-  }).transform((v) => {
-    return remap$(v, {
-      "project-id": "projectId",
-      "subfolder-id": "subfolderId",
-    });
+    projectId: z.string(),
+    subfolderId: z.string(),
   });
 
 /** @internal */
 export type DeleteProjectsProjectIdSubfoldersSubfolderIdRequest$Outbound = {
-  "project-id": string;
-  "subfolder-id": string;
+  projectId: string;
+  subfolderId: string;
 };
 
 /** @internal */
@@ -50,11 +44,6 @@ export const DeleteProjectsProjectIdSubfoldersSubfolderIdRequest$outboundSchema:
   > = z.object({
     projectId: z.string(),
     subfolderId: z.string(),
-  }).transform((v) => {
-    return remap$(v, {
-      projectId: "project-id",
-      subfolderId: "subfolder-id",
-    });
   });
 
 /**

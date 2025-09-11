@@ -101,13 +101,13 @@ async function $do(
   });
 
   const pathParams = {
-    "project-id": encodeSimple("project-id", payload["project-id"], {
+    projectId: encodeSimple("projectId", payload.projectId, {
       explode: false,
       charEncoding: "percent",
     }),
   };
 
-  const path = pathToFunc("/projects/{project-id}/sharings")(pathParams);
+  const path = pathToFunc("/projects/{projectId}/sharings")(pathParams);
 
   const headers = new Headers(compactMap({
     "Content-Type": "application/json",
@@ -121,7 +121,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "post_/projects/{project-id}/sharings",
+    operationID: "post_/projects/{projectId}/sharings",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,

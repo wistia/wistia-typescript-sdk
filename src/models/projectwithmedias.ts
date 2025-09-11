@@ -7,11 +7,11 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  NoAssetMediaSchemaMedia,
-  NoAssetMediaSchemaMedia$inboundSchema,
-  NoAssetMediaSchemaMedia$Outbound,
-  NoAssetMediaSchemaMedia$outboundSchema,
-} from "./noassetmediaschemamedia.js";
+  Media,
+  Media$inboundSchema,
+  Media$Outbound,
+  Media$outboundSchema,
+} from "./media.js";
 
 export type ProjectWithMedias = {
   /**
@@ -26,7 +26,7 @@ export type ProjectWithMedias = {
    * The project's description.
    */
   description?: string | null | undefined;
-  medias?: Array<NoAssetMediaSchemaMedia> | undefined;
+  medias?: Array<Media> | undefined;
   /**
    * The number of different medias that have been uploaded to the project.
    */
@@ -64,7 +64,7 @@ export const ProjectWithMedias$inboundSchema: z.ZodType<
   id: z.number().int(),
   name: z.string(),
   description: z.nullable(z.string()).optional(),
-  medias: z.array(NoAssetMediaSchemaMedia$inboundSchema).optional(),
+  medias: z.array(Media$inboundSchema).optional(),
   mediaCount: z.number().int(),
   created: z.string().datetime({ offset: true }).transform(v => new Date(v)),
   updated: z.string().datetime({ offset: true }).transform(v => new Date(v)),
@@ -80,7 +80,7 @@ export type ProjectWithMedias$Outbound = {
   id: number;
   name: string;
   description?: string | null | undefined;
-  medias?: Array<NoAssetMediaSchemaMedia$Outbound> | undefined;
+  medias?: Array<Media$Outbound> | undefined;
   mediaCount: number;
   created: string;
   updated: string;
@@ -100,7 +100,7 @@ export const ProjectWithMedias$outboundSchema: z.ZodType<
   id: z.number().int(),
   name: z.string(),
   description: z.nullable(z.string()).optional(),
-  medias: z.array(NoAssetMediaSchemaMedia$outboundSchema).optional(),
+  medias: z.array(Media$outboundSchema).optional(),
   mediaCount: z.number().int(),
   created: z.date().transform(v => v.toISOString()),
   updated: z.date().transform(v => v.toISOString()),

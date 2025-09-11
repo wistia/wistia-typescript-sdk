@@ -103,13 +103,13 @@ async function $do(
   const body = null;
 
   const pathParams = {
-    "project-id": encodeSimple("project-id", payload["project-id"], {
+    projectId: encodeSimple("projectId", payload.projectId, {
       explode: false,
       charEncoding: "percent",
     }),
   };
 
-  const path = pathToFunc("/projects/{project-id}/sharings")(pathParams);
+  const path = pathToFunc("/projects/{projectId}/sharings")(pathParams);
 
   const query = encodeFormQuery({
     "page": payload.page,
@@ -127,7 +127,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "get_/projects/{project-id}/sharings",
+    operationID: "get_/projects/{projectId}/sharings",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,

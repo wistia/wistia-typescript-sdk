@@ -101,7 +101,7 @@ Read all project and video data
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get_/channels/{channel-hashed-id}" method="get" path="/channels/{channel-hashed-id}" -->
+<!-- UsageSnippet language="typescript" operationID="get_/channels/{channelHashedId}" method="get" path="/channels/{channelHashedId}" -->
 ```typescript
 import { Wistia } from "@wistia/wistia-api-client";
 

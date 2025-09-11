@@ -24,7 +24,7 @@ Read all project and video data
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get_/medias/{media-id}/customizations" method="get" path="/medias/{media-id}/customizations" -->
+<!-- UsageSnippet language="typescript" operationID="get_/medias/{mediaId}/customizations" method="get" path="/medias/{mediaId}/customizations" -->
 ```typescript
 import { Wistia } from "@wistia/wistia-api-client";
 
@@ -106,7 +106,7 @@ Read, update & delete anything
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="post_/medias/{media-id}/customizations" method="post" path="/medias/{media-id}/customizations" -->
+<!-- UsageSnippet language="typescript" operationID="post_/medias/{mediaId}/customizations" method="post" path="/medias/{mediaId}/customizations" -->
 ```typescript
 import { Wistia } from "@wistia/wistia-api-client";
 
@@ -209,7 +209,7 @@ Read, update & delete anything
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="put_/medias/{media-id}/customizations" method="put" path="/medias/{media-id}/customizations" -->
+<!-- UsageSnippet language="typescript" operationID="put_/medias/{mediaId}/customizations" method="put" path="/medias/{mediaId}/customizations" -->
 ```typescript
 import { Wistia } from "@wistia/wistia-api-client";
 
@@ -313,7 +313,7 @@ Read, update & delete anything
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="delete_/medias/{media-id}/customizations" method="delete" path="/medias/{media-id}/customizations" -->
+<!-- UsageSnippet language="typescript" operationID="delete_/medias/{mediaId}/customizations" method="delete" path="/medias/{mediaId}/customizations" -->
 ```typescript
 import { Wistia } from "@wistia/wistia-api-client";
 

@@ -26,18 +26,17 @@ export const PostProjectsProjectIdSubfoldersRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  "project-id": z.string(),
+  projectId: z.string(),
   SubfolderInput: models.SubfolderInput$inboundSchema,
 }).transform((v) => {
   return remap$(v, {
-    "project-id": "projectId",
     "SubfolderInput": "subfolderInput",
   });
 });
 
 /** @internal */
 export type PostProjectsProjectIdSubfoldersRequest$Outbound = {
-  "project-id": string;
+  projectId: string;
   SubfolderInput: models.SubfolderInput$Outbound;
 };
 
@@ -51,7 +50,6 @@ export const PostProjectsProjectIdSubfoldersRequest$outboundSchema: z.ZodType<
   subfolderInput: models.SubfolderInput$outboundSchema,
 }).transform((v) => {
   return remap$(v, {
-    projectId: "project-id",
     subfolderInput: "SubfolderInput",
   });
 });

@@ -19,7 +19,7 @@ Read all data
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get_/background_job_status/{background-job-status-id}" method="get" path="/background_job_status/{background-job-status-id}" -->
+<!-- UsageSnippet language="typescript" operationID="get_/background_job_status/{backgroundJobStatusId}" method="get" path="/background_job_status/{backgroundJobStatusId}" -->
 ```typescript
 import { Wistia } from "@wistia/wistia-api-client";
 
@@ -29,7 +29,7 @@ const wistia = new Wistia({
 
 async function run() {
   const result = await wistia.backgroundJobStatus.get({
-    backgroundJobStatusId: 350035,
+    backgroundJobStatusId: 108030,
   });
 
   console.log(result);
@@ -54,7 +54,7 @@ const wistia = new WistiaCore({
 
 async function run() {
   const res = await backgroundJobStatusGet(wistia, {
-    backgroundJobStatusId: 350035,
+    backgroundJobStatusId: 108030,
   });
   if (res.ok) {
     const { value: result } = res;

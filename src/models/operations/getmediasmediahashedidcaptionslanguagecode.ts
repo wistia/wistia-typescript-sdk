@@ -3,7 +3,6 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -32,19 +31,14 @@ export const GetMediasMediaHashedIdCaptionsLanguageCodeRequest$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    "media-hashed-id": z.string(),
-    "language-code": z.string(),
-  }).transform((v) => {
-    return remap$(v, {
-      "media-hashed-id": "mediaHashedId",
-      "language-code": "languageCode",
-    });
+    mediaHashedId: z.string(),
+    languageCode: z.string(),
   });
 
 /** @internal */
 export type GetMediasMediaHashedIdCaptionsLanguageCodeRequest$Outbound = {
-  "media-hashed-id": string;
-  "language-code": string;
+  mediaHashedId: string;
+  languageCode: string;
 };
 
 /** @internal */
@@ -56,11 +50,6 @@ export const GetMediasMediaHashedIdCaptionsLanguageCodeRequest$outboundSchema:
   > = z.object({
     mediaHashedId: z.string(),
     languageCode: z.string(),
-  }).transform((v) => {
-    return remap$(v, {
-      mediaHashedId: "media-hashed-id",
-      languageCode: "language-code",
-    });
   });
 
 /**

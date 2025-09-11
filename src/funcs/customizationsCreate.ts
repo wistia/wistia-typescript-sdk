@@ -102,13 +102,13 @@ async function $do(
   });
 
   const pathParams = {
-    "media-id": encodeSimple("media-id", payload["media-id"], {
+    mediaId: encodeSimple("mediaId", payload.mediaId, {
       explode: false,
       charEncoding: "percent",
     }),
   };
 
-  const path = pathToFunc("/medias/{media-id}/customizations")(pathParams);
+  const path = pathToFunc("/medias/{mediaId}/customizations")(pathParams);
 
   const headers = new Headers(compactMap({
     "Content-Type": "application/json",
@@ -122,7 +122,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "post_/medias/{media-id}/customizations",
+    operationID: "post_/medias/{mediaId}/customizations",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,

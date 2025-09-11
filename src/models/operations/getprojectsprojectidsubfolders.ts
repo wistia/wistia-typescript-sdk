@@ -116,7 +116,7 @@ export const GetProjectsProjectIdSubfoldersRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  "project-id": z.string(),
+  projectId: z.string(),
   page: z.number().int().default(1),
   per_page: z.number().int().default(100),
   sort_by: GetProjectsProjectIdSubfoldersSortBy$inboundSchema.default(
@@ -126,7 +126,6 @@ export const GetProjectsProjectIdSubfoldersRequest$inboundSchema: z.ZodType<
     .default(1),
 }).transform((v) => {
   return remap$(v, {
-    "project-id": "projectId",
     "per_page": "perPage",
     "sort_by": "sortBy",
     "sort_direction": "sortDirection",
@@ -135,7 +134,7 @@ export const GetProjectsProjectIdSubfoldersRequest$inboundSchema: z.ZodType<
 
 /** @internal */
 export type GetProjectsProjectIdSubfoldersRequest$Outbound = {
-  "project-id": string;
+  projectId: string;
   page: number;
   per_page: number;
   sort_by: string;
@@ -158,7 +157,6 @@ export const GetProjectsProjectIdSubfoldersRequest$outboundSchema: z.ZodType<
     .default(1),
 }).transform((v) => {
   return remap$(v, {
-    projectId: "project-id",
     perPage: "per_page",
     sortBy: "sort_by",
     sortDirection: "sort_direction",

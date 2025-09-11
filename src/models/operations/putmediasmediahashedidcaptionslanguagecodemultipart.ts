@@ -203,15 +203,13 @@ export const PutMediasMediaHashedIdCaptionsLanguageCodeMultipartRequest$inboundS
     z.ZodTypeDef,
     unknown
   > = z.object({
-    "media-hashed-id": z.string(),
-    "language-code": z.string(),
+    mediaHashedId: z.string(),
+    languageCode: z.string(),
     RequestBody: z.lazy(() =>
       PutMediasMediaHashedIdCaptionsLanguageCodeMultipartRequestBody$inboundSchema
     ),
   }).transform((v) => {
     return remap$(v, {
-      "media-hashed-id": "mediaHashedId",
-      "language-code": "languageCode",
       "RequestBody": "requestBody",
     });
   });
@@ -219,8 +217,8 @@ export const PutMediasMediaHashedIdCaptionsLanguageCodeMultipartRequest$inboundS
 /** @internal */
 export type PutMediasMediaHashedIdCaptionsLanguageCodeMultipartRequest$Outbound =
   {
-    "media-hashed-id": string;
-    "language-code": string;
+    mediaHashedId: string;
+    languageCode: string;
     RequestBody:
       PutMediasMediaHashedIdCaptionsLanguageCodeMultipartRequestBody$Outbound;
   };
@@ -239,8 +237,6 @@ export const PutMediasMediaHashedIdCaptionsLanguageCodeMultipartRequest$outbound
     ),
   }).transform((v) => {
     return remap$(v, {
-      mediaHashedId: "media-hashed-id",
-      languageCode: "language-code",
       requestBody: "RequestBody",
     });
   });

@@ -104,16 +104,13 @@ async function $do(
   const body = null;
 
   const pathParams = {
-    "media-hashed-id": encodeSimple(
-      "media-hashed-id",
-      payload["media-hashed-id"],
-      { explode: false, charEncoding: "percent" },
-    ),
+    mediaHashedId: encodeSimple("mediaHashedId", payload.mediaHashedId, {
+      explode: false,
+      charEncoding: "percent",
+    }),
   };
 
-  const path = pathToFunc("/medias/{media-hashed-id}/localizations")(
-    pathParams,
-  );
+  const path = pathToFunc("/medias/{mediaHashedId}/localizations")(pathParams);
 
   const query = encodeFormQuery({
     "include_transcript": payload.include_transcript,
@@ -130,7 +127,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "get_/medias/{media-hashed-id}/localizations",
+    operationID: "get_/medias/{mediaHashedId}/localizations",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,

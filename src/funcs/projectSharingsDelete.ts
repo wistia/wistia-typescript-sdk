@@ -101,17 +101,17 @@ async function $do(
   const body = null;
 
   const pathParams = {
-    "project-id": encodeSimple("project-id", payload["project-id"], {
+    projectId: encodeSimple("projectId", payload.projectId, {
       explode: false,
       charEncoding: "percent",
     }),
-    "sharing-id": encodeSimple("sharing-id", payload["sharing-id"], {
+    sharingId: encodeSimple("sharingId", payload.sharingId, {
       explode: false,
       charEncoding: "percent",
     }),
   };
 
-  const path = pathToFunc("/projects/{project-id}/sharings/{sharing-id}")(
+  const path = pathToFunc("/projects/{projectId}/sharings/{sharingId}")(
     pathParams,
   );
 
@@ -126,7 +126,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "delete_/projects/{project-id}/sharings/{sharing-id}",
+    operationID: "delete_/projects/{projectId}/sharings/{sharingId}",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,

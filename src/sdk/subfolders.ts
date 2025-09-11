@@ -3,7 +3,7 @@
  */
 
 import { subfoldersCreate } from "../funcs/subfoldersCreate.js";
-import { subfoldersDelete } from "../funcs/subfoldersDelete.js";
+import { subfoldersDeleteSubfolder } from "../funcs/subfoldersDeleteSubfolder.js";
 import { subfoldersGet } from "../funcs/subfoldersGet.js";
 import { subfoldersList } from "../funcs/subfoldersList.js";
 import { subfoldersUpdate } from "../funcs/subfoldersUpdate.js";
@@ -118,11 +118,11 @@ export class Subfolders extends ClientSDK {
    * Read, update & delete anything
    * ```
    */
-  async delete(
+  async deleteSubfolder(
     request: operations.DeleteProjectsProjectIdSubfoldersSubfolderIdRequest,
     options?: RequestOptions,
   ): Promise<models.Subfolder> {
-    return unwrapAsync(subfoldersDelete(
+    return unwrapAsync(subfoldersDeleteSubfolder(
       this,
       request,
       options,

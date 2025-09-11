@@ -6,10 +6,11 @@ import { mediaArchive } from "../funcs/mediaArchive.js";
 import { mediaCopy } from "../funcs/mediaCopy.js";
 import { mediaDelete } from "../funcs/mediaDelete.js";
 import { mediaGet } from "../funcs/mediaGet.js";
+import { mediaGetStats } from "../funcs/mediaGetStats.js";
 import { mediaList } from "../funcs/mediaList.js";
 import { mediaMove } from "../funcs/mediaMove.js";
 import { mediaRestore } from "../funcs/mediaRestore.js";
-import { mediaStats } from "../funcs/mediaStats.js";
+import { mediaSwap } from "../funcs/mediaSwap.js";
 import { mediaTranslate } from "../funcs/mediaTranslate.js";
 import { mediaUpdate } from "../funcs/mediaUpdate.js";
 import { mediaUploadForm } from "../funcs/mediaUploadForm.js";
@@ -125,7 +126,7 @@ export class Media extends ClientSDK {
   async update(
     request: operations.PutMediasMediaHashedIdRequest,
     options?: RequestOptions,
-  ): Promise<models.NoAssetMediaSchemaMedia> {
+  ): Promise<models.Media> {
     return unwrapAsync(mediaUpdate(
       this,
       request,
@@ -147,7 +148,7 @@ export class Media extends ClientSDK {
   async delete(
     request: operations.DeleteMediasMediaHashedIdRequest,
     options?: RequestOptions,
-  ): Promise<models.Media> {
+  ): Promise<models.MediaSchemaMedia> {
     return unwrapAsync(mediaDelete(
       this,
       request,
@@ -178,6 +179,28 @@ export class Media extends ClientSDK {
   }
 
   /**
+   * Media Swap
+   *
+   * @remarks
+   * Swap one media with another media. This operation queues a background job to replace the original media with the replacement media while preserving the original media's hashed ID and URLs.
+   *
+   * ## Requires api token with one of the following permissions
+   * ```
+   * Read, update & delete anything
+   * ```
+   */
+  async swap(
+    request: operations.PutMediasMediaHashedIdSwapRequest,
+    options?: RequestOptions,
+  ): Promise<operations.PutMediasMediaHashedIdSwapResponse> {
+    return unwrapAsync(mediaSwap(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
    * Media Stats
    *
    * @remarks
@@ -190,11 +213,11 @@ export class Media extends ClientSDK {
    * Read all project and video data
    * ```
    */
-  async stats(
+  async getStats(
     request: operations.GetMediasMediaHashedIdStatsRequest,
     options?: RequestOptions,
   ): Promise<operations.GetMediasMediaHashedIdStatsResponse> {
-    return unwrapAsync(mediaStats(
+    return unwrapAsync(mediaGetStats(
       this,
       request,
       options,

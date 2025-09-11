@@ -30,13 +30,11 @@ export const GetMediasMediaHashedIdLocalizationsLocalizationHashedIdRequest$inbo
     z.ZodTypeDef,
     unknown
   > = z.object({
-    "media-hashed-id": z.string(),
-    "localization-hashed-id": z.string(),
+    mediaHashedId: z.string(),
+    localizationHashedId: z.string(),
     include_transcript: z.boolean().default(false),
   }).transform((v) => {
     return remap$(v, {
-      "media-hashed-id": "mediaHashedId",
-      "localization-hashed-id": "localizationHashedId",
       "include_transcript": "includeTranscript",
     });
   });
@@ -44,8 +42,8 @@ export const GetMediasMediaHashedIdLocalizationsLocalizationHashedIdRequest$inbo
 /** @internal */
 export type GetMediasMediaHashedIdLocalizationsLocalizationHashedIdRequest$Outbound =
   {
-    "media-hashed-id": string;
-    "localization-hashed-id": string;
+    mediaHashedId: string;
+    localizationHashedId: string;
     include_transcript: boolean;
   };
 
@@ -61,8 +59,6 @@ export const GetMediasMediaHashedIdLocalizationsLocalizationHashedIdRequest$outb
     includeTranscript: z.boolean().default(false),
   }).transform((v) => {
     return remap$(v, {
-      mediaHashedId: "media-hashed-id",
-      localizationHashedId: "localization-hashed-id",
       includeTranscript: "include_transcript",
     });
   });

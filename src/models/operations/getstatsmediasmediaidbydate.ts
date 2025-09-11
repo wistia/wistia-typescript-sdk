@@ -37,12 +37,11 @@ export const GetStatsMediasMediaIdByDateRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  "media-id": z.string(),
+  mediaId: z.string(),
   start_date: z.string().transform(v => new RFCDate(v)).optional(),
   end_date: z.string().transform(v => new RFCDate(v)).optional(),
 }).transform((v) => {
   return remap$(v, {
-    "media-id": "mediaId",
     "start_date": "startDate",
     "end_date": "endDate",
   });
@@ -50,7 +49,7 @@ export const GetStatsMediasMediaIdByDateRequest$inboundSchema: z.ZodType<
 
 /** @internal */
 export type GetStatsMediasMediaIdByDateRequest$Outbound = {
-  "media-id": string;
+  mediaId: string;
   start_date?: string | undefined;
   end_date?: string | undefined;
 };
@@ -66,7 +65,6 @@ export const GetStatsMediasMediaIdByDateRequest$outboundSchema: z.ZodType<
   endDate: z.instanceof(RFCDate).transform(v => v.toString()).optional(),
 }).transform((v) => {
   return remap$(v, {
-    mediaId: "media-id",
     startDate: "start_date",
     endDate: "end_date",
   });
