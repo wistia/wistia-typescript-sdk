@@ -3,7 +3,6 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -21,16 +20,12 @@ export const GetChannelsChannelHashedIdRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  "channel-hashed-id": z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "channel-hashed-id": "channelHashedId",
-  });
+  channelHashedId: z.string(),
 });
 
 /** @internal */
 export type GetChannelsChannelHashedIdRequest$Outbound = {
-  "channel-hashed-id": string;
+  channelHashedId: string;
 };
 
 /** @internal */
@@ -40,10 +35,6 @@ export const GetChannelsChannelHashedIdRequest$outboundSchema: z.ZodType<
   GetChannelsChannelHashedIdRequest
 > = z.object({
   channelHashedId: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    channelHashedId: "channel-hashed-id",
-  });
 });
 
 /**

@@ -206,20 +206,19 @@ export const PostMediasMediaHashedIdCaptionsMultipartRequest$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    "media-hashed-id": z.string(),
+    mediaHashedId: z.string(),
     RequestBody: z.lazy(() =>
       PostMediasMediaHashedIdCaptionsMultipartRequestBody$inboundSchema
     ),
   }).transform((v) => {
     return remap$(v, {
-      "media-hashed-id": "mediaHashedId",
       "RequestBody": "requestBody",
     });
   });
 
 /** @internal */
 export type PostMediasMediaHashedIdCaptionsMultipartRequest$Outbound = {
-  "media-hashed-id": string;
+  mediaHashedId: string;
   RequestBody: PostMediasMediaHashedIdCaptionsMultipartRequestBody$Outbound;
 };
 
@@ -236,7 +235,6 @@ export const PostMediasMediaHashedIdCaptionsMultipartRequest$outboundSchema:
     ),
   }).transform((v) => {
     return remap$(v, {
-      mediaHashedId: "media-hashed-id",
       requestBody: "RequestBody",
     });
   });

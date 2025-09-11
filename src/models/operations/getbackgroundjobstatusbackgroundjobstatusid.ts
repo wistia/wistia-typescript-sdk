@@ -33,16 +33,12 @@ export const GetBackgroundJobStatusBackgroundJobStatusIdRequest$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    "background-job-status-id": z.number().int(),
-  }).transform((v) => {
-    return remap$(v, {
-      "background-job-status-id": "backgroundJobStatusId",
-    });
+    backgroundJobStatusId: z.number().int(),
   });
 
 /** @internal */
 export type GetBackgroundJobStatusBackgroundJobStatusIdRequest$Outbound = {
-  "background-job-status-id": number;
+  backgroundJobStatusId: number;
 };
 
 /** @internal */
@@ -53,10 +49,6 @@ export const GetBackgroundJobStatusBackgroundJobStatusIdRequest$outboundSchema:
     GetBackgroundJobStatusBackgroundJobStatusIdRequest
   > = z.object({
     backgroundJobStatusId: z.number().int(),
-  }).transform((v) => {
-    return remap$(v, {
-      backgroundJobStatusId: "background-job-status-id",
-    });
   });
 
 /**

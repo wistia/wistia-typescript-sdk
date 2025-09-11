@@ -5,9 +5,9 @@
 
 ### Available Operations
 
-* [get](#get) - Background Job Status Show
+* [getBackgroundJobStatusBackgroundJobStatusId](#getbackgroundjobstatusbackgroundjobstatusid) - Background Job Status Show
 
-## get
+## getBackgroundJobStatusBackgroundJobStatusId
 
 Retrieve the status of a background job.
 ## Requires api token with one of the following permissions
@@ -19,7 +19,7 @@ Read all data
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get_/background_job_status/{background-job-status-id}" method="get" path="/background_job_status/{background-job-status-id}" -->
+<!-- UsageSnippet language="typescript" operationID="get_/background_job_status/{backgroundJobStatusId}" method="get" path="/background_job_status/{backgroundJobStatusId}" -->
 ```typescript
 import { Wistia } from "@wistia/wistia-api-client";
 
@@ -28,8 +28,8 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.backgroundJobStatus.get({
-    backgroundJobStatusId: 350035,
+  const result = await wistia.backgroundJobStatus.getBackgroundJobStatusBackgroundJobStatusId({
+    backgroundJobStatusId: 108030,
   });
 
   console.log(result);
@@ -44,7 +44,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { backgroundJobStatusGet } from "@wistia/wistia-api-client/funcs/backgroundJobStatusGet.js";
+import { backgroundJobStatusGetBackgroundJobStatusBackgroundJobStatusId } from "@wistia/wistia-api-client/funcs/backgroundJobStatusGetBackgroundJobStatusBackgroundJobStatusId.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -53,14 +53,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await backgroundJobStatusGet(wistia, {
-    backgroundJobStatusId: 350035,
+  const res = await backgroundJobStatusGetBackgroundJobStatusBackgroundJobStatusId(wistia, {
+    backgroundJobStatusId: 108030,
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("backgroundJobStatusGet failed:", res.error);
+    console.log("backgroundJobStatusGetBackgroundJobStatusBackgroundJobStatusId failed:", res.error);
   }
 }
 

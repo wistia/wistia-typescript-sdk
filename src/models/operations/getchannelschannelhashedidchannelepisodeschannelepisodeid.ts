@@ -3,7 +3,6 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -26,20 +25,15 @@ export const GetChannelsChannelHashedIdChannelEpisodesChannelEpisodeIdRequest$in
     z.ZodTypeDef,
     unknown
   > = z.object({
-    "channel-hashed-id": z.string(),
-    "channel-episode-id": z.string(),
-  }).transform((v) => {
-    return remap$(v, {
-      "channel-hashed-id": "channelHashedId",
-      "channel-episode-id": "channelEpisodeId",
-    });
+    channelHashedId: z.string(),
+    channelEpisodeId: z.string(),
   });
 
 /** @internal */
 export type GetChannelsChannelHashedIdChannelEpisodesChannelEpisodeIdRequest$Outbound =
   {
-    "channel-hashed-id": string;
-    "channel-episode-id": string;
+    channelHashedId: string;
+    channelEpisodeId: string;
   };
 
 /** @internal */
@@ -51,11 +45,6 @@ export const GetChannelsChannelHashedIdChannelEpisodesChannelEpisodeIdRequest$ou
   > = z.object({
     channelHashedId: z.string(),
     channelEpisodeId: z.string(),
-  }).transform((v) => {
-    return remap$(v, {
-      channelHashedId: "channel-hashed-id",
-      channelEpisodeId: "channel-episode-id",
-    });
   });
 
 /**

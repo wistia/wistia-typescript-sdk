@@ -6,7 +6,7 @@
 ### Available Operations
 
 * [list](#list) - Stats:Events List
-* [get](#get) - Stats:Events Show
+* [getStatsEventsEventKey](#getstatseventseventkey) - Stats:Events Show
 
 ## list
 
@@ -88,7 +88,7 @@ run();
 | errors.FiveHundredError       | 500                           | application/json              |
 | errors.WistiaDefaultError     | 4XX, 5XX                      | \*/\*                         |
 
-## get
+## getStatsEventsEventKey
 
 Retrieve information for a single event. Please note that due to our data retention policy,
 only events from the last 2 years are available.
@@ -103,7 +103,7 @@ Read all project and video data
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="get_/stats/events/{event-key}" method="get" path="/stats/events/{event-key}" -->
+<!-- UsageSnippet language="typescript" operationID="get_/stats/events/{eventKey}" method="get" path="/stats/events/{eventKey}" -->
 ```typescript
 import { Wistia } from "@wistia/wistia-api-client";
 
@@ -112,7 +112,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.statsEvents.get({
+  const result = await wistia.statsEvents.getStatsEventsEventKey({
     eventKey: "<value>",
   });
 
@@ -128,7 +128,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { statsEventsGet } from "@wistia/wistia-api-client/funcs/statsEventsGet.js";
+import { statsEventsGetStatsEventsEventKey } from "@wistia/wistia-api-client/funcs/statsEventsGetStatsEventsEventKey.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -137,14 +137,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await statsEventsGet(wistia, {
+  const res = await statsEventsGetStatsEventsEventKey(wistia, {
     eventKey: "<value>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("statsEventsGet failed:", res.error);
+    console.log("statsEventsGetStatsEventsEventKey failed:", res.error);
   }
 }
 

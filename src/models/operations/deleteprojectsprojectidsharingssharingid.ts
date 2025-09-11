@@ -3,7 +3,6 @@
  */
 
 import * as z from "zod";
-import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -26,19 +25,14 @@ export const DeleteProjectsProjectIdSharingsSharingIdRequest$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    "project-id": z.string(),
-    "sharing-id": z.string(),
-  }).transform((v) => {
-    return remap$(v, {
-      "project-id": "projectId",
-      "sharing-id": "sharingId",
-    });
+    projectId: z.string(),
+    sharingId: z.string(),
   });
 
 /** @internal */
 export type DeleteProjectsProjectIdSharingsSharingIdRequest$Outbound = {
-  "project-id": string;
-  "sharing-id": string;
+  projectId: string;
+  sharingId: string;
 };
 
 /** @internal */
@@ -50,11 +44,6 @@ export const DeleteProjectsProjectIdSharingsSharingIdRequest$outboundSchema:
   > = z.object({
     projectId: z.string(),
     sharingId: z.string(),
-  }).transform((v) => {
-    return remap$(v, {
-      projectId: "project-id",
-      sharingId: "sharing-id",
-    });
   });
 
 /**
