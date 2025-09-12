@@ -8,7 +8,7 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
-export type Captions = {
+export type Caption = {
   /**
    * English name of the language.
    */
@@ -20,108 +20,43 @@ export type Captions = {
   /**
    * A 3 character language code as specified by ISO-639–2.
    */
-  language?: string | undefined;
+  language: string;
   /**
    * The text of the captions for the specified language in SRT format.
    */
   text?: string | undefined;
-  isDraft?: boolean | undefined;
+  isDraft: boolean;
   /**
    * The unique hashed identifier of the time-coded transcript.
    */
-  id?: string | undefined;
+  id: string;
 };
-
-export type Caption = {
-  captions?: Captions | undefined;
-};
-
-/** @internal */
-export const Captions$inboundSchema: z.ZodType<
-  Captions,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  english_name: z.string().optional(),
-  native_name: z.string().optional(),
-  language: z.string().optional(),
-  text: z.string().optional(),
-  is_draft: z.boolean().optional(),
-  id: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "english_name": "englishName",
-    "native_name": "nativeName",
-    "is_draft": "isDraft",
-  });
-});
-
-/** @internal */
-export type Captions$Outbound = {
-  english_name?: string | undefined;
-  native_name?: string | undefined;
-  language?: string | undefined;
-  text?: string | undefined;
-  is_draft?: boolean | undefined;
-  id?: string | undefined;
-};
-
-/** @internal */
-export const Captions$outboundSchema: z.ZodType<
-  Captions$Outbound,
-  z.ZodTypeDef,
-  Captions
-> = z.object({
-  englishName: z.string().optional(),
-  nativeName: z.string().optional(),
-  language: z.string().optional(),
-  text: z.string().optional(),
-  isDraft: z.boolean().optional(),
-  id: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    englishName: "english_name",
-    nativeName: "native_name",
-    isDraft: "is_draft",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Captions$ {
-  /** @deprecated use `Captions$inboundSchema` instead. */
-  export const inboundSchema = Captions$inboundSchema;
-  /** @deprecated use `Captions$outboundSchema` instead. */
-  export const outboundSchema = Captions$outboundSchema;
-  /** @deprecated use `Captions$Outbound` instead. */
-  export type Outbound = Captions$Outbound;
-}
-
-export function captionsToJSON(captions: Captions): string {
-  return JSON.stringify(Captions$outboundSchema.parse(captions));
-}
-
-export function captionsFromJSON(
-  jsonString: string,
-): SafeParseResult<Captions, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Captions$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Captions' from JSON`,
-  );
-}
 
 /** @internal */
 export const Caption$inboundSchema: z.ZodType<Caption, z.ZodTypeDef, unknown> =
   z.object({
-    captions: z.lazy(() => Captions$inboundSchema).optional(),
+    english_name: z.string().optional(),
+    native_name: z.string().optional(),
+    language: z.string(),
+    text: z.string().optional(),
+    is_draft: z.boolean(),
+    id: z.string(),
+  }).transform((v) => {
+    return remap$(v, {
+      "english_name": "englishName",
+      "native_name": "nativeName",
+      "is_draft": "isDraft",
+    });
   });
 
 /** @internal */
 export type Caption$Outbound = {
-  captions?: Captions$Outbound | undefined;
+  english_name?: string | undefined;
+  native_name?: string | undefined;
+  language: string;
+  text?: string | undefined;
+  is_draft: boolean;
+  id: string;
 };
 
 /** @internal */
@@ -130,7 +65,18 @@ export const Caption$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   Caption
 > = z.object({
-  captions: z.lazy(() => Captions$outboundSchema).optional(),
+  englishName: z.string().optional(),
+  nativeName: z.string().optional(),
+  language: z.string(),
+  text: z.string().optional(),
+  isDraft: z.boolean(),
+  id: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    englishName: "english_name",
+    nativeName: "native_name",
+    isDraft: "is_draft",
+  });
 });
 
 /**
