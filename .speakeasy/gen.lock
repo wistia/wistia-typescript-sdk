@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 7b32ab6a-5908-41aa-b82f-7906605d30ce
 management:
-  docChecksum: 89793fb641e8e8926fc52a57d07b2cdf
+  docChecksum: 4c88d911efe4dc0ab984f839435c0acc
   docVersion: 1.0.0
   speakeasyVersion: 1.615.2
   generationVersion: 2.698.4
-  releaseVersion: 2025.9.15
-  configChecksum: f15631ef813de54acbfeb930390e1dc1
+  releaseVersion: 2025.9.16
+  configChecksum: c37de20a6746f587caa7fa30d3fee157
   repoURL: https://github.com/speakeasy-sdks/wistia-typescript-sdk.git
   installationURL: https://github.com/speakeasy-sdks/wistia-typescript-sdk
   published: true
@@ -58,7 +58,6 @@ generatedFiles:
   - docs/models/canupload.md
   - docs/models/canuploadenum.md
   - docs/models/caption.md
-  - docs/models/captions.md
   - docs/models/channel.md
   - docs/models/channelchannels.md
   - docs/models/channelepisode.md
@@ -1983,7 +1982,7 @@ examples:
           mediaHashedId: "<id>"
       responses:
         "200":
-          application/json: [{}]
+          application/json: [{"language": "<value>", "is_draft": true, "id": "<id>"}]
         "401":
           application/json: {"error": "Invalid credentials."}
         "500":
@@ -2035,7 +2034,7 @@ examples:
           languageCode: "<value>"
       responses:
         "200":
-          application/json: {}
+          application/json: {"language": "<value>", "is_draft": true, "id": "<id>"}
           text/plain: "<value>"
           text/vtt: "<value>"
         "401":
@@ -2255,3 +2254,91 @@ examples:
         "500":
           application/json: {"error": "Internal server error"}
 examplesVersion: 1.0.2
+releaseNotes: |
+  ## Typescript SDK Changes Detected:
+  * `wistia.media.get()`: **Added**
+  * `wistia.media.update()`: **Added**
+  * `wistia.media.delete()`: **Added**
+  * `wistia.media.copy()`: **Added**
+  * `wistia.media.swap()`: **Added**
+  * `wistia.media.getStats()`: **Added**
+  * `wistia.media.translate()`: **Added**
+  * `wistia.subfolders.list()`: **Added**
+  * `wistia.subfolders.create()`: **Added**
+  * `wistia.subfolders.get()`: **Added**
+  * `wistia.subfolders.update()`: **Added**
+  * `wistia.subfolders.deleteSubfolder()`: **Added**
+  * `wistia.projectSharings.list()`: **Added**
+  * `wistia.projectSharings.create()`: **Added**
+  * `wistia.projectSharings.get()`: **Added**
+  * `wistia.projectSharings.update()`: **Added**
+  * `wistia.projectSharings.delete()`: **Added**
+  * `wistia.backgroundJobStatus.get()`: **Added**
+  * `wistia.customizations.get()`: **Added**
+  * `wistia.customizations.create()`: **Added**
+  * `wistia.customizations.update()`: **Added**
+  * `wistia.customizations.delete()`: **Added**
+  * `wistia.captions.list()`: **Added**
+  * `wistia.captions.createMultipart()`: **Added**
+  * `wistia.captions.create()`: **Added**
+  * `wistia.captions.purchase()`: **Added**
+  * `wistia.captions.get()`: **Added**
+  * `wistia.captions.update()`: **Added**
+  * `wistia.captions.updateMultipart()`: **Added**
+  * `wistia.captions.delete()`: **Added**
+  * `wistia.trims.create()`: **Added**
+  * `wistia.localizations.list()`: **Added**
+  * `wistia.localizations.create()`: **Added**
+  * `wistia.localizations.get()`: **Added**
+  * `wistia.localizations.delete()`: **Added**
+  * `wistia.channels.get()`: **Added**
+  * `wistia.channels.channelEpisodes.list()`: **Added**
+  * `wistia.channelEpisodes.get()`: **Added**
+  * `wistia.channelEpisodes.create()`: **Added**
+  * `wistia.channelEpisodes.list()`: **Added**
+  * `wistia.statsMedia.getByDate()`: **Added**
+  * `wistia.statsVisitors.get()`: **Added**
+  * `wistia.statsEvents.get()`: **Added**
+  * `wistia.media.get/medias/{mediaHashedId}()`: **Deleted** **Breaking** :warning:
+  * `wistia.media.put/medias/{mediaHashedId}()`: **Deleted** **Breaking** :warning:
+  * `wistia.media.delete/medias/{mediaHashedId}()`: **Deleted** **Breaking** :warning:
+  * `wistia.media.post/medias/{mediaHashedId}/copy()`: **Deleted** **Breaking** :warning:
+  * `wistia.media.put/medias/{mediaHashedId}/swap()`: **Deleted** **Breaking** :warning:
+  * `wistia.media.get/medias/{mediaHashedId}/stats()`: **Deleted** **Breaking** :warning:
+  * `wistia.media.post/medias/{mediaHashedId}/translate()`: **Deleted** **Breaking** :warning:
+  * `wistia.subfolders.get/projects/{projectId}/subfolders()`: **Deleted** **Breaking** :warning:
+  * `wistia.subfolders.post/projects/{projectId}/subfolders()`: **Deleted** **Breaking** :warning:
+  * `wistia.subfolders.get/projects/{projectId}/subfolders/{subfolderId}()`: **Deleted** **Breaking** :warning:
+  * `wistia.subfolders.put/projects/{projectId}/subfolders/{subfolderId}()`: **Deleted** **Breaking** :warning:
+  * `wistia.subfolders.delete/projects/{projectId}/subfolders/{subfolderId}()`: **Deleted** **Breaking** :warning:
+  * `wistia.projectSharings.get/projects/{projectId}/sharings()`: **Deleted** **Breaking** :warning:
+  * `wistia.projectSharings.post/projects/{projectId}/sharings()`: **Deleted** **Breaking** :warning:
+  * `wistia.projectSharings.get/projects/{projectId}/sharings/{sharingId}()`: **Deleted** **Breaking** :warning:
+  * `wistia.projectSharings.put/projects/{projectId}/sharings/{sharingId}()`: **Deleted** **Breaking** :warning:
+  * `wistia.projectSharings.delete/projects/{projectId}/sharings/{sharingId}()`: **Deleted** **Breaking** :warning:
+  * `wistia.backgroundJobStatus.get/backgroundJobStatus/{backgroundJobStatusId}()`: **Deleted** **Breaking** :warning:
+  * `wistia.customizations.get/medias/{mediaId}/customizations()`: **Deleted** **Breaking** :warning:
+  * `wistia.customizations.post/medias/{mediaId}/customizations()`: **Deleted** **Breaking** :warning:
+  * `wistia.customizations.put/medias/{mediaId}/customizations()`: **Deleted** **Breaking** :warning:
+  * `wistia.customizations.delete/medias/{mediaId}/customizations()`: **Deleted** **Breaking** :warning:
+  * `wistia.captions.get/medias/{mediaHashedId}/captions()`: **Deleted** **Breaking** :warning:
+  * `wistia.captions.post/medias/{mediaHashedId}/captionsMultipart()`: **Deleted** **Breaking** :warning:
+  * `wistia.captions.post/medias/{mediaHashedId}/captions()`: **Deleted** **Breaking** :warning:
+  * `wistia.captions.post/medias/{mediaHashedId}/captions/purchase()`: **Deleted** **Breaking** :warning:
+  * `wistia.captions.get/medias/{mediaHashedId}/captions/{languageCode}()`: **Deleted** **Breaking** :warning:
+  * `wistia.captions.put/medias/{mediaHashedId}/captions/{languageCode}()`: **Deleted** **Breaking** :warning:
+  * `wistia.captions.put/medias/{mediaHashedId}/captions/{languageCode}Multipart()`: **Deleted** **Breaking** :warning:
+  * `wistia.captions.delete/medias/{mediaHashedId}/captions/{languageCode}()`: **Deleted** **Breaking** :warning:
+  * `wistia.trims.post/medias/{mediaHashedId}/trims()`: **Deleted** **Breaking** :warning:
+  * `wistia.localizations.get/medias/{mediaHashedId}/localizations()`: **Deleted** **Breaking** :warning:
+  * `wistia.localizations.post/medias/{mediaHashedId}/localizations()`: **Deleted** **Breaking** :warning:
+  * `wistia.localizations.get/medias/{mediaHashedId}/localizations/{localizationHashedId}()`: **Deleted** **Breaking** :warning:
+  * `wistia.localizations.delete/medias/{mediaHashedId}/localizations/{localizationHashedId}()`: **Deleted** **Breaking** :warning:
+  * `wistia.channels.get/channels/{channelHashedId}()`: **Deleted** **Breaking** :warning:
+  * `wistia.channelEpisodes.get/channels/{channelHashedId}/channelEpisodes/{channelEpisodeId}()`: **Deleted** **Breaking** :warning:
+  * `wistia.channelEpisodes.get/channels/{channelHashedId}/channelEpisodes()`: **Deleted** **Breaking** :warning:
+  * `wistia.channelEpisodes.post/channels/{channelHashedId}/channelEpisodes()`: **Deleted** **Breaking** :warning:
+  * `wistia.channelEpisodes.list()`: **Deleted** **Breaking** :warning:
+  * `wistia.stats:media.get/stats/medias/{mediaId}/byDate()`: **Deleted** **Breaking** :warning:
+  * `wistia.statsVisitors.get/stats/visitors/{visitorKey}()`: **Deleted** **Breaking** :warning:
+  * `wistia.statsEvents.get/stats/events/{eventKey}()`: **Deleted** **Breaking** :warning:
