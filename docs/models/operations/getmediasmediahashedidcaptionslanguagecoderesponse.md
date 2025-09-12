@@ -6,7 +6,11 @@
 ### `models.Caption`
 
 ```typescript
-const value: models.Caption = {};
+const value: models.Caption = {
+  language: "<value>",
+  isDraft: true,
+  id: "<id>",
+};
 ```
 
 ### `string`
