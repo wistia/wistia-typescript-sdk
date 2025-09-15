@@ -15,7 +15,7 @@ export type VideoCustomizationVideoThumbnail = {
   clickToPlayButton?: boolean | undefined;
 };
 
-export type SocialbarV1 = {
+export type VideoCustomizationSocialbarV1 = {
   buttons?: string | undefined;
   showTweetCount?: boolean | undefined;
   tweetText?: string | undefined;
@@ -29,7 +29,7 @@ export type ChapterList = {
   deleted?: boolean | undefined;
 };
 
-export type Chapters = {
+export type VideoCustomizationChapters = {
   visibleOnLoad?: boolean | undefined;
   chapterList?: Array<ChapterList> | undefined;
   on?: boolean | undefined;
@@ -40,7 +40,7 @@ export type Chapters = {
  */
 export type Time = string | number;
 
-export type Style = {
+export type VideoCustomizationStyle = {
   /**
    * The background color of the post-roll.
    */
@@ -50,7 +50,7 @@ export type Style = {
 /**
  * Adds a Call To Action to your Video
  */
-export type PostRollV1 = {
+export type VideoCustomizationPostRollV1 = {
   /**
    * If set to true, allows the video to be rewatched.
    */
@@ -71,7 +71,7 @@ export type PostRollV1 = {
    * If set to true, the post-roll will automatically adjust its size.
    */
   autoSize?: boolean | undefined;
-  style?: Style | undefined;
+  style?: VideoCustomizationStyle | undefined;
   /**
    * The type of call-to-action to be displayed. Typically set to "text". Other options are "image" which allows for "altText", and "html".
    */
@@ -102,12 +102,12 @@ export type VideoCustomizationCaptionsV1 = {
 
 export type VideoCustomizationPlugin = {
   videoThumbnail?: VideoCustomizationVideoThumbnail | undefined;
-  socialbarV1?: SocialbarV1 | undefined;
-  chapters?: Chapters | undefined;
+  socialbarV1?: VideoCustomizationSocialbarV1 | undefined;
+  chapters?: VideoCustomizationChapters | undefined;
   /**
    * Adds a Call To Action to your Video
    */
-  postRollV1?: PostRollV1 | undefined;
+  postRollV1?: VideoCustomizationPostRollV1 | undefined;
   /**
    * Enables closed captions for the video
    */
@@ -361,8 +361,8 @@ export function videoCustomizationVideoThumbnailFromJSON(
 }
 
 /** @internal */
-export const SocialbarV1$inboundSchema: z.ZodType<
-  SocialbarV1,
+export const VideoCustomizationSocialbarV1$inboundSchema: z.ZodType<
+  VideoCustomizationSocialbarV1,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -373,7 +373,7 @@ export const SocialbarV1$inboundSchema: z.ZodType<
 });
 
 /** @internal */
-export type SocialbarV1$Outbound = {
+export type VideoCustomizationSocialbarV1$Outbound = {
   buttons?: string | undefined;
   showTweetCount?: boolean | undefined;
   tweetText?: string | undefined;
@@ -381,10 +381,10 @@ export type SocialbarV1$Outbound = {
 };
 
 /** @internal */
-export const SocialbarV1$outboundSchema: z.ZodType<
-  SocialbarV1$Outbound,
+export const VideoCustomizationSocialbarV1$outboundSchema: z.ZodType<
+  VideoCustomizationSocialbarV1$Outbound,
   z.ZodTypeDef,
-  SocialbarV1
+  VideoCustomizationSocialbarV1
 > = z.object({
   buttons: z.string().optional(),
   showTweetCount: z.boolean().optional(),
@@ -396,26 +396,32 @@ export const SocialbarV1$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace SocialbarV1$ {
-  /** @deprecated use `SocialbarV1$inboundSchema` instead. */
-  export const inboundSchema = SocialbarV1$inboundSchema;
-  /** @deprecated use `SocialbarV1$outboundSchema` instead. */
-  export const outboundSchema = SocialbarV1$outboundSchema;
-  /** @deprecated use `SocialbarV1$Outbound` instead. */
-  export type Outbound = SocialbarV1$Outbound;
+export namespace VideoCustomizationSocialbarV1$ {
+  /** @deprecated use `VideoCustomizationSocialbarV1$inboundSchema` instead. */
+  export const inboundSchema = VideoCustomizationSocialbarV1$inboundSchema;
+  /** @deprecated use `VideoCustomizationSocialbarV1$outboundSchema` instead. */
+  export const outboundSchema = VideoCustomizationSocialbarV1$outboundSchema;
+  /** @deprecated use `VideoCustomizationSocialbarV1$Outbound` instead. */
+  export type Outbound = VideoCustomizationSocialbarV1$Outbound;
 }
 
-export function socialbarV1ToJSON(socialbarV1: SocialbarV1): string {
-  return JSON.stringify(SocialbarV1$outboundSchema.parse(socialbarV1));
+export function videoCustomizationSocialbarV1ToJSON(
+  videoCustomizationSocialbarV1: VideoCustomizationSocialbarV1,
+): string {
+  return JSON.stringify(
+    VideoCustomizationSocialbarV1$outboundSchema.parse(
+      videoCustomizationSocialbarV1,
+    ),
+  );
 }
 
-export function socialbarV1FromJSON(
+export function videoCustomizationSocialbarV1FromJSON(
   jsonString: string,
-): SafeParseResult<SocialbarV1, SDKValidationError> {
+): SafeParseResult<VideoCustomizationSocialbarV1, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => SocialbarV1$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SocialbarV1' from JSON`,
+    (x) => VideoCustomizationSocialbarV1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'VideoCustomizationSocialbarV1' from JSON`,
   );
 }
 
@@ -479,8 +485,8 @@ export function chapterListFromJSON(
 }
 
 /** @internal */
-export const Chapters$inboundSchema: z.ZodType<
-  Chapters,
+export const VideoCustomizationChapters$inboundSchema: z.ZodType<
+  VideoCustomizationChapters,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -490,17 +496,17 @@ export const Chapters$inboundSchema: z.ZodType<
 });
 
 /** @internal */
-export type Chapters$Outbound = {
+export type VideoCustomizationChapters$Outbound = {
   visibleOnLoad?: boolean | undefined;
   chapterList?: Array<ChapterList$Outbound> | undefined;
   on?: boolean | undefined;
 };
 
 /** @internal */
-export const Chapters$outboundSchema: z.ZodType<
-  Chapters$Outbound,
+export const VideoCustomizationChapters$outboundSchema: z.ZodType<
+  VideoCustomizationChapters$Outbound,
   z.ZodTypeDef,
-  Chapters
+  VideoCustomizationChapters
 > = z.object({
   visibleOnLoad: z.boolean().optional(),
   chapterList: z.array(z.lazy(() => ChapterList$outboundSchema)).optional(),
@@ -511,26 +517,30 @@ export const Chapters$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace Chapters$ {
-  /** @deprecated use `Chapters$inboundSchema` instead. */
-  export const inboundSchema = Chapters$inboundSchema;
-  /** @deprecated use `Chapters$outboundSchema` instead. */
-  export const outboundSchema = Chapters$outboundSchema;
-  /** @deprecated use `Chapters$Outbound` instead. */
-  export type Outbound = Chapters$Outbound;
+export namespace VideoCustomizationChapters$ {
+  /** @deprecated use `VideoCustomizationChapters$inboundSchema` instead. */
+  export const inboundSchema = VideoCustomizationChapters$inboundSchema;
+  /** @deprecated use `VideoCustomizationChapters$outboundSchema` instead. */
+  export const outboundSchema = VideoCustomizationChapters$outboundSchema;
+  /** @deprecated use `VideoCustomizationChapters$Outbound` instead. */
+  export type Outbound = VideoCustomizationChapters$Outbound;
 }
 
-export function chaptersToJSON(chapters: Chapters): string {
-  return JSON.stringify(Chapters$outboundSchema.parse(chapters));
+export function videoCustomizationChaptersToJSON(
+  videoCustomizationChapters: VideoCustomizationChapters,
+): string {
+  return JSON.stringify(
+    VideoCustomizationChapters$outboundSchema.parse(videoCustomizationChapters),
+  );
 }
 
-export function chaptersFromJSON(
+export function videoCustomizationChaptersFromJSON(
   jsonString: string,
-): SafeParseResult<Chapters, SDKValidationError> {
+): SafeParseResult<VideoCustomizationChapters, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => Chapters$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Chapters' from JSON`,
+    (x) => VideoCustomizationChapters$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'VideoCustomizationChapters' from JSON`,
   );
 }
 
@@ -573,21 +583,24 @@ export function timeFromJSON(
 }
 
 /** @internal */
-export const Style$inboundSchema: z.ZodType<Style, z.ZodTypeDef, unknown> = z
-  .object({
-    backgroundColor: z.string().optional(),
-  });
+export const VideoCustomizationStyle$inboundSchema: z.ZodType<
+  VideoCustomizationStyle,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  backgroundColor: z.string().optional(),
+});
 
 /** @internal */
-export type Style$Outbound = {
+export type VideoCustomizationStyle$Outbound = {
   backgroundColor?: string | undefined;
 };
 
 /** @internal */
-export const Style$outboundSchema: z.ZodType<
-  Style$Outbound,
+export const VideoCustomizationStyle$outboundSchema: z.ZodType<
+  VideoCustomizationStyle$Outbound,
   z.ZodTypeDef,
-  Style
+  VideoCustomizationStyle
 > = z.object({
   backgroundColor: z.string().optional(),
 });
@@ -596,32 +609,36 @@ export const Style$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace Style$ {
-  /** @deprecated use `Style$inboundSchema` instead. */
-  export const inboundSchema = Style$inboundSchema;
-  /** @deprecated use `Style$outboundSchema` instead. */
-  export const outboundSchema = Style$outboundSchema;
-  /** @deprecated use `Style$Outbound` instead. */
-  export type Outbound = Style$Outbound;
+export namespace VideoCustomizationStyle$ {
+  /** @deprecated use `VideoCustomizationStyle$inboundSchema` instead. */
+  export const inboundSchema = VideoCustomizationStyle$inboundSchema;
+  /** @deprecated use `VideoCustomizationStyle$outboundSchema` instead. */
+  export const outboundSchema = VideoCustomizationStyle$outboundSchema;
+  /** @deprecated use `VideoCustomizationStyle$Outbound` instead. */
+  export type Outbound = VideoCustomizationStyle$Outbound;
 }
 
-export function styleToJSON(style: Style): string {
-  return JSON.stringify(Style$outboundSchema.parse(style));
+export function videoCustomizationStyleToJSON(
+  videoCustomizationStyle: VideoCustomizationStyle,
+): string {
+  return JSON.stringify(
+    VideoCustomizationStyle$outboundSchema.parse(videoCustomizationStyle),
+  );
 }
 
-export function styleFromJSON(
+export function videoCustomizationStyleFromJSON(
   jsonString: string,
-): SafeParseResult<Style, SDKValidationError> {
+): SafeParseResult<VideoCustomizationStyle, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => Style$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Style' from JSON`,
+    (x) => VideoCustomizationStyle$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'VideoCustomizationStyle' from JSON`,
   );
 }
 
 /** @internal */
-export const PostRollV1$inboundSchema: z.ZodType<
-  PostRollV1,
+export const VideoCustomizationPostRollV1$inboundSchema: z.ZodType<
+  VideoCustomizationPostRollV1,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -630,37 +647,37 @@ export const PostRollV1$inboundSchema: z.ZodType<
   link: z.string().optional(),
   time: z.union([z.string(), z.number()]).optional(),
   autoSize: z.boolean().optional(),
-  style: z.lazy(() => Style$inboundSchema).optional(),
+  style: z.lazy(() => VideoCustomizationStyle$inboundSchema).optional(),
   ctaType: z.string().optional(),
   on: z.boolean().optional(),
   conversionOpportunityKey: z.string().optional(),
 });
 
 /** @internal */
-export type PostRollV1$Outbound = {
+export type VideoCustomizationPostRollV1$Outbound = {
   rewatch?: boolean | undefined;
   text?: string | undefined;
   link?: string | undefined;
   time?: string | number | undefined;
   autoSize?: boolean | undefined;
-  style?: Style$Outbound | undefined;
+  style?: VideoCustomizationStyle$Outbound | undefined;
   ctaType?: string | undefined;
   on?: boolean | undefined;
   conversionOpportunityKey?: string | undefined;
 };
 
 /** @internal */
-export const PostRollV1$outboundSchema: z.ZodType<
-  PostRollV1$Outbound,
+export const VideoCustomizationPostRollV1$outboundSchema: z.ZodType<
+  VideoCustomizationPostRollV1$Outbound,
   z.ZodTypeDef,
-  PostRollV1
+  VideoCustomizationPostRollV1
 > = z.object({
   rewatch: z.boolean().optional(),
   text: z.string().optional(),
   link: z.string().optional(),
   time: z.union([z.string(), z.number()]).optional(),
   autoSize: z.boolean().optional(),
-  style: z.lazy(() => Style$outboundSchema).optional(),
+  style: z.lazy(() => VideoCustomizationStyle$outboundSchema).optional(),
   ctaType: z.string().optional(),
   on: z.boolean().optional(),
   conversionOpportunityKey: z.string().optional(),
@@ -670,26 +687,32 @@ export const PostRollV1$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace PostRollV1$ {
-  /** @deprecated use `PostRollV1$inboundSchema` instead. */
-  export const inboundSchema = PostRollV1$inboundSchema;
-  /** @deprecated use `PostRollV1$outboundSchema` instead. */
-  export const outboundSchema = PostRollV1$outboundSchema;
-  /** @deprecated use `PostRollV1$Outbound` instead. */
-  export type Outbound = PostRollV1$Outbound;
+export namespace VideoCustomizationPostRollV1$ {
+  /** @deprecated use `VideoCustomizationPostRollV1$inboundSchema` instead. */
+  export const inboundSchema = VideoCustomizationPostRollV1$inboundSchema;
+  /** @deprecated use `VideoCustomizationPostRollV1$outboundSchema` instead. */
+  export const outboundSchema = VideoCustomizationPostRollV1$outboundSchema;
+  /** @deprecated use `VideoCustomizationPostRollV1$Outbound` instead. */
+  export type Outbound = VideoCustomizationPostRollV1$Outbound;
 }
 
-export function postRollV1ToJSON(postRollV1: PostRollV1): string {
-  return JSON.stringify(PostRollV1$outboundSchema.parse(postRollV1));
+export function videoCustomizationPostRollV1ToJSON(
+  videoCustomizationPostRollV1: VideoCustomizationPostRollV1,
+): string {
+  return JSON.stringify(
+    VideoCustomizationPostRollV1$outboundSchema.parse(
+      videoCustomizationPostRollV1,
+    ),
+  );
 }
 
-export function postRollV1FromJSON(
+export function videoCustomizationPostRollV1FromJSON(
   jsonString: string,
-): SafeParseResult<PostRollV1, SDKValidationError> {
+): SafeParseResult<VideoCustomizationPostRollV1, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => PostRollV1$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostRollV1' from JSON`,
+    (x) => VideoCustomizationPostRollV1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'VideoCustomizationPostRollV1' from JSON`,
   );
 }
 
@@ -760,9 +783,11 @@ export const VideoCustomizationPlugin$inboundSchema: z.ZodType<
 > = z.object({
   videoThumbnail: z.lazy(() => VideoCustomizationVideoThumbnail$inboundSchema)
     .optional(),
-  "socialbar-v1": z.lazy(() => SocialbarV1$inboundSchema).optional(),
-  chapters: z.lazy(() => Chapters$inboundSchema).optional(),
-  "postRoll-v1": z.lazy(() => PostRollV1$inboundSchema).optional(),
+  "socialbar-v1": z.lazy(() => VideoCustomizationSocialbarV1$inboundSchema)
+    .optional(),
+  chapters: z.lazy(() => VideoCustomizationChapters$inboundSchema).optional(),
+  "postRoll-v1": z.lazy(() => VideoCustomizationPostRollV1$inboundSchema)
+    .optional(),
   "captions-v1": z.lazy(() => VideoCustomizationCaptionsV1$inboundSchema)
     .optional(),
 }).transform((v) => {
@@ -776,9 +801,9 @@ export const VideoCustomizationPlugin$inboundSchema: z.ZodType<
 /** @internal */
 export type VideoCustomizationPlugin$Outbound = {
   videoThumbnail?: VideoCustomizationVideoThumbnail$Outbound | undefined;
-  "socialbar-v1"?: SocialbarV1$Outbound | undefined;
-  chapters?: Chapters$Outbound | undefined;
-  "postRoll-v1"?: PostRollV1$Outbound | undefined;
+  "socialbar-v1"?: VideoCustomizationSocialbarV1$Outbound | undefined;
+  chapters?: VideoCustomizationChapters$Outbound | undefined;
+  "postRoll-v1"?: VideoCustomizationPostRollV1$Outbound | undefined;
   "captions-v1"?: VideoCustomizationCaptionsV1$Outbound | undefined;
 };
 
@@ -790,9 +815,11 @@ export const VideoCustomizationPlugin$outboundSchema: z.ZodType<
 > = z.object({
   videoThumbnail: z.lazy(() => VideoCustomizationVideoThumbnail$outboundSchema)
     .optional(),
-  socialbarV1: z.lazy(() => SocialbarV1$outboundSchema).optional(),
-  chapters: z.lazy(() => Chapters$outboundSchema).optional(),
-  postRollV1: z.lazy(() => PostRollV1$outboundSchema).optional(),
+  socialbarV1: z.lazy(() => VideoCustomizationSocialbarV1$outboundSchema)
+    .optional(),
+  chapters: z.lazy(() => VideoCustomizationChapters$outboundSchema).optional(),
+  postRollV1: z.lazy(() => VideoCustomizationPostRollV1$outboundSchema)
+    .optional(),
   captionsV1: z.lazy(() => VideoCustomizationCaptionsV1$outboundSchema)
     .optional(),
 }).transform((v) => {

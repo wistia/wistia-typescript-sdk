@@ -1,11 +1,11 @@
-# Chapters
+# VideoCustomizationChapters
 
 ## Example Usage
 
 ```typescript
-import { Chapters } from "@wistia/wistia-api-client/models";
+import { VideoCustomizationChapters } from "@wistia/wistia-api-client/models";
 
-let value: Chapters = {};
+let value: VideoCustomizationChapters = {};
 ```
 
 ## Fields
