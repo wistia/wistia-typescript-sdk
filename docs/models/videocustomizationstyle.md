@@ -1,11 +1,11 @@
-# Style
+# VideoCustomizationStyle
 
 ## Example Usage
 
 ```typescript
-import { Style } from "@wistia/wistia-api-client/models";
+import { VideoCustomizationStyle } from "@wistia/wistia-api-client/models";
 
-let value: Style = {
+let value: VideoCustomizationStyle = {
   backgroundColor: "#303030",
 };
 ```

@@ -5408,6 +5408,9 @@ components:
           type: string
         wmode:
           type: string
+        keyMoments:
+          type: string
+          description: String representation of whether the key moments feature is enabled.
         plugin:
           type: object
           properties:
@@ -5427,6 +5430,61 @@ components:
               properties:
                 clickToPlayButton:
                   type: string
+            socialbar-v1:
+              type: object
+              properties:
+                buttons:
+                  type: string
+                showTweetCount:
+                  type: string
+                tweetText:
+                  type: string
+                height:
+                  type: string
+            chapters:
+              type: object
+              properties:
+                visibleOnLoad:
+                  type: string
+                chapterList:
+                  type: string
+                'on':
+                  type: string
+            postRoll-v1:
+              type: object
+              description: Adds a Call To Action to your Video (response format)
+              properties:
+                rewatch:
+                  type: string
+                  description: String representation of whether the video can be rewatched.
+                text:
+                  type: string
+                  description: The URL of the text to be displayed.
+                link:
+                  type: string
+                  description: The URL of the link to be displayed.
+                time:
+                  type: string
+                  description: The time when the post-roll should be displayed as a string.
+                autoSize:
+                  type: string
+                  description: >-
+                    String representation of whether the post-roll will automatically adjust its size.
+                style:
+                  type: object
+                  properties:
+                    backgroundColor:
+                      type: string
+                      description: The background color of the post-roll.
+                ctaType:
+                  type: string
+                  description: The type of call-to-action to be displayed.
+                'on':
+                  type: string
+                  description: String representation of whether the post-roll is enabled.
+                conversionOpportunityKey:
+                  type: string
+                  description: The key used for tracking conversion opportunities.
             captions-v1:
               type: object
               description: Captions plugin configuration (response format)
