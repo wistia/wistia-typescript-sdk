@@ -19,6 +19,65 @@ export type VideoCustomizationResponseVideoThumbnail = {
   clickToPlayButton?: string | undefined;
 };
 
+export type VideoCustomizationResponseSocialbarV1 = {
+  buttons?: string | undefined;
+  showTweetCount?: string | undefined;
+  tweetText?: string | undefined;
+  height?: string | undefined;
+};
+
+export type VideoCustomizationResponseChapters = {
+  visibleOnLoad?: string | undefined;
+  chapterList?: string | undefined;
+  on?: string | undefined;
+};
+
+export type VideoCustomizationResponseStyle = {
+  /**
+   * The background color of the post-roll.
+   */
+  backgroundColor?: string | undefined;
+};
+
+/**
+ * Adds a Call To Action to your Video (response format)
+ */
+export type VideoCustomizationResponsePostRollV1 = {
+  /**
+   * String representation of whether the video can be rewatched.
+   */
+  rewatch?: string | undefined;
+  /**
+   * The URL of the text to be displayed.
+   */
+  text?: string | undefined;
+  /**
+   * The URL of the link to be displayed.
+   */
+  link?: string | undefined;
+  /**
+   * The time when the post-roll should be displayed as a string.
+   */
+  time?: string | undefined;
+  /**
+   * String representation of whether the post-roll will automatically adjust its size.
+   */
+  autoSize?: string | undefined;
+  style?: VideoCustomizationResponseStyle | undefined;
+  /**
+   * The type of call-to-action to be displayed.
+   */
+  ctaType?: string | undefined;
+  /**
+   * String representation of whether the post-roll is enabled.
+   */
+  on?: string | undefined;
+  /**
+   * The key used for tracking conversion opportunities.
+   */
+  conversionOpportunityKey?: string | undefined;
+};
+
 /**
  * Captions plugin configuration (response format)
  */
@@ -36,6 +95,12 @@ export type VideoCustomizationResponseCaptionsV1 = {
 export type VideoCustomizationResponsePlugin = {
   passwordProtectedVideo?: PasswordProtectedVideo | undefined;
   videoThumbnail?: VideoCustomizationResponseVideoThumbnail | undefined;
+  socialbarV1?: VideoCustomizationResponseSocialbarV1 | undefined;
+  chapters?: VideoCustomizationResponseChapters | undefined;
+  /**
+   * Adds a Call To Action to your Video (response format)
+   */
+  postRollV1?: VideoCustomizationResponsePostRollV1 | undefined;
   /**
    * Captions plugin configuration (response format)
    */
@@ -103,6 +168,10 @@ export type VideoCustomizationResponse = {
   videoFoam?: string | undefined;
   volume?: string | undefined;
   wmode?: string | undefined;
+  /**
+   * String representation of whether the key moments feature is enabled.
+   */
+  keyMoments?: string | undefined;
   plugin?: VideoCustomizationResponsePlugin | undefined;
   private?: Private | undefined;
   encrypted?: Encrypted | undefined;
@@ -237,6 +306,278 @@ export function videoCustomizationResponseVideoThumbnailFromJSON(
 }
 
 /** @internal */
+export const VideoCustomizationResponseSocialbarV1$inboundSchema: z.ZodType<
+  VideoCustomizationResponseSocialbarV1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  buttons: z.string().optional(),
+  showTweetCount: z.string().optional(),
+  tweetText: z.string().optional(),
+  height: z.string().optional(),
+});
+
+/** @internal */
+export type VideoCustomizationResponseSocialbarV1$Outbound = {
+  buttons?: string | undefined;
+  showTweetCount?: string | undefined;
+  tweetText?: string | undefined;
+  height?: string | undefined;
+};
+
+/** @internal */
+export const VideoCustomizationResponseSocialbarV1$outboundSchema: z.ZodType<
+  VideoCustomizationResponseSocialbarV1$Outbound,
+  z.ZodTypeDef,
+  VideoCustomizationResponseSocialbarV1
+> = z.object({
+  buttons: z.string().optional(),
+  showTweetCount: z.string().optional(),
+  tweetText: z.string().optional(),
+  height: z.string().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace VideoCustomizationResponseSocialbarV1$ {
+  /** @deprecated use `VideoCustomizationResponseSocialbarV1$inboundSchema` instead. */
+  export const inboundSchema =
+    VideoCustomizationResponseSocialbarV1$inboundSchema;
+  /** @deprecated use `VideoCustomizationResponseSocialbarV1$outboundSchema` instead. */
+  export const outboundSchema =
+    VideoCustomizationResponseSocialbarV1$outboundSchema;
+  /** @deprecated use `VideoCustomizationResponseSocialbarV1$Outbound` instead. */
+  export type Outbound = VideoCustomizationResponseSocialbarV1$Outbound;
+}
+
+export function videoCustomizationResponseSocialbarV1ToJSON(
+  videoCustomizationResponseSocialbarV1: VideoCustomizationResponseSocialbarV1,
+): string {
+  return JSON.stringify(
+    VideoCustomizationResponseSocialbarV1$outboundSchema.parse(
+      videoCustomizationResponseSocialbarV1,
+    ),
+  );
+}
+
+export function videoCustomizationResponseSocialbarV1FromJSON(
+  jsonString: string,
+): SafeParseResult<VideoCustomizationResponseSocialbarV1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      VideoCustomizationResponseSocialbarV1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'VideoCustomizationResponseSocialbarV1' from JSON`,
+  );
+}
+
+/** @internal */
+export const VideoCustomizationResponseChapters$inboundSchema: z.ZodType<
+  VideoCustomizationResponseChapters,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  visibleOnLoad: z.string().optional(),
+  chapterList: z.string().optional(),
+  on: z.string().optional(),
+});
+
+/** @internal */
+export type VideoCustomizationResponseChapters$Outbound = {
+  visibleOnLoad?: string | undefined;
+  chapterList?: string | undefined;
+  on?: string | undefined;
+};
+
+/** @internal */
+export const VideoCustomizationResponseChapters$outboundSchema: z.ZodType<
+  VideoCustomizationResponseChapters$Outbound,
+  z.ZodTypeDef,
+  VideoCustomizationResponseChapters
+> = z.object({
+  visibleOnLoad: z.string().optional(),
+  chapterList: z.string().optional(),
+  on: z.string().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace VideoCustomizationResponseChapters$ {
+  /** @deprecated use `VideoCustomizationResponseChapters$inboundSchema` instead. */
+  export const inboundSchema = VideoCustomizationResponseChapters$inboundSchema;
+  /** @deprecated use `VideoCustomizationResponseChapters$outboundSchema` instead. */
+  export const outboundSchema =
+    VideoCustomizationResponseChapters$outboundSchema;
+  /** @deprecated use `VideoCustomizationResponseChapters$Outbound` instead. */
+  export type Outbound = VideoCustomizationResponseChapters$Outbound;
+}
+
+export function videoCustomizationResponseChaptersToJSON(
+  videoCustomizationResponseChapters: VideoCustomizationResponseChapters,
+): string {
+  return JSON.stringify(
+    VideoCustomizationResponseChapters$outboundSchema.parse(
+      videoCustomizationResponseChapters,
+    ),
+  );
+}
+
+export function videoCustomizationResponseChaptersFromJSON(
+  jsonString: string,
+): SafeParseResult<VideoCustomizationResponseChapters, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      VideoCustomizationResponseChapters$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'VideoCustomizationResponseChapters' from JSON`,
+  );
+}
+
+/** @internal */
+export const VideoCustomizationResponseStyle$inboundSchema: z.ZodType<
+  VideoCustomizationResponseStyle,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  backgroundColor: z.string().optional(),
+});
+
+/** @internal */
+export type VideoCustomizationResponseStyle$Outbound = {
+  backgroundColor?: string | undefined;
+};
+
+/** @internal */
+export const VideoCustomizationResponseStyle$outboundSchema: z.ZodType<
+  VideoCustomizationResponseStyle$Outbound,
+  z.ZodTypeDef,
+  VideoCustomizationResponseStyle
+> = z.object({
+  backgroundColor: z.string().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace VideoCustomizationResponseStyle$ {
+  /** @deprecated use `VideoCustomizationResponseStyle$inboundSchema` instead. */
+  export const inboundSchema = VideoCustomizationResponseStyle$inboundSchema;
+  /** @deprecated use `VideoCustomizationResponseStyle$outboundSchema` instead. */
+  export const outboundSchema = VideoCustomizationResponseStyle$outboundSchema;
+  /** @deprecated use `VideoCustomizationResponseStyle$Outbound` instead. */
+  export type Outbound = VideoCustomizationResponseStyle$Outbound;
+}
+
+export function videoCustomizationResponseStyleToJSON(
+  videoCustomizationResponseStyle: VideoCustomizationResponseStyle,
+): string {
+  return JSON.stringify(
+    VideoCustomizationResponseStyle$outboundSchema.parse(
+      videoCustomizationResponseStyle,
+    ),
+  );
+}
+
+export function videoCustomizationResponseStyleFromJSON(
+  jsonString: string,
+): SafeParseResult<VideoCustomizationResponseStyle, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => VideoCustomizationResponseStyle$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'VideoCustomizationResponseStyle' from JSON`,
+  );
+}
+
+/** @internal */
+export const VideoCustomizationResponsePostRollV1$inboundSchema: z.ZodType<
+  VideoCustomizationResponsePostRollV1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  rewatch: z.string().optional(),
+  text: z.string().optional(),
+  link: z.string().optional(),
+  time: z.string().optional(),
+  autoSize: z.string().optional(),
+  style: z.lazy(() => VideoCustomizationResponseStyle$inboundSchema).optional(),
+  ctaType: z.string().optional(),
+  on: z.string().optional(),
+  conversionOpportunityKey: z.string().optional(),
+});
+
+/** @internal */
+export type VideoCustomizationResponsePostRollV1$Outbound = {
+  rewatch?: string | undefined;
+  text?: string | undefined;
+  link?: string | undefined;
+  time?: string | undefined;
+  autoSize?: string | undefined;
+  style?: VideoCustomizationResponseStyle$Outbound | undefined;
+  ctaType?: string | undefined;
+  on?: string | undefined;
+  conversionOpportunityKey?: string | undefined;
+};
+
+/** @internal */
+export const VideoCustomizationResponsePostRollV1$outboundSchema: z.ZodType<
+  VideoCustomizationResponsePostRollV1$Outbound,
+  z.ZodTypeDef,
+  VideoCustomizationResponsePostRollV1
+> = z.object({
+  rewatch: z.string().optional(),
+  text: z.string().optional(),
+  link: z.string().optional(),
+  time: z.string().optional(),
+  autoSize: z.string().optional(),
+  style: z.lazy(() => VideoCustomizationResponseStyle$outboundSchema)
+    .optional(),
+  ctaType: z.string().optional(),
+  on: z.string().optional(),
+  conversionOpportunityKey: z.string().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace VideoCustomizationResponsePostRollV1$ {
+  /** @deprecated use `VideoCustomizationResponsePostRollV1$inboundSchema` instead. */
+  export const inboundSchema =
+    VideoCustomizationResponsePostRollV1$inboundSchema;
+  /** @deprecated use `VideoCustomizationResponsePostRollV1$outboundSchema` instead. */
+  export const outboundSchema =
+    VideoCustomizationResponsePostRollV1$outboundSchema;
+  /** @deprecated use `VideoCustomizationResponsePostRollV1$Outbound` instead. */
+  export type Outbound = VideoCustomizationResponsePostRollV1$Outbound;
+}
+
+export function videoCustomizationResponsePostRollV1ToJSON(
+  videoCustomizationResponsePostRollV1: VideoCustomizationResponsePostRollV1,
+): string {
+  return JSON.stringify(
+    VideoCustomizationResponsePostRollV1$outboundSchema.parse(
+      videoCustomizationResponsePostRollV1,
+    ),
+  );
+}
+
+export function videoCustomizationResponsePostRollV1FromJSON(
+  jsonString: string,
+): SafeParseResult<VideoCustomizationResponsePostRollV1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      VideoCustomizationResponsePostRollV1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'VideoCustomizationResponsePostRollV1' from JSON`,
+  );
+}
+
+/** @internal */
 export const VideoCustomizationResponseCaptionsV1$inboundSchema: z.ZodType<
   VideoCustomizationResponseCaptionsV1,
   z.ZodTypeDef,
@@ -309,11 +650,21 @@ export const VideoCustomizationResponsePlugin$inboundSchema: z.ZodType<
   videoThumbnail: z.lazy(() =>
     VideoCustomizationResponseVideoThumbnail$inboundSchema
   ).optional(),
+  "socialbar-v1": z.lazy(() =>
+    VideoCustomizationResponseSocialbarV1$inboundSchema
+  ).optional(),
+  chapters: z.lazy(() => VideoCustomizationResponseChapters$inboundSchema)
+    .optional(),
+  "postRoll-v1": z.lazy(() =>
+    VideoCustomizationResponsePostRollV1$inboundSchema
+  ).optional(),
   "captions-v1": z.lazy(() =>
     VideoCustomizationResponseCaptionsV1$inboundSchema
   ).optional(),
 }).transform((v) => {
   return remap$(v, {
+    "socialbar-v1": "socialbarV1",
+    "postRoll-v1": "postRollV1",
     "captions-v1": "captionsV1",
   });
 });
@@ -324,6 +675,9 @@ export type VideoCustomizationResponsePlugin$Outbound = {
   videoThumbnail?:
     | VideoCustomizationResponseVideoThumbnail$Outbound
     | undefined;
+  "socialbar-v1"?: VideoCustomizationResponseSocialbarV1$Outbound | undefined;
+  chapters?: VideoCustomizationResponseChapters$Outbound | undefined;
+  "postRoll-v1"?: VideoCustomizationResponsePostRollV1$Outbound | undefined;
   "captions-v1"?: VideoCustomizationResponseCaptionsV1$Outbound | undefined;
 };
 
@@ -338,10 +692,19 @@ export const VideoCustomizationResponsePlugin$outboundSchema: z.ZodType<
   videoThumbnail: z.lazy(() =>
     VideoCustomizationResponseVideoThumbnail$outboundSchema
   ).optional(),
+  socialbarV1: z.lazy(() =>
+    VideoCustomizationResponseSocialbarV1$outboundSchema
+  ).optional(),
+  chapters: z.lazy(() => VideoCustomizationResponseChapters$outboundSchema)
+    .optional(),
+  postRollV1: z.lazy(() => VideoCustomizationResponsePostRollV1$outboundSchema)
+    .optional(),
   captionsV1: z.lazy(() => VideoCustomizationResponseCaptionsV1$outboundSchema)
     .optional(),
 }).transform((v) => {
   return remap$(v, {
+    socialbarV1: "socialbar-v1",
+    postRollV1: "postRoll-v1",
     captionsV1: "captions-v1",
   });
 });
@@ -542,6 +905,7 @@ export const VideoCustomizationResponse$inboundSchema: z.ZodType<
   videoFoam: z.string().optional(),
   volume: z.string().optional(),
   wmode: z.string().optional(),
+  keyMoments: z.string().optional(),
   plugin: z.lazy(() => VideoCustomizationResponsePlugin$inboundSchema)
     .optional(),
   private: z.lazy(() => Private$inboundSchema).optional(),
@@ -589,6 +953,7 @@ export type VideoCustomizationResponse$Outbound = {
   videoFoam?: string | undefined;
   volume?: string | undefined;
   wmode?: string | undefined;
+  keyMoments?: string | undefined;
   plugin?: VideoCustomizationResponsePlugin$Outbound | undefined;
   private?: Private$Outbound | undefined;
   encrypted?: Encrypted$Outbound | undefined;
@@ -639,6 +1004,7 @@ export const VideoCustomizationResponse$outboundSchema: z.ZodType<
   videoFoam: z.string().optional(),
   volume: z.string().optional(),
   wmode: z.string().optional(),
+  keyMoments: z.string().optional(),
   plugin: z.lazy(() => VideoCustomizationResponsePlugin$outboundSchema)
     .optional(),
   private: z.lazy(() => Private$outboundSchema).optional(),
