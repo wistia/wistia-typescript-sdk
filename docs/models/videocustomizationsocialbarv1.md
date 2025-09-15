@@ -1,11 +1,11 @@
-# SocialbarV1
+# VideoCustomizationSocialbarV1
 
 ## Example Usage
 
 ```typescript
-import { SocialbarV1 } from "@wistia/wistia-api-client/models";
+import { VideoCustomizationSocialbarV1 } from "@wistia/wistia-api-client/models";
 
-let value: SocialbarV1 = {};
+let value: VideoCustomizationSocialbarV1 = {};
 ```
 
 ## Fields
