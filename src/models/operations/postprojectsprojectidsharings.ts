@@ -19,7 +19,7 @@ export type PostProjectsProjectIdSharingsRequest = {
 
 export type PostProjectsProjectIdSharingsResponse = {
   headers: { [k: string]: Array<string> };
-  result: models.ProjectSharingResponse;
+  result: models.CreateProjectSharingResponse;
 };
 
 /** @internal */
@@ -99,7 +99,7 @@ export const PostProjectsProjectIdSharingsResponse$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   Headers: z.record(z.array(z.string())),
-  Result: models.ProjectSharingResponse$inboundSchema,
+  Result: models.CreateProjectSharingResponse$inboundSchema,
 }).transform((v) => {
   return remap$(v, {
     "Headers": "headers",
@@ -110,7 +110,7 @@ export const PostProjectsProjectIdSharingsResponse$inboundSchema: z.ZodType<
 /** @internal */
 export type PostProjectsProjectIdSharingsResponse$Outbound = {
   Headers: { [k: string]: Array<string> };
-  Result: models.ProjectSharingResponse$Outbound;
+  Result: models.CreateProjectSharingResponse$Outbound;
 };
 
 /** @internal */
@@ -120,7 +120,7 @@ export const PostProjectsProjectIdSharingsResponse$outboundSchema: z.ZodType<
   PostProjectsProjectIdSharingsResponse
 > = z.object({
   headers: z.record(z.array(z.string())),
-  result: models.ProjectSharingResponse$outboundSchema,
+  result: models.CreateProjectSharingResponse$outboundSchema,
 }).transform((v) => {
   return remap$(v, {
     headers: "Headers",

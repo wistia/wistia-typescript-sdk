@@ -43,7 +43,7 @@ export function mediaUpdate(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    models.Media,
+    models.MediaUpdate,
     | errors.FourHundredError
     | errors.FourHundredAndOneError
     | errors.FourHundredAndFourError
@@ -72,7 +72,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      models.Media,
+      models.MediaUpdate,
       | errors.FourHundredError
       | errors.FourHundredAndOneError
       | errors.FourHundredAndFourError
@@ -165,7 +165,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    models.Media,
+    models.MediaUpdate,
     | errors.FourHundredError
     | errors.FourHundredAndOneError
     | errors.FourHundredAndFourError
@@ -179,7 +179,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, models.Media$inboundSchema),
+    M.json(200, models.MediaUpdate$inboundSchema),
     M.jsonErr(400, errors.FourHundredError$inboundSchema),
     M.jsonErr(401, errors.FourHundredAndOneError$inboundSchema),
     M.jsonErr(404, errors.FourHundredAndFourError$inboundSchema),

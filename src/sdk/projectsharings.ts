@@ -29,7 +29,7 @@ export class ProjectSharings extends ClientSDK {
   async list(
     request: operations.GetProjectsProjectIdSharingsRequest,
     options?: RequestOptions,
-  ): Promise<Array<models.ProjectSharingDetail>> {
+  ): Promise<Array<models.ProjectSharingSchema>> {
     return unwrapAsync(projectSharingsList(
       this,
       request,
@@ -74,7 +74,7 @@ export class ProjectSharings extends ClientSDK {
   async get(
     request: operations.GetProjectsProjectIdSharingsSharingIdRequest,
     options?: RequestOptions,
-  ): Promise<models.ProjectSharingDetail> {
+  ): Promise<models.ProjectSharingSchema> {
     return unwrapAsync(projectSharingsGet(
       this,
       request,

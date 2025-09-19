@@ -1,13 +1,13 @@
-# MediaWithCursorType
+# MediaIndexType
 
 A string representing what type of media this is.
 
 ## Example Usage
 
 ```typescript
-import { MediaWithCursorType } from "@wistia/wistia-api-client/models";
+import { MediaIndexType } from "@wistia/wistia-api-client/models";
 
-let value: MediaWithCursorType = "Video";
+let value: MediaIndexType = "Swf";
 ```
 
 ## Values

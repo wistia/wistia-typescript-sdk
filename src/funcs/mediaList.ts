@@ -50,7 +50,7 @@ export function mediaList(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    Array<models.MediaWithCursor>,
+    Array<models.MediaIndex>,
     | errors.FourHundredError
     | errors.FourHundredAndOneError
     | errors.FiveHundredError
@@ -78,7 +78,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      Array<models.MediaWithCursor>,
+      Array<models.MediaIndex>,
       | errors.FourHundredError
       | errors.FourHundredAndOneError
       | errors.FiveHundredError
@@ -182,7 +182,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    Array<models.MediaWithCursor>,
+    Array<models.MediaIndex>,
     | errors.FourHundredError
     | errors.FourHundredAndOneError
     | errors.FiveHundredError
@@ -195,7 +195,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, z.array(models.MediaWithCursor$inboundSchema)),
+    M.json(200, z.array(models.MediaIndex$inboundSchema)),
     M.jsonErr(400, errors.FourHundredError$inboundSchema),
     M.jsonErr(401, errors.FourHundredAndOneError$inboundSchema),
     M.jsonErr(500, errors.FiveHundredError$inboundSchema),

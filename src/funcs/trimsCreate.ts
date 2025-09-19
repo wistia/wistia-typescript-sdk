@@ -98,7 +98,7 @@ async function $do(
     return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
-  const body = encodeJSON("body", payload.Trims, { explode: true });
+  const body = encodeJSON("body", payload.RequestBody, { explode: true });
 
   const pathParams = {
     mediaHashedId: encodeSimple("mediaHashedId", payload.mediaHashedId, {

@@ -8,7 +8,7 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
-export type ChannelEpisodeChannels = {
+export type ChannelEpisode = {
   /**
    * A unique alphanumeric identifier for the channel episode's channel.
    */
@@ -44,20 +44,16 @@ export type ChannelEpisodeChannels = {
   /**
    * The title of the channel episode
    */
-  title: string;
+  title: string | null;
   /**
    * The date when the channel was last updated.
    */
   updated: Date;
 };
 
-export type ChannelEpisode = {
-  channels?: ChannelEpisodeChannels | undefined;
-};
-
 /** @internal */
-export const ChannelEpisodeChannels$inboundSchema: z.ZodType<
-  ChannelEpisodeChannels,
+export const ChannelEpisode$inboundSchema: z.ZodType<
+  ChannelEpisode,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -70,7 +66,7 @@ export const ChannelEpisodeChannels$inboundSchema: z.ZodType<
   published: z.boolean(),
   publish_at: z.string().datetime({ offset: true }).transform(v => new Date(v))
     .optional(),
-  title: z.string(),
+  title: z.nullable(z.string()),
   updated: z.string().datetime({ offset: true }).transform(v => new Date(v)),
 }).transform((v) => {
   return remap$(v, {
@@ -79,7 +75,7 @@ export const ChannelEpisodeChannels$inboundSchema: z.ZodType<
 });
 
 /** @internal */
-export type ChannelEpisodeChannels$Outbound = {
+export type ChannelEpisode$Outbound = {
   channelHashedId: string;
   created: string;
   description: string;
@@ -88,15 +84,15 @@ export type ChannelEpisodeChannels$Outbound = {
   mediaHashedId: string;
   published: boolean;
   publish_at?: string | undefined;
-  title: string;
+  title: string | null;
   updated: string;
 };
 
 /** @internal */
-export const ChannelEpisodeChannels$outboundSchema: z.ZodType<
-  ChannelEpisodeChannels$Outbound,
+export const ChannelEpisode$outboundSchema: z.ZodType<
+  ChannelEpisode$Outbound,
   z.ZodTypeDef,
-  ChannelEpisodeChannels
+  ChannelEpisode
 > = z.object({
   channelHashedId: z.string(),
   created: z.date().transform(v => v.toISOString()),
@@ -106,66 +102,12 @@ export const ChannelEpisodeChannels$outboundSchema: z.ZodType<
   mediaHashedId: z.string(),
   published: z.boolean(),
   publishAt: z.date().transform(v => v.toISOString()).optional(),
-  title: z.string(),
+  title: z.nullable(z.string()),
   updated: z.date().transform(v => v.toISOString()),
 }).transform((v) => {
   return remap$(v, {
     publishAt: "publish_at",
   });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ChannelEpisodeChannels$ {
-  /** @deprecated use `ChannelEpisodeChannels$inboundSchema` instead. */
-  export const inboundSchema = ChannelEpisodeChannels$inboundSchema;
-  /** @deprecated use `ChannelEpisodeChannels$outboundSchema` instead. */
-  export const outboundSchema = ChannelEpisodeChannels$outboundSchema;
-  /** @deprecated use `ChannelEpisodeChannels$Outbound` instead. */
-  export type Outbound = ChannelEpisodeChannels$Outbound;
-}
-
-export function channelEpisodeChannelsToJSON(
-  channelEpisodeChannels: ChannelEpisodeChannels,
-): string {
-  return JSON.stringify(
-    ChannelEpisodeChannels$outboundSchema.parse(channelEpisodeChannels),
-  );
-}
-
-export function channelEpisodeChannelsFromJSON(
-  jsonString: string,
-): SafeParseResult<ChannelEpisodeChannels, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ChannelEpisodeChannels$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ChannelEpisodeChannels' from JSON`,
-  );
-}
-
-/** @internal */
-export const ChannelEpisode$inboundSchema: z.ZodType<
-  ChannelEpisode,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  channels: z.lazy(() => ChannelEpisodeChannels$inboundSchema).optional(),
-});
-
-/** @internal */
-export type ChannelEpisode$Outbound = {
-  channels?: ChannelEpisodeChannels$Outbound | undefined;
-};
-
-/** @internal */
-export const ChannelEpisode$outboundSchema: z.ZodType<
-  ChannelEpisode$Outbound,
-  z.ZodTypeDef,
-  ChannelEpisode
-> = z.object({
-  channels: z.lazy(() => ChannelEpisodeChannels$outboundSchema).optional(),
 });
 
 /**

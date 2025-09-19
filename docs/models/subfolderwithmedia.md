@@ -14,23 +14,6 @@ let value: SubfolderWithMedia = {
   position: 1,
   created: new Date("2024-01-15T10:30:00+00:00"),
   updated: new Date("2024-01-20T14:45:00+00:00"),
-  medias: [
-    {
-      subfolder: {
-        hashedId: "abc123def4",
-        name: "Marketing Videos",
-        description: "Collection of all marketing and promotional videos",
-        position: 1,
-        created: new Date("2024-01-15T10:30:00+00:00"),
-        updated: new Date("2024-01-20T14:45:00+00:00"),
-      },
-      project: {
-        id: 22570,
-        name: "My Project Title",
-        hashedId: "4d23503f70",
-      },
-    },
-  ],
 };
 ```
 
@@ -44,4 +27,4 @@ let value: SubfolderWithMedia = {
 | `position`                                                                                    | *number*                                                                                      | :heavy_check_mark:                                                                            | The position of this subfolder within its project, used for ordering.                         | 1                                                                                             |
 | `created`                                                                                     | [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) | :heavy_check_mark:                                                                            | The date when the subfolder was created.                                                      | 2024-01-15T10:30:00+00:00                                                                     |
 | `updated`                                                                                     | [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) | :heavy_check_mark:                                                                            | The date when the subfolder was last modified.                                                | 2024-01-20T14:45:00+00:00                                                                     |
-| `medias`                                                                                      | [models.MediaSchemaMedia](../models/mediaschemamedia.md)[]                                    | :heavy_minus_sign:                                                                            | Array of media files contained in this subfolder.                                             |                                                                                               |
+| `medias`                                                                                      | [models.MediaProperties](../models/mediaproperties.md)[]                                      | :heavy_minus_sign:                                                                            | Array of media files contained in this subfolder.                                             |                                                                                               |
