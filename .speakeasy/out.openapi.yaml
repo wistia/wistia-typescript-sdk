@@ -3955,11 +3955,9 @@ paths:
           description: >-
             The Hashed ID or ID of the project for which you want to retrieve stats.
           schema:
-            oneOf:
-              - type: string
-                description: Hashed ID of the project (e.g., "4d23503f70")
-              - type: integer
-                description: Numeric ID of the project (e.g., 22570)
+            type: string
+            description: >-
+              The hashed ID or numeric ID of the project (e.g., "4d23503f70" or "22570")
       responses:
         '200':
           description: Success response with the stats of the project.
@@ -4022,11 +4020,9 @@ paths:
           description: >-
             The hashed ID or ID of the video for which you want to retrieve stats.
           schema:
-            oneOf:
-              - type: string
-                description: Hashed ID of the media (e.g., "4d23503f70")
-              - type: integer
-                description: Numeric ID of the media (e.g., 22570)
+            type: string
+            description: >-
+              The hashed ID or numeric ID of the media (e.g., "4d23503f70" or "22570")
       responses:
         '200':
           description: Success response with the stats of the video.
@@ -4188,11 +4184,9 @@ paths:
           description: >-
             The hashed ID or ID of the video for which you want to retrieve engagement data.
           schema:
-            oneOf:
-              - type: string
-                description: Hashed ID of the media (e.g., "4d23503f70")
-              - type: integer
-                description: Numeric ID of the media (e.g., 22570)
+            type: string
+            description: >-
+              The hashed ID or numeric ID of the media (e.g., "4d23503f70" or "22570")
       responses:
         '200':
           description: Success response with the engagement data of the video.

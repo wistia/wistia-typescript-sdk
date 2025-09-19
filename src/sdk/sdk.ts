@@ -20,6 +20,7 @@ import { Search } from "./search.js";
 import { StatsAccount } from "./statsaccount.js";
 import { StatsEvents } from "./statsevents.js";
 import { StatsMedia } from "./statsmedia.js";
+import { StatsProjects } from "./statsprojects.js";
 import { StatsVisitors } from "./statsvisitors.js";
 import { Subfolders } from "./subfolders.js";
 import { Tags } from "./tags.js";
@@ -118,6 +119,11 @@ export class Wistia extends ClientSDK {
   private _statsAccount?: StatsAccount;
   get statsAccount(): StatsAccount {
     return (this._statsAccount ??= new StatsAccount(this._options));
+  }
+
+  private _statsProjects?: StatsProjects;
+  get statsProjects(): StatsProjects {
+    return (this._statsProjects ??= new StatsProjects(this._options));
   }
 
   private _statsMedia?: StatsMedia;
