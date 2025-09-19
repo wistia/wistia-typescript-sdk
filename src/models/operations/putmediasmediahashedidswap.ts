@@ -29,7 +29,7 @@ export type PutMediasMediaHashedIdSwapRequest = {
  */
 export type PutMediasMediaHashedIdSwapResponse = {
   message?: string | undefined;
-  media?: models.MediaSchemaMedia | undefined;
+  media?: models.MediaProperties | undefined;
   /**
    * Status of the background job.
    */
@@ -181,7 +181,7 @@ export const PutMediasMediaHashedIdSwapResponse$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   message: z.string().optional(),
-  media: models.MediaSchemaMedia$inboundSchema.optional(),
+  media: models.MediaProperties$inboundSchema.optional(),
   background_job_status: models.BackgroundJobStatus$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
@@ -192,7 +192,7 @@ export const PutMediasMediaHashedIdSwapResponse$inboundSchema: z.ZodType<
 /** @internal */
 export type PutMediasMediaHashedIdSwapResponse$Outbound = {
   message?: string | undefined;
-  media?: models.MediaSchemaMedia$Outbound | undefined;
+  media?: models.MediaProperties$Outbound | undefined;
   background_job_status?: models.BackgroundJobStatus$Outbound | undefined;
 };
 
@@ -203,7 +203,7 @@ export const PutMediasMediaHashedIdSwapResponse$outboundSchema: z.ZodType<
   PutMediasMediaHashedIdSwapResponse
 > = z.object({
   message: z.string().optional(),
-  media: models.MediaSchemaMedia$outboundSchema.optional(),
+  media: models.MediaProperties$outboundSchema.optional(),
   backgroundJobStatus: models.BackgroundJobStatus$outboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {

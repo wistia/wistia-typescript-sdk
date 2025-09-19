@@ -7,11 +7,11 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  Media,
-  Media$inboundSchema,
-  Media$Outbound,
-  Media$outboundSchema,
-} from "./media.js";
+  MediaProperties,
+  MediaProperties$inboundSchema,
+  MediaProperties$Outbound,
+  MediaProperties$outboundSchema,
+} from "./mediaproperties.js";
 
 export type ProjectWithMedias = {
   /**
@@ -19,14 +19,13 @@ export type ProjectWithMedias = {
    */
   id: number;
   /**
-   * The project's display name.
+   * The project’s display name.
    */
   name: string;
   /**
-   * The project's description.
+   * The project’s description.
    */
   description?: string | null | undefined;
-  medias?: Array<Media> | undefined;
   /**
    * The number of different medias that have been uploaded to the project.
    */
@@ -53,6 +52,7 @@ export type ProjectWithMedias = {
   publicId: string | null;
   anonymousCanUpload?: boolean | undefined;
   anonymousCanDownload?: boolean | undefined;
+  medias: Array<MediaProperties>;
 };
 
 /** @internal */
@@ -64,7 +64,6 @@ export const ProjectWithMedias$inboundSchema: z.ZodType<
   id: z.number().int(),
   name: z.string(),
   description: z.nullable(z.string()).optional(),
-  medias: z.array(Media$inboundSchema).optional(),
   mediaCount: z.number().int(),
   created: z.string().datetime({ offset: true }).transform(v => new Date(v)),
   updated: z.string().datetime({ offset: true }).transform(v => new Date(v)),
@@ -73,6 +72,7 @@ export const ProjectWithMedias$inboundSchema: z.ZodType<
   publicId: z.nullable(z.string()),
   anonymousCanUpload: z.boolean().optional(),
   anonymousCanDownload: z.boolean().optional(),
+  medias: z.array(MediaProperties$inboundSchema),
 });
 
 /** @internal */
@@ -80,7 +80,6 @@ export type ProjectWithMedias$Outbound = {
   id: number;
   name: string;
   description?: string | null | undefined;
-  medias?: Array<Media$Outbound> | undefined;
   mediaCount: number;
   created: string;
   updated: string;
@@ -89,6 +88,7 @@ export type ProjectWithMedias$Outbound = {
   publicId: string | null;
   anonymousCanUpload?: boolean | undefined;
   anonymousCanDownload?: boolean | undefined;
+  medias: Array<MediaProperties$Outbound>;
 };
 
 /** @internal */
@@ -100,7 +100,6 @@ export const ProjectWithMedias$outboundSchema: z.ZodType<
   id: z.number().int(),
   name: z.string(),
   description: z.nullable(z.string()).optional(),
-  medias: z.array(Media$outboundSchema).optional(),
   mediaCount: z.number().int(),
   created: z.date().transform(v => v.toISOString()),
   updated: z.date().transform(v => v.toISOString()),
@@ -109,6 +108,7 @@ export const ProjectWithMedias$outboundSchema: z.ZodType<
   publicId: z.nullable(z.string()),
   anonymousCanUpload: z.boolean().optional(),
   anonymousCanDownload: z.boolean().optional(),
+  medias: z.array(MediaProperties$outboundSchema),
 });
 
 /**

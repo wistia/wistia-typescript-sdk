@@ -43,7 +43,7 @@ export function mediaDelete(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    models.MediaSchemaMedia,
+    models.MediaProperties,
     | errors.FourHundredAndOneError
     | errors.FourHundredAndFourError
     | errors.FiveHundredError
@@ -71,7 +71,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      models.MediaSchemaMedia,
+      models.MediaProperties,
       | errors.FourHundredAndOneError
       | errors.FourHundredAndFourError
       | errors.FiveHundredError
@@ -162,7 +162,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    models.MediaSchemaMedia,
+    models.MediaProperties,
     | errors.FourHundredAndOneError
     | errors.FourHundredAndFourError
     | errors.FiveHundredError
@@ -175,7 +175,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, models.MediaSchemaMedia$inboundSchema),
+    M.json(200, models.MediaProperties$inboundSchema),
     M.jsonErr(401, errors.FourHundredAndOneError$inboundSchema),
     M.jsonErr(404, errors.FourHundredAndFourError$inboundSchema),
     M.jsonErr(500, errors.FiveHundredError$inboundSchema),

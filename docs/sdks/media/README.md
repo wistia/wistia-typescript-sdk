@@ -250,7 +250,7 @@ run();
 
 ### Response
 
-**Promise\<[models.MediaWithCursor[]](../../models/.md)\>**
+**Promise\<[models.MediaIndex[]](../../models/.md)\>**
 
 ### Errors
 
@@ -419,7 +419,7 @@ run();
 
 ### Response
 
-**Promise\<[models.Media](../../models/media.md)\>**
+**Promise\<[models.MediaUpdate](../../models/mediaupdate.md)\>**
 
 ### Errors
 
@@ -502,7 +502,7 @@ run();
 
 ### Response
 
-**Promise\<[models.MediaSchemaMedia](../../models/mediaschemamedia.md)\>**
+**Promise\<[models.MediaProperties](../../models/mediaproperties.md)\>**
 
 ### Errors
 

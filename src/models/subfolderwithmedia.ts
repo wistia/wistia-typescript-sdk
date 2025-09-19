@@ -8,11 +8,11 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  MediaSchemaMedia,
-  MediaSchemaMedia$inboundSchema,
-  MediaSchemaMedia$Outbound,
-  MediaSchemaMedia$outboundSchema,
-} from "./mediaschemamedia.js";
+  MediaProperties,
+  MediaProperties$inboundSchema,
+  MediaProperties$Outbound,
+  MediaProperties$outboundSchema,
+} from "./mediaproperties.js";
 
 /**
  * A subfolder with its contained media files.
@@ -45,7 +45,7 @@ export type SubfolderWithMedia = {
   /**
    * Array of media files contained in this subfolder.
    */
-  medias?: Array<MediaSchemaMedia> | undefined;
+  medias?: Array<MediaProperties> | undefined;
 };
 
 /** @internal */
@@ -64,7 +64,7 @@ export const SubfolderWithMedia$inboundSchema: z.ZodType<
   updated: z.nullable(
     z.string().datetime({ offset: true }).transform(v => new Date(v)),
   ),
-  medias: z.array(MediaSchemaMedia$inboundSchema).optional(),
+  medias: z.array(MediaProperties$inboundSchema).optional(),
 }).transform((v) => {
   return remap$(v, {
     "hashed_id": "hashedId",
@@ -79,7 +79,7 @@ export type SubfolderWithMedia$Outbound = {
   position: number | null;
   created: string | null;
   updated: string | null;
-  medias?: Array<MediaSchemaMedia$Outbound> | undefined;
+  medias?: Array<MediaProperties$Outbound> | undefined;
 };
 
 /** @internal */
@@ -94,7 +94,7 @@ export const SubfolderWithMedia$outboundSchema: z.ZodType<
   position: z.nullable(z.number().int()),
   created: z.nullable(z.date().transform(v => v.toISOString())),
   updated: z.nullable(z.date().transform(v => v.toISOString())),
-  medias: z.array(MediaSchemaMedia$outboundSchema).optional(),
+  medias: z.array(MediaProperties$outboundSchema).optional(),
 }).transform((v) => {
   return remap$(v, {
     hashedId: "hashed_id",

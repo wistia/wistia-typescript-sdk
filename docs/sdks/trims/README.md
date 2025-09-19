@@ -30,7 +30,9 @@ const wistia = new Wistia({
 async function run() {
   const result = await wistia.trims.create({
     mediaHashedId: "<id>",
-    trims: {},
+    requestBody: {
+      trims: [],
+    },
   });
 
   console.log(result);
@@ -56,7 +58,9 @@ const wistia = new WistiaCore({
 async function run() {
   const res = await trimsCreate(wistia, {
     mediaHashedId: "<id>",
-    trims: {},
+    requestBody: {
+      trims: [],
+    },
   });
   if (res.ok) {
     const { value: result } = res;

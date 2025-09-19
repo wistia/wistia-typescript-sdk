@@ -7,25 +7,7 @@ import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  Asset,
-  Asset$inboundSchema,
-  Asset$Outbound,
-  Asset$outboundSchema,
-} from "./asset.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  SlimProjectSchemaProject,
-  SlimProjectSchemaProject$inboundSchema,
-  SlimProjectSchemaProject$Outbound,
-  SlimProjectSchemaProject$outboundSchema,
-} from "./slimprojectschemaproject.js";
-import {
-  Subfolder,
-  Subfolder$inboundSchema,
-  Subfolder$Outbound,
-  Subfolder$outboundSchema,
-} from "./subfolder.js";
 import {
   Thumbnail,
   Thumbnail$inboundSchema,
@@ -127,16 +109,7 @@ export type SearchMedia = {
    * The title of the section in which the media appears. This attribute is omitted if the media is not in a section (default).
    */
   section?: string | undefined;
-  /**
-   * A subfolder within a project that contains media files.
-   */
-  subfolder?: Subfolder | undefined;
   thumbnail?: Thumbnail | undefined;
-  project?: SlimProjectSchemaProject | undefined;
-  /**
-   * An array of the assets available for this media.
-   */
-  assets?: Array<Asset> | undefined;
   /**
    * The hashed ID of the project this media belongs to
    */
@@ -206,10 +179,7 @@ export const SearchMedia$inboundSchema: z.ZodType<
   progress: z.number().optional(),
   status: SearchMediaStatus$inboundSchema.optional(),
   section: z.string().optional(),
-  subfolder: Subfolder$inboundSchema.optional(),
   thumbnail: Thumbnail$inboundSchema.optional(),
-  project: SlimProjectSchemaProject$inboundSchema.optional(),
-  assets: z.array(Asset$inboundSchema).optional(),
   projectHashedId: z.string(),
 }).transform((v) => {
   return remap$(v, {
@@ -232,10 +202,7 @@ export type SearchMedia$Outbound = {
   progress?: number | undefined;
   status?: string | undefined;
   section?: string | undefined;
-  subfolder?: Subfolder$Outbound | undefined;
   thumbnail?: Thumbnail$Outbound | undefined;
-  project?: SlimProjectSchemaProject$Outbound | undefined;
-  assets?: Array<Asset$Outbound> | undefined;
   projectHashedId: string;
 };
 
@@ -258,10 +225,7 @@ export const SearchMedia$outboundSchema: z.ZodType<
   progress: z.number().optional(),
   status: SearchMediaStatus$outboundSchema.optional(),
   section: z.string().optional(),
-  subfolder: Subfolder$outboundSchema.optional(),
   thumbnail: Thumbnail$outboundSchema.optional(),
-  project: SlimProjectSchemaProject$outboundSchema.optional(),
-  assets: z.array(Asset$outboundSchema).optional(),
   projectHashedId: z.string(),
 }).transform((v) => {
   return remap$(v, {

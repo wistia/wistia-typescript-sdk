@@ -9,12 +9,19 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
+export type PostMediasMediaHashedIdTrimsRequestBody = {
+  /**
+   * An array of strings matching the format of HH:MM:SS.mmm-HH:MM:SS.mmm where HH is hours, MM is minutes, SS is seconds and mmm is milliseconds. The ranges should contain the earliest point of the trim first and the later point of the trim second.
+   */
+  trims: Array<string>;
+};
+
 export type PostMediasMediaHashedIdTrimsRequest = {
   /**
    * The hashed ID of the media.
    */
   mediaHashedId: string;
-  trims: models.Trims;
+  requestBody: PostMediasMediaHashedIdTrimsRequestBody;
 };
 
 /**
@@ -28,23 +35,90 @@ export type PostMediasMediaHashedIdTrimsResponse = {
 };
 
 /** @internal */
+export const PostMediasMediaHashedIdTrimsRequestBody$inboundSchema: z.ZodType<
+  PostMediasMediaHashedIdTrimsRequestBody,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  trims: z.array(z.string()),
+});
+
+/** @internal */
+export type PostMediasMediaHashedIdTrimsRequestBody$Outbound = {
+  trims: Array<string>;
+};
+
+/** @internal */
+export const PostMediasMediaHashedIdTrimsRequestBody$outboundSchema: z.ZodType<
+  PostMediasMediaHashedIdTrimsRequestBody$Outbound,
+  z.ZodTypeDef,
+  PostMediasMediaHashedIdTrimsRequestBody
+> = z.object({
+  trims: z.array(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostMediasMediaHashedIdTrimsRequestBody$ {
+  /** @deprecated use `PostMediasMediaHashedIdTrimsRequestBody$inboundSchema` instead. */
+  export const inboundSchema =
+    PostMediasMediaHashedIdTrimsRequestBody$inboundSchema;
+  /** @deprecated use `PostMediasMediaHashedIdTrimsRequestBody$outboundSchema` instead. */
+  export const outboundSchema =
+    PostMediasMediaHashedIdTrimsRequestBody$outboundSchema;
+  /** @deprecated use `PostMediasMediaHashedIdTrimsRequestBody$Outbound` instead. */
+  export type Outbound = PostMediasMediaHashedIdTrimsRequestBody$Outbound;
+}
+
+export function postMediasMediaHashedIdTrimsRequestBodyToJSON(
+  postMediasMediaHashedIdTrimsRequestBody:
+    PostMediasMediaHashedIdTrimsRequestBody,
+): string {
+  return JSON.stringify(
+    PostMediasMediaHashedIdTrimsRequestBody$outboundSchema.parse(
+      postMediasMediaHashedIdTrimsRequestBody,
+    ),
+  );
+}
+
+export function postMediasMediaHashedIdTrimsRequestBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  PostMediasMediaHashedIdTrimsRequestBody,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      PostMediasMediaHashedIdTrimsRequestBody$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'PostMediasMediaHashedIdTrimsRequestBody' from JSON`,
+  );
+}
+
+/** @internal */
 export const PostMediasMediaHashedIdTrimsRequest$inboundSchema: z.ZodType<
   PostMediasMediaHashedIdTrimsRequest,
   z.ZodTypeDef,
   unknown
 > = z.object({
   mediaHashedId: z.string(),
-  Trims: models.Trims$inboundSchema,
+  RequestBody: z.lazy(() =>
+    PostMediasMediaHashedIdTrimsRequestBody$inboundSchema
+  ),
 }).transform((v) => {
   return remap$(v, {
-    "Trims": "trims",
+    "RequestBody": "requestBody",
   });
 });
 
 /** @internal */
 export type PostMediasMediaHashedIdTrimsRequest$Outbound = {
   mediaHashedId: string;
-  Trims: models.Trims$Outbound;
+  RequestBody: PostMediasMediaHashedIdTrimsRequestBody$Outbound;
 };
 
 /** @internal */
@@ -54,10 +128,12 @@ export const PostMediasMediaHashedIdTrimsRequest$outboundSchema: z.ZodType<
   PostMediasMediaHashedIdTrimsRequest
 > = z.object({
   mediaHashedId: z.string(),
-  trims: models.Trims$outboundSchema,
+  requestBody: z.lazy(() =>
+    PostMediasMediaHashedIdTrimsRequestBody$outboundSchema
+  ),
 }).transform((v) => {
   return remap$(v, {
-    trims: "Trims",
+    requestBody: "RequestBody",
   });
 });
 

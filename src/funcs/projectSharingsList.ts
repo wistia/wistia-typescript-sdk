@@ -46,7 +46,7 @@ export function projectSharingsList(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    Array<models.ProjectSharingDetail>,
+    Array<models.ProjectSharingSchema>,
     | errors.FourHundredAndOneError
     | errors.FiveHundredError
     | WistiaError
@@ -73,7 +73,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      Array<models.ProjectSharingDetail>,
+      Array<models.ProjectSharingSchema>,
       | errors.FourHundredAndOneError
       | errors.FiveHundredError
       | WistiaError
@@ -171,7 +171,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    Array<models.ProjectSharingDetail>,
+    Array<models.ProjectSharingSchema>,
     | errors.FourHundredAndOneError
     | errors.FiveHundredError
     | WistiaError
@@ -183,7 +183,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, z.array(models.ProjectSharingDetail$inboundSchema)),
+    M.json(200, z.array(models.ProjectSharingSchema$inboundSchema)),
     M.jsonErr(401, errors.FourHundredAndOneError$inboundSchema),
     M.jsonErr(500, errors.FiveHundredError$inboundSchema),
     M.fail("4XX"),

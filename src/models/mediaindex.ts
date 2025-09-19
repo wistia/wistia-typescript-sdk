@@ -36,7 +36,7 @@ import {
 /**
  * A string representing what type of media this is.
  */
-export const MediaWithCursorType = {
+export const MediaIndexType = {
   Video: "Video",
   Audio: "Audio",
   Image: "Image",
@@ -48,14 +48,14 @@ export const MediaWithCursorType = {
 /**
  * A string representing what type of media this is.
  */
-export type MediaWithCursorType = ClosedEnum<typeof MediaWithCursorType>;
+export type MediaIndexType = ClosedEnum<typeof MediaIndexType>;
 
 /**
  * Post upload processing status. - `queued`: the file is waiting in the queue to be processed. - `processing`: the file is actively being processed. - `ready`: the file has been fully processed and is ready for embedding and viewing. - `failed`: the file was unable to be processed (usually a format or size error).
  *
  * @remarks
  */
-export const MediaWithCursorStatus = {
+export const MediaIndexStatus = {
   Queued: "queued",
   Processing: "processing",
   Ready: "ready",
@@ -66,9 +66,9 @@ export const MediaWithCursorStatus = {
  *
  * @remarks
  */
-export type MediaWithCursorStatus = ClosedEnum<typeof MediaWithCursorStatus>;
+export type MediaIndexStatus = ClosedEnum<typeof MediaIndexStatus>;
 
-export type MediaWithCursor = {
+export type MediaIndex = {
   /**
    * A unique numeric identifier for the media within the system.
    */
@@ -80,7 +80,7 @@ export type MediaWithCursor = {
   /**
    * A string representing what type of media this is.
    */
-  type?: MediaWithCursorType | undefined;
+  type?: MediaIndexType | undefined;
   /**
    * Whether or not the media is archived, either true or false.
    */
@@ -122,15 +122,11 @@ export type MediaWithCursor = {
    *
    * @remarks
    */
-  status?: MediaWithCursorStatus | undefined;
+  status?: MediaIndexStatus | undefined;
   /**
    * The title of the section in which the media appears. This attribute is omitted if the media is not in a section (default).
    */
   section?: string | undefined;
-  /**
-   * A subfolder within a project that contains media files.
-   */
-  subfolder?: Subfolder | undefined;
   thumbnail?: Thumbnail | undefined;
   project?: SlimProjectSchemaProject | undefined;
   /**
@@ -138,62 +134,66 @@ export type MediaWithCursor = {
    */
   assets?: Array<Asset> | undefined;
   /**
+   * A subfolder within a project that contains media files.
+   */
+  subfolder?: Subfolder | undefined;
+  /**
    * A cursor for stable pagination based on current `sort_by` order. You can pass this to `cursor_before` or `cursor_after` as a parameter to fetch the records before or after this record in the same sort order. This is only populated if medias were fetched with `use_cursor`, or `cursor_before` or `cursor_after`.
    */
   cursor?: string | null | undefined;
 };
 
 /** @internal */
-export const MediaWithCursorType$inboundSchema: z.ZodNativeEnum<
-  typeof MediaWithCursorType
-> = z.nativeEnum(MediaWithCursorType);
+export const MediaIndexType$inboundSchema: z.ZodNativeEnum<
+  typeof MediaIndexType
+> = z.nativeEnum(MediaIndexType);
 
 /** @internal */
-export const MediaWithCursorType$outboundSchema: z.ZodNativeEnum<
-  typeof MediaWithCursorType
-> = MediaWithCursorType$inboundSchema;
+export const MediaIndexType$outboundSchema: z.ZodNativeEnum<
+  typeof MediaIndexType
+> = MediaIndexType$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MediaWithCursorType$ {
-  /** @deprecated use `MediaWithCursorType$inboundSchema` instead. */
-  export const inboundSchema = MediaWithCursorType$inboundSchema;
-  /** @deprecated use `MediaWithCursorType$outboundSchema` instead. */
-  export const outboundSchema = MediaWithCursorType$outboundSchema;
+export namespace MediaIndexType$ {
+  /** @deprecated use `MediaIndexType$inboundSchema` instead. */
+  export const inboundSchema = MediaIndexType$inboundSchema;
+  /** @deprecated use `MediaIndexType$outboundSchema` instead. */
+  export const outboundSchema = MediaIndexType$outboundSchema;
 }
 
 /** @internal */
-export const MediaWithCursorStatus$inboundSchema: z.ZodNativeEnum<
-  typeof MediaWithCursorStatus
-> = z.nativeEnum(MediaWithCursorStatus);
+export const MediaIndexStatus$inboundSchema: z.ZodNativeEnum<
+  typeof MediaIndexStatus
+> = z.nativeEnum(MediaIndexStatus);
 
 /** @internal */
-export const MediaWithCursorStatus$outboundSchema: z.ZodNativeEnum<
-  typeof MediaWithCursorStatus
-> = MediaWithCursorStatus$inboundSchema;
+export const MediaIndexStatus$outboundSchema: z.ZodNativeEnum<
+  typeof MediaIndexStatus
+> = MediaIndexStatus$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MediaWithCursorStatus$ {
-  /** @deprecated use `MediaWithCursorStatus$inboundSchema` instead. */
-  export const inboundSchema = MediaWithCursorStatus$inboundSchema;
-  /** @deprecated use `MediaWithCursorStatus$outboundSchema` instead. */
-  export const outboundSchema = MediaWithCursorStatus$outboundSchema;
+export namespace MediaIndexStatus$ {
+  /** @deprecated use `MediaIndexStatus$inboundSchema` instead. */
+  export const inboundSchema = MediaIndexStatus$inboundSchema;
+  /** @deprecated use `MediaIndexStatus$outboundSchema` instead. */
+  export const outboundSchema = MediaIndexStatus$outboundSchema;
 }
 
 /** @internal */
-export const MediaWithCursor$inboundSchema: z.ZodType<
-  MediaWithCursor,
+export const MediaIndex$inboundSchema: z.ZodType<
+  MediaIndex,
   z.ZodTypeDef,
   unknown
 > = z.object({
   id: z.number().int().optional(),
   name: z.string().optional(),
-  type: MediaWithCursorType$inboundSchema.optional(),
+  type: MediaIndexType$inboundSchema.optional(),
   archived: z.boolean().optional(),
   created: z.string().datetime({ offset: true }).transform(v => new Date(v))
     .optional(),
@@ -204,12 +204,12 @@ export const MediaWithCursor$inboundSchema: z.ZodType<
   hashed_id: z.string().optional(),
   description: z.string().optional(),
   progress: z.number().optional(),
-  status: MediaWithCursorStatus$inboundSchema.optional(),
+  status: MediaIndexStatus$inboundSchema.optional(),
   section: z.string().optional(),
-  subfolder: Subfolder$inboundSchema.optional(),
   thumbnail: Thumbnail$inboundSchema.optional(),
   project: SlimProjectSchemaProject$inboundSchema.optional(),
   assets: z.array(Asset$inboundSchema).optional(),
+  subfolder: Subfolder$inboundSchema.optional(),
   cursor: z.nullable(z.string()).optional(),
 }).transform((v) => {
   return remap$(v, {
@@ -218,7 +218,7 @@ export const MediaWithCursor$inboundSchema: z.ZodType<
 });
 
 /** @internal */
-export type MediaWithCursor$Outbound = {
+export type MediaIndex$Outbound = {
   id?: number | undefined;
   name?: string | undefined;
   type?: string | undefined;
@@ -232,22 +232,22 @@ export type MediaWithCursor$Outbound = {
   progress?: number | undefined;
   status?: string | undefined;
   section?: string | undefined;
-  subfolder?: Subfolder$Outbound | undefined;
   thumbnail?: Thumbnail$Outbound | undefined;
   project?: SlimProjectSchemaProject$Outbound | undefined;
   assets?: Array<Asset$Outbound> | undefined;
+  subfolder?: Subfolder$Outbound | undefined;
   cursor?: string | null | undefined;
 };
 
 /** @internal */
-export const MediaWithCursor$outboundSchema: z.ZodType<
-  MediaWithCursor$Outbound,
+export const MediaIndex$outboundSchema: z.ZodType<
+  MediaIndex$Outbound,
   z.ZodTypeDef,
-  MediaWithCursor
+  MediaIndex
 > = z.object({
   id: z.number().int().optional(),
   name: z.string().optional(),
-  type: MediaWithCursorType$outboundSchema.optional(),
+  type: MediaIndexType$outboundSchema.optional(),
   archived: z.boolean().optional(),
   created: z.date().transform(v => v.toISOString()).optional(),
   updated: z.date().transform(v => v.toISOString()).optional(),
@@ -256,12 +256,12 @@ export const MediaWithCursor$outboundSchema: z.ZodType<
   hashedId: z.string().optional(),
   description: z.string().optional(),
   progress: z.number().optional(),
-  status: MediaWithCursorStatus$outboundSchema.optional(),
+  status: MediaIndexStatus$outboundSchema.optional(),
   section: z.string().optional(),
-  subfolder: Subfolder$outboundSchema.optional(),
   thumbnail: Thumbnail$outboundSchema.optional(),
   project: SlimProjectSchemaProject$outboundSchema.optional(),
   assets: z.array(Asset$outboundSchema).optional(),
+  subfolder: Subfolder$outboundSchema.optional(),
   cursor: z.nullable(z.string()).optional(),
 }).transform((v) => {
   return remap$(v, {
@@ -273,27 +273,25 @@ export const MediaWithCursor$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MediaWithCursor$ {
-  /** @deprecated use `MediaWithCursor$inboundSchema` instead. */
-  export const inboundSchema = MediaWithCursor$inboundSchema;
-  /** @deprecated use `MediaWithCursor$outboundSchema` instead. */
-  export const outboundSchema = MediaWithCursor$outboundSchema;
-  /** @deprecated use `MediaWithCursor$Outbound` instead. */
-  export type Outbound = MediaWithCursor$Outbound;
+export namespace MediaIndex$ {
+  /** @deprecated use `MediaIndex$inboundSchema` instead. */
+  export const inboundSchema = MediaIndex$inboundSchema;
+  /** @deprecated use `MediaIndex$outboundSchema` instead. */
+  export const outboundSchema = MediaIndex$outboundSchema;
+  /** @deprecated use `MediaIndex$Outbound` instead. */
+  export type Outbound = MediaIndex$Outbound;
 }
 
-export function mediaWithCursorToJSON(
-  mediaWithCursor: MediaWithCursor,
-): string {
-  return JSON.stringify(MediaWithCursor$outboundSchema.parse(mediaWithCursor));
+export function mediaIndexToJSON(mediaIndex: MediaIndex): string {
+  return JSON.stringify(MediaIndex$outboundSchema.parse(mediaIndex));
 }
 
-export function mediaWithCursorFromJSON(
+export function mediaIndexFromJSON(
   jsonString: string,
-): SafeParseResult<MediaWithCursor, SDKValidationError> {
+): SafeParseResult<MediaIndex, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => MediaWithCursor$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MediaWithCursor' from JSON`,
+    (x) => MediaIndex$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MediaIndex' from JSON`,
   );
 }

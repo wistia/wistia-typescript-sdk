@@ -15,12 +15,6 @@ import {
   SlimProjectSchemaProject$outboundSchema,
 } from "./slimprojectschemaproject.js";
 import {
-  Subfolder,
-  Subfolder$inboundSchema,
-  Subfolder$Outbound,
-  Subfolder$outboundSchema,
-} from "./subfolder.js";
-import {
   Thumbnail,
   Thumbnail$inboundSchema,
   Thumbnail$Outbound,
@@ -30,7 +24,7 @@ import {
 /**
  * A string representing what type of media this is.
  */
-export const MediaWithThumbnailAndProjectSchemaMediaType = {
+export const MediaCopyType = {
   Video: "Video",
   Audio: "Audio",
   Image: "Image",
@@ -42,16 +36,14 @@ export const MediaWithThumbnailAndProjectSchemaMediaType = {
 /**
  * A string representing what type of media this is.
  */
-export type MediaWithThumbnailAndProjectSchemaMediaType = ClosedEnum<
-  typeof MediaWithThumbnailAndProjectSchemaMediaType
->;
+export type MediaCopyType = ClosedEnum<typeof MediaCopyType>;
 
 /**
  * Post upload processing status. - `queued`: the file is waiting in the queue to be processed. - `processing`: the file is actively being processed. - `ready`: the file has been fully processed and is ready for embedding and viewing. - `failed`: the file was unable to be processed (usually a format or size error).
  *
  * @remarks
  */
-export const MediaWithThumbnailAndProjectSchemaMediaStatus = {
+export const MediaCopyStatus = {
   Queued: "queued",
   Processing: "processing",
   Ready: "ready",
@@ -62,11 +54,9 @@ export const MediaWithThumbnailAndProjectSchemaMediaStatus = {
  *
  * @remarks
  */
-export type MediaWithThumbnailAndProjectSchemaMediaStatus = ClosedEnum<
-  typeof MediaWithThumbnailAndProjectSchemaMediaStatus
->;
+export type MediaCopyStatus = ClosedEnum<typeof MediaCopyStatus>;
 
-export type MediaWithThumbnailAndProjectSchemaMedia = {
+export type MediaCopy = {
   /**
    * A unique numeric identifier for the media within the system.
    */
@@ -78,7 +68,7 @@ export type MediaWithThumbnailAndProjectSchemaMedia = {
   /**
    * A string representing what type of media this is.
    */
-  type?: MediaWithThumbnailAndProjectSchemaMediaType | undefined;
+  type?: MediaCopyType | undefined;
   /**
    * Whether or not the media is archived, either true or false.
    */
@@ -108,7 +98,7 @@ export type MediaWithThumbnailAndProjectSchemaMedia = {
    */
   hashedId?: string | undefined;
   /**
-   * A description for the media which usually appears near the top of the sidebar on the media’s page.
+   * A description for the media which usually appears near the top of the sidebar on the media's page.
    */
   description?: string | undefined;
   /**
@@ -120,74 +110,66 @@ export type MediaWithThumbnailAndProjectSchemaMedia = {
    *
    * @remarks
    */
-  status?: MediaWithThumbnailAndProjectSchemaMediaStatus | undefined;
+  status?: MediaCopyStatus | undefined;
   /**
    * The title of the section in which the media appears. This attribute is omitted if the media is not in a section (default).
    */
   section?: string | undefined;
-  /**
-   * A subfolder within a project that contains media files.
-   */
-  subfolder?: Subfolder | undefined;
   thumbnail?: Thumbnail | undefined;
   project?: SlimProjectSchemaProject | undefined;
 };
 
 /** @internal */
-export const MediaWithThumbnailAndProjectSchemaMediaType$inboundSchema:
-  z.ZodNativeEnum<typeof MediaWithThumbnailAndProjectSchemaMediaType> = z
-    .nativeEnum(MediaWithThumbnailAndProjectSchemaMediaType);
+export const MediaCopyType$inboundSchema: z.ZodNativeEnum<
+  typeof MediaCopyType
+> = z.nativeEnum(MediaCopyType);
 
 /** @internal */
-export const MediaWithThumbnailAndProjectSchemaMediaType$outboundSchema:
-  z.ZodNativeEnum<typeof MediaWithThumbnailAndProjectSchemaMediaType> =
-    MediaWithThumbnailAndProjectSchemaMediaType$inboundSchema;
+export const MediaCopyType$outboundSchema: z.ZodNativeEnum<
+  typeof MediaCopyType
+> = MediaCopyType$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MediaWithThumbnailAndProjectSchemaMediaType$ {
-  /** @deprecated use `MediaWithThumbnailAndProjectSchemaMediaType$inboundSchema` instead. */
-  export const inboundSchema =
-    MediaWithThumbnailAndProjectSchemaMediaType$inboundSchema;
-  /** @deprecated use `MediaWithThumbnailAndProjectSchemaMediaType$outboundSchema` instead. */
-  export const outboundSchema =
-    MediaWithThumbnailAndProjectSchemaMediaType$outboundSchema;
+export namespace MediaCopyType$ {
+  /** @deprecated use `MediaCopyType$inboundSchema` instead. */
+  export const inboundSchema = MediaCopyType$inboundSchema;
+  /** @deprecated use `MediaCopyType$outboundSchema` instead. */
+  export const outboundSchema = MediaCopyType$outboundSchema;
 }
 
 /** @internal */
-export const MediaWithThumbnailAndProjectSchemaMediaStatus$inboundSchema:
-  z.ZodNativeEnum<typeof MediaWithThumbnailAndProjectSchemaMediaStatus> = z
-    .nativeEnum(MediaWithThumbnailAndProjectSchemaMediaStatus);
+export const MediaCopyStatus$inboundSchema: z.ZodNativeEnum<
+  typeof MediaCopyStatus
+> = z.nativeEnum(MediaCopyStatus);
 
 /** @internal */
-export const MediaWithThumbnailAndProjectSchemaMediaStatus$outboundSchema:
-  z.ZodNativeEnum<typeof MediaWithThumbnailAndProjectSchemaMediaStatus> =
-    MediaWithThumbnailAndProjectSchemaMediaStatus$inboundSchema;
+export const MediaCopyStatus$outboundSchema: z.ZodNativeEnum<
+  typeof MediaCopyStatus
+> = MediaCopyStatus$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MediaWithThumbnailAndProjectSchemaMediaStatus$ {
-  /** @deprecated use `MediaWithThumbnailAndProjectSchemaMediaStatus$inboundSchema` instead. */
-  export const inboundSchema =
-    MediaWithThumbnailAndProjectSchemaMediaStatus$inboundSchema;
-  /** @deprecated use `MediaWithThumbnailAndProjectSchemaMediaStatus$outboundSchema` instead. */
-  export const outboundSchema =
-    MediaWithThumbnailAndProjectSchemaMediaStatus$outboundSchema;
+export namespace MediaCopyStatus$ {
+  /** @deprecated use `MediaCopyStatus$inboundSchema` instead. */
+  export const inboundSchema = MediaCopyStatus$inboundSchema;
+  /** @deprecated use `MediaCopyStatus$outboundSchema` instead. */
+  export const outboundSchema = MediaCopyStatus$outboundSchema;
 }
 
 /** @internal */
-export const MediaWithThumbnailAndProjectSchemaMedia$inboundSchema: z.ZodType<
-  MediaWithThumbnailAndProjectSchemaMedia,
+export const MediaCopy$inboundSchema: z.ZodType<
+  MediaCopy,
   z.ZodTypeDef,
   unknown
 > = z.object({
   id: z.number().int().optional(),
   name: z.string().optional(),
-  type: MediaWithThumbnailAndProjectSchemaMediaType$inboundSchema.optional(),
+  type: MediaCopyType$inboundSchema.optional(),
   archived: z.boolean().optional(),
   created: z.string().datetime({ offset: true }).transform(v => new Date(v))
     .optional(),
@@ -198,10 +180,8 @@ export const MediaWithThumbnailAndProjectSchemaMedia$inboundSchema: z.ZodType<
   hashed_id: z.string().optional(),
   description: z.string().optional(),
   progress: z.number().optional(),
-  status: MediaWithThumbnailAndProjectSchemaMediaStatus$inboundSchema
-    .optional(),
+  status: MediaCopyStatus$inboundSchema.optional(),
   section: z.string().optional(),
-  subfolder: Subfolder$inboundSchema.optional(),
   thumbnail: Thumbnail$inboundSchema.optional(),
   project: SlimProjectSchemaProject$inboundSchema.optional(),
 }).transform((v) => {
@@ -211,7 +191,7 @@ export const MediaWithThumbnailAndProjectSchemaMedia$inboundSchema: z.ZodType<
 });
 
 /** @internal */
-export type MediaWithThumbnailAndProjectSchemaMedia$Outbound = {
+export type MediaCopy$Outbound = {
   id?: number | undefined;
   name?: string | undefined;
   type?: string | undefined;
@@ -225,20 +205,19 @@ export type MediaWithThumbnailAndProjectSchemaMedia$Outbound = {
   progress?: number | undefined;
   status?: string | undefined;
   section?: string | undefined;
-  subfolder?: Subfolder$Outbound | undefined;
   thumbnail?: Thumbnail$Outbound | undefined;
   project?: SlimProjectSchemaProject$Outbound | undefined;
 };
 
 /** @internal */
-export const MediaWithThumbnailAndProjectSchemaMedia$outboundSchema: z.ZodType<
-  MediaWithThumbnailAndProjectSchemaMedia$Outbound,
+export const MediaCopy$outboundSchema: z.ZodType<
+  MediaCopy$Outbound,
   z.ZodTypeDef,
-  MediaWithThumbnailAndProjectSchemaMedia
+  MediaCopy
 > = z.object({
   id: z.number().int().optional(),
   name: z.string().optional(),
-  type: MediaWithThumbnailAndProjectSchemaMediaType$outboundSchema.optional(),
+  type: MediaCopyType$outboundSchema.optional(),
   archived: z.boolean().optional(),
   created: z.date().transform(v => v.toISOString()).optional(),
   updated: z.date().transform(v => v.toISOString()).optional(),
@@ -247,10 +226,8 @@ export const MediaWithThumbnailAndProjectSchemaMedia$outboundSchema: z.ZodType<
   hashedId: z.string().optional(),
   description: z.string().optional(),
   progress: z.number().optional(),
-  status: MediaWithThumbnailAndProjectSchemaMediaStatus$outboundSchema
-    .optional(),
+  status: MediaCopyStatus$outboundSchema.optional(),
   section: z.string().optional(),
-  subfolder: Subfolder$outboundSchema.optional(),
   thumbnail: Thumbnail$outboundSchema.optional(),
   project: SlimProjectSchemaProject$outboundSchema.optional(),
 }).transform((v) => {
@@ -263,40 +240,25 @@ export const MediaWithThumbnailAndProjectSchemaMedia$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MediaWithThumbnailAndProjectSchemaMedia$ {
-  /** @deprecated use `MediaWithThumbnailAndProjectSchemaMedia$inboundSchema` instead. */
-  export const inboundSchema =
-    MediaWithThumbnailAndProjectSchemaMedia$inboundSchema;
-  /** @deprecated use `MediaWithThumbnailAndProjectSchemaMedia$outboundSchema` instead. */
-  export const outboundSchema =
-    MediaWithThumbnailAndProjectSchemaMedia$outboundSchema;
-  /** @deprecated use `MediaWithThumbnailAndProjectSchemaMedia$Outbound` instead. */
-  export type Outbound = MediaWithThumbnailAndProjectSchemaMedia$Outbound;
+export namespace MediaCopy$ {
+  /** @deprecated use `MediaCopy$inboundSchema` instead. */
+  export const inboundSchema = MediaCopy$inboundSchema;
+  /** @deprecated use `MediaCopy$outboundSchema` instead. */
+  export const outboundSchema = MediaCopy$outboundSchema;
+  /** @deprecated use `MediaCopy$Outbound` instead. */
+  export type Outbound = MediaCopy$Outbound;
 }
 
-export function mediaWithThumbnailAndProjectSchemaMediaToJSON(
-  mediaWithThumbnailAndProjectSchemaMedia:
-    MediaWithThumbnailAndProjectSchemaMedia,
-): string {
-  return JSON.stringify(
-    MediaWithThumbnailAndProjectSchemaMedia$outboundSchema.parse(
-      mediaWithThumbnailAndProjectSchemaMedia,
-    ),
-  );
+export function mediaCopyToJSON(mediaCopy: MediaCopy): string {
+  return JSON.stringify(MediaCopy$outboundSchema.parse(mediaCopy));
 }
 
-export function mediaWithThumbnailAndProjectSchemaMediaFromJSON(
+export function mediaCopyFromJSON(
   jsonString: string,
-): SafeParseResult<
-  MediaWithThumbnailAndProjectSchemaMedia,
-  SDKValidationError
-> {
+): SafeParseResult<MediaCopy, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) =>
-      MediaWithThumbnailAndProjectSchemaMedia$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'MediaWithThumbnailAndProjectSchemaMedia' from JSON`,
+    (x) => MediaCopy$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MediaCopy' from JSON`,
   );
 }
