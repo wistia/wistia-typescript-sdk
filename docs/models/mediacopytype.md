@@ -1,13 +1,13 @@
-# MediaWithThumbnailAndProjectSchemaMediaType
+# MediaCopyType
 
 A string representing what type of media this is.
 
 ## Example Usage
 
 ```typescript
-import { MediaWithThumbnailAndProjectSchemaMediaType } from "@wistia/wistia-api-client/models";
+import { MediaCopyType } from "@wistia/wistia-api-client/models";
 
-let value: MediaWithThumbnailAndProjectSchemaMediaType = "UnknownType";
+let value: MediaCopyType = "PdfDocument";
 ```
 
 ## Values

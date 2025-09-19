@@ -7,25 +7,7 @@ import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  Asset,
-  Asset$inboundSchema,
-  Asset$Outbound,
-  Asset$outboundSchema,
-} from "./asset.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  SlimProjectSchemaProject,
-  SlimProjectSchemaProject$inboundSchema,
-  SlimProjectSchemaProject$Outbound,
-  SlimProjectSchemaProject$outboundSchema,
-} from "./slimprojectschemaproject.js";
-import {
-  Subfolder,
-  Subfolder$inboundSchema,
-  Subfolder$Outbound,
-  Subfolder$outboundSchema,
-} from "./subfolder.js";
 import {
   Thumbnail,
   Thumbnail$inboundSchema,
@@ -36,7 +18,7 @@ import {
 /**
  * A string representing what type of media this is.
  */
-export const MediaShowType = {
+export const MediaPropertiesType = {
   Video: "Video",
   Audio: "Audio",
   Image: "Image",
@@ -48,14 +30,14 @@ export const MediaShowType = {
 /**
  * A string representing what type of media this is.
  */
-export type MediaShowType = ClosedEnum<typeof MediaShowType>;
+export type MediaPropertiesType = ClosedEnum<typeof MediaPropertiesType>;
 
 /**
  * Post upload processing status. - `queued`: the file is waiting in the queue to be processed. - `processing`: the file is actively being processed. - `ready`: the file has been fully processed and is ready for embedding and viewing. - `failed`: the file was unable to be processed (usually a format or size error).
  *
  * @remarks
  */
-export const MediaShowStatus = {
+export const MediaPropertiesStatus = {
   Queued: "queued",
   Processing: "processing",
   Ready: "ready",
@@ -66,16 +48,9 @@ export const MediaShowStatus = {
  *
  * @remarks
  */
-export type MediaShowStatus = ClosedEnum<typeof MediaShowStatus>;
+export type MediaPropertiesStatus = ClosedEnum<typeof MediaPropertiesStatus>;
 
-export type MediaShowTag = {
-  /**
-   * The display name of the tag.
-   */
-  name?: string | undefined;
-};
-
-export type MediaShow = {
+export type MediaProperties = {
   /**
    * A unique numeric identifier for the media within the system.
    */
@@ -87,7 +62,7 @@ export type MediaShow = {
   /**
    * A string representing what type of media this is.
    */
-  type?: MediaShowType | undefined;
+  type?: MediaPropertiesType | undefined;
   /**
    * Whether or not the media is archived, either true or false.
    */
@@ -129,128 +104,65 @@ export type MediaShow = {
    *
    * @remarks
    */
-  status?: MediaShowStatus | undefined;
+  status?: MediaPropertiesStatus | undefined;
   /**
    * The title of the section in which the media appears. This attribute is omitted if the media is not in a section (default).
    */
   section?: string | undefined;
   thumbnail?: Thumbnail | undefined;
-  project?: SlimProjectSchemaProject | undefined;
-  /**
-   * An array of the assets available for this media.
-   */
-  assets?: Array<Asset> | undefined;
-  /**
-   * A subfolder within a project that contains media files.
-   */
-  subfolder?: Subfolder | undefined;
-  /**
-   * Tags associated with this media.
-   */
-  tags?: Array<MediaShowTag> | undefined;
 };
 
 /** @internal */
-export const MediaShowType$inboundSchema: z.ZodNativeEnum<
-  typeof MediaShowType
-> = z.nativeEnum(MediaShowType);
+export const MediaPropertiesType$inboundSchema: z.ZodNativeEnum<
+  typeof MediaPropertiesType
+> = z.nativeEnum(MediaPropertiesType);
 
 /** @internal */
-export const MediaShowType$outboundSchema: z.ZodNativeEnum<
-  typeof MediaShowType
-> = MediaShowType$inboundSchema;
+export const MediaPropertiesType$outboundSchema: z.ZodNativeEnum<
+  typeof MediaPropertiesType
+> = MediaPropertiesType$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MediaShowType$ {
-  /** @deprecated use `MediaShowType$inboundSchema` instead. */
-  export const inboundSchema = MediaShowType$inboundSchema;
-  /** @deprecated use `MediaShowType$outboundSchema` instead. */
-  export const outboundSchema = MediaShowType$outboundSchema;
+export namespace MediaPropertiesType$ {
+  /** @deprecated use `MediaPropertiesType$inboundSchema` instead. */
+  export const inboundSchema = MediaPropertiesType$inboundSchema;
+  /** @deprecated use `MediaPropertiesType$outboundSchema` instead. */
+  export const outboundSchema = MediaPropertiesType$outboundSchema;
 }
 
 /** @internal */
-export const MediaShowStatus$inboundSchema: z.ZodNativeEnum<
-  typeof MediaShowStatus
-> = z.nativeEnum(MediaShowStatus);
+export const MediaPropertiesStatus$inboundSchema: z.ZodNativeEnum<
+  typeof MediaPropertiesStatus
+> = z.nativeEnum(MediaPropertiesStatus);
 
 /** @internal */
-export const MediaShowStatus$outboundSchema: z.ZodNativeEnum<
-  typeof MediaShowStatus
-> = MediaShowStatus$inboundSchema;
+export const MediaPropertiesStatus$outboundSchema: z.ZodNativeEnum<
+  typeof MediaPropertiesStatus
+> = MediaPropertiesStatus$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MediaShowStatus$ {
-  /** @deprecated use `MediaShowStatus$inboundSchema` instead. */
-  export const inboundSchema = MediaShowStatus$inboundSchema;
-  /** @deprecated use `MediaShowStatus$outboundSchema` instead. */
-  export const outboundSchema = MediaShowStatus$outboundSchema;
+export namespace MediaPropertiesStatus$ {
+  /** @deprecated use `MediaPropertiesStatus$inboundSchema` instead. */
+  export const inboundSchema = MediaPropertiesStatus$inboundSchema;
+  /** @deprecated use `MediaPropertiesStatus$outboundSchema` instead. */
+  export const outboundSchema = MediaPropertiesStatus$outboundSchema;
 }
 
 /** @internal */
-export const MediaShowTag$inboundSchema: z.ZodType<
-  MediaShowTag,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string().optional(),
-});
-
-/** @internal */
-export type MediaShowTag$Outbound = {
-  name?: string | undefined;
-};
-
-/** @internal */
-export const MediaShowTag$outboundSchema: z.ZodType<
-  MediaShowTag$Outbound,
-  z.ZodTypeDef,
-  MediaShowTag
-> = z.object({
-  name: z.string().optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MediaShowTag$ {
-  /** @deprecated use `MediaShowTag$inboundSchema` instead. */
-  export const inboundSchema = MediaShowTag$inboundSchema;
-  /** @deprecated use `MediaShowTag$outboundSchema` instead. */
-  export const outboundSchema = MediaShowTag$outboundSchema;
-  /** @deprecated use `MediaShowTag$Outbound` instead. */
-  export type Outbound = MediaShowTag$Outbound;
-}
-
-export function mediaShowTagToJSON(mediaShowTag: MediaShowTag): string {
-  return JSON.stringify(MediaShowTag$outboundSchema.parse(mediaShowTag));
-}
-
-export function mediaShowTagFromJSON(
-  jsonString: string,
-): SafeParseResult<MediaShowTag, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MediaShowTag$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MediaShowTag' from JSON`,
-  );
-}
-
-/** @internal */
-export const MediaShow$inboundSchema: z.ZodType<
-  MediaShow,
+export const MediaProperties$inboundSchema: z.ZodType<
+  MediaProperties,
   z.ZodTypeDef,
   unknown
 > = z.object({
   id: z.number().int().optional(),
   name: z.string().optional(),
-  type: MediaShowType$inboundSchema.optional(),
+  type: MediaPropertiesType$inboundSchema.optional(),
   archived: z.boolean().optional(),
   created: z.string().datetime({ offset: true }).transform(v => new Date(v))
     .optional(),
@@ -261,13 +173,9 @@ export const MediaShow$inboundSchema: z.ZodType<
   hashed_id: z.string().optional(),
   description: z.string().optional(),
   progress: z.number().optional(),
-  status: MediaShowStatus$inboundSchema.optional(),
+  status: MediaPropertiesStatus$inboundSchema.optional(),
   section: z.string().optional(),
   thumbnail: Thumbnail$inboundSchema.optional(),
-  project: SlimProjectSchemaProject$inboundSchema.optional(),
-  assets: z.array(Asset$inboundSchema).optional(),
-  subfolder: Subfolder$inboundSchema.optional(),
-  tags: z.array(z.lazy(() => MediaShowTag$inboundSchema)).optional(),
 }).transform((v) => {
   return remap$(v, {
     "hashed_id": "hashedId",
@@ -275,7 +183,7 @@ export const MediaShow$inboundSchema: z.ZodType<
 });
 
 /** @internal */
-export type MediaShow$Outbound = {
+export type MediaProperties$Outbound = {
   id?: number | undefined;
   name?: string | undefined;
   type?: string | undefined;
@@ -290,21 +198,17 @@ export type MediaShow$Outbound = {
   status?: string | undefined;
   section?: string | undefined;
   thumbnail?: Thumbnail$Outbound | undefined;
-  project?: SlimProjectSchemaProject$Outbound | undefined;
-  assets?: Array<Asset$Outbound> | undefined;
-  subfolder?: Subfolder$Outbound | undefined;
-  tags?: Array<MediaShowTag$Outbound> | undefined;
 };
 
 /** @internal */
-export const MediaShow$outboundSchema: z.ZodType<
-  MediaShow$Outbound,
+export const MediaProperties$outboundSchema: z.ZodType<
+  MediaProperties$Outbound,
   z.ZodTypeDef,
-  MediaShow
+  MediaProperties
 > = z.object({
   id: z.number().int().optional(),
   name: z.string().optional(),
-  type: MediaShowType$outboundSchema.optional(),
+  type: MediaPropertiesType$outboundSchema.optional(),
   archived: z.boolean().optional(),
   created: z.date().transform(v => v.toISOString()).optional(),
   updated: z.date().transform(v => v.toISOString()).optional(),
@@ -313,13 +217,9 @@ export const MediaShow$outboundSchema: z.ZodType<
   hashedId: z.string().optional(),
   description: z.string().optional(),
   progress: z.number().optional(),
-  status: MediaShowStatus$outboundSchema.optional(),
+  status: MediaPropertiesStatus$outboundSchema.optional(),
   section: z.string().optional(),
   thumbnail: Thumbnail$outboundSchema.optional(),
-  project: SlimProjectSchemaProject$outboundSchema.optional(),
-  assets: z.array(Asset$outboundSchema).optional(),
-  subfolder: Subfolder$outboundSchema.optional(),
-  tags: z.array(z.lazy(() => MediaShowTag$outboundSchema)).optional(),
 }).transform((v) => {
   return remap$(v, {
     hashedId: "hashed_id",
@@ -330,25 +230,27 @@ export const MediaShow$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MediaShow$ {
-  /** @deprecated use `MediaShow$inboundSchema` instead. */
-  export const inboundSchema = MediaShow$inboundSchema;
-  /** @deprecated use `MediaShow$outboundSchema` instead. */
-  export const outboundSchema = MediaShow$outboundSchema;
-  /** @deprecated use `MediaShow$Outbound` instead. */
-  export type Outbound = MediaShow$Outbound;
+export namespace MediaProperties$ {
+  /** @deprecated use `MediaProperties$inboundSchema` instead. */
+  export const inboundSchema = MediaProperties$inboundSchema;
+  /** @deprecated use `MediaProperties$outboundSchema` instead. */
+  export const outboundSchema = MediaProperties$outboundSchema;
+  /** @deprecated use `MediaProperties$Outbound` instead. */
+  export type Outbound = MediaProperties$Outbound;
 }
 
-export function mediaShowToJSON(mediaShow: MediaShow): string {
-  return JSON.stringify(MediaShow$outboundSchema.parse(mediaShow));
+export function mediaPropertiesToJSON(
+  mediaProperties: MediaProperties,
+): string {
+  return JSON.stringify(MediaProperties$outboundSchema.parse(mediaProperties));
 }
 
-export function mediaShowFromJSON(
+export function mediaPropertiesFromJSON(
   jsonString: string,
-): SafeParseResult<MediaShow, SDKValidationError> {
+): SafeParseResult<MediaProperties, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => MediaShow$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MediaShow' from JSON`,
+    (x) => MediaProperties$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MediaProperties' from JSON`,
   );
 }

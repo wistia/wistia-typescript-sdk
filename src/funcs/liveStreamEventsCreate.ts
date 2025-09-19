@@ -48,7 +48,7 @@ export function liveStreamEventsCreate(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    models.CreateLiveStreamEventResponse,
+    models.LiveStreamEvent,
     | errors.FourHundredAndOneError
     | errors.PostLiveStreamEventsForbiddenError
     | errors.PostLiveStreamEventsUnprocessableEntityError
@@ -77,7 +77,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      models.CreateLiveStreamEventResponse,
+      models.LiveStreamEvent,
       | errors.FourHundredAndOneError
       | errors.PostLiveStreamEventsForbiddenError
       | errors.PostLiveStreamEventsUnprocessableEntityError
@@ -162,7 +162,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    models.CreateLiveStreamEventResponse,
+    models.LiveStreamEvent,
     | errors.FourHundredAndOneError
     | errors.PostLiveStreamEventsForbiddenError
     | errors.PostLiveStreamEventsUnprocessableEntityError
@@ -176,7 +176,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(201, models.CreateLiveStreamEventResponse$inboundSchema),
+    M.json(201, models.LiveStreamEvent$inboundSchema),
     M.jsonErr(401, errors.FourHundredAndOneError$inboundSchema),
     M.jsonErr(403, errors.PostLiveStreamEventsForbiddenError$inboundSchema),
     M.jsonErr(

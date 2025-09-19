@@ -7,13 +7,19 @@ import { PostMediasMediaHashedIdTrimsRequest } from "@wistia/wistia-api-client/m
 
 let value: PostMediasMediaHashedIdTrimsRequest = {
   mediaHashedId: "<id>",
-  trims: {},
+  requestBody: {
+    trims: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
+    ],
+  },
 };
 ```
 
 ## Fields
 
-| Field                                 | Type                                  | Required                              | Description                           |
-| ------------------------------------- | ------------------------------------- | ------------------------------------- | ------------------------------------- |
-| `mediaHashedId`                       | *string*                              | :heavy_check_mark:                    | The hashed ID of the media.           |
-| `trims`                               | [models.Trims](../../models/trims.md) | :heavy_check_mark:                    | N/A                                   |
+| Field                                                                                                                    | Type                                                                                                                     | Required                                                                                                                 | Description                                                                                                              |
+| ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
+| `mediaHashedId`                                                                                                          | *string*                                                                                                                 | :heavy_check_mark:                                                                                                       | The hashed ID of the media.                                                                                              |
+| `requestBody`                                                                                                            | [operations.PostMediasMediaHashedIdTrimsRequestBody](../../models/operations/postmediasmediahashedidtrimsrequestbody.md) | :heavy_check_mark:                                                                                                       | N/A                                                                                                                      |

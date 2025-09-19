@@ -173,7 +173,7 @@ run();
 
 ### Response
 
-**Promise\<[models.CreateLiveStreamEventResponse](../../models/createlivestreameventresponse.md)\>**
+**Promise\<[models.LiveStreamEvent](../../models/livestreamevent.md)\>**
 
 ### Errors
 

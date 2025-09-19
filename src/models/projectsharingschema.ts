@@ -7,88 +7,81 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
-export type ProjectSharingSchemaShare = {
-  id?: number | undefined;
-  name?: string | undefined;
-  type?: string | undefined;
-  email?: string | undefined;
+export type Share = {
+  id: number;
+  name: string;
+  type: string;
+  email: string;
 };
 
 export type ProjectSharingSchemaProject = {
-  id?: number | undefined;
-  name?: string | undefined;
+  id: number;
+  name: string;
 };
 
 export type ProjectSharingSchema = {
-  id?: number | undefined;
-  isAdmin?: boolean | undefined;
-  canShare?: boolean | undefined;
-  canDownload?: boolean | undefined;
-  canUpload?: boolean | undefined;
-  share?: ProjectSharingSchemaShare | undefined;
-  project?: ProjectSharingSchemaProject | undefined;
+  id: number;
+  isAdmin: boolean;
+  canShare: boolean;
+  canDownload: boolean;
+  canUpload: boolean;
+  share: Share;
+  project: ProjectSharingSchemaProject;
 };
 
 /** @internal */
-export const ProjectSharingSchemaShare$inboundSchema: z.ZodType<
-  ProjectSharingSchemaShare,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: z.number().int().optional(),
-  name: z.string().optional(),
-  type: z.string().optional(),
-  email: z.string().optional(),
-});
+export const Share$inboundSchema: z.ZodType<Share, z.ZodTypeDef, unknown> = z
+  .object({
+    id: z.number().int(),
+    name: z.string(),
+    type: z.string(),
+    email: z.string(),
+  });
 
 /** @internal */
-export type ProjectSharingSchemaShare$Outbound = {
-  id?: number | undefined;
-  name?: string | undefined;
-  type?: string | undefined;
-  email?: string | undefined;
+export type Share$Outbound = {
+  id: number;
+  name: string;
+  type: string;
+  email: string;
 };
 
 /** @internal */
-export const ProjectSharingSchemaShare$outboundSchema: z.ZodType<
-  ProjectSharingSchemaShare$Outbound,
+export const Share$outboundSchema: z.ZodType<
+  Share$Outbound,
   z.ZodTypeDef,
-  ProjectSharingSchemaShare
+  Share
 > = z.object({
-  id: z.number().int().optional(),
-  name: z.string().optional(),
-  type: z.string().optional(),
-  email: z.string().optional(),
+  id: z.number().int(),
+  name: z.string(),
+  type: z.string(),
+  email: z.string(),
 });
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace ProjectSharingSchemaShare$ {
-  /** @deprecated use `ProjectSharingSchemaShare$inboundSchema` instead. */
-  export const inboundSchema = ProjectSharingSchemaShare$inboundSchema;
-  /** @deprecated use `ProjectSharingSchemaShare$outboundSchema` instead. */
-  export const outboundSchema = ProjectSharingSchemaShare$outboundSchema;
-  /** @deprecated use `ProjectSharingSchemaShare$Outbound` instead. */
-  export type Outbound = ProjectSharingSchemaShare$Outbound;
+export namespace Share$ {
+  /** @deprecated use `Share$inboundSchema` instead. */
+  export const inboundSchema = Share$inboundSchema;
+  /** @deprecated use `Share$outboundSchema` instead. */
+  export const outboundSchema = Share$outboundSchema;
+  /** @deprecated use `Share$Outbound` instead. */
+  export type Outbound = Share$Outbound;
 }
 
-export function projectSharingSchemaShareToJSON(
-  projectSharingSchemaShare: ProjectSharingSchemaShare,
-): string {
-  return JSON.stringify(
-    ProjectSharingSchemaShare$outboundSchema.parse(projectSharingSchemaShare),
-  );
+export function shareToJSON(share: Share): string {
+  return JSON.stringify(Share$outboundSchema.parse(share));
 }
 
-export function projectSharingSchemaShareFromJSON(
+export function shareFromJSON(
   jsonString: string,
-): SafeParseResult<ProjectSharingSchemaShare, SDKValidationError> {
+): SafeParseResult<Share, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => ProjectSharingSchemaShare$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ProjectSharingSchemaShare' from JSON`,
+    (x) => Share$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Share' from JSON`,
   );
 }
 
@@ -98,14 +91,14 @@ export const ProjectSharingSchemaProject$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.number().int().optional(),
-  name: z.string().optional(),
+  id: z.number().int(),
+  name: z.string(),
 });
 
 /** @internal */
 export type ProjectSharingSchemaProject$Outbound = {
-  id?: number | undefined;
-  name?: string | undefined;
+  id: number;
+  name: string;
 };
 
 /** @internal */
@@ -114,8 +107,8 @@ export const ProjectSharingSchemaProject$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ProjectSharingSchemaProject
 > = z.object({
-  id: z.number().int().optional(),
-  name: z.string().optional(),
+  id: z.number().int(),
+  name: z.string(),
 });
 
 /**
@@ -157,24 +150,24 @@ export const ProjectSharingSchema$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.number().int().optional(),
-  isAdmin: z.boolean().optional(),
-  canShare: z.boolean().optional(),
-  canDownload: z.boolean().optional(),
-  canUpload: z.boolean().optional(),
-  share: z.lazy(() => ProjectSharingSchemaShare$inboundSchema).optional(),
-  project: z.lazy(() => ProjectSharingSchemaProject$inboundSchema).optional(),
+  id: z.number().int(),
+  isAdmin: z.boolean(),
+  canShare: z.boolean(),
+  canDownload: z.boolean(),
+  canUpload: z.boolean(),
+  share: z.lazy(() => Share$inboundSchema),
+  project: z.lazy(() => ProjectSharingSchemaProject$inboundSchema),
 });
 
 /** @internal */
 export type ProjectSharingSchema$Outbound = {
-  id?: number | undefined;
-  isAdmin?: boolean | undefined;
-  canShare?: boolean | undefined;
-  canDownload?: boolean | undefined;
-  canUpload?: boolean | undefined;
-  share?: ProjectSharingSchemaShare$Outbound | undefined;
-  project?: ProjectSharingSchemaProject$Outbound | undefined;
+  id: number;
+  isAdmin: boolean;
+  canShare: boolean;
+  canDownload: boolean;
+  canUpload: boolean;
+  share: Share$Outbound;
+  project: ProjectSharingSchemaProject$Outbound;
 };
 
 /** @internal */
@@ -183,13 +176,13 @@ export const ProjectSharingSchema$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ProjectSharingSchema
 > = z.object({
-  id: z.number().int().optional(),
-  isAdmin: z.boolean().optional(),
-  canShare: z.boolean().optional(),
-  canDownload: z.boolean().optional(),
-  canUpload: z.boolean().optional(),
-  share: z.lazy(() => ProjectSharingSchemaShare$outboundSchema).optional(),
-  project: z.lazy(() => ProjectSharingSchemaProject$outboundSchema).optional(),
+  id: z.number().int(),
+  isAdmin: z.boolean(),
+  canShare: z.boolean(),
+  canDownload: z.boolean(),
+  canUpload: z.boolean(),
+  share: z.lazy(() => Share$outboundSchema),
+  project: z.lazy(() => ProjectSharingSchemaProject$outboundSchema),
 });
 
 /**

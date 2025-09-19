@@ -44,7 +44,7 @@ export function projectSharingsGet(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    models.ProjectSharingDetail,
+    models.ProjectSharingSchema,
     | errors.FourHundredAndOneError
     | errors.FourHundredAndFourError
     | errors.FiveHundredError
@@ -72,7 +72,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      models.ProjectSharingDetail,
+      models.ProjectSharingSchema,
       | errors.FourHundredAndOneError
       | errors.FourHundredAndFourError
       | errors.FiveHundredError
@@ -170,7 +170,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    models.ProjectSharingDetail,
+    models.ProjectSharingSchema,
     | errors.FourHundredAndOneError
     | errors.FourHundredAndFourError
     | errors.FiveHundredError
@@ -183,7 +183,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, models.ProjectSharingDetail$inboundSchema),
+    M.json(200, models.ProjectSharingSchema$inboundSchema),
     M.jsonErr(401, errors.FourHundredAndOneError$inboundSchema),
     M.jsonErr(404, errors.FourHundredAndFourError$inboundSchema),
     M.jsonErr(500, errors.FiveHundredError$inboundSchema),

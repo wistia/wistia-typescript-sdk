@@ -5,11 +5,13 @@
 ```typescript
 import { ExpiringAccessTokenResponse } from "@wistia/wistia-api-client/models";
 
-let value: ExpiringAccessTokenResponse = {};
+let value: ExpiringAccessTokenResponse = {
+  token: "<value>",
+};
 ```
 
 ## Fields
 
 | Field                                                                                                  | Type                                                                                                   | Required                                                                                               | Description                                                                                            |
 | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
-| `token`                                                                                                | *string*                                                                                               | :heavy_minus_sign:                                                                                     | A token which can be used to authorize requests to Wistia. Currently only for doing transcript embeds. |
+| `token`                                                                                                | *string*                                                                                               | :heavy_check_mark:                                                                                     | A token which can be used to authorize requests to Wistia. Currently only for doing transcript embeds. |

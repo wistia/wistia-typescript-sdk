@@ -57,7 +57,7 @@ export class LiveStreamEvents extends ClientSDK {
   async create(
     request: models.CreateLiveStreamEvent,
     options?: RequestOptions,
-  ): Promise<models.CreateLiveStreamEventResponse> {
+  ): Promise<models.LiveStreamEvent> {
     return unwrapAsync(liveStreamEventsCreate(
       this,
       request,
