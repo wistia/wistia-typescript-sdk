@@ -84,7 +84,7 @@ run();
 
 ### Response
 
-**Promise\<[models.ProjectSharingDetail[]](../../models/.md)\>**
+**Promise\<[models.ProjectSharingSchema[]](../../models/.md)\>**
 
 ### Errors
 
@@ -267,7 +267,7 @@ run();
 
 ### Response
 
-**Promise\<[models.ProjectSharingDetail](../../models/projectsharingdetail.md)\>**
+**Promise\<[models.ProjectSharingSchema](../../models/projectsharingschema.md)\>**
 
 ### Errors
 

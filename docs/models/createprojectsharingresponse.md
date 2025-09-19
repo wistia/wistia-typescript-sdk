@@ -1,13 +1,13 @@
-# ProjectSharingResponse
+# CreateProjectSharingResponse
 
 The response includes a link for the user to access the project.
 
 ## Example Usage
 
 ```typescript
-import { ProjectSharingResponse } from "@wistia/wistia-api-client/models";
+import { CreateProjectSharingResponse } from "@wistia/wistia-api-client/models";
 
-let value: ProjectSharingResponse = {
+let value: CreateProjectSharingResponse = {
   project: "http://myaccount.wistia.com/folders/13",
   sharing: {
     id: 14,

@@ -77,7 +77,7 @@ export class Media extends ClientSDK {
   async list(
     request?: operations.GetMediasRequest | undefined,
     options?: RequestOptions,
-  ): Promise<Array<models.MediaWithCursor>> {
+  ): Promise<Array<models.MediaIndex>> {
     return unwrapAsync(mediaList(
       this,
       request,
@@ -126,7 +126,7 @@ export class Media extends ClientSDK {
   async update(
     request: operations.PutMediasMediaHashedIdRequest,
     options?: RequestOptions,
-  ): Promise<models.Media> {
+  ): Promise<models.MediaUpdate> {
     return unwrapAsync(mediaUpdate(
       this,
       request,
@@ -148,7 +148,7 @@ export class Media extends ClientSDK {
   async delete(
     request: operations.DeleteMediasMediaHashedIdRequest,
     options?: RequestOptions,
-  ): Promise<models.MediaSchemaMedia> {
+  ): Promise<models.MediaProperties> {
     return unwrapAsync(mediaDelete(
       this,
       request,

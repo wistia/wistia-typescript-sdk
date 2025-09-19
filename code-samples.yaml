@@ -943,7 +943,9 @@ actions:
             async function run() {
               const result = await wistia.trims.create({
                 mediaHashedId: "<id>",
-                trims: {},
+                requestBody: {
+                  trims: [],
+                },
               });
 
               console.log(result);

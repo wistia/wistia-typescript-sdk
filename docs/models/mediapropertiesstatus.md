@@ -1,4 +1,4 @@
-# MediaWithCursorStatus
+# MediaPropertiesStatus
 
 Post upload processing status. - `queued`: the file is waiting in the queue to be processed. - `processing`: the file is actively being processed. - `ready`: the file has been fully processed and is ready for embedding and viewing. - `failed`: the file was unable to be processed (usually a format or size error).
 
@@ -6,9 +6,9 @@ Post upload processing status. - `queued`: the file is waiting in the queue to b
 ## Example Usage
 
 ```typescript
-import { MediaWithCursorStatus } from "@wistia/wistia-api-client/models";
+import { MediaPropertiesStatus } from "@wistia/wistia-api-client/models";
 
-let value: MediaWithCursorStatus = "queued";
+let value: MediaPropertiesStatus = "queued";
 ```
 
 ## Values

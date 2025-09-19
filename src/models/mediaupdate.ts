@@ -7,25 +7,7 @@ import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  Asset,
-  Asset$inboundSchema,
-  Asset$Outbound,
-  Asset$outboundSchema,
-} from "./asset.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  SlimProjectSchemaProject,
-  SlimProjectSchemaProject$inboundSchema,
-  SlimProjectSchemaProject$Outbound,
-  SlimProjectSchemaProject$outboundSchema,
-} from "./slimprojectschemaproject.js";
-import {
-  Subfolder,
-  Subfolder$inboundSchema,
-  Subfolder$Outbound,
-  Subfolder$outboundSchema,
-} from "./subfolder.js";
 import {
   Thumbnail,
   Thumbnail$inboundSchema,
@@ -36,7 +18,7 @@ import {
 /**
  * A string representing what type of media this is.
  */
-export const MediaSchemaMediaType = {
+export const MediaUpdateType = {
   Video: "Video",
   Audio: "Audio",
   Image: "Image",
@@ -48,14 +30,14 @@ export const MediaSchemaMediaType = {
 /**
  * A string representing what type of media this is.
  */
-export type MediaSchemaMediaType = ClosedEnum<typeof MediaSchemaMediaType>;
+export type MediaUpdateType = ClosedEnum<typeof MediaUpdateType>;
 
 /**
  * Post upload processing status. - `queued`: the file is waiting in the queue to be processed. - `processing`: the file is actively being processed. - `ready`: the file has been fully processed and is ready for embedding and viewing. - `failed`: the file was unable to be processed (usually a format or size error).
  *
  * @remarks
  */
-export const MediaSchemaMediaStatus = {
+export const MediaUpdateStatus = {
   Queued: "queued",
   Processing: "processing",
   Ready: "ready",
@@ -66,9 +48,16 @@ export const MediaSchemaMediaStatus = {
  *
  * @remarks
  */
-export type MediaSchemaMediaStatus = ClosedEnum<typeof MediaSchemaMediaStatus>;
+export type MediaUpdateStatus = ClosedEnum<typeof MediaUpdateStatus>;
 
-export type MediaSchemaMedia = {
+export type MediaUpdateTag = {
+  /**
+   * The display name of the tag.
+   */
+  name?: string | undefined;
+};
+
+export type MediaUpdate = {
   /**
    * A unique numeric identifier for the media within the system.
    */
@@ -80,7 +69,7 @@ export type MediaSchemaMedia = {
   /**
    * A string representing what type of media this is.
    */
-  type?: MediaSchemaMediaType | undefined;
+  type?: MediaUpdateType | undefined;
   /**
    * Whether or not the media is archived, either true or false.
    */
@@ -122,74 +111,119 @@ export type MediaSchemaMedia = {
    *
    * @remarks
    */
-  status?: MediaSchemaMediaStatus | undefined;
+  status?: MediaUpdateStatus | undefined;
   /**
    * The title of the section in which the media appears. This attribute is omitted if the media is not in a section (default).
    */
   section?: string | undefined;
-  /**
-   * A subfolder within a project that contains media files.
-   */
-  subfolder?: Subfolder | undefined;
   thumbnail?: Thumbnail | undefined;
-  project?: SlimProjectSchemaProject | undefined;
   /**
-   * An array of the assets available for this media.
+   * Tags associated with this media.
    */
-  assets?: Array<Asset> | undefined;
+  tags?: Array<MediaUpdateTag> | undefined;
 };
 
 /** @internal */
-export const MediaSchemaMediaType$inboundSchema: z.ZodNativeEnum<
-  typeof MediaSchemaMediaType
-> = z.nativeEnum(MediaSchemaMediaType);
+export const MediaUpdateType$inboundSchema: z.ZodNativeEnum<
+  typeof MediaUpdateType
+> = z.nativeEnum(MediaUpdateType);
 
 /** @internal */
-export const MediaSchemaMediaType$outboundSchema: z.ZodNativeEnum<
-  typeof MediaSchemaMediaType
-> = MediaSchemaMediaType$inboundSchema;
+export const MediaUpdateType$outboundSchema: z.ZodNativeEnum<
+  typeof MediaUpdateType
+> = MediaUpdateType$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MediaSchemaMediaType$ {
-  /** @deprecated use `MediaSchemaMediaType$inboundSchema` instead. */
-  export const inboundSchema = MediaSchemaMediaType$inboundSchema;
-  /** @deprecated use `MediaSchemaMediaType$outboundSchema` instead. */
-  export const outboundSchema = MediaSchemaMediaType$outboundSchema;
+export namespace MediaUpdateType$ {
+  /** @deprecated use `MediaUpdateType$inboundSchema` instead. */
+  export const inboundSchema = MediaUpdateType$inboundSchema;
+  /** @deprecated use `MediaUpdateType$outboundSchema` instead. */
+  export const outboundSchema = MediaUpdateType$outboundSchema;
 }
 
 /** @internal */
-export const MediaSchemaMediaStatus$inboundSchema: z.ZodNativeEnum<
-  typeof MediaSchemaMediaStatus
-> = z.nativeEnum(MediaSchemaMediaStatus);
+export const MediaUpdateStatus$inboundSchema: z.ZodNativeEnum<
+  typeof MediaUpdateStatus
+> = z.nativeEnum(MediaUpdateStatus);
 
 /** @internal */
-export const MediaSchemaMediaStatus$outboundSchema: z.ZodNativeEnum<
-  typeof MediaSchemaMediaStatus
-> = MediaSchemaMediaStatus$inboundSchema;
+export const MediaUpdateStatus$outboundSchema: z.ZodNativeEnum<
+  typeof MediaUpdateStatus
+> = MediaUpdateStatus$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MediaSchemaMediaStatus$ {
-  /** @deprecated use `MediaSchemaMediaStatus$inboundSchema` instead. */
-  export const inboundSchema = MediaSchemaMediaStatus$inboundSchema;
-  /** @deprecated use `MediaSchemaMediaStatus$outboundSchema` instead. */
-  export const outboundSchema = MediaSchemaMediaStatus$outboundSchema;
+export namespace MediaUpdateStatus$ {
+  /** @deprecated use `MediaUpdateStatus$inboundSchema` instead. */
+  export const inboundSchema = MediaUpdateStatus$inboundSchema;
+  /** @deprecated use `MediaUpdateStatus$outboundSchema` instead. */
+  export const outboundSchema = MediaUpdateStatus$outboundSchema;
 }
 
 /** @internal */
-export const MediaSchemaMedia$inboundSchema: z.ZodType<
-  MediaSchemaMedia,
+export const MediaUpdateTag$inboundSchema: z.ZodType<
+  MediaUpdateTag,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string().optional(),
+});
+
+/** @internal */
+export type MediaUpdateTag$Outbound = {
+  name?: string | undefined;
+};
+
+/** @internal */
+export const MediaUpdateTag$outboundSchema: z.ZodType<
+  MediaUpdateTag$Outbound,
+  z.ZodTypeDef,
+  MediaUpdateTag
+> = z.object({
+  name: z.string().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MediaUpdateTag$ {
+  /** @deprecated use `MediaUpdateTag$inboundSchema` instead. */
+  export const inboundSchema = MediaUpdateTag$inboundSchema;
+  /** @deprecated use `MediaUpdateTag$outboundSchema` instead. */
+  export const outboundSchema = MediaUpdateTag$outboundSchema;
+  /** @deprecated use `MediaUpdateTag$Outbound` instead. */
+  export type Outbound = MediaUpdateTag$Outbound;
+}
+
+export function mediaUpdateTagToJSON(mediaUpdateTag: MediaUpdateTag): string {
+  return JSON.stringify(MediaUpdateTag$outboundSchema.parse(mediaUpdateTag));
+}
+
+export function mediaUpdateTagFromJSON(
+  jsonString: string,
+): SafeParseResult<MediaUpdateTag, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MediaUpdateTag$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MediaUpdateTag' from JSON`,
+  );
+}
+
+/** @internal */
+export const MediaUpdate$inboundSchema: z.ZodType<
+  MediaUpdate,
   z.ZodTypeDef,
   unknown
 > = z.object({
   id: z.number().int().optional(),
   name: z.string().optional(),
-  type: MediaSchemaMediaType$inboundSchema.optional(),
+  type: MediaUpdateType$inboundSchema.optional(),
   archived: z.boolean().optional(),
   created: z.string().datetime({ offset: true }).transform(v => new Date(v))
     .optional(),
@@ -200,12 +234,10 @@ export const MediaSchemaMedia$inboundSchema: z.ZodType<
   hashed_id: z.string().optional(),
   description: z.string().optional(),
   progress: z.number().optional(),
-  status: MediaSchemaMediaStatus$inboundSchema.optional(),
+  status: MediaUpdateStatus$inboundSchema.optional(),
   section: z.string().optional(),
-  subfolder: Subfolder$inboundSchema.optional(),
   thumbnail: Thumbnail$inboundSchema.optional(),
-  project: SlimProjectSchemaProject$inboundSchema.optional(),
-  assets: z.array(Asset$inboundSchema).optional(),
+  tags: z.array(z.lazy(() => MediaUpdateTag$inboundSchema)).optional(),
 }).transform((v) => {
   return remap$(v, {
     "hashed_id": "hashedId",
@@ -213,7 +245,7 @@ export const MediaSchemaMedia$inboundSchema: z.ZodType<
 });
 
 /** @internal */
-export type MediaSchemaMedia$Outbound = {
+export type MediaUpdate$Outbound = {
   id?: number | undefined;
   name?: string | undefined;
   type?: string | undefined;
@@ -227,21 +259,19 @@ export type MediaSchemaMedia$Outbound = {
   progress?: number | undefined;
   status?: string | undefined;
   section?: string | undefined;
-  subfolder?: Subfolder$Outbound | undefined;
   thumbnail?: Thumbnail$Outbound | undefined;
-  project?: SlimProjectSchemaProject$Outbound | undefined;
-  assets?: Array<Asset$Outbound> | undefined;
+  tags?: Array<MediaUpdateTag$Outbound> | undefined;
 };
 
 /** @internal */
-export const MediaSchemaMedia$outboundSchema: z.ZodType<
-  MediaSchemaMedia$Outbound,
+export const MediaUpdate$outboundSchema: z.ZodType<
+  MediaUpdate$Outbound,
   z.ZodTypeDef,
-  MediaSchemaMedia
+  MediaUpdate
 > = z.object({
   id: z.number().int().optional(),
   name: z.string().optional(),
-  type: MediaSchemaMediaType$outboundSchema.optional(),
+  type: MediaUpdateType$outboundSchema.optional(),
   archived: z.boolean().optional(),
   created: z.date().transform(v => v.toISOString()).optional(),
   updated: z.date().transform(v => v.toISOString()).optional(),
@@ -250,12 +280,10 @@ export const MediaSchemaMedia$outboundSchema: z.ZodType<
   hashedId: z.string().optional(),
   description: z.string().optional(),
   progress: z.number().optional(),
-  status: MediaSchemaMediaStatus$outboundSchema.optional(),
+  status: MediaUpdateStatus$outboundSchema.optional(),
   section: z.string().optional(),
-  subfolder: Subfolder$outboundSchema.optional(),
   thumbnail: Thumbnail$outboundSchema.optional(),
-  project: SlimProjectSchemaProject$outboundSchema.optional(),
-  assets: z.array(Asset$outboundSchema).optional(),
+  tags: z.array(z.lazy(() => MediaUpdateTag$outboundSchema)).optional(),
 }).transform((v) => {
   return remap$(v, {
     hashedId: "hashed_id",
@@ -266,29 +294,25 @@ export const MediaSchemaMedia$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace MediaSchemaMedia$ {
-  /** @deprecated use `MediaSchemaMedia$inboundSchema` instead. */
-  export const inboundSchema = MediaSchemaMedia$inboundSchema;
-  /** @deprecated use `MediaSchemaMedia$outboundSchema` instead. */
-  export const outboundSchema = MediaSchemaMedia$outboundSchema;
-  /** @deprecated use `MediaSchemaMedia$Outbound` instead. */
-  export type Outbound = MediaSchemaMedia$Outbound;
+export namespace MediaUpdate$ {
+  /** @deprecated use `MediaUpdate$inboundSchema` instead. */
+  export const inboundSchema = MediaUpdate$inboundSchema;
+  /** @deprecated use `MediaUpdate$outboundSchema` instead. */
+  export const outboundSchema = MediaUpdate$outboundSchema;
+  /** @deprecated use `MediaUpdate$Outbound` instead. */
+  export type Outbound = MediaUpdate$Outbound;
 }
 
-export function mediaSchemaMediaToJSON(
-  mediaSchemaMedia: MediaSchemaMedia,
-): string {
-  return JSON.stringify(
-    MediaSchemaMedia$outboundSchema.parse(mediaSchemaMedia),
-  );
+export function mediaUpdateToJSON(mediaUpdate: MediaUpdate): string {
+  return JSON.stringify(MediaUpdate$outboundSchema.parse(mediaUpdate));
 }
 
-export function mediaSchemaMediaFromJSON(
+export function mediaUpdateFromJSON(
   jsonString: string,
-): SafeParseResult<MediaSchemaMedia, SDKValidationError> {
+): SafeParseResult<MediaUpdate, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => MediaSchemaMedia$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MediaSchemaMedia' from JSON`,
+    (x) => MediaUpdate$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MediaUpdate' from JSON`,
   );
 }

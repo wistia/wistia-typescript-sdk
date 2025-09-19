@@ -30,7 +30,7 @@ export type PostMediasMediaHashedIdCopyRequest = {
 
 export type PostMediasMediaHashedIdCopyResponse = {
   headers: { [k: string]: Array<string> };
-  result: models.MediaWithThumbnailAndProjectSchemaMedia;
+  result: models.MediaCopy;
 };
 
 /** @internal */
@@ -184,7 +184,7 @@ export const PostMediasMediaHashedIdCopyResponse$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   Headers: z.record(z.array(z.string())),
-  Result: models.MediaWithThumbnailAndProjectSchemaMedia$inboundSchema,
+  Result: models.MediaCopy$inboundSchema,
 }).transform((v) => {
   return remap$(v, {
     "Headers": "headers",
@@ -195,7 +195,7 @@ export const PostMediasMediaHashedIdCopyResponse$inboundSchema: z.ZodType<
 /** @internal */
 export type PostMediasMediaHashedIdCopyResponse$Outbound = {
   Headers: { [k: string]: Array<string> };
-  Result: models.MediaWithThumbnailAndProjectSchemaMedia$Outbound;
+  Result: models.MediaCopy$Outbound;
 };
 
 /** @internal */
@@ -205,7 +205,7 @@ export const PostMediasMediaHashedIdCopyResponse$outboundSchema: z.ZodType<
   PostMediasMediaHashedIdCopyResponse
 > = z.object({
   headers: z.record(z.array(z.string())),
-  result: models.MediaWithThumbnailAndProjectSchemaMedia$outboundSchema,
+  result: models.MediaCopy$outboundSchema,
 }).transform((v) => {
   return remap$(v, {
     headers: "Headers",

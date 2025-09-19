@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 7b32ab6a-5908-41aa-b82f-7906605d30ce
 management:
-  docChecksum: 7023f66304a79ae2613f4f09f5a0044f
+  docChecksum: 54f69e6a5d60e6eb9207c2b8364e5c4c
   docVersion: 1.0.0
-  speakeasyVersion: 1.615.2
-  generationVersion: 2.698.4
-  releaseVersion: 2025.9.17
-  configChecksum: cfc73cf2778366717ca0e71fc36e89bd
+  speakeasyVersion: 1.621.0
+  generationVersion: 2.707.0
+  releaseVersion: 2025.9.20
+  configChecksum: 18d53fea53add6f50319ecc4cefa0ef1
   repoURL: https://github.com/speakeasy-sdks/wistia-typescript-sdk.git
   installationURL: https://github.com/speakeasy-sdks/wistia-typescript-sdk
   published: true
@@ -18,7 +18,7 @@ features:
     core: 3.21.22
     defaultEnabledRetries: 0.1.0
     deprecations: 2.81.1
-    devContainers: 2.90.0
+    devContainers: 2.90.1
     enumUnions: 0.1.0
     envVarSecurityUsage: 0.1.2
     globalSecurity: 2.82.14
@@ -59,18 +59,16 @@ generatedFiles:
   - docs/models/canuploadenum.md
   - docs/models/caption.md
   - docs/models/channel.md
-  - docs/models/channelchannels.md
   - docs/models/channelepisode.md
-  - docs/models/channelepisodechannels.md
   - docs/models/chapterlist.md
   - docs/models/conversiondata.md
   - docs/models/createchannelepisode.md
   - docs/models/createlivestreamevent.md
-  - docs/models/createlivestreameventresponse.md
   - docs/models/createproject.md
   - docs/models/createprojectpublicenum.md
   - docs/models/createprojectpublicunion.md
   - docs/models/createprojectsharing.md
+  - docs/models/createprojectsharingresponse.md
   - docs/models/createprojectsharingsharing.md
   - docs/models/encrypted.md
   - docs/models/episodetype.md
@@ -120,20 +118,23 @@ generatedFiles:
   - docs/models/localization.md
   - docs/models/localizationtranscript.md
   - docs/models/localizationwithpurchasedata.md
-  - docs/models/media.md
-  - docs/models/mediaschemamedia.md
-  - docs/models/mediaschemamediastatus.md
-  - docs/models/mediaschemamediatype.md
+  - docs/models/mediacopy.md
+  - docs/models/mediacopystatus.md
+  - docs/models/mediacopytype.md
+  - docs/models/mediaindex.md
+  - docs/models/mediaindexstatus.md
+  - docs/models/mediaindextype.md
+  - docs/models/mediaproperties.md
+  - docs/models/mediapropertiesstatus.md
+  - docs/models/mediapropertiestype.md
   - docs/models/mediashow.md
   - docs/models/mediashowstatus.md
   - docs/models/mediashowtag.md
   - docs/models/mediashowtype.md
-  - docs/models/mediawithcursor.md
-  - docs/models/mediawithcursorstatus.md
-  - docs/models/mediawithcursortype.md
-  - docs/models/mediawiththumbnailandprojectschemamedia.md
-  - docs/models/mediawiththumbnailandprojectschemamediastatus.md
-  - docs/models/mediawiththumbnailandprojectschemamediatype.md
+  - docs/models/mediaupdate.md
+  - docs/models/mediaupdatestatus.md
+  - docs/models/mediaupdatetag.md
+  - docs/models/mediaupdatetype.md
   - docs/models/operations/container.md
   - docs/models/operations/cursor.md
   - docs/models/operations/data.md
@@ -224,6 +225,7 @@ generatedFiles:
   - docs/models/operations/postmediasmediahashedidtranslaterequestbody.md
   - docs/models/operations/postmediasmediahashedidtranslateresponse.md
   - docs/models/operations/postmediasmediahashedidtrimsrequest.md
+  - docs/models/operations/postmediasmediahashedidtrimsrequestbody.md
   - docs/models/operations/postmediasmediahashedidtrimsresponse.md
   - docs/models/operations/postmediasmediaidcustomizationsrequest.md
   - docs/models/operations/postmultiparterror.md
@@ -266,13 +268,8 @@ generatedFiles:
   - docs/models/passwordprotectedvideo.md
   - docs/models/private.md
   - docs/models/project.md
-  - docs/models/projectsharingdetail.md
-  - docs/models/projectsharingdetailproject.md
-  - docs/models/projectsharingdetailshare.md
-  - docs/models/projectsharingresponse.md
   - docs/models/projectsharingschema.md
   - docs/models/projectsharingschemaproject.md
-  - docs/models/projectsharingschemashare.md
   - docs/models/projectwithmedias.md
   - docs/models/publishstatus.md
   - docs/models/requirepassword.md
@@ -284,6 +281,7 @@ generatedFiles:
   - docs/models/searchmediatype.md
   - docs/models/security.md
   - docs/models/sendemailnotification.md
+  - docs/models/share.md
   - docs/models/slimprojectschemaproject.md
   - docs/models/sortby.md
   - docs/models/sortdirection.md
@@ -294,7 +292,6 @@ generatedFiles:
   - docs/models/tag.md
   - docs/models/thumbnail.md
   - docs/models/time.md
-  - docs/models/trims.md
   - docs/models/updatelivestreamevent.md
   - docs/models/updatelivestreameventlivestreamevent.md
   - docs/models/updateproject.md
@@ -458,9 +455,9 @@ generatedFiles:
   - src/models/channelepisode.ts
   - src/models/createchannelepisode.ts
   - src/models/createlivestreamevent.ts
-  - src/models/createlivestreameventresponse.ts
   - src/models/createproject.ts
   - src/models/createprojectsharing.ts
+  - src/models/createprojectsharingresponse.ts
   - src/models/errors/deletealloweddomainsdomain.ts
   - src/models/errors/deleteprojectsprojectidsubfolderssubfolderid.ts
   - src/models/errors/fivehundrederror.ts
@@ -506,11 +503,11 @@ generatedFiles:
   - src/models/localization.ts
   - src/models/localizationtranscript.ts
   - src/models/localizationwithpurchasedata.ts
-  - src/models/media.ts
-  - src/models/mediaschemamedia.ts
+  - src/models/mediacopy.ts
+  - src/models/mediaindex.ts
+  - src/models/mediaproperties.ts
   - src/models/mediashow.ts
-  - src/models/mediawithcursor.ts
-  - src/models/mediawiththumbnailandprojectschemamedia.ts
+  - src/models/mediaupdate.ts
   - src/models/operations/deletealloweddomainsdomain.ts
   - src/models/operations/deletelivestreameventsid.ts
   - src/models/operations/deletemediasmediahashedid.ts
@@ -584,8 +581,6 @@ generatedFiles:
   - src/models/operations/putprojectsprojectidsharingssharingid.ts
   - src/models/operations/putprojectsprojectidsubfolderssubfolderid.ts
   - src/models/project.ts
-  - src/models/projectsharingdetail.ts
-  - src/models/projectsharingresponse.ts
   - src/models/projectsharingschema.ts
   - src/models/projectwithmedias.ts
   - src/models/searchchannel.ts
@@ -601,7 +596,6 @@ generatedFiles:
   - src/models/subfolderwithmedia.ts
   - src/models/tag.ts
   - src/models/thumbnail.ts
-  - src/models/trims.ts
   - src/models/updatelivestreamevent.ts
   - src/models/updateproject.ts
   - src/models/updatesharingrequest.ts
@@ -670,7 +664,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"id": 22570, "name": "My Project Title", "description": "About My Project", "medias": [{"subfolder": {"hashed_id": "abc123def4", "name": "Marketing Videos", "description": "Collection of all marketing and promotional videos", "position": 1, "created": "2024-01-15T10:30:00+00:00", "updated": "2024-01-20T14:45:00+00:00"}}], "mediaCount": 2, "created": "2010-08-13T18:47:39+00:00", "updated": "2010-08-19T21:47:00+00:00", "hashedId": "4d23503f70", "public": false, "publicId": "4bD", "anonymousCanUpload": false, "anonymousCanDownload": false}
+          application/json: {"id": 22570, "name": "My Project Title", "description": "About My Project", "mediaCount": 2, "created": "2010-08-13T18:47:39+00:00", "updated": "2010-08-19T21:47:00+00:00", "hashedId": "4d23503f70", "public": false, "publicId": "4bD", "anonymousCanUpload": false, "anonymousCanDownload": false, "medias": [{}]}
         "401":
           application/json: {"error": "Invalid credentials."}
         "404":
@@ -1326,7 +1320,7 @@ examples:
           q: "screencast"
       responses:
         "200":
-          application/json: {"data": {"projects": [], "medias": [{"project": {"id": 22570, "name": "My Project Title", "hashedId": "4d23503f70"}, "projectHashedId": "4d23503f70"}], "channels": [], "channelEpisodes": []}}
+          application/json: {"data": {"projects": [], "medias": [{"projectHashedId": "4d23503f70"}], "channels": [], "channelEpisodes": []}}
         "400":
           application/json: {"error": "the \"q\" parameter should specify the search query, e.g. \"q=screencast\""}
         "401":
@@ -1337,7 +1331,7 @@ examples:
     speakeasy-default-get-/channels:
       responses:
         "200":
-          application/json: [{}]
+          application/json: [{"id": 47665, "created": "2023-07-04T13:27:24.483Z", "description": "or gymnast wildly warped dividend why potable ew", "hashedId": "<id>", "mediaCount": 831258, "name": "<value>", "updated": "2024-07-03T17:41:56.486Z"}]
         "401":
           application/json: {"error": "Invalid credentials."}
         "500":
@@ -1401,7 +1395,7 @@ examples:
     speakeasy-default-get-/channel-episodes:
       responses:
         "200":
-          application/json: [{"channels": {"channelHashedId": "<id>", "created": "2025-07-18T16:26:27.459Z", "description": "uselessly so correctly accentuate", "summary": "A short description.", "hashedId": "<id>", "mediaHashedId": "<id>", "published": false, "publish_at": "2024-12-31T23:59:59Z", "title": "<value>", "updated": "2025-07-07T20:00:20.388Z"}}]
+          application/json: [{"channelHashedId": "<id>", "created": "2025-07-18T16:26:27.459Z", "description": "uselessly so correctly accentuate", "summary": "A short description.", "hashedId": "<id>", "mediaHashedId": "<id>", "published": false, "title": "<value>", "updated": "2023-11-01T14:27:31.763Z"}]
         "401":
           application/json: {"error": "Invalid credentials."}
         "500":
@@ -1410,7 +1404,7 @@ examples:
     speakeasy-default-post-/expiring-token:
       responses:
         "200":
-          application/json: {}
+          application/json: {"token": "<value>"}
         "401":
           application/json: {"error": "Invalid credentials."}
         "422":
@@ -1434,7 +1428,7 @@ examples:
         application/json: {"title": "Wellness Session: Coping with Outie Memories", "description": "A comprehensive session on managing work-life balance", "scheduled_for": "2024-03-20T15:30:00-05:00", "event_duration": 60}
       responses:
         "201":
-          application/json: {"id": "abc123def456", "audience_link": "https://lumon-industries.wistia.com/live/events/abc123def456", "host_link": "https://lumon-industries.wistia.com/live/onair/abc123def456/"}
+          application/json: {"id": "abc123def456", "title": "Wellness Session: Coping with Outie Memories", "description": "A comprehensive session on managing work-life balance", "scheduled_for": "2024-03-20T15:30:00-05:00", "event_duration": 60, "lifecycle_status": "scheduled", "registration_status": "published", "created_at": "2024-03-15T10:30:00Z", "updated_at": "2024-03-15T10:30:00Z", "audience_link": "https://lumon-industries.wistia.com/live/events/abc123def456", "host_link": "https://lumon-industries.wistia.com/live/onair/abc123def456/"}
         "401":
           application/json: {"error": "Invalid credentials."}
         "403":
@@ -1647,7 +1641,7 @@ examples:
           mediaHashedId: "<id>"
       responses:
         "200":
-          application/json: {"subfolder": {"hashed_id": "abc123def4", "name": "Marketing Videos", "description": "Collection of all marketing and promotional videos", "position": 1, "created": "2024-01-15T10:30:00+00:00", "updated": "2024-01-20T14:45:00+00:00"}, "project": {"id": 22570, "name": "My Project Title", "hashedId": "4d23503f70"}}
+          application/json: {"project": {"id": 22570, "name": "My Project Title", "hashedId": "4d23503f70"}, "subfolder": {"hashed_id": "abc123def4", "name": "Marketing Videos", "description": "Collection of all marketing and promotional videos", "position": 1, "created": "2024-01-15T10:30:00+00:00", "updated": "2024-01-20T14:45:00+00:00"}}
         "401":
           application/json: {"error": "Invalid credentials."}
         "404":
@@ -1661,7 +1655,7 @@ examples:
           mediaHashedId: "<id>"
       responses:
         "200":
-          application/json: {"subfolder": {"hashed_id": "abc123def4", "name": "Marketing Videos", "description": "Collection of all marketing and promotional videos", "position": 1, "created": "2024-01-15T10:30:00+00:00", "updated": "2024-01-20T14:45:00+00:00"}}
+          application/json: {}
         "400":
           application/json: {"error": "Bad request"}
         "401":
@@ -1677,7 +1671,7 @@ examples:
           mediaHashedId: "<id>"
       responses:
         "200":
-          application/json: {"subfolder": {"hashed_id": "abc123def4", "name": "Marketing Videos", "description": "Collection of all marketing and promotional videos", "position": 1, "created": "2024-01-15T10:30:00+00:00", "updated": "2024-01-20T14:45:00+00:00"}, "project": {"id": 22570, "name": "My Project Title", "hashedId": "4d23503f70"}}
+          application/json: {}
         "401":
           application/json: {"error": "Invalid credentials."}
         "404":
@@ -1691,7 +1685,7 @@ examples:
           mediaHashedId: "<id>"
       responses:
         "201":
-          application/json: {"subfolder": {"hashed_id": "abc123def4", "name": "Marketing Videos", "description": "Collection of all marketing and promotional videos", "position": 1, "created": "2024-01-15T10:30:00+00:00", "updated": "2024-01-20T14:45:00+00:00"}, "project": {"id": 22570, "name": "My Project Title", "hashedId": "4d23503f70"}}
+          application/json: {"project": {"id": 22570, "name": "My Project Title", "hashedId": "4d23503f70"}}
         "400":
           application/json: {}
         "401":
@@ -1709,7 +1703,7 @@ examples:
           mediaHashedId: "<id>"
       responses:
         "200":
-          application/json: {"message": "Media swap has been queued for processing.", "media": {"subfolder": {"hashed_id": "abc123def4", "name": "Marketing Videos", "description": "Collection of all marketing and promotional videos", "position": 1, "created": "2024-01-15T10:30:00+00:00", "updated": "2024-01-20T14:45:00+00:00"}, "project": {"id": 22570, "name": "My Project Title", "hashedId": "4d23503f70"}}}
+          application/json: {"message": "Media swap has been queued for processing."}
         "400":
           application/json: {"error": "Replacement media must be the same type as the original media (Video)."}
         "401":
@@ -1797,7 +1791,7 @@ examples:
           description_format: "markdown"
       responses:
         "200":
-          application/json: {"hashed_id": "abc123def4", "name": "Marketing Videos", "description": "Collection of all marketing and promotional videos", "position": 1, "created": "2024-01-15T10:30:00+00:00", "updated": "2024-01-20T14:45:00+00:00", "medias": [{"subfolder": {"hashed_id": "abc123def4", "name": "Marketing Videos", "description": "Collection of all marketing and promotional videos", "position": 1, "created": "2024-01-15T10:30:00+00:00", "updated": "2024-01-20T14:45:00+00:00"}, "project": {"id": 22570, "name": "My Project Title", "hashedId": "4d23503f70"}}]}
+          application/json: {"hashed_id": "abc123def4", "name": "Marketing Videos", "description": "Collection of all marketing and promotional videos", "position": 1, "created": "2024-01-15T10:30:00+00:00", "updated": "2024-01-20T14:45:00+00:00"}
         "401":
           application/json: {"error": "Invalid credentials."}
         "404":
@@ -2087,7 +2081,7 @@ examples:
         path:
           mediaHashedId: "<id>"
       requestBody:
-        application/json: {}
+        application/json: {"trims": []}
       responses:
         "200":
           application/json: {}
@@ -2170,7 +2164,7 @@ examples:
           channelHashedId: "<id>"
       responses:
         "200":
-          application/json: {}
+          application/json: {"id": 515949, "created": "2025-02-07T01:02:09.564Z", "description": "cautiously density obsess faithfully since white", "hashedId": "<id>", "mediaCount": 65351, "name": "<value>", "updated": "2024-11-03T03:17:51.985Z"}
         "401":
           application/json: {"error": "Invalid credentials."}
         "404":
@@ -2185,7 +2179,7 @@ examples:
           channelEpisodeId: "<id>"
       responses:
         "200":
-          application/json: {"channels": {"channelHashedId": "<id>", "created": "2025-06-18T07:20:05.328Z", "description": "whenever judgementally wearily sweetly boohoo", "summary": "A short description.", "hashedId": "<id>", "mediaHashedId": "<id>", "published": false, "publish_at": "2024-12-31T23:59:59Z", "title": "<value>", "updated": "2025-06-08T20:35:17.325Z"}}
+          application/json: {"channelHashedId": "<id>", "created": "2025-06-18T07:20:05.328Z", "description": "whenever judgementally wearily sweetly boohoo", "summary": "A short description.", "hashedId": "<id>", "mediaHashedId": "<id>", "published": false, "publish_at": "2024-12-31T23:59:59Z", "title": "<value>", "updated": "2023-03-31T23:34:33.899Z"}
         "401":
           application/json: {"error": "Invalid credentials."}
         "500":
@@ -2197,7 +2191,7 @@ examples:
           channelHashedId: "<id>"
       responses:
         "200":
-          application/json: [{"channels": {"channelHashedId": "<id>", "created": "2024-04-24T10:42:59.690Z", "description": "underneath seagull yum polished uselessly sham or now meh incidentally", "summary": "A short description.", "hashedId": "<id>", "mediaHashedId": "<id>", "published": true, "publish_at": "2024-12-31T23:59:59Z", "title": "<value>", "updated": "2025-08-23T11:22:58.435Z"}}]
+          application/json: [{"channelHashedId": "<id>", "created": "2024-04-24T10:42:59.690Z", "description": "underneath seagull yum polished uselessly sham or now meh incidentally", "summary": "A short description.", "hashedId": "<id>", "mediaHashedId": "<id>", "published": true, "title": "<value>", "updated": "2023-03-09T04:47:02.642Z"}]
         "401":
           application/json: {"error": "Invalid credentials."}
         "500":
@@ -2211,7 +2205,7 @@ examples:
         application/json: {"title": "My New Episode", "description": "My Episode Description.", "summary": "A short description.", "publish_at": "2024-12-31T23:59:59Z"}
       responses:
         "200":
-          application/json: {"channels": {"channelHashedId": "<id>", "created": "2023-11-26T22:01:32.728Z", "description": "patiently gladly meh wherever", "summary": "A short description.", "hashedId": "<id>", "mediaHashedId": "<id>", "published": true, "publish_at": "2024-12-31T23:59:59Z", "title": "<value>", "updated": "2024-06-09T13:01:49.834Z"}}
+          application/json: {"channelHashedId": "<id>", "created": "2023-11-26T22:01:32.728Z", "description": "patiently gladly meh wherever", "summary": "A short description.", "hashedId": "<id>", "mediaHashedId": "<id>", "published": true, "publish_at": "2024-12-31T23:59:59Z", "title": "<value>", "updated": "2025-12-31T19:49:51.384Z"}
         "400":
           application/json: {"error": "Bad request"}
         "401":
@@ -2260,6 +2254,24 @@ examples:
 examplesVersion: 1.0.2
 releaseNotes: |
   ## Typescript SDK Changes Detected:
-  * `wistia.customizations.get()`:  `response` **Changed**
-  * `wistia.customizations.create()`:  `response` **Changed**
-  * `wistia.customizations.update()`:  `response` **Changed**
+  * `wistia.channels.channelEpisodes.list()`:  `response.[]` **Changed** **Breaking** :warning:
+  * `wistia.channelEpisodes.get()`:  `response` **Changed** **Breaking** :warning:
+  * `wistia.media.copy()`:  `response.subfolder` **Removed** **Breaking** :warning:
+  * `wistia.media.swap()`:  `response.media` **Changed** **Breaking** :warning:
+  * `wistia.projects.get()`:  `response.medias` **Changed** **Breaking** :warning:
+  * `wistia.subfolders.get()`:  `response.medias.[]` **Changed** **Breaking** :warning:
+  * `wistia.channelEpisodes.list()`:  `response.[]` **Changed** **Breaking** :warning:
+  * `wistia.channelEpisodes.create()`:  `response` **Changed** **Breaking** :warning:
+  * `wistia.search.search()`:  `response.data.medias.[]` **Changed** **Breaking** :warning:
+  * `wistia.media.update()`:  `response` **Changed** **Breaking** :warning:
+  * `wistia.media.delete()`:  `response` **Changed** **Breaking** :warning:
+  * `wistia.trims.create()`:  `request` **Changed** **Breaking** :warning:
+  * `wistia.channels.get()`:  `response` **Changed** **Breaking** :warning:
+  * `wistia.channels.list()`:  `response.[]` **Changed** **Breaking** :warning:
+  * `wistia.projectSharings.delete()`:  `response` **Changed**
+  * `wistia.projectSharings.update()`:  `response` **Changed**
+  * `wistia.projectSharings.get()`:  `response` **Changed**
+  * `wistia.projectSharings.create()`:  `response.sharing` **Changed**
+  * `wistia.projectSharings.list()`:  `response.[]` **Changed**
+  * `wistia.expiringAccessTokens.create()`:  `response.token` **Changed**
+  * `wistia.liveStreamEvents.create()`:  `response` **Changed**

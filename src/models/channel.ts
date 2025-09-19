@@ -7,7 +7,7 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
-export type ChannelChannels = {
+export type Channel = {
   /**
    * The numeri d of the channel.
    */
@@ -38,27 +38,20 @@ export type ChannelChannels = {
   updated: Date;
 };
 
-export type Channel = {
-  channels?: ChannelChannels | undefined;
-};
+/** @internal */
+export const Channel$inboundSchema: z.ZodType<Channel, z.ZodTypeDef, unknown> =
+  z.object({
+    id: z.number().int(),
+    created: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+    description: z.string(),
+    hashedId: z.string(),
+    mediaCount: z.number().int(),
+    name: z.string(),
+    updated: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  });
 
 /** @internal */
-export const ChannelChannels$inboundSchema: z.ZodType<
-  ChannelChannels,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: z.number().int(),
-  created: z.string().datetime({ offset: true }).transform(v => new Date(v)),
-  description: z.string(),
-  hashedId: z.string(),
-  mediaCount: z.number().int(),
-  name: z.string(),
-  updated: z.string().datetime({ offset: true }).transform(v => new Date(v)),
-});
-
-/** @internal */
-export type ChannelChannels$Outbound = {
+export type Channel$Outbound = {
   id: number;
   created: string;
   description: string;
@@ -69,10 +62,10 @@ export type ChannelChannels$Outbound = {
 };
 
 /** @internal */
-export const ChannelChannels$outboundSchema: z.ZodType<
-  ChannelChannels$Outbound,
+export const Channel$outboundSchema: z.ZodType<
+  Channel$Outbound,
   z.ZodTypeDef,
-  ChannelChannels
+  Channel
 > = z.object({
   id: z.number().int(),
   created: z.date().transform(v => v.toISOString()),
@@ -81,55 +74,6 @@ export const ChannelChannels$outboundSchema: z.ZodType<
   mediaCount: z.number().int(),
   name: z.string(),
   updated: z.date().transform(v => v.toISOString()),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ChannelChannels$ {
-  /** @deprecated use `ChannelChannels$inboundSchema` instead. */
-  export const inboundSchema = ChannelChannels$inboundSchema;
-  /** @deprecated use `ChannelChannels$outboundSchema` instead. */
-  export const outboundSchema = ChannelChannels$outboundSchema;
-  /** @deprecated use `ChannelChannels$Outbound` instead. */
-  export type Outbound = ChannelChannels$Outbound;
-}
-
-export function channelChannelsToJSON(
-  channelChannels: ChannelChannels,
-): string {
-  return JSON.stringify(ChannelChannels$outboundSchema.parse(channelChannels));
-}
-
-export function channelChannelsFromJSON(
-  jsonString: string,
-): SafeParseResult<ChannelChannels, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ChannelChannels$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ChannelChannels' from JSON`,
-  );
-}
-
-/** @internal */
-export const Channel$inboundSchema: z.ZodType<Channel, z.ZodTypeDef, unknown> =
-  z.object({
-    channels: z.lazy(() => ChannelChannels$inboundSchema).optional(),
-  });
-
-/** @internal */
-export type Channel$Outbound = {
-  channels?: ChannelChannels$Outbound | undefined;
-};
-
-/** @internal */
-export const Channel$outboundSchema: z.ZodType<
-  Channel$Outbound,
-  z.ZodTypeDef,
-  Channel
-> = z.object({
-  channels: z.lazy(() => ChannelChannels$outboundSchema).optional(),
 });
 
 /**

@@ -15,5 +15,5 @@ let value: ProjectSharingSchemaProject = {
 
 | Field              | Type               | Required           | Description        | Example            |
 | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ |
-| `id`               | *number*           | :heavy_minus_sign: | N/A                | 13                 |
-| `name`             | *string*           | :heavy_minus_sign: | N/A                | My Project         |
+| `id`               | *number*           | :heavy_check_mark: | N/A                | 13                 |
+| `name`             | *string*           | :heavy_check_mark: | N/A                | My Project         |

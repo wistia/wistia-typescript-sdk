@@ -11,7 +11,7 @@ export type ExpiringAccessTokenResponse = {
   /**
    * A token which can be used to authorize requests to Wistia. Currently only for doing transcript embeds.
    */
-  token?: string | undefined;
+  token: string;
 };
 
 /** @internal */
@@ -20,12 +20,12 @@ export const ExpiringAccessTokenResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  token: z.string().optional(),
+  token: z.string(),
 });
 
 /** @internal */
 export type ExpiringAccessTokenResponse$Outbound = {
-  token?: string | undefined;
+  token: string;
 };
 
 /** @internal */
@@ -34,7 +34,7 @@ export const ExpiringAccessTokenResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ExpiringAccessTokenResponse
 > = z.object({
-  token: z.string().optional(),
+  token: z.string(),
 });
 
 /**
