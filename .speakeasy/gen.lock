@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 7b32ab6a-5908-41aa-b82f-7906605d30ce
 management:
-  docChecksum: 54f69e6a5d60e6eb9207c2b8364e5c4c
+  docChecksum: 6fdb8455ca2e478e81a6105fbb155ba7
   docVersion: 1.0.0
-  speakeasyVersion: 1.621.0
-  generationVersion: 2.707.0
-  releaseVersion: 2025.9.20
-  configChecksum: 18d53fea53add6f50319ecc4cefa0ef1
+  speakeasyVersion: 1.621.1
+  generationVersion: 2.708.2
+  releaseVersion: 2025.9.21
+  configChecksum: 6168ec889ca6c8af446ff94d29b39a04
   repoURL: https://github.com/speakeasy-sdks/wistia-typescript-sdk.git
   installationURL: https://github.com/speakeasy-sdks/wistia-typescript-sdk
   published: true
@@ -15,7 +15,7 @@ features:
     acceptHeaders: 2.81.2
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.1.12
-    core: 3.21.22
+    core: 3.21.23
     defaultEnabledRetries: 0.1.0
     deprecations: 2.81.1
     devContainers: 2.90.1
@@ -135,6 +135,7 @@ generatedFiles:
   - docs/models/mediaupdatestatus.md
   - docs/models/mediaupdatetag.md
   - docs/models/mediaupdatetype.md
+  - docs/models/operations/action.md
   - docs/models/operations/container.md
   - docs/models/operations/cursor.md
   - docs/models/operations/data.md
@@ -196,6 +197,12 @@ generatedFiles:
   - docs/models/operations/getstatseventsrequest.md
   - docs/models/operations/getstatsmediasmediaidbydaterequest.md
   - docs/models/operations/getstatsmediasmediaidbydateresponse.md
+  - docs/models/operations/getstatsmediasmediaidengagementrequest.md
+  - docs/models/operations/getstatsmediasmediaidengagementresponse.md
+  - docs/models/operations/getstatsmediasmediaidrequest.md
+  - docs/models/operations/getstatsmediasmediaidresponse.md
+  - docs/models/operations/getstatsprojectsprojectidrequest.md
+  - docs/models/operations/getstatsprojectsprojectidresponse.md
   - docs/models/operations/getstatsvisitorsrequest.md
   - docs/models/operations/getstatsvisitorsvisitorkeyrequest.md
   - docs/models/operations/gettagsrequest.md
@@ -338,6 +345,7 @@ generatedFiles:
   - docs/sdks/statsaccount/README.md
   - docs/sdks/statsevents/README.md
   - docs/sdks/statsmedia/README.md
+  - docs/sdks/statsprojects/README.md
   - docs/sdks/statsvisitors/README.md
   - docs/sdks/subfolders/README.md
   - docs/sdks/tags/README.md
@@ -414,7 +422,10 @@ generatedFiles:
   - src/funcs/statsAccountGet.ts
   - src/funcs/statsEventsGet.ts
   - src/funcs/statsEventsList.ts
+  - src/funcs/statsMediaGet.ts
   - src/funcs/statsMediaGetByDate.ts
+  - src/funcs/statsMediaGetEngagement.ts
+  - src/funcs/statsProjectsGet.ts
   - src/funcs/statsVisitorsGet.ts
   - src/funcs/statsVisitorsList.ts
   - src/funcs/subfoldersCreate.ts
@@ -546,7 +557,10 @@ generatedFiles:
   - src/models/operations/getstatsaccount.ts
   - src/models/operations/getstatsevents.ts
   - src/models/operations/getstatseventseventkey.ts
+  - src/models/operations/getstatsmediasmediaid.ts
   - src/models/operations/getstatsmediasmediaidbydate.ts
+  - src/models/operations/getstatsmediasmediaidengagement.ts
+  - src/models/operations/getstatsprojectsprojectid.ts
   - src/models/operations/getstatsvisitors.ts
   - src/models/operations/getstatsvisitorsvisitorkey.ts
   - src/models/operations/gettags.ts
@@ -622,6 +636,7 @@ generatedFiles:
   - src/sdk/statsaccount.ts
   - src/sdk/statsevents.ts
   - src/sdk/statsmedia.ts
+  - src/sdk/statsprojects.ts
   - src/sdk/statsvisitors.ts
   - src/sdk/subfolders.ts
   - src/sdk/tags.ts
@@ -2251,27 +2266,45 @@ examples:
           application/json: {"error": "Invalid credentials."}
         "500":
           application/json: {"error": "Internal server error"}
+  get_/stats/projects/{projectId}:
+    speakeasy-default-get-/stats/projects/{project-id}:
+      parameters:
+        path:
+          projectId: "<id>"
+      responses:
+        "200":
+          application/json: {}
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "500":
+          application/json: {"error": "Internal server error"}
+  get_/stats/medias/{mediaId}:
+    speakeasy-default-get-/stats/medias/{media-id}:
+      parameters:
+        path:
+          mediaId: "<id>"
+      responses:
+        "200":
+          application/json: {}
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "500":
+          application/json: {"error": "Internal server error"}
+  get_/stats/medias/{mediaId}/engagement:
+    speakeasy-default-get-/stats/medias/{media-id}/engagement:
+      parameters:
+        path:
+          mediaId: "<id>"
+      responses:
+        "200":
+          application/json: {}
+        "401":
+          application/json: {"error": "Invalid credentials."}
+        "500":
+          application/json: {"error": "Internal server error"}
 examplesVersion: 1.0.2
 releaseNotes: |
   ## Typescript SDK Changes Detected:
-  * `wistia.channels.channelEpisodes.list()`:  `response.[]` **Changed** **Breaking** :warning:
-  * `wistia.channelEpisodes.get()`:  `response` **Changed** **Breaking** :warning:
-  * `wistia.media.copy()`:  `response.subfolder` **Removed** **Breaking** :warning:
-  * `wistia.media.swap()`:  `response.media` **Changed** **Breaking** :warning:
-  * `wistia.projects.get()`:  `response.medias` **Changed** **Breaking** :warning:
-  * `wistia.subfolders.get()`:  `response.medias.[]` **Changed** **Breaking** :warning:
-  * `wistia.channelEpisodes.list()`:  `response.[]` **Changed** **Breaking** :warning:
-  * `wistia.channelEpisodes.create()`:  `response` **Changed** **Breaking** :warning:
-  * `wistia.search.search()`:  `response.data.medias.[]` **Changed** **Breaking** :warning:
-  * `wistia.media.update()`:  `response` **Changed** **Breaking** :warning:
-  * `wistia.media.delete()`:  `response` **Changed** **Breaking** :warning:
-  * `wistia.trims.create()`:  `request` **Changed** **Breaking** :warning:
-  * `wistia.channels.get()`:  `response` **Changed** **Breaking** :warning:
-  * `wistia.channels.list()`:  `response.[]` **Changed** **Breaking** :warning:
-  * `wistia.projectSharings.delete()`:  `response` **Changed**
-  * `wistia.projectSharings.update()`:  `response` **Changed**
-  * `wistia.projectSharings.get()`:  `response` **Changed**
-  * `wistia.projectSharings.create()`:  `response.sharing` **Changed**
-  * `wistia.projectSharings.list()`:  `response.[]` **Changed**
-  * `wistia.expiringAccessTokens.create()`:  `response.token` **Changed**
-  * `wistia.liveStreamEvents.create()`:  `response` **Changed**
+  * `wistia.statsProjects.get()`: **Added**
+  * `wistia.statsMedia.get()`: **Added**
+  * `wistia.statsMedia.getEngagement()`: **Added**
