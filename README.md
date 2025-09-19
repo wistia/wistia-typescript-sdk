@@ -257,7 +257,13 @@ run();
 
 ### [statsMedia](docs/sdks/statsmedia/README.md)
 
+* [get](docs/sdks/statsmedia/README.md#get) - Stats:Media Show
 * [getByDate](docs/sdks/statsmedia/README.md#getbydate) - Stats:Media By Date
+* [getEngagement](docs/sdks/statsmedia/README.md#getengagement) - Stats:Media Engagement
+
+### [statsProjects](docs/sdks/statsprojects/README.md)
+
+* [get](docs/sdks/statsprojects/README.md#get) - Stats:Projects Show
 
 ### [statsVisitors](docs/sdks/statsvisitors/README.md)
 
@@ -363,7 +369,10 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`statsAccountGet`](docs/sdks/statsaccount/README.md#get) - Stats:Account Show
 - [`statsEventsGet`](docs/sdks/statsevents/README.md#get) - Stats:Events Show
 - [`statsEventsList`](docs/sdks/statsevents/README.md#list) - Stats:Events List
+- [`statsMediaGet`](docs/sdks/statsmedia/README.md#get) - Stats:Media Show
 - [`statsMediaGetByDate`](docs/sdks/statsmedia/README.md#getbydate) - Stats:Media By Date
+- [`statsMediaGetEngagement`](docs/sdks/statsmedia/README.md#getengagement) - Stats:Media Engagement
+- [`statsProjectsGet`](docs/sdks/statsprojects/README.md#get) - Stats:Projects Show
 - [`statsVisitorsGet`](docs/sdks/statsvisitors/README.md#get) - Stats:Visitors Show
 - [`statsVisitorsList`](docs/sdks/statsvisitors/README.md#list) - Stats:Visitors List
 - [`subfoldersCreate`](docs/sdks/subfolders/README.md#create) - Create Subfolder
@@ -553,39 +562,39 @@ run();
 
 
 **Inherit from [`WistiaError`](./src/models/errors/wistiaerror.ts)**:
-* [`FourHundredAndFourError`](./src/models/errors/fourhundredandfourerror.ts): Resource not found. Status code `404`. Applicable to 24 of 74 methods.*
-* [`FourHundredError`](./src/models/errors/fourhundrederror.ts): Bad request. Status code `400`. Applicable to 6 of 74 methods.*
-* [`FourHundredAndTwentyTwoError`](./src/models/errors/fourhundredandtwentytwoerror.ts): Unprocessible entity, parameters provided were invalid. Status code `422`. Applicable to 2 of 74 methods.*
-* [`PostMultipartBadRequestError`](./src/models/errors/postmultipartbadrequesterror.ts): Error due to reaching the video limit of your account or other issues. Status code `400`. Applicable to 1 of 74 methods.*
-* [`PostFormBadRequestError`](./src/models/errors/postformbadrequesterror.ts): Error due to reaching the video limit of your account or other issues. Status code `400`. Applicable to 1 of 74 methods.*
-* [`PostMediasMediaHashedIdCopyBadRequestError`](./src/models/errors/postmediasmediahashedidcopybadrequesterror.ts): Bad request, e.g. copy failure. Status code `400`. Applicable to 1 of 74 methods.*
-* [`PutMediasMediaHashedIdSwapBadRequestError`](./src/models/errors/putmediasmediahashedidswapbadrequesterror.ts): Bad request, e.g. missing replacement_media_id or media type mismatch. Status code `400`. Applicable to 1 of 74 methods.*
-* [`PutMediasMoveBadRequestError`](./src/models/errors/putmediasmovebadrequesterror.ts): Invalid request. Status code `400`. Applicable to 1 of 74 methods.*
-* [`PostAllowedDomainsBadRequestError`](./src/models/errors/postalloweddomainsbadrequesterror.ts): Bad request - missing or invalid domain. Status code `400`. Applicable to 1 of 74 methods.*
-* [`PostTagsBadRequestError`](./src/models/errors/posttagsbadrequesterror.ts): Bad request - missing or invalid parameters. Status code `400`. Applicable to 1 of 74 methods.*
-* [`GetSearchBadRequestError`](./src/models/errors/getsearchbadrequesterror.ts): Bad request - missing query parameter. Status code `400`. Applicable to 1 of 74 methods.*
-* [`PutMediasArchiveForbiddenError`](./src/models/errors/putmediasarchiveforbiddenerror.ts): Forbidden, e.g. account does not have access to archiving. Status code `403`. Applicable to 1 of 74 methods.*
-* [`PutMediasRestoreForbiddenError`](./src/models/errors/putmediasrestoreforbiddenerror.ts): Forbidden, e.g. account does not have access to archiving. Status code `403`. Applicable to 1 of 74 methods.*
-* [`GetBackgroundJobStatusBackgroundJobStatusIdForbiddenError`](./src/models/errors/getbackgroundjobstatusbackgroundjobstatusidforbiddenerror.ts): Background Job Status Not Associated with An Authorized Object. Status code `403`. Applicable to 1 of 74 methods.*
-* [`PostLiveStreamEventsForbiddenError`](./src/models/errors/postlivestreameventsforbiddenerror.ts): Live streaming feature not available. Status code `403`. Applicable to 1 of 74 methods.*
-* [`GetProjectsProjectIdSubfoldersNotFoundError`](./src/models/errors/getprojectsprojectidsubfoldersnotfounderror.ts): Project not found. Status code `404`. Applicable to 1 of 74 methods.*
-* [`PostProjectsProjectIdSubfoldersNotFoundError`](./src/models/errors/postprojectsprojectidsubfoldersnotfounderror.ts): Project not found. Status code `404`. Applicable to 1 of 74 methods.*
-* [`GetProjectsProjectIdSubfoldersSubfolderIdNotFoundError`](./src/models/errors/getprojectsprojectidsubfolderssubfolderidnotfounderror.ts): Project or subfolder not found. Status code `404`. Applicable to 1 of 74 methods.*
-* [`PutProjectsProjectIdSubfoldersSubfolderIdNotFoundError`](./src/models/errors/putprojectsprojectidsubfolderssubfolderidnotfounderror.ts): Project or subfolder not found. Status code `404`. Applicable to 1 of 74 methods.*
-* [`DeleteProjectsProjectIdSubfoldersSubfolderIdNotFoundError`](./src/models/errors/deleteprojectsprojectidsubfolderssubfolderidnotfounderror.ts): Project or subfolder not found. Status code `404`. Applicable to 1 of 74 methods.*
-* [`GetAllowedDomainsDomainNotFoundError`](./src/models/errors/getalloweddomainsdomainnotfounderror.ts): Domain not found. Status code `404`. Applicable to 1 of 74 methods.*
-* [`DeleteAllowedDomainsDomainNotFoundError`](./src/models/errors/deletealloweddomainsdomainnotfounderror.ts): Domain not found. Status code `404`. Applicable to 1 of 74 methods.*
-* [`MethodNotAllowedError`](./src/models/errors/methodnotallowederror.ts): Method not allowed, e.g. trying to copy archived media. Status code `405`. Applicable to 1 of 74 methods.*
-* [`PostMediasMediaHashedIdTranslateUnprocessableEntityError`](./src/models/errors/postmediasmediahashedidtranslateunprocessableentityerror.ts): Unprocessible entity, parameters provided were invalid. Status code `422`. Applicable to 1 of 74 methods.*
-* [`PutMediasArchiveUnprocessableEntityError`](./src/models/errors/putmediasarchiveunprocessableentityerror.ts): Unprocessable entity, e.g. too many media requested. Status code `422`. Applicable to 1 of 74 methods.*
-* [`PutMediasRestoreUnprocessableEntityError`](./src/models/errors/putmediasrestoreunprocessableentityerror.ts): Missing arguments for restoration of media. Status code `422`. Applicable to 1 of 74 methods.*
-* [`PostMediasMediaHashedIdCaptionsPurchaseUnprocessableEntityError`](./src/models/errors/postmediasmediahashedidcaptionspurchaseunprocessableentityerror.ts): Unprocessable entity. Account not eligible, captions already purchased, or other validation error. Status code `422`. Applicable to 1 of 74 methods.*
-* [`PostMediasMediaHashedIdLocalizationsUnprocessableEntityError`](./src/models/errors/postmediasmediahashedidlocalizationsunprocessableentityerror.ts): Unprocessible entity, parameters provided were invalid. Status code `422`. Applicable to 1 of 74 methods.*
-* [`PostTagsUnprocessableEntityError`](./src/models/errors/posttagsunprocessableentityerror.ts): Validation error - tag already exists. Status code `422`. Applicable to 1 of 74 methods.*
-* [`PostLiveStreamEventsUnprocessableEntityError`](./src/models/errors/postlivestreameventsunprocessableentityerror.ts): Validation errors. Status code `422`. Applicable to 1 of 74 methods.*
-* [`PutLiveStreamEventsIdUnprocessableEntityError`](./src/models/errors/putlivestreameventsidunprocessableentityerror.ts): Validation errors. Status code `422`. Applicable to 1 of 74 methods.*
-* [`InternalServerError`](./src/models/errors/internalservererror.ts): Internal server error during event creation. Status code `500`. Applicable to 1 of 74 methods.*
-* [`NotImplementedError`](./src/models/errors/notimplementederror.ts): Not implemented - expiring tokens cannot be created from other expiring tokens. Status code `501`. Applicable to 1 of 74 methods.*
+* [`FourHundredAndFourError`](./src/models/errors/fourhundredandfourerror.ts): Resource not found. Status code `404`. Applicable to 24 of 77 methods.*
+* [`FourHundredError`](./src/models/errors/fourhundrederror.ts): Bad request. Status code `400`. Applicable to 6 of 77 methods.*
+* [`FourHundredAndTwentyTwoError`](./src/models/errors/fourhundredandtwentytwoerror.ts): Unprocessible entity, parameters provided were invalid. Status code `422`. Applicable to 2 of 77 methods.*
+* [`PostMultipartBadRequestError`](./src/models/errors/postmultipartbadrequesterror.ts): Error due to reaching the video limit of your account or other issues. Status code `400`. Applicable to 1 of 77 methods.*
+* [`PostFormBadRequestError`](./src/models/errors/postformbadrequesterror.ts): Error due to reaching the video limit of your account or other issues. Status code `400`. Applicable to 1 of 77 methods.*
+* [`PostMediasMediaHashedIdCopyBadRequestError`](./src/models/errors/postmediasmediahashedidcopybadrequesterror.ts): Bad request, e.g. copy failure. Status code `400`. Applicable to 1 of 77 methods.*
+* [`PutMediasMediaHashedIdSwapBadRequestError`](./src/models/errors/putmediasmediahashedidswapbadrequesterror.ts): Bad request, e.g. missing replacement_media_id or media type mismatch. Status code `400`. Applicable to 1 of 77 methods.*
+* [`PutMediasMoveBadRequestError`](./src/models/errors/putmediasmovebadrequesterror.ts): Invalid request. Status code `400`. Applicable to 1 of 77 methods.*
+* [`PostAllowedDomainsBadRequestError`](./src/models/errors/postalloweddomainsbadrequesterror.ts): Bad request - missing or invalid domain. Status code `400`. Applicable to 1 of 77 methods.*
+* [`PostTagsBadRequestError`](./src/models/errors/posttagsbadrequesterror.ts): Bad request - missing or invalid parameters. Status code `400`. Applicable to 1 of 77 methods.*
+* [`GetSearchBadRequestError`](./src/models/errors/getsearchbadrequesterror.ts): Bad request - missing query parameter. Status code `400`. Applicable to 1 of 77 methods.*
+* [`PutMediasArchiveForbiddenError`](./src/models/errors/putmediasarchiveforbiddenerror.ts): Forbidden, e.g. account does not have access to archiving. Status code `403`. Applicable to 1 of 77 methods.*
+* [`PutMediasRestoreForbiddenError`](./src/models/errors/putmediasrestoreforbiddenerror.ts): Forbidden, e.g. account does not have access to archiving. Status code `403`. Applicable to 1 of 77 methods.*
+* [`GetBackgroundJobStatusBackgroundJobStatusIdForbiddenError`](./src/models/errors/getbackgroundjobstatusbackgroundjobstatusidforbiddenerror.ts): Background Job Status Not Associated with An Authorized Object. Status code `403`. Applicable to 1 of 77 methods.*
+* [`PostLiveStreamEventsForbiddenError`](./src/models/errors/postlivestreameventsforbiddenerror.ts): Live streaming feature not available. Status code `403`. Applicable to 1 of 77 methods.*
+* [`GetProjectsProjectIdSubfoldersNotFoundError`](./src/models/errors/getprojectsprojectidsubfoldersnotfounderror.ts): Project not found. Status code `404`. Applicable to 1 of 77 methods.*
+* [`PostProjectsProjectIdSubfoldersNotFoundError`](./src/models/errors/postprojectsprojectidsubfoldersnotfounderror.ts): Project not found. Status code `404`. Applicable to 1 of 77 methods.*
+* [`GetProjectsProjectIdSubfoldersSubfolderIdNotFoundError`](./src/models/errors/getprojectsprojectidsubfolderssubfolderidnotfounderror.ts): Project or subfolder not found. Status code `404`. Applicable to 1 of 77 methods.*
+* [`PutProjectsProjectIdSubfoldersSubfolderIdNotFoundError`](./src/models/errors/putprojectsprojectidsubfolderssubfolderidnotfounderror.ts): Project or subfolder not found. Status code `404`. Applicable to 1 of 77 methods.*
+* [`DeleteProjectsProjectIdSubfoldersSubfolderIdNotFoundError`](./src/models/errors/deleteprojectsprojectidsubfolderssubfolderidnotfounderror.ts): Project or subfolder not found. Status code `404`. Applicable to 1 of 77 methods.*
+* [`GetAllowedDomainsDomainNotFoundError`](./src/models/errors/getalloweddomainsdomainnotfounderror.ts): Domain not found. Status code `404`. Applicable to 1 of 77 methods.*
+* [`DeleteAllowedDomainsDomainNotFoundError`](./src/models/errors/deletealloweddomainsdomainnotfounderror.ts): Domain not found. Status code `404`. Applicable to 1 of 77 methods.*
+* [`MethodNotAllowedError`](./src/models/errors/methodnotallowederror.ts): Method not allowed, e.g. trying to copy archived media. Status code `405`. Applicable to 1 of 77 methods.*
+* [`PostMediasMediaHashedIdTranslateUnprocessableEntityError`](./src/models/errors/postmediasmediahashedidtranslateunprocessableentityerror.ts): Unprocessible entity, parameters provided were invalid. Status code `422`. Applicable to 1 of 77 methods.*
+* [`PutMediasArchiveUnprocessableEntityError`](./src/models/errors/putmediasarchiveunprocessableentityerror.ts): Unprocessable entity, e.g. too many media requested. Status code `422`. Applicable to 1 of 77 methods.*
+* [`PutMediasRestoreUnprocessableEntityError`](./src/models/errors/putmediasrestoreunprocessableentityerror.ts): Missing arguments for restoration of media. Status code `422`. Applicable to 1 of 77 methods.*
+* [`PostMediasMediaHashedIdCaptionsPurchaseUnprocessableEntityError`](./src/models/errors/postmediasmediahashedidcaptionspurchaseunprocessableentityerror.ts): Unprocessable entity. Account not eligible, captions already purchased, or other validation error. Status code `422`. Applicable to 1 of 77 methods.*
+* [`PostMediasMediaHashedIdLocalizationsUnprocessableEntityError`](./src/models/errors/postmediasmediahashedidlocalizationsunprocessableentityerror.ts): Unprocessible entity, parameters provided were invalid. Status code `422`. Applicable to 1 of 77 methods.*
+* [`PostTagsUnprocessableEntityError`](./src/models/errors/posttagsunprocessableentityerror.ts): Validation error - tag already exists. Status code `422`. Applicable to 1 of 77 methods.*
+* [`PostLiveStreamEventsUnprocessableEntityError`](./src/models/errors/postlivestreameventsunprocessableentityerror.ts): Validation errors. Status code `422`. Applicable to 1 of 77 methods.*
+* [`PutLiveStreamEventsIdUnprocessableEntityError`](./src/models/errors/putlivestreameventsidunprocessableentityerror.ts): Validation errors. Status code `422`. Applicable to 1 of 77 methods.*
+* [`InternalServerError`](./src/models/errors/internalservererror.ts): Internal server error during event creation. Status code `500`. Applicable to 1 of 77 methods.*
+* [`NotImplementedError`](./src/models/errors/notimplementederror.ts): Not implemented - expiring tokens cannot be created from other expiring tokens. Status code `501`. Applicable to 1 of 77 methods.*
 * [`ResponseValidationError`](./src/models/errors/responsevalidationerror.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
 
 </details>
@@ -691,7 +700,7 @@ httpClient.addHook("requestError", (error, request) => {
   console.groupEnd();
 });
 
-const sdk = new Wistia({ httpClient });
+const sdk = new Wistia({ httpClient: httpClient });
 ```
 <!-- End Custom HTTP Client [http-client] -->
 

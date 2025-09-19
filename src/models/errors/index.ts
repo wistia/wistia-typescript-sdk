@@ -35,3 +35,4 @@ export * from "./putprojectsprojectidsubfolderssubfolderid.js";
 export * from "./responsevalidationerror.js";
 export * from "./sdkvalidationerror.js";
 export * from "./wistiadefaulterror.js";
+export * from "./wistiaerror.js";

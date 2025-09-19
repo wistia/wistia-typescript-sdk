@@ -1507,6 +1507,27 @@ actions:
             }
 
             run();
+  - target: $["paths"]["/stats/medias/{mediaId}"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: Typescript (SDK)
+          source: |-
+            import { Wistia } from "@wistia/wistia-api-client";
+
+            const wistia = new Wistia({
+              bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
+            });
+
+            async function run() {
+              const result = await wistia.statsMedia.get({
+                mediaId: "<id>",
+              });
+
+              console.log(result);
+            }
+
+            run();
   - target: $["paths"]["/stats/medias/{mediaId}/by_date"]["get"]
     update:
       x-codeSamples:
@@ -1525,6 +1546,48 @@ actions:
                 mediaId: "<id>",
                 startDate: new RFCDate("2024-02-21"),
                 endDate: new RFCDate("2024-02-23"),
+              });
+
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/stats/medias/{mediaId}/engagement"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: Typescript (SDK)
+          source: |-
+            import { Wistia } from "@wistia/wistia-api-client";
+
+            const wistia = new Wistia({
+              bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
+            });
+
+            async function run() {
+              const result = await wistia.statsMedia.getEngagement({
+                mediaId: "<id>",
+              });
+
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/stats/projects/{projectId}"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: Typescript (SDK)
+          source: |-
+            import { Wistia } from "@wistia/wistia-api-client";
+
+            const wistia = new Wistia({
+              bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
+            });
+
+            async function run() {
+              const result = await wistia.statsProjects.get({
+                projectId: "<id>",
               });
 
               console.log(result);
