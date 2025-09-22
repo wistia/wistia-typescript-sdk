@@ -6125,13 +6125,16 @@ components:
               type: string
             email:
               type: string
+              nullable: true
             org:
               type: object
               properties:
                 name:
                   type: string
+                  nullable: true
                 title:
                   type: string
+                  nullable: true
         user_agent_details:
           type: object
           properties:
@@ -6188,6 +6191,7 @@ components:
           description: Longitude based on IP.
         email:
           type: string
+          nullable: true
           description: Email of the viewer (if available).
         media_id:
           type: string
@@ -6217,7 +6221,9 @@ components:
             type:
               type: string
         conversion_type:
-          type: integer
+          oneOf:
+            - type: integer
+            - type: string
           description: Type of conversion.
         conversion_data:
           type: object

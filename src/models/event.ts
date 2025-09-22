@@ -18,6 +18,11 @@ export type EventThumbnail = {
 };
 
 /**
+ * Type of conversion.
+ */
+export type ConversionType = number | string;
+
+/**
  * Additional data related to the conversion.
  */
 export type ConversionData = {
@@ -89,7 +94,7 @@ export type Event = {
   /**
    * Email of the viewer (if available).
    */
-  email?: string | undefined;
+  email?: string | null | undefined;
   /**
    * Identifier for the video that was watched.
    */
@@ -110,7 +115,7 @@ export type Event = {
   /**
    * Type of conversion.
    */
-  conversionType?: number | undefined;
+  conversionType?: number | string | undefined;
   /**
    * Additional data related to the conversion.
    */
@@ -183,6 +188,50 @@ export function eventThumbnailFromJSON(
     jsonString,
     (x) => EventThumbnail$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'EventThumbnail' from JSON`,
+  );
+}
+
+/** @internal */
+export const ConversionType$inboundSchema: z.ZodType<
+  ConversionType,
+  z.ZodTypeDef,
+  unknown
+> = z.union([z.number().int(), z.string()]);
+
+/** @internal */
+export type ConversionType$Outbound = number | string;
+
+/** @internal */
+export const ConversionType$outboundSchema: z.ZodType<
+  ConversionType$Outbound,
+  z.ZodTypeDef,
+  ConversionType
+> = z.union([z.number().int(), z.string()]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ConversionType$ {
+  /** @deprecated use `ConversionType$inboundSchema` instead. */
+  export const inboundSchema = ConversionType$inboundSchema;
+  /** @deprecated use `ConversionType$outboundSchema` instead. */
+  export const outboundSchema = ConversionType$outboundSchema;
+  /** @deprecated use `ConversionType$Outbound` instead. */
+  export type Outbound = ConversionType$Outbound;
+}
+
+export function conversionTypeToJSON(conversionType: ConversionType): string {
+  return JSON.stringify(ConversionType$outboundSchema.parse(conversionType));
+}
+
+export function conversionTypeFromJSON(
+  jsonString: string,
+): SafeParseResult<ConversionType, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ConversionType$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ConversionType' from JSON`,
   );
 }
 
@@ -345,13 +394,13 @@ export const Event$inboundSchema: z.ZodType<Event, z.ZodTypeDef, unknown> = z
     city: z.string().optional(),
     lat: z.number().optional(),
     lon: z.number().optional(),
-    email: z.string().optional(),
+    email: z.nullable(z.string()).optional(),
     media_id: z.string().optional(),
     media_name: z.string().optional(),
     media_url: z.string().optional(),
     iframe_heatmap_url: z.string().optional(),
     thumbnail: z.lazy(() => EventThumbnail$inboundSchema).optional(),
-    conversion_type: z.number().int().optional(),
+    conversion_type: z.union([z.number().int(), z.string()]).optional(),
     conversion_data: z.lazy(() => ConversionData$inboundSchema).optional(),
     user_agent_details: z.lazy(() => EventUserAgentDetails$inboundSchema)
       .optional(),
@@ -386,13 +435,13 @@ export type Event$Outbound = {
   city?: string | undefined;
   lat?: number | undefined;
   lon?: number | undefined;
-  email?: string | undefined;
+  email?: string | null | undefined;
   media_id?: string | undefined;
   media_name?: string | undefined;
   media_url?: string | undefined;
   iframe_heatmap_url?: string | undefined;
   thumbnail?: EventThumbnail$Outbound | undefined;
-  conversion_type?: number | undefined;
+  conversion_type?: number | string | undefined;
   conversion_data?: ConversionData$Outbound | undefined;
   user_agent_details?: EventUserAgentDetails$Outbound | undefined;
 };
@@ -415,13 +464,13 @@ export const Event$outboundSchema: z.ZodType<
   city: z.string().optional(),
   lat: z.number().optional(),
   lon: z.number().optional(),
-  email: z.string().optional(),
+  email: z.nullable(z.string()).optional(),
   mediaId: z.string().optional(),
   mediaName: z.string().optional(),
   mediaUrl: z.string().optional(),
   iframeHeatmapUrl: z.string().optional(),
   thumbnail: z.lazy(() => EventThumbnail$outboundSchema).optional(),
-  conversionType: z.number().int().optional(),
+  conversionType: z.union([z.number().int(), z.string()]).optional(),
   conversionData: z.lazy(() => ConversionData$outboundSchema).optional(),
   userAgentDetails: z.lazy(() => EventUserAgentDetails$outboundSchema)
     .optional(),
