@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 7b32ab6a-5908-41aa-b82f-7906605d30ce
 management:
-  docChecksum: 6fdb8455ca2e478e81a6105fbb155ba7
+  docChecksum: 51f742909ef03a98b1b50b288678f7d4
   docVersion: 1.0.0
-  speakeasyVersion: 1.621.1
-  generationVersion: 2.708.2
-  releaseVersion: 2025.9.21
-  configChecksum: 6168ec889ca6c8af446ff94d29b39a04
+  speakeasyVersion: 1.622.1
+  generationVersion: 2.709.0
+  releaseVersion: 2025.9.23
+  configChecksum: 72d740814c94197db22acbb05b080ff4
   repoURL: https://github.com/speakeasy-sdks/wistia-typescript-sdk.git
   installationURL: https://github.com/speakeasy-sdks/wistia-typescript-sdk
   published: true
@@ -62,6 +62,7 @@ generatedFiles:
   - docs/models/channelepisode.md
   - docs/models/chapterlist.md
   - docs/models/conversiondata.md
+  - docs/models/conversiontype.md
   - docs/models/createchannelepisode.md
   - docs/models/createlivestreamevent.md
   - docs/models/createproject.md
@@ -2305,6 +2306,7 @@ examples:
 examplesVersion: 1.0.2
 releaseNotes: |
   ## Typescript SDK Changes Detected:
-  * `wistia.statsProjects.get()`: **Added**
-  * `wistia.statsMedia.get()`: **Added**
-  * `wistia.statsMedia.getEngagement()`: **Added**
+  * `wistia.statsVisitors.list()`:  `response.[].visitorIdentity` **Changed** **Breaking** :warning:
+  * `wistia.statsVisitors.get()`:  `response.visitor_identity` **Changed** **Breaking** :warning:
+  * `wistia.statsEvents.list()`:  `response.[]` **Changed** **Breaking** :warning:
+  * `wistia.statsEvents.get()`:  `response` **Changed** **Breaking** :warning:
