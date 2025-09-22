@@ -9,13 +9,13 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type Org = {
-  name?: string | undefined;
-  title?: string | undefined;
+  name?: string | null | undefined;
+  title?: string | null | undefined;
 };
 
 export type VisitorIdentity = {
   name?: string | undefined;
-  email?: string | undefined;
+  email?: string | null | undefined;
   org?: Org | undefined;
 };
 
@@ -58,21 +58,21 @@ export type Visitor = {
 /** @internal */
 export const Org$inboundSchema: z.ZodType<Org, z.ZodTypeDef, unknown> = z
   .object({
-    name: z.string().optional(),
-    title: z.string().optional(),
+    name: z.nullable(z.string()).optional(),
+    title: z.nullable(z.string()).optional(),
   });
 
 /** @internal */
 export type Org$Outbound = {
-  name?: string | undefined;
-  title?: string | undefined;
+  name?: string | null | undefined;
+  title?: string | null | undefined;
 };
 
 /** @internal */
 export const Org$outboundSchema: z.ZodType<Org$Outbound, z.ZodTypeDef, Org> = z
   .object({
-    name: z.string().optional(),
-    title: z.string().optional(),
+    name: z.nullable(z.string()).optional(),
+    title: z.nullable(z.string()).optional(),
   });
 
 /**
@@ -109,14 +109,14 @@ export const VisitorIdentity$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   name: z.string().optional(),
-  email: z.string().optional(),
+  email: z.nullable(z.string()).optional(),
   org: z.lazy(() => Org$inboundSchema).optional(),
 });
 
 /** @internal */
 export type VisitorIdentity$Outbound = {
   name?: string | undefined;
-  email?: string | undefined;
+  email?: string | null | undefined;
   org?: Org$Outbound | undefined;
 };
 
@@ -127,7 +127,7 @@ export const VisitorIdentity$outboundSchema: z.ZodType<
   VisitorIdentity
 > = z.object({
   name: z.string().optional(),
-  email: z.string().optional(),
+  email: z.nullable(z.string()).optional(),
   org: z.lazy(() => Org$outboundSchema).optional(),
 });
 
