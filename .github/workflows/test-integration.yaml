@@ -34,37 +34,8 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y ffmpeg
 
-    - name: Build library
-      run: npm run build
-
-    - name: Check for API key
-      id: check-api-key
-      run: |
-        if [ -z "${{ secrets.WISTIA_API_KEY }}" ]; then
-          echo "api_key_available=false" >> $GITHUB_OUTPUT
-          echo "⚠️ WISTIA_API_KEY secret not available - integration tests will be skipped"
-        else
-          echo "api_key_available=true" >> $GITHUB_OUTPUT
-          echo "✅ WISTIA_API_KEY secret available - running integration tests"
-        fi
-
     - name: Run integration tests
       if: steps.check-api-key.outputs.api_key_available == 'true'
       run: npm test
       env:
         WISTIA_API_KEY: ${{ secrets.WISTIA_API_KEY }}
-        
-    - name: Skip integration tests
-      if: steps.check-api-key.outputs.api_key_available == 'false'
-      run: |
-        echo "⏭️ Integration tests skipped due to missing WISTIA_API_KEY secret"
-        echo "This is expected for external contributions and forks"
-
-    - name: Upload test artifacts on failure
-      uses: actions/upload-artifact@v4
-      if: failure()
-      with:
-        name: test-logs
-        path: |
-          /tmp/wistia-sdk-test-*
-        retention-days: 7
