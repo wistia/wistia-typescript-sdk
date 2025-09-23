@@ -23,7 +23,7 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '18'
+        node-version: '22'
         cache: 'npm'
 
     - name: Install dependencies
@@ -48,13 +48,7 @@ jobs:
           echo "✅ WISTIA_API_KEY secret available - running integration tests"
         fi
 
-    # - name: Run integration tests (built version)
-    #   if: steps.check-api-key.outputs.api_key_available == 'true'
-    #   run: npm run test:built
-    #   env:
-    #     WISTIA_API_KEY: ${{ secrets.WISTIA_API_KEY }}
-        
-    - name: Run integration tests (TypeScript version)
+    - name: Run integration tests
       if: steps.check-api-key.outputs.api_key_available == 'true'
       run: npm test
       env:
