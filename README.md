@@ -8,11 +8,9 @@
 
 
 
-<!-- Start Summary [summary] -->
 ## Summary
 
-Data API: Wistia Data API
-<!-- End Summary [summary] -->
+This TypeScript SDK provides comprehensive programmatic access to the Wistia Data API, enabling developers to integrate with Wistia's video hosting and marketing platform. The SDK supports core video management operations including media upload, organization within projects and subfolders, caption and localization management, analytics and stats retrieval, live streaming events, and domain security controls. **Important:** This library is designed for server-side use only, as exposing bearer tokens in client-side applications is inherently insecure. For complete API documentation and platform guides, visit [docs.wistia.com](https://docs.wistia.com).
 
 <!-- Start Table of Contents [toc] -->
 ## Table of Contents
