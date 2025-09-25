@@ -19,6 +19,18 @@ The Wistia TypeScript SDK provides comprehensive programmatic access to the Wist
 
 For complete API documentation and platform guides, please visit [docs.wistia.com](https://docs.wistia.com).
 
+## Version note
+
+This SDK uses _date-based versioning_ instead of (but compliant with) traditional SemVer. A valid version looks like this:
+
+```
+2025.9.37
+```
+
+where the first number is the year, the second number is the month, and the third number is the sequential patch version released within the month. 
+
+Patch versions within each month should be completely backwards-compatible, but for additional security, feel free to pin to a patch version when installing the wrapper. Official releases are at the start of every odd-numbered month; these releases may be backwards-incompatible. Official releases are supported for a period of one year, after which their functionality is folded into the base API. You may still install versions of this library >1 year old, but they may not work!
+
 <!-- No Summary [summary] -->
 
 <!-- Start Table of Contents [toc] -->
@@ -26,6 +38,7 @@ For complete API documentation and platform guides, please visit [docs.wistia.co
 <!-- $toc-max-depth=2 -->
   * [Server-side only](#server-side-only)
   * [Official docs](#official-docs)
+  * [Version note](#version-note)
   * [SDK Installation](#sdk-installation)
   * [Requirements](#requirements)
   * [SDK Example Usage](#sdk-example-usage)

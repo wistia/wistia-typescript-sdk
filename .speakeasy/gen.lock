@@ -5,8 +5,8 @@ management:
   docVersion: 1.0.0
   speakeasyVersion: 1.628.7
   generationVersion: 2.716.9
-  releaseVersion: 2025.9.25
-  configChecksum: 4047c7b1f42a3148ea0aaa44f38be5ee
+  releaseVersion: 2025.9.26
+  configChecksum: 3f045fcf5e6cfd10cab5e6858ad42010
   repoURL: https://github.com/wistia/wistia-typescript-sdk.git
   installationURL: https://github.com/wistia/wistia-typescript-sdk
   published: true
