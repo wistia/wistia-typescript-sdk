@@ -1,0 +1,41 @@
+name: Integration Tests
+
+on:
+  workflow_call:
+    secrets:
+      WISTIA_API_KEY:
+        description: 'Wistia API key for integration tests'
+        required: true
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  integration-tests:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '22'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Install system dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y ffmpeg
+
+    - name: Run integration tests
+      if: steps.check-api-key.outputs.api_key_available == 'true'
+      run: npm test
+      env:
+        WISTIA_API_KEY: ${{ secrets.WISTIA_API_KEY }}
