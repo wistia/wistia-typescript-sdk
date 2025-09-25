@@ -7,16 +7,25 @@
 </div>
 
 
-
-<!-- Start Summary [summary] -->
 ## Summary
 
-Data API: Wistia Data API
-<!-- End Summary [summary] -->
+The Wistia TypeScript SDK provides comprehensive programmatic access to the Wistia Data, stats, and upload API, enabling developers to integrate with Wistia's video hosting and marketing platform. The SDK supports core video management operations including media upload, organization within projects and subfolders, caption and localization management, analytics and stats retrieval, live streaming events, and domain security controls. 
+
+## Server-side only
+
+**Important:** This library is designed for server-side use only, as exposing bearer tokens in client-side applications is inherently insecure. 
+
+## Official docs
+
+For complete API documentation and platform guides, please visit [docs.wistia.com](https://docs.wistia.com).
+
+<!-- No Summary [summary] -->
 
 <!-- Start Table of Contents [toc] -->
 ## Table of Contents
 <!-- $toc-max-depth=2 -->
+  * [Server-side only](#server-side-only)
+  * [Official docs](#official-docs)
   * [SDK Installation](#sdk-installation)
   * [Requirements](#requirements)
   * [SDK Example Usage](#sdk-example-usage)
@@ -61,10 +70,7 @@ bun add @wistia/wistia-api-client
 ### Yarn
 
 ```bash
-yarn add @wistia/wistia-api-client zod
-
-# Note that Yarn does not install peer dependencies automatically. You will need
-# to install zod as shown above.
+yarn add @wistia/wistia-api-client
 ```
 
 > [!NOTE]
