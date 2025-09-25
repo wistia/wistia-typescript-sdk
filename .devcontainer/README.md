@@ -1,6 +1,6 @@
 
 <div align="center">
-    <a href="https://codespaces.new/speakeasy-sdks/wistia-typescript-sdk.git/tree/main"><img src="https://github.com/codespaces/badge.svg" /></a>
+    <a href="https://codespaces.new/wistia/wistia-typescript-sdk.git/tree/main"><img src="https://github.com/codespaces/badge.svg" /></a>
 </div>
 <br>
 
