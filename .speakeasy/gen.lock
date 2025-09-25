@@ -7,8 +7,8 @@ management:
   generationVersion: 2.709.0
   releaseVersion: 2025.9.23
   configChecksum: 72d740814c94197db22acbb05b080ff4
-  repoURL: https://github.com/speakeasy-sdks/wistia-typescript-sdk.git
-  installationURL: https://github.com/speakeasy-sdks/wistia-typescript-sdk
+  repoURL: https://github.com/wistia/wistia-typescript-sdk.git
+  installationURL: https://github.com/wistia/wistia-typescript-sdk
   published: true
 features:
   typescript:
