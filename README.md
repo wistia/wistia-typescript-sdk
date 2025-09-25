@@ -19,9 +19,13 @@ The Wistia TypeScript SDK provides comprehensive programmatic access to the Wist
 
 For complete API documentation and platform guides, please visit [docs.wistia.com](https://docs.wistia.com).
 
+<!-- No Summary [summary] -->
+
 <!-- Start Table of Contents [toc] -->
 ## Table of Contents
 <!-- $toc-max-depth=2 -->
+  * [Server-side only](#server-side-only)
+  * [Official docs](#official-docs)
   * [SDK Installation](#sdk-installation)
   * [Requirements](#requirements)
   * [SDK Example Usage](#sdk-example-usage)
@@ -66,10 +70,7 @@ bun add @wistia/wistia-api-client
 ### Yarn
 
 ```bash
-yarn add @wistia/wistia-api-client zod
-
-# Note that Yarn does not install peer dependencies automatically. You will need
-# to install zod as shown above.
+yarn add @wistia/wistia-api-client
 ```
 
 > [!NOTE]

@@ -3,10 +3,10 @@ id: 7b32ab6a-5908-41aa-b82f-7906605d30ce
 management:
   docChecksum: 51f742909ef03a98b1b50b288678f7d4
   docVersion: 1.0.0
-  speakeasyVersion: 1.622.1
-  generationVersion: 2.709.0
-  releaseVersion: 2025.9.23
-  configChecksum: 72d740814c94197db22acbb05b080ff4
+  speakeasyVersion: 1.628.7
+  generationVersion: 2.716.9
+  releaseVersion: 2025.9.24
+  configChecksum: 729caaa103c45d8c2f7c47704917fd74
   repoURL: https://github.com/speakeasy-sdks/wistia-typescript-sdk.git
   installationURL: https://github.com/speakeasy-sdks/wistia-typescript-sdk
   published: true
@@ -15,7 +15,7 @@ features:
     acceptHeaders: 2.81.2
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.1.12
-    core: 3.21.23
+    core: 3.21.25
     defaultEnabledRetries: 0.1.0
     deprecations: 2.81.1
     devContainers: 2.90.1
@@ -33,7 +33,7 @@ features:
     responseFormat: 0.2.3
     retries: 2.83.0
     sdkHooks: 0.3.0
-    unions: 2.85.11
+    unions: 2.85.12
     uploadStreams: 0.1.0
 generatedFiles:
   - .devcontainer/README.md
@@ -2304,9 +2304,3 @@ examples:
         "500":
           application/json: {"error": "Internal server error"}
 examplesVersion: 1.0.2
-releaseNotes: |
-  ## Typescript SDK Changes Detected:
-  * `wistia.statsVisitors.list()`:  `response.[].visitorIdentity` **Changed** **Breaking** :warning:
-  * `wistia.statsVisitors.get()`:  `response.visitor_identity` **Changed** **Breaking** :warning:
-  * `wistia.statsEvents.list()`:  `response.[]` **Changed** **Breaking** :warning:
-  * `wistia.statsEvents.get()`:  `response` **Changed** **Breaking** :warning:
