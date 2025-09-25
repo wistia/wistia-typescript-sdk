@@ -35,6 +35,6 @@ jobs:
         sudo apt-get install -y ffmpeg
 
     - name: Run integration tests
-      run: npm test
+      run: ./node_modules/.bin/tsx --test test/integration.test.ts
       env:
         WISTIA_API_KEY: ${{ secrets.WISTIA_API_KEY }}
