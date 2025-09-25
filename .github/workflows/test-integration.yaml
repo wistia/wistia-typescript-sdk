@@ -35,7 +35,6 @@ jobs:
         sudo apt-get install -y ffmpeg
 
     - name: Run integration tests
-      if: steps.check-api-key.outputs.api_key_available == 'true'
       run: npm test
       env:
         WISTIA_API_KEY: ${{ secrets.WISTIA_API_KEY }}
