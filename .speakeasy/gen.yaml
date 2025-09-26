@@ -26,10 +26,14 @@ generation:
     generateNewTests: true
     skipResponseBodyAssertions: false
 typescript:
-  version: 2025.9.26
+  version: 2025.9.27
   additionalDependencies:
     dependencies: {}
-    devDependencies: {}
+    devDependencies:
+      dotenv: ^17.2.2
+      tsx: ^4.20.5
+      typescript-eslint: ^8.26.0
+      uuid: ^13.0.0
     peerDependencies: {}
   additionalPackageJSON: {}
   author: Speakeasy
