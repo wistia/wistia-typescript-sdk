@@ -19,7 +19,6 @@ jobs:
       WISTIA_API_KEY: ${{ secrets.WISTIA_API_KEY }}
 
   publish:
-    environment: release
     needs: integration-tests
     uses: speakeasy-api/sdk-generation-action/.github/workflows/sdk-publish.yaml@v15
     with:
