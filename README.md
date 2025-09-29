@@ -13,7 +13,7 @@ The Wistia TypeScript SDK provides comprehensive programmatic access to the Wist
 
 ## Server-side only
 
-**Important:** This library is designed for server-side use only, as exposing bearer tokens in client-side applications is inherently insecure. 
+**Important:** Please do not use this library in a client context, as exposing bearer tokens in client-side applications is inherently insecure.
 
 ## Official docs
 
@@ -21,15 +21,7 @@ For complete API documentation and platform guides, please visit [docs.wistia.co
 
 ## Version note
 
-This SDK uses _date-based versioning_ instead of (but compliant with) traditional SemVer. A valid version looks like this:
-
-```
-2025.9.37
-```
-
-where the first number is the year, the second number is the month, and the third number is the sequential patch version released within the month. 
-
-Patch versions within each month should be completely backwards-compatible, but for additional security, feel free to pin to a patch version when installing the wrapper. Official releases are at the start of every odd-numbered month; these releases may be backwards-incompatible. Official releases are supported for a period of one year, after which their functionality is folded into the base API. You may still install versions of this library >1 year old, but they may not work!
+This SDK wrapper is currently in **beta**; functionality is subject to change. When released, the API will use a date-based versioning system instead of (but compliant with) SemVer.
 
 <!-- No Summary [summary] -->
 
