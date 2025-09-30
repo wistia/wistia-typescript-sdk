@@ -15,6 +15,12 @@ import { join } from 'node:path';
 import { v4 as uuidv4 } from 'uuid';
 import { GetAcceptEnum } from '../src/sdk/captions.js';
 
+function log(...args: any[]) {
+  if (process.env['DEBUG'] === 'true') {
+    console.log(...args);
+  }
+}
+
 const execAsync = promisify(exec);
 dotenv.config();
 
@@ -23,9 +29,9 @@ function handleError(callback: () => Promise<void>, message: string) {
     callback();
   } catch (error: unknown) {
     if (error instanceof Error) {
-      console.log(`⚠️  ${message}:`, error.message);
+      log(`⚠️  ${message}:`, error.message);
     } else {
-      console.log(`⚠️  ${message}:`, error);
+      log(`⚠️  ${message}:`, error);
     }
   }
 }
@@ -79,14 +85,14 @@ const tempDir = join(tmpdir(), `wistia-sdk-test-${testId}`);
 const localFiles: string[] = []; 
 
 async function cleanup() {
-  console.log('\n🧹 Cleaning up test resources...');
+  log('\n🧹 Cleaning up test resources...');
 
   handleError(async () => {
     for (const file of localFiles) {
       await rm(file, { force: true });
     }
     await rm(tempDir, { recursive: true, force: true });
-    console.log('✅ Cleaned up local files');
+    log('✅ Cleaned up local files');
   }, 'Failed to clean up local files');
 
   handleError(async () => {
@@ -95,7 +101,7 @@ async function cleanup() {
         mediaHashedId: testResources.media.hashedId,
         languageCode: 'eng',
       });
-      console.log('✅ Deleted captions');
+      log('✅ Deleted captions');
     }
   }, 'Failed to delete captions');
 
@@ -104,7 +110,7 @@ async function cleanup() {
       await wistia.customizations.delete({
         mediaId: testResources.media.hashedId,
       });
-      console.log('✅ Deleted customization');
+      log('✅ Deleted customization');
     }
   }, 'Failed to delete customization');
 
@@ -114,7 +120,7 @@ async function cleanup() {
       await wistia.liveStreamEvents.delete({
         id: testResources.liveStreamEvent.id,
       });
-      console.log('✅ Deleted live stream event');
+      log('✅ Deleted live stream event');
     }
   }, 'Failed to delete live stream event');
 
@@ -124,7 +130,7 @@ async function cleanup() {
       await wistia.allowedDomains.delete({
         domain: testResources.allowedDomain.domain,
       });
-      console.log('✅ Deleted allowed domain');
+      log('✅ Deleted allowed domain');
     }
   }, 'Failed to delete allowed domain');
 
@@ -134,7 +140,7 @@ async function cleanup() {
       await wistia.tags.delete({
         name: testResources.tag.name,
       });
-      console.log('✅ Deleted tag');
+      log('✅ Deleted tag');
     }
   }, 'Failed to delete tag');
 
@@ -143,7 +149,7 @@ async function cleanup() {
       await wistia.media.delete({
         mediaHashedId: testResources.media.hashedId,
       });
-      console.log('✅ Deleted media');
+      log('✅ Deleted media');
     }
   }, 'Failed to delete media');
 
@@ -153,7 +159,7 @@ async function cleanup() {
         projectId: testResources.project.hashedId,
         subfolderId: testResources.subfolder.hashedId,
       });
-      console.log('✅ Deleted subfolder');
+      log('✅ Deleted subfolder');
     }
   }, 'Failed to delete subfolder');
 
@@ -162,11 +168,11 @@ async function cleanup() {
       await wistia.projects.delete({
         id: testResources.project.hashedId,
       });
-      console.log('✅ Deleted project');
+      log('✅ Deleted project');
     }
   }, 'Failed to delete project');
 
-  console.log('✅ Cleaned up test resources');
+  log('✅ Cleaned up test resources');
 }
 
 describe('Wistia SDK Integration Tests', () => {
@@ -179,7 +185,7 @@ describe('Wistia SDK Integration Tests', () => {
       const account = await wistia.account.get();
       assert.ok(account, 'Account info should be returned');
       assert.ok(account.name, 'Account should have a name');
-      console.log(`✅ Account: ${account.name}`);
+      log(`✅ Account: ${account.name}`);
     });
   });
 
@@ -194,7 +200,7 @@ describe('Wistia SDK Integration Tests', () => {
       testResources.project = project;
       assert.ok(project.hashedId, 'Project should have a hashedId');
       assert.strictEqual(project.name, `${testPrefix}-Project`);
-      console.log(`✅ Created project: ${project.name} (${project.hashedId})`);
+      log(`✅ Created project: ${project.name} (${project.hashedId})`);
     });
 
     it('should get project info', async () => {
@@ -206,7 +212,7 @@ describe('Wistia SDK Integration Tests', () => {
 
       assert.strictEqual(project.hashedId, testResources.project.hashedId);
       assert.strictEqual(project.name, `${testPrefix}-Project`);
-      console.log(`✅ Retrieved project: ${project.name} ${project.hashedId}`);
+      log(`✅ Retrieved project: ${project.name} ${project.hashedId}`);
     });
 
     it('should update project description', async () => {
@@ -221,7 +227,7 @@ describe('Wistia SDK Integration Tests', () => {
 
       assert.strictEqual(updatedProject.hashedId, testResources.project.hashedId);
       assert.strictEqual(updatedProject.description, `${testPrefix} - Integration test project for SDK validation`);
-      console.log(`✅ Updated project description: ${updatedProject.description}`);
+      log(`✅ Updated project description: ${updatedProject.description}`);
     });
 
     it('should list projects and find our created project', async () => {
@@ -240,17 +246,17 @@ describe('Wistia SDK Integration Tests', () => {
       assert.ok(project, 'Project should exist');
 
       assert.strictEqual(project.hashedId, testResources.project.hashedId, 'Should return our created project as the newest');
-      console.log(`✅ Listed projects, found our project: ${project.name}`);
+      log(`✅ Listed projects, found our project: ${project.name}`);
     });
   });
 
   describe('Subfolder Operations', () => {
     it('should create a subfolder in the project', async () => {
       assert.ok(testResources.project, 'Project should exist');
-      console.log('Project for subfolder creation:', JSON.stringify(testResources.project, null, 2));
+      log('Project for subfolder creation:', JSON.stringify(testResources.project, null, 2));
 
       const subfolder = await wistia.subfolders.create({
-        projectId: testResources.project.hashedId, // Try hashedId first
+        projectId: testResources.project.hashedId,
         subfolderInput: {
           name: `${testPrefix}-Subfolder`,
           description: 'Test subfolder for SDK integration',
@@ -260,7 +266,7 @@ describe('Wistia SDK Integration Tests', () => {
       testResources.subfolder = subfolder;
       assert.ok(subfolder.hashedId, 'Subfolder should have a hashedId');
       assert.strictEqual(subfolder.name, `${testPrefix}-Subfolder`);
-      console.log(`✅ Created subfolder: ${subfolder.name} (${subfolder.hashedId})`);
+      log(`✅ Created subfolder: ${subfolder.name} (${subfolder.hashedId})`);
     });
 
     it('should get subfolder info', async () => {
@@ -273,7 +279,7 @@ describe('Wistia SDK Integration Tests', () => {
 
       assert.strictEqual(subfolder.hashedId, testResources.subfolder.hashedId);
       assert.strictEqual(subfolder.name, `${testPrefix}-Subfolder`);
-      console.log(`✅ Retrieved subfolder: ${subfolder.name}`);
+      log(`✅ Retrieved subfolder: ${subfolder.name}`);
     });
 
     it('should list project subfolders', async () => {
@@ -289,7 +295,7 @@ describe('Wistia SDK Integration Tests', () => {
 
       const ourSubfolder = subfolders.find(s => s.hashedId === subfolder.hashedId);
       assert.ok(ourSubfolder, 'Should find our created subfolder');
-      console.log(`✅ Listed ${subfolders.length} subfolder(s) in project`);
+      log(`✅ Listed ${subfolders.length} subfolder(s) in project`);
     });
   });
 
@@ -297,9 +303,9 @@ describe('Wistia SDK Integration Tests', () => {
     let videoFile: string;
 
     before(async () => {
-      console.log('🎬 Generating test video...');
+      log('🎬 Generating test video...');
       videoFile = await generateTestVideo();
-      console.log(`✅ Generated video: ${videoFile}`);
+      log(`✅ Generated video: ${videoFile}`);
     });
 
     it('should upload media to project', async () => {
@@ -314,12 +320,11 @@ describe('Wistia SDK Integration Tests', () => {
       });
 
       testResources.media = media;
-      console.log('Media upload response:', JSON.stringify(media, null, 2));
+      log('Media upload response:', JSON.stringify(media, null, 2));
       assert.ok(media.hashedId, 'Media should have a hashedId');
-      console.log(`✅ Uploaded media: ${media.name} (${media.hashedId})`);
+      log(`✅ Uploaded media: ${media.name} (${media.hashedId})`);
 
-      // Wait for media processing to complete
-      console.log('⏳ Waiting for media processing...');
+      log('⏳ Waiting for media processing...');
       await new Promise(resolve => setTimeout(resolve, 30000));
     });
 
@@ -332,7 +337,7 @@ describe('Wistia SDK Integration Tests', () => {
       });
 
       assert.strictEqual(media.hashedId, testResources.media.hashedId);
-      console.log(`✅ Retrieved media: ${media.name}`);
+      log(`✅ Retrieved media: ${media.name}`);
     });
 
     it('should list medias and find our uploaded media', async () => {
@@ -351,14 +356,14 @@ describe('Wistia SDK Integration Tests', () => {
       assert.ok(media, 'Media should exist');
 
       assert.strictEqual(media.hashedId, testResources.media.hashedId, 'Should return our uploaded media as the newest');
-      console.log(`✅ Listed medias, found our media: ${media.name}`);
+      log(`✅ Listed medias, found our media: ${media.name}`);
     });
 
     it('should move media to subfolder', async () => {
       assert.ok(testResources.media && testResources.subfolder && testResources.project, 'Media, subfolder and project should exist');
       assert.ok(testResources.media.hashedId, 'Media should have a hashedId');
 
-      console.log(`Moving media ${testResources.media.hashedId} to subfolder ${testResources.subfolder.hashedId}`);
+      log(`Moving media ${testResources.media.hashedId} to subfolder ${testResources.subfolder.hashedId}`);
 
       await wistia.media.move({
         hashedIds: [testResources.media.hashedId],
@@ -366,7 +371,7 @@ describe('Wistia SDK Integration Tests', () => {
         subfolderId: testResources.subfolder.hashedId,
       });
 
-      console.log(`✅ Moved media to subfolder`);
+      log(`✅ Moved media to subfolder`);
     });
 
     it('should verify media is in subfolder', async () => {
@@ -384,11 +389,11 @@ describe('Wistia SDK Integration Tests', () => {
       });
 
       assert.ok(subfolder.medias, 'Subfolder should have medias');
-      console.log(`✅ Project media count: ${project.mediaCount}, Subfolder media count: ${subfolder.medias.length}`);
+      log(`✅ Project media count: ${project.mediaCount}, Subfolder media count: ${subfolder.medias.length}`);
 
       const mediaInSubfolder = subfolder.medias?.find(m => m.hashedId === media.hashedId);
       assert.ok(mediaInSubfolder, 'Media should be in subfolder');
-      console.log(`✅ Media is in subfolder: ${mediaInSubfolder.name}`);
+      log(`✅ Media is in subfolder: ${mediaInSubfolder.name}`);
     });
   });
 
@@ -414,7 +419,7 @@ describe('Wistia SDK Integration Tests', () => {
 
       testResources.hasCustomization = true;
       assert.ok(customization, 'Customization should be created');
-      console.log(`✅ Created customization for media`);
+      log(`✅ Created customization for media`);
     });
 
     it('should update media customization', async () => {
@@ -437,7 +442,7 @@ describe('Wistia SDK Integration Tests', () => {
       });
 
       assert.ok(customization, 'Customization should be updated');
-      console.log(`✅ Updated customization for media`);
+      log(`✅ Updated customization for media`);
     });
 
     it('should get media customization', async () => {
@@ -448,11 +453,11 @@ describe('Wistia SDK Integration Tests', () => {
         mediaId: testResources.media.hashedId,
       });
 
-      console.log('Customization response:', JSON.stringify(customization, null, 2));
+      log('Customization response:', JSON.stringify(customization, null, 2));
       assert.ok(customization, 'Customization should be retrieved');
 
       assert.strictEqual(customization.plugin?.postRollV1?.style?.backgroundColor, "#00ff00");
-      console.log(`✅ Retrieved customization with updated background color`);
+      log(`✅ Retrieved customization with updated background color`);
     });
   });
 
@@ -464,22 +469,20 @@ describe('Wistia SDK Integration Tests', () => {
       await writeFile(srtFilename, srtContent);
       localFiles.push(srtFilename);
 
-      // handleError(async () => {
-        assert.ok(testResources.media, 'Media should exist');  
-        assert.ok(testResources.media.hashedId, 'Media should have a hashedId');
+      assert.ok(testResources.media, 'Media should exist');  
+      assert.ok(testResources.media.hashedId, 'Media should have a hashedId');
 
-        const captionResult = await wistia.captions.createMultipart({
-          mediaHashedId: testResources.media.hashedId,
-          requestBody: {
-            language: 'eng',
-            captionFile: await openAsBlob(srtFilename),
-          },
-        });
+      const captionResult = await wistia.captions.createMultipart({
+        mediaHashedId: testResources.media.hashedId,
+        requestBody: {
+          language: 'eng',
+          captionFile: await openAsBlob(srtFilename),
+        },
+      });
 
-        console.log('Caption creation result (multipart):', JSON.stringify(captionResult, null, 2));
-        testResources.hasCaptions = true;
-        console.log(`✅ Created captions for media using multipart`);
-      // }, 'Failed to create captions for media');
+      log('Caption creation result (multipart):', JSON.stringify(captionResult, null, 2));
+      testResources.hasCaptions = true;
+      log(`✅ Created captions for media using multipart`);
     });
 
     it('should list captions for media', async () => {
@@ -494,7 +497,7 @@ describe('Wistia SDK Integration Tests', () => {
 
       assert.ok(Array.isArray(captionsList), 'Should return array of captions');
       assert.ok(captionsList.length > 0, 'Should have at least one caption');
-      console.log(`✅ Listed ${captionsList.length} caption(s) for media`);
+      log(`✅ Listed ${captionsList.length} caption(s) for media`);
     });
 
     it('should update captions for media', async () => {
@@ -512,16 +515,16 @@ describe('Wistia SDK Integration Tests', () => {
         },
       });
 
-      console.log(`✅ Updated captions for media`);
+      log(`✅ Updated captions for media`);
     });
 
-    it('should get captions for media', async () => { // TODO fix
+    it('should get captions for media', async () => {
       assert.ok(testResources.media, 'Media should exist');
       assert.ok(testResources.hasCaptions, 'Captions should exist');
 
       assert.ok(testResources.media.hashedId, 'Media should have a hashedId'); 
 
-      console.log('Waiting for captions to be processed...');
+      log('Waiting for captions to be processed...');
       await new Promise(resolve => setTimeout(resolve, 30000));
 
       const captions: GetMediasMediaHashedIdCaptionsLanguageCodeResponse = await wistia.captions.get({
@@ -531,11 +534,11 @@ describe('Wistia SDK Integration Tests', () => {
         acceptHeaderOverride: GetAcceptEnum.applicationJson,
       }) as Caption;
 
-      console.log('Captions response:', JSON.stringify(captions, null, 2));
+      log('Captions response:', JSON.stringify(captions, null, 2));
 
       assert.ok(captions, 'Captions should be retrieved');
       assert.ok(captions.text?.includes('version 2'), 'Captions should contain updated content');
-      console.log(`✅ Retrieved updated captions`);
+      log(`✅ Retrieved updated captions`);
     });
   });
 
@@ -549,7 +552,7 @@ describe('Wistia SDK Integration Tests', () => {
 
       testResources.tag = tag;
       assert.strictEqual(tag.name, tagName);
-      console.log(`✅ Created tag: ${tag.name}`);
+      log(`✅ Created tag: ${tag.name}`);
     });
 
     it('should update media with tag', async () => {
@@ -557,8 +560,8 @@ describe('Wistia SDK Integration Tests', () => {
       assert.ok(testResources.media.hashedId, 'Media should have a hashedId');
       assert.ok(testResources.tag.name, 'Tag should exist');
 
-      console.log('Media for tagging:', JSON.stringify(testResources.media, null, 2));
-      console.log(testResources.media.hashedId);
+      log('Media for tagging:', JSON.stringify(testResources.media, null, 2));
+      log(testResources.media.hashedId);
 
       await wistia.media.update({
         mediaHashedId: testResources.media.hashedId,
@@ -567,7 +570,7 @@ describe('Wistia SDK Integration Tests', () => {
         },
       });
 
-      console.log(`✅ Tagged media with: ${testResources.tag.name}`);
+      log(`✅ Tagged media with: ${testResources.tag.name}`);
     });
 
     it('should filter media by tag', async () => {
@@ -577,7 +580,6 @@ describe('Wistia SDK Integration Tests', () => {
 
       const media = testResources.media;
 
-      // Wait a moment for the tag to be indexed
       await new Promise(resolve => setTimeout(resolve, 2000));
 
       const medias = await wistia.media.list({
@@ -589,15 +591,14 @@ describe('Wistia SDK Integration Tests', () => {
 
       const taggedMedia = medias.find(m => m.hashedId === media.hashedId);
       assert.ok(taggedMedia, 'Should find our tagged media');
-      console.log(`✅ Found ${medias.length} media(s) with tag: ${testResources.tag.name}`);
+      log(`✅ Found ${medias.length} media(s) with tag: ${testResources.tag.name}`);
     });
   });
 
   describe('Live Stream Event Operations', () => {
     it('should create a live stream event', async () => {
-      // Create a future date for the live stream event
       const scheduledFor = new Date();
-      scheduledFor.setDate(scheduledFor.getDate() + 7); // 7 days from now
+      scheduledFor.setDate(scheduledFor.getDate() + 7);
 
       const liveStreamEvent = await wistia.liveStreamEvents.create({
         title: `${testPrefix} - Live Stream Event`,
@@ -609,7 +610,7 @@ describe('Wistia SDK Integration Tests', () => {
       testResources.liveStreamEvent = liveStreamEvent;
       assert.ok(liveStreamEvent.id, 'Live stream event should have an ID');
       assert.strictEqual(liveStreamEvent.title, `${testPrefix} - Live Stream Event`);
-      console.log(`✅ Created live stream event: ${liveStreamEvent.title} (${liveStreamEvent.id})`);
+      log(`✅ Created live stream event: ${liveStreamEvent.title} (${liveStreamEvent.id})`);
     });
 
     it('should list live stream events and find our created event', async () => {
@@ -622,7 +623,7 @@ describe('Wistia SDK Integration Tests', () => {
 
       const ourEvent = liveStreamEvents.find(event => event.id === liveStreamEvent.id);
       assert.ok(ourEvent, 'Should find our created live stream event');
-      console.log(`✅ Listed live stream events, found our event: ${ourEvent.title}`);
+      log(`✅ Listed live stream events, found our event: ${ourEvent.title}`);
     });
 
     it('should get live stream event info', async () => {
@@ -634,15 +635,14 @@ describe('Wistia SDK Integration Tests', () => {
 
       assert.strictEqual(liveStreamEvent.id, testResources.liveStreamEvent.id);
       assert.strictEqual(liveStreamEvent.title, `${testPrefix} - Live Stream Event`);
-      console.log(`✅ Retrieved live stream event: ${liveStreamEvent.title}`);
+      log(`✅ Retrieved live stream event: ${liveStreamEvent.title}`);
     });
 
     it('should update live stream event', async () => {
       assert.ok(testResources.liveStreamEvent, 'Live stream event should exist');
 
-      // Create a new future date for the update
       const newScheduledFor = new Date();
-      newScheduledFor.setDate(newScheduledFor.getDate() + 14); // 14 days from now
+      newScheduledFor.setDate(newScheduledFor.getDate() + 14);
 
       const updatedEvent = await wistia.liveStreamEvents.update({
         id: testResources.liveStreamEvent.id,
@@ -659,9 +659,8 @@ describe('Wistia SDK Integration Tests', () => {
       assert.strictEqual(updatedEvent.id, testResources.liveStreamEvent.id);
       assert.strictEqual(updatedEvent.title, `${testPrefix} - Updated Live Stream Event`);
       assert.strictEqual(updatedEvent.eventDuration, 90);
-      console.log(`✅ Updated live stream event: ${updatedEvent.title}`);
+      log(`✅ Updated live stream event: ${updatedEvent.title}`);
 
-      // Update our reference for cleanup
       testResources.liveStreamEvent = updatedEvent;
     });
   });
@@ -671,9 +670,6 @@ describe('Wistia SDK Integration Tests', () => {
       assert.ok(testResources.media, 'Media should exist');
       assert.ok(testResources.media.hashedId, 'Media should have a hashedId');
 
-      // Create a trim that cuts the video to 1 second
-      // Based on Wistia API, trims might need different structure
-      // An array of strings matching the format of HH:MM:SS.mmm-HH:MM:SS.mmm where HH is hours, MM is minutes, SS is seconds and mmm is milliseconds. The ranges should contain the earliest point of the trim first and the later point of the trim second.
       const trimResult = await wistia.trims.create({
         mediaHashedId: testResources.media.hashedId,
         requestBody: {
@@ -681,11 +677,11 @@ describe('Wistia SDK Integration Tests', () => {
         },
       });
 
-      console.log('Trim result:', JSON.stringify(trimResult, null, 2));
+      log('Trim result:', JSON.stringify(trimResult, null, 2));
 
       assert.ok(trimResult.backgroundJobStatus, 'Background job status should exist');
       testResources.backgroundJobId = trimResult.backgroundJobStatus.id;
-      console.log(`✅ Created trim, background job ID: ${testResources.backgroundJobId}`);
+      log(`✅ Created trim, background job ID: ${testResources.backgroundJobId}`);
     });
   });
 
@@ -693,16 +689,15 @@ describe('Wistia SDK Integration Tests', () => {
     it('should check background job status', async () => {
       assert.ok(testResources.backgroundJobId, 'Background job ID should exist');
 
-      // Wait a moment for the job to start processing
       await new Promise(resolve => setTimeout(resolve, 2000));
 
       const jobStatus = await wistia.backgroundJobStatus.get({
         backgroundJobStatusId: testResources.backgroundJobId,
       });
 
-      console.log('Background job status:', JSON.stringify(jobStatus, null, 2));
+      log('Background job status:', JSON.stringify(jobStatus, null, 2));
       assert.ok(jobStatus, 'Background job status should be returned');
-      console.log(`✅ Retrieved background job status: ${jobStatus.backgroundJobStatus.status || 'unknown'}`);
+      log(`✅ Retrieved background job status: ${jobStatus.backgroundJobStatus.status || 'unknown'}`);
     });
   });
 
@@ -717,7 +712,7 @@ describe('Wistia SDK Integration Tests', () => {
       testResources.allowedDomain = allowedDomain;
       assert.ok(allowedDomain.domain, 'Allowed domain should have a domain');
       assert.strictEqual(allowedDomain.domain, testDomain);
-      console.log(`✅ Created allowed domain: ${allowedDomain.domain}`);
+      log(`✅ Created allowed domain: ${allowedDomain.domain}`);
     });
 
     it('should list allowed domains', async () => {
@@ -731,7 +726,7 @@ describe('Wistia SDK Integration Tests', () => {
       const ourDomain = allowedDomains.find(d => d.domain === allowedDomain.domain);
       assert.ok(ourDomain, 'Should find our created allowed domain');
 
-      console.log(`✅ Listed ${allowedDomains.length} allowed domain(s)`);
+      log(`✅ Listed ${allowedDomains.length} allowed domain(s)`);
     });
 
     it('should get allowed domain info', async () => {
@@ -742,7 +737,7 @@ describe('Wistia SDK Integration Tests', () => {
       });
 
       assert.strictEqual(domain.domain, testResources.allowedDomain.domain);
-      console.log(`✅ Retrieved allowed domain: ${domain.domain}`);
+      log(`✅ Retrieved allowed domain: ${domain.domain}`);
     });
   });
 
@@ -752,21 +747,18 @@ describe('Wistia SDK Integration Tests', () => {
       const media = testResources.media;
       assert.ok(media.name, 'Media should have a name');
 
-      // Search using the media name
       const searchResults = await wistia.search.search({
         q: media.name,
       });
 
-      console.log('Search results:', JSON.stringify(searchResults, null, 2));
+      log('Search results:', JSON.stringify(searchResults, null, 2));
       assert.ok(searchResults && searchResults.data, 'Should return search results with data property');
 
-      // Look for our media in the results
       const allResults = [
         ...(searchResults.data.medias || []),
-        ...(searchResults.data.projects || []),
       ];
 
-      console.log(media.hashedId, media.name);
+      log(media.hashedId, media.name);
 
       const foundMedia = allResults.find(result =>
         result.hashedId === media.hashedId ||
@@ -774,16 +766,15 @@ describe('Wistia SDK Integration Tests', () => {
       );
 
       assert.ok(foundMedia, 'Media should be found in search results');
-      console.log(`✅ Found media in search results: ${foundMedia.name || foundMedia.hashedId}`);
+      log(`✅ Found media in search results: ${foundMedia.name || foundMedia.hashedId}`);
     });
 
     it('should search using test prefix', async () => {
-      // Search using our test prefix to find all test resources
       const searchResults = await wistia.search.search({
         q: testPrefix,
       });
 
-      console.log(`Search results for "${testPrefix}":`, JSON.stringify(searchResults, null, 2));
+      log(`Search results for "${testPrefix}":`, JSON.stringify(searchResults, null, 2));
       assert.ok(searchResults && searchResults.data, 'Should return search results with data property');
 
       const totalResults = (searchResults.data.medias?.length || 0) +
@@ -791,7 +782,7 @@ describe('Wistia SDK Integration Tests', () => {
         (searchResults.data.channels?.length || 0) +
         (searchResults.data.channelEpisodes?.length || 0);
 
-      console.log(`✅ Search returned ${totalResults} result(s) for test prefix`);
+      log(`✅ Search returned ${totalResults} result(s) for test prefix`);
     });
   });
 
@@ -799,12 +790,12 @@ describe('Wistia SDK Integration Tests', () => {
     it('should get account stats', async () => {
       const accountStats = await wistia.statsAccount.get();
 
-      console.log('Account stats:', JSON.stringify(accountStats, null, 2));
+      log('Account stats:', JSON.stringify(accountStats, null, 2));
       assert.ok(accountStats, 'Account stats should be returned');
       assert.ok(typeof accountStats.loadCount === 'number', 'loadCount should be a number');
       assert.ok(typeof accountStats.playCount === 'number', 'playCount should be a number');
       assert.ok(typeof accountStats.hoursWatched === 'number', 'hoursWatched should be a number');
-      console.log(`✅ Retrieved account stats: ${accountStats.loadCount} loads, ${accountStats.playCount} plays, ${accountStats.hoursWatched} hours watched`);
+      log(`✅ Retrieved account stats: ${accountStats.loadCount} loads, ${accountStats.playCount} plays, ${accountStats.hoursWatched} hours watched`);
     });
 
     it('should get project stats', async () => {
@@ -814,12 +805,12 @@ describe('Wistia SDK Integration Tests', () => {
         projectId: testResources.project.hashedId,
       });
 
-      console.log('Project stats:', JSON.stringify(projectStats, null, 2));
+      log('Project stats:', JSON.stringify(projectStats, null, 2));
       assert.ok(projectStats, 'Project stats should be returned');
       assert.ok(typeof projectStats.loadCount === 'number', 'loadCount should be a number');
       assert.ok(typeof projectStats.playCount === 'number', 'playCount should be a number');
       assert.ok(typeof projectStats.hoursWatched === 'number', 'hoursWatched should be a number');
-      console.log(`✅ Retrieved project stats: ${projectStats.loadCount} loads, ${projectStats.playCount} plays, ${projectStats.hoursWatched} hours watched`);
+      log(`✅ Retrieved project stats: ${projectStats.loadCount} loads, ${projectStats.playCount} plays, ${projectStats.hoursWatched} hours watched`);
     });
 
     it('should get media stats', async () => {
@@ -830,32 +821,31 @@ describe('Wistia SDK Integration Tests', () => {
         mediaId: testResources.media.hashedId,
       });
 
-      console.log('Media stats:', JSON.stringify(mediaStats, null, 2));
+      log('Media stats:', JSON.stringify(mediaStats, null, 2));
       assert.ok(mediaStats, 'Media stats should be returned');
       assert.ok(typeof mediaStats.loadCount === 'number', 'loadCount should be a number');
       assert.ok(typeof mediaStats.playCount === 'number', 'playCount should be a number');
       assert.ok(typeof mediaStats.hoursWatched === 'number', 'hoursWatched should be a number');
       assert.ok(typeof mediaStats.visitors === 'number', 'visitors should be a number');
       assert.ok(typeof mediaStats.engagement === 'number', 'engagement should be a number');
-      console.log(`✅ Retrieved media stats: ${mediaStats.loadCount} loads, ${mediaStats.playCount} plays, ${mediaStats.visitors} visitors`);
+      log(`✅ Retrieved media stats: ${mediaStats.loadCount} loads, ${mediaStats.playCount} plays, ${mediaStats.visitors} visitors`);
     });
 
     it('should get media stats by date', async () => {
       assert.ok(testResources.media, 'Media should exist');
       assert.ok(testResources.media.hashedId, 'Media should have a hashedId');
 
-      // Get stats for yesterday and today
       const yesterday = new Date();
       yesterday.setDate(yesterday.getDate() - 1);
       const today = new Date();
 
       const mediaStatsByDate = await wistia.statsMedia.getByDate({
         mediaId: testResources.media.hashedId,
-        startDate: new RFCDate(yesterday.toISOString().split('T')[0]),
-        endDate: new RFCDate(today.toISOString().split('T')[0]),
+        startDate: new RFCDate(yesterday.toISOString().split('T')[0]!),
+        endDate: new RFCDate(today.toISOString().split('T')[0]!),
       });
 
-      console.log('Media stats by date:', JSON.stringify(mediaStatsByDate, null, 2));
+      log('Media stats by date:', JSON.stringify(mediaStatsByDate, null, 2));
       assert.ok(Array.isArray(mediaStatsByDate), 'Media stats by date should be an array');
 
 
@@ -868,7 +858,7 @@ describe('Wistia SDK Integration Tests', () => {
         assert.ok(typeof dayStats.hoursWatched === 'number', 'hoursWatched should be a number');
       }
 
-      console.log(`✅ Retrieved media stats by date: ${mediaStatsByDate.length} day(s) of data`);
+      log(`✅ Retrieved media stats by date: ${mediaStatsByDate.length} day(s) of data`);
     });
 
     it('should get media engagement stats', async () => {
@@ -879,12 +869,12 @@ describe('Wistia SDK Integration Tests', () => {
         mediaId: testResources.media.hashedId,
       });
 
-      console.log('Media engagement stats:', JSON.stringify(engagementStats, null, 2));
+      log('Media engagement stats:', JSON.stringify(engagementStats, null, 2));
       assert.ok(engagementStats, 'Engagement stats should be returned');
       assert.ok(typeof engagementStats.engagement === 'number', 'engagement should be a number');
       assert.ok(Array.isArray(engagementStats.engagementData), 'engagementData should be an array');
       assert.ok(Array.isArray(engagementStats.rewatchData), 'rewatchData should be an array');
-      console.log(`✅ Retrieved media engagement: ${engagementStats.engagement} engagement, ${engagementStats.engagementData.length} data points`);
+      log(`✅ Retrieved media engagement: ${engagementStats.engagement} engagement, ${engagementStats.engagementData.length} data points`);
     });
 
     it('should list visitors stats', async () => {
@@ -892,7 +882,7 @@ describe('Wistia SDK Integration Tests', () => {
         perPage: 10,
       });
 
-      console.log('Visitors stats:', JSON.stringify(visitorsStats, null, 2));
+      log('Visitors stats:', JSON.stringify(visitorsStats, null, 2));
       assert.ok(Array.isArray(visitorsStats), 'Visitors stats should be an array');
 
       visitorsStats.forEach(visitor => {
@@ -904,7 +894,7 @@ describe('Wistia SDK Integration Tests', () => {
         assert.ok(visitor.visitorIdentity.email === null || typeof visitor.visitorIdentity.email === 'string', 'email should be nullable string');
       });
 
-      console.log(`✅ Retrieved visitors stats: ${visitorsStats.length} visitor(s)`);
+      log(`✅ Retrieved visitors stats: ${visitorsStats.length} visitor(s)`);
     });
 
     it('should list events stats', async () => {
@@ -912,7 +902,7 @@ describe('Wistia SDK Integration Tests', () => {
         perPage: 10,
       });
 
-      console.log('Events stats:', JSON.stringify(eventsStats, null, 2));
+      log('Events stats:', JSON.stringify(eventsStats, null, 2));
       assert.ok(Array.isArray(eventsStats), 'Events stats should be an array');
       
       eventsStats.forEach(event => {
@@ -925,15 +915,14 @@ describe('Wistia SDK Integration Tests', () => {
         assert.ok(typeof event.conversionType === 'string', 'conversionType should be a string');
       });
 
-      console.log(`✅ Retrieved events stats: ${eventsStats.length} event(s)`);
+      log(`✅ Retrieved events stats: ${eventsStats.length} event(s)`);
     });
 
     it('should get visitor stats by key', async () => {
-      // Get a visitor key from the events list
       const eventsStats = await wistia.statsEvents.list({
         perPage: 1,
       });
-      console.log('Events stats:', JSON.stringify(eventsStats, null, 2));
+      log('Events stats:', JSON.stringify(eventsStats, null, 2));
     });
   });
 });
