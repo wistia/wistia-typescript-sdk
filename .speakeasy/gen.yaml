@@ -34,6 +34,7 @@ typescript:
       tsx: ^4.20.5
       typescript-eslint: ^8.26.0
       uuid: ^13.0.0
+      "@types/node": "^22.0.0"
     peerDependencies: {}
   additionalPackageJSON: {}
   author: Speakeasy
