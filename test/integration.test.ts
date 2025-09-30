@@ -375,6 +375,8 @@ describe('Wistia SDK Integration Tests', () => {
     });
 
     it('should verify media is in subfolder', async () => {
+      await new Promise(resolve => setTimeout(resolve, 2000));
+
       assert.ok(testResources.project && testResources.subfolder, 'Project and subfolder should exist');
       const media = testResources.media;
       assert.ok(media, 'Media should exist');
