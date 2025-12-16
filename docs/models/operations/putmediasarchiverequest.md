@@ -6,12 +6,15 @@
 import { PutMediasArchiveRequest } from "@wistia/wistia-api-client/models/operations";
 
 let value: PutMediasArchiveRequest = {
-  hashedIds: [],
+  requestBody: {
+    hashedIds: [],
+  },
 };
 ```
 
 ## Fields
 
-| Field                                            | Type                                             | Required                                         | Description                                      |
-| ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ |
-| `hashedIds`                                      | *string*[]                                       | :heavy_check_mark:                               | An array of the media hashed IDs to be archived. |
+| Field                                                                                            | Type                                                                                             | Required                                                                                         | Description                                                                                      | Example                                                                                          |
+| ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
+| `xWistiaAPIVersion`                                                                              | *string*                                                                                         | :heavy_minus_sign:                                                                               | The API version                                                                                  | 2025-11                                                                                          |
+| `requestBody`                                                                                    | [operations.PutMediasArchiveRequestBody](../../models/operations/putmediasarchiverequestbody.md) | :heavy_check_mark:                                                                               | N/A                                                                                              |                                                                                                  |

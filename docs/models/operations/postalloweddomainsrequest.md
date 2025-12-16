@@ -6,12 +6,15 @@
 import { PostAllowedDomainsRequest } from "@wistia/wistia-api-client/models/operations";
 
 let value: PostAllowedDomainsRequest = {
-  domain: "example.com",
+  requestBody: {
+    domain: "example.com",
+  },
 };
 ```
 
 ## Fields
 
-| Field                                                       | Type                                                        | Required                                                    | Description                                                 | Example                                                     |
-| ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- |
-| `domain`                                                    | *string*                                                    | :heavy_check_mark:                                          | The domain name to add (www will be automatically stripped) | example.com                                                 |
+| Field                                                                                                | Type                                                                                                 | Required                                                                                             | Description                                                                                          | Example                                                                                              |
+| ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| `xWistiaAPIVersion`                                                                                  | *string*                                                                                             | :heavy_minus_sign:                                                                                   | The API version                                                                                      | 2025-11                                                                                              |
+| `requestBody`                                                                                        | [operations.PostAllowedDomainsRequestBody](../../models/operations/postalloweddomainsrequestbody.md) | :heavy_check_mark:                                                                                   | N/A                                                                                                  |                                                                                                      |

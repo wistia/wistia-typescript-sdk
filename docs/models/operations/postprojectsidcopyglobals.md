@@ -1,0 +1,15 @@
+# PostProjectsIdCopyGlobals
+
+## Example Usage
+
+```typescript
+import { PostProjectsIdCopyGlobals } from "@wistia/wistia-api-client/models/operations";
+
+let value: PostProjectsIdCopyGlobals = {};
+```
+
+## Fields
+
+| Field               | Type                | Required            | Description         | Example             |
+| ------------------- | ------------------- | ------------------- | ------------------- | ------------------- |
+| `xWistiaAPIVersion` | *string*            | :heavy_minus_sign:  | The API version     | 2025-11             |

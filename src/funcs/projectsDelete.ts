@@ -108,6 +108,11 @@ async function $do(
 
   const headers = new Headers(compactMap({
     Accept: "application/json",
+    "X-Wistia-API-Version": encodeSimple(
+      "X-Wistia-API-Version",
+      payload["X-Wistia-API-Version"] ?? client._options.xWistiaAPIVersion,
+      { explode: false, charEncoding: "none" },
+    ),
   }));
 
   const secConfig = await extractSecurity(client._options.bearerAuth);
@@ -118,7 +123,7 @@ async function $do(
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
     operationID: "delete_/projects/{id}",
-    oAuth2Scopes: [],
+    oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
 

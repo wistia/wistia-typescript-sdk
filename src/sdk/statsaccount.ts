@@ -22,10 +22,12 @@ export class StatsAccount extends ClientSDK {
    * ```
    */
   async get(
+    request?: operations.GetStatsAccountRequest | undefined,
     options?: RequestOptions,
   ): Promise<operations.GetStatsAccountResponse> {
     return unwrapAsync(statsAccountGet(
       this,
+      request,
       options,
     ));
   }

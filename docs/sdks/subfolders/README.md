@@ -1,5 +1,4 @@
 # Subfolders
-(*subfolders*)
 
 ## Overview
 
@@ -30,6 +29,7 @@ Read all project and video data
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
@@ -55,6 +55,7 @@ import { subfoldersList } from "@wistia/wistia-api-client/funcs/subfoldersList.j
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
@@ -112,6 +113,7 @@ Read, update & delete anything
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
@@ -141,6 +143,7 @@ import { subfoldersCreate } from "@wistia/wistia-api-client/funcs/subfoldersCrea
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
@@ -204,6 +207,7 @@ Read all project and video data
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
@@ -230,6 +234,7 @@ import { subfoldersGet } from "@wistia/wistia-api-client/funcs/subfoldersGet.js"
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
@@ -288,6 +293,7 @@ Read, update & delete anything
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
@@ -318,6 +324,7 @@ import { subfoldersUpdate } from "@wistia/wistia-api-client/funcs/subfoldersUpda
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
@@ -382,6 +389,7 @@ Read, update & delete anything
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
@@ -408,6 +416,7 @@ import { subfoldersDeleteSubfolder } from "@wistia/wistia-api-client/funcs/subfo
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 

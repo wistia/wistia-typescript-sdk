@@ -25,13 +25,16 @@ import { mediaUploadForm } from "@wistia/wistia-api-client/funcs/mediaUploadForm
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
   const res = await mediaUploadForm(wistia, {
-    url: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-    lowPriority: true,
+    requestBody: {
+      url: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+      lowPriority: true,
+    },
   });
   if (res.ok) {
     const { value: result } = res;
