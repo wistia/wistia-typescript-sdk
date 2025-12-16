@@ -18,9 +18,9 @@ actions:
           name: X-Wistia-API-Version
           in: header
           description: The API version
-          required: true
           schema:
             type: string
+            default: 2025-11
             example: 2025-11
   - target: "$.paths.*.get"
     update:
