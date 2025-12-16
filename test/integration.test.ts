@@ -8,12 +8,16 @@ import { PostMultipartResponse } from "@wistia/wistia-api-client/models/operatio
 import dotenv from 'dotenv';
 import { exec } from 'child_process';
 import { promisify } from 'util';
-import { writeFile, mkdir, rm } from 'node:fs/promises';
+import { writeFile, mkdir, rm, copyFile } from 'node:fs/promises';
 import { openAsBlob } from 'node:fs';
 import { tmpdir } from 'node:os';
-import { join } from 'node:path';
+import { join, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { v4 as uuidv4 } from 'uuid';
 import { GetAcceptEnum } from '../src/sdk/captions.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 function log(...args: any[]) {
   if (process.env['DEBUG'] === 'true') {
@@ -49,9 +53,14 @@ async function generateTestVideo() {
   await mkdir(tempDir, { recursive: true });
 
   const filename = join(tempDir, `${testPrefix}.mp4`);
-  await execAsync(`ffmpeg -f lavfi -t 3 -r 1 -i nullsrc=s=640x480 -vf "format=yuv444p,geq=lum='mod(floor(X/64)+floor(Y/64)+floor(T)+1,2)*255':cb=128:cr=128,format=yuv420p" -c:v libx264 -crf 28 -preset veryfast -pix_fmt yuv420p -y "${filename}"`);
+  const fixtureFile = useTestVideo();
+  await copyFile(fixtureFile, filename);
   localFiles.push(filename);
   return filename;
+}
+
+function useTestVideo() {
+  return join(__dirname, 'fixtures', 'test-video.mp4');
 }
 
 function generateSRTContent(version = 1) {
