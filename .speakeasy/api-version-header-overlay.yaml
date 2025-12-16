@@ -4,6 +4,13 @@ info:
   version: 1.0.0
 
 actions:
+  - target: "$"
+    update:
+      x-speakeasy-globals: {}
+  - target: "$.x-speakeasy-globals"
+    update:
+      parameters:
+        - $ref: "#/components/parameters/ApiVersionHeader"
   - target: "$.components"
     update:
       parameters:
