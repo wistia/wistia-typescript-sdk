@@ -12,6 +12,7 @@ let value: GetStatsEventsEventKeyRequest = {
 
 ## Fields
 
-| Field                        | Type                         | Required                     | Description                  |
-| ---------------------------- | ---------------------------- | ---------------------------- | ---------------------------- |
-| `eventKey`                   | *string*                     | :heavy_check_mark:           | The unique key of the event. |
+| Field                        | Type                         | Required                     | Description                  | Example                      |
+| ---------------------------- | ---------------------------- | ---------------------------- | ---------------------------- | ---------------------------- |
+| `eventKey`                   | *string*                     | :heavy_check_mark:           | The unique key of the event. |                              |
+| `xWistiaAPIVersion`          | *string*                     | :heavy_minus_sign:           | The API version              | 2025-11                      |

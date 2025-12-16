@@ -14,14 +14,17 @@ dotenv.config();
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function main() {
   const result = await wistia.media.uploadForm({
-    url:
-      "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-    lowPriority: true,
+    requestBody: {
+      url:
+        "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+      lowPriority: true,
+    },
   });
 
   console.log(result);

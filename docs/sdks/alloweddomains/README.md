@@ -1,5 +1,4 @@
 # AllowedDomains
-(*allowedDomains*)
 
 ## Overview
 
@@ -27,6 +26,7 @@ Read, update & delete anything
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
@@ -50,6 +50,7 @@ import { allowedDomainsList } from "@wistia/wistia-api-client/funcs/allowedDomai
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
@@ -104,12 +105,15 @@ Read, update & delete anything
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
   const result = await wistia.allowedDomains.create({
-    domain: "example.com",
+    requestBody: {
+      domain: "example.com",
+    },
   });
 
   console.log(result);
@@ -129,12 +133,15 @@ import { allowedDomainsCreate } from "@wistia/wistia-api-client/funcs/allowedDom
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
   const res = await allowedDomainsCreate(wistia, {
-    domain: "example.com",
+    requestBody: {
+      domain: "example.com",
+    },
   });
   if (res.ok) {
     const { value: result } = res;
@@ -186,6 +193,7 @@ Read, update & delete anything
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
@@ -211,6 +219,7 @@ import { allowedDomainsGet } from "@wistia/wistia-api-client/funcs/allowedDomain
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
@@ -268,6 +277,7 @@ Read, update & delete anything
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
@@ -293,6 +303,7 @@ import { allowedDomainsDelete } from "@wistia/wistia-api-client/funcs/allowedDom
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 

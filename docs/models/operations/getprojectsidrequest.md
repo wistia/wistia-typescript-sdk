@@ -12,6 +12,7 @@ let value: GetProjectsIdRequest = {
 
 ## Fields
 
-| Field              | Type               | Required           | Description        |
-| ------------------ | ------------------ | ------------------ | ------------------ |
-| `id`               | *string*           | :heavy_check_mark: | Project Hashed ID  |
+| Field               | Type                | Required            | Description         | Example             |
+| ------------------- | ------------------- | ------------------- | ------------------- | ------------------- |
+| `id`                | *string*            | :heavy_check_mark:  | Project Hashed ID   |                     |
+| `xWistiaAPIVersion` | *string*            | :heavy_minus_sign:  | The API version     | 2025-11             |

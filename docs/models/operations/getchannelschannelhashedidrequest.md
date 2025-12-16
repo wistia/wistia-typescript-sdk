@@ -12,6 +12,7 @@ let value: GetChannelsChannelHashedIdRequest = {
 
 ## Fields
 
-| Field                         | Type                          | Required                      | Description                   |
-| ----------------------------- | ----------------------------- | ----------------------------- | ----------------------------- |
-| `channelHashedId`             | *string*                      | :heavy_check_mark:            | The hashed ID of the channel. |
+| Field                         | Type                          | Required                      | Description                   | Example                       |
+| ----------------------------- | ----------------------------- | ----------------------------- | ----------------------------- | ----------------------------- |
+| `channelHashedId`             | *string*                      | :heavy_check_mark:            | The hashed ID of the channel. |                               |
+| `xWistiaAPIVersion`           | *string*                      | :heavy_minus_sign:            | The API version               | 2025-11                       |
