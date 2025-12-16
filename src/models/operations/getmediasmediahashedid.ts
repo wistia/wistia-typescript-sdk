@@ -3,7 +3,9 @@
  */
 
 import * as z from "zod";
+import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
@@ -12,6 +14,210 @@ export type GetMediasMediaHashedIdRequest = {
    * The hashed ID of the media.
    */
   mediaHashedId: string;
+};
+
+/**
+ * A string representing what type of media this is.
+ */
+export const GetMediasMediaHashedIdType = {
+  Video: "Video",
+  Audio: "Audio",
+  Image: "Image",
+  PdfDocument: "PdfDocument",
+  MicrosoftOfficeDocument: "MicrosoftOfficeDocument",
+  Swf: "Swf",
+  UnknownType: "UnknownType",
+} as const;
+/**
+ * A string representing what type of media this is.
+ */
+export type GetMediasMediaHashedIdType = ClosedEnum<
+  typeof GetMediasMediaHashedIdType
+>;
+
+/**
+ * Post upload processing status. - `queued`: the file is waiting in the queue to be processed. - `processing`: the file is actively being processed. - `ready`: the file has been fully processed and is ready for embedding and viewing. - `failed`: the file was unable to be processed (usually a format or size error).
+ *
+ * @remarks
+ */
+export const GetMediasMediaHashedIdStatus = {
+  Queued: "queued",
+  Processing: "processing",
+  Ready: "ready",
+  Failed: "failed",
+} as const;
+/**
+ * Post upload processing status. - `queued`: the file is waiting in the queue to be processed. - `processing`: the file is actively being processed. - `ready`: the file has been fully processed and is ready for embedding and viewing. - `failed`: the file was unable to be processed (usually a format or size error).
+ *
+ * @remarks
+ */
+export type GetMediasMediaHashedIdStatus = ClosedEnum<
+  typeof GetMediasMediaHashedIdStatus
+>;
+
+export type GetMediasMediaHashedIdThumbnail = {
+  url?: string | undefined;
+  width?: number | undefined;
+  height?: number | undefined;
+};
+
+export type GetMediasMediaHashedIdProject = {
+  /**
+   * A unique numeric identifier for the project within the system.
+   */
+  id?: number | undefined;
+  /**
+   * The project’s display name.
+   */
+  name?: string | undefined;
+  /**
+   * A private hashed id, uniquely identifying the project within the system.
+   */
+  hashedId?: string | undefined;
+};
+
+export type GetMediasMediaHashedIdAsset = {
+  /**
+   * A direct-access URL to the content of the asset.
+   */
+  url?: string | undefined;
+  /**
+   * The width of this specific asset, if applicable.
+   */
+  width?: number | null | undefined;
+  /**
+   * The height of this specific asset, if applicable.
+   */
+  height?: number | null | undefined;
+  /**
+   * The size of the asset file that’s referenced by url, measured in bytes.
+   */
+  fileSize?: number | null | undefined;
+  /**
+   * The asset’s content type.
+   */
+  contentType?: string | null | undefined;
+  /**
+   * The internal type of the asset, describing how the asset should be used. Values can include OriginalFile, FlashVideoFile, MdFlashVideoFile, HdFlashVideoFile, Mp4VideoFile, MdMp4VideoFile, HdMp4VideoFile, IPhoneVideoFile, StillImageFile, SwfFile, Mp3AudioFile, and LargeImageFile.
+   *
+   * @remarks
+   */
+  type?: string | undefined;
+};
+
+/**
+ * A subfolder within a project that contains media files.
+ */
+export type GetMediasMediaHashedIdSubfolder = {
+  /**
+   * A unique alphanumeric identifier for this subfolder.
+   */
+  hashedId: string;
+  /**
+   * The display name of the subfolder.
+   */
+  name?: string | null | undefined;
+  /**
+   * A description for the subfolder.
+   */
+  description?: string | null | undefined;
+  /**
+   * The position of this subfolder within its project, used for ordering.
+   */
+  position: number | null;
+  /**
+   * The date when the subfolder was created.
+   */
+  created: Date | null;
+  /**
+   * The date when the subfolder was last modified.
+   */
+  updated: Date | null;
+};
+
+export type GetMediasMediaHashedIdTag = {
+  /**
+   * The display name of the tag.
+   */
+  name?: string | undefined;
+};
+
+/**
+ * Successful response
+ */
+export type GetMediasMediaHashedIdResponse = {
+  /**
+   * A unique numeric identifier for the media within the system.
+   */
+  id?: number | undefined;
+  /**
+   * The display name of the media.
+   */
+  name?: string | undefined;
+  /**
+   * A string representing what type of media this is.
+   */
+  type?: GetMediasMediaHashedIdType | undefined;
+  /**
+   * Whether or not the media is archived, either true or false.
+   */
+  archived?: boolean | undefined;
+  /**
+   * The date when the media was originally uploaded.
+   */
+  created?: Date | undefined;
+  /**
+   * The date when the media was last changed.
+   */
+  updated?: Date | undefined;
+  /**
+   * Specifies the length (in seconds) for audio and video files. Specifies number of pages in the document. Omitted for other types of media.
+   */
+  duration?: number | null | undefined;
+  /**
+   * DEPRECATED: If you want to programmatically embed videos, follow the construct an embed code guide.
+   *
+   * @remarks
+   *
+   * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+   */
+  embedCode?: string | undefined;
+  /**
+   * A unique alphanumeric identifier for this media.
+   */
+  hashedId?: string | undefined;
+  /**
+   * A description for the media which usually appears near the top of the sidebar on the media's page.
+   */
+  description?: string | undefined;
+  /**
+   * A floating point value between 0 and 1 that indicates the progress of the processing for this file.
+   */
+  progress?: number | undefined;
+  /**
+   * Post upload processing status. - `queued`: the file is waiting in the queue to be processed. - `processing`: the file is actively being processed. - `ready`: the file has been fully processed and is ready for embedding and viewing. - `failed`: the file was unable to be processed (usually a format or size error).
+   *
+   * @remarks
+   */
+  status?: GetMediasMediaHashedIdStatus | undefined;
+  /**
+   * The title of the section in which the media appears. This attribute is omitted if the media is not in a section (default).
+   */
+  section?: string | null | undefined;
+  thumbnail?: GetMediasMediaHashedIdThumbnail | undefined;
+  project?: GetMediasMediaHashedIdProject | null | undefined;
+  /**
+   * An array of the assets available for this media.
+   */
+  assets?: Array<GetMediasMediaHashedIdAsset> | undefined;
+  /**
+   * The subfolder (media group) in which the media appears. Null if the media is not in a subfolder.
+   */
+  subfolder?: GetMediasMediaHashedIdSubfolder | undefined;
+  /**
+   * Tags associated with this media.
+   */
+  tags?: Array<GetMediasMediaHashedIdTag> | undefined;
 };
 
 /** @internal */
@@ -67,5 +273,507 @@ export function getMediasMediaHashedIdRequestFromJSON(
     jsonString,
     (x) => GetMediasMediaHashedIdRequest$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'GetMediasMediaHashedIdRequest' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetMediasMediaHashedIdType$inboundSchema: z.ZodNativeEnum<
+  typeof GetMediasMediaHashedIdType
+> = z.nativeEnum(GetMediasMediaHashedIdType);
+
+/** @internal */
+export const GetMediasMediaHashedIdType$outboundSchema: z.ZodNativeEnum<
+  typeof GetMediasMediaHashedIdType
+> = GetMediasMediaHashedIdType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetMediasMediaHashedIdType$ {
+  /** @deprecated use `GetMediasMediaHashedIdType$inboundSchema` instead. */
+  export const inboundSchema = GetMediasMediaHashedIdType$inboundSchema;
+  /** @deprecated use `GetMediasMediaHashedIdType$outboundSchema` instead. */
+  export const outboundSchema = GetMediasMediaHashedIdType$outboundSchema;
+}
+
+/** @internal */
+export const GetMediasMediaHashedIdStatus$inboundSchema: z.ZodNativeEnum<
+  typeof GetMediasMediaHashedIdStatus
+> = z.nativeEnum(GetMediasMediaHashedIdStatus);
+
+/** @internal */
+export const GetMediasMediaHashedIdStatus$outboundSchema: z.ZodNativeEnum<
+  typeof GetMediasMediaHashedIdStatus
+> = GetMediasMediaHashedIdStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetMediasMediaHashedIdStatus$ {
+  /** @deprecated use `GetMediasMediaHashedIdStatus$inboundSchema` instead. */
+  export const inboundSchema = GetMediasMediaHashedIdStatus$inboundSchema;
+  /** @deprecated use `GetMediasMediaHashedIdStatus$outboundSchema` instead. */
+  export const outboundSchema = GetMediasMediaHashedIdStatus$outboundSchema;
+}
+
+/** @internal */
+export const GetMediasMediaHashedIdThumbnail$inboundSchema: z.ZodType<
+  GetMediasMediaHashedIdThumbnail,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  url: z.string().optional(),
+  width: z.number().int().optional(),
+  height: z.number().int().optional(),
+});
+
+/** @internal */
+export type GetMediasMediaHashedIdThumbnail$Outbound = {
+  url?: string | undefined;
+  width?: number | undefined;
+  height?: number | undefined;
+};
+
+/** @internal */
+export const GetMediasMediaHashedIdThumbnail$outboundSchema: z.ZodType<
+  GetMediasMediaHashedIdThumbnail$Outbound,
+  z.ZodTypeDef,
+  GetMediasMediaHashedIdThumbnail
+> = z.object({
+  url: z.string().optional(),
+  width: z.number().int().optional(),
+  height: z.number().int().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetMediasMediaHashedIdThumbnail$ {
+  /** @deprecated use `GetMediasMediaHashedIdThumbnail$inboundSchema` instead. */
+  export const inboundSchema = GetMediasMediaHashedIdThumbnail$inboundSchema;
+  /** @deprecated use `GetMediasMediaHashedIdThumbnail$outboundSchema` instead. */
+  export const outboundSchema = GetMediasMediaHashedIdThumbnail$outboundSchema;
+  /** @deprecated use `GetMediasMediaHashedIdThumbnail$Outbound` instead. */
+  export type Outbound = GetMediasMediaHashedIdThumbnail$Outbound;
+}
+
+export function getMediasMediaHashedIdThumbnailToJSON(
+  getMediasMediaHashedIdThumbnail: GetMediasMediaHashedIdThumbnail,
+): string {
+  return JSON.stringify(
+    GetMediasMediaHashedIdThumbnail$outboundSchema.parse(
+      getMediasMediaHashedIdThumbnail,
+    ),
+  );
+}
+
+export function getMediasMediaHashedIdThumbnailFromJSON(
+  jsonString: string,
+): SafeParseResult<GetMediasMediaHashedIdThumbnail, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetMediasMediaHashedIdThumbnail$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetMediasMediaHashedIdThumbnail' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetMediasMediaHashedIdProject$inboundSchema: z.ZodType<
+  GetMediasMediaHashedIdProject,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: z.number().int().optional(),
+  name: z.string().optional(),
+  hashedId: z.string().optional(),
+});
+
+/** @internal */
+export type GetMediasMediaHashedIdProject$Outbound = {
+  id?: number | undefined;
+  name?: string | undefined;
+  hashedId?: string | undefined;
+};
+
+/** @internal */
+export const GetMediasMediaHashedIdProject$outboundSchema: z.ZodType<
+  GetMediasMediaHashedIdProject$Outbound,
+  z.ZodTypeDef,
+  GetMediasMediaHashedIdProject
+> = z.object({
+  id: z.number().int().optional(),
+  name: z.string().optional(),
+  hashedId: z.string().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetMediasMediaHashedIdProject$ {
+  /** @deprecated use `GetMediasMediaHashedIdProject$inboundSchema` instead. */
+  export const inboundSchema = GetMediasMediaHashedIdProject$inboundSchema;
+  /** @deprecated use `GetMediasMediaHashedIdProject$outboundSchema` instead. */
+  export const outboundSchema = GetMediasMediaHashedIdProject$outboundSchema;
+  /** @deprecated use `GetMediasMediaHashedIdProject$Outbound` instead. */
+  export type Outbound = GetMediasMediaHashedIdProject$Outbound;
+}
+
+export function getMediasMediaHashedIdProjectToJSON(
+  getMediasMediaHashedIdProject: GetMediasMediaHashedIdProject,
+): string {
+  return JSON.stringify(
+    GetMediasMediaHashedIdProject$outboundSchema.parse(
+      getMediasMediaHashedIdProject,
+    ),
+  );
+}
+
+export function getMediasMediaHashedIdProjectFromJSON(
+  jsonString: string,
+): SafeParseResult<GetMediasMediaHashedIdProject, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetMediasMediaHashedIdProject$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetMediasMediaHashedIdProject' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetMediasMediaHashedIdAsset$inboundSchema: z.ZodType<
+  GetMediasMediaHashedIdAsset,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  url: z.string().optional(),
+  width: z.nullable(z.number().int()).optional(),
+  height: z.nullable(z.number().int()).optional(),
+  fileSize: z.nullable(z.number().int()).optional(),
+  contentType: z.nullable(z.string()).optional(),
+  type: z.string().optional(),
+});
+
+/** @internal */
+export type GetMediasMediaHashedIdAsset$Outbound = {
+  url?: string | undefined;
+  width?: number | null | undefined;
+  height?: number | null | undefined;
+  fileSize?: number | null | undefined;
+  contentType?: string | null | undefined;
+  type?: string | undefined;
+};
+
+/** @internal */
+export const GetMediasMediaHashedIdAsset$outboundSchema: z.ZodType<
+  GetMediasMediaHashedIdAsset$Outbound,
+  z.ZodTypeDef,
+  GetMediasMediaHashedIdAsset
+> = z.object({
+  url: z.string().optional(),
+  width: z.nullable(z.number().int()).optional(),
+  height: z.nullable(z.number().int()).optional(),
+  fileSize: z.nullable(z.number().int()).optional(),
+  contentType: z.nullable(z.string()).optional(),
+  type: z.string().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetMediasMediaHashedIdAsset$ {
+  /** @deprecated use `GetMediasMediaHashedIdAsset$inboundSchema` instead. */
+  export const inboundSchema = GetMediasMediaHashedIdAsset$inboundSchema;
+  /** @deprecated use `GetMediasMediaHashedIdAsset$outboundSchema` instead. */
+  export const outboundSchema = GetMediasMediaHashedIdAsset$outboundSchema;
+  /** @deprecated use `GetMediasMediaHashedIdAsset$Outbound` instead. */
+  export type Outbound = GetMediasMediaHashedIdAsset$Outbound;
+}
+
+export function getMediasMediaHashedIdAssetToJSON(
+  getMediasMediaHashedIdAsset: GetMediasMediaHashedIdAsset,
+): string {
+  return JSON.stringify(
+    GetMediasMediaHashedIdAsset$outboundSchema.parse(
+      getMediasMediaHashedIdAsset,
+    ),
+  );
+}
+
+export function getMediasMediaHashedIdAssetFromJSON(
+  jsonString: string,
+): SafeParseResult<GetMediasMediaHashedIdAsset, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetMediasMediaHashedIdAsset$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetMediasMediaHashedIdAsset' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetMediasMediaHashedIdSubfolder$inboundSchema: z.ZodType<
+  GetMediasMediaHashedIdSubfolder,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  hashed_id: z.string(),
+  name: z.nullable(z.string()).optional(),
+  description: z.nullable(z.string()).optional(),
+  position: z.nullable(z.number().int()),
+  created: z.nullable(
+    z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  ),
+  updated: z.nullable(
+    z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  ),
+}).transform((v) => {
+  return remap$(v, {
+    "hashed_id": "hashedId",
+  });
+});
+
+/** @internal */
+export type GetMediasMediaHashedIdSubfolder$Outbound = {
+  hashed_id: string;
+  name?: string | null | undefined;
+  description?: string | null | undefined;
+  position: number | null;
+  created: string | null;
+  updated: string | null;
+};
+
+/** @internal */
+export const GetMediasMediaHashedIdSubfolder$outboundSchema: z.ZodType<
+  GetMediasMediaHashedIdSubfolder$Outbound,
+  z.ZodTypeDef,
+  GetMediasMediaHashedIdSubfolder
+> = z.object({
+  hashedId: z.string(),
+  name: z.nullable(z.string()).optional(),
+  description: z.nullable(z.string()).optional(),
+  position: z.nullable(z.number().int()),
+  created: z.nullable(z.date().transform(v => v.toISOString())),
+  updated: z.nullable(z.date().transform(v => v.toISOString())),
+}).transform((v) => {
+  return remap$(v, {
+    hashedId: "hashed_id",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetMediasMediaHashedIdSubfolder$ {
+  /** @deprecated use `GetMediasMediaHashedIdSubfolder$inboundSchema` instead. */
+  export const inboundSchema = GetMediasMediaHashedIdSubfolder$inboundSchema;
+  /** @deprecated use `GetMediasMediaHashedIdSubfolder$outboundSchema` instead. */
+  export const outboundSchema = GetMediasMediaHashedIdSubfolder$outboundSchema;
+  /** @deprecated use `GetMediasMediaHashedIdSubfolder$Outbound` instead. */
+  export type Outbound = GetMediasMediaHashedIdSubfolder$Outbound;
+}
+
+export function getMediasMediaHashedIdSubfolderToJSON(
+  getMediasMediaHashedIdSubfolder: GetMediasMediaHashedIdSubfolder,
+): string {
+  return JSON.stringify(
+    GetMediasMediaHashedIdSubfolder$outboundSchema.parse(
+      getMediasMediaHashedIdSubfolder,
+    ),
+  );
+}
+
+export function getMediasMediaHashedIdSubfolderFromJSON(
+  jsonString: string,
+): SafeParseResult<GetMediasMediaHashedIdSubfolder, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetMediasMediaHashedIdSubfolder$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetMediasMediaHashedIdSubfolder' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetMediasMediaHashedIdTag$inboundSchema: z.ZodType<
+  GetMediasMediaHashedIdTag,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string().optional(),
+});
+
+/** @internal */
+export type GetMediasMediaHashedIdTag$Outbound = {
+  name?: string | undefined;
+};
+
+/** @internal */
+export const GetMediasMediaHashedIdTag$outboundSchema: z.ZodType<
+  GetMediasMediaHashedIdTag$Outbound,
+  z.ZodTypeDef,
+  GetMediasMediaHashedIdTag
+> = z.object({
+  name: z.string().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetMediasMediaHashedIdTag$ {
+  /** @deprecated use `GetMediasMediaHashedIdTag$inboundSchema` instead. */
+  export const inboundSchema = GetMediasMediaHashedIdTag$inboundSchema;
+  /** @deprecated use `GetMediasMediaHashedIdTag$outboundSchema` instead. */
+  export const outboundSchema = GetMediasMediaHashedIdTag$outboundSchema;
+  /** @deprecated use `GetMediasMediaHashedIdTag$Outbound` instead. */
+  export type Outbound = GetMediasMediaHashedIdTag$Outbound;
+}
+
+export function getMediasMediaHashedIdTagToJSON(
+  getMediasMediaHashedIdTag: GetMediasMediaHashedIdTag,
+): string {
+  return JSON.stringify(
+    GetMediasMediaHashedIdTag$outboundSchema.parse(getMediasMediaHashedIdTag),
+  );
+}
+
+export function getMediasMediaHashedIdTagFromJSON(
+  jsonString: string,
+): SafeParseResult<GetMediasMediaHashedIdTag, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetMediasMediaHashedIdTag$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetMediasMediaHashedIdTag' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetMediasMediaHashedIdResponse$inboundSchema: z.ZodType<
+  GetMediasMediaHashedIdResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: z.number().int().optional(),
+  name: z.string().optional(),
+  type: GetMediasMediaHashedIdType$inboundSchema.optional(),
+  archived: z.boolean().optional(),
+  created: z.string().datetime({ offset: true }).transform(v => new Date(v))
+    .optional(),
+  updated: z.string().datetime({ offset: true }).transform(v => new Date(v))
+    .optional(),
+  duration: z.nullable(z.number()).optional(),
+  embedCode: z.string().optional(),
+  hashed_id: z.string().optional(),
+  description: z.string().optional(),
+  progress: z.number().optional(),
+  status: GetMediasMediaHashedIdStatus$inboundSchema.optional(),
+  section: z.nullable(z.string()).optional(),
+  thumbnail: z.lazy(() => GetMediasMediaHashedIdThumbnail$inboundSchema)
+    .optional(),
+  project: z.nullable(z.lazy(() => GetMediasMediaHashedIdProject$inboundSchema))
+    .optional(),
+  assets: z.array(z.lazy(() => GetMediasMediaHashedIdAsset$inboundSchema))
+    .optional(),
+  subfolder: z.lazy(() => GetMediasMediaHashedIdSubfolder$inboundSchema)
+    .optional(),
+  tags: z.array(z.lazy(() => GetMediasMediaHashedIdTag$inboundSchema))
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "hashed_id": "hashedId",
+  });
+});
+
+/** @internal */
+export type GetMediasMediaHashedIdResponse$Outbound = {
+  id?: number | undefined;
+  name?: string | undefined;
+  type?: string | undefined;
+  archived?: boolean | undefined;
+  created?: string | undefined;
+  updated?: string | undefined;
+  duration?: number | null | undefined;
+  embedCode?: string | undefined;
+  hashed_id?: string | undefined;
+  description?: string | undefined;
+  progress?: number | undefined;
+  status?: string | undefined;
+  section?: string | null | undefined;
+  thumbnail?: GetMediasMediaHashedIdThumbnail$Outbound | undefined;
+  project?: GetMediasMediaHashedIdProject$Outbound | null | undefined;
+  assets?: Array<GetMediasMediaHashedIdAsset$Outbound> | undefined;
+  subfolder?: GetMediasMediaHashedIdSubfolder$Outbound | undefined;
+  tags?: Array<GetMediasMediaHashedIdTag$Outbound> | undefined;
+};
+
+/** @internal */
+export const GetMediasMediaHashedIdResponse$outboundSchema: z.ZodType<
+  GetMediasMediaHashedIdResponse$Outbound,
+  z.ZodTypeDef,
+  GetMediasMediaHashedIdResponse
+> = z.object({
+  id: z.number().int().optional(),
+  name: z.string().optional(),
+  type: GetMediasMediaHashedIdType$outboundSchema.optional(),
+  archived: z.boolean().optional(),
+  created: z.date().transform(v => v.toISOString()).optional(),
+  updated: z.date().transform(v => v.toISOString()).optional(),
+  duration: z.nullable(z.number()).optional(),
+  embedCode: z.string().optional(),
+  hashedId: z.string().optional(),
+  description: z.string().optional(),
+  progress: z.number().optional(),
+  status: GetMediasMediaHashedIdStatus$outboundSchema.optional(),
+  section: z.nullable(z.string()).optional(),
+  thumbnail: z.lazy(() => GetMediasMediaHashedIdThumbnail$outboundSchema)
+    .optional(),
+  project: z.nullable(
+    z.lazy(() => GetMediasMediaHashedIdProject$outboundSchema),
+  ).optional(),
+  assets: z.array(z.lazy(() => GetMediasMediaHashedIdAsset$outboundSchema))
+    .optional(),
+  subfolder: z.lazy(() => GetMediasMediaHashedIdSubfolder$outboundSchema)
+    .optional(),
+  tags: z.array(z.lazy(() => GetMediasMediaHashedIdTag$outboundSchema))
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    hashedId: "hashed_id",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetMediasMediaHashedIdResponse$ {
+  /** @deprecated use `GetMediasMediaHashedIdResponse$inboundSchema` instead. */
+  export const inboundSchema = GetMediasMediaHashedIdResponse$inboundSchema;
+  /** @deprecated use `GetMediasMediaHashedIdResponse$outboundSchema` instead. */
+  export const outboundSchema = GetMediasMediaHashedIdResponse$outboundSchema;
+  /** @deprecated use `GetMediasMediaHashedIdResponse$Outbound` instead. */
+  export type Outbound = GetMediasMediaHashedIdResponse$Outbound;
+}
+
+export function getMediasMediaHashedIdResponseToJSON(
+  getMediasMediaHashedIdResponse: GetMediasMediaHashedIdResponse,
+): string {
+  return JSON.stringify(
+    GetMediasMediaHashedIdResponse$outboundSchema.parse(
+      getMediasMediaHashedIdResponse,
+    ),
+  );
+}
+
+export function getMediasMediaHashedIdResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<GetMediasMediaHashedIdResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetMediasMediaHashedIdResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetMediasMediaHashedIdResponse' from JSON`,
   );
 }

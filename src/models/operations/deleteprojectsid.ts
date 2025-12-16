@@ -14,6 +14,50 @@ export type DeleteProjectsIdRequest = {
   id: string;
 };
 
+/**
+ * Successful response
+ */
+export type DeleteProjectsIdResponse = {
+  /**
+   * A unique numeric identifier for the project within the system.
+   */
+  id: number;
+  /**
+   * The project’s display name.
+   */
+  name: string;
+  /**
+   * The project’s description.
+   */
+  description?: string | null | undefined;
+  /**
+   * The number of different medias that have been uploaded to the project.
+   */
+  mediaCount: number;
+  /**
+   * The date that the project was originally created.
+   */
+  created: Date;
+  /**
+   * The date that the project was last updated.
+   */
+  updated: Date;
+  /**
+   * A private hashed id, uniquely identifying the project within the system.
+   */
+  hashedId: string;
+  /**
+   * A boolean indicating whether the project is available for public (anonymous) viewing.
+   */
+  public: boolean;
+  /**
+   * If the project is public, this field contains a string representing the ID used for referencing the project in public URLs.
+   */
+  publicId: string | null;
+  anonymousCanUpload?: boolean | undefined;
+  anonymousCanDownload?: boolean | undefined;
+};
+
 /** @internal */
 export const DeleteProjectsIdRequest$inboundSchema: z.ZodType<
   DeleteProjectsIdRequest,
@@ -65,5 +109,89 @@ export function deleteProjectsIdRequestFromJSON(
     jsonString,
     (x) => DeleteProjectsIdRequest$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'DeleteProjectsIdRequest' from JSON`,
+  );
+}
+
+/** @internal */
+export const DeleteProjectsIdResponse$inboundSchema: z.ZodType<
+  DeleteProjectsIdResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: z.number().int(),
+  name: z.string(),
+  description: z.nullable(z.string()).optional(),
+  mediaCount: z.number().int(),
+  created: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  updated: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  hashedId: z.string(),
+  public: z.boolean(),
+  publicId: z.nullable(z.string()),
+  anonymousCanUpload: z.boolean().optional(),
+  anonymousCanDownload: z.boolean().optional(),
+});
+
+/** @internal */
+export type DeleteProjectsIdResponse$Outbound = {
+  id: number;
+  name: string;
+  description?: string | null | undefined;
+  mediaCount: number;
+  created: string;
+  updated: string;
+  hashedId: string;
+  public: boolean;
+  publicId: string | null;
+  anonymousCanUpload?: boolean | undefined;
+  anonymousCanDownload?: boolean | undefined;
+};
+
+/** @internal */
+export const DeleteProjectsIdResponse$outboundSchema: z.ZodType<
+  DeleteProjectsIdResponse$Outbound,
+  z.ZodTypeDef,
+  DeleteProjectsIdResponse
+> = z.object({
+  id: z.number().int(),
+  name: z.string(),
+  description: z.nullable(z.string()).optional(),
+  mediaCount: z.number().int(),
+  created: z.date().transform(v => v.toISOString()),
+  updated: z.date().transform(v => v.toISOString()),
+  hashedId: z.string(),
+  public: z.boolean(),
+  publicId: z.nullable(z.string()),
+  anonymousCanUpload: z.boolean().optional(),
+  anonymousCanDownload: z.boolean().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace DeleteProjectsIdResponse$ {
+  /** @deprecated use `DeleteProjectsIdResponse$inboundSchema` instead. */
+  export const inboundSchema = DeleteProjectsIdResponse$inboundSchema;
+  /** @deprecated use `DeleteProjectsIdResponse$outboundSchema` instead. */
+  export const outboundSchema = DeleteProjectsIdResponse$outboundSchema;
+  /** @deprecated use `DeleteProjectsIdResponse$Outbound` instead. */
+  export type Outbound = DeleteProjectsIdResponse$Outbound;
+}
+
+export function deleteProjectsIdResponseToJSON(
+  deleteProjectsIdResponse: DeleteProjectsIdResponse,
+): string {
+  return JSON.stringify(
+    DeleteProjectsIdResponse$outboundSchema.parse(deleteProjectsIdResponse),
+  );
+}
+
+export function deleteProjectsIdResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<DeleteProjectsIdResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => DeleteProjectsIdResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'DeleteProjectsIdResponse' from JSON`,
   );
 }

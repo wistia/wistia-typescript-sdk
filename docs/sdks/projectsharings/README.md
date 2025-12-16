@@ -84,15 +84,15 @@ run();
 
 ### Response
 
-**Promise\<[models.ProjectSharingSchema[]](../../models/.md)\>**
+**Promise\<[operations.GetProjectsProjectIdSharingsResponse[]](../../models/.md)\>**
 
 ### Errors
 
-| Error Type                    | Status Code                   | Content Type                  |
-| ----------------------------- | ----------------------------- | ----------------------------- |
-| errors.FourHundredAndOneError | 401                           | application/json              |
-| errors.FiveHundredError       | 500                           | application/json              |
-| errors.WistiaDefaultError     | 4XX, 5XX                      | \*/\*                         |
+| Error Type                                             | Status Code                                            | Content Type                                           |
+| ------------------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------ |
+| errors.GetProjectsProjectIdSharingsUnauthorizedError   | 401                                                    | application/json                                       |
+| errors.GetProjectsProjectIdSharingsInternalServerError | 500                                                    | application/json                                       |
+| errors.WistiaDefaultError                              | 4XX, 5XX                                               | \*/\*                                                  |
 
 ## create
 
@@ -117,7 +117,7 @@ const wistia = new Wistia({
 async function run() {
   const result = await wistia.projectSharings.create({
     projectId: "<id>",
-    createProjectSharing: {
+    requestBody: {
       sharing: {
         with: "Dallas_Spinka@yahoo.com",
         requirePassword: false,
@@ -151,7 +151,7 @@ const wistia = new WistiaCore({
 async function run() {
   const res = await projectSharingsCreate(wistia, {
     projectId: "<id>",
-    createProjectSharing: {
+    requestBody: {
       sharing: {
         with: "Dallas_Spinka@yahoo.com",
         requirePassword: false,
@@ -187,11 +187,11 @@ run();
 
 ### Errors
 
-| Error Type                    | Status Code                   | Content Type                  |
-| ----------------------------- | ----------------------------- | ----------------------------- |
-| errors.FourHundredAndOneError | 401                           | application/json              |
-| errors.FiveHundredError       | 500                           | application/json              |
-| errors.WistiaDefaultError     | 4XX, 5XX                      | \*/\*                         |
+| Error Type                                              | Status Code                                             | Content Type                                            |
+| ------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------- |
+| errors.PostProjectsProjectIdSharingsUnauthorizedError   | 401                                                     | application/json                                        |
+| errors.PostProjectsProjectIdSharingsInternalServerError | 500                                                     | application/json                                        |
+| errors.WistiaDefaultError                               | 4XX, 5XX                                                | \*/\*                                                   |
 
 ## get
 
@@ -267,16 +267,16 @@ run();
 
 ### Response
 
-**Promise\<[models.ProjectSharingSchema](../../models/projectsharingschema.md)\>**
+**Promise\<[operations.GetProjectsProjectIdSharingsSharingIdResponse](../../models/operations/getprojectsprojectidsharingssharingidresponse.md)\>**
 
 ### Errors
 
-| Error Type                     | Status Code                    | Content Type                   |
-| ------------------------------ | ------------------------------ | ------------------------------ |
-| errors.FourHundredAndOneError  | 401                            | application/json               |
-| errors.FourHundredAndFourError | 404                            | application/json               |
-| errors.FiveHundredError        | 500                            | application/json               |
-| errors.WistiaDefaultError      | 4XX, 5XX                       | \*/\*                          |
+| Error Type                                                      | Status Code                                                     | Content Type                                                    |
+| --------------------------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------- |
+| errors.GetProjectsProjectIdSharingsSharingIdUnauthorizedError   | 401                                                             | application/json                                                |
+| errors.GetProjectsProjectIdSharingsSharingIdNotFoundError       | 404                                                             | application/json                                                |
+| errors.GetProjectsProjectIdSharingsSharingIdInternalServerError | 500                                                             | application/json                                                |
+| errors.WistiaDefaultError                                       | 4XX, 5XX                                                        | \*/\*                                                           |
 
 ## update
 
@@ -302,7 +302,7 @@ async function run() {
   const result = await wistia.projectSharings.update({
     projectId: "<id>",
     sharingId: "<id>",
-    updateSharingRequest: {},
+    requestBody: {},
   });
 
   console.log(result);
@@ -329,7 +329,7 @@ async function run() {
   const res = await projectSharingsUpdate(wistia, {
     projectId: "<id>",
     sharingId: "<id>",
-    updateSharingRequest: {},
+    requestBody: {},
   });
   if (res.ok) {
     const { value: result } = res;
@@ -353,16 +353,16 @@ run();
 
 ### Response
 
-**Promise\<[models.ProjectSharingSchema](../../models/projectsharingschema.md)\>**
+**Promise\<[operations.PutProjectsProjectIdSharingsSharingIdResponse](../../models/operations/putprojectsprojectidsharingssharingidresponse.md)\>**
 
 ### Errors
 
-| Error Type                     | Status Code                    | Content Type                   |
-| ------------------------------ | ------------------------------ | ------------------------------ |
-| errors.FourHundredAndOneError  | 401                            | application/json               |
-| errors.FourHundredAndFourError | 404                            | application/json               |
-| errors.FiveHundredError        | 500                            | application/json               |
-| errors.WistiaDefaultError      | 4XX, 5XX                       | \*/\*                          |
+| Error Type                                                      | Status Code                                                     | Content Type                                                    |
+| --------------------------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------- |
+| errors.PutProjectsProjectIdSharingsSharingIdUnauthorizedError   | 401                                                             | application/json                                                |
+| errors.PutProjectsProjectIdSharingsSharingIdNotFoundError       | 404                                                             | application/json                                                |
+| errors.PutProjectsProjectIdSharingsSharingIdInternalServerError | 500                                                             | application/json                                                |
+| errors.WistiaDefaultError                                       | 4XX, 5XX                                                        | \*/\*                                                           |
 
 ## delete
 
@@ -437,13 +437,13 @@ run();
 
 ### Response
 
-**Promise\<[models.ProjectSharingSchema](../../models/projectsharingschema.md)\>**
+**Promise\<[operations.DeleteProjectsProjectIdSharingsSharingIdResponse](../../models/operations/deleteprojectsprojectidsharingssharingidresponse.md)\>**
 
 ### Errors
 
-| Error Type                     | Status Code                    | Content Type                   |
-| ------------------------------ | ------------------------------ | ------------------------------ |
-| errors.FourHundredAndOneError  | 401                            | application/json               |
-| errors.FourHundredAndFourError | 404                            | application/json               |
-| errors.FiveHundredError        | 500                            | application/json               |
-| errors.WistiaDefaultError      | 4XX, 5XX                       | \*/\*                          |
+| Error Type                                                         | Status Code                                                        | Content Type                                                       |
+| ------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------ |
+| errors.DeleteProjectsProjectIdSharingsSharingIdUnauthorizedError   | 401                                                                | application/json                                                   |
+| errors.DeleteProjectsProjectIdSharingsSharingIdNotFoundError       | 404                                                                | application/json                                                   |
+| errors.DeleteProjectsProjectIdSharingsSharingIdInternalServerError | 500                                                                | application/json                                                   |
+| errors.WistiaDefaultError                                          | 4XX, 5XX                                                           | \*/\*                                                              |

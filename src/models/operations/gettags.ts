@@ -54,6 +54,25 @@ export type GetTagsRequest = {
   sortDirection?: GetTagsSortDirection | undefined;
 };
 
+export type GetTagsResponse = {
+  /**
+   * The tag’s display name.
+   */
+  name?: string | undefined;
+  /**
+   * The number of different medias that have been associated with this tag.
+   */
+  taggingsCount?: number | undefined;
+  /**
+   * The date that the tag was originally created.
+   */
+  created?: Date | undefined;
+  /**
+   * The date that the tag was last updated.
+   */
+  updated?: Date | undefined;
+};
+
 /** @internal */
 export const GetTagsSortBy$inboundSchema: z.ZodNativeEnum<
   typeof GetTagsSortBy
@@ -164,5 +183,68 @@ export function getTagsRequestFromJSON(
     jsonString,
     (x) => GetTagsRequest$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'GetTagsRequest' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetTagsResponse$inboundSchema: z.ZodType<
+  GetTagsResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string().optional(),
+  taggingsCount: z.number().int().optional(),
+  created: z.string().datetime({ offset: true }).transform(v => new Date(v))
+    .optional(),
+  updated: z.string().datetime({ offset: true }).transform(v => new Date(v))
+    .optional(),
+});
+
+/** @internal */
+export type GetTagsResponse$Outbound = {
+  name?: string | undefined;
+  taggingsCount?: number | undefined;
+  created?: string | undefined;
+  updated?: string | undefined;
+};
+
+/** @internal */
+export const GetTagsResponse$outboundSchema: z.ZodType<
+  GetTagsResponse$Outbound,
+  z.ZodTypeDef,
+  GetTagsResponse
+> = z.object({
+  name: z.string().optional(),
+  taggingsCount: z.number().int().optional(),
+  created: z.date().transform(v => v.toISOString()).optional(),
+  updated: z.date().transform(v => v.toISOString()).optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetTagsResponse$ {
+  /** @deprecated use `GetTagsResponse$inboundSchema` instead. */
+  export const inboundSchema = GetTagsResponse$inboundSchema;
+  /** @deprecated use `GetTagsResponse$outboundSchema` instead. */
+  export const outboundSchema = GetTagsResponse$outboundSchema;
+  /** @deprecated use `GetTagsResponse$Outbound` instead. */
+  export type Outbound = GetTagsResponse$Outbound;
+}
+
+export function getTagsResponseToJSON(
+  getTagsResponse: GetTagsResponse,
+): string {
+  return JSON.stringify(GetTagsResponse$outboundSchema.parse(getTagsResponse));
+}
+
+export function getTagsResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<GetTagsResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetTagsResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetTagsResponse' from JSON`,
   );
 }

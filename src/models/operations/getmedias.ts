@@ -104,7 +104,7 @@ export type GetMediasSortDirection = ClosedEnum<typeof GetMediasSortDirection>;
 /**
  * A string specifying which type of media you would like to get.
  */
-export const Type = {
+export const QueryParamType = {
   Video: "Video",
   Audio: "Audio",
   Image: "Image",
@@ -116,7 +116,7 @@ export const Type = {
 /**
  * A string specifying which type of media you would like to get.
  */
-export type Type = ClosedEnum<typeof Type>;
+export type QueryParamType = ClosedEnum<typeof QueryParamType>;
 
 export type GetMediasRequest = {
   /**
@@ -168,7 +168,7 @@ export type GetMediasRequest = {
   /**
    * A string specifying which type of media you would like to get.
    */
-  type?: Type | undefined;
+  type?: QueryParamType | undefined;
   /**
    * Find the media by hashed_id.
    */
@@ -185,6 +185,207 @@ export type GetMediasRequest = {
    * Filter by archived status. True will return only archived medias, while false will return only active medias.
    */
   archived?: boolean | undefined;
+};
+
+/**
+ * A string representing what type of media this is.
+ */
+export const GetMediasTypeResponse = {
+  Video: "Video",
+  Audio: "Audio",
+  Image: "Image",
+  PdfDocument: "PdfDocument",
+  MicrosoftOfficeDocument: "MicrosoftOfficeDocument",
+  Swf: "Swf",
+  UnknownType: "UnknownType",
+} as const;
+/**
+ * A string representing what type of media this is.
+ */
+export type GetMediasTypeResponse = ClosedEnum<typeof GetMediasTypeResponse>;
+
+/**
+ * Post upload processing status. - `queued`: the file is waiting in the queue to be processed. - `processing`: the file is actively being processed. - `ready`: the file has been fully processed and is ready for embedding and viewing. - `failed`: the file was unable to be processed (usually a format or size error).
+ *
+ * @remarks
+ */
+export const GetMediasStatus = {
+  Queued: "queued",
+  Processing: "processing",
+  Ready: "ready",
+  Failed: "failed",
+} as const;
+/**
+ * Post upload processing status. - `queued`: the file is waiting in the queue to be processed. - `processing`: the file is actively being processed. - `ready`: the file has been fully processed and is ready for embedding and viewing. - `failed`: the file was unable to be processed (usually a format or size error).
+ *
+ * @remarks
+ */
+export type GetMediasStatus = ClosedEnum<typeof GetMediasStatus>;
+
+export type GetMediasThumbnail = {
+  url?: string | undefined;
+  width?: number | undefined;
+  height?: number | undefined;
+};
+
+export type GetMediasProject = {
+  /**
+   * A unique numeric identifier for the project within the system.
+   */
+  id?: number | undefined;
+  /**
+   * The project’s display name.
+   */
+  name?: string | undefined;
+  /**
+   * A private hashed id, uniquely identifying the project within the system.
+   */
+  hashedId?: string | undefined;
+};
+
+export type GetMediasAsset = {
+  /**
+   * A direct-access URL to the content of the asset.
+   */
+  url?: string | undefined;
+  /**
+   * The width of this specific asset, if applicable.
+   */
+  width?: number | null | undefined;
+  /**
+   * The height of this specific asset, if applicable.
+   */
+  height?: number | null | undefined;
+  /**
+   * The size of the asset file that’s referenced by url, measured in bytes.
+   */
+  fileSize?: number | null | undefined;
+  /**
+   * The asset’s content type.
+   */
+  contentType?: string | null | undefined;
+  /**
+   * The internal type of the asset, describing how the asset should be used. Values can include OriginalFile, FlashVideoFile, MdFlashVideoFile, HdFlashVideoFile, Mp4VideoFile, MdMp4VideoFile, HdMp4VideoFile, IPhoneVideoFile, StillImageFile, SwfFile, Mp3AudioFile, and LargeImageFile.
+   *
+   * @remarks
+   */
+  type?: string | undefined;
+};
+
+/**
+ * A subfolder within a project that contains media files.
+ */
+export type GetMediasSubfolder = {
+  /**
+   * A unique alphanumeric identifier for this subfolder.
+   */
+  hashedId: string;
+  /**
+   * The display name of the subfolder.
+   */
+  name?: string | null | undefined;
+  /**
+   * A description for the subfolder.
+   */
+  description?: string | null | undefined;
+  /**
+   * The position of this subfolder within its project, used for ordering.
+   */
+  position: number | null;
+  /**
+   * The date when the subfolder was created.
+   */
+  created: Date | null;
+  /**
+   * The date when the subfolder was last modified.
+   */
+  updated: Date | null;
+};
+
+export type GetMediasTag = {
+  /**
+   * The display name of the tag.
+   */
+  name?: string | undefined;
+};
+
+export type GetMediasResponse = {
+  /**
+   * A unique numeric identifier for the media within the system.
+   */
+  id?: number | undefined;
+  /**
+   * The display name of the media.
+   */
+  name?: string | undefined;
+  /**
+   * A string representing what type of media this is.
+   */
+  type?: GetMediasTypeResponse | undefined;
+  /**
+   * Whether or not the media is archived, either true or false.
+   */
+  archived?: boolean | undefined;
+  /**
+   * The date when the media was originally uploaded.
+   */
+  created?: Date | undefined;
+  /**
+   * The date when the media was last changed.
+   */
+  updated?: Date | undefined;
+  /**
+   * Specifies the length (in seconds) for audio and video files. Specifies number of pages in the document. Omitted for other types of media.
+   */
+  duration?: number | null | undefined;
+  /**
+   * DEPRECATED: If you want to programmatically embed videos, follow the construct an embed code guide.
+   *
+   * @remarks
+   *
+   * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+   */
+  embedCode?: string | undefined;
+  /**
+   * A unique alphanumeric identifier for this media.
+   */
+  hashedId?: string | undefined;
+  /**
+   * A description for the media which usually appears near the top of the sidebar on the media's page.
+   */
+  description?: string | undefined;
+  /**
+   * A floating point value between 0 and 1 that indicates the progress of the processing for this file.
+   */
+  progress?: number | undefined;
+  /**
+   * Post upload processing status. - `queued`: the file is waiting in the queue to be processed. - `processing`: the file is actively being processed. - `ready`: the file has been fully processed and is ready for embedding and viewing. - `failed`: the file was unable to be processed (usually a format or size error).
+   *
+   * @remarks
+   */
+  status?: GetMediasStatus | undefined;
+  /**
+   * The title of the section in which the media appears. This attribute is omitted if the media is not in a section (default).
+   */
+  section?: string | null | undefined;
+  thumbnail?: GetMediasThumbnail | undefined;
+  project?: GetMediasProject | null | undefined;
+  /**
+   * An array of the assets available for this media.
+   */
+  assets?: Array<GetMediasAsset> | undefined;
+  /**
+   * The subfolder (media group) in which the media appears. Null if the media is not in a subfolder.
+   */
+  subfolder?: GetMediasSubfolder | undefined;
+  /**
+   * Tags associated with this media.
+   */
+  tags?: Array<GetMediasTag> | undefined;
+  /**
+   * A cursor for stable pagination based on current `sort_by` order. You can pass this to `cursor_before` or `cursor_after` as a parameter to fetch the records before or after this record in the same sort order. This is only populated if medias were fetched with `use_cursor`, or `cursor_before` or `cursor_after`.
+   */
+  cursor?: string | null | undefined;
 };
 
 /** @internal */
@@ -302,23 +503,24 @@ export namespace GetMediasSortDirection$ {
 }
 
 /** @internal */
-export const Type$inboundSchema: z.ZodNativeEnum<typeof Type> = z.nativeEnum(
-  Type,
-);
+export const QueryParamType$inboundSchema: z.ZodNativeEnum<
+  typeof QueryParamType
+> = z.nativeEnum(QueryParamType);
 
 /** @internal */
-export const Type$outboundSchema: z.ZodNativeEnum<typeof Type> =
-  Type$inboundSchema;
+export const QueryParamType$outboundSchema: z.ZodNativeEnum<
+  typeof QueryParamType
+> = QueryParamType$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace Type$ {
-  /** @deprecated use `Type$inboundSchema` instead. */
-  export const inboundSchema = Type$inboundSchema;
-  /** @deprecated use `Type$outboundSchema` instead. */
-  export const outboundSchema = Type$outboundSchema;
+export namespace QueryParamType$ {
+  /** @deprecated use `QueryParamType$inboundSchema` instead. */
+  export const inboundSchema = QueryParamType$inboundSchema;
+  /** @deprecated use `QueryParamType$outboundSchema` instead. */
+  export const outboundSchema = QueryParamType$outboundSchema;
 }
 
 /** @internal */
@@ -334,7 +536,7 @@ export const GetMediasRequest$inboundSchema: z.ZodType<
   sort_direction: GetMediasSortDirection$inboundSchema.optional(),
   project_id: z.string().optional(),
   name: z.string().optional(),
-  type: Type$inboundSchema.optional(),
+  type: QueryParamType$inboundSchema.optional(),
   hashed_id: z.string().optional(),
   hashed_ids: z.array(z.string()).optional(),
   tags: z.array(z.string()).optional(),
@@ -379,7 +581,7 @@ export const GetMediasRequest$outboundSchema: z.ZodType<
   sortDirection: GetMediasSortDirection$outboundSchema.optional(),
   projectId: z.string().optional(),
   name: z.string().optional(),
-  type: Type$outboundSchema.optional(),
+  type: QueryParamType$outboundSchema.optional(),
   hashedId: z.string().optional(),
   hashedIds: z.array(z.string()).optional(),
   tags: z.array(z.string()).optional(),
@@ -423,5 +625,481 @@ export function getMediasRequestFromJSON(
     jsonString,
     (x) => GetMediasRequest$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'GetMediasRequest' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetMediasTypeResponse$inboundSchema: z.ZodNativeEnum<
+  typeof GetMediasTypeResponse
+> = z.nativeEnum(GetMediasTypeResponse);
+
+/** @internal */
+export const GetMediasTypeResponse$outboundSchema: z.ZodNativeEnum<
+  typeof GetMediasTypeResponse
+> = GetMediasTypeResponse$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetMediasTypeResponse$ {
+  /** @deprecated use `GetMediasTypeResponse$inboundSchema` instead. */
+  export const inboundSchema = GetMediasTypeResponse$inboundSchema;
+  /** @deprecated use `GetMediasTypeResponse$outboundSchema` instead. */
+  export const outboundSchema = GetMediasTypeResponse$outboundSchema;
+}
+
+/** @internal */
+export const GetMediasStatus$inboundSchema: z.ZodNativeEnum<
+  typeof GetMediasStatus
+> = z.nativeEnum(GetMediasStatus);
+
+/** @internal */
+export const GetMediasStatus$outboundSchema: z.ZodNativeEnum<
+  typeof GetMediasStatus
+> = GetMediasStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetMediasStatus$ {
+  /** @deprecated use `GetMediasStatus$inboundSchema` instead. */
+  export const inboundSchema = GetMediasStatus$inboundSchema;
+  /** @deprecated use `GetMediasStatus$outboundSchema` instead. */
+  export const outboundSchema = GetMediasStatus$outboundSchema;
+}
+
+/** @internal */
+export const GetMediasThumbnail$inboundSchema: z.ZodType<
+  GetMediasThumbnail,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  url: z.string().optional(),
+  width: z.number().int().optional(),
+  height: z.number().int().optional(),
+});
+
+/** @internal */
+export type GetMediasThumbnail$Outbound = {
+  url?: string | undefined;
+  width?: number | undefined;
+  height?: number | undefined;
+};
+
+/** @internal */
+export const GetMediasThumbnail$outboundSchema: z.ZodType<
+  GetMediasThumbnail$Outbound,
+  z.ZodTypeDef,
+  GetMediasThumbnail
+> = z.object({
+  url: z.string().optional(),
+  width: z.number().int().optional(),
+  height: z.number().int().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetMediasThumbnail$ {
+  /** @deprecated use `GetMediasThumbnail$inboundSchema` instead. */
+  export const inboundSchema = GetMediasThumbnail$inboundSchema;
+  /** @deprecated use `GetMediasThumbnail$outboundSchema` instead. */
+  export const outboundSchema = GetMediasThumbnail$outboundSchema;
+  /** @deprecated use `GetMediasThumbnail$Outbound` instead. */
+  export type Outbound = GetMediasThumbnail$Outbound;
+}
+
+export function getMediasThumbnailToJSON(
+  getMediasThumbnail: GetMediasThumbnail,
+): string {
+  return JSON.stringify(
+    GetMediasThumbnail$outboundSchema.parse(getMediasThumbnail),
+  );
+}
+
+export function getMediasThumbnailFromJSON(
+  jsonString: string,
+): SafeParseResult<GetMediasThumbnail, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetMediasThumbnail$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetMediasThumbnail' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetMediasProject$inboundSchema: z.ZodType<
+  GetMediasProject,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: z.number().int().optional(),
+  name: z.string().optional(),
+  hashedId: z.string().optional(),
+});
+
+/** @internal */
+export type GetMediasProject$Outbound = {
+  id?: number | undefined;
+  name?: string | undefined;
+  hashedId?: string | undefined;
+};
+
+/** @internal */
+export const GetMediasProject$outboundSchema: z.ZodType<
+  GetMediasProject$Outbound,
+  z.ZodTypeDef,
+  GetMediasProject
+> = z.object({
+  id: z.number().int().optional(),
+  name: z.string().optional(),
+  hashedId: z.string().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetMediasProject$ {
+  /** @deprecated use `GetMediasProject$inboundSchema` instead. */
+  export const inboundSchema = GetMediasProject$inboundSchema;
+  /** @deprecated use `GetMediasProject$outboundSchema` instead. */
+  export const outboundSchema = GetMediasProject$outboundSchema;
+  /** @deprecated use `GetMediasProject$Outbound` instead. */
+  export type Outbound = GetMediasProject$Outbound;
+}
+
+export function getMediasProjectToJSON(
+  getMediasProject: GetMediasProject,
+): string {
+  return JSON.stringify(
+    GetMediasProject$outboundSchema.parse(getMediasProject),
+  );
+}
+
+export function getMediasProjectFromJSON(
+  jsonString: string,
+): SafeParseResult<GetMediasProject, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetMediasProject$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetMediasProject' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetMediasAsset$inboundSchema: z.ZodType<
+  GetMediasAsset,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  url: z.string().optional(),
+  width: z.nullable(z.number().int()).optional(),
+  height: z.nullable(z.number().int()).optional(),
+  fileSize: z.nullable(z.number().int()).optional(),
+  contentType: z.nullable(z.string()).optional(),
+  type: z.string().optional(),
+});
+
+/** @internal */
+export type GetMediasAsset$Outbound = {
+  url?: string | undefined;
+  width?: number | null | undefined;
+  height?: number | null | undefined;
+  fileSize?: number | null | undefined;
+  contentType?: string | null | undefined;
+  type?: string | undefined;
+};
+
+/** @internal */
+export const GetMediasAsset$outboundSchema: z.ZodType<
+  GetMediasAsset$Outbound,
+  z.ZodTypeDef,
+  GetMediasAsset
+> = z.object({
+  url: z.string().optional(),
+  width: z.nullable(z.number().int()).optional(),
+  height: z.nullable(z.number().int()).optional(),
+  fileSize: z.nullable(z.number().int()).optional(),
+  contentType: z.nullable(z.string()).optional(),
+  type: z.string().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetMediasAsset$ {
+  /** @deprecated use `GetMediasAsset$inboundSchema` instead. */
+  export const inboundSchema = GetMediasAsset$inboundSchema;
+  /** @deprecated use `GetMediasAsset$outboundSchema` instead. */
+  export const outboundSchema = GetMediasAsset$outboundSchema;
+  /** @deprecated use `GetMediasAsset$Outbound` instead. */
+  export type Outbound = GetMediasAsset$Outbound;
+}
+
+export function getMediasAssetToJSON(getMediasAsset: GetMediasAsset): string {
+  return JSON.stringify(GetMediasAsset$outboundSchema.parse(getMediasAsset));
+}
+
+export function getMediasAssetFromJSON(
+  jsonString: string,
+): SafeParseResult<GetMediasAsset, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetMediasAsset$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetMediasAsset' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetMediasSubfolder$inboundSchema: z.ZodType<
+  GetMediasSubfolder,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  hashed_id: z.string(),
+  name: z.nullable(z.string()).optional(),
+  description: z.nullable(z.string()).optional(),
+  position: z.nullable(z.number().int()),
+  created: z.nullable(
+    z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  ),
+  updated: z.nullable(
+    z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  ),
+}).transform((v) => {
+  return remap$(v, {
+    "hashed_id": "hashedId",
+  });
+});
+
+/** @internal */
+export type GetMediasSubfolder$Outbound = {
+  hashed_id: string;
+  name?: string | null | undefined;
+  description?: string | null | undefined;
+  position: number | null;
+  created: string | null;
+  updated: string | null;
+};
+
+/** @internal */
+export const GetMediasSubfolder$outboundSchema: z.ZodType<
+  GetMediasSubfolder$Outbound,
+  z.ZodTypeDef,
+  GetMediasSubfolder
+> = z.object({
+  hashedId: z.string(),
+  name: z.nullable(z.string()).optional(),
+  description: z.nullable(z.string()).optional(),
+  position: z.nullable(z.number().int()),
+  created: z.nullable(z.date().transform(v => v.toISOString())),
+  updated: z.nullable(z.date().transform(v => v.toISOString())),
+}).transform((v) => {
+  return remap$(v, {
+    hashedId: "hashed_id",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetMediasSubfolder$ {
+  /** @deprecated use `GetMediasSubfolder$inboundSchema` instead. */
+  export const inboundSchema = GetMediasSubfolder$inboundSchema;
+  /** @deprecated use `GetMediasSubfolder$outboundSchema` instead. */
+  export const outboundSchema = GetMediasSubfolder$outboundSchema;
+  /** @deprecated use `GetMediasSubfolder$Outbound` instead. */
+  export type Outbound = GetMediasSubfolder$Outbound;
+}
+
+export function getMediasSubfolderToJSON(
+  getMediasSubfolder: GetMediasSubfolder,
+): string {
+  return JSON.stringify(
+    GetMediasSubfolder$outboundSchema.parse(getMediasSubfolder),
+  );
+}
+
+export function getMediasSubfolderFromJSON(
+  jsonString: string,
+): SafeParseResult<GetMediasSubfolder, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetMediasSubfolder$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetMediasSubfolder' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetMediasTag$inboundSchema: z.ZodType<
+  GetMediasTag,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string().optional(),
+});
+
+/** @internal */
+export type GetMediasTag$Outbound = {
+  name?: string | undefined;
+};
+
+/** @internal */
+export const GetMediasTag$outboundSchema: z.ZodType<
+  GetMediasTag$Outbound,
+  z.ZodTypeDef,
+  GetMediasTag
+> = z.object({
+  name: z.string().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetMediasTag$ {
+  /** @deprecated use `GetMediasTag$inboundSchema` instead. */
+  export const inboundSchema = GetMediasTag$inboundSchema;
+  /** @deprecated use `GetMediasTag$outboundSchema` instead. */
+  export const outboundSchema = GetMediasTag$outboundSchema;
+  /** @deprecated use `GetMediasTag$Outbound` instead. */
+  export type Outbound = GetMediasTag$Outbound;
+}
+
+export function getMediasTagToJSON(getMediasTag: GetMediasTag): string {
+  return JSON.stringify(GetMediasTag$outboundSchema.parse(getMediasTag));
+}
+
+export function getMediasTagFromJSON(
+  jsonString: string,
+): SafeParseResult<GetMediasTag, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetMediasTag$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetMediasTag' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetMediasResponse$inboundSchema: z.ZodType<
+  GetMediasResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: z.number().int().optional(),
+  name: z.string().optional(),
+  type: GetMediasTypeResponse$inboundSchema.optional(),
+  archived: z.boolean().optional(),
+  created: z.string().datetime({ offset: true }).transform(v => new Date(v))
+    .optional(),
+  updated: z.string().datetime({ offset: true }).transform(v => new Date(v))
+    .optional(),
+  duration: z.nullable(z.number()).optional(),
+  embedCode: z.string().optional(),
+  hashed_id: z.string().optional(),
+  description: z.string().optional(),
+  progress: z.number().optional(),
+  status: GetMediasStatus$inboundSchema.optional(),
+  section: z.nullable(z.string()).optional(),
+  thumbnail: z.lazy(() => GetMediasThumbnail$inboundSchema).optional(),
+  project: z.nullable(z.lazy(() => GetMediasProject$inboundSchema)).optional(),
+  assets: z.array(z.lazy(() => GetMediasAsset$inboundSchema)).optional(),
+  subfolder: z.lazy(() => GetMediasSubfolder$inboundSchema).optional(),
+  tags: z.array(z.lazy(() => GetMediasTag$inboundSchema)).optional(),
+  cursor: z.nullable(z.string()).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "hashed_id": "hashedId",
+  });
+});
+
+/** @internal */
+export type GetMediasResponse$Outbound = {
+  id?: number | undefined;
+  name?: string | undefined;
+  type?: string | undefined;
+  archived?: boolean | undefined;
+  created?: string | undefined;
+  updated?: string | undefined;
+  duration?: number | null | undefined;
+  embedCode?: string | undefined;
+  hashed_id?: string | undefined;
+  description?: string | undefined;
+  progress?: number | undefined;
+  status?: string | undefined;
+  section?: string | null | undefined;
+  thumbnail?: GetMediasThumbnail$Outbound | undefined;
+  project?: GetMediasProject$Outbound | null | undefined;
+  assets?: Array<GetMediasAsset$Outbound> | undefined;
+  subfolder?: GetMediasSubfolder$Outbound | undefined;
+  tags?: Array<GetMediasTag$Outbound> | undefined;
+  cursor?: string | null | undefined;
+};
+
+/** @internal */
+export const GetMediasResponse$outboundSchema: z.ZodType<
+  GetMediasResponse$Outbound,
+  z.ZodTypeDef,
+  GetMediasResponse
+> = z.object({
+  id: z.number().int().optional(),
+  name: z.string().optional(),
+  type: GetMediasTypeResponse$outboundSchema.optional(),
+  archived: z.boolean().optional(),
+  created: z.date().transform(v => v.toISOString()).optional(),
+  updated: z.date().transform(v => v.toISOString()).optional(),
+  duration: z.nullable(z.number()).optional(),
+  embedCode: z.string().optional(),
+  hashedId: z.string().optional(),
+  description: z.string().optional(),
+  progress: z.number().optional(),
+  status: GetMediasStatus$outboundSchema.optional(),
+  section: z.nullable(z.string()).optional(),
+  thumbnail: z.lazy(() => GetMediasThumbnail$outboundSchema).optional(),
+  project: z.nullable(z.lazy(() => GetMediasProject$outboundSchema)).optional(),
+  assets: z.array(z.lazy(() => GetMediasAsset$outboundSchema)).optional(),
+  subfolder: z.lazy(() => GetMediasSubfolder$outboundSchema).optional(),
+  tags: z.array(z.lazy(() => GetMediasTag$outboundSchema)).optional(),
+  cursor: z.nullable(z.string()).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    hashedId: "hashed_id",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetMediasResponse$ {
+  /** @deprecated use `GetMediasResponse$inboundSchema` instead. */
+  export const inboundSchema = GetMediasResponse$inboundSchema;
+  /** @deprecated use `GetMediasResponse$outboundSchema` instead. */
+  export const outboundSchema = GetMediasResponse$outboundSchema;
+  /** @deprecated use `GetMediasResponse$Outbound` instead. */
+  export type Outbound = GetMediasResponse$Outbound;
+}
+
+export function getMediasResponseToJSON(
+  getMediasResponse: GetMediasResponse,
+): string {
+  return JSON.stringify(
+    GetMediasResponse$outboundSchema.parse(getMediasResponse),
+  );
+}
+
+export function getMediasResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<GetMediasResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetMediasResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetMediasResponse' from JSON`,
   );
 }

@@ -60,6 +60,37 @@ export type GetChannelsRequest = {
   hashedIds?: Array<string> | undefined;
 };
 
+export type GetChannelsResponse = {
+  /**
+   * The numeri d of the channel.
+   */
+  id: number;
+  /**
+   * The date when the channel was originally created.
+   */
+  created: Date;
+  /**
+   * The channel's description.
+   */
+  description: string;
+  /**
+   * A unique alphanumeric identifier for this channel.
+   */
+  hashedId: string;
+  /**
+   * The number of medias in the channel.
+   */
+  mediaCount: number;
+  /**
+   * The display name for the channel
+   */
+  name: string;
+  /**
+   * The date when the channel was last updated.
+   */
+  updated: Date;
+};
+
 /** @internal */
 export const GetChannelsSortBy$inboundSchema: z.ZodNativeEnum<
   typeof GetChannelsSortBy
@@ -179,5 +210,77 @@ export function getChannelsRequestFromJSON(
     jsonString,
     (x) => GetChannelsRequest$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'GetChannelsRequest' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetChannelsResponse$inboundSchema: z.ZodType<
+  GetChannelsResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: z.number().int(),
+  created: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  description: z.string(),
+  hashedId: z.string(),
+  mediaCount: z.number().int(),
+  name: z.string(),
+  updated: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+});
+
+/** @internal */
+export type GetChannelsResponse$Outbound = {
+  id: number;
+  created: string;
+  description: string;
+  hashedId: string;
+  mediaCount: number;
+  name: string;
+  updated: string;
+};
+
+/** @internal */
+export const GetChannelsResponse$outboundSchema: z.ZodType<
+  GetChannelsResponse$Outbound,
+  z.ZodTypeDef,
+  GetChannelsResponse
+> = z.object({
+  id: z.number().int(),
+  created: z.date().transform(v => v.toISOString()),
+  description: z.string(),
+  hashedId: z.string(),
+  mediaCount: z.number().int(),
+  name: z.string(),
+  updated: z.date().transform(v => v.toISOString()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetChannelsResponse$ {
+  /** @deprecated use `GetChannelsResponse$inboundSchema` instead. */
+  export const inboundSchema = GetChannelsResponse$inboundSchema;
+  /** @deprecated use `GetChannelsResponse$outboundSchema` instead. */
+  export const outboundSchema = GetChannelsResponse$outboundSchema;
+  /** @deprecated use `GetChannelsResponse$Outbound` instead. */
+  export type Outbound = GetChannelsResponse$Outbound;
+}
+
+export function getChannelsResponseToJSON(
+  getChannelsResponse: GetChannelsResponse,
+): string {
+  return JSON.stringify(
+    GetChannelsResponse$outboundSchema.parse(getChannelsResponse),
+  );
+}
+
+export function getChannelsResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<GetChannelsResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetChannelsResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetChannelsResponse' from JSON`,
   );
 }

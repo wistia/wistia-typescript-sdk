@@ -21,7 +21,6 @@ import * as errors from "../models/errors/index.js";
 import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import { WistiaError } from "../models/errors/wistiaerror.js";
-import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
@@ -43,10 +42,10 @@ export function allowedDomainsGet(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    models.AllowedDomain,
-    | errors.FourHundredAndOneError
+    operations.GetAllowedDomainsDomainResponse,
+    | errors.GetAllowedDomainsDomainUnauthorizedError
     | errors.GetAllowedDomainsDomainNotFoundError
-    | errors.FiveHundredError
+    | errors.GetAllowedDomainsDomainInternalServerError
     | WistiaError
     | ResponseValidationError
     | ConnectionError
@@ -71,10 +70,10 @@ async function $do(
 ): Promise<
   [
     Result<
-      models.AllowedDomain,
-      | errors.FourHundredAndOneError
+      operations.GetAllowedDomainsDomainResponse,
+      | errors.GetAllowedDomainsDomainUnauthorizedError
       | errors.GetAllowedDomainsDomainNotFoundError
-      | errors.FiveHundredError
+      | errors.GetAllowedDomainsDomainInternalServerError
       | WistiaError
       | ResponseValidationError
       | ConnectionError
@@ -162,10 +161,10 @@ async function $do(
   };
 
   const [result] = await M.match<
-    models.AllowedDomain,
-    | errors.FourHundredAndOneError
+    operations.GetAllowedDomainsDomainResponse,
+    | errors.GetAllowedDomainsDomainUnauthorizedError
     | errors.GetAllowedDomainsDomainNotFoundError
-    | errors.FiveHundredError
+    | errors.GetAllowedDomainsDomainInternalServerError
     | WistiaError
     | ResponseValidationError
     | ConnectionError
@@ -175,10 +174,16 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, models.AllowedDomain$inboundSchema),
-    M.jsonErr(401, errors.FourHundredAndOneError$inboundSchema),
+    M.json(200, operations.GetAllowedDomainsDomainResponse$inboundSchema),
+    M.jsonErr(
+      401,
+      errors.GetAllowedDomainsDomainUnauthorizedError$inboundSchema,
+    ),
     M.jsonErr(404, errors.GetAllowedDomainsDomainNotFoundError$inboundSchema),
-    M.jsonErr(500, errors.FiveHundredError$inboundSchema),
+    M.jsonErr(
+      500,
+      errors.GetAllowedDomainsDomainInternalServerError$inboundSchema,
+    ),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

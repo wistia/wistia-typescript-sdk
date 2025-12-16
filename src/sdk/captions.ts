@@ -11,7 +11,6 @@ import { captionsPurchase } from "../funcs/captionsPurchase.js";
 import { captionsUpdate } from "../funcs/captionsUpdate.js";
 import { captionsUpdateMultipart } from "../funcs/captionsUpdateMultipart.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
-import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -36,30 +35,8 @@ export class Captions extends ClientSDK {
   async list(
     request: operations.GetMediasMediaHashedIdCaptionsRequest,
     options?: RequestOptions,
-  ): Promise<Array<models.Caption>> {
+  ): Promise<Array<operations.GetMediasMediaHashedIdCaptionsResponse>> {
     return unwrapAsync(captionsList(
-      this,
-      request,
-      options,
-    ));
-  }
-
-  /**
-   * Captions Create
-   *
-   * @remarks
-   * Adds captions to a specified video by providing an SRT file or its contents directly.
-   *
-   * ## Requires api token with one of the following permissions
-   * ```
-   * Read, update & delete anything
-   * ```
-   */
-  async createMultipart(
-    request: operations.PostMediasMediaHashedIdCaptionsMultipartRequest,
-    options?: RequestOptions,
-  ): Promise<void> {
-    return unwrapAsync(captionsCreateMultipart(
       this,
       request,
       options,
@@ -82,6 +59,28 @@ export class Captions extends ClientSDK {
     options?: RequestOptions,
   ): Promise<void> {
     return unwrapAsync(captionsCreate(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Captions Create
+   *
+   * @remarks
+   * Adds captions to a specified video by providing an SRT file or its contents directly.
+   *
+   * ## Requires api token with one of the following permissions
+   * ```
+   * Read, update & delete anything
+   * ```
+   */
+  async createMultipart(
+    request: operations.PostMediasMediaHashedIdCaptionsMultipartRequest,
+    options?: RequestOptions,
+  ): Promise<void> {
+    return unwrapAsync(captionsCreateMultipart(
       this,
       request,
       options,

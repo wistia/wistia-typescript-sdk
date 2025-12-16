@@ -5,7 +5,6 @@
 import { channelsGet } from "../funcs/channelsGet.js";
 import { channelsList } from "../funcs/channelsList.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
-import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 import { ChannelsChannelEpisodes } from "./channelschannelepisodes.js";
@@ -34,7 +33,7 @@ export class Channels extends ClientSDK {
   async list(
     request?: operations.GetChannelsRequest | undefined,
     options?: RequestOptions,
-  ): Promise<Array<models.Channel>> {
+  ): Promise<Array<operations.GetChannelsResponse>> {
     return unwrapAsync(channelsList(
       this,
       request,
@@ -58,7 +57,7 @@ export class Channels extends ClientSDK {
   async get(
     request: operations.GetChannelsChannelHashedIdRequest,
     options?: RequestOptions,
-  ): Promise<models.Channel> {
+  ): Promise<operations.GetChannelsChannelHashedIdResponse> {
     return unwrapAsync(channelsGet(
       this,
       request,

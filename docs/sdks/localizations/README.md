@@ -83,16 +83,16 @@ run();
 
 ### Response
 
-**Promise\<[models.Localization[]](../../models/.md)\>**
+**Promise\<[operations.GetMediasMediaHashedIdLocalizationsResponse[]](../../models/.md)\>**
 
 ### Errors
 
-| Error Type                     | Status Code                    | Content Type                   |
-| ------------------------------ | ------------------------------ | ------------------------------ |
-| errors.FourHundredAndOneError  | 401                            | application/json               |
-| errors.FourHundredAndFourError | 404                            | application/json               |
-| errors.FiveHundredError        | 500                            | application/json               |
-| errors.WistiaDefaultError      | 4XX, 5XX                       | \*/\*                          |
+| Error Type                                                    | Status Code                                                   | Content Type                                                  |
+| ------------------------------------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------- |
+| errors.GetMediasMediaHashedIdLocalizationsUnauthorizedError   | 401                                                           | application/json                                              |
+| errors.GetMediasMediaHashedIdLocalizationsNotFoundError       | 404                                                           | application/json                                              |
+| errors.GetMediasMediaHashedIdLocalizationsInternalServerError | 500                                                           | application/json                                              |
+| errors.WistiaDefaultError                                     | 4XX, 5XX                                                      | \*/\*                                                         |
 
 ## create
 
@@ -165,17 +165,17 @@ run();
 
 ### Response
 
-**Promise\<[models.LocalizationWithPurchaseData](../../models/localizationwithpurchasedata.md)\>**
+**Promise\<[operations.PostMediasMediaHashedIdLocalizationsResponse](../../models/operations/postmediasmediahashedidlocalizationsresponse.md)\>**
 
 ### Errors
 
 | Error Type                                                          | Status Code                                                         | Content Type                                                        |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| errors.FourHundredError                                             | 400                                                                 | application/json                                                    |
-| errors.FourHundredAndOneError                                       | 401                                                                 | application/json                                                    |
-| errors.FourHundredAndFourError                                      | 404                                                                 | application/json                                                    |
+| errors.PostMediasMediaHashedIdLocalizationsBadRequestError          | 400                                                                 | application/json                                                    |
+| errors.PostMediasMediaHashedIdLocalizationsUnauthorizedError        | 401                                                                 | application/json                                                    |
+| errors.PostMediasMediaHashedIdLocalizationsNotFoundError            | 404                                                                 | application/json                                                    |
 | errors.PostMediasMediaHashedIdLocalizationsUnprocessableEntityError | 422                                                                 | application/json                                                    |
-| errors.FiveHundredError                                             | 500                                                                 | application/json                                                    |
+| errors.PostMediasMediaHashedIdLocalizationsInternalServerError      | 500                                                                 | application/json                                                    |
 | errors.WistiaDefaultError                                           | 4XX, 5XX                                                            | \*/\*                                                               |
 
 ## get
@@ -253,16 +253,16 @@ run();
 
 ### Response
 
-**Promise\<[models.Localization](../../models/localization.md)\>**
+**Promise\<[operations.GetMediasMediaHashedIdLocalizationsLocalizationHashedIdResponse](../../models/operations/getmediasmediahashedidlocalizationslocalizationhashedidresponse.md)\>**
 
 ### Errors
 
-| Error Type                     | Status Code                    | Content Type                   |
-| ------------------------------ | ------------------------------ | ------------------------------ |
-| errors.FourHundredAndOneError  | 401                            | application/json               |
-| errors.FourHundredAndFourError | 404                            | application/json               |
-| errors.FiveHundredError        | 500                            | application/json               |
-| errors.WistiaDefaultError      | 4XX, 5XX                       | \*/\*                          |
+| Error Type                                                                        | Status Code                                                                       | Content Type                                                                      |
+| --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| errors.GetMediasMediaHashedIdLocalizationsLocalizationHashedIdUnauthorizedError   | 401                                                                               | application/json                                                                  |
+| errors.GetMediasMediaHashedIdLocalizationsLocalizationHashedIdNotFoundError       | 404                                                                               | application/json                                                                  |
+| errors.GetMediasMediaHashedIdLocalizationsLocalizationHashedIdInternalServerError | 500                                                                               | application/json                                                                  |
+| errors.WistiaDefaultError                                                         | 4XX, 5XX                                                                          | \*/\*                                                                             |
 
 ## delete
 
@@ -337,13 +337,13 @@ run();
 
 ### Response
 
-**Promise\<[models.Localization](../../models/localization.md)\>**
+**Promise\<[operations.DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdResponse](../../models/operations/deletemediasmediahashedidlocalizationslocalizationhashedidresponse.md)\>**
 
 ### Errors
 
-| Error Type                     | Status Code                    | Content Type                   |
-| ------------------------------ | ------------------------------ | ------------------------------ |
-| errors.FourHundredAndOneError  | 401                            | application/json               |
-| errors.FourHundredAndFourError | 404                            | application/json               |
-| errors.FiveHundredError        | 500                            | application/json               |
-| errors.WistiaDefaultError      | 4XX, 5XX                       | \*/\*                          |
+| Error Type                                                                           | Status Code                                                                          | Content Type                                                                         |
+| ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
+| errors.DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdUnauthorizedError   | 401                                                                                  | application/json                                                                     |
+| errors.DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdNotFoundError       | 404                                                                                  | application/json                                                                     |
+| errors.DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdInternalServerError | 500                                                                                  | application/json                                                                     |
+| errors.WistiaDefaultError                                                            | 4XX, 5XX                                                                             | \*/\*                                                                                |

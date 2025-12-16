@@ -42,8 +42,8 @@ export function statsAccountGet(
 ): APIPromise<
   Result<
     operations.GetStatsAccountResponse,
-    | errors.FourHundredAndOneError
-    | errors.FiveHundredError
+    | errors.GetStatsAccountUnauthorizedError
+    | errors.GetStatsAccountInternalServerError
     | WistiaError
     | ResponseValidationError
     | ConnectionError
@@ -67,8 +67,8 @@ async function $do(
   [
     Result<
       operations.GetStatsAccountResponse,
-      | errors.FourHundredAndOneError
-      | errors.FiveHundredError
+      | errors.GetStatsAccountUnauthorizedError
+      | errors.GetStatsAccountInternalServerError
       | WistiaError
       | ResponseValidationError
       | ConnectionError
@@ -137,8 +137,8 @@ async function $do(
 
   const [result] = await M.match<
     operations.GetStatsAccountResponse,
-    | errors.FourHundredAndOneError
-    | errors.FiveHundredError
+    | errors.GetStatsAccountUnauthorizedError
+    | errors.GetStatsAccountInternalServerError
     | WistiaError
     | ResponseValidationError
     | ConnectionError
@@ -149,8 +149,8 @@ async function $do(
     | SDKValidationError
   >(
     M.json(200, operations.GetStatsAccountResponse$inboundSchema),
-    M.jsonErr(401, errors.FourHundredAndOneError$inboundSchema),
-    M.jsonErr(500, errors.FiveHundredError$inboundSchema),
+    M.jsonErr(401, errors.GetStatsAccountUnauthorizedError$inboundSchema),
+    M.jsonErr(500, errors.GetStatsAccountInternalServerError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

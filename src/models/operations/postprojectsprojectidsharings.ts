@@ -5,22 +5,581 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-import * as models from "../index.js";
+
+/**
+ * Default is "1". Set to "0" to allow access without a password.
+ */
+export const RequirePasswordEnum = {
+  Zero: "0",
+  One: "1",
+} as const;
+/**
+ * Default is "1". Set to "0" to allow access without a password.
+ */
+export type RequirePasswordEnum = ClosedEnum<typeof RequirePasswordEnum>;
+
+export type RequirePassword = RequirePasswordEnum | boolean;
+
+/**
+ * Default is "0". Set to "1" to allow the user to share the project with others.
+ */
+export const CanShareEnum = {
+  Zero: "0",
+  One: "1",
+} as const;
+/**
+ * Default is "0". Set to "1" to allow the user to share the project with others.
+ */
+export type CanShareEnum = ClosedEnum<typeof CanShareEnum>;
+
+export type CanShare = CanShareEnum | boolean;
+
+/**
+ * Default is "0". Set to "1" to allow the user to download files from the project.
+ */
+export const CanDownloadEnum = {
+  Zero: "0",
+  One: "1",
+} as const;
+/**
+ * Default is "0". Set to "1" to allow the user to download files from the project.
+ */
+export type CanDownloadEnum = ClosedEnum<typeof CanDownloadEnum>;
+
+export type CanDownload = CanDownloadEnum | boolean;
+
+/**
+ * Default is "0". Set to "1" to allow the user to upload files to the project.
+ */
+export const CanUploadEnum = {
+  Zero: "0",
+  One: "1",
+} as const;
+/**
+ * Default is "0". Set to "1" to allow the user to upload files to the project.
+ */
+export type CanUploadEnum = ClosedEnum<typeof CanUploadEnum>;
+
+export type CanUpload = CanUploadEnum | boolean;
+
+/**
+ * Deprecated! Email notifications are always sent now.
+ *
+ * @deprecated enum: This will be removed in a future release, please migrate away from it as soon as possible.
+ */
+export const SendEmailNotification = {
+  Zero: "0",
+  One: "1",
+} as const;
+/**
+ * Deprecated! Email notifications are always sent now.
+ *
+ * @deprecated enum: This will be removed in a future release, please migrate away from it as soon as possible.
+ */
+export type SendEmailNotification = ClosedEnum<typeof SendEmailNotification>;
+
+export type PostProjectsProjectIdSharingsSharingRequest = {
+  /**
+   * The email address of the person with whom you want to share the project.
+   */
+  with: string;
+  requirePassword?: RequirePasswordEnum | boolean | undefined;
+  canShare?: CanShareEnum | boolean | undefined;
+  canDownload?: CanDownloadEnum | boolean | undefined;
+  canUpload?: CanUploadEnum | boolean | undefined;
+  /**
+   * Deprecated! Email notifications are always sent now.
+   *
+   * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+   */
+  sendEmailNotification?: SendEmailNotification | undefined;
+};
+
+export type PostProjectsProjectIdSharingsRequestBody = {
+  sharing: PostProjectsProjectIdSharingsSharingRequest;
+};
 
 export type PostProjectsProjectIdSharingsRequest = {
   /**
    * Hashed ID of the project to be shared
    */
   projectId: string;
-  createProjectSharing: models.CreateProjectSharing;
+  requestBody: PostProjectsProjectIdSharingsRequestBody;
+};
+
+export type PostProjectsProjectIdSharingsShare = {
+  id: number;
+  name: string;
+  type: string;
+  email: string;
+};
+
+export type PostProjectsProjectIdSharingsProject = {
+  id: number;
+  name: string;
+};
+
+export type SharingResponse = {
+  id: number;
+  isAdmin: boolean;
+  canShare: boolean;
+  canDownload: boolean;
+  canUpload: boolean;
+  share: PostProjectsProjectIdSharingsShare;
+  project: PostProjectsProjectIdSharingsProject;
+};
+
+/**
+ * The response includes a link for the user to access the project.
+ */
+export type PostProjectsProjectIdSharingsResponseBody = {
+  project?: string | undefined;
+  sharing?: SharingResponse | undefined;
 };
 
 export type PostProjectsProjectIdSharingsResponse = {
   headers: { [k: string]: Array<string> };
-  result: models.CreateProjectSharingResponse;
+  result: PostProjectsProjectIdSharingsResponseBody;
 };
+
+/** @internal */
+export const RequirePasswordEnum$inboundSchema: z.ZodNativeEnum<
+  typeof RequirePasswordEnum
+> = z.nativeEnum(RequirePasswordEnum);
+
+/** @internal */
+export const RequirePasswordEnum$outboundSchema: z.ZodNativeEnum<
+  typeof RequirePasswordEnum
+> = RequirePasswordEnum$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace RequirePasswordEnum$ {
+  /** @deprecated use `RequirePasswordEnum$inboundSchema` instead. */
+  export const inboundSchema = RequirePasswordEnum$inboundSchema;
+  /** @deprecated use `RequirePasswordEnum$outboundSchema` instead. */
+  export const outboundSchema = RequirePasswordEnum$outboundSchema;
+}
+
+/** @internal */
+export const RequirePassword$inboundSchema: z.ZodType<
+  RequirePassword,
+  z.ZodTypeDef,
+  unknown
+> = z.union([RequirePasswordEnum$inboundSchema, z.boolean()]);
+
+/** @internal */
+export type RequirePassword$Outbound = string | boolean;
+
+/** @internal */
+export const RequirePassword$outboundSchema: z.ZodType<
+  RequirePassword$Outbound,
+  z.ZodTypeDef,
+  RequirePassword
+> = z.union([RequirePasswordEnum$outboundSchema, z.boolean()]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace RequirePassword$ {
+  /** @deprecated use `RequirePassword$inboundSchema` instead. */
+  export const inboundSchema = RequirePassword$inboundSchema;
+  /** @deprecated use `RequirePassword$outboundSchema` instead. */
+  export const outboundSchema = RequirePassword$outboundSchema;
+  /** @deprecated use `RequirePassword$Outbound` instead. */
+  export type Outbound = RequirePassword$Outbound;
+}
+
+export function requirePasswordToJSON(
+  requirePassword: RequirePassword,
+): string {
+  return JSON.stringify(RequirePassword$outboundSchema.parse(requirePassword));
+}
+
+export function requirePasswordFromJSON(
+  jsonString: string,
+): SafeParseResult<RequirePassword, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => RequirePassword$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RequirePassword' from JSON`,
+  );
+}
+
+/** @internal */
+export const CanShareEnum$inboundSchema: z.ZodNativeEnum<typeof CanShareEnum> =
+  z.nativeEnum(CanShareEnum);
+
+/** @internal */
+export const CanShareEnum$outboundSchema: z.ZodNativeEnum<typeof CanShareEnum> =
+  CanShareEnum$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CanShareEnum$ {
+  /** @deprecated use `CanShareEnum$inboundSchema` instead. */
+  export const inboundSchema = CanShareEnum$inboundSchema;
+  /** @deprecated use `CanShareEnum$outboundSchema` instead. */
+  export const outboundSchema = CanShareEnum$outboundSchema;
+}
+
+/** @internal */
+export const CanShare$inboundSchema: z.ZodType<
+  CanShare,
+  z.ZodTypeDef,
+  unknown
+> = z.union([CanShareEnum$inboundSchema, z.boolean()]);
+
+/** @internal */
+export type CanShare$Outbound = string | boolean;
+
+/** @internal */
+export const CanShare$outboundSchema: z.ZodType<
+  CanShare$Outbound,
+  z.ZodTypeDef,
+  CanShare
+> = z.union([CanShareEnum$outboundSchema, z.boolean()]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CanShare$ {
+  /** @deprecated use `CanShare$inboundSchema` instead. */
+  export const inboundSchema = CanShare$inboundSchema;
+  /** @deprecated use `CanShare$outboundSchema` instead. */
+  export const outboundSchema = CanShare$outboundSchema;
+  /** @deprecated use `CanShare$Outbound` instead. */
+  export type Outbound = CanShare$Outbound;
+}
+
+export function canShareToJSON(canShare: CanShare): string {
+  return JSON.stringify(CanShare$outboundSchema.parse(canShare));
+}
+
+export function canShareFromJSON(
+  jsonString: string,
+): SafeParseResult<CanShare, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CanShare$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CanShare' from JSON`,
+  );
+}
+
+/** @internal */
+export const CanDownloadEnum$inboundSchema: z.ZodNativeEnum<
+  typeof CanDownloadEnum
+> = z.nativeEnum(CanDownloadEnum);
+
+/** @internal */
+export const CanDownloadEnum$outboundSchema: z.ZodNativeEnum<
+  typeof CanDownloadEnum
+> = CanDownloadEnum$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CanDownloadEnum$ {
+  /** @deprecated use `CanDownloadEnum$inboundSchema` instead. */
+  export const inboundSchema = CanDownloadEnum$inboundSchema;
+  /** @deprecated use `CanDownloadEnum$outboundSchema` instead. */
+  export const outboundSchema = CanDownloadEnum$outboundSchema;
+}
+
+/** @internal */
+export const CanDownload$inboundSchema: z.ZodType<
+  CanDownload,
+  z.ZodTypeDef,
+  unknown
+> = z.union([CanDownloadEnum$inboundSchema, z.boolean()]);
+
+/** @internal */
+export type CanDownload$Outbound = string | boolean;
+
+/** @internal */
+export const CanDownload$outboundSchema: z.ZodType<
+  CanDownload$Outbound,
+  z.ZodTypeDef,
+  CanDownload
+> = z.union([CanDownloadEnum$outboundSchema, z.boolean()]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CanDownload$ {
+  /** @deprecated use `CanDownload$inboundSchema` instead. */
+  export const inboundSchema = CanDownload$inboundSchema;
+  /** @deprecated use `CanDownload$outboundSchema` instead. */
+  export const outboundSchema = CanDownload$outboundSchema;
+  /** @deprecated use `CanDownload$Outbound` instead. */
+  export type Outbound = CanDownload$Outbound;
+}
+
+export function canDownloadToJSON(canDownload: CanDownload): string {
+  return JSON.stringify(CanDownload$outboundSchema.parse(canDownload));
+}
+
+export function canDownloadFromJSON(
+  jsonString: string,
+): SafeParseResult<CanDownload, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CanDownload$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CanDownload' from JSON`,
+  );
+}
+
+/** @internal */
+export const CanUploadEnum$inboundSchema: z.ZodNativeEnum<
+  typeof CanUploadEnum
+> = z.nativeEnum(CanUploadEnum);
+
+/** @internal */
+export const CanUploadEnum$outboundSchema: z.ZodNativeEnum<
+  typeof CanUploadEnum
+> = CanUploadEnum$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CanUploadEnum$ {
+  /** @deprecated use `CanUploadEnum$inboundSchema` instead. */
+  export const inboundSchema = CanUploadEnum$inboundSchema;
+  /** @deprecated use `CanUploadEnum$outboundSchema` instead. */
+  export const outboundSchema = CanUploadEnum$outboundSchema;
+}
+
+/** @internal */
+export const CanUpload$inboundSchema: z.ZodType<
+  CanUpload,
+  z.ZodTypeDef,
+  unknown
+> = z.union([CanUploadEnum$inboundSchema, z.boolean()]);
+
+/** @internal */
+export type CanUpload$Outbound = string | boolean;
+
+/** @internal */
+export const CanUpload$outboundSchema: z.ZodType<
+  CanUpload$Outbound,
+  z.ZodTypeDef,
+  CanUpload
+> = z.union([CanUploadEnum$outboundSchema, z.boolean()]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CanUpload$ {
+  /** @deprecated use `CanUpload$inboundSchema` instead. */
+  export const inboundSchema = CanUpload$inboundSchema;
+  /** @deprecated use `CanUpload$outboundSchema` instead. */
+  export const outboundSchema = CanUpload$outboundSchema;
+  /** @deprecated use `CanUpload$Outbound` instead. */
+  export type Outbound = CanUpload$Outbound;
+}
+
+export function canUploadToJSON(canUpload: CanUpload): string {
+  return JSON.stringify(CanUpload$outboundSchema.parse(canUpload));
+}
+
+export function canUploadFromJSON(
+  jsonString: string,
+): SafeParseResult<CanUpload, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CanUpload$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CanUpload' from JSON`,
+  );
+}
+
+/** @internal */
+export const SendEmailNotification$inboundSchema: z.ZodNativeEnum<
+  typeof SendEmailNotification
+> = z.nativeEnum(SendEmailNotification);
+
+/** @internal */
+export const SendEmailNotification$outboundSchema: z.ZodNativeEnum<
+  typeof SendEmailNotification
+> = SendEmailNotification$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace SendEmailNotification$ {
+  /** @deprecated use `SendEmailNotification$inboundSchema` instead. */
+  export const inboundSchema = SendEmailNotification$inboundSchema;
+  /** @deprecated use `SendEmailNotification$outboundSchema` instead. */
+  export const outboundSchema = SendEmailNotification$outboundSchema;
+}
+
+/** @internal */
+export const PostProjectsProjectIdSharingsSharingRequest$inboundSchema:
+  z.ZodType<
+    PostProjectsProjectIdSharingsSharingRequest,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    with: z.string(),
+    requirePassword: z.union([RequirePasswordEnum$inboundSchema, z.boolean()])
+      .optional(),
+    canShare: z.union([CanShareEnum$inboundSchema, z.boolean()]).optional(),
+    canDownload: z.union([CanDownloadEnum$inboundSchema, z.boolean()])
+      .optional(),
+    canUpload: z.union([CanUploadEnum$inboundSchema, z.boolean()]).optional(),
+    sendEmailNotification: SendEmailNotification$inboundSchema.optional(),
+  });
+
+/** @internal */
+export type PostProjectsProjectIdSharingsSharingRequest$Outbound = {
+  with: string;
+  requirePassword?: string | boolean | undefined;
+  canShare?: string | boolean | undefined;
+  canDownload?: string | boolean | undefined;
+  canUpload?: string | boolean | undefined;
+  sendEmailNotification?: string | undefined;
+};
+
+/** @internal */
+export const PostProjectsProjectIdSharingsSharingRequest$outboundSchema:
+  z.ZodType<
+    PostProjectsProjectIdSharingsSharingRequest$Outbound,
+    z.ZodTypeDef,
+    PostProjectsProjectIdSharingsSharingRequest
+  > = z.object({
+    with: z.string(),
+    requirePassword: z.union([RequirePasswordEnum$outboundSchema, z.boolean()])
+      .optional(),
+    canShare: z.union([CanShareEnum$outboundSchema, z.boolean()]).optional(),
+    canDownload: z.union([CanDownloadEnum$outboundSchema, z.boolean()])
+      .optional(),
+    canUpload: z.union([CanUploadEnum$outboundSchema, z.boolean()]).optional(),
+    sendEmailNotification: SendEmailNotification$outboundSchema.optional(),
+  });
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostProjectsProjectIdSharingsSharingRequest$ {
+  /** @deprecated use `PostProjectsProjectIdSharingsSharingRequest$inboundSchema` instead. */
+  export const inboundSchema =
+    PostProjectsProjectIdSharingsSharingRequest$inboundSchema;
+  /** @deprecated use `PostProjectsProjectIdSharingsSharingRequest$outboundSchema` instead. */
+  export const outboundSchema =
+    PostProjectsProjectIdSharingsSharingRequest$outboundSchema;
+  /** @deprecated use `PostProjectsProjectIdSharingsSharingRequest$Outbound` instead. */
+  export type Outbound = PostProjectsProjectIdSharingsSharingRequest$Outbound;
+}
+
+export function postProjectsProjectIdSharingsSharingRequestToJSON(
+  postProjectsProjectIdSharingsSharingRequest:
+    PostProjectsProjectIdSharingsSharingRequest,
+): string {
+  return JSON.stringify(
+    PostProjectsProjectIdSharingsSharingRequest$outboundSchema.parse(
+      postProjectsProjectIdSharingsSharingRequest,
+    ),
+  );
+}
+
+export function postProjectsProjectIdSharingsSharingRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  PostProjectsProjectIdSharingsSharingRequest,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      PostProjectsProjectIdSharingsSharingRequest$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'PostProjectsProjectIdSharingsSharingRequest' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostProjectsProjectIdSharingsRequestBody$inboundSchema: z.ZodType<
+  PostProjectsProjectIdSharingsRequestBody,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sharing: z.lazy(() =>
+    PostProjectsProjectIdSharingsSharingRequest$inboundSchema
+  ),
+});
+
+/** @internal */
+export type PostProjectsProjectIdSharingsRequestBody$Outbound = {
+  sharing: PostProjectsProjectIdSharingsSharingRequest$Outbound;
+};
+
+/** @internal */
+export const PostProjectsProjectIdSharingsRequestBody$outboundSchema: z.ZodType<
+  PostProjectsProjectIdSharingsRequestBody$Outbound,
+  z.ZodTypeDef,
+  PostProjectsProjectIdSharingsRequestBody
+> = z.object({
+  sharing: z.lazy(() =>
+    PostProjectsProjectIdSharingsSharingRequest$outboundSchema
+  ),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostProjectsProjectIdSharingsRequestBody$ {
+  /** @deprecated use `PostProjectsProjectIdSharingsRequestBody$inboundSchema` instead. */
+  export const inboundSchema =
+    PostProjectsProjectIdSharingsRequestBody$inboundSchema;
+  /** @deprecated use `PostProjectsProjectIdSharingsRequestBody$outboundSchema` instead. */
+  export const outboundSchema =
+    PostProjectsProjectIdSharingsRequestBody$outboundSchema;
+  /** @deprecated use `PostProjectsProjectIdSharingsRequestBody$Outbound` instead. */
+  export type Outbound = PostProjectsProjectIdSharingsRequestBody$Outbound;
+}
+
+export function postProjectsProjectIdSharingsRequestBodyToJSON(
+  postProjectsProjectIdSharingsRequestBody:
+    PostProjectsProjectIdSharingsRequestBody,
+): string {
+  return JSON.stringify(
+    PostProjectsProjectIdSharingsRequestBody$outboundSchema.parse(
+      postProjectsProjectIdSharingsRequestBody,
+    ),
+  );
+}
+
+export function postProjectsProjectIdSharingsRequestBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  PostProjectsProjectIdSharingsRequestBody,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      PostProjectsProjectIdSharingsRequestBody$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'PostProjectsProjectIdSharingsRequestBody' from JSON`,
+  );
+}
 
 /** @internal */
 export const PostProjectsProjectIdSharingsRequest$inboundSchema: z.ZodType<
@@ -29,17 +588,19 @@ export const PostProjectsProjectIdSharingsRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   projectId: z.string(),
-  CreateProjectSharing: models.CreateProjectSharing$inboundSchema,
+  RequestBody: z.lazy(() =>
+    PostProjectsProjectIdSharingsRequestBody$inboundSchema
+  ),
 }).transform((v) => {
   return remap$(v, {
-    "CreateProjectSharing": "createProjectSharing",
+    "RequestBody": "requestBody",
   });
 });
 
 /** @internal */
 export type PostProjectsProjectIdSharingsRequest$Outbound = {
   projectId: string;
-  CreateProjectSharing: models.CreateProjectSharing$Outbound;
+  RequestBody: PostProjectsProjectIdSharingsRequestBody$Outbound;
 };
 
 /** @internal */
@@ -49,10 +610,12 @@ export const PostProjectsProjectIdSharingsRequest$outboundSchema: z.ZodType<
   PostProjectsProjectIdSharingsRequest
 > = z.object({
   projectId: z.string(),
-  createProjectSharing: models.CreateProjectSharing$outboundSchema,
+  requestBody: z.lazy(() =>
+    PostProjectsProjectIdSharingsRequestBody$outboundSchema
+  ),
 }).transform((v) => {
   return remap$(v, {
-    createProjectSharing: "CreateProjectSharing",
+    requestBody: "RequestBody",
   });
 });
 
@@ -93,13 +656,281 @@ export function postProjectsProjectIdSharingsRequestFromJSON(
 }
 
 /** @internal */
+export const PostProjectsProjectIdSharingsShare$inboundSchema: z.ZodType<
+  PostProjectsProjectIdSharingsShare,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: z.number().int(),
+  name: z.string(),
+  type: z.string(),
+  email: z.string(),
+});
+
+/** @internal */
+export type PostProjectsProjectIdSharingsShare$Outbound = {
+  id: number;
+  name: string;
+  type: string;
+  email: string;
+};
+
+/** @internal */
+export const PostProjectsProjectIdSharingsShare$outboundSchema: z.ZodType<
+  PostProjectsProjectIdSharingsShare$Outbound,
+  z.ZodTypeDef,
+  PostProjectsProjectIdSharingsShare
+> = z.object({
+  id: z.number().int(),
+  name: z.string(),
+  type: z.string(),
+  email: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostProjectsProjectIdSharingsShare$ {
+  /** @deprecated use `PostProjectsProjectIdSharingsShare$inboundSchema` instead. */
+  export const inboundSchema = PostProjectsProjectIdSharingsShare$inboundSchema;
+  /** @deprecated use `PostProjectsProjectIdSharingsShare$outboundSchema` instead. */
+  export const outboundSchema =
+    PostProjectsProjectIdSharingsShare$outboundSchema;
+  /** @deprecated use `PostProjectsProjectIdSharingsShare$Outbound` instead. */
+  export type Outbound = PostProjectsProjectIdSharingsShare$Outbound;
+}
+
+export function postProjectsProjectIdSharingsShareToJSON(
+  postProjectsProjectIdSharingsShare: PostProjectsProjectIdSharingsShare,
+): string {
+  return JSON.stringify(
+    PostProjectsProjectIdSharingsShare$outboundSchema.parse(
+      postProjectsProjectIdSharingsShare,
+    ),
+  );
+}
+
+export function postProjectsProjectIdSharingsShareFromJSON(
+  jsonString: string,
+): SafeParseResult<PostProjectsProjectIdSharingsShare, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      PostProjectsProjectIdSharingsShare$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostProjectsProjectIdSharingsShare' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostProjectsProjectIdSharingsProject$inboundSchema: z.ZodType<
+  PostProjectsProjectIdSharingsProject,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: z.number().int(),
+  name: z.string(),
+});
+
+/** @internal */
+export type PostProjectsProjectIdSharingsProject$Outbound = {
+  id: number;
+  name: string;
+};
+
+/** @internal */
+export const PostProjectsProjectIdSharingsProject$outboundSchema: z.ZodType<
+  PostProjectsProjectIdSharingsProject$Outbound,
+  z.ZodTypeDef,
+  PostProjectsProjectIdSharingsProject
+> = z.object({
+  id: z.number().int(),
+  name: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostProjectsProjectIdSharingsProject$ {
+  /** @deprecated use `PostProjectsProjectIdSharingsProject$inboundSchema` instead. */
+  export const inboundSchema =
+    PostProjectsProjectIdSharingsProject$inboundSchema;
+  /** @deprecated use `PostProjectsProjectIdSharingsProject$outboundSchema` instead. */
+  export const outboundSchema =
+    PostProjectsProjectIdSharingsProject$outboundSchema;
+  /** @deprecated use `PostProjectsProjectIdSharingsProject$Outbound` instead. */
+  export type Outbound = PostProjectsProjectIdSharingsProject$Outbound;
+}
+
+export function postProjectsProjectIdSharingsProjectToJSON(
+  postProjectsProjectIdSharingsProject: PostProjectsProjectIdSharingsProject,
+): string {
+  return JSON.stringify(
+    PostProjectsProjectIdSharingsProject$outboundSchema.parse(
+      postProjectsProjectIdSharingsProject,
+    ),
+  );
+}
+
+export function postProjectsProjectIdSharingsProjectFromJSON(
+  jsonString: string,
+): SafeParseResult<PostProjectsProjectIdSharingsProject, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      PostProjectsProjectIdSharingsProject$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostProjectsProjectIdSharingsProject' from JSON`,
+  );
+}
+
+/** @internal */
+export const SharingResponse$inboundSchema: z.ZodType<
+  SharingResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: z.number().int(),
+  isAdmin: z.boolean(),
+  canShare: z.boolean(),
+  canDownload: z.boolean(),
+  canUpload: z.boolean(),
+  share: z.lazy(() => PostProjectsProjectIdSharingsShare$inboundSchema),
+  project: z.lazy(() => PostProjectsProjectIdSharingsProject$inboundSchema),
+});
+
+/** @internal */
+export type SharingResponse$Outbound = {
+  id: number;
+  isAdmin: boolean;
+  canShare: boolean;
+  canDownload: boolean;
+  canUpload: boolean;
+  share: PostProjectsProjectIdSharingsShare$Outbound;
+  project: PostProjectsProjectIdSharingsProject$Outbound;
+};
+
+/** @internal */
+export const SharingResponse$outboundSchema: z.ZodType<
+  SharingResponse$Outbound,
+  z.ZodTypeDef,
+  SharingResponse
+> = z.object({
+  id: z.number().int(),
+  isAdmin: z.boolean(),
+  canShare: z.boolean(),
+  canDownload: z.boolean(),
+  canUpload: z.boolean(),
+  share: z.lazy(() => PostProjectsProjectIdSharingsShare$outboundSchema),
+  project: z.lazy(() => PostProjectsProjectIdSharingsProject$outboundSchema),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace SharingResponse$ {
+  /** @deprecated use `SharingResponse$inboundSchema` instead. */
+  export const inboundSchema = SharingResponse$inboundSchema;
+  /** @deprecated use `SharingResponse$outboundSchema` instead. */
+  export const outboundSchema = SharingResponse$outboundSchema;
+  /** @deprecated use `SharingResponse$Outbound` instead. */
+  export type Outbound = SharingResponse$Outbound;
+}
+
+export function sharingResponseToJSON(
+  sharingResponse: SharingResponse,
+): string {
+  return JSON.stringify(SharingResponse$outboundSchema.parse(sharingResponse));
+}
+
+export function sharingResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<SharingResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => SharingResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SharingResponse' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostProjectsProjectIdSharingsResponseBody$inboundSchema: z.ZodType<
+  PostProjectsProjectIdSharingsResponseBody,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  project: z.string().optional(),
+  sharing: z.lazy(() => SharingResponse$inboundSchema).optional(),
+});
+
+/** @internal */
+export type PostProjectsProjectIdSharingsResponseBody$Outbound = {
+  project?: string | undefined;
+  sharing?: SharingResponse$Outbound | undefined;
+};
+
+/** @internal */
+export const PostProjectsProjectIdSharingsResponseBody$outboundSchema:
+  z.ZodType<
+    PostProjectsProjectIdSharingsResponseBody$Outbound,
+    z.ZodTypeDef,
+    PostProjectsProjectIdSharingsResponseBody
+  > = z.object({
+    project: z.string().optional(),
+    sharing: z.lazy(() => SharingResponse$outboundSchema).optional(),
+  });
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostProjectsProjectIdSharingsResponseBody$ {
+  /** @deprecated use `PostProjectsProjectIdSharingsResponseBody$inboundSchema` instead. */
+  export const inboundSchema =
+    PostProjectsProjectIdSharingsResponseBody$inboundSchema;
+  /** @deprecated use `PostProjectsProjectIdSharingsResponseBody$outboundSchema` instead. */
+  export const outboundSchema =
+    PostProjectsProjectIdSharingsResponseBody$outboundSchema;
+  /** @deprecated use `PostProjectsProjectIdSharingsResponseBody$Outbound` instead. */
+  export type Outbound = PostProjectsProjectIdSharingsResponseBody$Outbound;
+}
+
+export function postProjectsProjectIdSharingsResponseBodyToJSON(
+  postProjectsProjectIdSharingsResponseBody:
+    PostProjectsProjectIdSharingsResponseBody,
+): string {
+  return JSON.stringify(
+    PostProjectsProjectIdSharingsResponseBody$outboundSchema.parse(
+      postProjectsProjectIdSharingsResponseBody,
+    ),
+  );
+}
+
+export function postProjectsProjectIdSharingsResponseBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  PostProjectsProjectIdSharingsResponseBody,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      PostProjectsProjectIdSharingsResponseBody$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'PostProjectsProjectIdSharingsResponseBody' from JSON`,
+  );
+}
+
+/** @internal */
 export const PostProjectsProjectIdSharingsResponse$inboundSchema: z.ZodType<
   PostProjectsProjectIdSharingsResponse,
   z.ZodTypeDef,
   unknown
 > = z.object({
   Headers: z.record(z.array(z.string())),
-  Result: models.CreateProjectSharingResponse$inboundSchema,
+  Result: z.lazy(() => PostProjectsProjectIdSharingsResponseBody$inboundSchema),
 }).transform((v) => {
   return remap$(v, {
     "Headers": "headers",
@@ -110,7 +941,7 @@ export const PostProjectsProjectIdSharingsResponse$inboundSchema: z.ZodType<
 /** @internal */
 export type PostProjectsProjectIdSharingsResponse$Outbound = {
   Headers: { [k: string]: Array<string> };
-  Result: models.CreateProjectSharingResponse$Outbound;
+  Result: PostProjectsProjectIdSharingsResponseBody$Outbound;
 };
 
 /** @internal */
@@ -120,7 +951,9 @@ export const PostProjectsProjectIdSharingsResponse$outboundSchema: z.ZodType<
   PostProjectsProjectIdSharingsResponse
 > = z.object({
   headers: z.record(z.array(z.string())),
-  result: models.CreateProjectSharingResponse$outboundSchema,
+  result: z.lazy(() =>
+    PostProjectsProjectIdSharingsResponseBody$outboundSchema
+  ),
 }).transform((v) => {
   return remap$(v, {
     headers: "Headers",

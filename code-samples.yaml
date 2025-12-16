@@ -261,7 +261,7 @@ actions:
             async function run() {
               const result = await wistia.channelEpisodes.create({
                 channelHashedId: "<id>",
-                createChannelEpisode: {
+                requestBody: {
                   title: "My New Episode",
                   description: "My Episode Description.",
                   summary: "A short description.",
@@ -414,7 +414,7 @@ actions:
             async function run() {
               const result = await wistia.liveStreamEvents.update({
                 id: "<id>",
-                updateLiveStreamEvent: {
+                requestBody: {
                   liveStreamEvent: {
                     title: "Updated Event Title",
                     description: "Updated event description",
@@ -614,7 +614,7 @@ actions:
               await wistia.captions.create({
                 mediaHashedId: "<id>",
                 requestBody: {
-                  captionFile: "" // Populate with string from file, for example example.file,
+                  captionFile: "<value>",
                 },
               });
 
@@ -1009,7 +1009,7 @@ actions:
             async function run() {
               const result = await wistia.customizations.create({
                 mediaId: "<id>",
-                videoCustomization: {
+                requestBody: {
                   plugin: {
                     postRollV1: {
                       style: {
@@ -1041,7 +1041,7 @@ actions:
             async function run() {
               const result = await wistia.customizations.update({
                 mediaId: "<id>",
-                videoCustomization: {
+                requestBody: {
                   plugin: {
                     postRollV1: {
                       style: {
@@ -1157,7 +1157,7 @@ actions:
             async function run() {
               const result = await wistia.projects.update({
                 id: "<id>",
-                updateProject: {
+                requestBody: {
                   name: "My New Project Name",
                   description: "My New Project Description",
                   public: false,
@@ -1228,7 +1228,7 @@ actions:
             async function run() {
               const result = await wistia.projectSharings.create({
                 projectId: "<id>",
-                createProjectSharing: {
+                requestBody: {
                   sharing: {
                     with: "Dallas_Spinka@yahoo.com",
                     requirePassword: false,
@@ -1303,7 +1303,7 @@ actions:
               const result = await wistia.projectSharings.update({
                 projectId: "<id>",
                 sharingId: "<id>",
-                updateSharingRequest: {},
+                requestBody: {},
               });
 
               console.log(result);
@@ -1346,7 +1346,7 @@ actions:
             async function run() {
               const result = await wistia.subfolders.create({
                 projectId: "abc123def4",
-                subfolderInput: {
+                requestBody: {
                   name: "Marketing Videos",
                   description: "Collection of all marketing and promotional videos",
                 },
@@ -1394,7 +1394,6 @@ actions:
               const result = await wistia.subfolders.get({
                 projectId: "abc123def4",
                 subfolderId: "xyz789ghi0",
-                descriptionFormat: "markdown",
               });
 
               console.log(result);

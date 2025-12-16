@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod";
+import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -12,6 +13,30 @@ export type GetMediasMediaHashedIdCaptionsRequest = {
    * The hashed ID of the media for which captions are to be retrieved.
    */
   mediaHashedId: string;
+};
+
+export type GetMediasMediaHashedIdCaptionsResponse = {
+  /**
+   * English name of the language.
+   */
+  englishName?: string | undefined;
+  /**
+   * Native name of the language.
+   */
+  nativeName?: string | undefined;
+  /**
+   * A 3 character language code as specified by ISO-639–2.
+   */
+  language: string;
+  /**
+   * The text of the captions for the specified language in SRT format.
+   */
+  text?: string | undefined;
+  isDraft: boolean;
+  /**
+   * The unique hashed identifier of the time-coded transcript.
+   */
+  id: string;
 };
 
 /** @internal */
@@ -70,5 +95,92 @@ export function getMediasMediaHashedIdCaptionsRequestFromJSON(
     (x) =>
       GetMediasMediaHashedIdCaptionsRequest$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'GetMediasMediaHashedIdCaptionsRequest' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetMediasMediaHashedIdCaptionsResponse$inboundSchema: z.ZodType<
+  GetMediasMediaHashedIdCaptionsResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  english_name: z.string().optional(),
+  native_name: z.string().optional(),
+  language: z.string(),
+  text: z.string().optional(),
+  is_draft: z.boolean(),
+  id: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    "english_name": "englishName",
+    "native_name": "nativeName",
+    "is_draft": "isDraft",
+  });
+});
+
+/** @internal */
+export type GetMediasMediaHashedIdCaptionsResponse$Outbound = {
+  english_name?: string | undefined;
+  native_name?: string | undefined;
+  language: string;
+  text?: string | undefined;
+  is_draft: boolean;
+  id: string;
+};
+
+/** @internal */
+export const GetMediasMediaHashedIdCaptionsResponse$outboundSchema: z.ZodType<
+  GetMediasMediaHashedIdCaptionsResponse$Outbound,
+  z.ZodTypeDef,
+  GetMediasMediaHashedIdCaptionsResponse
+> = z.object({
+  englishName: z.string().optional(),
+  nativeName: z.string().optional(),
+  language: z.string(),
+  text: z.string().optional(),
+  isDraft: z.boolean(),
+  id: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    englishName: "english_name",
+    nativeName: "native_name",
+    isDraft: "is_draft",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetMediasMediaHashedIdCaptionsResponse$ {
+  /** @deprecated use `GetMediasMediaHashedIdCaptionsResponse$inboundSchema` instead. */
+  export const inboundSchema =
+    GetMediasMediaHashedIdCaptionsResponse$inboundSchema;
+  /** @deprecated use `GetMediasMediaHashedIdCaptionsResponse$outboundSchema` instead. */
+  export const outboundSchema =
+    GetMediasMediaHashedIdCaptionsResponse$outboundSchema;
+  /** @deprecated use `GetMediasMediaHashedIdCaptionsResponse$Outbound` instead. */
+  export type Outbound = GetMediasMediaHashedIdCaptionsResponse$Outbound;
+}
+
+export function getMediasMediaHashedIdCaptionsResponseToJSON(
+  getMediasMediaHashedIdCaptionsResponse:
+    GetMediasMediaHashedIdCaptionsResponse,
+): string {
+  return JSON.stringify(
+    GetMediasMediaHashedIdCaptionsResponse$outboundSchema.parse(
+      getMediasMediaHashedIdCaptionsResponse,
+    ),
+  );
+}
+
+export function getMediasMediaHashedIdCaptionsResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<GetMediasMediaHashedIdCaptionsResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetMediasMediaHashedIdCaptionsResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetMediasMediaHashedIdCaptionsResponse' from JSON`,
   );
 }

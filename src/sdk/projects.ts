@@ -9,7 +9,6 @@ import { projectsGet } from "../funcs/projectsGet.js";
 import { projectsList } from "../funcs/projectsList.js";
 import { projectsUpdate } from "../funcs/projectsUpdate.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
-import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -30,7 +29,7 @@ export class Projects extends ClientSDK {
   async list(
     request?: operations.GetProjectsRequest | undefined,
     options?: RequestOptions,
-  ): Promise<Array<models.Project>> {
+  ): Promise<Array<operations.GetProjectsResponse>> {
     return unwrapAsync(projectsList(
       this,
       request,
@@ -50,9 +49,9 @@ export class Projects extends ClientSDK {
    * ```
    */
   async create(
-    request?: models.CreateProject | undefined,
+    request?: operations.PostProjectsRequest | undefined,
     options?: RequestOptions,
-  ): Promise<models.Project> {
+  ): Promise<operations.PostProjectsResponse> {
     return unwrapAsync(projectsCreate(
       this,
       request,
@@ -76,7 +75,7 @@ export class Projects extends ClientSDK {
   async get(
     request: operations.GetProjectsIdRequest,
     options?: RequestOptions,
-  ): Promise<models.ProjectWithMedias> {
+  ): Promise<operations.GetProjectsIdResponse> {
     return unwrapAsync(projectsGet(
       this,
       request,
@@ -98,7 +97,7 @@ export class Projects extends ClientSDK {
   async update(
     request: operations.PutProjectsIdRequest,
     options?: RequestOptions,
-  ): Promise<models.Project> {
+  ): Promise<operations.PutProjectsIdResponse> {
     return unwrapAsync(projectsUpdate(
       this,
       request,
@@ -120,7 +119,7 @@ export class Projects extends ClientSDK {
   async delete(
     request: operations.DeleteProjectsIdRequest,
     options?: RequestOptions,
-  ): Promise<models.Project> {
+  ): Promise<operations.DeleteProjectsIdResponse> {
     return unwrapAsync(projectsDelete(
       this,
       request,

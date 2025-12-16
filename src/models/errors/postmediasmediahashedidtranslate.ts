@@ -6,6 +6,39 @@ import * as z from "zod";
 import { WistiaError } from "./wistiaerror.js";
 
 /**
+ * Internal server error
+ */
+export type PostMediasMediaHashedIdTranslateInternalServerErrorData = {
+  error?: string | undefined;
+};
+
+/**
+ * Internal server error
+ */
+export class PostMediasMediaHashedIdTranslateInternalServerError
+  extends WistiaError
+{
+  error?: string | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: PostMediasMediaHashedIdTranslateInternalServerErrorData;
+
+  constructor(
+    err: PostMediasMediaHashedIdTranslateInternalServerErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+
+    this.name = "PostMediasMediaHashedIdTranslateInternalServerError";
+  }
+}
+
+/**
  * Unprocessible entity, parameters provided were invalid.
  */
 export type PostMediasMediaHashedIdTranslateUnprocessableEntityErrorData = {
@@ -42,6 +75,162 @@ export class PostMediasMediaHashedIdTranslateUnprocessableEntityError
 
     this.name = "PostMediasMediaHashedIdTranslateUnprocessableEntityError";
   }
+}
+
+/**
+ * Resource not found
+ */
+export type PostMediasMediaHashedIdTranslateNotFoundErrorData = {
+  error?: string | undefined;
+};
+
+/**
+ * Resource not found
+ */
+export class PostMediasMediaHashedIdTranslateNotFoundError extends WistiaError {
+  error?: string | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: PostMediasMediaHashedIdTranslateNotFoundErrorData;
+
+  constructor(
+    err: PostMediasMediaHashedIdTranslateNotFoundErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+
+    this.name = "PostMediasMediaHashedIdTranslateNotFoundError";
+  }
+}
+
+/**
+ * Unauthorized, invalid or missing token
+ */
+export type PostMediasMediaHashedIdTranslateUnauthorizedErrorData = {
+  error?: string | undefined;
+};
+
+/**
+ * Unauthorized, invalid or missing token
+ */
+export class PostMediasMediaHashedIdTranslateUnauthorizedError
+  extends WistiaError
+{
+  error?: string | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: PostMediasMediaHashedIdTranslateUnauthorizedErrorData;
+
+  constructor(
+    err: PostMediasMediaHashedIdTranslateUnauthorizedErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+
+    this.name = "PostMediasMediaHashedIdTranslateUnauthorizedError";
+  }
+}
+
+/**
+ * Bad request
+ */
+export type PostMediasMediaHashedIdTranslateBadRequestErrorData = {
+  /**
+   * Error message detailing the reason for the bad request.
+   */
+  error?: string | undefined;
+};
+
+/**
+ * Bad request
+ */
+export class PostMediasMediaHashedIdTranslateBadRequestError
+  extends WistiaError
+{
+  /**
+   * Error message detailing the reason for the bad request.
+   */
+  error?: string | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: PostMediasMediaHashedIdTranslateBadRequestErrorData;
+
+  constructor(
+    err: PostMediasMediaHashedIdTranslateBadRequestErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+
+    this.name = "PostMediasMediaHashedIdTranslateBadRequestError";
+  }
+}
+
+/** @internal */
+export const PostMediasMediaHashedIdTranslateInternalServerError$inboundSchema:
+  z.ZodType<
+    PostMediasMediaHashedIdTranslateInternalServerError,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    error: z.string().optional(),
+    request$: z.instanceof(Request),
+    response$: z.instanceof(Response),
+    body$: z.string(),
+  })
+    .transform((v) => {
+      return new PostMediasMediaHashedIdTranslateInternalServerError(v, {
+        request: v.request$,
+        response: v.response$,
+        body: v.body$,
+      });
+    });
+
+/** @internal */
+export type PostMediasMediaHashedIdTranslateInternalServerError$Outbound = {
+  error?: string | undefined;
+};
+
+/** @internal */
+export const PostMediasMediaHashedIdTranslateInternalServerError$outboundSchema:
+  z.ZodType<
+    PostMediasMediaHashedIdTranslateInternalServerError$Outbound,
+    z.ZodTypeDef,
+    PostMediasMediaHashedIdTranslateInternalServerError
+  > = z.instanceof(PostMediasMediaHashedIdTranslateInternalServerError)
+    .transform(v => v.data$)
+    .pipe(z.object({
+      error: z.string().optional(),
+    }));
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostMediasMediaHashedIdTranslateInternalServerError$ {
+  /** @deprecated use `PostMediasMediaHashedIdTranslateInternalServerError$inboundSchema` instead. */
+  export const inboundSchema =
+    PostMediasMediaHashedIdTranslateInternalServerError$inboundSchema;
+  /** @deprecated use `PostMediasMediaHashedIdTranslateInternalServerError$outboundSchema` instead. */
+  export const outboundSchema =
+    PostMediasMediaHashedIdTranslateInternalServerError$outboundSchema;
+  /** @deprecated use `PostMediasMediaHashedIdTranslateInternalServerError$Outbound` instead. */
+  export type Outbound =
+    PostMediasMediaHashedIdTranslateInternalServerError$Outbound;
 }
 
 /** @internal */
@@ -96,4 +285,162 @@ export namespace PostMediasMediaHashedIdTranslateUnprocessableEntityError$ {
   /** @deprecated use `PostMediasMediaHashedIdTranslateUnprocessableEntityError$Outbound` instead. */
   export type Outbound =
     PostMediasMediaHashedIdTranslateUnprocessableEntityError$Outbound;
+}
+
+/** @internal */
+export const PostMediasMediaHashedIdTranslateNotFoundError$inboundSchema:
+  z.ZodType<
+    PostMediasMediaHashedIdTranslateNotFoundError,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    error: z.string().optional(),
+    request$: z.instanceof(Request),
+    response$: z.instanceof(Response),
+    body$: z.string(),
+  })
+    .transform((v) => {
+      return new PostMediasMediaHashedIdTranslateNotFoundError(v, {
+        request: v.request$,
+        response: v.response$,
+        body: v.body$,
+      });
+    });
+
+/** @internal */
+export type PostMediasMediaHashedIdTranslateNotFoundError$Outbound = {
+  error?: string | undefined;
+};
+
+/** @internal */
+export const PostMediasMediaHashedIdTranslateNotFoundError$outboundSchema:
+  z.ZodType<
+    PostMediasMediaHashedIdTranslateNotFoundError$Outbound,
+    z.ZodTypeDef,
+    PostMediasMediaHashedIdTranslateNotFoundError
+  > = z.instanceof(PostMediasMediaHashedIdTranslateNotFoundError)
+    .transform(v => v.data$)
+    .pipe(z.object({
+      error: z.string().optional(),
+    }));
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostMediasMediaHashedIdTranslateNotFoundError$ {
+  /** @deprecated use `PostMediasMediaHashedIdTranslateNotFoundError$inboundSchema` instead. */
+  export const inboundSchema =
+    PostMediasMediaHashedIdTranslateNotFoundError$inboundSchema;
+  /** @deprecated use `PostMediasMediaHashedIdTranslateNotFoundError$outboundSchema` instead. */
+  export const outboundSchema =
+    PostMediasMediaHashedIdTranslateNotFoundError$outboundSchema;
+  /** @deprecated use `PostMediasMediaHashedIdTranslateNotFoundError$Outbound` instead. */
+  export type Outbound = PostMediasMediaHashedIdTranslateNotFoundError$Outbound;
+}
+
+/** @internal */
+export const PostMediasMediaHashedIdTranslateUnauthorizedError$inboundSchema:
+  z.ZodType<
+    PostMediasMediaHashedIdTranslateUnauthorizedError,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    error: z.string().optional(),
+    request$: z.instanceof(Request),
+    response$: z.instanceof(Response),
+    body$: z.string(),
+  })
+    .transform((v) => {
+      return new PostMediasMediaHashedIdTranslateUnauthorizedError(v, {
+        request: v.request$,
+        response: v.response$,
+        body: v.body$,
+      });
+    });
+
+/** @internal */
+export type PostMediasMediaHashedIdTranslateUnauthorizedError$Outbound = {
+  error?: string | undefined;
+};
+
+/** @internal */
+export const PostMediasMediaHashedIdTranslateUnauthorizedError$outboundSchema:
+  z.ZodType<
+    PostMediasMediaHashedIdTranslateUnauthorizedError$Outbound,
+    z.ZodTypeDef,
+    PostMediasMediaHashedIdTranslateUnauthorizedError
+  > = z.instanceof(PostMediasMediaHashedIdTranslateUnauthorizedError)
+    .transform(v => v.data$)
+    .pipe(z.object({
+      error: z.string().optional(),
+    }));
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostMediasMediaHashedIdTranslateUnauthorizedError$ {
+  /** @deprecated use `PostMediasMediaHashedIdTranslateUnauthorizedError$inboundSchema` instead. */
+  export const inboundSchema =
+    PostMediasMediaHashedIdTranslateUnauthorizedError$inboundSchema;
+  /** @deprecated use `PostMediasMediaHashedIdTranslateUnauthorizedError$outboundSchema` instead. */
+  export const outboundSchema =
+    PostMediasMediaHashedIdTranslateUnauthorizedError$outboundSchema;
+  /** @deprecated use `PostMediasMediaHashedIdTranslateUnauthorizedError$Outbound` instead. */
+  export type Outbound =
+    PostMediasMediaHashedIdTranslateUnauthorizedError$Outbound;
+}
+
+/** @internal */
+export const PostMediasMediaHashedIdTranslateBadRequestError$inboundSchema:
+  z.ZodType<
+    PostMediasMediaHashedIdTranslateBadRequestError,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    error: z.string().optional(),
+    request$: z.instanceof(Request),
+    response$: z.instanceof(Response),
+    body$: z.string(),
+  })
+    .transform((v) => {
+      return new PostMediasMediaHashedIdTranslateBadRequestError(v, {
+        request: v.request$,
+        response: v.response$,
+        body: v.body$,
+      });
+    });
+
+/** @internal */
+export type PostMediasMediaHashedIdTranslateBadRequestError$Outbound = {
+  error?: string | undefined;
+};
+
+/** @internal */
+export const PostMediasMediaHashedIdTranslateBadRequestError$outboundSchema:
+  z.ZodType<
+    PostMediasMediaHashedIdTranslateBadRequestError$Outbound,
+    z.ZodTypeDef,
+    PostMediasMediaHashedIdTranslateBadRequestError
+  > = z.instanceof(PostMediasMediaHashedIdTranslateBadRequestError)
+    .transform(v => v.data$)
+    .pipe(z.object({
+      error: z.string().optional(),
+    }));
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostMediasMediaHashedIdTranslateBadRequestError$ {
+  /** @deprecated use `PostMediasMediaHashedIdTranslateBadRequestError$inboundSchema` instead. */
+  export const inboundSchema =
+    PostMediasMediaHashedIdTranslateBadRequestError$inboundSchema;
+  /** @deprecated use `PostMediasMediaHashedIdTranslateBadRequestError$outboundSchema` instead. */
+  export const outboundSchema =
+    PostMediasMediaHashedIdTranslateBadRequestError$outboundSchema;
+  /** @deprecated use `PostMediasMediaHashedIdTranslateBadRequestError$Outbound` instead. */
+  export type Outbound =
+    PostMediasMediaHashedIdTranslateBadRequestError$Outbound;
 }

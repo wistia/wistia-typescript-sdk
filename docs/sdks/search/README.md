@@ -82,9 +82,9 @@ run();
 
 ### Errors
 
-| Error Type                      | Status Code                     | Content Type                    |
-| ------------------------------- | ------------------------------- | ------------------------------- |
-| errors.GetSearchBadRequestError | 400                             | application/json                |
-| errors.FourHundredAndOneError   | 401                             | application/json                |
-| errors.FiveHundredError         | 500                             | application/json                |
-| errors.WistiaDefaultError       | 4XX, 5XX                        | \*/\*                           |
+| Error Type                          | Status Code                         | Content Type                        |
+| ----------------------------------- | ----------------------------------- | ----------------------------------- |
+| errors.GetSearchBadRequestError     | 400                                 | application/json                    |
+| errors.GetSearchUnauthorizedError   | 401                                 | application/json                    |
+| errors.GetSearchInternalServerError | 500                                 | application/json                    |
+| errors.WistiaDefaultError           | 4XX, 5XX                            | \*/\*                               |

@@ -8,7 +8,6 @@ import { subfoldersGet } from "../funcs/subfoldersGet.js";
 import { subfoldersList } from "../funcs/subfoldersList.js";
 import { subfoldersUpdate } from "../funcs/subfoldersUpdate.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
-import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -29,7 +28,7 @@ export class Subfolders extends ClientSDK {
   async list(
     request: operations.GetProjectsProjectIdSubfoldersRequest,
     options?: RequestOptions,
-  ): Promise<Array<models.Subfolder>> {
+  ): Promise<Array<operations.GetProjectsProjectIdSubfoldersResponse>> {
     return unwrapAsync(subfoldersList(
       this,
       request,
@@ -51,7 +50,7 @@ export class Subfolders extends ClientSDK {
   async create(
     request: operations.PostProjectsProjectIdSubfoldersRequest,
     options?: RequestOptions,
-  ): Promise<models.Subfolder> {
+  ): Promise<operations.PostProjectsProjectIdSubfoldersResponse> {
     return unwrapAsync(subfoldersCreate(
       this,
       request,
@@ -75,7 +74,7 @@ export class Subfolders extends ClientSDK {
   async get(
     request: operations.GetProjectsProjectIdSubfoldersSubfolderIdRequest,
     options?: RequestOptions,
-  ): Promise<models.SubfolderWithMedia> {
+  ): Promise<operations.GetProjectsProjectIdSubfoldersSubfolderIdResponse> {
     return unwrapAsync(subfoldersGet(
       this,
       request,
@@ -97,7 +96,7 @@ export class Subfolders extends ClientSDK {
   async update(
     request: operations.PutProjectsProjectIdSubfoldersSubfolderIdRequest,
     options?: RequestOptions,
-  ): Promise<models.Subfolder> {
+  ): Promise<operations.PutProjectsProjectIdSubfoldersSubfolderIdResponse> {
     return unwrapAsync(subfoldersUpdate(
       this,
       request,
@@ -121,7 +120,7 @@ export class Subfolders extends ClientSDK {
   async deleteSubfolder(
     request: operations.DeleteProjectsProjectIdSubfoldersSubfolderIdRequest,
     options?: RequestOptions,
-  ): Promise<models.Subfolder> {
+  ): Promise<operations.DeleteProjectsProjectIdSubfoldersSubfolderIdResponse> {
     return unwrapAsync(subfoldersDeleteSubfolder(
       this,
       request,

@@ -83,16 +83,16 @@ run();
 
 ### Response
 
-**Promise\<[models.VideoCustomizationResponse](../../models/videocustomizationresponse.md)\>**
+**Promise\<[operations.GetMediasMediaIdCustomizationsResponse](../../models/operations/getmediasmediaidcustomizationsresponse.md)\>**
 
 ### Errors
 
-| Error Type                     | Status Code                    | Content Type                   |
-| ------------------------------ | ------------------------------ | ------------------------------ |
-| errors.FourHundredAndOneError  | 401                            | application/json               |
-| errors.FourHundredAndFourError | 404                            | application/json               |
-| errors.FiveHundredError        | 500                            | application/json               |
-| errors.WistiaDefaultError      | 4XX, 5XX                       | \*/\*                          |
+| Error Type                                               | Status Code                                              | Content Type                                             |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| errors.GetMediasMediaIdCustomizationsUnauthorizedError   | 401                                                      | application/json                                         |
+| errors.GetMediasMediaIdCustomizationsNotFoundError       | 404                                                      | application/json                                         |
+| errors.GetMediasMediaIdCustomizationsInternalServerError | 500                                                      | application/json                                         |
+| errors.WistiaDefaultError                                | 4XX, 5XX                                                 | \*/\*                                                    |
 
 ## create
 
@@ -117,7 +117,7 @@ const wistia = new Wistia({
 async function run() {
   const result = await wistia.customizations.create({
     mediaId: "<id>",
-    videoCustomization: {
+    requestBody: {
       plugin: {
         postRollV1: {
           style: {
@@ -153,7 +153,7 @@ const wistia = new WistiaCore({
 async function run() {
   const res = await customizationsCreate(wistia, {
     mediaId: "<id>",
-    videoCustomization: {
+    requestBody: {
       plugin: {
         postRollV1: {
           style: {
@@ -187,15 +187,15 @@ run();
 
 ### Response
 
-**Promise\<[models.VideoCustomizationResponse](../../models/videocustomizationresponse.md)\>**
+**Promise\<[operations.PostMediasMediaIdCustomizationsResponse](../../models/operations/postmediasmediaidcustomizationsresponse.md)\>**
 
 ### Errors
 
-| Error Type                    | Status Code                   | Content Type                  |
-| ----------------------------- | ----------------------------- | ----------------------------- |
-| errors.FourHundredAndOneError | 401                           | application/json              |
-| errors.FiveHundredError       | 500                           | application/json              |
-| errors.WistiaDefaultError     | 4XX, 5XX                      | \*/\*                         |
+| Error Type                                                | Status Code                                               | Content Type                                              |
+| --------------------------------------------------------- | --------------------------------------------------------- | --------------------------------------------------------- |
+| errors.PostMediasMediaIdCustomizationsUnauthorizedError   | 401                                                       | application/json                                          |
+| errors.PostMediasMediaIdCustomizationsInternalServerError | 500                                                       | application/json                                          |
+| errors.WistiaDefaultError                                 | 4XX, 5XX                                                  | \*/\*                                                     |
 
 ## update
 
@@ -220,7 +220,7 @@ const wistia = new Wistia({
 async function run() {
   const result = await wistia.customizations.update({
     mediaId: "<id>",
-    videoCustomization: {
+    requestBody: {
       plugin: {
         postRollV1: {
           style: {
@@ -256,7 +256,7 @@ const wistia = new WistiaCore({
 async function run() {
   const res = await customizationsUpdate(wistia, {
     mediaId: "<id>",
-    videoCustomization: {
+    requestBody: {
       plugin: {
         postRollV1: {
           style: {
@@ -290,16 +290,16 @@ run();
 
 ### Response
 
-**Promise\<[models.VideoCustomizationResponse](../../models/videocustomizationresponse.md)\>**
+**Promise\<[operations.PutMediasMediaIdCustomizationsResponse](../../models/operations/putmediasmediaidcustomizationsresponse.md)\>**
 
 ### Errors
 
-| Error Type                     | Status Code                    | Content Type                   |
-| ------------------------------ | ------------------------------ | ------------------------------ |
-| errors.FourHundredAndOneError  | 401                            | application/json               |
-| errors.FourHundredAndFourError | 404                            | application/json               |
-| errors.FiveHundredError        | 500                            | application/json               |
-| errors.WistiaDefaultError      | 4XX, 5XX                       | \*/\*                          |
+| Error Type                                               | Status Code                                              | Content Type                                             |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| errors.PutMediasMediaIdCustomizationsUnauthorizedError   | 401                                                      | application/json                                         |
+| errors.PutMediasMediaIdCustomizationsNotFoundError       | 404                                                      | application/json                                         |
+| errors.PutMediasMediaIdCustomizationsInternalServerError | 500                                                      | application/json                                         |
+| errors.WistiaDefaultError                                | 4XX, 5XX                                                 | \*/\*                                                    |
 
 ## delete
 
@@ -376,9 +376,9 @@ run();
 
 ### Errors
 
-| Error Type                     | Status Code                    | Content Type                   |
-| ------------------------------ | ------------------------------ | ------------------------------ |
-| errors.FourHundredAndOneError  | 401                            | application/json               |
-| errors.FourHundredAndFourError | 404                            | application/json               |
-| errors.FiveHundredError        | 500                            | application/json               |
-| errors.WistiaDefaultError      | 4XX, 5XX                       | \*/\*                          |
+| Error Type                                                  | Status Code                                                 | Content Type                                                |
+| ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- |
+| errors.DeleteMediasMediaIdCustomizationsUnauthorizedError   | 401                                                         | application/json                                            |
+| errors.DeleteMediasMediaIdCustomizationsNotFoundError       | 404                                                         | application/json                                            |
+| errors.DeleteMediasMediaIdCustomizationsInternalServerError | 500                                                         | application/json                                            |
+| errors.WistiaDefaultError                                   | 4XX, 5XX                                                    | \*/\*                                                       |

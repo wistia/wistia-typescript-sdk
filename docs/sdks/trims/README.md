@@ -88,9 +88,9 @@ run();
 
 ### Errors
 
-| Error Type                          | Status Code                         | Content Type                        |
-| ----------------------------------- | ----------------------------------- | ----------------------------------- |
-| errors.FourHundredAndOneError       | 401                                 | application/json                    |
-| errors.FourHundredAndTwentyTwoError | 422                                 | application/json                    |
-| errors.FiveHundredError             | 500                                 | application/json                    |
-| errors.WistiaDefaultError           | 4XX, 5XX                            | \*/\*                               |
+| Error Type                                                  | Status Code                                                 | Content Type                                                |
+| ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- |
+| errors.PostMediasMediaHashedIdTrimsUnauthorizedError        | 401                                                         | application/json                                            |
+| errors.PostMediasMediaHashedIdTrimsUnprocessableEntityError | 422                                                         | application/json                                            |
+| errors.PostMediasMediaHashedIdTrimsInternalServerError      | 500                                                         | application/json                                            |
+| errors.WistiaDefaultError                                   | 4XX, 5XX                                                    | \*/\*                                                       |

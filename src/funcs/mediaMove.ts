@@ -51,9 +51,9 @@ export function mediaMove(
   Result<
     operations.PutMediasMoveResponse,
     | errors.PutMediasMoveBadRequestError
-    | errors.FourHundredAndOneError
-    | errors.FourHundredAndFourError
-    | errors.FiveHundredError
+    | errors.PutMediasMoveUnauthorizedError
+    | errors.PutMediasMoveNotFoundError
+    | errors.PutMediasMoveInternalServerError
     | WistiaError
     | ResponseValidationError
     | ConnectionError
@@ -80,9 +80,9 @@ async function $do(
     Result<
       operations.PutMediasMoveResponse,
       | errors.PutMediasMoveBadRequestError
-      | errors.FourHundredAndOneError
-      | errors.FourHundredAndFourError
-      | errors.FiveHundredError
+      | errors.PutMediasMoveUnauthorizedError
+      | errors.PutMediasMoveNotFoundError
+      | errors.PutMediasMoveInternalServerError
       | WistiaError
       | ResponseValidationError
       | ConnectionError
@@ -165,9 +165,9 @@ async function $do(
   const [result] = await M.match<
     operations.PutMediasMoveResponse,
     | errors.PutMediasMoveBadRequestError
-    | errors.FourHundredAndOneError
-    | errors.FourHundredAndFourError
-    | errors.FiveHundredError
+    | errors.PutMediasMoveUnauthorizedError
+    | errors.PutMediasMoveNotFoundError
+    | errors.PutMediasMoveInternalServerError
     | WistiaError
     | ResponseValidationError
     | ConnectionError
@@ -180,9 +180,9 @@ async function $do(
     M.json(200, operations.PutMediasMoveResponse$inboundSchema),
     M.json(207, operations.PutMediasMoveResponse$inboundSchema),
     M.jsonErr(400, errors.PutMediasMoveBadRequestError$inboundSchema),
-    M.jsonErr(401, errors.FourHundredAndOneError$inboundSchema),
-    M.jsonErr(404, errors.FourHundredAndFourError$inboundSchema),
-    M.jsonErr(500, errors.FiveHundredError$inboundSchema),
+    M.jsonErr(401, errors.PutMediasMoveUnauthorizedError$inboundSchema),
+    M.jsonErr(404, errors.PutMediasMoveNotFoundError$inboundSchema),
+    M.jsonErr(500, errors.PutMediasMoveInternalServerError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

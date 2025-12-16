@@ -8,7 +8,6 @@ import { projectSharingsGet } from "../funcs/projectSharingsGet.js";
 import { projectSharingsList } from "../funcs/projectSharingsList.js";
 import { projectSharingsUpdate } from "../funcs/projectSharingsUpdate.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
-import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -29,7 +28,7 @@ export class ProjectSharings extends ClientSDK {
   async list(
     request: operations.GetProjectsProjectIdSharingsRequest,
     options?: RequestOptions,
-  ): Promise<Array<models.ProjectSharingSchema>> {
+  ): Promise<Array<operations.GetProjectsProjectIdSharingsResponse>> {
     return unwrapAsync(projectSharingsList(
       this,
       request,
@@ -74,7 +73,7 @@ export class ProjectSharings extends ClientSDK {
   async get(
     request: operations.GetProjectsProjectIdSharingsSharingIdRequest,
     options?: RequestOptions,
-  ): Promise<models.ProjectSharingSchema> {
+  ): Promise<operations.GetProjectsProjectIdSharingsSharingIdResponse> {
     return unwrapAsync(projectSharingsGet(
       this,
       request,
@@ -96,7 +95,7 @@ export class ProjectSharings extends ClientSDK {
   async update(
     request: operations.PutProjectsProjectIdSharingsSharingIdRequest,
     options?: RequestOptions,
-  ): Promise<models.ProjectSharingSchema> {
+  ): Promise<operations.PutProjectsProjectIdSharingsSharingIdResponse> {
     return unwrapAsync(projectSharingsUpdate(
       this,
       request,
@@ -118,7 +117,7 @@ export class ProjectSharings extends ClientSDK {
   async delete(
     request: operations.DeleteProjectsProjectIdSharingsSharingIdRequest,
     options?: RequestOptions,
-  ): Promise<models.ProjectSharingSchema> {
+  ): Promise<operations.DeleteProjectsProjectIdSharingsSharingIdResponse> {
     return unwrapAsync(projectSharingsDelete(
       this,
       request,

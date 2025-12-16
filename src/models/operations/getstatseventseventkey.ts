@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod";
+import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -12,6 +13,127 @@ export type GetStatsEventsEventKeyRequest = {
    * The unique key of the event.
    */
   eventKey: string;
+};
+
+export type GetStatsEventsEventKeyThumbnail = {
+  url?: string | undefined;
+  width?: number | undefined;
+  height?: number | undefined;
+  fileSize?: number | undefined;
+  contentType?: string | undefined;
+  type?: string | undefined;
+};
+
+/**
+ * Type of conversion.
+ */
+export type GetStatsEventsEventKeyConversionType = number | string;
+
+/**
+ * Additional data related to the conversion.
+ */
+export type GetStatsEventsEventKeyConversionData = {
+  email?: string | undefined;
+  firstName?: string | undefined;
+  isNewLead?: boolean | undefined;
+  lastName?: string | undefined;
+};
+
+/**
+ * Details about the user agent of the viewer.
+ */
+export type GetStatsEventsEventKeyUserAgentDetails = {
+  browser?: string | undefined;
+  browserVersion?: string | undefined;
+  platform?: string | undefined;
+  mobile?: boolean | undefined;
+};
+
+/**
+ * Successful response with the details of a single event.
+ */
+export type GetStatsEventsEventKeyResponse = {
+  /**
+   * Date and time when the event occurred.
+   */
+  receivedAt?: Date | undefined;
+  /**
+   * Unique identifier for the event.
+   */
+  eventKey?: string | undefined;
+  /**
+   * Identifier for the visitor.
+   */
+  visitorKey?: string | undefined;
+  /**
+   * URL of the page where the video was viewed.
+   */
+  embedUrl?: string | undefined;
+  /**
+   * Decimal number denoting how much of the video was watched.
+   */
+  percentViewed?: number | undefined;
+  /**
+   * IP address of the viewer.
+   */
+  ip?: string | undefined;
+  /**
+   * Organization associated with the IP address.
+   */
+  org?: string | undefined;
+  /**
+   * Country based on IP.
+   */
+  country?: string | undefined;
+  /**
+   * Region based on IP.
+   */
+  region?: string | undefined;
+  /**
+   * City based on IP.
+   */
+  city?: string | undefined;
+  /**
+   * Latitude based on IP.
+   */
+  lat?: number | undefined;
+  /**
+   * Longitude based on IP.
+   */
+  lon?: number | undefined;
+  /**
+   * Email of the viewer (if available).
+   */
+  email?: string | null | undefined;
+  /**
+   * Identifier for the video that was watched.
+   */
+  mediaId?: string | undefined;
+  /**
+   * Name of the video.
+   */
+  mediaName?: string | undefined;
+  /**
+   * URL of the video in Wistia.
+   */
+  mediaUrl?: string | undefined;
+  /**
+   * URL for the heatmap of the event.
+   */
+  iframeHeatmapUrl?: string | undefined;
+  thumbnail?: GetStatsEventsEventKeyThumbnail | undefined;
+  /**
+   * Type of conversion.
+   */
+  conversionType?: number | string | undefined;
+  /**
+   * Additional data related to the conversion.
+   */
+  conversionData?: GetStatsEventsEventKeyConversionData | undefined;
+  /**
+   * Details about the user agent of the viewer.
+   */
+  userAgentDetails?: GetStatsEventsEventKeyUserAgentDetails | undefined;
 };
 
 /** @internal */
@@ -67,5 +189,445 @@ export function getStatsEventsEventKeyRequestFromJSON(
     jsonString,
     (x) => GetStatsEventsEventKeyRequest$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'GetStatsEventsEventKeyRequest' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetStatsEventsEventKeyThumbnail$inboundSchema: z.ZodType<
+  GetStatsEventsEventKeyThumbnail,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  url: z.string().optional(),
+  width: z.number().int().optional(),
+  height: z.number().int().optional(),
+  fileSize: z.number().int().optional(),
+  contentType: z.string().optional(),
+  type: z.string().optional(),
+});
+
+/** @internal */
+export type GetStatsEventsEventKeyThumbnail$Outbound = {
+  url?: string | undefined;
+  width?: number | undefined;
+  height?: number | undefined;
+  fileSize?: number | undefined;
+  contentType?: string | undefined;
+  type?: string | undefined;
+};
+
+/** @internal */
+export const GetStatsEventsEventKeyThumbnail$outboundSchema: z.ZodType<
+  GetStatsEventsEventKeyThumbnail$Outbound,
+  z.ZodTypeDef,
+  GetStatsEventsEventKeyThumbnail
+> = z.object({
+  url: z.string().optional(),
+  width: z.number().int().optional(),
+  height: z.number().int().optional(),
+  fileSize: z.number().int().optional(),
+  contentType: z.string().optional(),
+  type: z.string().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetStatsEventsEventKeyThumbnail$ {
+  /** @deprecated use `GetStatsEventsEventKeyThumbnail$inboundSchema` instead. */
+  export const inboundSchema = GetStatsEventsEventKeyThumbnail$inboundSchema;
+  /** @deprecated use `GetStatsEventsEventKeyThumbnail$outboundSchema` instead. */
+  export const outboundSchema = GetStatsEventsEventKeyThumbnail$outboundSchema;
+  /** @deprecated use `GetStatsEventsEventKeyThumbnail$Outbound` instead. */
+  export type Outbound = GetStatsEventsEventKeyThumbnail$Outbound;
+}
+
+export function getStatsEventsEventKeyThumbnailToJSON(
+  getStatsEventsEventKeyThumbnail: GetStatsEventsEventKeyThumbnail,
+): string {
+  return JSON.stringify(
+    GetStatsEventsEventKeyThumbnail$outboundSchema.parse(
+      getStatsEventsEventKeyThumbnail,
+    ),
+  );
+}
+
+export function getStatsEventsEventKeyThumbnailFromJSON(
+  jsonString: string,
+): SafeParseResult<GetStatsEventsEventKeyThumbnail, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetStatsEventsEventKeyThumbnail$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetStatsEventsEventKeyThumbnail' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetStatsEventsEventKeyConversionType$inboundSchema: z.ZodType<
+  GetStatsEventsEventKeyConversionType,
+  z.ZodTypeDef,
+  unknown
+> = z.union([z.number().int(), z.string()]);
+
+/** @internal */
+export type GetStatsEventsEventKeyConversionType$Outbound = number | string;
+
+/** @internal */
+export const GetStatsEventsEventKeyConversionType$outboundSchema: z.ZodType<
+  GetStatsEventsEventKeyConversionType$Outbound,
+  z.ZodTypeDef,
+  GetStatsEventsEventKeyConversionType
+> = z.union([z.number().int(), z.string()]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetStatsEventsEventKeyConversionType$ {
+  /** @deprecated use `GetStatsEventsEventKeyConversionType$inboundSchema` instead. */
+  export const inboundSchema =
+    GetStatsEventsEventKeyConversionType$inboundSchema;
+  /** @deprecated use `GetStatsEventsEventKeyConversionType$outboundSchema` instead. */
+  export const outboundSchema =
+    GetStatsEventsEventKeyConversionType$outboundSchema;
+  /** @deprecated use `GetStatsEventsEventKeyConversionType$Outbound` instead. */
+  export type Outbound = GetStatsEventsEventKeyConversionType$Outbound;
+}
+
+export function getStatsEventsEventKeyConversionTypeToJSON(
+  getStatsEventsEventKeyConversionType: GetStatsEventsEventKeyConversionType,
+): string {
+  return JSON.stringify(
+    GetStatsEventsEventKeyConversionType$outboundSchema.parse(
+      getStatsEventsEventKeyConversionType,
+    ),
+  );
+}
+
+export function getStatsEventsEventKeyConversionTypeFromJSON(
+  jsonString: string,
+): SafeParseResult<GetStatsEventsEventKeyConversionType, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetStatsEventsEventKeyConversionType$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetStatsEventsEventKeyConversionType' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetStatsEventsEventKeyConversionData$inboundSchema: z.ZodType<
+  GetStatsEventsEventKeyConversionData,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  email: z.string().optional(),
+  first_name: z.string().optional(),
+  is_new_lead: z.boolean().optional(),
+  last_name: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "first_name": "firstName",
+    "is_new_lead": "isNewLead",
+    "last_name": "lastName",
+  });
+});
+
+/** @internal */
+export type GetStatsEventsEventKeyConversionData$Outbound = {
+  email?: string | undefined;
+  first_name?: string | undefined;
+  is_new_lead?: boolean | undefined;
+  last_name?: string | undefined;
+};
+
+/** @internal */
+export const GetStatsEventsEventKeyConversionData$outboundSchema: z.ZodType<
+  GetStatsEventsEventKeyConversionData$Outbound,
+  z.ZodTypeDef,
+  GetStatsEventsEventKeyConversionData
+> = z.object({
+  email: z.string().optional(),
+  firstName: z.string().optional(),
+  isNewLead: z.boolean().optional(),
+  lastName: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    firstName: "first_name",
+    isNewLead: "is_new_lead",
+    lastName: "last_name",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetStatsEventsEventKeyConversionData$ {
+  /** @deprecated use `GetStatsEventsEventKeyConversionData$inboundSchema` instead. */
+  export const inboundSchema =
+    GetStatsEventsEventKeyConversionData$inboundSchema;
+  /** @deprecated use `GetStatsEventsEventKeyConversionData$outboundSchema` instead. */
+  export const outboundSchema =
+    GetStatsEventsEventKeyConversionData$outboundSchema;
+  /** @deprecated use `GetStatsEventsEventKeyConversionData$Outbound` instead. */
+  export type Outbound = GetStatsEventsEventKeyConversionData$Outbound;
+}
+
+export function getStatsEventsEventKeyConversionDataToJSON(
+  getStatsEventsEventKeyConversionData: GetStatsEventsEventKeyConversionData,
+): string {
+  return JSON.stringify(
+    GetStatsEventsEventKeyConversionData$outboundSchema.parse(
+      getStatsEventsEventKeyConversionData,
+    ),
+  );
+}
+
+export function getStatsEventsEventKeyConversionDataFromJSON(
+  jsonString: string,
+): SafeParseResult<GetStatsEventsEventKeyConversionData, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetStatsEventsEventKeyConversionData$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetStatsEventsEventKeyConversionData' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetStatsEventsEventKeyUserAgentDetails$inboundSchema: z.ZodType<
+  GetStatsEventsEventKeyUserAgentDetails,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  browser: z.string().optional(),
+  browser_version: z.string().optional(),
+  platform: z.string().optional(),
+  mobile: z.boolean().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "browser_version": "browserVersion",
+  });
+});
+
+/** @internal */
+export type GetStatsEventsEventKeyUserAgentDetails$Outbound = {
+  browser?: string | undefined;
+  browser_version?: string | undefined;
+  platform?: string | undefined;
+  mobile?: boolean | undefined;
+};
+
+/** @internal */
+export const GetStatsEventsEventKeyUserAgentDetails$outboundSchema: z.ZodType<
+  GetStatsEventsEventKeyUserAgentDetails$Outbound,
+  z.ZodTypeDef,
+  GetStatsEventsEventKeyUserAgentDetails
+> = z.object({
+  browser: z.string().optional(),
+  browserVersion: z.string().optional(),
+  platform: z.string().optional(),
+  mobile: z.boolean().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    browserVersion: "browser_version",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetStatsEventsEventKeyUserAgentDetails$ {
+  /** @deprecated use `GetStatsEventsEventKeyUserAgentDetails$inboundSchema` instead. */
+  export const inboundSchema =
+    GetStatsEventsEventKeyUserAgentDetails$inboundSchema;
+  /** @deprecated use `GetStatsEventsEventKeyUserAgentDetails$outboundSchema` instead. */
+  export const outboundSchema =
+    GetStatsEventsEventKeyUserAgentDetails$outboundSchema;
+  /** @deprecated use `GetStatsEventsEventKeyUserAgentDetails$Outbound` instead. */
+  export type Outbound = GetStatsEventsEventKeyUserAgentDetails$Outbound;
+}
+
+export function getStatsEventsEventKeyUserAgentDetailsToJSON(
+  getStatsEventsEventKeyUserAgentDetails:
+    GetStatsEventsEventKeyUserAgentDetails,
+): string {
+  return JSON.stringify(
+    GetStatsEventsEventKeyUserAgentDetails$outboundSchema.parse(
+      getStatsEventsEventKeyUserAgentDetails,
+    ),
+  );
+}
+
+export function getStatsEventsEventKeyUserAgentDetailsFromJSON(
+  jsonString: string,
+): SafeParseResult<GetStatsEventsEventKeyUserAgentDetails, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetStatsEventsEventKeyUserAgentDetails$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetStatsEventsEventKeyUserAgentDetails' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetStatsEventsEventKeyResponse$inboundSchema: z.ZodType<
+  GetStatsEventsEventKeyResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  received_at: z.string().datetime({ offset: true }).transform(v => new Date(v))
+    .optional(),
+  event_key: z.string().optional(),
+  visitor_key: z.string().optional(),
+  embed_url: z.string().optional(),
+  percent_viewed: z.number().optional(),
+  ip: z.string().optional(),
+  org: z.string().optional(),
+  country: z.string().optional(),
+  region: z.string().optional(),
+  city: z.string().optional(),
+  lat: z.number().optional(),
+  lon: z.number().optional(),
+  email: z.nullable(z.string()).optional(),
+  media_id: z.string().optional(),
+  media_name: z.string().optional(),
+  media_url: z.string().optional(),
+  iframe_heatmap_url: z.string().optional(),
+  thumbnail: z.lazy(() => GetStatsEventsEventKeyThumbnail$inboundSchema)
+    .optional(),
+  conversion_type: z.union([z.number().int(), z.string()]).optional(),
+  conversion_data: z.lazy(() =>
+    GetStatsEventsEventKeyConversionData$inboundSchema
+  ).optional(),
+  user_agent_details: z.lazy(() =>
+    GetStatsEventsEventKeyUserAgentDetails$inboundSchema
+  ).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "received_at": "receivedAt",
+    "event_key": "eventKey",
+    "visitor_key": "visitorKey",
+    "embed_url": "embedUrl",
+    "percent_viewed": "percentViewed",
+    "media_id": "mediaId",
+    "media_name": "mediaName",
+    "media_url": "mediaUrl",
+    "iframe_heatmap_url": "iframeHeatmapUrl",
+    "conversion_type": "conversionType",
+    "conversion_data": "conversionData",
+    "user_agent_details": "userAgentDetails",
+  });
+});
+
+/** @internal */
+export type GetStatsEventsEventKeyResponse$Outbound = {
+  received_at?: string | undefined;
+  event_key?: string | undefined;
+  visitor_key?: string | undefined;
+  embed_url?: string | undefined;
+  percent_viewed?: number | undefined;
+  ip?: string | undefined;
+  org?: string | undefined;
+  country?: string | undefined;
+  region?: string | undefined;
+  city?: string | undefined;
+  lat?: number | undefined;
+  lon?: number | undefined;
+  email?: string | null | undefined;
+  media_id?: string | undefined;
+  media_name?: string | undefined;
+  media_url?: string | undefined;
+  iframe_heatmap_url?: string | undefined;
+  thumbnail?: GetStatsEventsEventKeyThumbnail$Outbound | undefined;
+  conversion_type?: number | string | undefined;
+  conversion_data?: GetStatsEventsEventKeyConversionData$Outbound | undefined;
+  user_agent_details?:
+    | GetStatsEventsEventKeyUserAgentDetails$Outbound
+    | undefined;
+};
+
+/** @internal */
+export const GetStatsEventsEventKeyResponse$outboundSchema: z.ZodType<
+  GetStatsEventsEventKeyResponse$Outbound,
+  z.ZodTypeDef,
+  GetStatsEventsEventKeyResponse
+> = z.object({
+  receivedAt: z.date().transform(v => v.toISOString()).optional(),
+  eventKey: z.string().optional(),
+  visitorKey: z.string().optional(),
+  embedUrl: z.string().optional(),
+  percentViewed: z.number().optional(),
+  ip: z.string().optional(),
+  org: z.string().optional(),
+  country: z.string().optional(),
+  region: z.string().optional(),
+  city: z.string().optional(),
+  lat: z.number().optional(),
+  lon: z.number().optional(),
+  email: z.nullable(z.string()).optional(),
+  mediaId: z.string().optional(),
+  mediaName: z.string().optional(),
+  mediaUrl: z.string().optional(),
+  iframeHeatmapUrl: z.string().optional(),
+  thumbnail: z.lazy(() => GetStatsEventsEventKeyThumbnail$outboundSchema)
+    .optional(),
+  conversionType: z.union([z.number().int(), z.string()]).optional(),
+  conversionData: z.lazy(() =>
+    GetStatsEventsEventKeyConversionData$outboundSchema
+  ).optional(),
+  userAgentDetails: z.lazy(() =>
+    GetStatsEventsEventKeyUserAgentDetails$outboundSchema
+  ).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    receivedAt: "received_at",
+    eventKey: "event_key",
+    visitorKey: "visitor_key",
+    embedUrl: "embed_url",
+    percentViewed: "percent_viewed",
+    mediaId: "media_id",
+    mediaName: "media_name",
+    mediaUrl: "media_url",
+    iframeHeatmapUrl: "iframe_heatmap_url",
+    conversionType: "conversion_type",
+    conversionData: "conversion_data",
+    userAgentDetails: "user_agent_details",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetStatsEventsEventKeyResponse$ {
+  /** @deprecated use `GetStatsEventsEventKeyResponse$inboundSchema` instead. */
+  export const inboundSchema = GetStatsEventsEventKeyResponse$inboundSchema;
+  /** @deprecated use `GetStatsEventsEventKeyResponse$outboundSchema` instead. */
+  export const outboundSchema = GetStatsEventsEventKeyResponse$outboundSchema;
+  /** @deprecated use `GetStatsEventsEventKeyResponse$Outbound` instead. */
+  export type Outbound = GetStatsEventsEventKeyResponse$Outbound;
+}
+
+export function getStatsEventsEventKeyResponseToJSON(
+  getStatsEventsEventKeyResponse: GetStatsEventsEventKeyResponse,
+): string {
+  return JSON.stringify(
+    GetStatsEventsEventKeyResponse$outboundSchema.parse(
+      getStatsEventsEventKeyResponse,
+    ),
+  );
+}
+
+export function getStatsEventsEventKeyResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<GetStatsEventsEventKeyResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetStatsEventsEventKeyResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetStatsEventsEventKeyResponse' from JSON`,
   );
 }

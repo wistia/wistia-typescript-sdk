@@ -6,6 +6,37 @@ import * as z from "zod";
 import { WistiaError } from "./wistiaerror.js";
 
 /**
+ * Internal server error
+ */
+export type GetAllowedDomainsDomainInternalServerErrorData = {
+  error?: string | undefined;
+};
+
+/**
+ * Internal server error
+ */
+export class GetAllowedDomainsDomainInternalServerError extends WistiaError {
+  error?: string | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: GetAllowedDomainsDomainInternalServerErrorData;
+
+  constructor(
+    err: GetAllowedDomainsDomainInternalServerErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+
+    this.name = "GetAllowedDomainsDomainInternalServerError";
+  }
+}
+
+/**
  * Domain not found
  */
 export type GetAllowedDomainsDomainNotFoundErrorData = {
@@ -34,6 +65,86 @@ export class GetAllowedDomainsDomainNotFoundError extends WistiaError {
 
     this.name = "GetAllowedDomainsDomainNotFoundError";
   }
+}
+
+/**
+ * Unauthorized, invalid or missing token
+ */
+export type GetAllowedDomainsDomainUnauthorizedErrorData = {
+  error?: string | undefined;
+};
+
+/**
+ * Unauthorized, invalid or missing token
+ */
+export class GetAllowedDomainsDomainUnauthorizedError extends WistiaError {
+  error?: string | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: GetAllowedDomainsDomainUnauthorizedErrorData;
+
+  constructor(
+    err: GetAllowedDomainsDomainUnauthorizedErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+
+    this.name = "GetAllowedDomainsDomainUnauthorizedError";
+  }
+}
+
+/** @internal */
+export const GetAllowedDomainsDomainInternalServerError$inboundSchema:
+  z.ZodType<GetAllowedDomainsDomainInternalServerError, z.ZodTypeDef, unknown> =
+    z.object({
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new GetAllowedDomainsDomainInternalServerError(v, {
+          request: v.request$,
+          response: v.response$,
+          body: v.body$,
+        });
+      });
+
+/** @internal */
+export type GetAllowedDomainsDomainInternalServerError$Outbound = {
+  error?: string | undefined;
+};
+
+/** @internal */
+export const GetAllowedDomainsDomainInternalServerError$outboundSchema:
+  z.ZodType<
+    GetAllowedDomainsDomainInternalServerError$Outbound,
+    z.ZodTypeDef,
+    GetAllowedDomainsDomainInternalServerError
+  > = z.instanceof(GetAllowedDomainsDomainInternalServerError)
+    .transform(v => v.data$)
+    .pipe(z.object({
+      error: z.string().optional(),
+    }));
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetAllowedDomainsDomainInternalServerError$ {
+  /** @deprecated use `GetAllowedDomainsDomainInternalServerError$inboundSchema` instead. */
+  export const inboundSchema =
+    GetAllowedDomainsDomainInternalServerError$inboundSchema;
+  /** @deprecated use `GetAllowedDomainsDomainInternalServerError$outboundSchema` instead. */
+  export const outboundSchema =
+    GetAllowedDomainsDomainInternalServerError$outboundSchema;
+  /** @deprecated use `GetAllowedDomainsDomainInternalServerError$Outbound` instead. */
+  export type Outbound = GetAllowedDomainsDomainInternalServerError$Outbound;
 }
 
 /** @internal */
@@ -84,4 +195,54 @@ export namespace GetAllowedDomainsDomainNotFoundError$ {
     GetAllowedDomainsDomainNotFoundError$outboundSchema;
   /** @deprecated use `GetAllowedDomainsDomainNotFoundError$Outbound` instead. */
   export type Outbound = GetAllowedDomainsDomainNotFoundError$Outbound;
+}
+
+/** @internal */
+export const GetAllowedDomainsDomainUnauthorizedError$inboundSchema: z.ZodType<
+  GetAllowedDomainsDomainUnauthorizedError,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  error: z.string().optional(),
+  request$: z.instanceof(Request),
+  response$: z.instanceof(Response),
+  body$: z.string(),
+})
+  .transform((v) => {
+    return new GetAllowedDomainsDomainUnauthorizedError(v, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
+  });
+
+/** @internal */
+export type GetAllowedDomainsDomainUnauthorizedError$Outbound = {
+  error?: string | undefined;
+};
+
+/** @internal */
+export const GetAllowedDomainsDomainUnauthorizedError$outboundSchema: z.ZodType<
+  GetAllowedDomainsDomainUnauthorizedError$Outbound,
+  z.ZodTypeDef,
+  GetAllowedDomainsDomainUnauthorizedError
+> = z.instanceof(GetAllowedDomainsDomainUnauthorizedError)
+  .transform(v => v.data$)
+  .pipe(z.object({
+    error: z.string().optional(),
+  }));
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetAllowedDomainsDomainUnauthorizedError$ {
+  /** @deprecated use `GetAllowedDomainsDomainUnauthorizedError$inboundSchema` instead. */
+  export const inboundSchema =
+    GetAllowedDomainsDomainUnauthorizedError$inboundSchema;
+  /** @deprecated use `GetAllowedDomainsDomainUnauthorizedError$outboundSchema` instead. */
+  export const outboundSchema =
+    GetAllowedDomainsDomainUnauthorizedError$outboundSchema;
+  /** @deprecated use `GetAllowedDomainsDomainUnauthorizedError$Outbound` instead. */
+  export type Outbound = GetAllowedDomainsDomainUnauthorizedError$Outbound;
 }

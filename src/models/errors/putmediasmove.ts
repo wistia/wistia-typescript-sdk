@@ -6,6 +6,99 @@ import * as z from "zod";
 import { WistiaError } from "./wistiaerror.js";
 
 /**
+ * Internal server error
+ */
+export type PutMediasMoveInternalServerErrorData = {
+  error?: string | undefined;
+};
+
+/**
+ * Internal server error
+ */
+export class PutMediasMoveInternalServerError extends WistiaError {
+  error?: string | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: PutMediasMoveInternalServerErrorData;
+
+  constructor(
+    err: PutMediasMoveInternalServerErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+
+    this.name = "PutMediasMoveInternalServerError";
+  }
+}
+
+/**
+ * Resource not found
+ */
+export type PutMediasMoveNotFoundErrorData = {
+  error?: string | undefined;
+};
+
+/**
+ * Resource not found
+ */
+export class PutMediasMoveNotFoundError extends WistiaError {
+  error?: string | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: PutMediasMoveNotFoundErrorData;
+
+  constructor(
+    err: PutMediasMoveNotFoundErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+
+    this.name = "PutMediasMoveNotFoundError";
+  }
+}
+
+/**
+ * Unauthorized, invalid or missing token
+ */
+export type PutMediasMoveUnauthorizedErrorData = {
+  error?: string | undefined;
+};
+
+/**
+ * Unauthorized, invalid or missing token
+ */
+export class PutMediasMoveUnauthorizedError extends WistiaError {
+  error?: string | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: PutMediasMoveUnauthorizedErrorData;
+
+  constructor(
+    err: PutMediasMoveUnauthorizedErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+
+    this.name = "PutMediasMoveUnauthorizedError";
+  }
+}
+
+/**
  * Invalid request.
  */
 export type PutMediasMoveBadRequestErrorData = {
@@ -34,6 +127,150 @@ export class PutMediasMoveBadRequestError extends WistiaError {
 
     this.name = "PutMediasMoveBadRequestError";
   }
+}
+
+/** @internal */
+export const PutMediasMoveInternalServerError$inboundSchema: z.ZodType<
+  PutMediasMoveInternalServerError,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  error: z.string().optional(),
+  request$: z.instanceof(Request),
+  response$: z.instanceof(Response),
+  body$: z.string(),
+})
+  .transform((v) => {
+    return new PutMediasMoveInternalServerError(v, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
+  });
+
+/** @internal */
+export type PutMediasMoveInternalServerError$Outbound = {
+  error?: string | undefined;
+};
+
+/** @internal */
+export const PutMediasMoveInternalServerError$outboundSchema: z.ZodType<
+  PutMediasMoveInternalServerError$Outbound,
+  z.ZodTypeDef,
+  PutMediasMoveInternalServerError
+> = z.instanceof(PutMediasMoveInternalServerError)
+  .transform(v => v.data$)
+  .pipe(z.object({
+    error: z.string().optional(),
+  }));
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PutMediasMoveInternalServerError$ {
+  /** @deprecated use `PutMediasMoveInternalServerError$inboundSchema` instead. */
+  export const inboundSchema = PutMediasMoveInternalServerError$inboundSchema;
+  /** @deprecated use `PutMediasMoveInternalServerError$outboundSchema` instead. */
+  export const outboundSchema = PutMediasMoveInternalServerError$outboundSchema;
+  /** @deprecated use `PutMediasMoveInternalServerError$Outbound` instead. */
+  export type Outbound = PutMediasMoveInternalServerError$Outbound;
+}
+
+/** @internal */
+export const PutMediasMoveNotFoundError$inboundSchema: z.ZodType<
+  PutMediasMoveNotFoundError,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  error: z.string().optional(),
+  request$: z.instanceof(Request),
+  response$: z.instanceof(Response),
+  body$: z.string(),
+})
+  .transform((v) => {
+    return new PutMediasMoveNotFoundError(v, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
+  });
+
+/** @internal */
+export type PutMediasMoveNotFoundError$Outbound = {
+  error?: string | undefined;
+};
+
+/** @internal */
+export const PutMediasMoveNotFoundError$outboundSchema: z.ZodType<
+  PutMediasMoveNotFoundError$Outbound,
+  z.ZodTypeDef,
+  PutMediasMoveNotFoundError
+> = z.instanceof(PutMediasMoveNotFoundError)
+  .transform(v => v.data$)
+  .pipe(z.object({
+    error: z.string().optional(),
+  }));
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PutMediasMoveNotFoundError$ {
+  /** @deprecated use `PutMediasMoveNotFoundError$inboundSchema` instead. */
+  export const inboundSchema = PutMediasMoveNotFoundError$inboundSchema;
+  /** @deprecated use `PutMediasMoveNotFoundError$outboundSchema` instead. */
+  export const outboundSchema = PutMediasMoveNotFoundError$outboundSchema;
+  /** @deprecated use `PutMediasMoveNotFoundError$Outbound` instead. */
+  export type Outbound = PutMediasMoveNotFoundError$Outbound;
+}
+
+/** @internal */
+export const PutMediasMoveUnauthorizedError$inboundSchema: z.ZodType<
+  PutMediasMoveUnauthorizedError,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  error: z.string().optional(),
+  request$: z.instanceof(Request),
+  response$: z.instanceof(Response),
+  body$: z.string(),
+})
+  .transform((v) => {
+    return new PutMediasMoveUnauthorizedError(v, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
+  });
+
+/** @internal */
+export type PutMediasMoveUnauthorizedError$Outbound = {
+  error?: string | undefined;
+};
+
+/** @internal */
+export const PutMediasMoveUnauthorizedError$outboundSchema: z.ZodType<
+  PutMediasMoveUnauthorizedError$Outbound,
+  z.ZodTypeDef,
+  PutMediasMoveUnauthorizedError
+> = z.instanceof(PutMediasMoveUnauthorizedError)
+  .transform(v => v.data$)
+  .pipe(z.object({
+    error: z.string().optional(),
+  }));
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PutMediasMoveUnauthorizedError$ {
+  /** @deprecated use `PutMediasMoveUnauthorizedError$inboundSchema` instead. */
+  export const inboundSchema = PutMediasMoveUnauthorizedError$inboundSchema;
+  /** @deprecated use `PutMediasMoveUnauthorizedError$outboundSchema` instead. */
+  export const outboundSchema = PutMediasMoveUnauthorizedError$outboundSchema;
+  /** @deprecated use `PutMediasMoveUnauthorizedError$Outbound` instead. */
+  export type Outbound = PutMediasMoveUnauthorizedError$Outbound;
 }
 
 /** @internal */

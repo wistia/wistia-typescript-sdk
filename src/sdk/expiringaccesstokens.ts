@@ -4,7 +4,6 @@
 
 import { expiringAccessTokensCreate } from "../funcs/expiringAccessTokensCreate.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
-import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -29,7 +28,7 @@ export class ExpiringAccessTokens extends ClientSDK {
   async create(
     request?: operations.PostExpiringTokenRequest | undefined,
     options?: RequestOptions,
-  ): Promise<models.ExpiringAccessTokenResponse> {
+  ): Promise<operations.PostExpiringTokenResponse> {
     return unwrapAsync(expiringAccessTokensCreate(
       this,
       request,

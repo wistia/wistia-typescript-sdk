@@ -3,10 +3,11 @@
  */
 
 import * as z from "zod";
+import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-import * as models from "../index.js";
 
 export type GetSearchRequest = {
   /**
@@ -15,11 +16,237 @@ export type GetSearchRequest = {
   q: string;
 };
 
+export type GetSearchProject = {
+  /**
+   * A unique numeric identifier for the project within the system.
+   */
+  id: number;
+  /**
+   * The project’s display name.
+   */
+  name: string;
+  /**
+   * The project’s description.
+   */
+  description?: string | null | undefined;
+  /**
+   * The number of different medias that have been uploaded to the project.
+   */
+  mediaCount: number;
+  /**
+   * The date that the project was originally created.
+   */
+  created: Date;
+  /**
+   * The date that the project was last updated.
+   */
+  updated: Date;
+  /**
+   * A private hashed id, uniquely identifying the project within the system.
+   */
+  hashedId: string;
+  /**
+   * A boolean indicating whether the project is available for public (anonymous) viewing.
+   */
+  public: boolean;
+  /**
+   * If the project is public, this field contains a string representing the ID used for referencing the project in public URLs.
+   */
+  publicId: string | null;
+  anonymousCanUpload?: boolean | undefined;
+  anonymousCanDownload?: boolean | undefined;
+};
+
+/**
+ * A string representing what type of media this is.
+ */
+export const GetSearchType = {
+  Video: "Video",
+  Audio: "Audio",
+  Image: "Image",
+  PdfDocument: "PdfDocument",
+  MicrosoftOfficeDocument: "MicrosoftOfficeDocument",
+  Swf: "Swf",
+  UnknownType: "UnknownType",
+} as const;
+/**
+ * A string representing what type of media this is.
+ */
+export type GetSearchType = ClosedEnum<typeof GetSearchType>;
+
+/**
+ * Post upload processing status. - `queued`: the file is waiting in the queue to be processed. - `processing`: the file is actively being processed. - `ready`: the file has been fully processed and is ready for embedding and viewing. - `failed`: the file was unable to be processed (usually a format or size error).
+ *
+ * @remarks
+ */
+export const GetSearchStatus = {
+  Queued: "queued",
+  Processing: "processing",
+  Ready: "ready",
+  Failed: "failed",
+} as const;
+/**
+ * Post upload processing status. - `queued`: the file is waiting in the queue to be processed. - `processing`: the file is actively being processed. - `ready`: the file has been fully processed and is ready for embedding and viewing. - `failed`: the file was unable to be processed (usually a format or size error).
+ *
+ * @remarks
+ */
+export type GetSearchStatus = ClosedEnum<typeof GetSearchStatus>;
+
+export type GetSearchThumbnail = {
+  url?: string | undefined;
+  width?: number | undefined;
+  height?: number | undefined;
+};
+
+export type GetSearchMedia = {
+  /**
+   * A unique numeric identifier for the media within the system.
+   */
+  id?: number | undefined;
+  /**
+   * The display name of the media.
+   */
+  name?: string | undefined;
+  /**
+   * A string representing what type of media this is.
+   */
+  type?: GetSearchType | undefined;
+  /**
+   * Whether or not the media is archived, either true or false.
+   */
+  archived?: boolean | undefined;
+  /**
+   * The date when the media was originally uploaded.
+   */
+  created?: Date | undefined;
+  /**
+   * The date when the media was last changed.
+   */
+  updated?: Date | undefined;
+  /**
+   * Specifies the length (in seconds) for audio and video files. Specifies number of pages in the document. Omitted for other types of media.
+   */
+  duration?: number | null | undefined;
+  /**
+   * DEPRECATED: If you want to programmatically embed videos, follow the construct an embed code guide.
+   *
+   * @remarks
+   *
+   * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+   */
+  embedCode?: string | undefined;
+  /**
+   * A unique alphanumeric identifier for this media.
+   */
+  hashedId?: string | undefined;
+  /**
+   * A description for the media which usually appears near the top of the sidebar on the media's page.
+   */
+  description?: string | undefined;
+  /**
+   * A floating point value between 0 and 1 that indicates the progress of the processing for this file.
+   */
+  progress?: number | undefined;
+  /**
+   * Post upload processing status. - `queued`: the file is waiting in the queue to be processed. - `processing`: the file is actively being processed. - `ready`: the file has been fully processed and is ready for embedding and viewing. - `failed`: the file was unable to be processed (usually a format or size error).
+   *
+   * @remarks
+   */
+  status?: GetSearchStatus | undefined;
+  /**
+   * The title of the section in which the media appears. This attribute is omitted if the media is not in a section (default).
+   */
+  section?: string | null | undefined;
+  thumbnail?: GetSearchThumbnail | undefined;
+  /**
+   * The hashed ID of the project this media belongs to
+   */
+  projectHashedId: string;
+};
+
+export type Channel = {
+  /**
+   * A unique numeric identifier for the channel within the system.
+   */
+  id: number;
+  /**
+   * A unique alphanumeric identifier for this channel.
+   */
+  hashedId: string;
+  /**
+   * The display name for the channel.
+   */
+  name: string;
+  /**
+   * The channel's description.
+   */
+  description: string;
+  /**
+   * The number of medias in the channel.
+   */
+  mediaCount: number;
+  /**
+   * The date when the channel was originally created.
+   */
+  created: Date;
+  /**
+   * The date when the channel was last updated.
+   */
+  updated: Date;
+};
+
+export type ChannelEpisode = {
+  /**
+   * A unique numeric identifier for the channel episode within the system.
+   */
+  id: number;
+  /**
+   * A unique alphanumeric identifier for this channel episode.
+   */
+  hashedId: string;
+  /**
+   * The title of the channel episode.
+   */
+  title?: string | null | undefined;
+  /**
+   * The episode notes for the channel episode.
+   */
+  description: string;
+  /**
+   * The description of the channel episode.
+   */
+  summary: string;
+  /**
+   * The hashed ID of the channel this episode belongs to.
+   */
+  channelHashedId: string;
+  /**
+   * The hashed ID of the media associated with this channel episode.
+   */
+  mediaHashedId: string;
+  /**
+   * Whether the channel episode is published.
+   */
+  published: boolean;
+  /**
+   * The date when the channel episode was originally created.
+   */
+  created: Date;
+  /**
+   * The date when the channel episode was last updated.
+   */
+  updated: Date;
+  /**
+   * The scheduled publish date (only present if scheduled).
+   */
+  publishAt?: Date | null | undefined;
+};
+
 export type Data = {
-  projects: Array<models.Project>;
-  medias: Array<models.SearchMedia>;
-  channels: Array<models.SearchChannel>;
-  channelEpisodes: Array<models.SearchChannelEpisode>;
+  projects: Array<GetSearchProject>;
+  medias: Array<GetSearchMedia>;
+  channels: Array<Channel>;
+  channelEpisodes: Array<ChannelEpisode>;
 };
 
 /**
@@ -84,29 +311,472 @@ export function getSearchRequestFromJSON(
 }
 
 /** @internal */
+export const GetSearchProject$inboundSchema: z.ZodType<
+  GetSearchProject,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: z.number().int(),
+  name: z.string(),
+  description: z.nullable(z.string()).optional(),
+  mediaCount: z.number().int(),
+  created: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  updated: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  hashedId: z.string(),
+  public: z.boolean(),
+  publicId: z.nullable(z.string()),
+  anonymousCanUpload: z.boolean().optional(),
+  anonymousCanDownload: z.boolean().optional(),
+});
+
+/** @internal */
+export type GetSearchProject$Outbound = {
+  id: number;
+  name: string;
+  description?: string | null | undefined;
+  mediaCount: number;
+  created: string;
+  updated: string;
+  hashedId: string;
+  public: boolean;
+  publicId: string | null;
+  anonymousCanUpload?: boolean | undefined;
+  anonymousCanDownload?: boolean | undefined;
+};
+
+/** @internal */
+export const GetSearchProject$outboundSchema: z.ZodType<
+  GetSearchProject$Outbound,
+  z.ZodTypeDef,
+  GetSearchProject
+> = z.object({
+  id: z.number().int(),
+  name: z.string(),
+  description: z.nullable(z.string()).optional(),
+  mediaCount: z.number().int(),
+  created: z.date().transform(v => v.toISOString()),
+  updated: z.date().transform(v => v.toISOString()),
+  hashedId: z.string(),
+  public: z.boolean(),
+  publicId: z.nullable(z.string()),
+  anonymousCanUpload: z.boolean().optional(),
+  anonymousCanDownload: z.boolean().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetSearchProject$ {
+  /** @deprecated use `GetSearchProject$inboundSchema` instead. */
+  export const inboundSchema = GetSearchProject$inboundSchema;
+  /** @deprecated use `GetSearchProject$outboundSchema` instead. */
+  export const outboundSchema = GetSearchProject$outboundSchema;
+  /** @deprecated use `GetSearchProject$Outbound` instead. */
+  export type Outbound = GetSearchProject$Outbound;
+}
+
+export function getSearchProjectToJSON(
+  getSearchProject: GetSearchProject,
+): string {
+  return JSON.stringify(
+    GetSearchProject$outboundSchema.parse(getSearchProject),
+  );
+}
+
+export function getSearchProjectFromJSON(
+  jsonString: string,
+): SafeParseResult<GetSearchProject, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetSearchProject$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetSearchProject' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetSearchType$inboundSchema: z.ZodNativeEnum<
+  typeof GetSearchType
+> = z.nativeEnum(GetSearchType);
+
+/** @internal */
+export const GetSearchType$outboundSchema: z.ZodNativeEnum<
+  typeof GetSearchType
+> = GetSearchType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetSearchType$ {
+  /** @deprecated use `GetSearchType$inboundSchema` instead. */
+  export const inboundSchema = GetSearchType$inboundSchema;
+  /** @deprecated use `GetSearchType$outboundSchema` instead. */
+  export const outboundSchema = GetSearchType$outboundSchema;
+}
+
+/** @internal */
+export const GetSearchStatus$inboundSchema: z.ZodNativeEnum<
+  typeof GetSearchStatus
+> = z.nativeEnum(GetSearchStatus);
+
+/** @internal */
+export const GetSearchStatus$outboundSchema: z.ZodNativeEnum<
+  typeof GetSearchStatus
+> = GetSearchStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetSearchStatus$ {
+  /** @deprecated use `GetSearchStatus$inboundSchema` instead. */
+  export const inboundSchema = GetSearchStatus$inboundSchema;
+  /** @deprecated use `GetSearchStatus$outboundSchema` instead. */
+  export const outboundSchema = GetSearchStatus$outboundSchema;
+}
+
+/** @internal */
+export const GetSearchThumbnail$inboundSchema: z.ZodType<
+  GetSearchThumbnail,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  url: z.string().optional(),
+  width: z.number().int().optional(),
+  height: z.number().int().optional(),
+});
+
+/** @internal */
+export type GetSearchThumbnail$Outbound = {
+  url?: string | undefined;
+  width?: number | undefined;
+  height?: number | undefined;
+};
+
+/** @internal */
+export const GetSearchThumbnail$outboundSchema: z.ZodType<
+  GetSearchThumbnail$Outbound,
+  z.ZodTypeDef,
+  GetSearchThumbnail
+> = z.object({
+  url: z.string().optional(),
+  width: z.number().int().optional(),
+  height: z.number().int().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetSearchThumbnail$ {
+  /** @deprecated use `GetSearchThumbnail$inboundSchema` instead. */
+  export const inboundSchema = GetSearchThumbnail$inboundSchema;
+  /** @deprecated use `GetSearchThumbnail$outboundSchema` instead. */
+  export const outboundSchema = GetSearchThumbnail$outboundSchema;
+  /** @deprecated use `GetSearchThumbnail$Outbound` instead. */
+  export type Outbound = GetSearchThumbnail$Outbound;
+}
+
+export function getSearchThumbnailToJSON(
+  getSearchThumbnail: GetSearchThumbnail,
+): string {
+  return JSON.stringify(
+    GetSearchThumbnail$outboundSchema.parse(getSearchThumbnail),
+  );
+}
+
+export function getSearchThumbnailFromJSON(
+  jsonString: string,
+): SafeParseResult<GetSearchThumbnail, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetSearchThumbnail$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetSearchThumbnail' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetSearchMedia$inboundSchema: z.ZodType<
+  GetSearchMedia,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: z.number().int().optional(),
+  name: z.string().optional(),
+  type: GetSearchType$inboundSchema.optional(),
+  archived: z.boolean().optional(),
+  created: z.string().datetime({ offset: true }).transform(v => new Date(v))
+    .optional(),
+  updated: z.string().datetime({ offset: true }).transform(v => new Date(v))
+    .optional(),
+  duration: z.nullable(z.number()).optional(),
+  embedCode: z.string().optional(),
+  hashed_id: z.string().optional(),
+  description: z.string().optional(),
+  progress: z.number().optional(),
+  status: GetSearchStatus$inboundSchema.optional(),
+  section: z.nullable(z.string()).optional(),
+  thumbnail: z.lazy(() => GetSearchThumbnail$inboundSchema).optional(),
+  projectHashedId: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    "hashed_id": "hashedId",
+  });
+});
+
+/** @internal */
+export type GetSearchMedia$Outbound = {
+  id?: number | undefined;
+  name?: string | undefined;
+  type?: string | undefined;
+  archived?: boolean | undefined;
+  created?: string | undefined;
+  updated?: string | undefined;
+  duration?: number | null | undefined;
+  embedCode?: string | undefined;
+  hashed_id?: string | undefined;
+  description?: string | undefined;
+  progress?: number | undefined;
+  status?: string | undefined;
+  section?: string | null | undefined;
+  thumbnail?: GetSearchThumbnail$Outbound | undefined;
+  projectHashedId: string;
+};
+
+/** @internal */
+export const GetSearchMedia$outboundSchema: z.ZodType<
+  GetSearchMedia$Outbound,
+  z.ZodTypeDef,
+  GetSearchMedia
+> = z.object({
+  id: z.number().int().optional(),
+  name: z.string().optional(),
+  type: GetSearchType$outboundSchema.optional(),
+  archived: z.boolean().optional(),
+  created: z.date().transform(v => v.toISOString()).optional(),
+  updated: z.date().transform(v => v.toISOString()).optional(),
+  duration: z.nullable(z.number()).optional(),
+  embedCode: z.string().optional(),
+  hashedId: z.string().optional(),
+  description: z.string().optional(),
+  progress: z.number().optional(),
+  status: GetSearchStatus$outboundSchema.optional(),
+  section: z.nullable(z.string()).optional(),
+  thumbnail: z.lazy(() => GetSearchThumbnail$outboundSchema).optional(),
+  projectHashedId: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    hashedId: "hashed_id",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetSearchMedia$ {
+  /** @deprecated use `GetSearchMedia$inboundSchema` instead. */
+  export const inboundSchema = GetSearchMedia$inboundSchema;
+  /** @deprecated use `GetSearchMedia$outboundSchema` instead. */
+  export const outboundSchema = GetSearchMedia$outboundSchema;
+  /** @deprecated use `GetSearchMedia$Outbound` instead. */
+  export type Outbound = GetSearchMedia$Outbound;
+}
+
+export function getSearchMediaToJSON(getSearchMedia: GetSearchMedia): string {
+  return JSON.stringify(GetSearchMedia$outboundSchema.parse(getSearchMedia));
+}
+
+export function getSearchMediaFromJSON(
+  jsonString: string,
+): SafeParseResult<GetSearchMedia, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetSearchMedia$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetSearchMedia' from JSON`,
+  );
+}
+
+/** @internal */
+export const Channel$inboundSchema: z.ZodType<Channel, z.ZodTypeDef, unknown> =
+  z.object({
+    id: z.number().int(),
+    hashedId: z.string(),
+    name: z.string(),
+    description: z.string(),
+    mediaCount: z.number().int(),
+    created: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+    updated: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  });
+
+/** @internal */
+export type Channel$Outbound = {
+  id: number;
+  hashedId: string;
+  name: string;
+  description: string;
+  mediaCount: number;
+  created: string;
+  updated: string;
+};
+
+/** @internal */
+export const Channel$outboundSchema: z.ZodType<
+  Channel$Outbound,
+  z.ZodTypeDef,
+  Channel
+> = z.object({
+  id: z.number().int(),
+  hashedId: z.string(),
+  name: z.string(),
+  description: z.string(),
+  mediaCount: z.number().int(),
+  created: z.date().transform(v => v.toISOString()),
+  updated: z.date().transform(v => v.toISOString()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace Channel$ {
+  /** @deprecated use `Channel$inboundSchema` instead. */
+  export const inboundSchema = Channel$inboundSchema;
+  /** @deprecated use `Channel$outboundSchema` instead. */
+  export const outboundSchema = Channel$outboundSchema;
+  /** @deprecated use `Channel$Outbound` instead. */
+  export type Outbound = Channel$Outbound;
+}
+
+export function channelToJSON(channel: Channel): string {
+  return JSON.stringify(Channel$outboundSchema.parse(channel));
+}
+
+export function channelFromJSON(
+  jsonString: string,
+): SafeParseResult<Channel, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Channel$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Channel' from JSON`,
+  );
+}
+
+/** @internal */
+export const ChannelEpisode$inboundSchema: z.ZodType<
+  ChannelEpisode,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: z.number().int(),
+  hashedId: z.string(),
+  title: z.nullable(z.string()).optional(),
+  description: z.string(),
+  summary: z.string(),
+  channelHashedId: z.string(),
+  mediaHashedId: z.string(),
+  published: z.boolean(),
+  created: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  updated: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  publish_at: z.nullable(
+    z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  ).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "publish_at": "publishAt",
+  });
+});
+
+/** @internal */
+export type ChannelEpisode$Outbound = {
+  id: number;
+  hashedId: string;
+  title?: string | null | undefined;
+  description: string;
+  summary: string;
+  channelHashedId: string;
+  mediaHashedId: string;
+  published: boolean;
+  created: string;
+  updated: string;
+  publish_at?: string | null | undefined;
+};
+
+/** @internal */
+export const ChannelEpisode$outboundSchema: z.ZodType<
+  ChannelEpisode$Outbound,
+  z.ZodTypeDef,
+  ChannelEpisode
+> = z.object({
+  id: z.number().int(),
+  hashedId: z.string(),
+  title: z.nullable(z.string()).optional(),
+  description: z.string(),
+  summary: z.string(),
+  channelHashedId: z.string(),
+  mediaHashedId: z.string(),
+  published: z.boolean(),
+  created: z.date().transform(v => v.toISOString()),
+  updated: z.date().transform(v => v.toISOString()),
+  publishAt: z.nullable(z.date().transform(v => v.toISOString())).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    publishAt: "publish_at",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ChannelEpisode$ {
+  /** @deprecated use `ChannelEpisode$inboundSchema` instead. */
+  export const inboundSchema = ChannelEpisode$inboundSchema;
+  /** @deprecated use `ChannelEpisode$outboundSchema` instead. */
+  export const outboundSchema = ChannelEpisode$outboundSchema;
+  /** @deprecated use `ChannelEpisode$Outbound` instead. */
+  export type Outbound = ChannelEpisode$Outbound;
+}
+
+export function channelEpisodeToJSON(channelEpisode: ChannelEpisode): string {
+  return JSON.stringify(ChannelEpisode$outboundSchema.parse(channelEpisode));
+}
+
+export function channelEpisodeFromJSON(
+  jsonString: string,
+): SafeParseResult<ChannelEpisode, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ChannelEpisode$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ChannelEpisode' from JSON`,
+  );
+}
+
+/** @internal */
 export const Data$inboundSchema: z.ZodType<Data, z.ZodTypeDef, unknown> = z
   .object({
-    projects: z.array(models.Project$inboundSchema),
-    medias: z.array(models.SearchMedia$inboundSchema),
-    channels: z.array(models.SearchChannel$inboundSchema),
-    channelEpisodes: z.array(models.SearchChannelEpisode$inboundSchema),
+    projects: z.array(z.lazy(() => GetSearchProject$inboundSchema)),
+    medias: z.array(z.lazy(() => GetSearchMedia$inboundSchema)),
+    channels: z.array(z.lazy(() => Channel$inboundSchema)),
+    channelEpisodes: z.array(z.lazy(() => ChannelEpisode$inboundSchema)),
   });
 
 /** @internal */
 export type Data$Outbound = {
-  projects: Array<models.Project$Outbound>;
-  medias: Array<models.SearchMedia$Outbound>;
-  channels: Array<models.SearchChannel$Outbound>;
-  channelEpisodes: Array<models.SearchChannelEpisode$Outbound>;
+  projects: Array<GetSearchProject$Outbound>;
+  medias: Array<GetSearchMedia$Outbound>;
+  channels: Array<Channel$Outbound>;
+  channelEpisodes: Array<ChannelEpisode$Outbound>;
 };
 
 /** @internal */
 export const Data$outboundSchema: z.ZodType<Data$Outbound, z.ZodTypeDef, Data> =
   z.object({
-    projects: z.array(models.Project$outboundSchema),
-    medias: z.array(models.SearchMedia$outboundSchema),
-    channels: z.array(models.SearchChannel$outboundSchema),
-    channelEpisodes: z.array(models.SearchChannelEpisode$outboundSchema),
+    projects: z.array(z.lazy(() => GetSearchProject$outboundSchema)),
+    medias: z.array(z.lazy(() => GetSearchMedia$outboundSchema)),
+    channels: z.array(z.lazy(() => Channel$outboundSchema)),
+    channelEpisodes: z.array(z.lazy(() => ChannelEpisode$outboundSchema)),
   });
 
 /**

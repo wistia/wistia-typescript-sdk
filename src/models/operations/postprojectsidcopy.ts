@@ -7,7 +7,6 @@ import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-import * as models from "../index.js";
 
 export type PostProjectsIdCopyRequestBody = {
   /**
@@ -24,9 +23,53 @@ export type PostProjectsIdCopyRequest = {
   requestBody?: PostProjectsIdCopyRequestBody | undefined;
 };
 
+/**
+ * Project copied successfully
+ */
+export type PostProjectsIdCopyResponseBody = {
+  /**
+   * A unique numeric identifier for the project within the system.
+   */
+  id: number;
+  /**
+   * The project’s display name.
+   */
+  name: string;
+  /**
+   * The project’s description.
+   */
+  description?: string | null | undefined;
+  /**
+   * The number of different medias that have been uploaded to the project.
+   */
+  mediaCount: number;
+  /**
+   * The date that the project was originally created.
+   */
+  created: Date;
+  /**
+   * The date that the project was last updated.
+   */
+  updated: Date;
+  /**
+   * A private hashed id, uniquely identifying the project within the system.
+   */
+  hashedId: string;
+  /**
+   * A boolean indicating whether the project is available for public (anonymous) viewing.
+   */
+  public: boolean;
+  /**
+   * If the project is public, this field contains a string representing the ID used for referencing the project in public URLs.
+   */
+  publicId: string | null;
+  anonymousCanUpload?: boolean | undefined;
+  anonymousCanDownload?: boolean | undefined;
+};
+
 export type PostProjectsIdCopyResponse = {
   headers: { [k: string]: Array<string> };
-  result: models.Project;
+  result: PostProjectsIdCopyResponseBody;
 };
 
 /** @internal */
@@ -153,13 +196,99 @@ export function postProjectsIdCopyRequestFromJSON(
 }
 
 /** @internal */
+export const PostProjectsIdCopyResponseBody$inboundSchema: z.ZodType<
+  PostProjectsIdCopyResponseBody,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: z.number().int(),
+  name: z.string(),
+  description: z.nullable(z.string()).optional(),
+  mediaCount: z.number().int(),
+  created: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  updated: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  hashedId: z.string(),
+  public: z.boolean(),
+  publicId: z.nullable(z.string()),
+  anonymousCanUpload: z.boolean().optional(),
+  anonymousCanDownload: z.boolean().optional(),
+});
+
+/** @internal */
+export type PostProjectsIdCopyResponseBody$Outbound = {
+  id: number;
+  name: string;
+  description?: string | null | undefined;
+  mediaCount: number;
+  created: string;
+  updated: string;
+  hashedId: string;
+  public: boolean;
+  publicId: string | null;
+  anonymousCanUpload?: boolean | undefined;
+  anonymousCanDownload?: boolean | undefined;
+};
+
+/** @internal */
+export const PostProjectsIdCopyResponseBody$outboundSchema: z.ZodType<
+  PostProjectsIdCopyResponseBody$Outbound,
+  z.ZodTypeDef,
+  PostProjectsIdCopyResponseBody
+> = z.object({
+  id: z.number().int(),
+  name: z.string(),
+  description: z.nullable(z.string()).optional(),
+  mediaCount: z.number().int(),
+  created: z.date().transform(v => v.toISOString()),
+  updated: z.date().transform(v => v.toISOString()),
+  hashedId: z.string(),
+  public: z.boolean(),
+  publicId: z.nullable(z.string()),
+  anonymousCanUpload: z.boolean().optional(),
+  anonymousCanDownload: z.boolean().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostProjectsIdCopyResponseBody$ {
+  /** @deprecated use `PostProjectsIdCopyResponseBody$inboundSchema` instead. */
+  export const inboundSchema = PostProjectsIdCopyResponseBody$inboundSchema;
+  /** @deprecated use `PostProjectsIdCopyResponseBody$outboundSchema` instead. */
+  export const outboundSchema = PostProjectsIdCopyResponseBody$outboundSchema;
+  /** @deprecated use `PostProjectsIdCopyResponseBody$Outbound` instead. */
+  export type Outbound = PostProjectsIdCopyResponseBody$Outbound;
+}
+
+export function postProjectsIdCopyResponseBodyToJSON(
+  postProjectsIdCopyResponseBody: PostProjectsIdCopyResponseBody,
+): string {
+  return JSON.stringify(
+    PostProjectsIdCopyResponseBody$outboundSchema.parse(
+      postProjectsIdCopyResponseBody,
+    ),
+  );
+}
+
+export function postProjectsIdCopyResponseBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<PostProjectsIdCopyResponseBody, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostProjectsIdCopyResponseBody$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostProjectsIdCopyResponseBody' from JSON`,
+  );
+}
+
+/** @internal */
 export const PostProjectsIdCopyResponse$inboundSchema: z.ZodType<
   PostProjectsIdCopyResponse,
   z.ZodTypeDef,
   unknown
 > = z.object({
   Headers: z.record(z.array(z.string())),
-  Result: models.Project$inboundSchema,
+  Result: z.lazy(() => PostProjectsIdCopyResponseBody$inboundSchema),
 }).transform((v) => {
   return remap$(v, {
     "Headers": "headers",
@@ -170,7 +299,7 @@ export const PostProjectsIdCopyResponse$inboundSchema: z.ZodType<
 /** @internal */
 export type PostProjectsIdCopyResponse$Outbound = {
   Headers: { [k: string]: Array<string> };
-  Result: models.Project$Outbound;
+  Result: PostProjectsIdCopyResponseBody$Outbound;
 };
 
 /** @internal */
@@ -180,7 +309,7 @@ export const PostProjectsIdCopyResponse$outboundSchema: z.ZodType<
   PostProjectsIdCopyResponse
 > = z.object({
   headers: z.record(z.array(z.string())),
-  result: models.Project$outboundSchema,
+  result: z.lazy(() => PostProjectsIdCopyResponseBody$outboundSchema),
 }).transform((v) => {
   return remap$(v, {
     headers: "Headers",

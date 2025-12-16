@@ -43,9 +43,9 @@ export function backgroundJobStatusGet(
 ): APIPromise<
   Result<
     operations.GetBackgroundJobStatusBackgroundJobStatusIdResponse,
-    | errors.FourHundredAndOneError
+    | errors.GetBackgroundJobStatusBackgroundJobStatusIdUnauthorizedError
     | errors.GetBackgroundJobStatusBackgroundJobStatusIdForbiddenError
-    | errors.FiveHundredError
+    | errors.GetBackgroundJobStatusBackgroundJobStatusIdInternalServerError
     | WistiaError
     | ResponseValidationError
     | ConnectionError
@@ -71,9 +71,9 @@ async function $do(
   [
     Result<
       operations.GetBackgroundJobStatusBackgroundJobStatusIdResponse,
-      | errors.FourHundredAndOneError
+      | errors.GetBackgroundJobStatusBackgroundJobStatusIdUnauthorizedError
       | errors.GetBackgroundJobStatusBackgroundJobStatusIdForbiddenError
-      | errors.FiveHundredError
+      | errors.GetBackgroundJobStatusBackgroundJobStatusIdInternalServerError
       | WistiaError
       | ResponseValidationError
       | ConnectionError
@@ -167,9 +167,9 @@ async function $do(
 
   const [result] = await M.match<
     operations.GetBackgroundJobStatusBackgroundJobStatusIdResponse,
-    | errors.FourHundredAndOneError
+    | errors.GetBackgroundJobStatusBackgroundJobStatusIdUnauthorizedError
     | errors.GetBackgroundJobStatusBackgroundJobStatusIdForbiddenError
-    | errors.FiveHundredError
+    | errors.GetBackgroundJobStatusBackgroundJobStatusIdInternalServerError
     | WistiaError
     | ResponseValidationError
     | ConnectionError
@@ -184,13 +184,21 @@ async function $do(
       operations
         .GetBackgroundJobStatusBackgroundJobStatusIdResponse$inboundSchema,
     ),
-    M.jsonErr(401, errors.FourHundredAndOneError$inboundSchema),
+    M.jsonErr(
+      401,
+      errors
+        .GetBackgroundJobStatusBackgroundJobStatusIdUnauthorizedError$inboundSchema,
+    ),
     M.jsonErr(
       403,
       errors
         .GetBackgroundJobStatusBackgroundJobStatusIdForbiddenError$inboundSchema,
     ),
-    M.jsonErr(500, errors.FiveHundredError$inboundSchema),
+    M.jsonErr(
+      500,
+      errors
+        .GetBackgroundJobStatusBackgroundJobStatusIdInternalServerError$inboundSchema,
+    ),
     M.fail([404, "4XX"]),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

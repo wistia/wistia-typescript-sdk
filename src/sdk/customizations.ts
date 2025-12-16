@@ -7,7 +7,6 @@ import { customizationsDelete } from "../funcs/customizationsDelete.js";
 import { customizationsGet } from "../funcs/customizationsGet.js";
 import { customizationsUpdate } from "../funcs/customizationsUpdate.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
-import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -28,7 +27,7 @@ export class Customizations extends ClientSDK {
   async get(
     request: operations.GetMediasMediaIdCustomizationsRequest,
     options?: RequestOptions,
-  ): Promise<models.VideoCustomizationResponse> {
+  ): Promise<operations.GetMediasMediaIdCustomizationsResponse> {
     return unwrapAsync(customizationsGet(
       this,
       request,
@@ -50,7 +49,7 @@ export class Customizations extends ClientSDK {
   async create(
     request: operations.PostMediasMediaIdCustomizationsRequest,
     options?: RequestOptions,
-  ): Promise<models.VideoCustomizationResponse> {
+  ): Promise<operations.PostMediasMediaIdCustomizationsResponse> {
     return unwrapAsync(customizationsCreate(
       this,
       request,
@@ -72,7 +71,7 @@ export class Customizations extends ClientSDK {
   async update(
     request: operations.PutMediasMediaIdCustomizationsRequest,
     options?: RequestOptions,
-  ): Promise<models.VideoCustomizationResponse> {
+  ): Promise<operations.PutMediasMediaIdCustomizationsResponse> {
     return unwrapAsync(customizationsUpdate(
       this,
       request,

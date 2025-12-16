@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod";
+import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -16,6 +17,36 @@ export type DeleteProjectsProjectIdSubfoldersSubfolderIdRequest = {
    * The hashed ID of the subfolder
    */
   subfolderId: string;
+};
+
+/**
+ * A subfolder within a project that contains media files.
+ */
+export type DeleteProjectsProjectIdSubfoldersSubfolderIdResponse = {
+  /**
+   * A unique alphanumeric identifier for this subfolder.
+   */
+  hashedId: string;
+  /**
+   * The display name of the subfolder.
+   */
+  name?: string | null | undefined;
+  /**
+   * A description for the subfolder.
+   */
+  description?: string | null | undefined;
+  /**
+   * The position of this subfolder within its project, used for ordering.
+   */
+  position: number | null;
+  /**
+   * The date when the subfolder was created.
+   */
+  created: Date | null;
+  /**
+   * The date when the subfolder was last modified.
+   */
+  updated: Date | null;
 };
 
 /** @internal */
@@ -86,5 +117,100 @@ export function deleteProjectsProjectIdSubfoldersSubfolderIdRequestFromJSON(
         JSON.parse(x),
       ),
     `Failed to parse 'DeleteProjectsProjectIdSubfoldersSubfolderIdRequest' from JSON`,
+  );
+}
+
+/** @internal */
+export const DeleteProjectsProjectIdSubfoldersSubfolderIdResponse$inboundSchema:
+  z.ZodType<
+    DeleteProjectsProjectIdSubfoldersSubfolderIdResponse,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    hashed_id: z.string(),
+    name: z.nullable(z.string()).optional(),
+    description: z.nullable(z.string()).optional(),
+    position: z.nullable(z.number().int()),
+    created: z.nullable(
+      z.string().datetime({ offset: true }).transform(v => new Date(v)),
+    ),
+    updated: z.nullable(
+      z.string().datetime({ offset: true }).transform(v => new Date(v)),
+    ),
+  }).transform((v) => {
+    return remap$(v, {
+      "hashed_id": "hashedId",
+    });
+  });
+
+/** @internal */
+export type DeleteProjectsProjectIdSubfoldersSubfolderIdResponse$Outbound = {
+  hashed_id: string;
+  name?: string | null | undefined;
+  description?: string | null | undefined;
+  position: number | null;
+  created: string | null;
+  updated: string | null;
+};
+
+/** @internal */
+export const DeleteProjectsProjectIdSubfoldersSubfolderIdResponse$outboundSchema:
+  z.ZodType<
+    DeleteProjectsProjectIdSubfoldersSubfolderIdResponse$Outbound,
+    z.ZodTypeDef,
+    DeleteProjectsProjectIdSubfoldersSubfolderIdResponse
+  > = z.object({
+    hashedId: z.string(),
+    name: z.nullable(z.string()).optional(),
+    description: z.nullable(z.string()).optional(),
+    position: z.nullable(z.number().int()),
+    created: z.nullable(z.date().transform(v => v.toISOString())),
+    updated: z.nullable(z.date().transform(v => v.toISOString())),
+  }).transform((v) => {
+    return remap$(v, {
+      hashedId: "hashed_id",
+    });
+  });
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace DeleteProjectsProjectIdSubfoldersSubfolderIdResponse$ {
+  /** @deprecated use `DeleteProjectsProjectIdSubfoldersSubfolderIdResponse$inboundSchema` instead. */
+  export const inboundSchema =
+    DeleteProjectsProjectIdSubfoldersSubfolderIdResponse$inboundSchema;
+  /** @deprecated use `DeleteProjectsProjectIdSubfoldersSubfolderIdResponse$outboundSchema` instead. */
+  export const outboundSchema =
+    DeleteProjectsProjectIdSubfoldersSubfolderIdResponse$outboundSchema;
+  /** @deprecated use `DeleteProjectsProjectIdSubfoldersSubfolderIdResponse$Outbound` instead. */
+  export type Outbound =
+    DeleteProjectsProjectIdSubfoldersSubfolderIdResponse$Outbound;
+}
+
+export function deleteProjectsProjectIdSubfoldersSubfolderIdResponseToJSON(
+  deleteProjectsProjectIdSubfoldersSubfolderIdResponse:
+    DeleteProjectsProjectIdSubfoldersSubfolderIdResponse,
+): string {
+  return JSON.stringify(
+    DeleteProjectsProjectIdSubfoldersSubfolderIdResponse$outboundSchema.parse(
+      deleteProjectsProjectIdSubfoldersSubfolderIdResponse,
+    ),
+  );
+}
+
+export function deleteProjectsProjectIdSubfoldersSubfolderIdResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  DeleteProjectsProjectIdSubfoldersSubfolderIdResponse,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      DeleteProjectsProjectIdSubfoldersSubfolderIdResponse$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'DeleteProjectsProjectIdSubfoldersSubfolderIdResponse' from JSON`,
   );
 }

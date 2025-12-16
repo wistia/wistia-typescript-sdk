@@ -3,10 +3,10 @@
  */
 
 import * as z from "zod";
+import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-import * as models from "../index.js";
 
 export type GetMediasMediaHashedIdCaptionsLanguageCodeRequest = {
   /**
@@ -19,8 +19,35 @@ export type GetMediasMediaHashedIdCaptionsLanguageCodeRequest = {
   languageCode: string;
 };
 
+/**
+ * Successful response containing captions in the requested format
+ */
+export type GetMediasMediaHashedIdCaptionsLanguageCodeResponseBody = {
+  /**
+   * English name of the language.
+   */
+  englishName?: string | undefined;
+  /**
+   * Native name of the language.
+   */
+  nativeName?: string | undefined;
+  /**
+   * A 3 character language code as specified by ISO-639–2.
+   */
+  language: string;
+  /**
+   * The text of the captions for the specified language in SRT format.
+   */
+  text?: string | undefined;
+  isDraft: boolean;
+  /**
+   * The unique hashed identifier of the time-coded transcript.
+   */
+  id: string;
+};
+
 export type GetMediasMediaHashedIdCaptionsLanguageCodeResponse =
-  | models.Caption
+  | GetMediasMediaHashedIdCaptionsLanguageCodeResponseBody
   | string
   | string;
 
@@ -96,16 +123,116 @@ export function getMediasMediaHashedIdCaptionsLanguageCodeRequestFromJSON(
 }
 
 /** @internal */
+export const GetMediasMediaHashedIdCaptionsLanguageCodeResponseBody$inboundSchema:
+  z.ZodType<
+    GetMediasMediaHashedIdCaptionsLanguageCodeResponseBody,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    english_name: z.string().optional(),
+    native_name: z.string().optional(),
+    language: z.string(),
+    text: z.string().optional(),
+    is_draft: z.boolean(),
+    id: z.string(),
+  }).transform((v) => {
+    return remap$(v, {
+      "english_name": "englishName",
+      "native_name": "nativeName",
+      "is_draft": "isDraft",
+    });
+  });
+
+/** @internal */
+export type GetMediasMediaHashedIdCaptionsLanguageCodeResponseBody$Outbound = {
+  english_name?: string | undefined;
+  native_name?: string | undefined;
+  language: string;
+  text?: string | undefined;
+  is_draft: boolean;
+  id: string;
+};
+
+/** @internal */
+export const GetMediasMediaHashedIdCaptionsLanguageCodeResponseBody$outboundSchema:
+  z.ZodType<
+    GetMediasMediaHashedIdCaptionsLanguageCodeResponseBody$Outbound,
+    z.ZodTypeDef,
+    GetMediasMediaHashedIdCaptionsLanguageCodeResponseBody
+  > = z.object({
+    englishName: z.string().optional(),
+    nativeName: z.string().optional(),
+    language: z.string(),
+    text: z.string().optional(),
+    isDraft: z.boolean(),
+    id: z.string(),
+  }).transform((v) => {
+    return remap$(v, {
+      englishName: "english_name",
+      nativeName: "native_name",
+      isDraft: "is_draft",
+    });
+  });
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetMediasMediaHashedIdCaptionsLanguageCodeResponseBody$ {
+  /** @deprecated use `GetMediasMediaHashedIdCaptionsLanguageCodeResponseBody$inboundSchema` instead. */
+  export const inboundSchema =
+    GetMediasMediaHashedIdCaptionsLanguageCodeResponseBody$inboundSchema;
+  /** @deprecated use `GetMediasMediaHashedIdCaptionsLanguageCodeResponseBody$outboundSchema` instead. */
+  export const outboundSchema =
+    GetMediasMediaHashedIdCaptionsLanguageCodeResponseBody$outboundSchema;
+  /** @deprecated use `GetMediasMediaHashedIdCaptionsLanguageCodeResponseBody$Outbound` instead. */
+  export type Outbound =
+    GetMediasMediaHashedIdCaptionsLanguageCodeResponseBody$Outbound;
+}
+
+export function getMediasMediaHashedIdCaptionsLanguageCodeResponseBodyToJSON(
+  getMediasMediaHashedIdCaptionsLanguageCodeResponseBody:
+    GetMediasMediaHashedIdCaptionsLanguageCodeResponseBody,
+): string {
+  return JSON.stringify(
+    GetMediasMediaHashedIdCaptionsLanguageCodeResponseBody$outboundSchema.parse(
+      getMediasMediaHashedIdCaptionsLanguageCodeResponseBody,
+    ),
+  );
+}
+
+export function getMediasMediaHashedIdCaptionsLanguageCodeResponseBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetMediasMediaHashedIdCaptionsLanguageCodeResponseBody,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetMediasMediaHashedIdCaptionsLanguageCodeResponseBody$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'GetMediasMediaHashedIdCaptionsLanguageCodeResponseBody' from JSON`,
+  );
+}
+
+/** @internal */
 export const GetMediasMediaHashedIdCaptionsLanguageCodeResponse$inboundSchema:
   z.ZodType<
     GetMediasMediaHashedIdCaptionsLanguageCodeResponse,
     z.ZodTypeDef,
     unknown
-  > = z.union([models.Caption$inboundSchema, z.string(), z.string()]);
+  > = z.union([
+    z.lazy(() =>
+      GetMediasMediaHashedIdCaptionsLanguageCodeResponseBody$inboundSchema
+    ),
+    z.string(),
+    z.string(),
+  ]);
 
 /** @internal */
 export type GetMediasMediaHashedIdCaptionsLanguageCodeResponse$Outbound =
-  | models.Caption$Outbound
+  | GetMediasMediaHashedIdCaptionsLanguageCodeResponseBody$Outbound
   | string
   | string;
 
@@ -115,7 +242,13 @@ export const GetMediasMediaHashedIdCaptionsLanguageCodeResponse$outboundSchema:
     GetMediasMediaHashedIdCaptionsLanguageCodeResponse$Outbound,
     z.ZodTypeDef,
     GetMediasMediaHashedIdCaptionsLanguageCodeResponse
-  > = z.union([models.Caption$outboundSchema, z.string(), z.string()]);
+  > = z.union([
+    z.lazy(() =>
+      GetMediasMediaHashedIdCaptionsLanguageCodeResponseBody$outboundSchema
+    ),
+    z.string(),
+    z.string(),
+  ]);
 
 /**
  * @internal

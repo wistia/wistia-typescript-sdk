@@ -45,10 +45,10 @@ export function mediaGetStats(
 ): APIPromise<
   Result<
     operations.GetMediasMediaHashedIdStatsResponse,
-    | errors.FourHundredError
-    | errors.FourHundredAndOneError
-    | errors.FourHundredAndFourError
-    | errors.FiveHundredError
+    | errors.GetMediasMediaHashedIdStatsBadRequestError
+    | errors.GetMediasMediaHashedIdStatsUnauthorizedError
+    | errors.GetMediasMediaHashedIdStatsNotFoundError
+    | errors.GetMediasMediaHashedIdStatsInternalServerError
     | WistiaError
     | ResponseValidationError
     | ConnectionError
@@ -74,10 +74,10 @@ async function $do(
   [
     Result<
       operations.GetMediasMediaHashedIdStatsResponse,
-      | errors.FourHundredError
-      | errors.FourHundredAndOneError
-      | errors.FourHundredAndFourError
-      | errors.FiveHundredError
+      | errors.GetMediasMediaHashedIdStatsBadRequestError
+      | errors.GetMediasMediaHashedIdStatsUnauthorizedError
+      | errors.GetMediasMediaHashedIdStatsNotFoundError
+      | errors.GetMediasMediaHashedIdStatsInternalServerError
       | WistiaError
       | ResponseValidationError
       | ConnectionError
@@ -166,10 +166,10 @@ async function $do(
 
   const [result] = await M.match<
     operations.GetMediasMediaHashedIdStatsResponse,
-    | errors.FourHundredError
-    | errors.FourHundredAndOneError
-    | errors.FourHundredAndFourError
-    | errors.FiveHundredError
+    | errors.GetMediasMediaHashedIdStatsBadRequestError
+    | errors.GetMediasMediaHashedIdStatsUnauthorizedError
+    | errors.GetMediasMediaHashedIdStatsNotFoundError
+    | errors.GetMediasMediaHashedIdStatsInternalServerError
     | WistiaError
     | ResponseValidationError
     | ConnectionError
@@ -180,10 +180,22 @@ async function $do(
     | SDKValidationError
   >(
     M.json(200, operations.GetMediasMediaHashedIdStatsResponse$inboundSchema),
-    M.jsonErr(400, errors.FourHundredError$inboundSchema),
-    M.jsonErr(401, errors.FourHundredAndOneError$inboundSchema),
-    M.jsonErr(404, errors.FourHundredAndFourError$inboundSchema),
-    M.jsonErr(500, errors.FiveHundredError$inboundSchema),
+    M.jsonErr(
+      400,
+      errors.GetMediasMediaHashedIdStatsBadRequestError$inboundSchema,
+    ),
+    M.jsonErr(
+      401,
+      errors.GetMediasMediaHashedIdStatsUnauthorizedError$inboundSchema,
+    ),
+    M.jsonErr(
+      404,
+      errors.GetMediasMediaHashedIdStatsNotFoundError$inboundSchema,
+    ),
+    M.jsonErr(
+      500,
+      errors.GetMediasMediaHashedIdStatsInternalServerError$inboundSchema,
+    ),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

@@ -6,6 +6,68 @@ import * as z from "zod";
 import { WistiaError } from "./wistiaerror.js";
 
 /**
+ * Internal server error
+ */
+export type GetSearchInternalServerErrorData = {
+  error?: string | undefined;
+};
+
+/**
+ * Internal server error
+ */
+export class GetSearchInternalServerError extends WistiaError {
+  error?: string | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: GetSearchInternalServerErrorData;
+
+  constructor(
+    err: GetSearchInternalServerErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+
+    this.name = "GetSearchInternalServerError";
+  }
+}
+
+/**
+ * Unauthorized, invalid or missing token
+ */
+export type GetSearchUnauthorizedErrorData = {
+  error?: string | undefined;
+};
+
+/**
+ * Unauthorized, invalid or missing token
+ */
+export class GetSearchUnauthorizedError extends WistiaError {
+  error?: string | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: GetSearchUnauthorizedErrorData;
+
+  constructor(
+    err: GetSearchUnauthorizedErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+
+    this.name = "GetSearchUnauthorizedError";
+  }
+}
+
+/**
  * Bad request - missing query parameter
  */
 export type GetSearchBadRequestErrorData = {
@@ -34,6 +96,102 @@ export class GetSearchBadRequestError extends WistiaError {
 
     this.name = "GetSearchBadRequestError";
   }
+}
+
+/** @internal */
+export const GetSearchInternalServerError$inboundSchema: z.ZodType<
+  GetSearchInternalServerError,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  error: z.string().optional(),
+  request$: z.instanceof(Request),
+  response$: z.instanceof(Response),
+  body$: z.string(),
+})
+  .transform((v) => {
+    return new GetSearchInternalServerError(v, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
+  });
+
+/** @internal */
+export type GetSearchInternalServerError$Outbound = {
+  error?: string | undefined;
+};
+
+/** @internal */
+export const GetSearchInternalServerError$outboundSchema: z.ZodType<
+  GetSearchInternalServerError$Outbound,
+  z.ZodTypeDef,
+  GetSearchInternalServerError
+> = z.instanceof(GetSearchInternalServerError)
+  .transform(v => v.data$)
+  .pipe(z.object({
+    error: z.string().optional(),
+  }));
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetSearchInternalServerError$ {
+  /** @deprecated use `GetSearchInternalServerError$inboundSchema` instead. */
+  export const inboundSchema = GetSearchInternalServerError$inboundSchema;
+  /** @deprecated use `GetSearchInternalServerError$outboundSchema` instead. */
+  export const outboundSchema = GetSearchInternalServerError$outboundSchema;
+  /** @deprecated use `GetSearchInternalServerError$Outbound` instead. */
+  export type Outbound = GetSearchInternalServerError$Outbound;
+}
+
+/** @internal */
+export const GetSearchUnauthorizedError$inboundSchema: z.ZodType<
+  GetSearchUnauthorizedError,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  error: z.string().optional(),
+  request$: z.instanceof(Request),
+  response$: z.instanceof(Response),
+  body$: z.string(),
+})
+  .transform((v) => {
+    return new GetSearchUnauthorizedError(v, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
+  });
+
+/** @internal */
+export type GetSearchUnauthorizedError$Outbound = {
+  error?: string | undefined;
+};
+
+/** @internal */
+export const GetSearchUnauthorizedError$outboundSchema: z.ZodType<
+  GetSearchUnauthorizedError$Outbound,
+  z.ZodTypeDef,
+  GetSearchUnauthorizedError
+> = z.instanceof(GetSearchUnauthorizedError)
+  .transform(v => v.data$)
+  .pipe(z.object({
+    error: z.string().optional(),
+  }));
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetSearchUnauthorizedError$ {
+  /** @deprecated use `GetSearchUnauthorizedError$inboundSchema` instead. */
+  export const inboundSchema = GetSearchUnauthorizedError$inboundSchema;
+  /** @deprecated use `GetSearchUnauthorizedError$outboundSchema` instead. */
+  export const outboundSchema = GetSearchUnauthorizedError$outboundSchema;
+  /** @deprecated use `GetSearchUnauthorizedError$Outbound` instead. */
+  export type Outbound = GetSearchUnauthorizedError$Outbound;
 }
 
 /** @internal */

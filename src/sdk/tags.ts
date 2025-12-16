@@ -6,7 +6,6 @@ import { tagsCreate } from "../funcs/tagsCreate.js";
 import { tagsDelete } from "../funcs/tagsDelete.js";
 import { tagsList } from "../funcs/tagsList.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
-import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -26,7 +25,7 @@ export class Tags extends ClientSDK {
   async list(
     request?: operations.GetTagsRequest | undefined,
     options?: RequestOptions,
-  ): Promise<Array<models.Tag>> {
+  ): Promise<Array<operations.GetTagsResponse>> {
     return unwrapAsync(tagsList(
       this,
       request,
@@ -48,7 +47,7 @@ export class Tags extends ClientSDK {
   async create(
     request: operations.PostTagsRequest,
     options?: RequestOptions,
-  ): Promise<models.Tag> {
+  ): Promise<operations.PostTagsResponse> {
     return unwrapAsync(tagsCreate(
       this,
       request,

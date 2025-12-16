@@ -8,7 +8,6 @@ import { liveStreamEventsGet } from "../funcs/liveStreamEventsGet.js";
 import { liveStreamEventsList } from "../funcs/liveStreamEventsList.js";
 import { liveStreamEventsUpdate } from "../funcs/liveStreamEventsUpdate.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
-import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -29,7 +28,7 @@ export class LiveStreamEvents extends ClientSDK {
   async list(
     request?: operations.GetLiveStreamEventsRequest | undefined,
     options?: RequestOptions,
-  ): Promise<Array<models.LiveStreamEvent>> {
+  ): Promise<Array<operations.GetLiveStreamEventsResponse>> {
     return unwrapAsync(liveStreamEventsList(
       this,
       request,
@@ -55,9 +54,9 @@ export class LiveStreamEvents extends ClientSDK {
    * This endpoint requires the live streaming feature to be enabled on your account plan.
    */
   async create(
-    request: models.CreateLiveStreamEvent,
+    request: operations.PostLiveStreamEventsRequest,
     options?: RequestOptions,
-  ): Promise<models.LiveStreamEvent> {
+  ): Promise<operations.PostLiveStreamEventsResponse> {
     return unwrapAsync(liveStreamEventsCreate(
       this,
       request,
@@ -81,7 +80,7 @@ export class LiveStreamEvents extends ClientSDK {
   async get(
     request: operations.GetLiveStreamEventsIdRequest,
     options?: RequestOptions,
-  ): Promise<models.LiveStreamEvent> {
+  ): Promise<operations.GetLiveStreamEventsIdResponse> {
     return unwrapAsync(liveStreamEventsGet(
       this,
       request,
@@ -103,7 +102,7 @@ export class LiveStreamEvents extends ClientSDK {
   async update(
     request: operations.PutLiveStreamEventsIdRequest,
     options?: RequestOptions,
-  ): Promise<models.LiveStreamEvent> {
+  ): Promise<operations.PutLiveStreamEventsIdResponse> {
     return unwrapAsync(liveStreamEventsUpdate(
       this,
       request,
@@ -125,7 +124,7 @@ export class LiveStreamEvents extends ClientSDK {
   async delete(
     request: operations.DeleteLiveStreamEventsIdRequest,
     options?: RequestOptions,
-  ): Promise<models.LiveStreamEvent> {
+  ): Promise<operations.DeleteLiveStreamEventsIdResponse> {
     return unwrapAsync(liveStreamEventsDelete(
       this,
       request,

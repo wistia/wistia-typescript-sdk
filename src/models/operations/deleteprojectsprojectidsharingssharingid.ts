@@ -18,6 +18,31 @@ export type DeleteProjectsProjectIdSharingsSharingIdRequest = {
   sharingId: string;
 };
 
+export type DeleteProjectsProjectIdSharingsSharingIdShare = {
+  id: number;
+  name: string;
+  type: string;
+  email: string;
+};
+
+export type DeleteProjectsProjectIdSharingsSharingIdProject = {
+  id: number;
+  name: string;
+};
+
+/**
+ * Sharing deleted successfully
+ */
+export type DeleteProjectsProjectIdSharingsSharingIdResponse = {
+  id: number;
+  isAdmin: boolean;
+  canShare: boolean;
+  canDownload: boolean;
+  canUpload: boolean;
+  share: DeleteProjectsProjectIdSharingsSharingIdShare;
+  project: DeleteProjectsProjectIdSharingsSharingIdProject;
+};
+
 /** @internal */
 export const DeleteProjectsProjectIdSharingsSharingIdRequest$inboundSchema:
   z.ZodType<
@@ -86,5 +111,246 @@ export function deleteProjectsProjectIdSharingsSharingIdRequestFromJSON(
         JSON.parse(x),
       ),
     `Failed to parse 'DeleteProjectsProjectIdSharingsSharingIdRequest' from JSON`,
+  );
+}
+
+/** @internal */
+export const DeleteProjectsProjectIdSharingsSharingIdShare$inboundSchema:
+  z.ZodType<
+    DeleteProjectsProjectIdSharingsSharingIdShare,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    id: z.number().int(),
+    name: z.string(),
+    type: z.string(),
+    email: z.string(),
+  });
+
+/** @internal */
+export type DeleteProjectsProjectIdSharingsSharingIdShare$Outbound = {
+  id: number;
+  name: string;
+  type: string;
+  email: string;
+};
+
+/** @internal */
+export const DeleteProjectsProjectIdSharingsSharingIdShare$outboundSchema:
+  z.ZodType<
+    DeleteProjectsProjectIdSharingsSharingIdShare$Outbound,
+    z.ZodTypeDef,
+    DeleteProjectsProjectIdSharingsSharingIdShare
+  > = z.object({
+    id: z.number().int(),
+    name: z.string(),
+    type: z.string(),
+    email: z.string(),
+  });
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace DeleteProjectsProjectIdSharingsSharingIdShare$ {
+  /** @deprecated use `DeleteProjectsProjectIdSharingsSharingIdShare$inboundSchema` instead. */
+  export const inboundSchema =
+    DeleteProjectsProjectIdSharingsSharingIdShare$inboundSchema;
+  /** @deprecated use `DeleteProjectsProjectIdSharingsSharingIdShare$outboundSchema` instead. */
+  export const outboundSchema =
+    DeleteProjectsProjectIdSharingsSharingIdShare$outboundSchema;
+  /** @deprecated use `DeleteProjectsProjectIdSharingsSharingIdShare$Outbound` instead. */
+  export type Outbound = DeleteProjectsProjectIdSharingsSharingIdShare$Outbound;
+}
+
+export function deleteProjectsProjectIdSharingsSharingIdShareToJSON(
+  deleteProjectsProjectIdSharingsSharingIdShare:
+    DeleteProjectsProjectIdSharingsSharingIdShare,
+): string {
+  return JSON.stringify(
+    DeleteProjectsProjectIdSharingsSharingIdShare$outboundSchema.parse(
+      deleteProjectsProjectIdSharingsSharingIdShare,
+    ),
+  );
+}
+
+export function deleteProjectsProjectIdSharingsSharingIdShareFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  DeleteProjectsProjectIdSharingsSharingIdShare,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      DeleteProjectsProjectIdSharingsSharingIdShare$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'DeleteProjectsProjectIdSharingsSharingIdShare' from JSON`,
+  );
+}
+
+/** @internal */
+export const DeleteProjectsProjectIdSharingsSharingIdProject$inboundSchema:
+  z.ZodType<
+    DeleteProjectsProjectIdSharingsSharingIdProject,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    id: z.number().int(),
+    name: z.string(),
+  });
+
+/** @internal */
+export type DeleteProjectsProjectIdSharingsSharingIdProject$Outbound = {
+  id: number;
+  name: string;
+};
+
+/** @internal */
+export const DeleteProjectsProjectIdSharingsSharingIdProject$outboundSchema:
+  z.ZodType<
+    DeleteProjectsProjectIdSharingsSharingIdProject$Outbound,
+    z.ZodTypeDef,
+    DeleteProjectsProjectIdSharingsSharingIdProject
+  > = z.object({
+    id: z.number().int(),
+    name: z.string(),
+  });
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace DeleteProjectsProjectIdSharingsSharingIdProject$ {
+  /** @deprecated use `DeleteProjectsProjectIdSharingsSharingIdProject$inboundSchema` instead. */
+  export const inboundSchema =
+    DeleteProjectsProjectIdSharingsSharingIdProject$inboundSchema;
+  /** @deprecated use `DeleteProjectsProjectIdSharingsSharingIdProject$outboundSchema` instead. */
+  export const outboundSchema =
+    DeleteProjectsProjectIdSharingsSharingIdProject$outboundSchema;
+  /** @deprecated use `DeleteProjectsProjectIdSharingsSharingIdProject$Outbound` instead. */
+  export type Outbound =
+    DeleteProjectsProjectIdSharingsSharingIdProject$Outbound;
+}
+
+export function deleteProjectsProjectIdSharingsSharingIdProjectToJSON(
+  deleteProjectsProjectIdSharingsSharingIdProject:
+    DeleteProjectsProjectIdSharingsSharingIdProject,
+): string {
+  return JSON.stringify(
+    DeleteProjectsProjectIdSharingsSharingIdProject$outboundSchema.parse(
+      deleteProjectsProjectIdSharingsSharingIdProject,
+    ),
+  );
+}
+
+export function deleteProjectsProjectIdSharingsSharingIdProjectFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  DeleteProjectsProjectIdSharingsSharingIdProject,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      DeleteProjectsProjectIdSharingsSharingIdProject$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'DeleteProjectsProjectIdSharingsSharingIdProject' from JSON`,
+  );
+}
+
+/** @internal */
+export const DeleteProjectsProjectIdSharingsSharingIdResponse$inboundSchema:
+  z.ZodType<
+    DeleteProjectsProjectIdSharingsSharingIdResponse,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    id: z.number().int(),
+    isAdmin: z.boolean(),
+    canShare: z.boolean(),
+    canDownload: z.boolean(),
+    canUpload: z.boolean(),
+    share: z.lazy(() =>
+      DeleteProjectsProjectIdSharingsSharingIdShare$inboundSchema
+    ),
+    project: z.lazy(() =>
+      DeleteProjectsProjectIdSharingsSharingIdProject$inboundSchema
+    ),
+  });
+
+/** @internal */
+export type DeleteProjectsProjectIdSharingsSharingIdResponse$Outbound = {
+  id: number;
+  isAdmin: boolean;
+  canShare: boolean;
+  canDownload: boolean;
+  canUpload: boolean;
+  share: DeleteProjectsProjectIdSharingsSharingIdShare$Outbound;
+  project: DeleteProjectsProjectIdSharingsSharingIdProject$Outbound;
+};
+
+/** @internal */
+export const DeleteProjectsProjectIdSharingsSharingIdResponse$outboundSchema:
+  z.ZodType<
+    DeleteProjectsProjectIdSharingsSharingIdResponse$Outbound,
+    z.ZodTypeDef,
+    DeleteProjectsProjectIdSharingsSharingIdResponse
+  > = z.object({
+    id: z.number().int(),
+    isAdmin: z.boolean(),
+    canShare: z.boolean(),
+    canDownload: z.boolean(),
+    canUpload: z.boolean(),
+    share: z.lazy(() =>
+      DeleteProjectsProjectIdSharingsSharingIdShare$outboundSchema
+    ),
+    project: z.lazy(() =>
+      DeleteProjectsProjectIdSharingsSharingIdProject$outboundSchema
+    ),
+  });
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace DeleteProjectsProjectIdSharingsSharingIdResponse$ {
+  /** @deprecated use `DeleteProjectsProjectIdSharingsSharingIdResponse$inboundSchema` instead. */
+  export const inboundSchema =
+    DeleteProjectsProjectIdSharingsSharingIdResponse$inboundSchema;
+  /** @deprecated use `DeleteProjectsProjectIdSharingsSharingIdResponse$outboundSchema` instead. */
+  export const outboundSchema =
+    DeleteProjectsProjectIdSharingsSharingIdResponse$outboundSchema;
+  /** @deprecated use `DeleteProjectsProjectIdSharingsSharingIdResponse$Outbound` instead. */
+  export type Outbound =
+    DeleteProjectsProjectIdSharingsSharingIdResponse$Outbound;
+}
+
+export function deleteProjectsProjectIdSharingsSharingIdResponseToJSON(
+  deleteProjectsProjectIdSharingsSharingIdResponse:
+    DeleteProjectsProjectIdSharingsSharingIdResponse,
+): string {
+  return JSON.stringify(
+    DeleteProjectsProjectIdSharingsSharingIdResponse$outboundSchema.parse(
+      deleteProjectsProjectIdSharingsSharingIdResponse,
+    ),
+  );
+}
+
+export function deleteProjectsProjectIdSharingsSharingIdResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  DeleteProjectsProjectIdSharingsSharingIdResponse,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      DeleteProjectsProjectIdSharingsSharingIdResponse$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'DeleteProjectsProjectIdSharingsSharingIdResponse' from JSON`,
   );
 }

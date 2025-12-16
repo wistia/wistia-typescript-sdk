@@ -5,9 +5,45 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-import * as models from "../index.js";
+
+/**
+ * Ordering. Default is ID ASC.
+ */
+export const GetChannelEpisodesSortBy = {
+  Position: "position",
+  Title: "title",
+  Created: "created",
+  Updated: "updated",
+  Id: "id",
+} as const;
+/**
+ * Ordering. Default is ID ASC.
+ */
+export type GetChannelEpisodesSortBy = ClosedEnum<
+  typeof GetChannelEpisodesSortBy
+>;
+
+/**
+ * Ordering Sort Direction (0 = desc, 1 = asc; default is 1)
+ */
+export const GetChannelEpisodesSortDirection = {
+  Zero: 0,
+  One: 1,
+} as const;
+/**
+ * Ordering Sort Direction (0 = desc, 1 = asc; default is 1)
+ */
+export type GetChannelEpisodesSortDirection = ClosedEnum<
+  typeof GetChannelEpisodesSortDirection
+>;
+
+/**
+ * Filter by hashed id
+ */
+export type GetChannelEpisodesHashedId = string | Array<string>;
 
 export type GetChannelEpisodesRequest = {
   /**
@@ -17,11 +53,11 @@ export type GetChannelEpisodesRequest = {
   /**
    * Ordering. Default is ID ASC.
    */
-  sortBy?: models.SortBy | undefined;
+  sortBy?: GetChannelEpisodesSortBy | undefined;
   /**
    * Ordering Sort Direction (0 = desc, 1 = asc; default is 1)
    */
-  sortDirection?: models.SortDirection | undefined;
+  sortDirection?: GetChannelEpisodesSortDirection | undefined;
   /**
    * Page number to retrieve
    */
@@ -37,7 +73,7 @@ export type GetChannelEpisodesRequest = {
   /**
    * Filter by hashed id
    */
-  hashedId?: models.HashedId | undefined;
+  hashedId?: string | Array<string> | undefined;
   /**
    * Filter by published status.
    */
@@ -48,6 +84,139 @@ export type GetChannelEpisodesRequest = {
   title?: string | undefined;
 };
 
+export type GetChannelEpisodesResponse = {
+  /**
+   * A unique alphanumeric identifier for the channel episode's channel.
+   */
+  channelHashedId: string;
+  /**
+   * The date when the channel episode was originally created.
+   */
+  created: Date;
+  /**
+   * The channel episode's description or episode notes.
+   */
+  description: string;
+  /**
+   * A short summary of the episode that is displayed when space is limited.
+   */
+  summary: string;
+  /**
+   * A unique alphanumeric identifier for the channel episode.
+   */
+  hashedId: string;
+  /**
+   * A unique alphanumeric identifier for the channel episode's media.
+   */
+  mediaHashedId: string;
+  /**
+   * Whether the channel episode has been published or is still in draft form.
+   */
+  published: boolean;
+  /**
+   * The date and time when the episode is scheduled to be published in UTC timezone (only present when publish_status is 'scheduled').
+   */
+  publishAt?: Date | undefined;
+  /**
+   * The title of the channel episode
+   */
+  title: string | null;
+  /**
+   * The date when the channel was last updated.
+   */
+  updated: Date;
+};
+
+/** @internal */
+export const GetChannelEpisodesSortBy$inboundSchema: z.ZodNativeEnum<
+  typeof GetChannelEpisodesSortBy
+> = z.nativeEnum(GetChannelEpisodesSortBy);
+
+/** @internal */
+export const GetChannelEpisodesSortBy$outboundSchema: z.ZodNativeEnum<
+  typeof GetChannelEpisodesSortBy
+> = GetChannelEpisodesSortBy$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetChannelEpisodesSortBy$ {
+  /** @deprecated use `GetChannelEpisodesSortBy$inboundSchema` instead. */
+  export const inboundSchema = GetChannelEpisodesSortBy$inboundSchema;
+  /** @deprecated use `GetChannelEpisodesSortBy$outboundSchema` instead. */
+  export const outboundSchema = GetChannelEpisodesSortBy$outboundSchema;
+}
+
+/** @internal */
+export const GetChannelEpisodesSortDirection$inboundSchema: z.ZodNativeEnum<
+  typeof GetChannelEpisodesSortDirection
+> = z.nativeEnum(GetChannelEpisodesSortDirection);
+
+/** @internal */
+export const GetChannelEpisodesSortDirection$outboundSchema: z.ZodNativeEnum<
+  typeof GetChannelEpisodesSortDirection
+> = GetChannelEpisodesSortDirection$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetChannelEpisodesSortDirection$ {
+  /** @deprecated use `GetChannelEpisodesSortDirection$inboundSchema` instead. */
+  export const inboundSchema = GetChannelEpisodesSortDirection$inboundSchema;
+  /** @deprecated use `GetChannelEpisodesSortDirection$outboundSchema` instead. */
+  export const outboundSchema = GetChannelEpisodesSortDirection$outboundSchema;
+}
+
+/** @internal */
+export const GetChannelEpisodesHashedId$inboundSchema: z.ZodType<
+  GetChannelEpisodesHashedId,
+  z.ZodTypeDef,
+  unknown
+> = z.union([z.string(), z.array(z.string())]);
+
+/** @internal */
+export type GetChannelEpisodesHashedId$Outbound = string | Array<string>;
+
+/** @internal */
+export const GetChannelEpisodesHashedId$outboundSchema: z.ZodType<
+  GetChannelEpisodesHashedId$Outbound,
+  z.ZodTypeDef,
+  GetChannelEpisodesHashedId
+> = z.union([z.string(), z.array(z.string())]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetChannelEpisodesHashedId$ {
+  /** @deprecated use `GetChannelEpisodesHashedId$inboundSchema` instead. */
+  export const inboundSchema = GetChannelEpisodesHashedId$inboundSchema;
+  /** @deprecated use `GetChannelEpisodesHashedId$outboundSchema` instead. */
+  export const outboundSchema = GetChannelEpisodesHashedId$outboundSchema;
+  /** @deprecated use `GetChannelEpisodesHashedId$Outbound` instead. */
+  export type Outbound = GetChannelEpisodesHashedId$Outbound;
+}
+
+export function getChannelEpisodesHashedIdToJSON(
+  getChannelEpisodesHashedId: GetChannelEpisodesHashedId,
+): string {
+  return JSON.stringify(
+    GetChannelEpisodesHashedId$outboundSchema.parse(getChannelEpisodesHashedId),
+  );
+}
+
+export function getChannelEpisodesHashedIdFromJSON(
+  jsonString: string,
+): SafeParseResult<GetChannelEpisodesHashedId, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetChannelEpisodesHashedId$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetChannelEpisodesHashedId' from JSON`,
+  );
+}
+
 /** @internal */
 export const GetChannelEpisodesRequest$inboundSchema: z.ZodType<
   GetChannelEpisodesRequest,
@@ -55,12 +224,12 @@ export const GetChannelEpisodesRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   channel_id: z.string().optional(),
-  sort_by: models.SortBy$inboundSchema.optional(),
-  sort_direction: models.SortDirection$inboundSchema.optional(),
+  sort_by: GetChannelEpisodesSortBy$inboundSchema.optional(),
+  sort_direction: GetChannelEpisodesSortDirection$inboundSchema.optional(),
   page: z.number().int().optional(),
   per_page: z.number().int().optional(),
   media_id: z.array(z.string()).optional(),
-  hashed_id: models.HashedId$inboundSchema.optional(),
+  hashed_id: z.union([z.string(), z.array(z.string())]).optional(),
   published: z.boolean().optional(),
   title: z.string().optional(),
 }).transform((v) => {
@@ -82,7 +251,7 @@ export type GetChannelEpisodesRequest$Outbound = {
   page?: number | undefined;
   per_page?: number | undefined;
   media_id?: Array<string> | undefined;
-  hashed_id?: models.HashedId$Outbound | undefined;
+  hashed_id?: string | Array<string> | undefined;
   published?: boolean | undefined;
   title?: string | undefined;
 };
@@ -94,12 +263,12 @@ export const GetChannelEpisodesRequest$outboundSchema: z.ZodType<
   GetChannelEpisodesRequest
 > = z.object({
   channelId: z.string().optional(),
-  sortBy: models.SortBy$outboundSchema.optional(),
-  sortDirection: models.SortDirection$outboundSchema.optional(),
+  sortBy: GetChannelEpisodesSortBy$outboundSchema.optional(),
+  sortDirection: GetChannelEpisodesSortDirection$outboundSchema.optional(),
   page: z.number().int().optional(),
   perPage: z.number().int().optional(),
   mediaId: z.array(z.string()).optional(),
-  hashedId: models.HashedId$outboundSchema.optional(),
+  hashedId: z.union([z.string(), z.array(z.string())]).optional(),
   published: z.boolean().optional(),
   title: z.string().optional(),
 }).transform((v) => {
@@ -141,5 +310,95 @@ export function getChannelEpisodesRequestFromJSON(
     jsonString,
     (x) => GetChannelEpisodesRequest$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'GetChannelEpisodesRequest' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetChannelEpisodesResponse$inboundSchema: z.ZodType<
+  GetChannelEpisodesResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  channelHashedId: z.string(),
+  created: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  description: z.string(),
+  summary: z.string(),
+  hashedId: z.string(),
+  mediaHashedId: z.string(),
+  published: z.boolean(),
+  publish_at: z.string().datetime({ offset: true }).transform(v => new Date(v))
+    .optional(),
+  title: z.nullable(z.string()),
+  updated: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+}).transform((v) => {
+  return remap$(v, {
+    "publish_at": "publishAt",
+  });
+});
+
+/** @internal */
+export type GetChannelEpisodesResponse$Outbound = {
+  channelHashedId: string;
+  created: string;
+  description: string;
+  summary: string;
+  hashedId: string;
+  mediaHashedId: string;
+  published: boolean;
+  publish_at?: string | undefined;
+  title: string | null;
+  updated: string;
+};
+
+/** @internal */
+export const GetChannelEpisodesResponse$outboundSchema: z.ZodType<
+  GetChannelEpisodesResponse$Outbound,
+  z.ZodTypeDef,
+  GetChannelEpisodesResponse
+> = z.object({
+  channelHashedId: z.string(),
+  created: z.date().transform(v => v.toISOString()),
+  description: z.string(),
+  summary: z.string(),
+  hashedId: z.string(),
+  mediaHashedId: z.string(),
+  published: z.boolean(),
+  publishAt: z.date().transform(v => v.toISOString()).optional(),
+  title: z.nullable(z.string()),
+  updated: z.date().transform(v => v.toISOString()),
+}).transform((v) => {
+  return remap$(v, {
+    publishAt: "publish_at",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetChannelEpisodesResponse$ {
+  /** @deprecated use `GetChannelEpisodesResponse$inboundSchema` instead. */
+  export const inboundSchema = GetChannelEpisodesResponse$inboundSchema;
+  /** @deprecated use `GetChannelEpisodesResponse$outboundSchema` instead. */
+  export const outboundSchema = GetChannelEpisodesResponse$outboundSchema;
+  /** @deprecated use `GetChannelEpisodesResponse$Outbound` instead. */
+  export type Outbound = GetChannelEpisodesResponse$Outbound;
+}
+
+export function getChannelEpisodesResponseToJSON(
+  getChannelEpisodesResponse: GetChannelEpisodesResponse,
+): string {
+  return JSON.stringify(
+    GetChannelEpisodesResponse$outboundSchema.parse(getChannelEpisodesResponse),
+  );
+}
+
+export function getChannelEpisodesResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<GetChannelEpisodesResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetChannelEpisodesResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetChannelEpisodesResponse' from JSON`,
   );
 }

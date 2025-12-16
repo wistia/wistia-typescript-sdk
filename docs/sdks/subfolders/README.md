@@ -84,16 +84,16 @@ run();
 
 ### Response
 
-**Promise\<[models.Subfolder[]](../../models/.md)\>**
+**Promise\<[operations.GetProjectsProjectIdSubfoldersResponse[]](../../models/.md)\>**
 
 ### Errors
 
-| Error Type                                         | Status Code                                        | Content Type                                       |
-| -------------------------------------------------- | -------------------------------------------------- | -------------------------------------------------- |
-| errors.FourHundredAndOneError                      | 401                                                | application/json                                   |
-| errors.GetProjectsProjectIdSubfoldersNotFoundError | 404                                                | application/json                                   |
-| errors.FiveHundredError                            | 500                                                | application/json                                   |
-| errors.WistiaDefaultError                          | 4XX, 5XX                                           | \*/\*                                              |
+| Error Type                                               | Status Code                                              | Content Type                                             |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| errors.GetProjectsProjectIdSubfoldersUnauthorizedError   | 401                                                      | application/json                                         |
+| errors.GetProjectsProjectIdSubfoldersNotFoundError       | 404                                                      | application/json                                         |
+| errors.GetProjectsProjectIdSubfoldersInternalServerError | 500                                                      | application/json                                         |
+| errors.WistiaDefaultError                                | 4XX, 5XX                                                 | \*/\*                                                    |
 
 ## create
 
@@ -118,7 +118,7 @@ const wistia = new Wistia({
 async function run() {
   const result = await wistia.subfolders.create({
     projectId: "abc123def4",
-    subfolderInput: {
+    requestBody: {
       name: "Marketing Videos",
       description: "Collection of all marketing and promotional videos",
     },
@@ -147,7 +147,7 @@ const wistia = new WistiaCore({
 async function run() {
   const res = await subfoldersCreate(wistia, {
     projectId: "abc123def4",
-    subfolderInput: {
+    requestBody: {
       name: "Marketing Videos",
       description: "Collection of all marketing and promotional videos",
     },
@@ -174,16 +174,16 @@ run();
 
 ### Response
 
-**Promise\<[models.Subfolder](../../models/subfolder.md)\>**
+**Promise\<[operations.PostProjectsProjectIdSubfoldersResponse](../../models/operations/postprojectsprojectidsubfoldersresponse.md)\>**
 
 ### Errors
 
-| Error Type                                          | Status Code                                         | Content Type                                        |
-| --------------------------------------------------- | --------------------------------------------------- | --------------------------------------------------- |
-| errors.FourHundredAndOneError                       | 401                                                 | application/json                                    |
-| errors.PostProjectsProjectIdSubfoldersNotFoundError | 404                                                 | application/json                                    |
-| errors.FiveHundredError                             | 500                                                 | application/json                                    |
-| errors.WistiaDefaultError                           | 4XX, 5XX                                            | \*/\*                                               |
+| Error Type                                                | Status Code                                               | Content Type                                              |
+| --------------------------------------------------------- | --------------------------------------------------------- | --------------------------------------------------------- |
+| errors.PostProjectsProjectIdSubfoldersUnauthorizedError   | 401                                                       | application/json                                          |
+| errors.PostProjectsProjectIdSubfoldersNotFoundError       | 404                                                       | application/json                                          |
+| errors.PostProjectsProjectIdSubfoldersInternalServerError | 500                                                       | application/json                                          |
+| errors.WistiaDefaultError                                 | 4XX, 5XX                                                  | \*/\*                                                     |
 
 ## get
 
@@ -211,7 +211,6 @@ async function run() {
   const result = await wistia.subfolders.get({
     projectId: "abc123def4",
     subfolderId: "xyz789ghi0",
-    descriptionFormat: "markdown",
   });
 
   console.log(result);
@@ -238,7 +237,6 @@ async function run() {
   const res = await subfoldersGet(wistia, {
     projectId: "abc123def4",
     subfolderId: "xyz789ghi0",
-    descriptionFormat: "markdown",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -262,16 +260,16 @@ run();
 
 ### Response
 
-**Promise\<[models.SubfolderWithMedia](../../models/subfolderwithmedia.md)\>**
+**Promise\<[operations.GetProjectsProjectIdSubfoldersSubfolderIdResponse](../../models/operations/getprojectsprojectidsubfolderssubfolderidresponse.md)\>**
 
 ### Errors
 
-| Error Type                                                    | Status Code                                                   | Content Type                                                  |
-| ------------------------------------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------- |
-| errors.FourHundredAndOneError                                 | 401                                                           | application/json                                              |
-| errors.GetProjectsProjectIdSubfoldersSubfolderIdNotFoundError | 404                                                           | application/json                                              |
-| errors.FiveHundredError                                       | 500                                                           | application/json                                              |
-| errors.WistiaDefaultError                                     | 4XX, 5XX                                                      | \*/\*                                                         |
+| Error Type                                                          | Status Code                                                         | Content Type                                                        |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| errors.GetProjectsProjectIdSubfoldersSubfolderIdUnauthorizedError   | 401                                                                 | application/json                                                    |
+| errors.GetProjectsProjectIdSubfoldersSubfolderIdNotFoundError       | 404                                                                 | application/json                                                    |
+| errors.GetProjectsProjectIdSubfoldersSubfolderIdInternalServerError | 500                                                                 | application/json                                                    |
+| errors.WistiaDefaultError                                           | 4XX, 5XX                                                            | \*/\*                                                               |
 
 ## update
 
@@ -354,16 +352,16 @@ run();
 
 ### Response
 
-**Promise\<[models.Subfolder](../../models/subfolder.md)\>**
+**Promise\<[operations.PutProjectsProjectIdSubfoldersSubfolderIdResponse](../../models/operations/putprojectsprojectidsubfolderssubfolderidresponse.md)\>**
 
 ### Errors
 
-| Error Type                                                    | Status Code                                                   | Content Type                                                  |
-| ------------------------------------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------- |
-| errors.FourHundredAndOneError                                 | 401                                                           | application/json                                              |
-| errors.PutProjectsProjectIdSubfoldersSubfolderIdNotFoundError | 404                                                           | application/json                                              |
-| errors.FiveHundredError                                       | 500                                                           | application/json                                              |
-| errors.WistiaDefaultError                                     | 4XX, 5XX                                                      | \*/\*                                                         |
+| Error Type                                                          | Status Code                                                         | Content Type                                                        |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| errors.PutProjectsProjectIdSubfoldersSubfolderIdUnauthorizedError   | 401                                                                 | application/json                                                    |
+| errors.PutProjectsProjectIdSubfoldersSubfolderIdNotFoundError       | 404                                                                 | application/json                                                    |
+| errors.PutProjectsProjectIdSubfoldersSubfolderIdInternalServerError | 500                                                                 | application/json                                                    |
+| errors.WistiaDefaultError                                           | 4XX, 5XX                                                            | \*/\*                                                               |
 
 ## deleteSubfolder
 
@@ -440,13 +438,13 @@ run();
 
 ### Response
 
-**Promise\<[models.Subfolder](../../models/subfolder.md)\>**
+**Promise\<[operations.DeleteProjectsProjectIdSubfoldersSubfolderIdResponse](../../models/operations/deleteprojectsprojectidsubfolderssubfolderidresponse.md)\>**
 
 ### Errors
 
-| Error Type                                                       | Status Code                                                      | Content Type                                                     |
-| ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- |
-| errors.FourHundredAndOneError                                    | 401                                                              | application/json                                                 |
-| errors.DeleteProjectsProjectIdSubfoldersSubfolderIdNotFoundError | 404                                                              | application/json                                                 |
-| errors.FiveHundredError                                          | 500                                                              | application/json                                                 |
-| errors.WistiaDefaultError                                        | 4XX, 5XX                                                         | \*/\*                                                            |
+| Error Type                                                             | Status Code                                                            | Content Type                                                           |
+| ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| errors.DeleteProjectsProjectIdSubfoldersSubfolderIdUnauthorizedError   | 401                                                                    | application/json                                                       |
+| errors.DeleteProjectsProjectIdSubfoldersSubfolderIdNotFoundError       | 404                                                                    | application/json                                                       |
+| errors.DeleteProjectsProjectIdSubfoldersSubfolderIdInternalServerError | 500                                                                    | application/json                                                       |
+| errors.WistiaDefaultError                                              | 4XX, 5XX                                                               | \*/\*                                                                  |

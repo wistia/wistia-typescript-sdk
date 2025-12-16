@@ -43,8 +43,8 @@ export function projectSharingsCreate(
 ): APIPromise<
   Result<
     operations.PostProjectsProjectIdSharingsResponse,
-    | errors.FourHundredAndOneError
-    | errors.FiveHundredError
+    | errors.PostProjectsProjectIdSharingsUnauthorizedError
+    | errors.PostProjectsProjectIdSharingsInternalServerError
     | WistiaError
     | ResponseValidationError
     | ConnectionError
@@ -70,8 +70,8 @@ async function $do(
   [
     Result<
       operations.PostProjectsProjectIdSharingsResponse,
-      | errors.FourHundredAndOneError
-      | errors.FiveHundredError
+      | errors.PostProjectsProjectIdSharingsUnauthorizedError
+      | errors.PostProjectsProjectIdSharingsInternalServerError
       | WistiaError
       | ResponseValidationError
       | ConnectionError
@@ -96,9 +96,7 @@ async function $do(
     return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
-  const body = encodeJSON("body", payload.CreateProjectSharing, {
-    explode: true,
-  });
+  const body = encodeJSON("body", payload.RequestBody, { explode: true });
 
   const pathParams = {
     projectId: encodeSimple("projectId", payload.projectId, {
@@ -165,8 +163,8 @@ async function $do(
 
   const [result] = await M.match<
     operations.PostProjectsProjectIdSharingsResponse,
-    | errors.FourHundredAndOneError
-    | errors.FiveHundredError
+    | errors.PostProjectsProjectIdSharingsUnauthorizedError
+    | errors.PostProjectsProjectIdSharingsInternalServerError
     | WistiaError
     | ResponseValidationError
     | ConnectionError
@@ -181,8 +179,14 @@ async function $do(
       operations.PostProjectsProjectIdSharingsResponse$inboundSchema,
       { hdrs: true, key: "Result" },
     ),
-    M.jsonErr(401, errors.FourHundredAndOneError$inboundSchema),
-    M.jsonErr(500, errors.FiveHundredError$inboundSchema),
+    M.jsonErr(
+      401,
+      errors.PostProjectsProjectIdSharingsUnauthorizedError$inboundSchema,
+    ),
+    M.jsonErr(
+      500,
+      errors.PostProjectsProjectIdSharingsInternalServerError$inboundSchema,
+    ),
     M.fail([400, "4XX"]),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });
