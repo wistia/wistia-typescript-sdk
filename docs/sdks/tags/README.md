@@ -77,15 +77,15 @@ run();
 
 ### Response
 
-**Promise\<[models.Tag[]](../../models/.md)\>**
+**Promise\<[operations.GetTagsResponse[]](../../models/.md)\>**
 
 ### Errors
 
-| Error Type                    | Status Code                   | Content Type                  |
-| ----------------------------- | ----------------------------- | ----------------------------- |
-| errors.FourHundredAndOneError | 401                           | application/json              |
-| errors.FiveHundredError       | 500                           | application/json              |
-| errors.WistiaDefaultError     | 4XX, 5XX                      | \*/\*                         |
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| errors.GetTagsUnauthorizedError   | 401                               | application/json                  |
+| errors.GetTagsInternalServerError | 500                               | application/json                  |
+| errors.WistiaDefaultError         | 4XX, 5XX                          | \*/\*                             |
 
 ## create
 
@@ -158,16 +158,16 @@ run();
 
 ### Response
 
-**Promise\<[models.Tag](../../models/tag.md)\>**
+**Promise\<[operations.PostTagsResponse](../../models/operations/posttagsresponse.md)\>**
 
 ### Errors
 
 | Error Type                              | Status Code                             | Content Type                            |
 | --------------------------------------- | --------------------------------------- | --------------------------------------- |
 | errors.PostTagsBadRequestError          | 400                                     | application/json                        |
-| errors.FourHundredAndOneError           | 401                                     | application/json                        |
+| errors.PostTagsUnauthorizedError        | 401                                     | application/json                        |
 | errors.PostTagsUnprocessableEntityError | 422                                     | application/json                        |
-| errors.FiveHundredError                 | 500                                     | application/json                        |
+| errors.PostTagsInternalServerError      | 500                                     | application/json                        |
 | errors.WistiaDefaultError               | 4XX, 5XX                                | \*/\*                                   |
 
 ## delete
@@ -245,8 +245,8 @@ run();
 
 ### Errors
 
-| Error Type                    | Status Code                   | Content Type                  |
-| ----------------------------- | ----------------------------- | ----------------------------- |
-| errors.FourHundredAndOneError | 401                           | application/json              |
-| errors.FiveHundredError       | 500                           | application/json              |
-| errors.WistiaDefaultError     | 4XX, 5XX                      | \*/\*                         |
+| Error Type                               | Status Code                              | Content Type                             |
+| ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
+| errors.DeleteTagsNameUnauthorizedError   | 401                                      | application/json                         |
+| errors.DeleteTagsNameInternalServerError | 500                                      | application/json                         |
+| errors.WistiaDefaultError                | 4XX, 5XX                                 | \*/\*                                    |

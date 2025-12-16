@@ -22,7 +22,6 @@ import * as errors from "../models/errors/index.js";
 import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import { WistiaError } from "../models/errors/wistiaerror.js";
-import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
@@ -46,10 +45,10 @@ export function localizationsList(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    Array<models.Localization>,
-    | errors.FourHundredAndOneError
-    | errors.FourHundredAndFourError
-    | errors.FiveHundredError
+    Array<operations.GetMediasMediaHashedIdLocalizationsResponse>,
+    | errors.GetMediasMediaHashedIdLocalizationsUnauthorizedError
+    | errors.GetMediasMediaHashedIdLocalizationsNotFoundError
+    | errors.GetMediasMediaHashedIdLocalizationsInternalServerError
     | WistiaError
     | ResponseValidationError
     | ConnectionError
@@ -74,10 +73,10 @@ async function $do(
 ): Promise<
   [
     Result<
-      Array<models.Localization>,
-      | errors.FourHundredAndOneError
-      | errors.FourHundredAndFourError
-      | errors.FiveHundredError
+      Array<operations.GetMediasMediaHashedIdLocalizationsResponse>,
+      | errors.GetMediasMediaHashedIdLocalizationsUnauthorizedError
+      | errors.GetMediasMediaHashedIdLocalizationsNotFoundError
+      | errors.GetMediasMediaHashedIdLocalizationsInternalServerError
       | WistiaError
       | ResponseValidationError
       | ConnectionError
@@ -171,10 +170,10 @@ async function $do(
   };
 
   const [result] = await M.match<
-    Array<models.Localization>,
-    | errors.FourHundredAndOneError
-    | errors.FourHundredAndFourError
-    | errors.FiveHundredError
+    Array<operations.GetMediasMediaHashedIdLocalizationsResponse>,
+    | errors.GetMediasMediaHashedIdLocalizationsUnauthorizedError
+    | errors.GetMediasMediaHashedIdLocalizationsNotFoundError
+    | errors.GetMediasMediaHashedIdLocalizationsInternalServerError
     | WistiaError
     | ResponseValidationError
     | ConnectionError
@@ -184,10 +183,25 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, z.array(models.Localization$inboundSchema)),
-    M.jsonErr(401, errors.FourHundredAndOneError$inboundSchema),
-    M.jsonErr(404, errors.FourHundredAndFourError$inboundSchema),
-    M.jsonErr(500, errors.FiveHundredError$inboundSchema),
+    M.json(
+      200,
+      z.array(
+        operations.GetMediasMediaHashedIdLocalizationsResponse$inboundSchema,
+      ),
+    ),
+    M.jsonErr(
+      401,
+      errors.GetMediasMediaHashedIdLocalizationsUnauthorizedError$inboundSchema,
+    ),
+    M.jsonErr(
+      404,
+      errors.GetMediasMediaHashedIdLocalizationsNotFoundError$inboundSchema,
+    ),
+    M.jsonErr(
+      500,
+      errors
+        .GetMediasMediaHashedIdLocalizationsInternalServerError$inboundSchema,
+    ),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

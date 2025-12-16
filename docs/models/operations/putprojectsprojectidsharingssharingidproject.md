@@ -1,0 +1,19 @@
+# PutProjectsProjectIdSharingsSharingIdProject
+
+## Example Usage
+
+```typescript
+import { PutProjectsProjectIdSharingsSharingIdProject } from "@wistia/wistia-api-client/models/operations";
+
+let value: PutProjectsProjectIdSharingsSharingIdProject = {
+  id: 13,
+  name: "My Project",
+};
+```
+
+## Fields
+
+| Field              | Type               | Required           | Description        | Example            |
+| ------------------ | ------------------ | ------------------ | ------------------ | ------------------ |
+| `id`               | *number*           | :heavy_check_mark: | N/A                | 13                 |
+| `name`             | *string*           | :heavy_check_mark: | N/A                | My Project         |

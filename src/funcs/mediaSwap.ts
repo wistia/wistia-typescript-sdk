@@ -44,9 +44,9 @@ export function mediaSwap(
   Result<
     operations.PutMediasMediaHashedIdSwapResponse,
     | errors.PutMediasMediaHashedIdSwapBadRequestError
-    | errors.FourHundredAndOneError
-    | errors.FourHundredAndFourError
-    | errors.FiveHundredError
+    | errors.PutMediasMediaHashedIdSwapUnauthorizedError
+    | errors.PutMediasMediaHashedIdSwapNotFoundError
+    | errors.PutMediasMediaHashedIdSwapInternalServerError
     | WistiaError
     | ResponseValidationError
     | ConnectionError
@@ -73,9 +73,9 @@ async function $do(
     Result<
       operations.PutMediasMediaHashedIdSwapResponse,
       | errors.PutMediasMediaHashedIdSwapBadRequestError
-      | errors.FourHundredAndOneError
-      | errors.FourHundredAndFourError
-      | errors.FiveHundredError
+      | errors.PutMediasMediaHashedIdSwapUnauthorizedError
+      | errors.PutMediasMediaHashedIdSwapNotFoundError
+      | errors.PutMediasMediaHashedIdSwapInternalServerError
       | WistiaError
       | ResponseValidationError
       | ConnectionError
@@ -166,9 +166,9 @@ async function $do(
   const [result] = await M.match<
     operations.PutMediasMediaHashedIdSwapResponse,
     | errors.PutMediasMediaHashedIdSwapBadRequestError
-    | errors.FourHundredAndOneError
-    | errors.FourHundredAndFourError
-    | errors.FiveHundredError
+    | errors.PutMediasMediaHashedIdSwapUnauthorizedError
+    | errors.PutMediasMediaHashedIdSwapNotFoundError
+    | errors.PutMediasMediaHashedIdSwapInternalServerError
     | WistiaError
     | ResponseValidationError
     | ConnectionError
@@ -183,9 +183,18 @@ async function $do(
       400,
       errors.PutMediasMediaHashedIdSwapBadRequestError$inboundSchema,
     ),
-    M.jsonErr(401, errors.FourHundredAndOneError$inboundSchema),
-    M.jsonErr(404, errors.FourHundredAndFourError$inboundSchema),
-    M.jsonErr(500, errors.FiveHundredError$inboundSchema),
+    M.jsonErr(
+      401,
+      errors.PutMediasMediaHashedIdSwapUnauthorizedError$inboundSchema,
+    ),
+    M.jsonErr(
+      404,
+      errors.PutMediasMediaHashedIdSwapNotFoundError$inboundSchema,
+    ),
+    M.jsonErr(
+      500,
+      errors.PutMediasMediaHashedIdSwapInternalServerError$inboundSchema,
+    ),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

@@ -7,7 +7,6 @@ import { localizationsDelete } from "../funcs/localizationsDelete.js";
 import { localizationsGet } from "../funcs/localizationsGet.js";
 import { localizationsList } from "../funcs/localizationsList.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
-import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -28,7 +27,7 @@ export class Localizations extends ClientSDK {
   async list(
     request: operations.GetMediasMediaHashedIdLocalizationsRequest,
     options?: RequestOptions,
-  ): Promise<Array<models.Localization>> {
+  ): Promise<Array<operations.GetMediasMediaHashedIdLocalizationsResponse>> {
     return unwrapAsync(localizationsList(
       this,
       request,
@@ -50,7 +49,7 @@ export class Localizations extends ClientSDK {
   async create(
     request: operations.PostMediasMediaHashedIdLocalizationsRequest,
     options?: RequestOptions,
-  ): Promise<models.LocalizationWithPurchaseData> {
+  ): Promise<operations.PostMediasMediaHashedIdLocalizationsResponse> {
     return unwrapAsync(localizationsCreate(
       this,
       request,
@@ -75,7 +74,9 @@ export class Localizations extends ClientSDK {
     request:
       operations.GetMediasMediaHashedIdLocalizationsLocalizationHashedIdRequest,
     options?: RequestOptions,
-  ): Promise<models.Localization> {
+  ): Promise<
+    operations.GetMediasMediaHashedIdLocalizationsLocalizationHashedIdResponse
+  > {
     return unwrapAsync(localizationsGet(
       this,
       request,
@@ -98,7 +99,9 @@ export class Localizations extends ClientSDK {
     request:
       operations.DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdRequest,
     options?: RequestOptions,
-  ): Promise<models.Localization> {
+  ): Promise<
+    operations.DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdResponse
+  > {
     return unwrapAsync(localizationsDelete(
       this,
       request,

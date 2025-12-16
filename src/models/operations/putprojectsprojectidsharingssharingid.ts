@@ -7,7 +7,29 @@ import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-import * as models from "../index.js";
+
+export type PutProjectsProjectIdSharingsSharingIdSharing = {
+  /**
+   * Allow the user or group to share the project with others.
+   */
+  canShare?: boolean | undefined;
+  /**
+   * Allow the user or group to download media from the project.
+   */
+  canDownload?: boolean | undefined;
+  /**
+   * Allow the user or group to upload media to the project.
+   */
+  canUpload?: boolean | undefined;
+  /**
+   * Give this user admin rights to the project.
+   */
+  isAdmin?: boolean | undefined;
+};
+
+export type PutProjectsProjectIdSharingsSharingIdRequestBody = {
+  sharing?: PutProjectsProjectIdSharingsSharingIdSharing | undefined;
+};
 
 export type PutProjectsProjectIdSharingsSharingIdRequest = {
   /**
@@ -18,8 +40,181 @@ export type PutProjectsProjectIdSharingsSharingIdRequest = {
    * ID of the sharing to be updated
    */
   sharingId: string;
-  updateSharingRequest: models.UpdateSharingRequest;
+  requestBody: PutProjectsProjectIdSharingsSharingIdRequestBody;
 };
+
+export type PutProjectsProjectIdSharingsSharingIdShare = {
+  id: number;
+  name: string;
+  type: string;
+  email: string;
+};
+
+export type PutProjectsProjectIdSharingsSharingIdProject = {
+  id: number;
+  name: string;
+};
+
+/**
+ * Sharing updated successfully
+ */
+export type PutProjectsProjectIdSharingsSharingIdResponse = {
+  id: number;
+  isAdmin: boolean;
+  canShare: boolean;
+  canDownload: boolean;
+  canUpload: boolean;
+  share: PutProjectsProjectIdSharingsSharingIdShare;
+  project: PutProjectsProjectIdSharingsSharingIdProject;
+};
+
+/** @internal */
+export const PutProjectsProjectIdSharingsSharingIdSharing$inboundSchema:
+  z.ZodType<
+    PutProjectsProjectIdSharingsSharingIdSharing,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    canShare: z.boolean().optional(),
+    canDownload: z.boolean().optional(),
+    canUpload: z.boolean().optional(),
+    isAdmin: z.boolean().optional(),
+  });
+
+/** @internal */
+export type PutProjectsProjectIdSharingsSharingIdSharing$Outbound = {
+  canShare?: boolean | undefined;
+  canDownload?: boolean | undefined;
+  canUpload?: boolean | undefined;
+  isAdmin?: boolean | undefined;
+};
+
+/** @internal */
+export const PutProjectsProjectIdSharingsSharingIdSharing$outboundSchema:
+  z.ZodType<
+    PutProjectsProjectIdSharingsSharingIdSharing$Outbound,
+    z.ZodTypeDef,
+    PutProjectsProjectIdSharingsSharingIdSharing
+  > = z.object({
+    canShare: z.boolean().optional(),
+    canDownload: z.boolean().optional(),
+    canUpload: z.boolean().optional(),
+    isAdmin: z.boolean().optional(),
+  });
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PutProjectsProjectIdSharingsSharingIdSharing$ {
+  /** @deprecated use `PutProjectsProjectIdSharingsSharingIdSharing$inboundSchema` instead. */
+  export const inboundSchema =
+    PutProjectsProjectIdSharingsSharingIdSharing$inboundSchema;
+  /** @deprecated use `PutProjectsProjectIdSharingsSharingIdSharing$outboundSchema` instead. */
+  export const outboundSchema =
+    PutProjectsProjectIdSharingsSharingIdSharing$outboundSchema;
+  /** @deprecated use `PutProjectsProjectIdSharingsSharingIdSharing$Outbound` instead. */
+  export type Outbound = PutProjectsProjectIdSharingsSharingIdSharing$Outbound;
+}
+
+export function putProjectsProjectIdSharingsSharingIdSharingToJSON(
+  putProjectsProjectIdSharingsSharingIdSharing:
+    PutProjectsProjectIdSharingsSharingIdSharing,
+): string {
+  return JSON.stringify(
+    PutProjectsProjectIdSharingsSharingIdSharing$outboundSchema.parse(
+      putProjectsProjectIdSharingsSharingIdSharing,
+    ),
+  );
+}
+
+export function putProjectsProjectIdSharingsSharingIdSharingFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  PutProjectsProjectIdSharingsSharingIdSharing,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      PutProjectsProjectIdSharingsSharingIdSharing$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'PutProjectsProjectIdSharingsSharingIdSharing' from JSON`,
+  );
+}
+
+/** @internal */
+export const PutProjectsProjectIdSharingsSharingIdRequestBody$inboundSchema:
+  z.ZodType<
+    PutProjectsProjectIdSharingsSharingIdRequestBody,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    sharing: z.lazy(() =>
+      PutProjectsProjectIdSharingsSharingIdSharing$inboundSchema
+    ).optional(),
+  });
+
+/** @internal */
+export type PutProjectsProjectIdSharingsSharingIdRequestBody$Outbound = {
+  sharing?: PutProjectsProjectIdSharingsSharingIdSharing$Outbound | undefined;
+};
+
+/** @internal */
+export const PutProjectsProjectIdSharingsSharingIdRequestBody$outboundSchema:
+  z.ZodType<
+    PutProjectsProjectIdSharingsSharingIdRequestBody$Outbound,
+    z.ZodTypeDef,
+    PutProjectsProjectIdSharingsSharingIdRequestBody
+  > = z.object({
+    sharing: z.lazy(() =>
+      PutProjectsProjectIdSharingsSharingIdSharing$outboundSchema
+    ).optional(),
+  });
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PutProjectsProjectIdSharingsSharingIdRequestBody$ {
+  /** @deprecated use `PutProjectsProjectIdSharingsSharingIdRequestBody$inboundSchema` instead. */
+  export const inboundSchema =
+    PutProjectsProjectIdSharingsSharingIdRequestBody$inboundSchema;
+  /** @deprecated use `PutProjectsProjectIdSharingsSharingIdRequestBody$outboundSchema` instead. */
+  export const outboundSchema =
+    PutProjectsProjectIdSharingsSharingIdRequestBody$outboundSchema;
+  /** @deprecated use `PutProjectsProjectIdSharingsSharingIdRequestBody$Outbound` instead. */
+  export type Outbound =
+    PutProjectsProjectIdSharingsSharingIdRequestBody$Outbound;
+}
+
+export function putProjectsProjectIdSharingsSharingIdRequestBodyToJSON(
+  putProjectsProjectIdSharingsSharingIdRequestBody:
+    PutProjectsProjectIdSharingsSharingIdRequestBody,
+): string {
+  return JSON.stringify(
+    PutProjectsProjectIdSharingsSharingIdRequestBody$outboundSchema.parse(
+      putProjectsProjectIdSharingsSharingIdRequestBody,
+    ),
+  );
+}
+
+export function putProjectsProjectIdSharingsSharingIdRequestBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  PutProjectsProjectIdSharingsSharingIdRequestBody,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      PutProjectsProjectIdSharingsSharingIdRequestBody$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'PutProjectsProjectIdSharingsSharingIdRequestBody' from JSON`,
+  );
+}
 
 /** @internal */
 export const PutProjectsProjectIdSharingsSharingIdRequest$inboundSchema:
@@ -30,10 +225,12 @@ export const PutProjectsProjectIdSharingsSharingIdRequest$inboundSchema:
   > = z.object({
     projectId: z.string(),
     sharingId: z.string(),
-    UpdateSharingRequest: models.UpdateSharingRequest$inboundSchema,
+    RequestBody: z.lazy(() =>
+      PutProjectsProjectIdSharingsSharingIdRequestBody$inboundSchema
+    ),
   }).transform((v) => {
     return remap$(v, {
-      "UpdateSharingRequest": "updateSharingRequest",
+      "RequestBody": "requestBody",
     });
   });
 
@@ -41,7 +238,7 @@ export const PutProjectsProjectIdSharingsSharingIdRequest$inboundSchema:
 export type PutProjectsProjectIdSharingsSharingIdRequest$Outbound = {
   projectId: string;
   sharingId: string;
-  UpdateSharingRequest: models.UpdateSharingRequest$Outbound;
+  RequestBody: PutProjectsProjectIdSharingsSharingIdRequestBody$Outbound;
 };
 
 /** @internal */
@@ -53,10 +250,12 @@ export const PutProjectsProjectIdSharingsSharingIdRequest$outboundSchema:
   > = z.object({
     projectId: z.string(),
     sharingId: z.string(),
-    updateSharingRequest: models.UpdateSharingRequest$outboundSchema,
+    requestBody: z.lazy(() =>
+      PutProjectsProjectIdSharingsSharingIdRequestBody$outboundSchema
+    ),
   }).transform((v) => {
     return remap$(v, {
-      updateSharingRequest: "UpdateSharingRequest",
+      requestBody: "RequestBody",
     });
   });
 
@@ -99,5 +298,241 @@ export function putProjectsProjectIdSharingsSharingIdRequestFromJSON(
         JSON.parse(x),
       ),
     `Failed to parse 'PutProjectsProjectIdSharingsSharingIdRequest' from JSON`,
+  );
+}
+
+/** @internal */
+export const PutProjectsProjectIdSharingsSharingIdShare$inboundSchema:
+  z.ZodType<PutProjectsProjectIdSharingsSharingIdShare, z.ZodTypeDef, unknown> =
+    z.object({
+      id: z.number().int(),
+      name: z.string(),
+      type: z.string(),
+      email: z.string(),
+    });
+
+/** @internal */
+export type PutProjectsProjectIdSharingsSharingIdShare$Outbound = {
+  id: number;
+  name: string;
+  type: string;
+  email: string;
+};
+
+/** @internal */
+export const PutProjectsProjectIdSharingsSharingIdShare$outboundSchema:
+  z.ZodType<
+    PutProjectsProjectIdSharingsSharingIdShare$Outbound,
+    z.ZodTypeDef,
+    PutProjectsProjectIdSharingsSharingIdShare
+  > = z.object({
+    id: z.number().int(),
+    name: z.string(),
+    type: z.string(),
+    email: z.string(),
+  });
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PutProjectsProjectIdSharingsSharingIdShare$ {
+  /** @deprecated use `PutProjectsProjectIdSharingsSharingIdShare$inboundSchema` instead. */
+  export const inboundSchema =
+    PutProjectsProjectIdSharingsSharingIdShare$inboundSchema;
+  /** @deprecated use `PutProjectsProjectIdSharingsSharingIdShare$outboundSchema` instead. */
+  export const outboundSchema =
+    PutProjectsProjectIdSharingsSharingIdShare$outboundSchema;
+  /** @deprecated use `PutProjectsProjectIdSharingsSharingIdShare$Outbound` instead. */
+  export type Outbound = PutProjectsProjectIdSharingsSharingIdShare$Outbound;
+}
+
+export function putProjectsProjectIdSharingsSharingIdShareToJSON(
+  putProjectsProjectIdSharingsSharingIdShare:
+    PutProjectsProjectIdSharingsSharingIdShare,
+): string {
+  return JSON.stringify(
+    PutProjectsProjectIdSharingsSharingIdShare$outboundSchema.parse(
+      putProjectsProjectIdSharingsSharingIdShare,
+    ),
+  );
+}
+
+export function putProjectsProjectIdSharingsSharingIdShareFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  PutProjectsProjectIdSharingsSharingIdShare,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      PutProjectsProjectIdSharingsSharingIdShare$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'PutProjectsProjectIdSharingsSharingIdShare' from JSON`,
+  );
+}
+
+/** @internal */
+export const PutProjectsProjectIdSharingsSharingIdProject$inboundSchema:
+  z.ZodType<
+    PutProjectsProjectIdSharingsSharingIdProject,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    id: z.number().int(),
+    name: z.string(),
+  });
+
+/** @internal */
+export type PutProjectsProjectIdSharingsSharingIdProject$Outbound = {
+  id: number;
+  name: string;
+};
+
+/** @internal */
+export const PutProjectsProjectIdSharingsSharingIdProject$outboundSchema:
+  z.ZodType<
+    PutProjectsProjectIdSharingsSharingIdProject$Outbound,
+    z.ZodTypeDef,
+    PutProjectsProjectIdSharingsSharingIdProject
+  > = z.object({
+    id: z.number().int(),
+    name: z.string(),
+  });
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PutProjectsProjectIdSharingsSharingIdProject$ {
+  /** @deprecated use `PutProjectsProjectIdSharingsSharingIdProject$inboundSchema` instead. */
+  export const inboundSchema =
+    PutProjectsProjectIdSharingsSharingIdProject$inboundSchema;
+  /** @deprecated use `PutProjectsProjectIdSharingsSharingIdProject$outboundSchema` instead. */
+  export const outboundSchema =
+    PutProjectsProjectIdSharingsSharingIdProject$outboundSchema;
+  /** @deprecated use `PutProjectsProjectIdSharingsSharingIdProject$Outbound` instead. */
+  export type Outbound = PutProjectsProjectIdSharingsSharingIdProject$Outbound;
+}
+
+export function putProjectsProjectIdSharingsSharingIdProjectToJSON(
+  putProjectsProjectIdSharingsSharingIdProject:
+    PutProjectsProjectIdSharingsSharingIdProject,
+): string {
+  return JSON.stringify(
+    PutProjectsProjectIdSharingsSharingIdProject$outboundSchema.parse(
+      putProjectsProjectIdSharingsSharingIdProject,
+    ),
+  );
+}
+
+export function putProjectsProjectIdSharingsSharingIdProjectFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  PutProjectsProjectIdSharingsSharingIdProject,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      PutProjectsProjectIdSharingsSharingIdProject$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'PutProjectsProjectIdSharingsSharingIdProject' from JSON`,
+  );
+}
+
+/** @internal */
+export const PutProjectsProjectIdSharingsSharingIdResponse$inboundSchema:
+  z.ZodType<
+    PutProjectsProjectIdSharingsSharingIdResponse,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    id: z.number().int(),
+    isAdmin: z.boolean(),
+    canShare: z.boolean(),
+    canDownload: z.boolean(),
+    canUpload: z.boolean(),
+    share: z.lazy(() =>
+      PutProjectsProjectIdSharingsSharingIdShare$inboundSchema
+    ),
+    project: z.lazy(() =>
+      PutProjectsProjectIdSharingsSharingIdProject$inboundSchema
+    ),
+  });
+
+/** @internal */
+export type PutProjectsProjectIdSharingsSharingIdResponse$Outbound = {
+  id: number;
+  isAdmin: boolean;
+  canShare: boolean;
+  canDownload: boolean;
+  canUpload: boolean;
+  share: PutProjectsProjectIdSharingsSharingIdShare$Outbound;
+  project: PutProjectsProjectIdSharingsSharingIdProject$Outbound;
+};
+
+/** @internal */
+export const PutProjectsProjectIdSharingsSharingIdResponse$outboundSchema:
+  z.ZodType<
+    PutProjectsProjectIdSharingsSharingIdResponse$Outbound,
+    z.ZodTypeDef,
+    PutProjectsProjectIdSharingsSharingIdResponse
+  > = z.object({
+    id: z.number().int(),
+    isAdmin: z.boolean(),
+    canShare: z.boolean(),
+    canDownload: z.boolean(),
+    canUpload: z.boolean(),
+    share: z.lazy(() =>
+      PutProjectsProjectIdSharingsSharingIdShare$outboundSchema
+    ),
+    project: z.lazy(() =>
+      PutProjectsProjectIdSharingsSharingIdProject$outboundSchema
+    ),
+  });
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PutProjectsProjectIdSharingsSharingIdResponse$ {
+  /** @deprecated use `PutProjectsProjectIdSharingsSharingIdResponse$inboundSchema` instead. */
+  export const inboundSchema =
+    PutProjectsProjectIdSharingsSharingIdResponse$inboundSchema;
+  /** @deprecated use `PutProjectsProjectIdSharingsSharingIdResponse$outboundSchema` instead. */
+  export const outboundSchema =
+    PutProjectsProjectIdSharingsSharingIdResponse$outboundSchema;
+  /** @deprecated use `PutProjectsProjectIdSharingsSharingIdResponse$Outbound` instead. */
+  export type Outbound = PutProjectsProjectIdSharingsSharingIdResponse$Outbound;
+}
+
+export function putProjectsProjectIdSharingsSharingIdResponseToJSON(
+  putProjectsProjectIdSharingsSharingIdResponse:
+    PutProjectsProjectIdSharingsSharingIdResponse,
+): string {
+  return JSON.stringify(
+    PutProjectsProjectIdSharingsSharingIdResponse$outboundSchema.parse(
+      putProjectsProjectIdSharingsSharingIdResponse,
+    ),
+  );
+}
+
+export function putProjectsProjectIdSharingsSharingIdResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  PutProjectsProjectIdSharingsSharingIdResponse,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      PutProjectsProjectIdSharingsSharingIdResponse$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'PutProjectsProjectIdSharingsSharingIdResponse' from JSON`,
   );
 }

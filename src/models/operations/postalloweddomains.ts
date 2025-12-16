@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod";
+import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -12,6 +13,20 @@ export type PostAllowedDomainsRequest = {
    * The domain name to add (www will be automatically stripped)
    */
   domain: string;
+};
+
+/**
+ * Allowed domain created successfully (or already exists)
+ */
+export type PostAllowedDomainsResponse = {
+  /**
+   * The allowed domain name.
+   */
+  domain: string;
+  /**
+   * The date that the allowed domain was originally created.
+   */
+  createdAt: Date;
 };
 
 /** @internal */
@@ -65,5 +80,70 @@ export function postAllowedDomainsRequestFromJSON(
     jsonString,
     (x) => PostAllowedDomainsRequest$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'PostAllowedDomainsRequest' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostAllowedDomainsResponse$inboundSchema: z.ZodType<
+  PostAllowedDomainsResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  domain: z.string(),
+  created_at: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+}).transform((v) => {
+  return remap$(v, {
+    "created_at": "createdAt",
+  });
+});
+
+/** @internal */
+export type PostAllowedDomainsResponse$Outbound = {
+  domain: string;
+  created_at: string;
+};
+
+/** @internal */
+export const PostAllowedDomainsResponse$outboundSchema: z.ZodType<
+  PostAllowedDomainsResponse$Outbound,
+  z.ZodTypeDef,
+  PostAllowedDomainsResponse
+> = z.object({
+  domain: z.string(),
+  createdAt: z.date().transform(v => v.toISOString()),
+}).transform((v) => {
+  return remap$(v, {
+    createdAt: "created_at",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostAllowedDomainsResponse$ {
+  /** @deprecated use `PostAllowedDomainsResponse$inboundSchema` instead. */
+  export const inboundSchema = PostAllowedDomainsResponse$inboundSchema;
+  /** @deprecated use `PostAllowedDomainsResponse$outboundSchema` instead. */
+  export const outboundSchema = PostAllowedDomainsResponse$outboundSchema;
+  /** @deprecated use `PostAllowedDomainsResponse$Outbound` instead. */
+  export type Outbound = PostAllowedDomainsResponse$Outbound;
+}
+
+export function postAllowedDomainsResponseToJSON(
+  postAllowedDomainsResponse: PostAllowedDomainsResponse,
+): string {
+  return JSON.stringify(
+    PostAllowedDomainsResponse$outboundSchema.parse(postAllowedDomainsResponse),
+  );
+}
+
+export function postAllowedDomainsResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<PostAllowedDomainsResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostAllowedDomainsResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostAllowedDomainsResponse' from JSON`,
   );
 }

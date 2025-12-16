@@ -16,7 +16,6 @@ import { mediaUpdate } from "../funcs/mediaUpdate.js";
 import { mediaUploadForm } from "../funcs/mediaUploadForm.js";
 import { mediaUploadMultipart } from "../funcs/mediaUploadMultipart.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
-import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -30,11 +29,11 @@ export class Media extends ClientSDK {
    * - Use `multipart/form-data` with a `file` parameter to upload from local system
    * - Use `application/x-www-form-urlencoded` with a `url` parameter to import from web URL
    */
-  async uploadMultipart(
-    request?: operations.PostMultipartRequest | undefined,
+  async uploadForm(
+    request?: operations.PostFormRequest | undefined,
     options?: RequestOptions,
-  ): Promise<operations.PostMultipartResponse> {
-    return unwrapAsync(mediaUploadMultipart(
+  ): Promise<operations.PostFormResponse> {
+    return unwrapAsync(mediaUploadForm(
       this,
       request,
       options,
@@ -50,11 +49,11 @@ export class Media extends ClientSDK {
    * - Use `multipart/form-data` with a `file` parameter to upload from local system
    * - Use `application/x-www-form-urlencoded` with a `url` parameter to import from web URL
    */
-  async uploadForm(
-    request?: operations.PostFormRequest | undefined,
+  async uploadMultipart(
+    request?: operations.PostMultipartRequest | undefined,
     options?: RequestOptions,
-  ): Promise<operations.PostFormResponse> {
-    return unwrapAsync(mediaUploadForm(
+  ): Promise<operations.PostMultipartResponse> {
+    return unwrapAsync(mediaUploadMultipart(
       this,
       request,
       options,
@@ -77,7 +76,7 @@ export class Media extends ClientSDK {
   async list(
     request?: operations.GetMediasRequest | undefined,
     options?: RequestOptions,
-  ): Promise<Array<models.MediaIndex>> {
+  ): Promise<Array<operations.GetMediasResponse>> {
     return unwrapAsync(mediaList(
       this,
       request,
@@ -104,7 +103,7 @@ export class Media extends ClientSDK {
   async get(
     request: operations.GetMediasMediaHashedIdRequest,
     options?: RequestOptions,
-  ): Promise<models.MediaShow> {
+  ): Promise<operations.GetMediasMediaHashedIdResponse> {
     return unwrapAsync(mediaGet(
       this,
       request,
@@ -126,7 +125,7 @@ export class Media extends ClientSDK {
   async update(
     request: operations.PutMediasMediaHashedIdRequest,
     options?: RequestOptions,
-  ): Promise<models.MediaUpdate> {
+  ): Promise<operations.PutMediasMediaHashedIdResponse> {
     return unwrapAsync(mediaUpdate(
       this,
       request,
@@ -148,7 +147,7 @@ export class Media extends ClientSDK {
   async delete(
     request: operations.DeleteMediasMediaHashedIdRequest,
     options?: RequestOptions,
-  ): Promise<models.MediaProperties> {
+  ): Promise<operations.DeleteMediasMediaHashedIdResponse> {
     return unwrapAsync(mediaDelete(
       this,
       request,

@@ -77,15 +77,15 @@ run();
 
 ### Response
 
-**Promise\<[models.Visitor[]](../../models/.md)\>**
+**Promise\<[operations.GetStatsVisitorsResponse[]](../../models/.md)\>**
 
 ### Errors
 
-| Error Type                    | Status Code                   | Content Type                  |
-| ----------------------------- | ----------------------------- | ----------------------------- |
-| errors.FourHundredAndOneError | 401                           | application/json              |
-| errors.FiveHundredError       | 500                           | application/json              |
-| errors.WistiaDefaultError     | 4XX, 5XX                      | \*/\*                         |
+| Error Type                                 | Status Code                                | Content Type                               |
+| ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
+| errors.GetStatsVisitorsUnauthorizedError   | 401                                        | application/json                           |
+| errors.GetStatsVisitorsInternalServerError | 500                                        | application/json                           |
+| errors.WistiaDefaultError                  | 4XX, 5XX                                   | \*/\*                                      |
 
 ## get
 
@@ -160,12 +160,12 @@ run();
 
 ### Response
 
-**Promise\<[models.Visitor](../../models/visitor.md)\>**
+**Promise\<[operations.GetStatsVisitorsVisitorKeyResponse](../../models/operations/getstatsvisitorsvisitorkeyresponse.md)\>**
 
 ### Errors
 
-| Error Type                    | Status Code                   | Content Type                  |
-| ----------------------------- | ----------------------------- | ----------------------------- |
-| errors.FourHundredAndOneError | 401                           | application/json              |
-| errors.FiveHundredError       | 500                           | application/json              |
-| errors.WistiaDefaultError     | 4XX, 5XX                      | \*/\*                         |
+| Error Type                                           | Status Code                                          | Content Type                                         |
+| ---------------------------------------------------- | ---------------------------------------------------- | ---------------------------------------------------- |
+| errors.GetStatsVisitorsVisitorKeyUnauthorizedError   | 401                                                  | application/json                                     |
+| errors.GetStatsVisitorsVisitorKeyInternalServerError | 500                                                  | application/json                                     |
+| errors.WistiaDefaultError                            | 4XX, 5XX                                             | \*/\*                                                |

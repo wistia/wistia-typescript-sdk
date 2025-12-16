@@ -5,17 +5,234 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-import * as models from "../index.js";
+
+/**
+ * A flag indicating whether or not the project is enabled for public access. Set to “1” to enable and “0” to disable.
+ */
+export const PutProjectsIdPublicEnum = {
+  Zero: "0",
+  One: "1",
+} as const;
+/**
+ * A flag indicating whether or not the project is enabled for public access. Set to “1” to enable and “0” to disable.
+ */
+export type PutProjectsIdPublicEnum = ClosedEnum<
+  typeof PutProjectsIdPublicEnum
+>;
+
+export type PutProjectsIdPublicUnion = PutProjectsIdPublicEnum | boolean;
+
+export type PutProjectsIdRequestBody = {
+  /**
+   * The project’s new name.
+   */
+  name?: string | undefined;
+  /**
+   * The project’s new description.
+   */
+  description?: string | undefined;
+  /**
+   * Whether anonymous users can upload media to the project.
+   */
+  anonymousCanUpload?: boolean | undefined;
+  /**
+   * Whether anonymous users can download media from the project.
+   */
+  anonymousCanDownload?: boolean | undefined;
+  public?: PutProjectsIdPublicEnum | boolean | undefined;
+};
 
 export type PutProjectsIdRequest = {
   /**
    * Project Hashed ID
    */
   id: string;
-  updateProject?: models.UpdateProject | undefined;
+  requestBody?: PutProjectsIdRequestBody | undefined;
 };
+
+/**
+ * A single project
+ */
+export type PutProjectsIdResponse = {
+  /**
+   * A unique numeric identifier for the project within the system.
+   */
+  id: number;
+  /**
+   * The project’s display name.
+   */
+  name: string;
+  /**
+   * The project’s description.
+   */
+  description?: string | null | undefined;
+  /**
+   * The number of different medias that have been uploaded to the project.
+   */
+  mediaCount: number;
+  /**
+   * The date that the project was originally created.
+   */
+  created: Date;
+  /**
+   * The date that the project was last updated.
+   */
+  updated: Date;
+  /**
+   * A private hashed id, uniquely identifying the project within the system.
+   */
+  hashedId: string;
+  /**
+   * A boolean indicating whether the project is available for public (anonymous) viewing.
+   */
+  public: boolean;
+  /**
+   * If the project is public, this field contains a string representing the ID used for referencing the project in public URLs.
+   */
+  publicId: string | null;
+  anonymousCanUpload?: boolean | undefined;
+  anonymousCanDownload?: boolean | undefined;
+};
+
+/** @internal */
+export const PutProjectsIdPublicEnum$inboundSchema: z.ZodNativeEnum<
+  typeof PutProjectsIdPublicEnum
+> = z.nativeEnum(PutProjectsIdPublicEnum);
+
+/** @internal */
+export const PutProjectsIdPublicEnum$outboundSchema: z.ZodNativeEnum<
+  typeof PutProjectsIdPublicEnum
+> = PutProjectsIdPublicEnum$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PutProjectsIdPublicEnum$ {
+  /** @deprecated use `PutProjectsIdPublicEnum$inboundSchema` instead. */
+  export const inboundSchema = PutProjectsIdPublicEnum$inboundSchema;
+  /** @deprecated use `PutProjectsIdPublicEnum$outboundSchema` instead. */
+  export const outboundSchema = PutProjectsIdPublicEnum$outboundSchema;
+}
+
+/** @internal */
+export const PutProjectsIdPublicUnion$inboundSchema: z.ZodType<
+  PutProjectsIdPublicUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([PutProjectsIdPublicEnum$inboundSchema, z.boolean()]);
+
+/** @internal */
+export type PutProjectsIdPublicUnion$Outbound = string | boolean;
+
+/** @internal */
+export const PutProjectsIdPublicUnion$outboundSchema: z.ZodType<
+  PutProjectsIdPublicUnion$Outbound,
+  z.ZodTypeDef,
+  PutProjectsIdPublicUnion
+> = z.union([PutProjectsIdPublicEnum$outboundSchema, z.boolean()]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PutProjectsIdPublicUnion$ {
+  /** @deprecated use `PutProjectsIdPublicUnion$inboundSchema` instead. */
+  export const inboundSchema = PutProjectsIdPublicUnion$inboundSchema;
+  /** @deprecated use `PutProjectsIdPublicUnion$outboundSchema` instead. */
+  export const outboundSchema = PutProjectsIdPublicUnion$outboundSchema;
+  /** @deprecated use `PutProjectsIdPublicUnion$Outbound` instead. */
+  export type Outbound = PutProjectsIdPublicUnion$Outbound;
+}
+
+export function putProjectsIdPublicUnionToJSON(
+  putProjectsIdPublicUnion: PutProjectsIdPublicUnion,
+): string {
+  return JSON.stringify(
+    PutProjectsIdPublicUnion$outboundSchema.parse(putProjectsIdPublicUnion),
+  );
+}
+
+export function putProjectsIdPublicUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<PutProjectsIdPublicUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PutProjectsIdPublicUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PutProjectsIdPublicUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const PutProjectsIdRequestBody$inboundSchema: z.ZodType<
+  PutProjectsIdRequestBody,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string().optional(),
+  description: z.string().optional(),
+  anonymousCanUpload: z.boolean().optional(),
+  anonymousCanDownload: z.boolean().optional(),
+  public: z.union([PutProjectsIdPublicEnum$inboundSchema, z.boolean()])
+    .optional(),
+});
+
+/** @internal */
+export type PutProjectsIdRequestBody$Outbound = {
+  name?: string | undefined;
+  description?: string | undefined;
+  anonymousCanUpload?: boolean | undefined;
+  anonymousCanDownload?: boolean | undefined;
+  public?: string | boolean | undefined;
+};
+
+/** @internal */
+export const PutProjectsIdRequestBody$outboundSchema: z.ZodType<
+  PutProjectsIdRequestBody$Outbound,
+  z.ZodTypeDef,
+  PutProjectsIdRequestBody
+> = z.object({
+  name: z.string().optional(),
+  description: z.string().optional(),
+  anonymousCanUpload: z.boolean().optional(),
+  anonymousCanDownload: z.boolean().optional(),
+  public: z.union([PutProjectsIdPublicEnum$outboundSchema, z.boolean()])
+    .optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PutProjectsIdRequestBody$ {
+  /** @deprecated use `PutProjectsIdRequestBody$inboundSchema` instead. */
+  export const inboundSchema = PutProjectsIdRequestBody$inboundSchema;
+  /** @deprecated use `PutProjectsIdRequestBody$outboundSchema` instead. */
+  export const outboundSchema = PutProjectsIdRequestBody$outboundSchema;
+  /** @deprecated use `PutProjectsIdRequestBody$Outbound` instead. */
+  export type Outbound = PutProjectsIdRequestBody$Outbound;
+}
+
+export function putProjectsIdRequestBodyToJSON(
+  putProjectsIdRequestBody: PutProjectsIdRequestBody,
+): string {
+  return JSON.stringify(
+    PutProjectsIdRequestBody$outboundSchema.parse(putProjectsIdRequestBody),
+  );
+}
+
+export function putProjectsIdRequestBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<PutProjectsIdRequestBody, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PutProjectsIdRequestBody$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PutProjectsIdRequestBody' from JSON`,
+  );
+}
 
 /** @internal */
 export const PutProjectsIdRequest$inboundSchema: z.ZodType<
@@ -24,17 +241,17 @@ export const PutProjectsIdRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string(),
-  UpdateProject: models.UpdateProject$inboundSchema.optional(),
+  RequestBody: z.lazy(() => PutProjectsIdRequestBody$inboundSchema).optional(),
 }).transform((v) => {
   return remap$(v, {
-    "UpdateProject": "updateProject",
+    "RequestBody": "requestBody",
   });
 });
 
 /** @internal */
 export type PutProjectsIdRequest$Outbound = {
   id: string;
-  UpdateProject?: models.UpdateProject$Outbound | undefined;
+  RequestBody?: PutProjectsIdRequestBody$Outbound | undefined;
 };
 
 /** @internal */
@@ -44,10 +261,10 @@ export const PutProjectsIdRequest$outboundSchema: z.ZodType<
   PutProjectsIdRequest
 > = z.object({
   id: z.string(),
-  updateProject: models.UpdateProject$outboundSchema.optional(),
+  requestBody: z.lazy(() => PutProjectsIdRequestBody$outboundSchema).optional(),
 }).transform((v) => {
   return remap$(v, {
-    updateProject: "UpdateProject",
+    requestBody: "RequestBody",
   });
 });
 
@@ -79,5 +296,89 @@ export function putProjectsIdRequestFromJSON(
     jsonString,
     (x) => PutProjectsIdRequest$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'PutProjectsIdRequest' from JSON`,
+  );
+}
+
+/** @internal */
+export const PutProjectsIdResponse$inboundSchema: z.ZodType<
+  PutProjectsIdResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: z.number().int(),
+  name: z.string(),
+  description: z.nullable(z.string()).optional(),
+  mediaCount: z.number().int(),
+  created: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  updated: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  hashedId: z.string(),
+  public: z.boolean(),
+  publicId: z.nullable(z.string()),
+  anonymousCanUpload: z.boolean().optional(),
+  anonymousCanDownload: z.boolean().optional(),
+});
+
+/** @internal */
+export type PutProjectsIdResponse$Outbound = {
+  id: number;
+  name: string;
+  description?: string | null | undefined;
+  mediaCount: number;
+  created: string;
+  updated: string;
+  hashedId: string;
+  public: boolean;
+  publicId: string | null;
+  anonymousCanUpload?: boolean | undefined;
+  anonymousCanDownload?: boolean | undefined;
+};
+
+/** @internal */
+export const PutProjectsIdResponse$outboundSchema: z.ZodType<
+  PutProjectsIdResponse$Outbound,
+  z.ZodTypeDef,
+  PutProjectsIdResponse
+> = z.object({
+  id: z.number().int(),
+  name: z.string(),
+  description: z.nullable(z.string()).optional(),
+  mediaCount: z.number().int(),
+  created: z.date().transform(v => v.toISOString()),
+  updated: z.date().transform(v => v.toISOString()),
+  hashedId: z.string(),
+  public: z.boolean(),
+  publicId: z.nullable(z.string()),
+  anonymousCanUpload: z.boolean().optional(),
+  anonymousCanDownload: z.boolean().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PutProjectsIdResponse$ {
+  /** @deprecated use `PutProjectsIdResponse$inboundSchema` instead. */
+  export const inboundSchema = PutProjectsIdResponse$inboundSchema;
+  /** @deprecated use `PutProjectsIdResponse$outboundSchema` instead. */
+  export const outboundSchema = PutProjectsIdResponse$outboundSchema;
+  /** @deprecated use `PutProjectsIdResponse$Outbound` instead. */
+  export type Outbound = PutProjectsIdResponse$Outbound;
+}
+
+export function putProjectsIdResponseToJSON(
+  putProjectsIdResponse: PutProjectsIdResponse,
+): string {
+  return JSON.stringify(
+    PutProjectsIdResponse$outboundSchema.parse(putProjectsIdResponse),
+  );
+}
+
+export function putProjectsIdResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<PutProjectsIdResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PutProjectsIdResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PutProjectsIdResponse' from JSON`,
   );
 }

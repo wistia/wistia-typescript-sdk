@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod";
+import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -12,6 +13,56 @@ export type GetLiveStreamEventsIdRequest = {
    * The hashed ID of the live stream event
    */
   id: string;
+};
+
+/**
+ * Successful response with the live stream event details
+ */
+export type GetLiveStreamEventsIdResponse = {
+  /**
+   * The hashed ID of the live stream event
+   */
+  id: string;
+  /**
+   * The title of the live stream event
+   */
+  title: string;
+  /**
+   * The description of the live stream event
+   */
+  description?: string | null | undefined;
+  /**
+   * The scheduled start time in W3C format with timezone
+   */
+  scheduledFor?: Date | null | undefined;
+  /**
+   * Duration of the event in minutes
+   */
+  eventDuration?: number | null | undefined;
+  /**
+   * Current lifecycle status of the event
+   */
+  lifecycleStatus: string;
+  /**
+   * Registration status of the event
+   */
+  registrationStatus: string;
+  /**
+   * When the event was created (UTC)
+   */
+  createdAt: Date;
+  /**
+   * When the event was last updated (UTC)
+   */
+  updatedAt: Date;
+  /**
+   * Link for the audience to join the event
+   */
+  audienceLink: string;
+  /**
+   * Link for the host to manage the event
+   */
+  hostLink: string;
 };
 
 /** @internal */
@@ -67,5 +118,115 @@ export function getLiveStreamEventsIdRequestFromJSON(
     jsonString,
     (x) => GetLiveStreamEventsIdRequest$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'GetLiveStreamEventsIdRequest' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetLiveStreamEventsIdResponse$inboundSchema: z.ZodType<
+  GetLiveStreamEventsIdResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: z.string(),
+  title: z.string(),
+  description: z.nullable(z.string()).optional(),
+  scheduled_for: z.nullable(
+    z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  ).optional(),
+  event_duration: z.nullable(z.number().int()).optional(),
+  lifecycle_status: z.string(),
+  registration_status: z.string(),
+  created_at: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  updated_at: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  audience_link: z.string(),
+  host_link: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    "scheduled_for": "scheduledFor",
+    "event_duration": "eventDuration",
+    "lifecycle_status": "lifecycleStatus",
+    "registration_status": "registrationStatus",
+    "created_at": "createdAt",
+    "updated_at": "updatedAt",
+    "audience_link": "audienceLink",
+    "host_link": "hostLink",
+  });
+});
+
+/** @internal */
+export type GetLiveStreamEventsIdResponse$Outbound = {
+  id: string;
+  title: string;
+  description?: string | null | undefined;
+  scheduled_for?: string | null | undefined;
+  event_duration?: number | null | undefined;
+  lifecycle_status: string;
+  registration_status: string;
+  created_at: string;
+  updated_at: string;
+  audience_link: string;
+  host_link: string;
+};
+
+/** @internal */
+export const GetLiveStreamEventsIdResponse$outboundSchema: z.ZodType<
+  GetLiveStreamEventsIdResponse$Outbound,
+  z.ZodTypeDef,
+  GetLiveStreamEventsIdResponse
+> = z.object({
+  id: z.string(),
+  title: z.string(),
+  description: z.nullable(z.string()).optional(),
+  scheduledFor: z.nullable(z.date().transform(v => v.toISOString())).optional(),
+  eventDuration: z.nullable(z.number().int()).optional(),
+  lifecycleStatus: z.string(),
+  registrationStatus: z.string(),
+  createdAt: z.date().transform(v => v.toISOString()),
+  updatedAt: z.date().transform(v => v.toISOString()),
+  audienceLink: z.string(),
+  hostLink: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    scheduledFor: "scheduled_for",
+    eventDuration: "event_duration",
+    lifecycleStatus: "lifecycle_status",
+    registrationStatus: "registration_status",
+    createdAt: "created_at",
+    updatedAt: "updated_at",
+    audienceLink: "audience_link",
+    hostLink: "host_link",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetLiveStreamEventsIdResponse$ {
+  /** @deprecated use `GetLiveStreamEventsIdResponse$inboundSchema` instead. */
+  export const inboundSchema = GetLiveStreamEventsIdResponse$inboundSchema;
+  /** @deprecated use `GetLiveStreamEventsIdResponse$outboundSchema` instead. */
+  export const outboundSchema = GetLiveStreamEventsIdResponse$outboundSchema;
+  /** @deprecated use `GetLiveStreamEventsIdResponse$Outbound` instead. */
+  export type Outbound = GetLiveStreamEventsIdResponse$Outbound;
+}
+
+export function getLiveStreamEventsIdResponseToJSON(
+  getLiveStreamEventsIdResponse: GetLiveStreamEventsIdResponse,
+): string {
+  return JSON.stringify(
+    GetLiveStreamEventsIdResponse$outboundSchema.parse(
+      getLiveStreamEventsIdResponse,
+    ),
+  );
+}
+
+export function getLiveStreamEventsIdResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<GetLiveStreamEventsIdResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetLiveStreamEventsIdResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetLiveStreamEventsIdResponse' from JSON`,
   );
 }

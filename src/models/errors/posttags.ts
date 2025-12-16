@@ -6,6 +6,37 @@ import * as z from "zod";
 import { WistiaError } from "./wistiaerror.js";
 
 /**
+ * Internal server error
+ */
+export type PostTagsInternalServerErrorData = {
+  error?: string | undefined;
+};
+
+/**
+ * Internal server error
+ */
+export class PostTagsInternalServerError extends WistiaError {
+  error?: string | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: PostTagsInternalServerErrorData;
+
+  constructor(
+    err: PostTagsInternalServerErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+
+    this.name = "PostTagsInternalServerError";
+  }
+}
+
+/**
  * Validation error - tag already exists
  */
 export type PostTagsUnprocessableEntityErrorData = {
@@ -33,6 +64,37 @@ export class PostTagsUnprocessableEntityError extends WistiaError {
     if (err.error != null) this.error = err.error;
 
     this.name = "PostTagsUnprocessableEntityError";
+  }
+}
+
+/**
+ * Unauthorized, invalid or missing token
+ */
+export type PostTagsUnauthorizedErrorData = {
+  error?: string | undefined;
+};
+
+/**
+ * Unauthorized, invalid or missing token
+ */
+export class PostTagsUnauthorizedError extends WistiaError {
+  error?: string | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: PostTagsUnauthorizedErrorData;
+
+  constructor(
+    err: PostTagsUnauthorizedErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+
+    this.name = "PostTagsUnauthorizedError";
   }
 }
 
@@ -65,6 +127,54 @@ export class PostTagsBadRequestError extends WistiaError {
 
     this.name = "PostTagsBadRequestError";
   }
+}
+
+/** @internal */
+export const PostTagsInternalServerError$inboundSchema: z.ZodType<
+  PostTagsInternalServerError,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  error: z.string().optional(),
+  request$: z.instanceof(Request),
+  response$: z.instanceof(Response),
+  body$: z.string(),
+})
+  .transform((v) => {
+    return new PostTagsInternalServerError(v, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
+  });
+
+/** @internal */
+export type PostTagsInternalServerError$Outbound = {
+  error?: string | undefined;
+};
+
+/** @internal */
+export const PostTagsInternalServerError$outboundSchema: z.ZodType<
+  PostTagsInternalServerError$Outbound,
+  z.ZodTypeDef,
+  PostTagsInternalServerError
+> = z.instanceof(PostTagsInternalServerError)
+  .transform(v => v.data$)
+  .pipe(z.object({
+    error: z.string().optional(),
+  }));
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostTagsInternalServerError$ {
+  /** @deprecated use `PostTagsInternalServerError$inboundSchema` instead. */
+  export const inboundSchema = PostTagsInternalServerError$inboundSchema;
+  /** @deprecated use `PostTagsInternalServerError$outboundSchema` instead. */
+  export const outboundSchema = PostTagsInternalServerError$outboundSchema;
+  /** @deprecated use `PostTagsInternalServerError$Outbound` instead. */
+  export type Outbound = PostTagsInternalServerError$Outbound;
 }
 
 /** @internal */
@@ -113,6 +223,54 @@ export namespace PostTagsUnprocessableEntityError$ {
   export const outboundSchema = PostTagsUnprocessableEntityError$outboundSchema;
   /** @deprecated use `PostTagsUnprocessableEntityError$Outbound` instead. */
   export type Outbound = PostTagsUnprocessableEntityError$Outbound;
+}
+
+/** @internal */
+export const PostTagsUnauthorizedError$inboundSchema: z.ZodType<
+  PostTagsUnauthorizedError,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  error: z.string().optional(),
+  request$: z.instanceof(Request),
+  response$: z.instanceof(Response),
+  body$: z.string(),
+})
+  .transform((v) => {
+    return new PostTagsUnauthorizedError(v, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
+  });
+
+/** @internal */
+export type PostTagsUnauthorizedError$Outbound = {
+  error?: string | undefined;
+};
+
+/** @internal */
+export const PostTagsUnauthorizedError$outboundSchema: z.ZodType<
+  PostTagsUnauthorizedError$Outbound,
+  z.ZodTypeDef,
+  PostTagsUnauthorizedError
+> = z.instanceof(PostTagsUnauthorizedError)
+  .transform(v => v.data$)
+  .pipe(z.object({
+    error: z.string().optional(),
+  }));
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostTagsUnauthorizedError$ {
+  /** @deprecated use `PostTagsUnauthorizedError$inboundSchema` instead. */
+  export const inboundSchema = PostTagsUnauthorizedError$inboundSchema;
+  /** @deprecated use `PostTagsUnauthorizedError$outboundSchema` instead. */
+  export const outboundSchema = PostTagsUnauthorizedError$outboundSchema;
+  /** @deprecated use `PostTagsUnauthorizedError$Outbound` instead. */
+  export type Outbound = PostTagsUnauthorizedError$Outbound;
 }
 
 /** @internal */

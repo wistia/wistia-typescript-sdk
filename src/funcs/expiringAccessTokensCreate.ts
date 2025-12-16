@@ -21,7 +21,6 @@ import * as errors from "../models/errors/index.js";
 import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import { WistiaError } from "../models/errors/wistiaerror.js";
-import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
@@ -49,10 +48,10 @@ export function expiringAccessTokensCreate(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    models.ExpiringAccessTokenResponse,
-    | errors.FourHundredAndOneError
-    | errors.FourHundredAndTwentyTwoError
-    | errors.FiveHundredError
+    operations.PostExpiringTokenResponse,
+    | errors.PostExpiringTokenUnauthorizedError
+    | errors.PostExpiringTokenUnprocessableEntityError
+    | errors.PostExpiringTokenInternalServerError
     | errors.NotImplementedError
     | WistiaError
     | ResponseValidationError
@@ -78,10 +77,10 @@ async function $do(
 ): Promise<
   [
     Result<
-      models.ExpiringAccessTokenResponse,
-      | errors.FourHundredAndOneError
-      | errors.FourHundredAndTwentyTwoError
-      | errors.FiveHundredError
+      operations.PostExpiringTokenResponse,
+      | errors.PostExpiringTokenUnauthorizedError
+      | errors.PostExpiringTokenUnprocessableEntityError
+      | errors.PostExpiringTokenInternalServerError
       | errors.NotImplementedError
       | WistiaError
       | ResponseValidationError
@@ -168,10 +167,10 @@ async function $do(
   };
 
   const [result] = await M.match<
-    models.ExpiringAccessTokenResponse,
-    | errors.FourHundredAndOneError
-    | errors.FourHundredAndTwentyTwoError
-    | errors.FiveHundredError
+    operations.PostExpiringTokenResponse,
+    | errors.PostExpiringTokenUnauthorizedError
+    | errors.PostExpiringTokenUnprocessableEntityError
+    | errors.PostExpiringTokenInternalServerError
     | errors.NotImplementedError
     | WistiaError
     | ResponseValidationError
@@ -182,10 +181,13 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, models.ExpiringAccessTokenResponse$inboundSchema),
-    M.jsonErr(401, errors.FourHundredAndOneError$inboundSchema),
-    M.jsonErr(422, errors.FourHundredAndTwentyTwoError$inboundSchema),
-    M.jsonErr(500, errors.FiveHundredError$inboundSchema),
+    M.json(200, operations.PostExpiringTokenResponse$inboundSchema),
+    M.jsonErr(401, errors.PostExpiringTokenUnauthorizedError$inboundSchema),
+    M.jsonErr(
+      422,
+      errors.PostExpiringTokenUnprocessableEntityError$inboundSchema,
+    ),
+    M.jsonErr(500, errors.PostExpiringTokenInternalServerError$inboundSchema),
     M.jsonErr(501, errors.NotImplementedError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),

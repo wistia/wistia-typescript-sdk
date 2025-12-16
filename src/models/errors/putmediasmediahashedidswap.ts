@@ -6,6 +6,99 @@ import * as z from "zod";
 import { WistiaError } from "./wistiaerror.js";
 
 /**
+ * Internal server error
+ */
+export type PutMediasMediaHashedIdSwapInternalServerErrorData = {
+  error?: string | undefined;
+};
+
+/**
+ * Internal server error
+ */
+export class PutMediasMediaHashedIdSwapInternalServerError extends WistiaError {
+  error?: string | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: PutMediasMediaHashedIdSwapInternalServerErrorData;
+
+  constructor(
+    err: PutMediasMediaHashedIdSwapInternalServerErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+
+    this.name = "PutMediasMediaHashedIdSwapInternalServerError";
+  }
+}
+
+/**
+ * Resource not found
+ */
+export type PutMediasMediaHashedIdSwapNotFoundErrorData = {
+  error?: string | undefined;
+};
+
+/**
+ * Resource not found
+ */
+export class PutMediasMediaHashedIdSwapNotFoundError extends WistiaError {
+  error?: string | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: PutMediasMediaHashedIdSwapNotFoundErrorData;
+
+  constructor(
+    err: PutMediasMediaHashedIdSwapNotFoundErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+
+    this.name = "PutMediasMediaHashedIdSwapNotFoundError";
+  }
+}
+
+/**
+ * Unauthorized, invalid or missing token
+ */
+export type PutMediasMediaHashedIdSwapUnauthorizedErrorData = {
+  error?: string | undefined;
+};
+
+/**
+ * Unauthorized, invalid or missing token
+ */
+export class PutMediasMediaHashedIdSwapUnauthorizedError extends WistiaError {
+  error?: string | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: PutMediasMediaHashedIdSwapUnauthorizedErrorData;
+
+  constructor(
+    err: PutMediasMediaHashedIdSwapUnauthorizedErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+
+    this.name = "PutMediasMediaHashedIdSwapUnauthorizedError";
+  }
+}
+
+/**
  * Bad request, e.g. missing replacement_media_id or media type mismatch.
  */
 export type PutMediasMediaHashedIdSwapBadRequestErrorData = {
@@ -34,6 +127,160 @@ export class PutMediasMediaHashedIdSwapBadRequestError extends WistiaError {
 
     this.name = "PutMediasMediaHashedIdSwapBadRequestError";
   }
+}
+
+/** @internal */
+export const PutMediasMediaHashedIdSwapInternalServerError$inboundSchema:
+  z.ZodType<
+    PutMediasMediaHashedIdSwapInternalServerError,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    error: z.string().optional(),
+    request$: z.instanceof(Request),
+    response$: z.instanceof(Response),
+    body$: z.string(),
+  })
+    .transform((v) => {
+      return new PutMediasMediaHashedIdSwapInternalServerError(v, {
+        request: v.request$,
+        response: v.response$,
+        body: v.body$,
+      });
+    });
+
+/** @internal */
+export type PutMediasMediaHashedIdSwapInternalServerError$Outbound = {
+  error?: string | undefined;
+};
+
+/** @internal */
+export const PutMediasMediaHashedIdSwapInternalServerError$outboundSchema:
+  z.ZodType<
+    PutMediasMediaHashedIdSwapInternalServerError$Outbound,
+    z.ZodTypeDef,
+    PutMediasMediaHashedIdSwapInternalServerError
+  > = z.instanceof(PutMediasMediaHashedIdSwapInternalServerError)
+    .transform(v => v.data$)
+    .pipe(z.object({
+      error: z.string().optional(),
+    }));
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PutMediasMediaHashedIdSwapInternalServerError$ {
+  /** @deprecated use `PutMediasMediaHashedIdSwapInternalServerError$inboundSchema` instead. */
+  export const inboundSchema =
+    PutMediasMediaHashedIdSwapInternalServerError$inboundSchema;
+  /** @deprecated use `PutMediasMediaHashedIdSwapInternalServerError$outboundSchema` instead. */
+  export const outboundSchema =
+    PutMediasMediaHashedIdSwapInternalServerError$outboundSchema;
+  /** @deprecated use `PutMediasMediaHashedIdSwapInternalServerError$Outbound` instead. */
+  export type Outbound = PutMediasMediaHashedIdSwapInternalServerError$Outbound;
+}
+
+/** @internal */
+export const PutMediasMediaHashedIdSwapNotFoundError$inboundSchema: z.ZodType<
+  PutMediasMediaHashedIdSwapNotFoundError,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  error: z.string().optional(),
+  request$: z.instanceof(Request),
+  response$: z.instanceof(Response),
+  body$: z.string(),
+})
+  .transform((v) => {
+    return new PutMediasMediaHashedIdSwapNotFoundError(v, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
+  });
+
+/** @internal */
+export type PutMediasMediaHashedIdSwapNotFoundError$Outbound = {
+  error?: string | undefined;
+};
+
+/** @internal */
+export const PutMediasMediaHashedIdSwapNotFoundError$outboundSchema: z.ZodType<
+  PutMediasMediaHashedIdSwapNotFoundError$Outbound,
+  z.ZodTypeDef,
+  PutMediasMediaHashedIdSwapNotFoundError
+> = z.instanceof(PutMediasMediaHashedIdSwapNotFoundError)
+  .transform(v => v.data$)
+  .pipe(z.object({
+    error: z.string().optional(),
+  }));
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PutMediasMediaHashedIdSwapNotFoundError$ {
+  /** @deprecated use `PutMediasMediaHashedIdSwapNotFoundError$inboundSchema` instead. */
+  export const inboundSchema =
+    PutMediasMediaHashedIdSwapNotFoundError$inboundSchema;
+  /** @deprecated use `PutMediasMediaHashedIdSwapNotFoundError$outboundSchema` instead. */
+  export const outboundSchema =
+    PutMediasMediaHashedIdSwapNotFoundError$outboundSchema;
+  /** @deprecated use `PutMediasMediaHashedIdSwapNotFoundError$Outbound` instead. */
+  export type Outbound = PutMediasMediaHashedIdSwapNotFoundError$Outbound;
+}
+
+/** @internal */
+export const PutMediasMediaHashedIdSwapUnauthorizedError$inboundSchema:
+  z.ZodType<
+    PutMediasMediaHashedIdSwapUnauthorizedError,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    error: z.string().optional(),
+    request$: z.instanceof(Request),
+    response$: z.instanceof(Response),
+    body$: z.string(),
+  })
+    .transform((v) => {
+      return new PutMediasMediaHashedIdSwapUnauthorizedError(v, {
+        request: v.request$,
+        response: v.response$,
+        body: v.body$,
+      });
+    });
+
+/** @internal */
+export type PutMediasMediaHashedIdSwapUnauthorizedError$Outbound = {
+  error?: string | undefined;
+};
+
+/** @internal */
+export const PutMediasMediaHashedIdSwapUnauthorizedError$outboundSchema:
+  z.ZodType<
+    PutMediasMediaHashedIdSwapUnauthorizedError$Outbound,
+    z.ZodTypeDef,
+    PutMediasMediaHashedIdSwapUnauthorizedError
+  > = z.instanceof(PutMediasMediaHashedIdSwapUnauthorizedError)
+    .transform(v => v.data$)
+    .pipe(z.object({
+      error: z.string().optional(),
+    }));
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PutMediasMediaHashedIdSwapUnauthorizedError$ {
+  /** @deprecated use `PutMediasMediaHashedIdSwapUnauthorizedError$inboundSchema` instead. */
+  export const inboundSchema =
+    PutMediasMediaHashedIdSwapUnauthorizedError$inboundSchema;
+  /** @deprecated use `PutMediasMediaHashedIdSwapUnauthorizedError$outboundSchema` instead. */
+  export const outboundSchema =
+    PutMediasMediaHashedIdSwapUnauthorizedError$outboundSchema;
+  /** @deprecated use `PutMediasMediaHashedIdSwapUnauthorizedError$Outbound` instead. */
+  export type Outbound = PutMediasMediaHashedIdSwapUnauthorizedError$Outbound;
 }
 
 /** @internal */

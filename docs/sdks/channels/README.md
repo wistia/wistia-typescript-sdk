@@ -77,15 +77,15 @@ run();
 
 ### Response
 
-**Promise\<[models.Channel[]](../../models/.md)\>**
+**Promise\<[operations.GetChannelsResponse[]](../../models/.md)\>**
 
 ### Errors
 
-| Error Type                    | Status Code                   | Content Type                  |
-| ----------------------------- | ----------------------------- | ----------------------------- |
-| errors.FourHundredAndOneError | 401                           | application/json              |
-| errors.FiveHundredError       | 500                           | application/json              |
-| errors.WistiaDefaultError     | 4XX, 5XX                      | \*/\*                         |
+| Error Type                            | Status Code                           | Content Type                          |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| errors.GetChannelsUnauthorizedError   | 401                                   | application/json                      |
+| errors.GetChannelsInternalServerError | 500                                   | application/json                      |
+| errors.WistiaDefaultError             | 4XX, 5XX                              | \*/\*                                 |
 
 ## get
 
@@ -160,13 +160,13 @@ run();
 
 ### Response
 
-**Promise\<[models.Channel](../../models/channel.md)\>**
+**Promise\<[operations.GetChannelsChannelHashedIdResponse](../../models/operations/getchannelschannelhashedidresponse.md)\>**
 
 ### Errors
 
-| Error Type                     | Status Code                    | Content Type                   |
-| ------------------------------ | ------------------------------ | ------------------------------ |
-| errors.FourHundredAndOneError  | 401                            | application/json               |
-| errors.FourHundredAndFourError | 404                            | application/json               |
-| errors.FiveHundredError        | 500                            | application/json               |
-| errors.WistiaDefaultError      | 4XX, 5XX                       | \*/\*                          |
+| Error Type                                           | Status Code                                          | Content Type                                         |
+| ---------------------------------------------------- | ---------------------------------------------------- | ---------------------------------------------------- |
+| errors.GetChannelsChannelHashedIdUnauthorizedError   | 401                                                  | application/json                                     |
+| errors.GetChannelsChannelHashedIdNotFoundError       | 404                                                  | application/json                                     |
+| errors.GetChannelsChannelHashedIdInternalServerError | 500                                                  | application/json                                     |
+| errors.WistiaDefaultError                            | 4XX, 5XX                                             | \*/\*                                                |

@@ -7,9 +7,9 @@ import { PostProjectsProjectIdSharingsRequest } from "@wistia/wistia-api-client/
 
 let value: PostProjectsProjectIdSharingsRequest = {
   projectId: "<id>",
-  createProjectSharing: {
+  requestBody: {
     sharing: {
-      with: "Ada67@yahoo.com",
+      with: "Elizabeth.Langworth0@gmail.com",
       requirePassword: false,
       canShare: false,
       canDownload: false,
@@ -21,7 +21,7 @@ let value: PostProjectsProjectIdSharingsRequest = {
 
 ## Fields
 
-| Field                                                               | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `projectId`                                                         | *string*                                                            | :heavy_check_mark:                                                  | Hashed ID of the project to be shared                               |
-| `createProjectSharing`                                              | [models.CreateProjectSharing](../../models/createprojectsharing.md) | :heavy_check_mark:                                                  | N/A                                                                 |
+| Field                                                                                                                      | Type                                                                                                                       | Required                                                                                                                   | Description                                                                                                                |
+| -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `projectId`                                                                                                                | *string*                                                                                                                   | :heavy_check_mark:                                                                                                         | Hashed ID of the project to be shared                                                                                      |
+| `requestBody`                                                                                                              | [operations.PostProjectsProjectIdSharingsRequestBody](../../models/operations/postprojectsprojectidsharingsrequestbody.md) | :heavy_check_mark:                                                                                                         | N/A                                                                                                                        |

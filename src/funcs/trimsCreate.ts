@@ -43,9 +43,9 @@ export function trimsCreate(
 ): APIPromise<
   Result<
     operations.PostMediasMediaHashedIdTrimsResponse,
-    | errors.FourHundredAndOneError
-    | errors.FourHundredAndTwentyTwoError
-    | errors.FiveHundredError
+    | errors.PostMediasMediaHashedIdTrimsUnauthorizedError
+    | errors.PostMediasMediaHashedIdTrimsUnprocessableEntityError
+    | errors.PostMediasMediaHashedIdTrimsInternalServerError
     | WistiaError
     | ResponseValidationError
     | ConnectionError
@@ -71,9 +71,9 @@ async function $do(
   [
     Result<
       operations.PostMediasMediaHashedIdTrimsResponse,
-      | errors.FourHundredAndOneError
-      | errors.FourHundredAndTwentyTwoError
-      | errors.FiveHundredError
+      | errors.PostMediasMediaHashedIdTrimsUnauthorizedError
+      | errors.PostMediasMediaHashedIdTrimsUnprocessableEntityError
+      | errors.PostMediasMediaHashedIdTrimsInternalServerError
       | WistiaError
       | ResponseValidationError
       | ConnectionError
@@ -165,9 +165,9 @@ async function $do(
 
   const [result] = await M.match<
     operations.PostMediasMediaHashedIdTrimsResponse,
-    | errors.FourHundredAndOneError
-    | errors.FourHundredAndTwentyTwoError
-    | errors.FiveHundredError
+    | errors.PostMediasMediaHashedIdTrimsUnauthorizedError
+    | errors.PostMediasMediaHashedIdTrimsUnprocessableEntityError
+    | errors.PostMediasMediaHashedIdTrimsInternalServerError
     | WistiaError
     | ResponseValidationError
     | ConnectionError
@@ -178,9 +178,18 @@ async function $do(
     | SDKValidationError
   >(
     M.json(200, operations.PostMediasMediaHashedIdTrimsResponse$inboundSchema),
-    M.jsonErr(401, errors.FourHundredAndOneError$inboundSchema),
-    M.jsonErr(422, errors.FourHundredAndTwentyTwoError$inboundSchema),
-    M.jsonErr(500, errors.FiveHundredError$inboundSchema),
+    M.jsonErr(
+      401,
+      errors.PostMediasMediaHashedIdTrimsUnauthorizedError$inboundSchema,
+    ),
+    M.jsonErr(
+      422,
+      errors.PostMediasMediaHashedIdTrimsUnprocessableEntityError$inboundSchema,
+    ),
+    M.jsonErr(
+      500,
+      errors.PostMediasMediaHashedIdTrimsInternalServerError$inboundSchema,
+    ),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

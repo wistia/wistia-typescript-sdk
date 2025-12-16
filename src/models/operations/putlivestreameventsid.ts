@@ -7,15 +7,224 @@ import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-import * as models from "../index.js";
+
+export type LiveStreamEvent = {
+  /**
+   * The title of the live stream event
+   */
+  title?: string | undefined;
+  /**
+   * The description of the live stream event
+   */
+  description?: string | undefined;
+  /**
+   * The scheduled start time in W3C format with timezone
+   */
+  scheduledFor?: Date | undefined;
+  /**
+   * Duration of the event in minutes (minimum 15)
+   */
+  eventDuration?: number | undefined;
+};
+
+export type PutLiveStreamEventsIdRequestBody = {
+  liveStreamEvent?: LiveStreamEvent | undefined;
+};
 
 export type PutLiveStreamEventsIdRequest = {
   /**
    * The hashed ID of the live stream event
    */
   id: string;
-  updateLiveStreamEvent: models.UpdateLiveStreamEvent;
+  requestBody: PutLiveStreamEventsIdRequestBody;
 };
+
+/**
+ * Live stream event updated successfully
+ */
+export type PutLiveStreamEventsIdResponse = {
+  /**
+   * The hashed ID of the live stream event
+   */
+  id: string;
+  /**
+   * The title of the live stream event
+   */
+  title: string;
+  /**
+   * The description of the live stream event
+   */
+  description?: string | null | undefined;
+  /**
+   * The scheduled start time in W3C format with timezone
+   */
+  scheduledFor?: Date | null | undefined;
+  /**
+   * Duration of the event in minutes
+   */
+  eventDuration?: number | null | undefined;
+  /**
+   * Current lifecycle status of the event
+   */
+  lifecycleStatus: string;
+  /**
+   * Registration status of the event
+   */
+  registrationStatus: string;
+  /**
+   * When the event was created (UTC)
+   */
+  createdAt: Date;
+  /**
+   * When the event was last updated (UTC)
+   */
+  updatedAt: Date;
+  /**
+   * Link for the audience to join the event
+   */
+  audienceLink: string;
+  /**
+   * Link for the host to manage the event
+   */
+  hostLink: string;
+};
+
+/** @internal */
+export const LiveStreamEvent$inboundSchema: z.ZodType<
+  LiveStreamEvent,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  title: z.string().optional(),
+  description: z.string().optional(),
+  scheduled_for: z.string().datetime({ offset: true }).transform(v =>
+    new Date(v)
+  ).optional(),
+  event_duration: z.number().int().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "scheduled_for": "scheduledFor",
+    "event_duration": "eventDuration",
+  });
+});
+
+/** @internal */
+export type LiveStreamEvent$Outbound = {
+  title?: string | undefined;
+  description?: string | undefined;
+  scheduled_for?: string | undefined;
+  event_duration?: number | undefined;
+};
+
+/** @internal */
+export const LiveStreamEvent$outboundSchema: z.ZodType<
+  LiveStreamEvent$Outbound,
+  z.ZodTypeDef,
+  LiveStreamEvent
+> = z.object({
+  title: z.string().optional(),
+  description: z.string().optional(),
+  scheduledFor: z.date().transform(v => v.toISOString()).optional(),
+  eventDuration: z.number().int().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    scheduledFor: "scheduled_for",
+    eventDuration: "event_duration",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace LiveStreamEvent$ {
+  /** @deprecated use `LiveStreamEvent$inboundSchema` instead. */
+  export const inboundSchema = LiveStreamEvent$inboundSchema;
+  /** @deprecated use `LiveStreamEvent$outboundSchema` instead. */
+  export const outboundSchema = LiveStreamEvent$outboundSchema;
+  /** @deprecated use `LiveStreamEvent$Outbound` instead. */
+  export type Outbound = LiveStreamEvent$Outbound;
+}
+
+export function liveStreamEventToJSON(
+  liveStreamEvent: LiveStreamEvent,
+): string {
+  return JSON.stringify(LiveStreamEvent$outboundSchema.parse(liveStreamEvent));
+}
+
+export function liveStreamEventFromJSON(
+  jsonString: string,
+): SafeParseResult<LiveStreamEvent, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => LiveStreamEvent$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'LiveStreamEvent' from JSON`,
+  );
+}
+
+/** @internal */
+export const PutLiveStreamEventsIdRequestBody$inboundSchema: z.ZodType<
+  PutLiveStreamEventsIdRequestBody,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  live_stream_event: z.lazy(() => LiveStreamEvent$inboundSchema).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "live_stream_event": "liveStreamEvent",
+  });
+});
+
+/** @internal */
+export type PutLiveStreamEventsIdRequestBody$Outbound = {
+  live_stream_event?: LiveStreamEvent$Outbound | undefined;
+};
+
+/** @internal */
+export const PutLiveStreamEventsIdRequestBody$outboundSchema: z.ZodType<
+  PutLiveStreamEventsIdRequestBody$Outbound,
+  z.ZodTypeDef,
+  PutLiveStreamEventsIdRequestBody
+> = z.object({
+  liveStreamEvent: z.lazy(() => LiveStreamEvent$outboundSchema).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    liveStreamEvent: "live_stream_event",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PutLiveStreamEventsIdRequestBody$ {
+  /** @deprecated use `PutLiveStreamEventsIdRequestBody$inboundSchema` instead. */
+  export const inboundSchema = PutLiveStreamEventsIdRequestBody$inboundSchema;
+  /** @deprecated use `PutLiveStreamEventsIdRequestBody$outboundSchema` instead. */
+  export const outboundSchema = PutLiveStreamEventsIdRequestBody$outboundSchema;
+  /** @deprecated use `PutLiveStreamEventsIdRequestBody$Outbound` instead. */
+  export type Outbound = PutLiveStreamEventsIdRequestBody$Outbound;
+}
+
+export function putLiveStreamEventsIdRequestBodyToJSON(
+  putLiveStreamEventsIdRequestBody: PutLiveStreamEventsIdRequestBody,
+): string {
+  return JSON.stringify(
+    PutLiveStreamEventsIdRequestBody$outboundSchema.parse(
+      putLiveStreamEventsIdRequestBody,
+    ),
+  );
+}
+
+export function putLiveStreamEventsIdRequestBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<PutLiveStreamEventsIdRequestBody, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PutLiveStreamEventsIdRequestBody$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PutLiveStreamEventsIdRequestBody' from JSON`,
+  );
+}
 
 /** @internal */
 export const PutLiveStreamEventsIdRequest$inboundSchema: z.ZodType<
@@ -24,17 +233,17 @@ export const PutLiveStreamEventsIdRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string(),
-  UpdateLiveStreamEvent: models.UpdateLiveStreamEvent$inboundSchema,
+  RequestBody: z.lazy(() => PutLiveStreamEventsIdRequestBody$inboundSchema),
 }).transform((v) => {
   return remap$(v, {
-    "UpdateLiveStreamEvent": "updateLiveStreamEvent",
+    "RequestBody": "requestBody",
   });
 });
 
 /** @internal */
 export type PutLiveStreamEventsIdRequest$Outbound = {
   id: string;
-  UpdateLiveStreamEvent: models.UpdateLiveStreamEvent$Outbound;
+  RequestBody: PutLiveStreamEventsIdRequestBody$Outbound;
 };
 
 /** @internal */
@@ -44,10 +253,10 @@ export const PutLiveStreamEventsIdRequest$outboundSchema: z.ZodType<
   PutLiveStreamEventsIdRequest
 > = z.object({
   id: z.string(),
-  updateLiveStreamEvent: models.UpdateLiveStreamEvent$outboundSchema,
+  requestBody: z.lazy(() => PutLiveStreamEventsIdRequestBody$outboundSchema),
 }).transform((v) => {
   return remap$(v, {
-    updateLiveStreamEvent: "UpdateLiveStreamEvent",
+    requestBody: "RequestBody",
   });
 });
 
@@ -81,5 +290,115 @@ export function putLiveStreamEventsIdRequestFromJSON(
     jsonString,
     (x) => PutLiveStreamEventsIdRequest$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'PutLiveStreamEventsIdRequest' from JSON`,
+  );
+}
+
+/** @internal */
+export const PutLiveStreamEventsIdResponse$inboundSchema: z.ZodType<
+  PutLiveStreamEventsIdResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: z.string(),
+  title: z.string(),
+  description: z.nullable(z.string()).optional(),
+  scheduled_for: z.nullable(
+    z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  ).optional(),
+  event_duration: z.nullable(z.number().int()).optional(),
+  lifecycle_status: z.string(),
+  registration_status: z.string(),
+  created_at: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  updated_at: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  audience_link: z.string(),
+  host_link: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    "scheduled_for": "scheduledFor",
+    "event_duration": "eventDuration",
+    "lifecycle_status": "lifecycleStatus",
+    "registration_status": "registrationStatus",
+    "created_at": "createdAt",
+    "updated_at": "updatedAt",
+    "audience_link": "audienceLink",
+    "host_link": "hostLink",
+  });
+});
+
+/** @internal */
+export type PutLiveStreamEventsIdResponse$Outbound = {
+  id: string;
+  title: string;
+  description?: string | null | undefined;
+  scheduled_for?: string | null | undefined;
+  event_duration?: number | null | undefined;
+  lifecycle_status: string;
+  registration_status: string;
+  created_at: string;
+  updated_at: string;
+  audience_link: string;
+  host_link: string;
+};
+
+/** @internal */
+export const PutLiveStreamEventsIdResponse$outboundSchema: z.ZodType<
+  PutLiveStreamEventsIdResponse$Outbound,
+  z.ZodTypeDef,
+  PutLiveStreamEventsIdResponse
+> = z.object({
+  id: z.string(),
+  title: z.string(),
+  description: z.nullable(z.string()).optional(),
+  scheduledFor: z.nullable(z.date().transform(v => v.toISOString())).optional(),
+  eventDuration: z.nullable(z.number().int()).optional(),
+  lifecycleStatus: z.string(),
+  registrationStatus: z.string(),
+  createdAt: z.date().transform(v => v.toISOString()),
+  updatedAt: z.date().transform(v => v.toISOString()),
+  audienceLink: z.string(),
+  hostLink: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    scheduledFor: "scheduled_for",
+    eventDuration: "event_duration",
+    lifecycleStatus: "lifecycle_status",
+    registrationStatus: "registration_status",
+    createdAt: "created_at",
+    updatedAt: "updated_at",
+    audienceLink: "audience_link",
+    hostLink: "host_link",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PutLiveStreamEventsIdResponse$ {
+  /** @deprecated use `PutLiveStreamEventsIdResponse$inboundSchema` instead. */
+  export const inboundSchema = PutLiveStreamEventsIdResponse$inboundSchema;
+  /** @deprecated use `PutLiveStreamEventsIdResponse$outboundSchema` instead. */
+  export const outboundSchema = PutLiveStreamEventsIdResponse$outboundSchema;
+  /** @deprecated use `PutLiveStreamEventsIdResponse$Outbound` instead. */
+  export type Outbound = PutLiveStreamEventsIdResponse$Outbound;
+}
+
+export function putLiveStreamEventsIdResponseToJSON(
+  putLiveStreamEventsIdResponse: PutLiveStreamEventsIdResponse,
+): string {
+  return JSON.stringify(
+    PutLiveStreamEventsIdResponse$outboundSchema.parse(
+      putLiveStreamEventsIdResponse,
+    ),
+  );
+}
+
+export function putLiveStreamEventsIdResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<PutLiveStreamEventsIdResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PutLiveStreamEventsIdResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PutLiveStreamEventsIdResponse' from JSON`,
   );
 }

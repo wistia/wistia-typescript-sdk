@@ -44,10 +44,10 @@ export function mediaCopy(
   Result<
     operations.PostMediasMediaHashedIdCopyResponse,
     | errors.PostMediasMediaHashedIdCopyBadRequestError
-    | errors.FourHundredAndOneError
-    | errors.FourHundredAndFourError
+    | errors.PostMediasMediaHashedIdCopyUnauthorizedError
+    | errors.PostMediasMediaHashedIdCopyNotFoundError
     | errors.MethodNotAllowedError
-    | errors.FiveHundredError
+    | errors.PostMediasMediaHashedIdCopyInternalServerError
     | WistiaError
     | ResponseValidationError
     | ConnectionError
@@ -74,10 +74,10 @@ async function $do(
     Result<
       operations.PostMediasMediaHashedIdCopyResponse,
       | errors.PostMediasMediaHashedIdCopyBadRequestError
-      | errors.FourHundredAndOneError
-      | errors.FourHundredAndFourError
+      | errors.PostMediasMediaHashedIdCopyUnauthorizedError
+      | errors.PostMediasMediaHashedIdCopyNotFoundError
       | errors.MethodNotAllowedError
-      | errors.FiveHundredError
+      | errors.PostMediasMediaHashedIdCopyInternalServerError
       | WistiaError
       | ResponseValidationError
       | ConnectionError
@@ -168,10 +168,10 @@ async function $do(
   const [result] = await M.match<
     operations.PostMediasMediaHashedIdCopyResponse,
     | errors.PostMediasMediaHashedIdCopyBadRequestError
-    | errors.FourHundredAndOneError
-    | errors.FourHundredAndFourError
+    | errors.PostMediasMediaHashedIdCopyUnauthorizedError
+    | errors.PostMediasMediaHashedIdCopyNotFoundError
     | errors.MethodNotAllowedError
-    | errors.FiveHundredError
+    | errors.PostMediasMediaHashedIdCopyInternalServerError
     | WistiaError
     | ResponseValidationError
     | ConnectionError
@@ -189,10 +189,19 @@ async function $do(
       400,
       errors.PostMediasMediaHashedIdCopyBadRequestError$inboundSchema,
     ),
-    M.jsonErr(401, errors.FourHundredAndOneError$inboundSchema),
-    M.jsonErr(404, errors.FourHundredAndFourError$inboundSchema),
+    M.jsonErr(
+      401,
+      errors.PostMediasMediaHashedIdCopyUnauthorizedError$inboundSchema,
+    ),
+    M.jsonErr(
+      404,
+      errors.PostMediasMediaHashedIdCopyNotFoundError$inboundSchema,
+    ),
     M.jsonErr(405, errors.MethodNotAllowedError$inboundSchema),
-    M.jsonErr(500, errors.FiveHundredError$inboundSchema),
+    M.jsonErr(
+      500,
+      errors.PostMediasMediaHashedIdCopyInternalServerError$inboundSchema,
+    ),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

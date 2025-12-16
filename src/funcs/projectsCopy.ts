@@ -45,9 +45,9 @@ export function projectsCopy(
 ): APIPromise<
   Result<
     operations.PostProjectsIdCopyResponse,
-    | errors.FourHundredAndOneError
-    | errors.FourHundredAndFourError
-    | errors.FiveHundredError
+    | errors.PostProjectsIdCopyUnauthorizedError
+    | errors.PostProjectsIdCopyNotFoundError
+    | errors.PostProjectsIdCopyInternalServerError
     | WistiaError
     | ResponseValidationError
     | ConnectionError
@@ -73,9 +73,9 @@ async function $do(
   [
     Result<
       operations.PostProjectsIdCopyResponse,
-      | errors.FourHundredAndOneError
-      | errors.FourHundredAndFourError
-      | errors.FiveHundredError
+      | errors.PostProjectsIdCopyUnauthorizedError
+      | errors.PostProjectsIdCopyNotFoundError
+      | errors.PostProjectsIdCopyInternalServerError
       | WistiaError
       | ResponseValidationError
       | ConnectionError
@@ -164,9 +164,9 @@ async function $do(
 
   const [result] = await M.match<
     operations.PostProjectsIdCopyResponse,
-    | errors.FourHundredAndOneError
-    | errors.FourHundredAndFourError
-    | errors.FiveHundredError
+    | errors.PostProjectsIdCopyUnauthorizedError
+    | errors.PostProjectsIdCopyNotFoundError
+    | errors.PostProjectsIdCopyInternalServerError
     | WistiaError
     | ResponseValidationError
     | ConnectionError
@@ -180,9 +180,9 @@ async function $do(
       hdrs: true,
       key: "Result",
     }),
-    M.jsonErr(401, errors.FourHundredAndOneError$inboundSchema),
-    M.jsonErr(404, errors.FourHundredAndFourError$inboundSchema),
-    M.jsonErr(500, errors.FiveHundredError$inboundSchema),
+    M.jsonErr(401, errors.PostProjectsIdCopyUnauthorizedError$inboundSchema),
+    M.jsonErr(404, errors.PostProjectsIdCopyNotFoundError$inboundSchema),
+    M.jsonErr(500, errors.PostProjectsIdCopyInternalServerError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

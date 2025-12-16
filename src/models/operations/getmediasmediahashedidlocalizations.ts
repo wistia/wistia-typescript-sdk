@@ -19,6 +19,113 @@ export type GetMediasMediaHashedIdLocalizationsRequest = {
   includeTranscript?: boolean | undefined;
 };
 
+/**
+ * The media that the localization is associated with.
+ */
+export type GetMediasMediaHashedIdLocalizationsSourceMedia = {
+  /**
+   * A unique alphanumeric identifier for this media.
+   */
+  hashedId: string;
+  /**
+   * The name of the media.
+   */
+  name: string;
+  /**
+   * The duration of the media in seconds.
+   */
+  duration: number;
+  /**
+   * The date when the media was created.
+   */
+  createdAt: Date;
+  /**
+   * The date when the media was last updated.
+   */
+  updatedAt: Date;
+};
+
+/**
+ * The transcript for the localization. Selectively serialized in some endpoints. See properties for endpoint.
+ */
+export type GetMediasMediaHashedIdLocalizationsTranscript = {
+  /**
+   * A unique alphanumeric identifier for this transcript.
+   */
+  hashedId: string;
+  /**
+   * The name of the language in English.
+   */
+  languageName: string;
+  /**
+   * The name of the language in the language of the localization.
+   */
+  nativeLanguageName: string;
+  /**
+   * The text of the transcript.
+   */
+  text: string;
+  /**
+   * The date when the transcript was created.
+   */
+  createdAt: Date;
+  /**
+   * The date when the transcript was last updated.
+   */
+  updatedAt: Date;
+};
+
+export type GetMediasMediaHashedIdLocalizationsResponse = {
+  /**
+   * A unique alphanumeric identifier for this localization.
+   */
+  hashedId: string;
+  /**
+   * A 3-character language code as specified by IETF.
+   */
+  languageCode: string;
+  /**
+   * A 2-character language code as specified by ISO-639–2.
+   */
+  iso6392LanguageCode: string;
+  /**
+   * The name of the language in English.
+   */
+  languageName: string;
+  /**
+   * The name of the language in the language of the localization.
+   */
+  nativeLanguageName: string;
+  /**
+   * The date when the localization was created.
+   */
+  createdAt: Date;
+  /**
+   * The date when the localization was last updated.
+   */
+  updatedAt: Date;
+  /**
+   * The date when the localization was ordered.
+   */
+  orderedAt: Date | null;
+  /**
+   * The date when the localization was enabled.
+   */
+  enabledAt: Date | null;
+  /**
+   * Whether or not the localization is enabled.
+   */
+  enabled: boolean;
+  /**
+   * The media that the localization is associated with.
+   */
+  sourceMedia: GetMediasMediaHashedIdLocalizationsSourceMedia;
+  /**
+   * The transcript for the localization. Selectively serialized in some endpoints. See properties for endpoint.
+   */
+  transcript?: GetMediasMediaHashedIdLocalizationsTranscript | null | undefined;
+};
+
 /** @internal */
 export const GetMediasMediaHashedIdLocalizationsRequest$inboundSchema:
   z.ZodType<GetMediasMediaHashedIdLocalizationsRequest, z.ZodTypeDef, unknown> =
@@ -91,5 +198,350 @@ export function getMediasMediaHashedIdLocalizationsRequestFromJSON(
         JSON.parse(x),
       ),
     `Failed to parse 'GetMediasMediaHashedIdLocalizationsRequest' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetMediasMediaHashedIdLocalizationsSourceMedia$inboundSchema:
+  z.ZodType<
+    GetMediasMediaHashedIdLocalizationsSourceMedia,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    hashed_id: z.string(),
+    name: z.string(),
+    duration: z.number(),
+    created_at: z.string().datetime({ offset: true }).transform(v =>
+      new Date(v)
+    ),
+    updated_at: z.string().datetime({ offset: true }).transform(v =>
+      new Date(v)
+    ),
+  }).transform((v) => {
+    return remap$(v, {
+      "hashed_id": "hashedId",
+      "created_at": "createdAt",
+      "updated_at": "updatedAt",
+    });
+  });
+
+/** @internal */
+export type GetMediasMediaHashedIdLocalizationsSourceMedia$Outbound = {
+  hashed_id: string;
+  name: string;
+  duration: number;
+  created_at: string;
+  updated_at: string;
+};
+
+/** @internal */
+export const GetMediasMediaHashedIdLocalizationsSourceMedia$outboundSchema:
+  z.ZodType<
+    GetMediasMediaHashedIdLocalizationsSourceMedia$Outbound,
+    z.ZodTypeDef,
+    GetMediasMediaHashedIdLocalizationsSourceMedia
+  > = z.object({
+    hashedId: z.string(),
+    name: z.string(),
+    duration: z.number(),
+    createdAt: z.date().transform(v => v.toISOString()),
+    updatedAt: z.date().transform(v => v.toISOString()),
+  }).transform((v) => {
+    return remap$(v, {
+      hashedId: "hashed_id",
+      createdAt: "created_at",
+      updatedAt: "updated_at",
+    });
+  });
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetMediasMediaHashedIdLocalizationsSourceMedia$ {
+  /** @deprecated use `GetMediasMediaHashedIdLocalizationsSourceMedia$inboundSchema` instead. */
+  export const inboundSchema =
+    GetMediasMediaHashedIdLocalizationsSourceMedia$inboundSchema;
+  /** @deprecated use `GetMediasMediaHashedIdLocalizationsSourceMedia$outboundSchema` instead. */
+  export const outboundSchema =
+    GetMediasMediaHashedIdLocalizationsSourceMedia$outboundSchema;
+  /** @deprecated use `GetMediasMediaHashedIdLocalizationsSourceMedia$Outbound` instead. */
+  export type Outbound =
+    GetMediasMediaHashedIdLocalizationsSourceMedia$Outbound;
+}
+
+export function getMediasMediaHashedIdLocalizationsSourceMediaToJSON(
+  getMediasMediaHashedIdLocalizationsSourceMedia:
+    GetMediasMediaHashedIdLocalizationsSourceMedia,
+): string {
+  return JSON.stringify(
+    GetMediasMediaHashedIdLocalizationsSourceMedia$outboundSchema.parse(
+      getMediasMediaHashedIdLocalizationsSourceMedia,
+    ),
+  );
+}
+
+export function getMediasMediaHashedIdLocalizationsSourceMediaFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetMediasMediaHashedIdLocalizationsSourceMedia,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetMediasMediaHashedIdLocalizationsSourceMedia$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'GetMediasMediaHashedIdLocalizationsSourceMedia' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetMediasMediaHashedIdLocalizationsTranscript$inboundSchema:
+  z.ZodType<
+    GetMediasMediaHashedIdLocalizationsTranscript,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    hashed_id: z.string(),
+    language_name: z.string(),
+    native_language_name: z.string(),
+    text: z.string(),
+    created_at: z.string().datetime({ offset: true }).transform(v =>
+      new Date(v)
+    ),
+    updated_at: z.string().datetime({ offset: true }).transform(v =>
+      new Date(v)
+    ),
+  }).transform((v) => {
+    return remap$(v, {
+      "hashed_id": "hashedId",
+      "language_name": "languageName",
+      "native_language_name": "nativeLanguageName",
+      "created_at": "createdAt",
+      "updated_at": "updatedAt",
+    });
+  });
+
+/** @internal */
+export type GetMediasMediaHashedIdLocalizationsTranscript$Outbound = {
+  hashed_id: string;
+  language_name: string;
+  native_language_name: string;
+  text: string;
+  created_at: string;
+  updated_at: string;
+};
+
+/** @internal */
+export const GetMediasMediaHashedIdLocalizationsTranscript$outboundSchema:
+  z.ZodType<
+    GetMediasMediaHashedIdLocalizationsTranscript$Outbound,
+    z.ZodTypeDef,
+    GetMediasMediaHashedIdLocalizationsTranscript
+  > = z.object({
+    hashedId: z.string(),
+    languageName: z.string(),
+    nativeLanguageName: z.string(),
+    text: z.string(),
+    createdAt: z.date().transform(v => v.toISOString()),
+    updatedAt: z.date().transform(v => v.toISOString()),
+  }).transform((v) => {
+    return remap$(v, {
+      hashedId: "hashed_id",
+      languageName: "language_name",
+      nativeLanguageName: "native_language_name",
+      createdAt: "created_at",
+      updatedAt: "updated_at",
+    });
+  });
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetMediasMediaHashedIdLocalizationsTranscript$ {
+  /** @deprecated use `GetMediasMediaHashedIdLocalizationsTranscript$inboundSchema` instead. */
+  export const inboundSchema =
+    GetMediasMediaHashedIdLocalizationsTranscript$inboundSchema;
+  /** @deprecated use `GetMediasMediaHashedIdLocalizationsTranscript$outboundSchema` instead. */
+  export const outboundSchema =
+    GetMediasMediaHashedIdLocalizationsTranscript$outboundSchema;
+  /** @deprecated use `GetMediasMediaHashedIdLocalizationsTranscript$Outbound` instead. */
+  export type Outbound = GetMediasMediaHashedIdLocalizationsTranscript$Outbound;
+}
+
+export function getMediasMediaHashedIdLocalizationsTranscriptToJSON(
+  getMediasMediaHashedIdLocalizationsTranscript:
+    GetMediasMediaHashedIdLocalizationsTranscript,
+): string {
+  return JSON.stringify(
+    GetMediasMediaHashedIdLocalizationsTranscript$outboundSchema.parse(
+      getMediasMediaHashedIdLocalizationsTranscript,
+    ),
+  );
+}
+
+export function getMediasMediaHashedIdLocalizationsTranscriptFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetMediasMediaHashedIdLocalizationsTranscript,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetMediasMediaHashedIdLocalizationsTranscript$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'GetMediasMediaHashedIdLocalizationsTranscript' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetMediasMediaHashedIdLocalizationsResponse$inboundSchema:
+  z.ZodType<
+    GetMediasMediaHashedIdLocalizationsResponse,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    hashed_id: z.string(),
+    language_code: z.string(),
+    iso639_2_language_code: z.string(),
+    language_name: z.string(),
+    native_language_name: z.string(),
+    created_at: z.string().datetime({ offset: true }).transform(v =>
+      new Date(v)
+    ),
+    updated_at: z.string().datetime({ offset: true }).transform(v =>
+      new Date(v)
+    ),
+    ordered_at: z.nullable(
+      z.string().datetime({ offset: true }).transform(v => new Date(v)),
+    ),
+    enabled_at: z.nullable(
+      z.string().datetime({ offset: true }).transform(v => new Date(v)),
+    ),
+    enabled: z.boolean(),
+    source_media: z.lazy(() =>
+      GetMediasMediaHashedIdLocalizationsSourceMedia$inboundSchema
+    ),
+    transcript: z.nullable(
+      z.lazy(() => GetMediasMediaHashedIdLocalizationsTranscript$inboundSchema),
+    ).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "hashed_id": "hashedId",
+      "language_code": "languageCode",
+      "iso639_2_language_code": "iso6392LanguageCode",
+      "language_name": "languageName",
+      "native_language_name": "nativeLanguageName",
+      "created_at": "createdAt",
+      "updated_at": "updatedAt",
+      "ordered_at": "orderedAt",
+      "enabled_at": "enabledAt",
+      "source_media": "sourceMedia",
+    });
+  });
+
+/** @internal */
+export type GetMediasMediaHashedIdLocalizationsResponse$Outbound = {
+  hashed_id: string;
+  language_code: string;
+  iso639_2_language_code: string;
+  language_name: string;
+  native_language_name: string;
+  created_at: string;
+  updated_at: string;
+  ordered_at: string | null;
+  enabled_at: string | null;
+  enabled: boolean;
+  source_media: GetMediasMediaHashedIdLocalizationsSourceMedia$Outbound;
+  transcript?:
+    | GetMediasMediaHashedIdLocalizationsTranscript$Outbound
+    | null
+    | undefined;
+};
+
+/** @internal */
+export const GetMediasMediaHashedIdLocalizationsResponse$outboundSchema:
+  z.ZodType<
+    GetMediasMediaHashedIdLocalizationsResponse$Outbound,
+    z.ZodTypeDef,
+    GetMediasMediaHashedIdLocalizationsResponse
+  > = z.object({
+    hashedId: z.string(),
+    languageCode: z.string(),
+    iso6392LanguageCode: z.string(),
+    languageName: z.string(),
+    nativeLanguageName: z.string(),
+    createdAt: z.date().transform(v => v.toISOString()),
+    updatedAt: z.date().transform(v => v.toISOString()),
+    orderedAt: z.nullable(z.date().transform(v => v.toISOString())),
+    enabledAt: z.nullable(z.date().transform(v => v.toISOString())),
+    enabled: z.boolean(),
+    sourceMedia: z.lazy(() =>
+      GetMediasMediaHashedIdLocalizationsSourceMedia$outboundSchema
+    ),
+    transcript: z.nullable(
+      z.lazy(() =>
+        GetMediasMediaHashedIdLocalizationsTranscript$outboundSchema
+      ),
+    ).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      hashedId: "hashed_id",
+      languageCode: "language_code",
+      iso6392LanguageCode: "iso639_2_language_code",
+      languageName: "language_name",
+      nativeLanguageName: "native_language_name",
+      createdAt: "created_at",
+      updatedAt: "updated_at",
+      orderedAt: "ordered_at",
+      enabledAt: "enabled_at",
+      sourceMedia: "source_media",
+    });
+  });
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetMediasMediaHashedIdLocalizationsResponse$ {
+  /** @deprecated use `GetMediasMediaHashedIdLocalizationsResponse$inboundSchema` instead. */
+  export const inboundSchema =
+    GetMediasMediaHashedIdLocalizationsResponse$inboundSchema;
+  /** @deprecated use `GetMediasMediaHashedIdLocalizationsResponse$outboundSchema` instead. */
+  export const outboundSchema =
+    GetMediasMediaHashedIdLocalizationsResponse$outboundSchema;
+  /** @deprecated use `GetMediasMediaHashedIdLocalizationsResponse$Outbound` instead. */
+  export type Outbound = GetMediasMediaHashedIdLocalizationsResponse$Outbound;
+}
+
+export function getMediasMediaHashedIdLocalizationsResponseToJSON(
+  getMediasMediaHashedIdLocalizationsResponse:
+    GetMediasMediaHashedIdLocalizationsResponse,
+): string {
+  return JSON.stringify(
+    GetMediasMediaHashedIdLocalizationsResponse$outboundSchema.parse(
+      getMediasMediaHashedIdLocalizationsResponse,
+    ),
+  );
+}
+
+export function getMediasMediaHashedIdLocalizationsResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetMediasMediaHashedIdLocalizationsResponse,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetMediasMediaHashedIdLocalizationsResponse$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'GetMediasMediaHashedIdLocalizationsResponse' from JSON`,
   );
 }

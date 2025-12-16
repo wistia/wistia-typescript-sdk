@@ -9,17 +9,6 @@ import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-/**
- * Format for media descriptions
- */
-export const DescriptionFormat = {
-  Markdown: "markdown",
-} as const;
-/**
- * Format for media descriptions
- */
-export type DescriptionFormat = ClosedEnum<typeof DescriptionFormat>;
-
 export type GetProjectsProjectIdSubfoldersSubfolderIdRequest = {
   /**
    * The hashed ID of the project
@@ -32,29 +21,149 @@ export type GetProjectsProjectIdSubfoldersSubfolderIdRequest = {
   /**
    * Format for media descriptions
    */
-  descriptionFormat?: DescriptionFormat | undefined;
+  descriptionFormat?: "markdown" | undefined;
 };
 
-/** @internal */
-export const DescriptionFormat$inboundSchema: z.ZodNativeEnum<
-  typeof DescriptionFormat
-> = z.nativeEnum(DescriptionFormat);
-
-/** @internal */
-export const DescriptionFormat$outboundSchema: z.ZodNativeEnum<
-  typeof DescriptionFormat
-> = DescriptionFormat$inboundSchema;
+/**
+ * A string representing what type of media this is.
+ */
+export const GetProjectsProjectIdSubfoldersSubfolderIdType = {
+  Video: "Video",
+  Audio: "Audio",
+  Image: "Image",
+  PdfDocument: "PdfDocument",
+  MicrosoftOfficeDocument: "MicrosoftOfficeDocument",
+  Swf: "Swf",
+  UnknownType: "UnknownType",
+} as const;
+/**
+ * A string representing what type of media this is.
+ */
+export type GetProjectsProjectIdSubfoldersSubfolderIdType = ClosedEnum<
+  typeof GetProjectsProjectIdSubfoldersSubfolderIdType
+>;
 
 /**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ * Post upload processing status. - `queued`: the file is waiting in the queue to be processed. - `processing`: the file is actively being processed. - `ready`: the file has been fully processed and is ready for embedding and viewing. - `failed`: the file was unable to be processed (usually a format or size error).
+ *
+ * @remarks
  */
-export namespace DescriptionFormat$ {
-  /** @deprecated use `DescriptionFormat$inboundSchema` instead. */
-  export const inboundSchema = DescriptionFormat$inboundSchema;
-  /** @deprecated use `DescriptionFormat$outboundSchema` instead. */
-  export const outboundSchema = DescriptionFormat$outboundSchema;
-}
+export const GetProjectsProjectIdSubfoldersSubfolderIdStatus = {
+  Queued: "queued",
+  Processing: "processing",
+  Ready: "ready",
+  Failed: "failed",
+} as const;
+/**
+ * Post upload processing status. - `queued`: the file is waiting in the queue to be processed. - `processing`: the file is actively being processed. - `ready`: the file has been fully processed and is ready for embedding and viewing. - `failed`: the file was unable to be processed (usually a format or size error).
+ *
+ * @remarks
+ */
+export type GetProjectsProjectIdSubfoldersSubfolderIdStatus = ClosedEnum<
+  typeof GetProjectsProjectIdSubfoldersSubfolderIdStatus
+>;
+
+export type GetProjectsProjectIdSubfoldersSubfolderIdThumbnail = {
+  url?: string | undefined;
+  width?: number | undefined;
+  height?: number | undefined;
+};
+
+export type GetProjectsProjectIdSubfoldersSubfolderIdMedia = {
+  /**
+   * A unique numeric identifier for the media within the system.
+   */
+  id?: number | undefined;
+  /**
+   * The display name of the media.
+   */
+  name?: string | undefined;
+  /**
+   * A string representing what type of media this is.
+   */
+  type?: GetProjectsProjectIdSubfoldersSubfolderIdType | undefined;
+  /**
+   * Whether or not the media is archived, either true or false.
+   */
+  archived?: boolean | undefined;
+  /**
+   * The date when the media was originally uploaded.
+   */
+  created?: Date | undefined;
+  /**
+   * The date when the media was last changed.
+   */
+  updated?: Date | undefined;
+  /**
+   * Specifies the length (in seconds) for audio and video files. Specifies number of pages in the document. Omitted for other types of media.
+   */
+  duration?: number | null | undefined;
+  /**
+   * DEPRECATED: If you want to programmatically embed videos, follow the construct an embed code guide.
+   *
+   * @remarks
+   *
+   * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+   */
+  embedCode?: string | undefined;
+  /**
+   * A unique alphanumeric identifier for this media.
+   */
+  hashedId?: string | undefined;
+  /**
+   * A description for the media which usually appears near the top of the sidebar on the media's page.
+   */
+  description?: string | undefined;
+  /**
+   * A floating point value between 0 and 1 that indicates the progress of the processing for this file.
+   */
+  progress?: number | undefined;
+  /**
+   * Post upload processing status. - `queued`: the file is waiting in the queue to be processed. - `processing`: the file is actively being processed. - `ready`: the file has been fully processed and is ready for embedding and viewing. - `failed`: the file was unable to be processed (usually a format or size error).
+   *
+   * @remarks
+   */
+  status?: GetProjectsProjectIdSubfoldersSubfolderIdStatus | undefined;
+  /**
+   * The title of the section in which the media appears. This attribute is omitted if the media is not in a section (default).
+   */
+  section?: string | null | undefined;
+  thumbnail?: GetProjectsProjectIdSubfoldersSubfolderIdThumbnail | undefined;
+};
+
+/**
+ * A subfolder with its contained media files.
+ */
+export type GetProjectsProjectIdSubfoldersSubfolderIdResponse = {
+  /**
+   * A unique alphanumeric identifier for this subfolder.
+   */
+  hashedId: string;
+  /**
+   * The display name of the subfolder.
+   */
+  name?: string | null | undefined;
+  /**
+   * A description for the subfolder.
+   */
+  description?: string | null | undefined;
+  /**
+   * The position of this subfolder within its project, used for ordering.
+   */
+  position: number | null;
+  /**
+   * The date when the subfolder was created.
+   */
+  created: Date | null;
+  /**
+   * The date when the subfolder was last modified.
+   */
+  updated: Date | null;
+  /**
+   * Array of media files contained in this subfolder.
+   */
+  medias?: Array<GetProjectsProjectIdSubfoldersSubfolderIdMedia> | undefined;
+};
 
 /** @internal */
 export const GetProjectsProjectIdSubfoldersSubfolderIdRequest$inboundSchema:
@@ -65,7 +174,7 @@ export const GetProjectsProjectIdSubfoldersSubfolderIdRequest$inboundSchema:
   > = z.object({
     projectId: z.string(),
     subfolderId: z.string(),
-    description_format: DescriptionFormat$inboundSchema.optional(),
+    description_format: z.literal("markdown").optional(),
   }).transform((v) => {
     return remap$(v, {
       "description_format": "descriptionFormat",
@@ -76,7 +185,7 @@ export const GetProjectsProjectIdSubfoldersSubfolderIdRequest$inboundSchema:
 export type GetProjectsProjectIdSubfoldersSubfolderIdRequest$Outbound = {
   projectId: string;
   subfolderId: string;
-  description_format?: string | undefined;
+  description_format?: "markdown" | undefined;
 };
 
 /** @internal */
@@ -88,7 +197,7 @@ export const GetProjectsProjectIdSubfoldersSubfolderIdRequest$outboundSchema:
   > = z.object({
     projectId: z.string(),
     subfolderId: z.string(),
-    descriptionFormat: DescriptionFormat$outboundSchema.optional(),
+    descriptionFormat: z.literal("markdown").optional(),
   }).transform((v) => {
     return remap$(v, {
       descriptionFormat: "description_format",
@@ -135,5 +244,360 @@ export function getProjectsProjectIdSubfoldersSubfolderIdRequestFromJSON(
         JSON.parse(x),
       ),
     `Failed to parse 'GetProjectsProjectIdSubfoldersSubfolderIdRequest' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetProjectsProjectIdSubfoldersSubfolderIdType$inboundSchema:
+  z.ZodNativeEnum<typeof GetProjectsProjectIdSubfoldersSubfolderIdType> = z
+    .nativeEnum(GetProjectsProjectIdSubfoldersSubfolderIdType);
+
+/** @internal */
+export const GetProjectsProjectIdSubfoldersSubfolderIdType$outboundSchema:
+  z.ZodNativeEnum<typeof GetProjectsProjectIdSubfoldersSubfolderIdType> =
+    GetProjectsProjectIdSubfoldersSubfolderIdType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetProjectsProjectIdSubfoldersSubfolderIdType$ {
+  /** @deprecated use `GetProjectsProjectIdSubfoldersSubfolderIdType$inboundSchema` instead. */
+  export const inboundSchema =
+    GetProjectsProjectIdSubfoldersSubfolderIdType$inboundSchema;
+  /** @deprecated use `GetProjectsProjectIdSubfoldersSubfolderIdType$outboundSchema` instead. */
+  export const outboundSchema =
+    GetProjectsProjectIdSubfoldersSubfolderIdType$outboundSchema;
+}
+
+/** @internal */
+export const GetProjectsProjectIdSubfoldersSubfolderIdStatus$inboundSchema:
+  z.ZodNativeEnum<typeof GetProjectsProjectIdSubfoldersSubfolderIdStatus> = z
+    .nativeEnum(GetProjectsProjectIdSubfoldersSubfolderIdStatus);
+
+/** @internal */
+export const GetProjectsProjectIdSubfoldersSubfolderIdStatus$outboundSchema:
+  z.ZodNativeEnum<typeof GetProjectsProjectIdSubfoldersSubfolderIdStatus> =
+    GetProjectsProjectIdSubfoldersSubfolderIdStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetProjectsProjectIdSubfoldersSubfolderIdStatus$ {
+  /** @deprecated use `GetProjectsProjectIdSubfoldersSubfolderIdStatus$inboundSchema` instead. */
+  export const inboundSchema =
+    GetProjectsProjectIdSubfoldersSubfolderIdStatus$inboundSchema;
+  /** @deprecated use `GetProjectsProjectIdSubfoldersSubfolderIdStatus$outboundSchema` instead. */
+  export const outboundSchema =
+    GetProjectsProjectIdSubfoldersSubfolderIdStatus$outboundSchema;
+}
+
+/** @internal */
+export const GetProjectsProjectIdSubfoldersSubfolderIdThumbnail$inboundSchema:
+  z.ZodType<
+    GetProjectsProjectIdSubfoldersSubfolderIdThumbnail,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    url: z.string().optional(),
+    width: z.number().int().optional(),
+    height: z.number().int().optional(),
+  });
+
+/** @internal */
+export type GetProjectsProjectIdSubfoldersSubfolderIdThumbnail$Outbound = {
+  url?: string | undefined;
+  width?: number | undefined;
+  height?: number | undefined;
+};
+
+/** @internal */
+export const GetProjectsProjectIdSubfoldersSubfolderIdThumbnail$outboundSchema:
+  z.ZodType<
+    GetProjectsProjectIdSubfoldersSubfolderIdThumbnail$Outbound,
+    z.ZodTypeDef,
+    GetProjectsProjectIdSubfoldersSubfolderIdThumbnail
+  > = z.object({
+    url: z.string().optional(),
+    width: z.number().int().optional(),
+    height: z.number().int().optional(),
+  });
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetProjectsProjectIdSubfoldersSubfolderIdThumbnail$ {
+  /** @deprecated use `GetProjectsProjectIdSubfoldersSubfolderIdThumbnail$inboundSchema` instead. */
+  export const inboundSchema =
+    GetProjectsProjectIdSubfoldersSubfolderIdThumbnail$inboundSchema;
+  /** @deprecated use `GetProjectsProjectIdSubfoldersSubfolderIdThumbnail$outboundSchema` instead. */
+  export const outboundSchema =
+    GetProjectsProjectIdSubfoldersSubfolderIdThumbnail$outboundSchema;
+  /** @deprecated use `GetProjectsProjectIdSubfoldersSubfolderIdThumbnail$Outbound` instead. */
+  export type Outbound =
+    GetProjectsProjectIdSubfoldersSubfolderIdThumbnail$Outbound;
+}
+
+export function getProjectsProjectIdSubfoldersSubfolderIdThumbnailToJSON(
+  getProjectsProjectIdSubfoldersSubfolderIdThumbnail:
+    GetProjectsProjectIdSubfoldersSubfolderIdThumbnail,
+): string {
+  return JSON.stringify(
+    GetProjectsProjectIdSubfoldersSubfolderIdThumbnail$outboundSchema.parse(
+      getProjectsProjectIdSubfoldersSubfolderIdThumbnail,
+    ),
+  );
+}
+
+export function getProjectsProjectIdSubfoldersSubfolderIdThumbnailFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetProjectsProjectIdSubfoldersSubfolderIdThumbnail,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetProjectsProjectIdSubfoldersSubfolderIdThumbnail$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'GetProjectsProjectIdSubfoldersSubfolderIdThumbnail' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetProjectsProjectIdSubfoldersSubfolderIdMedia$inboundSchema:
+  z.ZodType<
+    GetProjectsProjectIdSubfoldersSubfolderIdMedia,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    id: z.number().int().optional(),
+    name: z.string().optional(),
+    type: GetProjectsProjectIdSubfoldersSubfolderIdType$inboundSchema
+      .optional(),
+    archived: z.boolean().optional(),
+    created: z.string().datetime({ offset: true }).transform(v => new Date(v))
+      .optional(),
+    updated: z.string().datetime({ offset: true }).transform(v => new Date(v))
+      .optional(),
+    duration: z.nullable(z.number()).optional(),
+    embedCode: z.string().optional(),
+    hashed_id: z.string().optional(),
+    description: z.string().optional(),
+    progress: z.number().optional(),
+    status: GetProjectsProjectIdSubfoldersSubfolderIdStatus$inboundSchema
+      .optional(),
+    section: z.nullable(z.string()).optional(),
+    thumbnail: z.lazy(() =>
+      GetProjectsProjectIdSubfoldersSubfolderIdThumbnail$inboundSchema
+    ).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "hashed_id": "hashedId",
+    });
+  });
+
+/** @internal */
+export type GetProjectsProjectIdSubfoldersSubfolderIdMedia$Outbound = {
+  id?: number | undefined;
+  name?: string | undefined;
+  type?: string | undefined;
+  archived?: boolean | undefined;
+  created?: string | undefined;
+  updated?: string | undefined;
+  duration?: number | null | undefined;
+  embedCode?: string | undefined;
+  hashed_id?: string | undefined;
+  description?: string | undefined;
+  progress?: number | undefined;
+  status?: string | undefined;
+  section?: string | null | undefined;
+  thumbnail?:
+    | GetProjectsProjectIdSubfoldersSubfolderIdThumbnail$Outbound
+    | undefined;
+};
+
+/** @internal */
+export const GetProjectsProjectIdSubfoldersSubfolderIdMedia$outboundSchema:
+  z.ZodType<
+    GetProjectsProjectIdSubfoldersSubfolderIdMedia$Outbound,
+    z.ZodTypeDef,
+    GetProjectsProjectIdSubfoldersSubfolderIdMedia
+  > = z.object({
+    id: z.number().int().optional(),
+    name: z.string().optional(),
+    type: GetProjectsProjectIdSubfoldersSubfolderIdType$outboundSchema
+      .optional(),
+    archived: z.boolean().optional(),
+    created: z.date().transform(v => v.toISOString()).optional(),
+    updated: z.date().transform(v => v.toISOString()).optional(),
+    duration: z.nullable(z.number()).optional(),
+    embedCode: z.string().optional(),
+    hashedId: z.string().optional(),
+    description: z.string().optional(),
+    progress: z.number().optional(),
+    status: GetProjectsProjectIdSubfoldersSubfolderIdStatus$outboundSchema
+      .optional(),
+    section: z.nullable(z.string()).optional(),
+    thumbnail: z.lazy(() =>
+      GetProjectsProjectIdSubfoldersSubfolderIdThumbnail$outboundSchema
+    ).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      hashedId: "hashed_id",
+    });
+  });
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetProjectsProjectIdSubfoldersSubfolderIdMedia$ {
+  /** @deprecated use `GetProjectsProjectIdSubfoldersSubfolderIdMedia$inboundSchema` instead. */
+  export const inboundSchema =
+    GetProjectsProjectIdSubfoldersSubfolderIdMedia$inboundSchema;
+  /** @deprecated use `GetProjectsProjectIdSubfoldersSubfolderIdMedia$outboundSchema` instead. */
+  export const outboundSchema =
+    GetProjectsProjectIdSubfoldersSubfolderIdMedia$outboundSchema;
+  /** @deprecated use `GetProjectsProjectIdSubfoldersSubfolderIdMedia$Outbound` instead. */
+  export type Outbound =
+    GetProjectsProjectIdSubfoldersSubfolderIdMedia$Outbound;
+}
+
+export function getProjectsProjectIdSubfoldersSubfolderIdMediaToJSON(
+  getProjectsProjectIdSubfoldersSubfolderIdMedia:
+    GetProjectsProjectIdSubfoldersSubfolderIdMedia,
+): string {
+  return JSON.stringify(
+    GetProjectsProjectIdSubfoldersSubfolderIdMedia$outboundSchema.parse(
+      getProjectsProjectIdSubfoldersSubfolderIdMedia,
+    ),
+  );
+}
+
+export function getProjectsProjectIdSubfoldersSubfolderIdMediaFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetProjectsProjectIdSubfoldersSubfolderIdMedia,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetProjectsProjectIdSubfoldersSubfolderIdMedia$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'GetProjectsProjectIdSubfoldersSubfolderIdMedia' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetProjectsProjectIdSubfoldersSubfolderIdResponse$inboundSchema:
+  z.ZodType<
+    GetProjectsProjectIdSubfoldersSubfolderIdResponse,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    hashed_id: z.string(),
+    name: z.nullable(z.string()).optional(),
+    description: z.nullable(z.string()).optional(),
+    position: z.nullable(z.number().int()),
+    created: z.nullable(
+      z.string().datetime({ offset: true }).transform(v => new Date(v)),
+    ),
+    updated: z.nullable(
+      z.string().datetime({ offset: true }).transform(v => new Date(v)),
+    ),
+    medias: z.array(
+      z.lazy(() =>
+        GetProjectsProjectIdSubfoldersSubfolderIdMedia$inboundSchema
+      ),
+    ).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "hashed_id": "hashedId",
+    });
+  });
+
+/** @internal */
+export type GetProjectsProjectIdSubfoldersSubfolderIdResponse$Outbound = {
+  hashed_id: string;
+  name?: string | null | undefined;
+  description?: string | null | undefined;
+  position: number | null;
+  created: string | null;
+  updated: string | null;
+  medias?:
+    | Array<GetProjectsProjectIdSubfoldersSubfolderIdMedia$Outbound>
+    | undefined;
+};
+
+/** @internal */
+export const GetProjectsProjectIdSubfoldersSubfolderIdResponse$outboundSchema:
+  z.ZodType<
+    GetProjectsProjectIdSubfoldersSubfolderIdResponse$Outbound,
+    z.ZodTypeDef,
+    GetProjectsProjectIdSubfoldersSubfolderIdResponse
+  > = z.object({
+    hashedId: z.string(),
+    name: z.nullable(z.string()).optional(),
+    description: z.nullable(z.string()).optional(),
+    position: z.nullable(z.number().int()),
+    created: z.nullable(z.date().transform(v => v.toISOString())),
+    updated: z.nullable(z.date().transform(v => v.toISOString())),
+    medias: z.array(
+      z.lazy(() =>
+        GetProjectsProjectIdSubfoldersSubfolderIdMedia$outboundSchema
+      ),
+    ).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      hashedId: "hashed_id",
+    });
+  });
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetProjectsProjectIdSubfoldersSubfolderIdResponse$ {
+  /** @deprecated use `GetProjectsProjectIdSubfoldersSubfolderIdResponse$inboundSchema` instead. */
+  export const inboundSchema =
+    GetProjectsProjectIdSubfoldersSubfolderIdResponse$inboundSchema;
+  /** @deprecated use `GetProjectsProjectIdSubfoldersSubfolderIdResponse$outboundSchema` instead. */
+  export const outboundSchema =
+    GetProjectsProjectIdSubfoldersSubfolderIdResponse$outboundSchema;
+  /** @deprecated use `GetProjectsProjectIdSubfoldersSubfolderIdResponse$Outbound` instead. */
+  export type Outbound =
+    GetProjectsProjectIdSubfoldersSubfolderIdResponse$Outbound;
+}
+
+export function getProjectsProjectIdSubfoldersSubfolderIdResponseToJSON(
+  getProjectsProjectIdSubfoldersSubfolderIdResponse:
+    GetProjectsProjectIdSubfoldersSubfolderIdResponse,
+): string {
+  return JSON.stringify(
+    GetProjectsProjectIdSubfoldersSubfolderIdResponse$outboundSchema.parse(
+      getProjectsProjectIdSubfoldersSubfolderIdResponse,
+    ),
+  );
+}
+
+export function getProjectsProjectIdSubfoldersSubfolderIdResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetProjectsProjectIdSubfoldersSubfolderIdResponse,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetProjectsProjectIdSubfoldersSubfolderIdResponse$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'GetProjectsProjectIdSubfoldersSubfolderIdResponse' from JSON`,
   );
 }

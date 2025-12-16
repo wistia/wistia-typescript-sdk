@@ -86,11 +86,11 @@ run();
 
 ### Errors
 
-| Error Type                    | Status Code                   | Content Type                  |
-| ----------------------------- | ----------------------------- | ----------------------------- |
-| errors.FourHundredAndOneError | 401                           | application/json              |
-| errors.FiveHundredError       | 500                           | application/json              |
-| errors.WistiaDefaultError     | 4XX, 5XX                      | \*/\*                         |
+| Error Type                                      | Status Code                                     | Content Type                                    |
+| ----------------------------------------------- | ----------------------------------------------- | ----------------------------------------------- |
+| errors.GetStatsMediasMediaIdUnauthorizedError   | 401                                             | application/json                                |
+| errors.GetStatsMediasMediaIdInternalServerError | 500                                             | application/json                                |
+| errors.WistiaDefaultError                       | 4XX, 5XX                                        | \*/\*                                           |
 
 ## getByDate
 
@@ -175,11 +175,11 @@ run();
 
 ### Errors
 
-| Error Type                    | Status Code                   | Content Type                  |
-| ----------------------------- | ----------------------------- | ----------------------------- |
-| errors.FourHundredAndOneError | 401                           | application/json              |
-| errors.FiveHundredError       | 500                           | application/json              |
-| errors.WistiaDefaultError     | 4XX, 5XX                      | \*/\*                         |
+| Error Type                                            | Status Code                                           | Content Type                                          |
+| ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
+| errors.GetStatsMediasMediaIdByDateUnauthorizedError   | 401                                                   | application/json                                      |
+| errors.GetStatsMediasMediaIdByDateInternalServerError | 500                                                   | application/json                                      |
+| errors.WistiaDefaultError                             | 4XX, 5XX                                              | \*/\*                                                 |
 
 ## getEngagement
 
@@ -258,8 +258,8 @@ run();
 
 ### Errors
 
-| Error Type                    | Status Code                   | Content Type                  |
-| ----------------------------- | ----------------------------- | ----------------------------- |
-| errors.FourHundredAndOneError | 401                           | application/json              |
-| errors.FiveHundredError       | 500                           | application/json              |
-| errors.WistiaDefaultError     | 4XX, 5XX                      | \*/\*                         |
+| Error Type                                                | Status Code                                               | Content Type                                              |
+| --------------------------------------------------------- | --------------------------------------------------------- | --------------------------------------------------------- |
+| errors.GetStatsMediasMediaIdEngagementUnauthorizedError   | 401                                                       | application/json                                          |
+| errors.GetStatsMediasMediaIdEngagementInternalServerError | 500                                                       | application/json                                          |
+| errors.WistiaDefaultError                                 | 4XX, 5XX                                                  | \*/\*                                                     |

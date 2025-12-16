@@ -43,11 +43,11 @@ export function mediaTranslate(
 ): APIPromise<
   Result<
     operations.PostMediasMediaHashedIdTranslateResponse,
-    | errors.FourHundredError
-    | errors.FourHundredAndOneError
-    | errors.FourHundredAndFourError
+    | errors.PostMediasMediaHashedIdTranslateBadRequestError
+    | errors.PostMediasMediaHashedIdTranslateUnauthorizedError
+    | errors.PostMediasMediaHashedIdTranslateNotFoundError
     | errors.PostMediasMediaHashedIdTranslateUnprocessableEntityError
-    | errors.FiveHundredError
+    | errors.PostMediasMediaHashedIdTranslateInternalServerError
     | WistiaError
     | ResponseValidationError
     | ConnectionError
@@ -73,11 +73,11 @@ async function $do(
   [
     Result<
       operations.PostMediasMediaHashedIdTranslateResponse,
-      | errors.FourHundredError
-      | errors.FourHundredAndOneError
-      | errors.FourHundredAndFourError
+      | errors.PostMediasMediaHashedIdTranslateBadRequestError
+      | errors.PostMediasMediaHashedIdTranslateUnauthorizedError
+      | errors.PostMediasMediaHashedIdTranslateNotFoundError
       | errors.PostMediasMediaHashedIdTranslateUnprocessableEntityError
-      | errors.FiveHundredError
+      | errors.PostMediasMediaHashedIdTranslateInternalServerError
       | WistiaError
       | ResponseValidationError
       | ConnectionError
@@ -169,11 +169,11 @@ async function $do(
 
   const [result] = await M.match<
     operations.PostMediasMediaHashedIdTranslateResponse,
-    | errors.FourHundredError
-    | errors.FourHundredAndOneError
-    | errors.FourHundredAndFourError
+    | errors.PostMediasMediaHashedIdTranslateBadRequestError
+    | errors.PostMediasMediaHashedIdTranslateUnauthorizedError
+    | errors.PostMediasMediaHashedIdTranslateNotFoundError
     | errors.PostMediasMediaHashedIdTranslateUnprocessableEntityError
-    | errors.FiveHundredError
+    | errors.PostMediasMediaHashedIdTranslateInternalServerError
     | WistiaError
     | ResponseValidationError
     | ConnectionError
@@ -187,15 +187,27 @@ async function $do(
       201,
       operations.PostMediasMediaHashedIdTranslateResponse$inboundSchema,
     ),
-    M.jsonErr(400, errors.FourHundredError$inboundSchema),
-    M.jsonErr(401, errors.FourHundredAndOneError$inboundSchema),
-    M.jsonErr(404, errors.FourHundredAndFourError$inboundSchema),
+    M.jsonErr(
+      400,
+      errors.PostMediasMediaHashedIdTranslateBadRequestError$inboundSchema,
+    ),
+    M.jsonErr(
+      401,
+      errors.PostMediasMediaHashedIdTranslateUnauthorizedError$inboundSchema,
+    ),
+    M.jsonErr(
+      404,
+      errors.PostMediasMediaHashedIdTranslateNotFoundError$inboundSchema,
+    ),
     M.jsonErr(
       422,
       errors
         .PostMediasMediaHashedIdTranslateUnprocessableEntityError$inboundSchema,
     ),
-    M.jsonErr(500, errors.FiveHundredError$inboundSchema),
+    M.jsonErr(
+      500,
+      errors.PostMediasMediaHashedIdTranslateInternalServerError$inboundSchema,
+    ),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

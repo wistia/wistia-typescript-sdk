@@ -21,7 +21,6 @@ import * as errors from "../models/errors/index.js";
 import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import { WistiaError } from "../models/errors/wistiaerror.js";
-import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
@@ -43,12 +42,12 @@ export function localizationsCreate(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    models.LocalizationWithPurchaseData,
-    | errors.FourHundredError
-    | errors.FourHundredAndOneError
-    | errors.FourHundredAndFourError
+    operations.PostMediasMediaHashedIdLocalizationsResponse,
+    | errors.PostMediasMediaHashedIdLocalizationsBadRequestError
+    | errors.PostMediasMediaHashedIdLocalizationsUnauthorizedError
+    | errors.PostMediasMediaHashedIdLocalizationsNotFoundError
     | errors.PostMediasMediaHashedIdLocalizationsUnprocessableEntityError
-    | errors.FiveHundredError
+    | errors.PostMediasMediaHashedIdLocalizationsInternalServerError
     | WistiaError
     | ResponseValidationError
     | ConnectionError
@@ -73,12 +72,12 @@ async function $do(
 ): Promise<
   [
     Result<
-      models.LocalizationWithPurchaseData,
-      | errors.FourHundredError
-      | errors.FourHundredAndOneError
-      | errors.FourHundredAndFourError
+      operations.PostMediasMediaHashedIdLocalizationsResponse,
+      | errors.PostMediasMediaHashedIdLocalizationsBadRequestError
+      | errors.PostMediasMediaHashedIdLocalizationsUnauthorizedError
+      | errors.PostMediasMediaHashedIdLocalizationsNotFoundError
       | errors.PostMediasMediaHashedIdLocalizationsUnprocessableEntityError
-      | errors.FiveHundredError
+      | errors.PostMediasMediaHashedIdLocalizationsInternalServerError
       | WistiaError
       | ResponseValidationError
       | ConnectionError
@@ -168,12 +167,12 @@ async function $do(
   };
 
   const [result] = await M.match<
-    models.LocalizationWithPurchaseData,
-    | errors.FourHundredError
-    | errors.FourHundredAndOneError
-    | errors.FourHundredAndFourError
+    operations.PostMediasMediaHashedIdLocalizationsResponse,
+    | errors.PostMediasMediaHashedIdLocalizationsBadRequestError
+    | errors.PostMediasMediaHashedIdLocalizationsUnauthorizedError
+    | errors.PostMediasMediaHashedIdLocalizationsNotFoundError
     | errors.PostMediasMediaHashedIdLocalizationsUnprocessableEntityError
-    | errors.FiveHundredError
+    | errors.PostMediasMediaHashedIdLocalizationsInternalServerError
     | WistiaError
     | ResponseValidationError
     | ConnectionError
@@ -183,16 +182,33 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(201, models.LocalizationWithPurchaseData$inboundSchema),
-    M.jsonErr(400, errors.FourHundredError$inboundSchema),
-    M.jsonErr(401, errors.FourHundredAndOneError$inboundSchema),
-    M.jsonErr(404, errors.FourHundredAndFourError$inboundSchema),
+    M.json(
+      201,
+      operations.PostMediasMediaHashedIdLocalizationsResponse$inboundSchema,
+    ),
+    M.jsonErr(
+      400,
+      errors.PostMediasMediaHashedIdLocalizationsBadRequestError$inboundSchema,
+    ),
+    M.jsonErr(
+      401,
+      errors
+        .PostMediasMediaHashedIdLocalizationsUnauthorizedError$inboundSchema,
+    ),
+    M.jsonErr(
+      404,
+      errors.PostMediasMediaHashedIdLocalizationsNotFoundError$inboundSchema,
+    ),
     M.jsonErr(
       422,
       errors
         .PostMediasMediaHashedIdLocalizationsUnprocessableEntityError$inboundSchema,
     ),
-    M.jsonErr(500, errors.FiveHundredError$inboundSchema),
+    M.jsonErr(
+      500,
+      errors
+        .PostMediasMediaHashedIdLocalizationsInternalServerError$inboundSchema,
+    ),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

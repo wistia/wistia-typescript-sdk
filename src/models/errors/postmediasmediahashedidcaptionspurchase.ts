@@ -6,6 +6,39 @@ import * as z from "zod";
 import { WistiaError } from "./wistiaerror.js";
 
 /**
+ * Internal server error
+ */
+export type PostMediasMediaHashedIdCaptionsPurchaseInternalServerErrorData = {
+  error?: string | undefined;
+};
+
+/**
+ * Internal server error
+ */
+export class PostMediasMediaHashedIdCaptionsPurchaseInternalServerError
+  extends WistiaError
+{
+  error?: string | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: PostMediasMediaHashedIdCaptionsPurchaseInternalServerErrorData;
+
+  constructor(
+    err: PostMediasMediaHashedIdCaptionsPurchaseInternalServerErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+
+    this.name = "PostMediasMediaHashedIdCaptionsPurchaseInternalServerError";
+  }
+}
+
+/**
  * Unprocessable entity. Account not eligible, captions already purchased, or other validation error.
  */
 export type PostMediasMediaHashedIdCaptionsPurchaseUnprocessableEntityErrorData =
@@ -36,6 +69,93 @@ export class PostMediasMediaHashedIdCaptionsPurchaseUnprocessableEntityError
     this.name =
       "PostMediasMediaHashedIdCaptionsPurchaseUnprocessableEntityError";
   }
+}
+
+/**
+ * Unauthorized, invalid or missing token
+ */
+export type PostMediasMediaHashedIdCaptionsPurchaseUnauthorizedErrorData = {
+  error?: string | undefined;
+};
+
+/**
+ * Unauthorized, invalid or missing token
+ */
+export class PostMediasMediaHashedIdCaptionsPurchaseUnauthorizedError
+  extends WistiaError
+{
+  error?: string | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: PostMediasMediaHashedIdCaptionsPurchaseUnauthorizedErrorData;
+
+  constructor(
+    err: PostMediasMediaHashedIdCaptionsPurchaseUnauthorizedErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+
+    this.name = "PostMediasMediaHashedIdCaptionsPurchaseUnauthorizedError";
+  }
+}
+
+/** @internal */
+export const PostMediasMediaHashedIdCaptionsPurchaseInternalServerError$inboundSchema:
+  z.ZodType<
+    PostMediasMediaHashedIdCaptionsPurchaseInternalServerError,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    error: z.string().optional(),
+    request$: z.instanceof(Request),
+    response$: z.instanceof(Response),
+    body$: z.string(),
+  })
+    .transform((v) => {
+      return new PostMediasMediaHashedIdCaptionsPurchaseInternalServerError(v, {
+        request: v.request$,
+        response: v.response$,
+        body: v.body$,
+      });
+    });
+
+/** @internal */
+export type PostMediasMediaHashedIdCaptionsPurchaseInternalServerError$Outbound =
+  {
+    error?: string | undefined;
+  };
+
+/** @internal */
+export const PostMediasMediaHashedIdCaptionsPurchaseInternalServerError$outboundSchema:
+  z.ZodType<
+    PostMediasMediaHashedIdCaptionsPurchaseInternalServerError$Outbound,
+    z.ZodTypeDef,
+    PostMediasMediaHashedIdCaptionsPurchaseInternalServerError
+  > = z.instanceof(PostMediasMediaHashedIdCaptionsPurchaseInternalServerError)
+    .transform(v => v.data$)
+    .pipe(z.object({
+      error: z.string().optional(),
+    }));
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostMediasMediaHashedIdCaptionsPurchaseInternalServerError$ {
+  /** @deprecated use `PostMediasMediaHashedIdCaptionsPurchaseInternalServerError$inboundSchema` instead. */
+  export const inboundSchema =
+    PostMediasMediaHashedIdCaptionsPurchaseInternalServerError$inboundSchema;
+  /** @deprecated use `PostMediasMediaHashedIdCaptionsPurchaseInternalServerError$outboundSchema` instead. */
+  export const outboundSchema =
+    PostMediasMediaHashedIdCaptionsPurchaseInternalServerError$outboundSchema;
+  /** @deprecated use `PostMediasMediaHashedIdCaptionsPurchaseInternalServerError$Outbound` instead. */
+  export type Outbound =
+    PostMediasMediaHashedIdCaptionsPurchaseInternalServerError$Outbound;
 }
 
 /** @internal */
@@ -91,4 +211,58 @@ export namespace PostMediasMediaHashedIdCaptionsPurchaseUnprocessableEntityError
   /** @deprecated use `PostMediasMediaHashedIdCaptionsPurchaseUnprocessableEntityError$Outbound` instead. */
   export type Outbound =
     PostMediasMediaHashedIdCaptionsPurchaseUnprocessableEntityError$Outbound;
+}
+
+/** @internal */
+export const PostMediasMediaHashedIdCaptionsPurchaseUnauthorizedError$inboundSchema:
+  z.ZodType<
+    PostMediasMediaHashedIdCaptionsPurchaseUnauthorizedError,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    error: z.string().optional(),
+    request$: z.instanceof(Request),
+    response$: z.instanceof(Response),
+    body$: z.string(),
+  })
+    .transform((v) => {
+      return new PostMediasMediaHashedIdCaptionsPurchaseUnauthorizedError(v, {
+        request: v.request$,
+        response: v.response$,
+        body: v.body$,
+      });
+    });
+
+/** @internal */
+export type PostMediasMediaHashedIdCaptionsPurchaseUnauthorizedError$Outbound =
+  {
+    error?: string | undefined;
+  };
+
+/** @internal */
+export const PostMediasMediaHashedIdCaptionsPurchaseUnauthorizedError$outboundSchema:
+  z.ZodType<
+    PostMediasMediaHashedIdCaptionsPurchaseUnauthorizedError$Outbound,
+    z.ZodTypeDef,
+    PostMediasMediaHashedIdCaptionsPurchaseUnauthorizedError
+  > = z.instanceof(PostMediasMediaHashedIdCaptionsPurchaseUnauthorizedError)
+    .transform(v => v.data$)
+    .pipe(z.object({
+      error: z.string().optional(),
+    }));
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostMediasMediaHashedIdCaptionsPurchaseUnauthorizedError$ {
+  /** @deprecated use `PostMediasMediaHashedIdCaptionsPurchaseUnauthorizedError$inboundSchema` instead. */
+  export const inboundSchema =
+    PostMediasMediaHashedIdCaptionsPurchaseUnauthorizedError$inboundSchema;
+  /** @deprecated use `PostMediasMediaHashedIdCaptionsPurchaseUnauthorizedError$outboundSchema` instead. */
+  export const outboundSchema =
+    PostMediasMediaHashedIdCaptionsPurchaseUnauthorizedError$outboundSchema;
+  /** @deprecated use `PostMediasMediaHashedIdCaptionsPurchaseUnauthorizedError$Outbound` instead. */
+  export type Outbound =
+    PostMediasMediaHashedIdCaptionsPurchaseUnauthorizedError$Outbound;
 }

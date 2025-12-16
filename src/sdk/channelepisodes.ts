@@ -6,7 +6,6 @@ import { channelEpisodesCreate } from "../funcs/channelEpisodesCreate.js";
 import { channelEpisodesGet } from "../funcs/channelEpisodesGet.js";
 import { channelEpisodesList } from "../funcs/channelEpisodesList.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
-import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -28,7 +27,9 @@ export class ChannelEpisodes extends ClientSDK {
     request:
       operations.GetChannelsChannelHashedIdChannelEpisodesChannelEpisodeIdRequest,
     options?: RequestOptions,
-  ): Promise<models.ChannelEpisode> {
+  ): Promise<
+    operations.GetChannelsChannelHashedIdChannelEpisodesChannelEpisodeIdResponse
+  > {
     return unwrapAsync(channelEpisodesGet(
       this,
       request,
@@ -50,7 +51,7 @@ export class ChannelEpisodes extends ClientSDK {
   async create(
     request: operations.PostChannelsChannelHashedIdChannelEpisodesRequest,
     options?: RequestOptions,
-  ): Promise<models.ChannelEpisode> {
+  ): Promise<operations.PostChannelsChannelHashedIdChannelEpisodesResponse> {
     return unwrapAsync(channelEpisodesCreate(
       this,
       request,
@@ -74,7 +75,7 @@ export class ChannelEpisodes extends ClientSDK {
   async list(
     request?: operations.GetChannelEpisodesRequest | undefined,
     options?: RequestOptions,
-  ): Promise<Array<models.ChannelEpisode>> {
+  ): Promise<Array<operations.GetChannelEpisodesResponse>> {
     return unwrapAsync(channelEpisodesList(
       this,
       request,

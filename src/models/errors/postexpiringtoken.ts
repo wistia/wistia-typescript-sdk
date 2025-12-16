@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod";
+import * as operations from "../operations/index.js";
 import { WistiaError } from "./wistiaerror.js";
 
 /**
@@ -33,6 +34,105 @@ export class NotImplementedError extends WistiaError {
     if (err.error != null) this.error = err.error;
 
     this.name = "NotImplementedError";
+  }
+}
+
+/**
+ * Internal server error
+ */
+export type PostExpiringTokenInternalServerErrorData = {
+  error?: string | undefined;
+};
+
+/**
+ * Internal server error
+ */
+export class PostExpiringTokenInternalServerError extends WistiaError {
+  error?: string | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: PostExpiringTokenInternalServerErrorData;
+
+  constructor(
+    err: PostExpiringTokenInternalServerErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+
+    this.name = "PostExpiringTokenInternalServerError";
+  }
+}
+
+/**
+ * Unprocessible entity, parameters provided were invalid.
+ */
+export type PostExpiringTokenUnprocessableEntityErrorData = {
+  /**
+   * Contains a summary of what fields had errors and the errors they had.
+   */
+  errors?: operations.PostExpiringTokenErrors | undefined;
+};
+
+/**
+ * Unprocessible entity, parameters provided were invalid.
+ */
+export class PostExpiringTokenUnprocessableEntityError extends WistiaError {
+  /**
+   * Contains a summary of what fields had errors and the errors they had.
+   */
+  errors?: operations.PostExpiringTokenErrors | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: PostExpiringTokenUnprocessableEntityErrorData;
+
+  constructor(
+    err: PostExpiringTokenUnprocessableEntityErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.errors != null) this.errors = err.errors;
+
+    this.name = "PostExpiringTokenUnprocessableEntityError";
+  }
+}
+
+/**
+ * Unauthorized, invalid or missing token
+ */
+export type PostExpiringTokenUnauthorizedErrorData = {
+  error?: string | undefined;
+};
+
+/**
+ * Unauthorized, invalid or missing token
+ */
+export class PostExpiringTokenUnauthorizedError extends WistiaError {
+  error?: string | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: PostExpiringTokenUnauthorizedErrorData;
+
+  constructor(
+    err: PostExpiringTokenUnauthorizedErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+
+    this.name = "PostExpiringTokenUnauthorizedError";
   }
 }
 
@@ -82,4 +182,156 @@ export namespace NotImplementedError$ {
   export const outboundSchema = NotImplementedError$outboundSchema;
   /** @deprecated use `NotImplementedError$Outbound` instead. */
   export type Outbound = NotImplementedError$Outbound;
+}
+
+/** @internal */
+export const PostExpiringTokenInternalServerError$inboundSchema: z.ZodType<
+  PostExpiringTokenInternalServerError,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  error: z.string().optional(),
+  request$: z.instanceof(Request),
+  response$: z.instanceof(Response),
+  body$: z.string(),
+})
+  .transform((v) => {
+    return new PostExpiringTokenInternalServerError(v, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
+  });
+
+/** @internal */
+export type PostExpiringTokenInternalServerError$Outbound = {
+  error?: string | undefined;
+};
+
+/** @internal */
+export const PostExpiringTokenInternalServerError$outboundSchema: z.ZodType<
+  PostExpiringTokenInternalServerError$Outbound,
+  z.ZodTypeDef,
+  PostExpiringTokenInternalServerError
+> = z.instanceof(PostExpiringTokenInternalServerError)
+  .transform(v => v.data$)
+  .pipe(z.object({
+    error: z.string().optional(),
+  }));
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostExpiringTokenInternalServerError$ {
+  /** @deprecated use `PostExpiringTokenInternalServerError$inboundSchema` instead. */
+  export const inboundSchema =
+    PostExpiringTokenInternalServerError$inboundSchema;
+  /** @deprecated use `PostExpiringTokenInternalServerError$outboundSchema` instead. */
+  export const outboundSchema =
+    PostExpiringTokenInternalServerError$outboundSchema;
+  /** @deprecated use `PostExpiringTokenInternalServerError$Outbound` instead. */
+  export type Outbound = PostExpiringTokenInternalServerError$Outbound;
+}
+
+/** @internal */
+export const PostExpiringTokenUnprocessableEntityError$inboundSchema: z.ZodType<
+  PostExpiringTokenUnprocessableEntityError,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  errors: z.lazy(() => operations.PostExpiringTokenErrors$inboundSchema)
+    .optional(),
+  request$: z.instanceof(Request),
+  response$: z.instanceof(Response),
+  body$: z.string(),
+})
+  .transform((v) => {
+    return new PostExpiringTokenUnprocessableEntityError(v, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
+  });
+
+/** @internal */
+export type PostExpiringTokenUnprocessableEntityError$Outbound = {
+  errors?: operations.PostExpiringTokenErrors$Outbound | undefined;
+};
+
+/** @internal */
+export const PostExpiringTokenUnprocessableEntityError$outboundSchema:
+  z.ZodType<
+    PostExpiringTokenUnprocessableEntityError$Outbound,
+    z.ZodTypeDef,
+    PostExpiringTokenUnprocessableEntityError
+  > = z.instanceof(PostExpiringTokenUnprocessableEntityError)
+    .transform(v => v.data$)
+    .pipe(z.object({
+      errors: z.lazy(() => operations.PostExpiringTokenErrors$outboundSchema)
+        .optional(),
+    }));
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostExpiringTokenUnprocessableEntityError$ {
+  /** @deprecated use `PostExpiringTokenUnprocessableEntityError$inboundSchema` instead. */
+  export const inboundSchema =
+    PostExpiringTokenUnprocessableEntityError$inboundSchema;
+  /** @deprecated use `PostExpiringTokenUnprocessableEntityError$outboundSchema` instead. */
+  export const outboundSchema =
+    PostExpiringTokenUnprocessableEntityError$outboundSchema;
+  /** @deprecated use `PostExpiringTokenUnprocessableEntityError$Outbound` instead. */
+  export type Outbound = PostExpiringTokenUnprocessableEntityError$Outbound;
+}
+
+/** @internal */
+export const PostExpiringTokenUnauthorizedError$inboundSchema: z.ZodType<
+  PostExpiringTokenUnauthorizedError,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  error: z.string().optional(),
+  request$: z.instanceof(Request),
+  response$: z.instanceof(Response),
+  body$: z.string(),
+})
+  .transform((v) => {
+    return new PostExpiringTokenUnauthorizedError(v, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
+  });
+
+/** @internal */
+export type PostExpiringTokenUnauthorizedError$Outbound = {
+  error?: string | undefined;
+};
+
+/** @internal */
+export const PostExpiringTokenUnauthorizedError$outboundSchema: z.ZodType<
+  PostExpiringTokenUnauthorizedError$Outbound,
+  z.ZodTypeDef,
+  PostExpiringTokenUnauthorizedError
+> = z.instanceof(PostExpiringTokenUnauthorizedError)
+  .transform(v => v.data$)
+  .pipe(z.object({
+    error: z.string().optional(),
+  }));
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostExpiringTokenUnauthorizedError$ {
+  /** @deprecated use `PostExpiringTokenUnauthorizedError$inboundSchema` instead. */
+  export const inboundSchema = PostExpiringTokenUnauthorizedError$inboundSchema;
+  /** @deprecated use `PostExpiringTokenUnauthorizedError$outboundSchema` instead. */
+  export const outboundSchema =
+    PostExpiringTokenUnauthorizedError$outboundSchema;
+  /** @deprecated use `PostExpiringTokenUnauthorizedError$Outbound` instead. */
+  export type Outbound = PostExpiringTokenUnauthorizedError$Outbound;
 }

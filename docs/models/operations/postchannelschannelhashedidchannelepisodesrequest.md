@@ -7,7 +7,7 @@ import { PostChannelsChannelHashedIdChannelEpisodesRequest } from "@wistia/wisti
 
 let value: PostChannelsChannelHashedIdChannelEpisodesRequest = {
   channelHashedId: "<id>",
-  createChannelEpisode: {
+  requestBody: {
     title: "My New Episode",
     description: "My Episode Description.",
     summary: "A short description.",
@@ -18,7 +18,7 @@ let value: PostChannelsChannelHashedIdChannelEpisodesRequest = {
 
 ## Fields
 
-| Field                                                               | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `channelHashedId`                                                   | *string*                                                            | :heavy_check_mark:                                                  | The hashed ID of the channel to add the episode to.                 |
-| `createChannelEpisode`                                              | [models.CreateChannelEpisode](../../models/createchannelepisode.md) | :heavy_check_mark:                                                  | N/A                                                                 |
+| Field                                                                                                                                                | Type                                                                                                                                                 | Required                                                                                                                                             | Description                                                                                                                                          |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `channelHashedId`                                                                                                                                    | *string*                                                                                                                                             | :heavy_check_mark:                                                                                                                                   | The hashed ID of the channel to add the episode to.                                                                                                  |
+| `requestBody`                                                                                                                                        | [operations.PostChannelsChannelHashedIdChannelEpisodesRequestBody](../../models/operations/postchannelschannelhashedidchannelepisodesrequestbody.md) | :heavy_check_mark:                                                                                                                                   | N/A                                                                                                                                                  |

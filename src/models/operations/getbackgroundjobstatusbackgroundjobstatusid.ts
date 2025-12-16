@@ -5,9 +5,9 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-import * as models from "../index.js";
 
 export type GetBackgroundJobStatusBackgroundJobStatusIdRequest = {
   /**
@@ -17,13 +17,44 @@ export type GetBackgroundJobStatusBackgroundJobStatusIdRequest = {
 };
 
 /**
+ * The status of the background job that's been queued for the request.
+ */
+export const GetBackgroundJobStatusBackgroundJobStatusIdStatus = {
+  Queued: "queued",
+  Started: "started",
+  Finished: "finished",
+  Failed: "failed",
+} as const;
+/**
+ * The status of the background job that's been queued for the request.
+ */
+export type GetBackgroundJobStatusBackgroundJobStatusIdStatus = ClosedEnum<
+  typeof GetBackgroundJobStatusBackgroundJobStatusIdStatus
+>;
+
+/**
+ * Status of the background job.
+ */
+export type GetBackgroundJobStatusBackgroundJobStatusIdBackgroundJobStatus = {
+  /**
+   * The ID of the background job that's been queued for the request.
+   */
+  id: number;
+  /**
+   * The status of the background job that's been queued for the request.
+   */
+  status: GetBackgroundJobStatusBackgroundJobStatusIdStatus;
+};
+
+/**
  * OK
  */
 export type GetBackgroundJobStatusBackgroundJobStatusIdResponse = {
   /**
    * Status of the background job.
    */
-  backgroundJobStatus: models.BackgroundJobStatus;
+  backgroundJobStatus:
+    GetBackgroundJobStatusBackgroundJobStatusIdBackgroundJobStatus;
 };
 
 /** @internal */
@@ -95,13 +126,108 @@ export function getBackgroundJobStatusBackgroundJobStatusIdRequestFromJSON(
 }
 
 /** @internal */
+export const GetBackgroundJobStatusBackgroundJobStatusIdStatus$inboundSchema:
+  z.ZodNativeEnum<typeof GetBackgroundJobStatusBackgroundJobStatusIdStatus> = z
+    .nativeEnum(GetBackgroundJobStatusBackgroundJobStatusIdStatus);
+
+/** @internal */
+export const GetBackgroundJobStatusBackgroundJobStatusIdStatus$outboundSchema:
+  z.ZodNativeEnum<typeof GetBackgroundJobStatusBackgroundJobStatusIdStatus> =
+    GetBackgroundJobStatusBackgroundJobStatusIdStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetBackgroundJobStatusBackgroundJobStatusIdStatus$ {
+  /** @deprecated use `GetBackgroundJobStatusBackgroundJobStatusIdStatus$inboundSchema` instead. */
+  export const inboundSchema =
+    GetBackgroundJobStatusBackgroundJobStatusIdStatus$inboundSchema;
+  /** @deprecated use `GetBackgroundJobStatusBackgroundJobStatusIdStatus$outboundSchema` instead. */
+  export const outboundSchema =
+    GetBackgroundJobStatusBackgroundJobStatusIdStatus$outboundSchema;
+}
+
+/** @internal */
+export const GetBackgroundJobStatusBackgroundJobStatusIdBackgroundJobStatus$inboundSchema:
+  z.ZodType<
+    GetBackgroundJobStatusBackgroundJobStatusIdBackgroundJobStatus,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    id: z.number().int(),
+    status: GetBackgroundJobStatusBackgroundJobStatusIdStatus$inboundSchema,
+  });
+
+/** @internal */
+export type GetBackgroundJobStatusBackgroundJobStatusIdBackgroundJobStatus$Outbound =
+  {
+    id: number;
+    status: string;
+  };
+
+/** @internal */
+export const GetBackgroundJobStatusBackgroundJobStatusIdBackgroundJobStatus$outboundSchema:
+  z.ZodType<
+    GetBackgroundJobStatusBackgroundJobStatusIdBackgroundJobStatus$Outbound,
+    z.ZodTypeDef,
+    GetBackgroundJobStatusBackgroundJobStatusIdBackgroundJobStatus
+  > = z.object({
+    id: z.number().int(),
+    status: GetBackgroundJobStatusBackgroundJobStatusIdStatus$outboundSchema,
+  });
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetBackgroundJobStatusBackgroundJobStatusIdBackgroundJobStatus$ {
+  /** @deprecated use `GetBackgroundJobStatusBackgroundJobStatusIdBackgroundJobStatus$inboundSchema` instead. */
+  export const inboundSchema =
+    GetBackgroundJobStatusBackgroundJobStatusIdBackgroundJobStatus$inboundSchema;
+  /** @deprecated use `GetBackgroundJobStatusBackgroundJobStatusIdBackgroundJobStatus$outboundSchema` instead. */
+  export const outboundSchema =
+    GetBackgroundJobStatusBackgroundJobStatusIdBackgroundJobStatus$outboundSchema;
+  /** @deprecated use `GetBackgroundJobStatusBackgroundJobStatusIdBackgroundJobStatus$Outbound` instead. */
+  export type Outbound =
+    GetBackgroundJobStatusBackgroundJobStatusIdBackgroundJobStatus$Outbound;
+}
+
+export function getBackgroundJobStatusBackgroundJobStatusIdBackgroundJobStatusToJSON(
+  getBackgroundJobStatusBackgroundJobStatusIdBackgroundJobStatus:
+    GetBackgroundJobStatusBackgroundJobStatusIdBackgroundJobStatus,
+): string {
+  return JSON.stringify(
+    GetBackgroundJobStatusBackgroundJobStatusIdBackgroundJobStatus$outboundSchema
+      .parse(getBackgroundJobStatusBackgroundJobStatusIdBackgroundJobStatus),
+  );
+}
+
+export function getBackgroundJobStatusBackgroundJobStatusIdBackgroundJobStatusFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetBackgroundJobStatusBackgroundJobStatusIdBackgroundJobStatus,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetBackgroundJobStatusBackgroundJobStatusIdBackgroundJobStatus$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'GetBackgroundJobStatusBackgroundJobStatusIdBackgroundJobStatus' from JSON`,
+  );
+}
+
+/** @internal */
 export const GetBackgroundJobStatusBackgroundJobStatusIdResponse$inboundSchema:
   z.ZodType<
     GetBackgroundJobStatusBackgroundJobStatusIdResponse,
     z.ZodTypeDef,
     unknown
   > = z.object({
-    background_job_status: models.BackgroundJobStatus$inboundSchema,
+    background_job_status: z.lazy(() =>
+      GetBackgroundJobStatusBackgroundJobStatusIdBackgroundJobStatus$inboundSchema
+    ),
   }).transform((v) => {
     return remap$(v, {
       "background_job_status": "backgroundJobStatus",
@@ -110,7 +236,8 @@ export const GetBackgroundJobStatusBackgroundJobStatusIdResponse$inboundSchema:
 
 /** @internal */
 export type GetBackgroundJobStatusBackgroundJobStatusIdResponse$Outbound = {
-  background_job_status: models.BackgroundJobStatus$Outbound;
+  background_job_status:
+    GetBackgroundJobStatusBackgroundJobStatusIdBackgroundJobStatus$Outbound;
 };
 
 /** @internal */
@@ -120,7 +247,9 @@ export const GetBackgroundJobStatusBackgroundJobStatusIdResponse$outboundSchema:
     z.ZodTypeDef,
     GetBackgroundJobStatusBackgroundJobStatusIdResponse
   > = z.object({
-    backgroundJobStatus: models.BackgroundJobStatus$outboundSchema,
+    backgroundJobStatus: z.lazy(() =>
+      GetBackgroundJobStatusBackgroundJobStatusIdBackgroundJobStatus$outboundSchema
+    ),
   }).transform((v) => {
     return remap$(v, {
       backgroundJobStatus: "background_job_status",

@@ -78,15 +78,15 @@ run();
 
 ### Response
 
-**Promise\<[models.Event[]](../../models/.md)\>**
+**Promise\<[operations.GetStatsEventsResponse[]](../../models/.md)\>**
 
 ### Errors
 
-| Error Type                    | Status Code                   | Content Type                  |
-| ----------------------------- | ----------------------------- | ----------------------------- |
-| errors.FourHundredAndOneError | 401                           | application/json              |
-| errors.FiveHundredError       | 500                           | application/json              |
-| errors.WistiaDefaultError     | 4XX, 5XX                      | \*/\*                         |
+| Error Type                               | Status Code                              | Content Type                             |
+| ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
+| errors.GetStatsEventsUnauthorizedError   | 401                                      | application/json                         |
+| errors.GetStatsEventsInternalServerError | 500                                      | application/json                         |
+| errors.WistiaDefaultError                | 4XX, 5XX                                 | \*/\*                                    |
 
 ## get
 
@@ -162,12 +162,12 @@ run();
 
 ### Response
 
-**Promise\<[models.Event](../../models/event.md)\>**
+**Promise\<[operations.GetStatsEventsEventKeyResponse](../../models/operations/getstatseventseventkeyresponse.md)\>**
 
 ### Errors
 
-| Error Type                    | Status Code                   | Content Type                  |
-| ----------------------------- | ----------------------------- | ----------------------------- |
-| errors.FourHundredAndOneError | 401                           | application/json              |
-| errors.FiveHundredError       | 500                           | application/json              |
-| errors.WistiaDefaultError     | 4XX, 5XX                      | \*/\*                         |
+| Error Type                                       | Status Code                                      | Content Type                                     |
+| ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ |
+| errors.GetStatsEventsEventKeyUnauthorizedError   | 401                                              | application/json                                 |
+| errors.GetStatsEventsEventKeyInternalServerError | 500                                              | application/json                                 |
+| errors.WistiaDefaultError                        | 4XX, 5XX                                         | \*/\*                                            |

@@ -7,7 +7,6 @@ import { allowedDomainsDelete } from "../funcs/allowedDomainsDelete.js";
 import { allowedDomainsGet } from "../funcs/allowedDomainsGet.js";
 import { allowedDomainsList } from "../funcs/allowedDomainsList.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
-import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -26,7 +25,7 @@ export class AllowedDomains extends ClientSDK {
   async list(
     request?: operations.GetAllowedDomainsRequest | undefined,
     options?: RequestOptions,
-  ): Promise<Array<models.AllowedDomain>> {
+  ): Promise<Array<operations.GetAllowedDomainsResponse>> {
     return unwrapAsync(allowedDomainsList(
       this,
       request,
@@ -48,7 +47,7 @@ export class AllowedDomains extends ClientSDK {
   async create(
     request: operations.PostAllowedDomainsRequest,
     options?: RequestOptions,
-  ): Promise<models.AllowedDomain> {
+  ): Promise<operations.PostAllowedDomainsResponse> {
     return unwrapAsync(allowedDomainsCreate(
       this,
       request,
@@ -70,7 +69,7 @@ export class AllowedDomains extends ClientSDK {
   async get(
     request: operations.GetAllowedDomainsDomainRequest,
     options?: RequestOptions,
-  ): Promise<models.AllowedDomain> {
+  ): Promise<operations.GetAllowedDomainsDomainResponse> {
     return unwrapAsync(allowedDomainsGet(
       this,
       request,
@@ -92,7 +91,7 @@ export class AllowedDomains extends ClientSDK {
   async delete(
     request: operations.DeleteAllowedDomainsDomainRequest,
     options?: RequestOptions,
-  ): Promise<models.AllowedDomain> {
+  ): Promise<operations.DeleteAllowedDomainsDomainResponse> {
     return unwrapAsync(allowedDomainsDelete(
       this,
       request,

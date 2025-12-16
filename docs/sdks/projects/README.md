@@ -81,15 +81,15 @@ run();
 
 ### Response
 
-**Promise\<[models.Project[]](../../models/.md)\>**
+**Promise\<[operations.GetProjectsResponse[]](../../models/.md)\>**
 
 ### Errors
 
-| Error Type                    | Status Code                   | Content Type                  |
-| ----------------------------- | ----------------------------- | ----------------------------- |
-| errors.FourHundredAndOneError | 401                           | application/json              |
-| errors.FiveHundredError       | 500                           | application/json              |
-| errors.WistiaDefaultError     | 4XX, 5XX                      | \*/\*                         |
+| Error Type                            | Status Code                           | Content Type                          |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| errors.GetProjectsUnauthorizedError   | 401                                   | application/json                      |
+| errors.GetProjectsInternalServerError | 500                                   | application/json                      |
+| errors.WistiaDefaultError             | 4XX, 5XX                              | \*/\*                                 |
 
 ## create
 
@@ -159,22 +159,22 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [models.CreateProject](../../models/createproject.md)                                                                                                                          | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.PostProjectsRequest](../../models/operations/postprojectsrequest.md)                                                                                               | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[models.Project](../../models/project.md)\>**
+**Promise\<[operations.PostProjectsResponse](../../models/operations/postprojectsresponse.md)\>**
 
 ### Errors
 
-| Error Type                    | Status Code                   | Content Type                  |
-| ----------------------------- | ----------------------------- | ----------------------------- |
-| errors.FourHundredAndOneError | 401                           | application/json              |
-| errors.FiveHundredError       | 500                           | application/json              |
-| errors.WistiaDefaultError     | 4XX, 5XX                      | \*/\*                         |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.PostProjectsUnauthorizedError   | 401                                    | application/json                       |
+| errors.PostProjectsInternalServerError | 500                                    | application/json                       |
+| errors.WistiaDefaultError              | 4XX, 5XX                               | \*/\*                                  |
 
 ## get
 
@@ -249,16 +249,16 @@ run();
 
 ### Response
 
-**Promise\<[models.ProjectWithMedias](../../models/projectwithmedias.md)\>**
+**Promise\<[operations.GetProjectsIdResponse](../../models/operations/getprojectsidresponse.md)\>**
 
 ### Errors
 
-| Error Type                     | Status Code                    | Content Type                   |
-| ------------------------------ | ------------------------------ | ------------------------------ |
-| errors.FourHundredAndOneError  | 401                            | application/json               |
-| errors.FourHundredAndFourError | 404                            | application/json               |
-| errors.FiveHundredError        | 500                            | application/json               |
-| errors.WistiaDefaultError      | 4XX, 5XX                       | \*/\*                          |
+| Error Type                              | Status Code                             | Content Type                            |
+| --------------------------------------- | --------------------------------------- | --------------------------------------- |
+| errors.GetProjectsIdUnauthorizedError   | 401                                     | application/json                        |
+| errors.GetProjectsIdNotFoundError       | 404                                     | application/json                        |
+| errors.GetProjectsIdInternalServerError | 500                                     | application/json                        |
+| errors.WistiaDefaultError               | 4XX, 5XX                                | \*/\*                                   |
 
 ## update
 
@@ -283,7 +283,7 @@ const wistia = new Wistia({
 async function run() {
   const result = await wistia.projects.update({
     id: "<id>",
-    updateProject: {
+    requestBody: {
       name: "My New Project Name",
       description: "My New Project Description",
       public: false,
@@ -313,7 +313,7 @@ const wistia = new WistiaCore({
 async function run() {
   const res = await projectsUpdate(wistia, {
     id: "<id>",
-    updateProject: {
+    requestBody: {
       name: "My New Project Name",
       description: "My New Project Description",
       public: false,
@@ -341,16 +341,16 @@ run();
 
 ### Response
 
-**Promise\<[models.Project](../../models/project.md)\>**
+**Promise\<[operations.PutProjectsIdResponse](../../models/operations/putprojectsidresponse.md)\>**
 
 ### Errors
 
-| Error Type                     | Status Code                    | Content Type                   |
-| ------------------------------ | ------------------------------ | ------------------------------ |
-| errors.FourHundredAndOneError  | 401                            | application/json               |
-| errors.FourHundredAndFourError | 404                            | application/json               |
-| errors.FiveHundredError        | 500                            | application/json               |
-| errors.WistiaDefaultError      | 4XX, 5XX                       | \*/\*                          |
+| Error Type                              | Status Code                             | Content Type                            |
+| --------------------------------------- | --------------------------------------- | --------------------------------------- |
+| errors.PutProjectsIdUnauthorizedError   | 401                                     | application/json                        |
+| errors.PutProjectsIdNotFoundError       | 404                                     | application/json                        |
+| errors.PutProjectsIdInternalServerError | 500                                     | application/json                        |
+| errors.WistiaDefaultError               | 4XX, 5XX                                | \*/\*                                   |
 
 ## delete
 
@@ -423,16 +423,16 @@ run();
 
 ### Response
 
-**Promise\<[models.Project](../../models/project.md)\>**
+**Promise\<[operations.DeleteProjectsIdResponse](../../models/operations/deleteprojectsidresponse.md)\>**
 
 ### Errors
 
-| Error Type                     | Status Code                    | Content Type                   |
-| ------------------------------ | ------------------------------ | ------------------------------ |
-| errors.FourHundredAndOneError  | 401                            | application/json               |
-| errors.FourHundredAndFourError | 404                            | application/json               |
-| errors.FiveHundredError        | 500                            | application/json               |
-| errors.WistiaDefaultError      | 4XX, 5XX                       | \*/\*                          |
+| Error Type                                 | Status Code                                | Content Type                               |
+| ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
+| errors.DeleteProjectsIdUnauthorizedError   | 401                                        | application/json                           |
+| errors.DeleteProjectsIdNotFoundError       | 404                                        | application/json                           |
+| errors.DeleteProjectsIdInternalServerError | 500                                        | application/json                           |
+| errors.WistiaDefaultError                  | 4XX, 5XX                                   | \*/\*                                      |
 
 ## copy
 
@@ -517,9 +517,9 @@ run();
 
 ### Errors
 
-| Error Type                     | Status Code                    | Content Type                   |
-| ------------------------------ | ------------------------------ | ------------------------------ |
-| errors.FourHundredAndOneError  | 401                            | application/json               |
-| errors.FourHundredAndFourError | 404                            | application/json               |
-| errors.FiveHundredError        | 500                            | application/json               |
-| errors.WistiaDefaultError      | 4XX, 5XX                       | \*/\*                          |
+| Error Type                                   | Status Code                                  | Content Type                                 |
+| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
+| errors.PostProjectsIdCopyUnauthorizedError   | 401                                          | application/json                             |
+| errors.PostProjectsIdCopyNotFoundError       | 404                                          | application/json                             |
+| errors.PostProjectsIdCopyInternalServerError | 500                                          | application/json                             |
+| errors.WistiaDefaultError                    | 4XX, 5XX                                     | \*/\*                                        |

@@ -6,6 +6,39 @@ import * as z from "zod";
 import { WistiaError } from "./wistiaerror.js";
 
 /**
+ * Internal server error
+ */
+export type PutProjectsProjectIdSubfoldersSubfolderIdInternalServerErrorData = {
+  error?: string | undefined;
+};
+
+/**
+ * Internal server error
+ */
+export class PutProjectsProjectIdSubfoldersSubfolderIdInternalServerError
+  extends WistiaError
+{
+  error?: string | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: PutProjectsProjectIdSubfoldersSubfolderIdInternalServerErrorData;
+
+  constructor(
+    err: PutProjectsProjectIdSubfoldersSubfolderIdInternalServerErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+
+    this.name = "PutProjectsProjectIdSubfoldersSubfolderIdInternalServerError";
+  }
+}
+
+/**
  * Project or subfolder not found
  */
 export type PutProjectsProjectIdSubfoldersSubfolderIdNotFoundErrorData = {
@@ -36,6 +69,92 @@ export class PutProjectsProjectIdSubfoldersSubfolderIdNotFoundError
 
     this.name = "PutProjectsProjectIdSubfoldersSubfolderIdNotFoundError";
   }
+}
+
+/**
+ * Unauthorized, invalid or missing token
+ */
+export type PutProjectsProjectIdSubfoldersSubfolderIdUnauthorizedErrorData = {
+  error?: string | undefined;
+};
+
+/**
+ * Unauthorized, invalid or missing token
+ */
+export class PutProjectsProjectIdSubfoldersSubfolderIdUnauthorizedError
+  extends WistiaError
+{
+  error?: string | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: PutProjectsProjectIdSubfoldersSubfolderIdUnauthorizedErrorData;
+
+  constructor(
+    err: PutProjectsProjectIdSubfoldersSubfolderIdUnauthorizedErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+
+    this.name = "PutProjectsProjectIdSubfoldersSubfolderIdUnauthorizedError";
+  }
+}
+
+/** @internal */
+export const PutProjectsProjectIdSubfoldersSubfolderIdInternalServerError$inboundSchema:
+  z.ZodType<
+    PutProjectsProjectIdSubfoldersSubfolderIdInternalServerError,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    error: z.string().optional(),
+    request$: z.instanceof(Request),
+    response$: z.instanceof(Response),
+    body$: z.string(),
+  })
+    .transform((v) => {
+      return new PutProjectsProjectIdSubfoldersSubfolderIdInternalServerError(
+        v,
+        { request: v.request$, response: v.response$, body: v.body$ },
+      );
+    });
+
+/** @internal */
+export type PutProjectsProjectIdSubfoldersSubfolderIdInternalServerError$Outbound =
+  {
+    error?: string | undefined;
+  };
+
+/** @internal */
+export const PutProjectsProjectIdSubfoldersSubfolderIdInternalServerError$outboundSchema:
+  z.ZodType<
+    PutProjectsProjectIdSubfoldersSubfolderIdInternalServerError$Outbound,
+    z.ZodTypeDef,
+    PutProjectsProjectIdSubfoldersSubfolderIdInternalServerError
+  > = z.instanceof(PutProjectsProjectIdSubfoldersSubfolderIdInternalServerError)
+    .transform(v => v.data$)
+    .pipe(z.object({
+      error: z.string().optional(),
+    }));
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PutProjectsProjectIdSubfoldersSubfolderIdInternalServerError$ {
+  /** @deprecated use `PutProjectsProjectIdSubfoldersSubfolderIdInternalServerError$inboundSchema` instead. */
+  export const inboundSchema =
+    PutProjectsProjectIdSubfoldersSubfolderIdInternalServerError$inboundSchema;
+  /** @deprecated use `PutProjectsProjectIdSubfoldersSubfolderIdInternalServerError$outboundSchema` instead. */
+  export const outboundSchema =
+    PutProjectsProjectIdSubfoldersSubfolderIdInternalServerError$outboundSchema;
+  /** @deprecated use `PutProjectsProjectIdSubfoldersSubfolderIdInternalServerError$Outbound` instead. */
+  export type Outbound =
+    PutProjectsProjectIdSubfoldersSubfolderIdInternalServerError$Outbound;
 }
 
 /** @internal */
@@ -89,4 +208,58 @@ export namespace PutProjectsProjectIdSubfoldersSubfolderIdNotFoundError$ {
   /** @deprecated use `PutProjectsProjectIdSubfoldersSubfolderIdNotFoundError$Outbound` instead. */
   export type Outbound =
     PutProjectsProjectIdSubfoldersSubfolderIdNotFoundError$Outbound;
+}
+
+/** @internal */
+export const PutProjectsProjectIdSubfoldersSubfolderIdUnauthorizedError$inboundSchema:
+  z.ZodType<
+    PutProjectsProjectIdSubfoldersSubfolderIdUnauthorizedError,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    error: z.string().optional(),
+    request$: z.instanceof(Request),
+    response$: z.instanceof(Response),
+    body$: z.string(),
+  })
+    .transform((v) => {
+      return new PutProjectsProjectIdSubfoldersSubfolderIdUnauthorizedError(v, {
+        request: v.request$,
+        response: v.response$,
+        body: v.body$,
+      });
+    });
+
+/** @internal */
+export type PutProjectsProjectIdSubfoldersSubfolderIdUnauthorizedError$Outbound =
+  {
+    error?: string | undefined;
+  };
+
+/** @internal */
+export const PutProjectsProjectIdSubfoldersSubfolderIdUnauthorizedError$outboundSchema:
+  z.ZodType<
+    PutProjectsProjectIdSubfoldersSubfolderIdUnauthorizedError$Outbound,
+    z.ZodTypeDef,
+    PutProjectsProjectIdSubfoldersSubfolderIdUnauthorizedError
+  > = z.instanceof(PutProjectsProjectIdSubfoldersSubfolderIdUnauthorizedError)
+    .transform(v => v.data$)
+    .pipe(z.object({
+      error: z.string().optional(),
+    }));
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PutProjectsProjectIdSubfoldersSubfolderIdUnauthorizedError$ {
+  /** @deprecated use `PutProjectsProjectIdSubfoldersSubfolderIdUnauthorizedError$inboundSchema` instead. */
+  export const inboundSchema =
+    PutProjectsProjectIdSubfoldersSubfolderIdUnauthorizedError$inboundSchema;
+  /** @deprecated use `PutProjectsProjectIdSubfoldersSubfolderIdUnauthorizedError$outboundSchema` instead. */
+  export const outboundSchema =
+    PutProjectsProjectIdSubfoldersSubfolderIdUnauthorizedError$outboundSchema;
+  /** @deprecated use `PutProjectsProjectIdSubfoldersSubfolderIdUnauthorizedError$Outbound` instead. */
+  export type Outbound =
+    PutProjectsProjectIdSubfoldersSubfolderIdUnauthorizedError$Outbound;
 }

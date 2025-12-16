@@ -14,6 +14,40 @@ export type GetChannelsChannelHashedIdRequest = {
   channelHashedId: string;
 };
 
+/**
+ * Channel retrieval successful
+ */
+export type GetChannelsChannelHashedIdResponse = {
+  /**
+   * The numeri d of the channel.
+   */
+  id: number;
+  /**
+   * The date when the channel was originally created.
+   */
+  created: Date;
+  /**
+   * The channel's description.
+   */
+  description: string;
+  /**
+   * A unique alphanumeric identifier for this channel.
+   */
+  hashedId: string;
+  /**
+   * The number of medias in the channel.
+   */
+  mediaCount: number;
+  /**
+   * The display name for the channel
+   */
+  name: string;
+  /**
+   * The date when the channel was last updated.
+   */
+  updated: Date;
+};
+
 /** @internal */
 export const GetChannelsChannelHashedIdRequest$inboundSchema: z.ZodType<
   GetChannelsChannelHashedIdRequest,
@@ -68,5 +102,81 @@ export function getChannelsChannelHashedIdRequestFromJSON(
     jsonString,
     (x) => GetChannelsChannelHashedIdRequest$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'GetChannelsChannelHashedIdRequest' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetChannelsChannelHashedIdResponse$inboundSchema: z.ZodType<
+  GetChannelsChannelHashedIdResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: z.number().int(),
+  created: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  description: z.string(),
+  hashedId: z.string(),
+  mediaCount: z.number().int(),
+  name: z.string(),
+  updated: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+});
+
+/** @internal */
+export type GetChannelsChannelHashedIdResponse$Outbound = {
+  id: number;
+  created: string;
+  description: string;
+  hashedId: string;
+  mediaCount: number;
+  name: string;
+  updated: string;
+};
+
+/** @internal */
+export const GetChannelsChannelHashedIdResponse$outboundSchema: z.ZodType<
+  GetChannelsChannelHashedIdResponse$Outbound,
+  z.ZodTypeDef,
+  GetChannelsChannelHashedIdResponse
+> = z.object({
+  id: z.number().int(),
+  created: z.date().transform(v => v.toISOString()),
+  description: z.string(),
+  hashedId: z.string(),
+  mediaCount: z.number().int(),
+  name: z.string(),
+  updated: z.date().transform(v => v.toISOString()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetChannelsChannelHashedIdResponse$ {
+  /** @deprecated use `GetChannelsChannelHashedIdResponse$inboundSchema` instead. */
+  export const inboundSchema = GetChannelsChannelHashedIdResponse$inboundSchema;
+  /** @deprecated use `GetChannelsChannelHashedIdResponse$outboundSchema` instead. */
+  export const outboundSchema =
+    GetChannelsChannelHashedIdResponse$outboundSchema;
+  /** @deprecated use `GetChannelsChannelHashedIdResponse$Outbound` instead. */
+  export type Outbound = GetChannelsChannelHashedIdResponse$Outbound;
+}
+
+export function getChannelsChannelHashedIdResponseToJSON(
+  getChannelsChannelHashedIdResponse: GetChannelsChannelHashedIdResponse,
+): string {
+  return JSON.stringify(
+    GetChannelsChannelHashedIdResponse$outboundSchema.parse(
+      getChannelsChannelHashedIdResponse,
+    ),
+  );
+}
+
+export function getChannelsChannelHashedIdResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<GetChannelsChannelHashedIdResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetChannelsChannelHashedIdResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetChannelsChannelHashedIdResponse' from JSON`,
   );
 }

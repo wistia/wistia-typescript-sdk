@@ -18,6 +18,31 @@ export type GetProjectsProjectIdSharingsSharingIdRequest = {
   sharingId: number;
 };
 
+export type GetProjectsProjectIdSharingsSharingIdShare = {
+  id: number;
+  name: string;
+  type: string;
+  email: string;
+};
+
+export type GetProjectsProjectIdSharingsSharingIdProject = {
+  id: number;
+  name: string;
+};
+
+/**
+ * Successfully retrieved sharing details
+ */
+export type GetProjectsProjectIdSharingsSharingIdResponse = {
+  id: number;
+  isAdmin: boolean;
+  canShare: boolean;
+  canDownload: boolean;
+  canUpload: boolean;
+  share: GetProjectsProjectIdSharingsSharingIdShare;
+  project: GetProjectsProjectIdSharingsSharingIdProject;
+};
+
 /** @internal */
 export const GetProjectsProjectIdSharingsSharingIdRequest$inboundSchema:
   z.ZodType<
@@ -85,5 +110,241 @@ export function getProjectsProjectIdSharingsSharingIdRequestFromJSON(
         JSON.parse(x),
       ),
     `Failed to parse 'GetProjectsProjectIdSharingsSharingIdRequest' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetProjectsProjectIdSharingsSharingIdShare$inboundSchema:
+  z.ZodType<GetProjectsProjectIdSharingsSharingIdShare, z.ZodTypeDef, unknown> =
+    z.object({
+      id: z.number().int(),
+      name: z.string(),
+      type: z.string(),
+      email: z.string(),
+    });
+
+/** @internal */
+export type GetProjectsProjectIdSharingsSharingIdShare$Outbound = {
+  id: number;
+  name: string;
+  type: string;
+  email: string;
+};
+
+/** @internal */
+export const GetProjectsProjectIdSharingsSharingIdShare$outboundSchema:
+  z.ZodType<
+    GetProjectsProjectIdSharingsSharingIdShare$Outbound,
+    z.ZodTypeDef,
+    GetProjectsProjectIdSharingsSharingIdShare
+  > = z.object({
+    id: z.number().int(),
+    name: z.string(),
+    type: z.string(),
+    email: z.string(),
+  });
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetProjectsProjectIdSharingsSharingIdShare$ {
+  /** @deprecated use `GetProjectsProjectIdSharingsSharingIdShare$inboundSchema` instead. */
+  export const inboundSchema =
+    GetProjectsProjectIdSharingsSharingIdShare$inboundSchema;
+  /** @deprecated use `GetProjectsProjectIdSharingsSharingIdShare$outboundSchema` instead. */
+  export const outboundSchema =
+    GetProjectsProjectIdSharingsSharingIdShare$outboundSchema;
+  /** @deprecated use `GetProjectsProjectIdSharingsSharingIdShare$Outbound` instead. */
+  export type Outbound = GetProjectsProjectIdSharingsSharingIdShare$Outbound;
+}
+
+export function getProjectsProjectIdSharingsSharingIdShareToJSON(
+  getProjectsProjectIdSharingsSharingIdShare:
+    GetProjectsProjectIdSharingsSharingIdShare,
+): string {
+  return JSON.stringify(
+    GetProjectsProjectIdSharingsSharingIdShare$outboundSchema.parse(
+      getProjectsProjectIdSharingsSharingIdShare,
+    ),
+  );
+}
+
+export function getProjectsProjectIdSharingsSharingIdShareFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetProjectsProjectIdSharingsSharingIdShare,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetProjectsProjectIdSharingsSharingIdShare$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'GetProjectsProjectIdSharingsSharingIdShare' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetProjectsProjectIdSharingsSharingIdProject$inboundSchema:
+  z.ZodType<
+    GetProjectsProjectIdSharingsSharingIdProject,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    id: z.number().int(),
+    name: z.string(),
+  });
+
+/** @internal */
+export type GetProjectsProjectIdSharingsSharingIdProject$Outbound = {
+  id: number;
+  name: string;
+};
+
+/** @internal */
+export const GetProjectsProjectIdSharingsSharingIdProject$outboundSchema:
+  z.ZodType<
+    GetProjectsProjectIdSharingsSharingIdProject$Outbound,
+    z.ZodTypeDef,
+    GetProjectsProjectIdSharingsSharingIdProject
+  > = z.object({
+    id: z.number().int(),
+    name: z.string(),
+  });
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetProjectsProjectIdSharingsSharingIdProject$ {
+  /** @deprecated use `GetProjectsProjectIdSharingsSharingIdProject$inboundSchema` instead. */
+  export const inboundSchema =
+    GetProjectsProjectIdSharingsSharingIdProject$inboundSchema;
+  /** @deprecated use `GetProjectsProjectIdSharingsSharingIdProject$outboundSchema` instead. */
+  export const outboundSchema =
+    GetProjectsProjectIdSharingsSharingIdProject$outboundSchema;
+  /** @deprecated use `GetProjectsProjectIdSharingsSharingIdProject$Outbound` instead. */
+  export type Outbound = GetProjectsProjectIdSharingsSharingIdProject$Outbound;
+}
+
+export function getProjectsProjectIdSharingsSharingIdProjectToJSON(
+  getProjectsProjectIdSharingsSharingIdProject:
+    GetProjectsProjectIdSharingsSharingIdProject,
+): string {
+  return JSON.stringify(
+    GetProjectsProjectIdSharingsSharingIdProject$outboundSchema.parse(
+      getProjectsProjectIdSharingsSharingIdProject,
+    ),
+  );
+}
+
+export function getProjectsProjectIdSharingsSharingIdProjectFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetProjectsProjectIdSharingsSharingIdProject,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetProjectsProjectIdSharingsSharingIdProject$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'GetProjectsProjectIdSharingsSharingIdProject' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetProjectsProjectIdSharingsSharingIdResponse$inboundSchema:
+  z.ZodType<
+    GetProjectsProjectIdSharingsSharingIdResponse,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    id: z.number().int(),
+    isAdmin: z.boolean(),
+    canShare: z.boolean(),
+    canDownload: z.boolean(),
+    canUpload: z.boolean(),
+    share: z.lazy(() =>
+      GetProjectsProjectIdSharingsSharingIdShare$inboundSchema
+    ),
+    project: z.lazy(() =>
+      GetProjectsProjectIdSharingsSharingIdProject$inboundSchema
+    ),
+  });
+
+/** @internal */
+export type GetProjectsProjectIdSharingsSharingIdResponse$Outbound = {
+  id: number;
+  isAdmin: boolean;
+  canShare: boolean;
+  canDownload: boolean;
+  canUpload: boolean;
+  share: GetProjectsProjectIdSharingsSharingIdShare$Outbound;
+  project: GetProjectsProjectIdSharingsSharingIdProject$Outbound;
+};
+
+/** @internal */
+export const GetProjectsProjectIdSharingsSharingIdResponse$outboundSchema:
+  z.ZodType<
+    GetProjectsProjectIdSharingsSharingIdResponse$Outbound,
+    z.ZodTypeDef,
+    GetProjectsProjectIdSharingsSharingIdResponse
+  > = z.object({
+    id: z.number().int(),
+    isAdmin: z.boolean(),
+    canShare: z.boolean(),
+    canDownload: z.boolean(),
+    canUpload: z.boolean(),
+    share: z.lazy(() =>
+      GetProjectsProjectIdSharingsSharingIdShare$outboundSchema
+    ),
+    project: z.lazy(() =>
+      GetProjectsProjectIdSharingsSharingIdProject$outboundSchema
+    ),
+  });
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetProjectsProjectIdSharingsSharingIdResponse$ {
+  /** @deprecated use `GetProjectsProjectIdSharingsSharingIdResponse$inboundSchema` instead. */
+  export const inboundSchema =
+    GetProjectsProjectIdSharingsSharingIdResponse$inboundSchema;
+  /** @deprecated use `GetProjectsProjectIdSharingsSharingIdResponse$outboundSchema` instead. */
+  export const outboundSchema =
+    GetProjectsProjectIdSharingsSharingIdResponse$outboundSchema;
+  /** @deprecated use `GetProjectsProjectIdSharingsSharingIdResponse$Outbound` instead. */
+  export type Outbound = GetProjectsProjectIdSharingsSharingIdResponse$Outbound;
+}
+
+export function getProjectsProjectIdSharingsSharingIdResponseToJSON(
+  getProjectsProjectIdSharingsSharingIdResponse:
+    GetProjectsProjectIdSharingsSharingIdResponse,
+): string {
+  return JSON.stringify(
+    GetProjectsProjectIdSharingsSharingIdResponse$outboundSchema.parse(
+      getProjectsProjectIdSharingsSharingIdResponse,
+    ),
+  );
+}
+
+export function getProjectsProjectIdSharingsSharingIdResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetProjectsProjectIdSharingsSharingIdResponse,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetProjectsProjectIdSharingsSharingIdResponse$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'GetProjectsProjectIdSharingsSharingIdResponse' from JSON`,
   );
 }

@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod";
+import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -17,6 +18,123 @@ export type DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdRequest =
      * The hashed ID of the localization to delete.
      */
     localizationHashedId: string;
+  };
+
+/**
+ * The media that the localization is associated with.
+ */
+export type DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdSourceMedia =
+  {
+    /**
+     * A unique alphanumeric identifier for this media.
+     */
+    hashedId: string;
+    /**
+     * The name of the media.
+     */
+    name: string;
+    /**
+     * The duration of the media in seconds.
+     */
+    duration: number;
+    /**
+     * The date when the media was created.
+     */
+    createdAt: Date;
+    /**
+     * The date when the media was last updated.
+     */
+    updatedAt: Date;
+  };
+
+/**
+ * The transcript for the localization. Selectively serialized in some endpoints. See properties for endpoint.
+ */
+export type DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdTranscript =
+  {
+    /**
+     * A unique alphanumeric identifier for this transcript.
+     */
+    hashedId: string;
+    /**
+     * The name of the language in English.
+     */
+    languageName: string;
+    /**
+     * The name of the language in the language of the localization.
+     */
+    nativeLanguageName: string;
+    /**
+     * The text of the transcript.
+     */
+    text: string;
+    /**
+     * The date when the transcript was created.
+     */
+    createdAt: Date;
+    /**
+     * The date when the transcript was last updated.
+     */
+    updatedAt: Date;
+  };
+
+/**
+ * Successful deletion of the localization.
+ */
+export type DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdResponse =
+  {
+    /**
+     * A unique alphanumeric identifier for this localization.
+     */
+    hashedId: string;
+    /**
+     * A 3-character language code as specified by IETF.
+     */
+    languageCode: string;
+    /**
+     * A 2-character language code as specified by ISO-639–2.
+     */
+    iso6392LanguageCode: string;
+    /**
+     * The name of the language in English.
+     */
+    languageName: string;
+    /**
+     * The name of the language in the language of the localization.
+     */
+    nativeLanguageName: string;
+    /**
+     * The date when the localization was created.
+     */
+    createdAt: Date;
+    /**
+     * The date when the localization was last updated.
+     */
+    updatedAt: Date;
+    /**
+     * The date when the localization was ordered.
+     */
+    orderedAt: Date | null;
+    /**
+     * The date when the localization was enabled.
+     */
+    enabledAt: Date | null;
+    /**
+     * Whether or not the localization is enabled.
+     */
+    enabled: boolean;
+    /**
+     * The media that the localization is associated with.
+     */
+    sourceMedia:
+      DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdSourceMedia;
+    /**
+     * The transcript for the localization. Selectively serialized in some endpoints. See properties for endpoint.
+     */
+    transcript?:
+      | DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdTranscript
+      | null
+      | undefined;
   };
 
 /** @internal */
@@ -86,5 +204,358 @@ export function deleteMediasMediaHashedIdLocalizationsLocalizationHashedIdReques
       DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdRequest$inboundSchema
         .parse(JSON.parse(x)),
     `Failed to parse 'DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdRequest' from JSON`,
+  );
+}
+
+/** @internal */
+export const DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdSourceMedia$inboundSchema:
+  z.ZodType<
+    DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdSourceMedia,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    hashed_id: z.string(),
+    name: z.string(),
+    duration: z.number(),
+    created_at: z.string().datetime({ offset: true }).transform(v =>
+      new Date(v)
+    ),
+    updated_at: z.string().datetime({ offset: true }).transform(v =>
+      new Date(v)
+    ),
+  }).transform((v) => {
+    return remap$(v, {
+      "hashed_id": "hashedId",
+      "created_at": "createdAt",
+      "updated_at": "updatedAt",
+    });
+  });
+
+/** @internal */
+export type DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdSourceMedia$Outbound =
+  {
+    hashed_id: string;
+    name: string;
+    duration: number;
+    created_at: string;
+    updated_at: string;
+  };
+
+/** @internal */
+export const DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdSourceMedia$outboundSchema:
+  z.ZodType<
+    DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdSourceMedia$Outbound,
+    z.ZodTypeDef,
+    DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdSourceMedia
+  > = z.object({
+    hashedId: z.string(),
+    name: z.string(),
+    duration: z.number(),
+    createdAt: z.date().transform(v => v.toISOString()),
+    updatedAt: z.date().transform(v => v.toISOString()),
+  }).transform((v) => {
+    return remap$(v, {
+      hashedId: "hashed_id",
+      createdAt: "created_at",
+      updatedAt: "updated_at",
+    });
+  });
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdSourceMedia$ {
+  /** @deprecated use `DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdSourceMedia$inboundSchema` instead. */
+  export const inboundSchema =
+    DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdSourceMedia$inboundSchema;
+  /** @deprecated use `DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdSourceMedia$outboundSchema` instead. */
+  export const outboundSchema =
+    DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdSourceMedia$outboundSchema;
+  /** @deprecated use `DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdSourceMedia$Outbound` instead. */
+  export type Outbound =
+    DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdSourceMedia$Outbound;
+}
+
+export function deleteMediasMediaHashedIdLocalizationsLocalizationHashedIdSourceMediaToJSON(
+  deleteMediasMediaHashedIdLocalizationsLocalizationHashedIdSourceMedia:
+    DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdSourceMedia,
+): string {
+  return JSON.stringify(
+    DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdSourceMedia$outboundSchema
+      .parse(
+        deleteMediasMediaHashedIdLocalizationsLocalizationHashedIdSourceMedia,
+      ),
+  );
+}
+
+export function deleteMediasMediaHashedIdLocalizationsLocalizationHashedIdSourceMediaFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdSourceMedia,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdSourceMedia$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdSourceMedia' from JSON`,
+  );
+}
+
+/** @internal */
+export const DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdTranscript$inboundSchema:
+  z.ZodType<
+    DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdTranscript,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    hashed_id: z.string(),
+    language_name: z.string(),
+    native_language_name: z.string(),
+    text: z.string(),
+    created_at: z.string().datetime({ offset: true }).transform(v =>
+      new Date(v)
+    ),
+    updated_at: z.string().datetime({ offset: true }).transform(v =>
+      new Date(v)
+    ),
+  }).transform((v) => {
+    return remap$(v, {
+      "hashed_id": "hashedId",
+      "language_name": "languageName",
+      "native_language_name": "nativeLanguageName",
+      "created_at": "createdAt",
+      "updated_at": "updatedAt",
+    });
+  });
+
+/** @internal */
+export type DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdTranscript$Outbound =
+  {
+    hashed_id: string;
+    language_name: string;
+    native_language_name: string;
+    text: string;
+    created_at: string;
+    updated_at: string;
+  };
+
+/** @internal */
+export const DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdTranscript$outboundSchema:
+  z.ZodType<
+    DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdTranscript$Outbound,
+    z.ZodTypeDef,
+    DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdTranscript
+  > = z.object({
+    hashedId: z.string(),
+    languageName: z.string(),
+    nativeLanguageName: z.string(),
+    text: z.string(),
+    createdAt: z.date().transform(v => v.toISOString()),
+    updatedAt: z.date().transform(v => v.toISOString()),
+  }).transform((v) => {
+    return remap$(v, {
+      hashedId: "hashed_id",
+      languageName: "language_name",
+      nativeLanguageName: "native_language_name",
+      createdAt: "created_at",
+      updatedAt: "updated_at",
+    });
+  });
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdTranscript$ {
+  /** @deprecated use `DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdTranscript$inboundSchema` instead. */
+  export const inboundSchema =
+    DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdTranscript$inboundSchema;
+  /** @deprecated use `DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdTranscript$outboundSchema` instead. */
+  export const outboundSchema =
+    DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdTranscript$outboundSchema;
+  /** @deprecated use `DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdTranscript$Outbound` instead. */
+  export type Outbound =
+    DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdTranscript$Outbound;
+}
+
+export function deleteMediasMediaHashedIdLocalizationsLocalizationHashedIdTranscriptToJSON(
+  deleteMediasMediaHashedIdLocalizationsLocalizationHashedIdTranscript:
+    DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdTranscript,
+): string {
+  return JSON.stringify(
+    DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdTranscript$outboundSchema
+      .parse(
+        deleteMediasMediaHashedIdLocalizationsLocalizationHashedIdTranscript,
+      ),
+  );
+}
+
+export function deleteMediasMediaHashedIdLocalizationsLocalizationHashedIdTranscriptFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdTranscript,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdTranscript$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdTranscript' from JSON`,
+  );
+}
+
+/** @internal */
+export const DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdResponse$inboundSchema:
+  z.ZodType<
+    DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdResponse,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    hashed_id: z.string(),
+    language_code: z.string(),
+    iso639_2_language_code: z.string(),
+    language_name: z.string(),
+    native_language_name: z.string(),
+    created_at: z.string().datetime({ offset: true }).transform(v =>
+      new Date(v)
+    ),
+    updated_at: z.string().datetime({ offset: true }).transform(v =>
+      new Date(v)
+    ),
+    ordered_at: z.nullable(
+      z.string().datetime({ offset: true }).transform(v => new Date(v)),
+    ),
+    enabled_at: z.nullable(
+      z.string().datetime({ offset: true }).transform(v => new Date(v)),
+    ),
+    enabled: z.boolean(),
+    source_media: z.lazy(() =>
+      DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdSourceMedia$inboundSchema
+    ),
+    transcript: z.nullable(
+      z.lazy(() =>
+        DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdTranscript$inboundSchema
+      ),
+    ).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "hashed_id": "hashedId",
+      "language_code": "languageCode",
+      "iso639_2_language_code": "iso6392LanguageCode",
+      "language_name": "languageName",
+      "native_language_name": "nativeLanguageName",
+      "created_at": "createdAt",
+      "updated_at": "updatedAt",
+      "ordered_at": "orderedAt",
+      "enabled_at": "enabledAt",
+      "source_media": "sourceMedia",
+    });
+  });
+
+/** @internal */
+export type DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdResponse$Outbound =
+  {
+    hashed_id: string;
+    language_code: string;
+    iso639_2_language_code: string;
+    language_name: string;
+    native_language_name: string;
+    created_at: string;
+    updated_at: string;
+    ordered_at: string | null;
+    enabled_at: string | null;
+    enabled: boolean;
+    source_media:
+      DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdSourceMedia$Outbound;
+    transcript?:
+      | DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdTranscript$Outbound
+      | null
+      | undefined;
+  };
+
+/** @internal */
+export const DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdResponse$outboundSchema:
+  z.ZodType<
+    DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdResponse$Outbound,
+    z.ZodTypeDef,
+    DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdResponse
+  > = z.object({
+    hashedId: z.string(),
+    languageCode: z.string(),
+    iso6392LanguageCode: z.string(),
+    languageName: z.string(),
+    nativeLanguageName: z.string(),
+    createdAt: z.date().transform(v => v.toISOString()),
+    updatedAt: z.date().transform(v => v.toISOString()),
+    orderedAt: z.nullable(z.date().transform(v => v.toISOString())),
+    enabledAt: z.nullable(z.date().transform(v => v.toISOString())),
+    enabled: z.boolean(),
+    sourceMedia: z.lazy(() =>
+      DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdSourceMedia$outboundSchema
+    ),
+    transcript: z.nullable(
+      z.lazy(() =>
+        DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdTranscript$outboundSchema
+      ),
+    ).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      hashedId: "hashed_id",
+      languageCode: "language_code",
+      iso6392LanguageCode: "iso639_2_language_code",
+      languageName: "language_name",
+      nativeLanguageName: "native_language_name",
+      createdAt: "created_at",
+      updatedAt: "updated_at",
+      orderedAt: "ordered_at",
+      enabledAt: "enabled_at",
+      sourceMedia: "source_media",
+    });
+  });
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdResponse$ {
+  /** @deprecated use `DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdResponse$inboundSchema` instead. */
+  export const inboundSchema =
+    DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdResponse$inboundSchema;
+  /** @deprecated use `DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdResponse$outboundSchema` instead. */
+  export const outboundSchema =
+    DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdResponse$outboundSchema;
+  /** @deprecated use `DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdResponse$Outbound` instead. */
+  export type Outbound =
+    DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdResponse$Outbound;
+}
+
+export function deleteMediasMediaHashedIdLocalizationsLocalizationHashedIdResponseToJSON(
+  deleteMediasMediaHashedIdLocalizationsLocalizationHashedIdResponse:
+    DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdResponse,
+): string {
+  return JSON.stringify(
+    DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdResponse$outboundSchema
+      .parse(
+        deleteMediasMediaHashedIdLocalizationsLocalizationHashedIdResponse,
+      ),
+  );
+}
+
+export function deleteMediasMediaHashedIdLocalizationsLocalizationHashedIdResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdResponse,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdResponse$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdResponse' from JSON`,
   );
 }
