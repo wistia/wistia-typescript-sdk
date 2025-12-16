@@ -1,0 +1,21 @@
+# Stats
+
+An object representing the aggregated embed statistics for this video.
+
+## Example Usage
+
+```typescript
+import { Stats } from "@wistia/wistia-api-client/models/operations";
+
+let value: Stats = {};
+```
+
+## Fields
+
+| Field                                                                                                                                        | Type                                                                                                                                         | Required                                                                                                                                     | Description                                                                                                                                  |
+| -------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| `pageLoads`                                                                                                                                  | *number*                                                                                                                                     | :heavy_minus_sign:                                                                                                                           | The total number of times that the page containing the embedded video has been loaded.                                                       |
+| `visitors`                                                                                                                                   | *number*                                                                                                                                     | :heavy_minus_sign:                                                                                                                           | The number of unique visitors to the page containing the embedded video.                                                                     |
+| `percentOfVisitorsClickingPlay`                                                                                                              | *number*                                                                                                                                     | :heavy_minus_sign:                                                                                                                           | An integer between 0 and 100 that shows what percentage of the time someone who saw the page containing the embedded video played the video. |
+| `plays`                                                                                                                                      | *number*                                                                                                                                     | :heavy_minus_sign:                                                                                                                           | The total number of times that the video has been played.                                                                                    |
+| `averagePercentWatched`                                                                                                                      | *number*                                                                                                                                     | :heavy_minus_sign:                                                                                                                           | An integer between 0 and 100. It shows the average percentage of the video that was watched over every time the video was played.            |

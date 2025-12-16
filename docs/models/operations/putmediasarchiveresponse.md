@@ -1,0 +1,18 @@
+# PutMediasArchiveResponse
+
+Successful archival of media.
+
+## Example Usage
+
+```typescript
+import { PutMediasArchiveResponse } from "@wistia/wistia-api-client/models/operations";
+
+let value: PutMediasArchiveResponse = {};
+```
+
+## Fields
+
+| Field                                                                                                            | Type                                                                                                             | Required                                                                                                         | Description                                                                                                      |
+| ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| `message`                                                                                                        | *string*                                                                                                         | :heavy_minus_sign:                                                                                               | A confirmation message that the background job has been queued.                                                  |
+| `backgroundJobStatus`                                                                                            | [operations.PutMediasArchiveBackgroundJobStatus](../../models/operations/putmediasarchivebackgroundjobstatus.md) | :heavy_minus_sign:                                                                                               | Status of the background job.                                                                                    |

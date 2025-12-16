@@ -1,0 +1,20 @@
+# PostMediasMediaHashedIdTranslateResponse
+
+Successfully queued background job for translation of the transcript.
+
+## Example Usage
+
+```typescript
+import { PostMediasMediaHashedIdTranslateResponse } from "@wistia/wistia-api-client/models/operations";
+
+let value: PostMediasMediaHashedIdTranslateResponse = {
+  message: "Translation request has been successfully queued for processing.",
+};
+```
+
+## Fields
+
+| Field                                                                                                                                            | Type                                                                                                                                             | Required                                                                                                                                         | Description                                                                                                                                      | Example                                                                                                                                          |
+| ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `message`                                                                                                                                        | *string*                                                                                                                                         | :heavy_minus_sign:                                                                                                                               | N/A                                                                                                                                              | Translation request has been successfully queued for processing.                                                                                 |
+| `backgroundJobStatus`                                                                                                                            | [operations.PostMediasMediaHashedIdTranslateBackgroundJobStatus](../../models/operations/postmediasmediahashedidtranslatebackgroundjobstatus.md) | :heavy_minus_sign:                                                                                                                               | Status of the background job.                                                                                                                    |                                                                                                                                                  |
