@@ -1,0 +1,20 @@
+# PostMediasMediaHashedIdCaptionsPurchaseRequest
+
+## Example Usage
+
+```typescript
+import { PostMediasMediaHashedIdCaptionsPurchaseRequest } from "@wistia/wistia-api-client/models/operations";
+
+let value: PostMediasMediaHashedIdCaptionsPurchaseRequest = {
+  mediaHashedId: "<id>",
+  requestBody: {},
+};
+```
+
+## Fields
+
+| Field                                                                                                                                          | Type                                                                                                                                           | Required                                                                                                                                       | Description                                                                                                                                    | Example                                                                                                                                        |
+| ---------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| `mediaHashedId`                                                                                                                                | *string*                                                                                                                                       | :heavy_check_mark:                                                                                                                             | Unique identifier for the video.                                                                                                               |                                                                                                                                                |
+| `xWistiaAPIVersion`                                                                                                                            | *string*                                                                                                                                       | :heavy_minus_sign:                                                                                                                             | The API version                                                                                                                                | 2025-11                                                                                                                                        |
+| `requestBody`                                                                                                                                  | [operations.PostMediasMediaHashedIdCaptionsPurchaseRequestBody](../../models/operations/postmediasmediahashedidcaptionspurchaserequestbody.md) | :heavy_check_mark:                                                                                                                             | N/A                                                                                                                                            |                                                                                                                                                |
