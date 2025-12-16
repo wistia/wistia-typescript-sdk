@@ -12,7 +12,8 @@ let value: GetMediasMediaHashedIdLocalizationsRequest = {
 
 ## Fields
 
-| Field                                                 | Type                                                  | Required                                              | Description                                           |
-| ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
-| `mediaHashedId`                                       | *string*                                              | :heavy_check_mark:                                    | The hashed ID of the media to list localizations for. |
-| `includeTranscript`                                   | *boolean*                                             | :heavy_minus_sign:                                    | Whether to include the transcript in the response.    |
+| Field                                                 | Type                                                  | Required                                              | Description                                           | Example                                               |
+| ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
+| `mediaHashedId`                                       | *string*                                              | :heavy_check_mark:                                    | The hashed ID of the media to list localizations for. |                                                       |
+| `includeTranscript`                                   | *boolean*                                             | :heavy_minus_sign:                                    | Whether to include the transcript in the response.    |                                                       |
+| `xWistiaAPIVersion`                                   | *string*                                              | :heavy_minus_sign:                                    | The API version                                       | 2025-11                                               |

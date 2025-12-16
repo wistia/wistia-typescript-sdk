@@ -127,6 +127,11 @@ async function $do(
   const headers = new Headers(compactMap({
     Accept: options?.acceptHeaderOverride
       || "application/json;q=1, text/plain;q=0.7, text/vtt;q=0",
+    "X-Wistia-API-Version": encodeSimple(
+      "X-Wistia-API-Version",
+      payload["X-Wistia-API-Version"] ?? client._options.xWistiaAPIVersion,
+      { explode: false, charEncoding: "none" },
+    ),
   }));
 
   const secConfig = await extractSecurity(client._options.bearerAuth);
@@ -137,7 +142,7 @@ async function $do(
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
     operationID: "get_/medias/{mediaHashedId}/captions/{languageCode}",
-    oAuth2Scopes: [],
+    oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
 

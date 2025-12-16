@@ -12,13 +12,16 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
             async function run() {
               const result = await wistia.media.uploadForm({
-                url: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-                lowPriority: true,
+                requestBody: {
+                  url: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+                  lowPriority: true,
+                },
               });
 
               console.log(result);
@@ -32,12 +35,15 @@ actions:
             import { openAsBlob } from "node:fs";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
             async function run() {
               const result = await wistia.media.uploadMultipart({
-                file: await openAsBlob("example.file"),
+                requestBody: {
+                  file: await openAsBlob("example.file"),
+                },
               });
 
               console.log(result);
@@ -53,11 +59,12 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
             async function run() {
-              const result = await wistia.account.get();
+              const result = await wistia.account.get({});
 
               console.log(result);
             }
@@ -72,6 +79,7 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
@@ -91,12 +99,15 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
             async function run() {
               const result = await wistia.allowedDomains.create({
-                domain: "example.com",
+                requestBody: {
+                  domain: "example.com",
+                },
               });
 
               console.log(result);
@@ -112,6 +123,7 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
@@ -133,6 +145,7 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
@@ -154,6 +167,7 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
@@ -175,11 +189,12 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
             async function run() {
-              const result = await wistia.channelEpisodes.list();
+              const result = await wistia.channelEpisodes.list({});
 
               console.log(result);
             }
@@ -194,11 +209,12 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
             async function run() {
-              const result = await wistia.channels.list();
+              const result = await wistia.channels.list({});
 
               console.log(result);
             }
@@ -213,6 +229,7 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
@@ -234,6 +251,7 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
@@ -255,6 +273,7 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
@@ -282,6 +301,7 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
@@ -304,11 +324,12 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
             async function run() {
-              const result = await wistia.expiringAccessTokens.create();
+              const result = await wistia.expiringAccessTokens.create({});
 
               console.log(result);
             }
@@ -323,11 +344,12 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
             async function run() {
-              const result = await wistia.liveStreamEvents.list();
+              const result = await wistia.liveStreamEvents.list({});
 
               console.log(result);
             }
@@ -342,15 +364,18 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
             async function run() {
               const result = await wistia.liveStreamEvents.create({
-                title: "Wellness Session: Coping with Outie Memories",
-                description: "A comprehensive session on managing work-life balance",
-                scheduledFor: new Date("2024-03-20T15:30:00-05:00"),
-                eventDuration: 60,
+                requestBody: {
+                  title: "Wellness Session: Coping with Outie Memories",
+                  description: "A comprehensive session on managing work-life balance",
+                  scheduledFor: new Date("2024-03-20T15:30:00-05:00"),
+                  eventDuration: 60,
+                },
               });
 
               console.log(result);
@@ -366,6 +391,7 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
@@ -387,6 +413,7 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
@@ -408,6 +435,7 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
@@ -437,11 +465,12 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
             async function run() {
-              const result = await wistia.media.list();
+              const result = await wistia.media.list({});
 
               console.log(result);
             }
@@ -456,12 +485,15 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
             async function run() {
               const result = await wistia.media.archive({
-                hashedIds: [],
+                requestBody: {
+                  hashedIds: [],
+                },
               });
 
               console.log(result);
@@ -477,16 +509,19 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
             async function run() {
               const result = await wistia.media.move({
-                hashedIds: [
-                  "<value 1>",
-                  "<value 2>",
-                ],
-                projectId: "<id>",
+                requestBody: {
+                  hashedIds: [
+                    "<value 1>",
+                    "<value 2>",
+                  ],
+                  projectId: "<id>",
+                },
               });
 
               console.log(result);
@@ -502,12 +537,15 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
             async function run() {
               const result = await wistia.media.restore({
-                hashedIds: [],
+                requestBody: {
+                  hashedIds: [],
+                },
               });
 
               console.log(result);
@@ -523,6 +561,7 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
@@ -544,6 +583,7 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
@@ -565,6 +605,7 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
@@ -586,6 +627,7 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
@@ -607,6 +649,7 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
@@ -629,6 +672,7 @@ actions:
             import { openAsBlob } from "node:fs";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
@@ -653,6 +697,7 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
@@ -675,6 +720,7 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
@@ -697,6 +743,7 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
@@ -719,6 +766,7 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
@@ -742,6 +790,7 @@ actions:
             import { openAsBlob } from "node:fs";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
@@ -767,6 +816,7 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
@@ -788,6 +838,7 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
@@ -809,6 +860,7 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
@@ -830,6 +882,7 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
@@ -852,6 +905,7 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
@@ -874,6 +928,7 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
@@ -895,6 +950,7 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
@@ -916,6 +972,7 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
@@ -937,6 +994,7 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
@@ -961,6 +1019,7 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
@@ -982,6 +1041,7 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
@@ -1003,6 +1063,7 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
@@ -1035,6 +1096,7 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
@@ -1067,11 +1129,12 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
             async function run() {
-              const result = await wistia.projects.list();
+              const result = await wistia.projects.list({});
 
               console.log(result);
             }
@@ -1086,14 +1149,17 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
             async function run() {
               const result = await wistia.projects.create({
-                name: "My New Project",
-                adminEmail: "admin@example.com",
-                public: false,
+                requestBody: {
+                  name: "My New Project",
+                  adminEmail: "admin@example.com",
+                  public: false,
+                },
               });
 
               console.log(result);
@@ -1109,6 +1175,7 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
@@ -1130,6 +1197,7 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
@@ -1151,6 +1219,7 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
@@ -1177,6 +1246,7 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
@@ -1201,6 +1271,7 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
@@ -1222,6 +1293,7 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
@@ -1252,6 +1324,7 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
@@ -1274,6 +1347,7 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
@@ -1296,6 +1370,7 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
@@ -1319,6 +1394,7 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
@@ -1340,6 +1416,7 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
@@ -1365,6 +1442,7 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
@@ -1387,6 +1465,7 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
@@ -1409,6 +1488,7 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
@@ -1435,6 +1515,7 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
@@ -1456,11 +1537,12 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
             async function run() {
-              const result = await wistia.statsAccount.get();
+              const result = await wistia.statsAccount.get({});
 
               console.log(result);
             }
@@ -1475,11 +1557,12 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
             async function run() {
-              const result = await wistia.statsEvents.list();
+              const result = await wistia.statsEvents.list({});
 
               console.log(result);
             }
@@ -1494,6 +1577,7 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
@@ -1515,6 +1599,7 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
@@ -1537,6 +1622,7 @@ actions:
             import { RFCDate } from "@wistia/wistia-api-client/types";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
@@ -1560,6 +1646,7 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
@@ -1581,6 +1668,7 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
@@ -1602,11 +1690,12 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
             async function run() {
-              const result = await wistia.statsVisitors.list();
+              const result = await wistia.statsVisitors.list({});
 
               console.log(result);
             }
@@ -1621,6 +1710,7 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
@@ -1642,11 +1732,12 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
             async function run() {
-              const result = await wistia.tags.list();
+              const result = await wistia.tags.list({});
 
               console.log(result);
             }
@@ -1661,12 +1752,15 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 
             async function run() {
               const result = await wistia.tags.create({
-                name: "<value>",
+                requestBody: {
+                  name: "<value>",
+                },
               });
 
               console.log(result);
@@ -1682,6 +1776,7 @@ actions:
             import { Wistia } from "@wistia/wistia-api-client";
 
             const wistia = new Wistia({
+              xWistiaAPIVersion: "2025-11",
               bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
             });
 

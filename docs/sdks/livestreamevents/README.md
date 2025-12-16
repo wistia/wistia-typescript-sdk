@@ -1,5 +1,4 @@
 # LiveStreamEvents
-(*liveStreamEvents*)
 
 ## Overview
 
@@ -30,11 +29,12 @@ Read all project and video data
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const result = await wistia.liveStreamEvents.list();
+  const result = await wistia.liveStreamEvents.list({});
 
   console.log(result);
 }
@@ -53,11 +53,12 @@ import { liveStreamEventsList } from "@wistia/wistia-api-client/funcs/liveStream
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const res = await liveStreamEventsList(wistia);
+  const res = await liveStreamEventsList(wistia, {});
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
@@ -113,15 +114,18 @@ This endpoint requires the live streaming feature to be enabled on your account 
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
   const result = await wistia.liveStreamEvents.create({
-    title: "Wellness Session: Coping with Outie Memories",
-    description: "A comprehensive session on managing work-life balance",
-    scheduledFor: new Date("2024-03-20T15:30:00-05:00"),
-    eventDuration: 60,
+    requestBody: {
+      title: "Wellness Session: Coping with Outie Memories",
+      description: "A comprehensive session on managing work-life balance",
+      scheduledFor: new Date("2024-03-20T15:30:00-05:00"),
+      eventDuration: 60,
+    },
   });
 
   console.log(result);
@@ -141,15 +145,18 @@ import { liveStreamEventsCreate } from "@wistia/wistia-api-client/funcs/liveStre
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
   const res = await liveStreamEventsCreate(wistia, {
-    title: "Wellness Session: Coping with Outie Memories",
-    description: "A comprehensive session on managing work-life balance",
-    scheduledFor: new Date("2024-03-20T15:30:00-05:00"),
-    eventDuration: 60,
+    requestBody: {
+      title: "Wellness Session: Coping with Outie Memories",
+      description: "A comprehensive session on managing work-life balance",
+      scheduledFor: new Date("2024-03-20T15:30:00-05:00"),
+      eventDuration: 60,
+    },
   });
   if (res.ok) {
     const { value: result } = res;
@@ -204,6 +211,7 @@ Read all project and video data
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
@@ -229,6 +237,7 @@ import { liveStreamEventsGet } from "@wistia/wistia-api-client/funcs/liveStreamE
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
@@ -285,6 +294,7 @@ Read, update & delete anything
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
@@ -318,6 +328,7 @@ import { liveStreamEventsUpdate } from "@wistia/wistia-api-client/funcs/liveStre
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
@@ -383,6 +394,7 @@ Read, update & delete anything
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
@@ -408,6 +420,7 @@ import { liveStreamEventsDelete } from "@wistia/wistia-api-client/funcs/liveStre
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 

@@ -12,8 +12,9 @@ let value: GetProjectsProjectIdSharingsRequest = {
 
 ## Fields
 
-| Field                       | Type                        | Required                    | Description                 |
-| --------------------------- | --------------------------- | --------------------------- | --------------------------- |
-| `projectId`                 | *string*                    | :heavy_check_mark:          | Project Hashed ID           |
-| `page`                      | *number*                    | :heavy_minus_sign:          | Page number to retrieve     |
-| `perPage`                   | *number*                    | :heavy_minus_sign:          | Number of projects per page |
+| Field                       | Type                        | Required                    | Description                 | Example                     |
+| --------------------------- | --------------------------- | --------------------------- | --------------------------- | --------------------------- |
+| `projectId`                 | *string*                    | :heavy_check_mark:          | Project Hashed ID           |                             |
+| `page`                      | *number*                    | :heavy_minus_sign:          | Page number to retrieve     |                             |
+| `perPage`                   | *number*                    | :heavy_minus_sign:          | Number of projects per page |                             |
+| `xWistiaAPIVersion`         | *string*                    | :heavy_minus_sign:          | The API version             | 2025-11                     |

@@ -140,6 +140,8 @@ paths:
         - Upload or Import Media
       x-speakeasy-group: media
       x-speakeasy-name-override: upload
+      parameters:
+        - $ref: "#/components/parameters/ApiVersionHeader"
     servers:
       - url: https://upload.wistia.com
   /projects:
@@ -195,6 +197,7 @@ paths:
             enum:
               - 0
               - 1
+        - $ref: "#/components/parameters/ApiVersionHeader"
       responses:
         '200':
           description: A list of projects
@@ -457,6 +460,8 @@ paths:
       security:
         - BearerAuth: []
       x-speakeasy-name-override: create
+      parameters:
+        - $ref: "#/components/parameters/ApiVersionHeader"
   /projects/{id}:
     get:
       summary: Project Show
@@ -484,6 +489,7 @@ paths:
           schema:
             description: Hashed ID of the project (e.g., "4d23503f70")
             type: string
+        - $ref: "#/components/parameters/ApiVersionHeader"
       responses:
         '200':
           description: A single project
@@ -711,6 +717,7 @@ paths:
           schema:
             description: Hashed ID of the project (e.g., "4d23503f70")
             type: string
+        - $ref: "#/components/parameters/ApiVersionHeader"
       requestBody:
         content:
           application/json:
@@ -882,6 +889,7 @@ paths:
           schema:
             description: Hashed ID of the project (e.g., "4d23503f70")
             type: string
+        - $ref: "#/components/parameters/ApiVersionHeader"
       responses:
         '200':
           description: Successful response
@@ -1028,6 +1036,7 @@ paths:
           schema:
             description: Hashed ID of the project (e.g., "4d23503f70")
             type: string
+        - $ref: "#/components/parameters/ApiVersionHeader"
       requestBody:
         content:
           application/json:
@@ -1232,6 +1241,7 @@ paths:
             enum:
               - 0
               - 1
+        - $ref: "#/components/parameters/ApiVersionHeader"
       responses:
         '200':
           description: A list of subfolders
@@ -1352,6 +1362,7 @@ paths:
             type: string
             examples:
               - abc123def4
+        - $ref: "#/components/parameters/ApiVersionHeader"
       requestBody:
         description: Subfolder data
         required: true
@@ -1520,6 +1531,7 @@ paths:
             examples:
               - markdown
             const: markdown
+        - $ref: "#/components/parameters/ApiVersionHeader"
       responses:
         '200':
           description: Subfolder details with contained media
@@ -1727,6 +1739,7 @@ paths:
             type: string
             examples:
               - xyz789ghi0
+        - $ref: "#/components/parameters/ApiVersionHeader"
       requestBody:
         description: Updated subfolder data
         required: true
@@ -1881,6 +1894,7 @@ paths:
             type: string
             examples:
               - xyz789ghi0
+        - $ref: "#/components/parameters/ApiVersionHeader"
       responses:
         '200':
           description: Subfolder deleted successfully
@@ -2023,6 +2037,7 @@ paths:
           required: false
           schema:
             type: integer
+        - $ref: "#/components/parameters/ApiVersionHeader"
       responses:
         '200':
           description: Successfully retrieved list of sharings
@@ -2150,6 +2165,7 @@ paths:
           schema:
             description: Hashed ID of the project (e.g., "4d23503f70")
             type: string
+        - $ref: "#/components/parameters/ApiVersionHeader"
       requestBody:
         required: true
         content:
@@ -2382,6 +2398,7 @@ paths:
           required: true
           schema:
             type: integer
+        - $ref: "#/components/parameters/ApiVersionHeader"
       responses:
         '200':
           description: Successfully retrieved sharing details
@@ -2518,6 +2535,7 @@ paths:
           required: true
           schema:
             type: string
+        - $ref: "#/components/parameters/ApiVersionHeader"
       requestBody:
         required: true
         content:
@@ -2679,6 +2697,7 @@ paths:
           required: true
           schema:
             type: string
+        - $ref: "#/components/parameters/ApiVersionHeader"
       responses:
         '200':
           description: Sharing deleted successfully
@@ -2968,6 +2987,7 @@ paths:
           required: false
           schema:
             type: boolean
+        - $ref: "#/components/parameters/ApiVersionHeader"
       responses:
         '200':
           description: Successful response
@@ -3274,6 +3294,7 @@ paths:
           schema:
             description: Hashed ID of the media (e.g., "4d23503f70")
             type: string
+        - $ref: "#/components/parameters/ApiVersionHeader"
       responses:
         '200':
           description: Successful response
@@ -3551,6 +3572,7 @@ paths:
           schema:
             description: Hashed ID of the media (e.g., "4d23503f70")
             type: string
+        - $ref: "#/components/parameters/ApiVersionHeader"
       requestBody:
         required: false
         content:
@@ -3743,6 +3765,7 @@ paths:
           schema:
             description: Hashed ID of the media (e.g., "4d23503f70")
             type: string
+        - $ref: "#/components/parameters/ApiVersionHeader"
       responses:
         '200':
           description: Successful deletion of the media.
@@ -3887,6 +3910,7 @@ paths:
           schema:
             description: Hashed ID of the media (e.g., "4d23503f70")
             type: string
+        - $ref: "#/components/parameters/ApiVersionHeader"
       requestBody:
         content:
           application/json:
@@ -4100,6 +4124,7 @@ paths:
           schema:
             description: Hashed ID of the media to be replaced.
             type: string
+        - $ref: "#/components/parameters/ApiVersionHeader"
       requestBody:
         content:
           application/json:
@@ -4298,6 +4323,7 @@ paths:
           schema:
             description: Hashed ID of the media (e.g., "4d23503f70")
             type: string
+        - $ref: "#/components/parameters/ApiVersionHeader"
       responses:
         '200':
           description: Successful retrieval of video statistics.
@@ -4409,6 +4435,7 @@ paths:
           required: true
           schema:
             type: string
+        - $ref: "#/components/parameters/ApiVersionHeader"
       requestBody:
         content:
           application/json:
@@ -4625,6 +4652,8 @@ paths:
       security:
         - BearerAuth: []
       x-speakeasy-name-override: archive
+      parameters:
+        - $ref: "#/components/parameters/ApiVersionHeader"
   /medias/move:
     put:
       summary: Media Move
@@ -4792,6 +4821,8 @@ paths:
       security:
         - BearerAuth: []
       x-speakeasy-name-override: move
+      parameters:
+        - $ref: "#/components/parameters/ApiVersionHeader"
   /medias/restore:
     put:
       summary: Media Restore
@@ -4937,6 +4968,8 @@ paths:
       security:
         - BearerAuth: []
       x-speakeasy-name-override: restore
+      parameters:
+        - $ref: "#/components/parameters/ApiVersionHeader"
   /account:
     get:
       operationId: getAccountDetails
@@ -5012,6 +5045,8 @@ paths:
       security:
         - BearerAuth: []
       x-speakeasy-name-override: get
+      parameters:
+        - $ref: "#/components/parameters/ApiVersionHeader"
   /allowed_domains:
     get:
       summary: Allowed Domains List
@@ -5040,6 +5075,7 @@ paths:
             default: 100
             maximum: 100
             minimum: 1
+        - $ref: "#/components/parameters/ApiVersionHeader"
       responses:
         '200':
           description: List of allowed domains
@@ -5175,6 +5211,8 @@ paths:
       security:
         - BearerAuth: []
       x-speakeasy-name-override: create
+      parameters:
+        - $ref: "#/components/parameters/ApiVersionHeader"
   /allowed_domains/{domain}:
     get:
       summary: Allowed Domain Show
@@ -5194,6 +5232,7 @@ paths:
             type: string
             examples:
               - example.com
+        - $ref: "#/components/parameters/ApiVersionHeader"
       responses:
         '200':
           description: Allowed domain details
@@ -5272,6 +5311,7 @@ paths:
             type: string
             examples:
               - example.com
+        - $ref: "#/components/parameters/ApiVersionHeader"
       responses:
         '200':
           description: Allowed domain deleted successfully
@@ -5349,6 +5389,7 @@ paths:
           required: true
           schema:
             type: integer
+        - $ref: "#/components/parameters/ApiVersionHeader"
       responses:
         '200':
           description: OK
@@ -5440,6 +5481,7 @@ paths:
           required: true
           schema:
             type: string
+        - $ref: "#/components/parameters/ApiVersionHeader"
       responses:
         '200':
           description: Successful response
@@ -5695,6 +5737,7 @@ paths:
           required: true
           schema:
             type: string
+        - $ref: "#/components/parameters/ApiVersionHeader"
       requestBody:
         required: true
         content:
@@ -6210,6 +6253,7 @@ paths:
           required: true
           schema:
             type: string
+        - $ref: "#/components/parameters/ApiVersionHeader"
       requestBody:
         required: true
         content:
@@ -6736,6 +6780,7 @@ paths:
           required: true
           schema:
             type: string
+        - $ref: "#/components/parameters/ApiVersionHeader"
       responses:
         '200':
           description: Video customization deletion successful
@@ -6807,6 +6852,7 @@ paths:
           required: true
           schema:
             type: string
+        - $ref: "#/components/parameters/ApiVersionHeader"
       responses:
         '200':
           description: Captions retrieval successful
@@ -6890,6 +6936,7 @@ paths:
           required: true
           schema:
             type: string
+        - $ref: "#/components/parameters/ApiVersionHeader"
       requestBody:
         required: true
         content:
@@ -6978,6 +7025,7 @@ paths:
           required: true
           schema:
             type: string
+        - $ref: "#/components/parameters/ApiVersionHeader"
       requestBody:
         required: true
         content:
@@ -7107,6 +7155,7 @@ paths:
           required: true
           schema:
             type: string
+        - $ref: "#/components/parameters/ApiVersionHeader"
       responses:
         '200':
           description: Successful response containing captions in the requested format
@@ -7203,6 +7252,7 @@ paths:
           schema:
             type: string
             pattern: ^[a-z]{3}$
+        - $ref: "#/components/parameters/ApiVersionHeader"
       requestBody:
         required: true
         content:
@@ -7288,6 +7338,7 @@ paths:
           schema:
             type: string
             pattern: ^[a-z]{3}$
+        - $ref: "#/components/parameters/ApiVersionHeader"
       responses:
         '200':
           description: Successful operation. Captions removed.
@@ -7337,6 +7388,7 @@ paths:
           required: true
           schema:
             type: string
+        - $ref: "#/components/parameters/ApiVersionHeader"
       requestBody:
         required: true
         content:
@@ -7444,6 +7496,7 @@ paths:
           schema:
             type: boolean
             default: false
+        - $ref: "#/components/parameters/ApiVersionHeader"
       responses:
         '200':
           description: Successful response
@@ -7622,6 +7675,7 @@ paths:
           required: true
           schema:
             type: string
+        - $ref: "#/components/parameters/ApiVersionHeader"
       requestBody:
         content:
           application/json:
@@ -7890,6 +7944,7 @@ paths:
           schema:
             type: boolean
             default: false
+        - $ref: "#/components/parameters/ApiVersionHeader"
       responses:
         '200':
           description: Successful response
@@ -8071,6 +8126,7 @@ paths:
           required: true
           schema:
             type: string
+        - $ref: "#/components/parameters/ApiVersionHeader"
       responses:
         '200':
           description: Successful deletion of the localization.
@@ -8280,6 +8336,7 @@ paths:
             enum:
               - 0
               - 1
+        - $ref: "#/components/parameters/ApiVersionHeader"
       responses:
         '200':
           description: A list of tags
@@ -8440,6 +8497,8 @@ paths:
       security:
         - BearerAuth: []
       x-speakeasy-name-override: create
+      parameters:
+        - $ref: "#/components/parameters/ApiVersionHeader"
   /tags/{name}:
     delete:
       summary: Tags Delete
@@ -8458,6 +8517,7 @@ paths:
           schema:
             description: Name of the tag to delete
             type: string
+        - $ref: "#/components/parameters/ApiVersionHeader"
       responses:
         '200':
           description: Successful response.
@@ -8508,6 +8568,7 @@ paths:
           schema:
             type: string
           example: screencast
+        - $ref: "#/components/parameters/ApiVersionHeader"
       responses:
         '200':
           description: Search results
@@ -8899,6 +8960,7 @@ paths:
               type: string
           explode: true
           style: form
+        - $ref: "#/components/parameters/ApiVersionHeader"
       responses:
         '200':
           description: Channels retrieval successful
@@ -8987,6 +9049,7 @@ paths:
           schema:
             description: Hashed ID of the channel (e.g., "4d23503f70")
             type: string
+        - $ref: "#/components/parameters/ApiVersionHeader"
       responses:
         '200':
           description: Channel retrieval successful
@@ -9091,6 +9154,7 @@ paths:
           schema:
             description: Hashed ID of the channel episode (e.g., "4d23503f70")
             type: string
+        - $ref: "#/components/parameters/ApiVersionHeader"
       responses:
         '200':
           description: Channel Episode retrieval successful
@@ -9270,6 +9334,7 @@ paths:
           required: false
           schema:
             type: string
+        - $ref: "#/components/parameters/ApiVersionHeader"
       responses:
         '200':
           description: Channel Episodes retrieval successful
@@ -9380,6 +9445,7 @@ paths:
           required: true
           schema:
             type: string
+        - $ref: "#/components/parameters/ApiVersionHeader"
       requestBody:
         required: true
         content:
@@ -9635,6 +9701,7 @@ paths:
           required: false
           schema:
             type: string
+        - $ref: "#/components/parameters/ApiVersionHeader"
       responses:
         '200':
           description: Channel Episodes retrieval successful
@@ -9838,6 +9905,8 @@ paths:
         - BearerAuth: []
       x-speakeasy-group: expiringAccessTokens
       x-speakeasy-name-override: create
+      parameters:
+        - $ref: "#/components/parameters/ApiVersionHeader"
   /live_stream_events:
     get:
       summary: Live Stream Events List
@@ -9897,6 +9966,7 @@ paths:
             type: array
             items:
               type: string
+        - $ref: "#/components/parameters/ApiVersionHeader"
       responses:
         '200':
           description: Successful response with a list of live stream events
@@ -10214,6 +10284,8 @@ paths:
         - BearerAuth: []
       x-speakeasy-group: liveStreamEvents
       x-speakeasy-name-override: create
+      parameters:
+        - $ref: "#/components/parameters/ApiVersionHeader"
   /live_stream_events/{id}:
     get:
       summary: Live Stream Event Show
@@ -10233,6 +10305,7 @@ paths:
           required: true
           schema:
             type: string
+        - $ref: "#/components/parameters/ApiVersionHeader"
       responses:
         '200':
           description: Successful response with the live stream event details
@@ -10362,6 +10435,7 @@ paths:
           required: true
           schema:
             type: string
+        - $ref: "#/components/parameters/ApiVersionHeader"
       requestBody:
         required: true
         content:
@@ -10537,6 +10611,7 @@ paths:
           required: true
           schema:
             type: string
+        - $ref: "#/components/parameters/ApiVersionHeader"
       responses:
         '200':
           description: Live stream event deleted successfully
@@ -10722,6 +10797,8 @@ paths:
         - BearerAuth: []
       x-speakeasy-group: statsAccount
       x-speakeasy-name-override: get
+      parameters:
+        - $ref: "#/components/parameters/ApiVersionHeader"
   /stats/projects/{projectId}:
     get:
       summary: Stats:Projects Show
@@ -10751,6 +10828,7 @@ paths:
             description: >-
               The hashed ID or numeric ID of the project (e.g., "4d23503f70" or "22570")
             type: string
+        - $ref: "#/components/parameters/ApiVersionHeader"
       responses:
         '200':
           description: Success response with the stats of the project.
@@ -10834,6 +10912,7 @@ paths:
             description: >-
               The hashed ID or numeric ID of the media (e.g., "4d23503f70" or "22570")
             type: string
+        - $ref: "#/components/parameters/ApiVersionHeader"
       responses:
         '200':
           description: Success response with the stats of the video.
@@ -10956,6 +11035,7 @@ paths:
             type: string
             format: date
           example: '2024-02-23'
+        - $ref: "#/components/parameters/ApiVersionHeader"
       responses:
         '200':
           description: A list of media stats by date
@@ -11034,6 +11114,7 @@ paths:
             description: >-
               The hashed ID or numeric ID of the media (e.g., "4d23503f70" or "22570")
             type: string
+        - $ref: "#/components/parameters/ApiVersionHeader"
       responses:
         '200':
           description: Success response with the engagement data of the video.
@@ -11132,6 +11213,7 @@ paths:
           description: Search for visitors based on name or email address.
           schema:
             type: string
+        - $ref: "#/components/parameters/ApiVersionHeader"
       responses:
         '200':
           description: Successful response with a list of visitors.
@@ -11240,6 +11322,7 @@ paths:
           required: true
           schema:
             type: string
+        - $ref: "#/components/parameters/ApiVersionHeader"
       responses:
         '200':
           description: Successful response with details of a single visitor.
@@ -11383,6 +11466,7 @@ paths:
           schema:
             type: string
             format: date
+        - $ref: "#/components/parameters/ApiVersionHeader"
       responses:
         '200':
           description: Successful response with a list of events.
@@ -11551,6 +11635,7 @@ paths:
           required: true
           schema:
             type: string
+        - $ref: "#/components/parameters/ApiVersionHeader"
       responses:
         '200':
           description: Successful response with the details of a single event.
@@ -15054,6 +15139,14 @@ components:
       required: false
       schema:
         type: string
+    ApiVersionHeader:
+      name: X-Wistia-API-Version
+      in: header
+      description: The API version
+      required: true
+      schema:
+        type: string
+        example: 2025-11
 tags:
   - name: Projects
     x-displayName: Projects
@@ -15101,3 +15194,6 @@ tags:
     x-displayName: Stats:Events
 servers:
   - url: https://api.wistia.com/modern
+x-speakeasy-globals:
+  parameters:
+    - $ref: "#/components/parameters/ApiVersionHeader"

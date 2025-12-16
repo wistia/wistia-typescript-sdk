@@ -1,5 +1,4 @@
 # Projects
-(*projects*)
 
 ## Overview
 
@@ -31,11 +30,12 @@ Read all project and video data
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const result = await wistia.projects.list();
+  const result = await wistia.projects.list({});
 
   console.log(result);
 }
@@ -54,11 +54,12 @@ import { projectsList } from "@wistia/wistia-api-client/funcs/projectsList.js";
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const res = await projectsList(wistia);
+  const res = await projectsList(wistia, {});
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
@@ -108,14 +109,17 @@ Read, update & delete anything
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
   const result = await wistia.projects.create({
-    name: "My New Project",
-    adminEmail: "admin@example.com",
-    public: false,
+    requestBody: {
+      name: "My New Project",
+      adminEmail: "admin@example.com",
+      public: false,
+    },
   });
 
   console.log(result);
@@ -135,14 +139,17 @@ import { projectsCreate } from "@wistia/wistia-api-client/funcs/projectsCreate.j
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
   const res = await projectsCreate(wistia, {
-    name: "My New Project",
-    adminEmail: "admin@example.com",
-    public: false,
+    requestBody: {
+      name: "My New Project",
+      adminEmail: "admin@example.com",
+      public: false,
+    },
   });
   if (res.ok) {
     const { value: result } = res;
@@ -195,6 +202,7 @@ Read all project and video data
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
@@ -220,6 +228,7 @@ import { projectsGet } from "@wistia/wistia-api-client/funcs/projectsGet.js";
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
@@ -277,6 +286,7 @@ Read, update & delete anything
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
@@ -307,6 +317,7 @@ import { projectsUpdate } from "@wistia/wistia-api-client/funcs/projectsUpdate.j
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
@@ -369,6 +380,7 @@ Read, update & delete anything
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
@@ -394,6 +406,7 @@ import { projectsDelete } from "@wistia/wistia-api-client/funcs/projectsDelete.j
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
@@ -453,6 +466,7 @@ Read, update & delete anything
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
@@ -481,6 +495,7 @@ import { projectsCopy } from "@wistia/wistia-api-client/funcs/projectsCopy.js";
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 

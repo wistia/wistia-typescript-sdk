@@ -17,4 +17,5 @@ let value: GetProjectsProjectIdSubfoldersSubfolderIdRequest = {
 | ------------------------------ | ------------------------------ | ------------------------------ | ------------------------------ | ------------------------------ |
 | `projectId`                    | *string*                       | :heavy_check_mark:             | The hashed ID of the project   | abc123def4                     |
 | `subfolderId`                  | *string*                       | :heavy_check_mark:             | The hashed ID of the subfolder | xyz789ghi0                     |
-| `descriptionFormat`            | *string*                       | :heavy_minus_sign:             | Format for media descriptions  | markdown                       |
+| `descriptionFormat`            | *"markdown"*                   | :heavy_minus_sign:             | Format for media descriptions  | markdown                       |
+| `xWistiaAPIVersion`            | *string*                       | :heavy_minus_sign:             | The API version                | 2025-11                        |
