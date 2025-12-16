@@ -11,7 +11,7 @@ actions:
   - target: "$"
     update:
       servers:
-        - url: https://api.wistia.com/v1
+        - url: https://api.wistia.com/modern
 
   # Step 3: Add back the specific 'servers' entry for the upload route
   - target: "$.paths['/']"
