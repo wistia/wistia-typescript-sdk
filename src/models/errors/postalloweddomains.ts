@@ -6,6 +6,68 @@ import * as z from "zod";
 import { WistiaError } from "./wistiaerror.js";
 
 /**
+ * Internal server error
+ */
+export type PostAllowedDomainsInternalServerErrorData = {
+  error?: string | undefined;
+};
+
+/**
+ * Internal server error
+ */
+export class PostAllowedDomainsInternalServerError extends WistiaError {
+  error?: string | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: PostAllowedDomainsInternalServerErrorData;
+
+  constructor(
+    err: PostAllowedDomainsInternalServerErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+
+    this.name = "PostAllowedDomainsInternalServerError";
+  }
+}
+
+/**
+ * Unauthorized, invalid or missing token
+ */
+export type PostAllowedDomainsUnauthorizedErrorData = {
+  error?: string | undefined;
+};
+
+/**
+ * Unauthorized, invalid or missing token
+ */
+export class PostAllowedDomainsUnauthorizedError extends WistiaError {
+  error?: string | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: PostAllowedDomainsUnauthorizedErrorData;
+
+  constructor(
+    err: PostAllowedDomainsUnauthorizedErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+
+    this.name = "PostAllowedDomainsUnauthorizedError";
+  }
+}
+
+/**
  * Bad request - missing or invalid domain
  */
 export type PostAllowedDomainsBadRequestErrorData = {
@@ -34,6 +96,106 @@ export class PostAllowedDomainsBadRequestError extends WistiaError {
 
     this.name = "PostAllowedDomainsBadRequestError";
   }
+}
+
+/** @internal */
+export const PostAllowedDomainsInternalServerError$inboundSchema: z.ZodType<
+  PostAllowedDomainsInternalServerError,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  error: z.string().optional(),
+  request$: z.instanceof(Request),
+  response$: z.instanceof(Response),
+  body$: z.string(),
+})
+  .transform((v) => {
+    return new PostAllowedDomainsInternalServerError(v, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
+  });
+
+/** @internal */
+export type PostAllowedDomainsInternalServerError$Outbound = {
+  error?: string | undefined;
+};
+
+/** @internal */
+export const PostAllowedDomainsInternalServerError$outboundSchema: z.ZodType<
+  PostAllowedDomainsInternalServerError$Outbound,
+  z.ZodTypeDef,
+  PostAllowedDomainsInternalServerError
+> = z.instanceof(PostAllowedDomainsInternalServerError)
+  .transform(v => v.data$)
+  .pipe(z.object({
+    error: z.string().optional(),
+  }));
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostAllowedDomainsInternalServerError$ {
+  /** @deprecated use `PostAllowedDomainsInternalServerError$inboundSchema` instead. */
+  export const inboundSchema =
+    PostAllowedDomainsInternalServerError$inboundSchema;
+  /** @deprecated use `PostAllowedDomainsInternalServerError$outboundSchema` instead. */
+  export const outboundSchema =
+    PostAllowedDomainsInternalServerError$outboundSchema;
+  /** @deprecated use `PostAllowedDomainsInternalServerError$Outbound` instead. */
+  export type Outbound = PostAllowedDomainsInternalServerError$Outbound;
+}
+
+/** @internal */
+export const PostAllowedDomainsUnauthorizedError$inboundSchema: z.ZodType<
+  PostAllowedDomainsUnauthorizedError,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  error: z.string().optional(),
+  request$: z.instanceof(Request),
+  response$: z.instanceof(Response),
+  body$: z.string(),
+})
+  .transform((v) => {
+    return new PostAllowedDomainsUnauthorizedError(v, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
+  });
+
+/** @internal */
+export type PostAllowedDomainsUnauthorizedError$Outbound = {
+  error?: string | undefined;
+};
+
+/** @internal */
+export const PostAllowedDomainsUnauthorizedError$outboundSchema: z.ZodType<
+  PostAllowedDomainsUnauthorizedError$Outbound,
+  z.ZodTypeDef,
+  PostAllowedDomainsUnauthorizedError
+> = z.instanceof(PostAllowedDomainsUnauthorizedError)
+  .transform(v => v.data$)
+  .pipe(z.object({
+    error: z.string().optional(),
+  }));
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostAllowedDomainsUnauthorizedError$ {
+  /** @deprecated use `PostAllowedDomainsUnauthorizedError$inboundSchema` instead. */
+  export const inboundSchema =
+    PostAllowedDomainsUnauthorizedError$inboundSchema;
+  /** @deprecated use `PostAllowedDomainsUnauthorizedError$outboundSchema` instead. */
+  export const outboundSchema =
+    PostAllowedDomainsUnauthorizedError$outboundSchema;
+  /** @deprecated use `PostAllowedDomainsUnauthorizedError$Outbound` instead. */
+  export type Outbound = PostAllowedDomainsUnauthorizedError$Outbound;
 }
 
 /** @internal */

@@ -9,6 +9,7 @@ let value: PostMediasMediaHashedIdCopyResponse = {
   headers: {
     "key": [
       "<value 1>",
+      "<value 2>",
     ],
   },
   result: {
@@ -23,7 +24,7 @@ let value: PostMediasMediaHashedIdCopyResponse = {
 
 ## Fields
 
-| Field                                         | Type                                          | Required                                      | Description                                   |
-| --------------------------------------------- | --------------------------------------------- | --------------------------------------------- | --------------------------------------------- |
-| `headers`                                     | Record<string, *string*[]>                    | :heavy_check_mark:                            | N/A                                           |
-| `result`                                      | [models.MediaCopy](../../models/mediacopy.md) | :heavy_check_mark:                            | N/A                                           |
+| Field                                                                                                                    | Type                                                                                                                     | Required                                                                                                                 | Description                                                                                                              |
+| ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
+| `headers`                                                                                                                | Record<string, *string*[]>                                                                                               | :heavy_check_mark:                                                                                                       | N/A                                                                                                                      |
+| `result`                                                                                                                 | [operations.PostMediasMediaHashedIdCopyResponseBody](../../models/operations/postmediasmediahashedidcopyresponsebody.md) | :heavy_check_mark:                                                                                                       | N/A                                                                                                                      |

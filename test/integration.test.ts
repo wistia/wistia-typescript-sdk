@@ -2,12 +2,16 @@ import { describe, it, before, after } from 'node:test';
 import assert from 'node:assert';
 import { Wistia } from '../src/index.js';
 import { RFCDate } from '../src/types/index.js';
-import { MediaShow, Project, Tag, Subfolder, SubfolderWithMedia, AllowedDomain, LiveStreamEvent, BackgroundJobStatus, Caption } from '../src/models/index.js';
-import { GetMediasMediaHashedIdCaptionsLanguageCodeResponse } from '../src/models/operations/index.js';
+import {
+  PostProjectsResponse as Project,
+  PostProjectsProjectIdSubfoldersResponse as Subfolder,
+  PostTagsResponse as Tag,
+  PostAllowedDomainsResponse as AllowedDomain,
+  PutLiveStreamEventsIdResponse as LiveStreamEvent,
+  GetMediasMediaHashedIdCaptionsLanguageCodeResponseBody
+} from '../src/models/operations/index.js';
 import { PostMultipartResponse } from "@wistia/wistia-api-client/models/operations";
 import dotenv from 'dotenv';
-import { exec } from 'child_process';
-import { promisify } from 'util';
 import { writeFile, mkdir, rm, copyFile } from 'node:fs/promises';
 import { openAsBlob } from 'node:fs';
 import { tmpdir } from 'node:os';
@@ -25,7 +29,6 @@ function log(...args: any[]) {
   }
 }
 
-const execAsync = promisify(exec);
 dotenv.config();
 
 function handleError(callback: () => Promise<void>, message: string) {
@@ -80,7 +83,7 @@ const testResources = {
   media: null as PostMultipartResponse | null,
   tag: null as Tag | null,
   allowedDomain: null as AllowedDomain | null,
-  backgroundJobId: null as BackgroundJobStatus["id"] | null,
+  backgroundJobId: null as number | null,
   liveStreamEvent: null as LiveStreamEvent | null,
   eventKey: null as string | null,
   hasCustomization: false,
@@ -229,7 +232,7 @@ describe('Wistia SDK Integration Tests', () => {
 
       const updatedProject = await wistia.projects.update({
         id: testResources.project.hashedId,
-        updateProject: {
+        requestBody: {
           description: `${testPrefix} - Integration test project for SDK validation`,
         },
       });
@@ -266,7 +269,7 @@ describe('Wistia SDK Integration Tests', () => {
 
       const subfolder = await wistia.subfolders.create({
         projectId: testResources.project.hashedId,
-        subfolderInput: {
+        requestBody: {
           name: `${testPrefix}-Subfolder`,
           description: 'Test subfolder for SDK integration',
         },
@@ -415,7 +418,7 @@ describe('Wistia SDK Integration Tests', () => {
 
       const customization = await wistia.customizations.create({
         mediaId: testResources.media.hashedId,
-        videoCustomization: {
+        requestBody: {
           plugin: {
             postRollV1: {
               style: {
@@ -439,7 +442,7 @@ describe('Wistia SDK Integration Tests', () => {
 
       const customization = await wistia.customizations.update({
         mediaId: testResources.media.hashedId,
-        videoCustomization: {
+        requestBody: {
           plugin: {
             postRollV1: {
               style: {
@@ -538,12 +541,12 @@ describe('Wistia SDK Integration Tests', () => {
       log('Waiting for captions to be processed...');
       await new Promise(resolve => setTimeout(resolve, 30000));
 
-      const captions: GetMediasMediaHashedIdCaptionsLanguageCodeResponse = await wistia.captions.get({
+      const captions = await wistia.captions.get({
         mediaHashedId: testResources.media.hashedId,
         languageCode: 'eng',
       }, {
         acceptHeaderOverride: GetAcceptEnum.applicationJson,
-      }) as Caption;
+      }) as GetMediasMediaHashedIdCaptionsLanguageCodeResponseBody;
 
       log('Captions response:', JSON.stringify(captions, null, 2));
 
@@ -657,7 +660,7 @@ describe('Wistia SDK Integration Tests', () => {
 
       const updatedEvent = await wistia.liveStreamEvents.update({
         id: testResources.liveStreamEvent.id,
-        updateLiveStreamEvent: {
+        requestBody: {
           liveStreamEvent: {
             title: `${testPrefix} - Updated Live Stream Event`,
             description: 'Updated description for SDK integration testing',

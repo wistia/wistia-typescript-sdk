@@ -57,6 +57,47 @@ export type GetProjectsRequest = {
   sortDirection?: GetProjectsSortDirection | undefined;
 };
 
+export type GetProjectsResponse = {
+  /**
+   * A unique numeric identifier for the project within the system.
+   */
+  id: number;
+  /**
+   * The project’s display name.
+   */
+  name: string;
+  /**
+   * The project’s description.
+   */
+  description?: string | null | undefined;
+  /**
+   * The number of different medias that have been uploaded to the project.
+   */
+  mediaCount: number;
+  /**
+   * The date that the project was originally created.
+   */
+  created: Date;
+  /**
+   * The date that the project was last updated.
+   */
+  updated: Date;
+  /**
+   * A private hashed id, uniquely identifying the project within the system.
+   */
+  hashedId: string;
+  /**
+   * A boolean indicating whether the project is available for public (anonymous) viewing.
+   */
+  public: boolean;
+  /**
+   * If the project is public, this field contains a string representing the ID used for referencing the project in public URLs.
+   */
+  publicId: string | null;
+  anonymousCanUpload?: boolean | undefined;
+  anonymousCanDownload?: boolean | undefined;
+};
+
 /** @internal */
 export const GetProjectsSortBy$inboundSchema: z.ZodNativeEnum<
   typeof GetProjectsSortBy
@@ -171,5 +212,89 @@ export function getProjectsRequestFromJSON(
     jsonString,
     (x) => GetProjectsRequest$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'GetProjectsRequest' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetProjectsResponse$inboundSchema: z.ZodType<
+  GetProjectsResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: z.number().int(),
+  name: z.string(),
+  description: z.nullable(z.string()).optional(),
+  mediaCount: z.number().int(),
+  created: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  updated: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  hashedId: z.string(),
+  public: z.boolean(),
+  publicId: z.nullable(z.string()),
+  anonymousCanUpload: z.boolean().optional(),
+  anonymousCanDownload: z.boolean().optional(),
+});
+
+/** @internal */
+export type GetProjectsResponse$Outbound = {
+  id: number;
+  name: string;
+  description?: string | null | undefined;
+  mediaCount: number;
+  created: string;
+  updated: string;
+  hashedId: string;
+  public: boolean;
+  publicId: string | null;
+  anonymousCanUpload?: boolean | undefined;
+  anonymousCanDownload?: boolean | undefined;
+};
+
+/** @internal */
+export const GetProjectsResponse$outboundSchema: z.ZodType<
+  GetProjectsResponse$Outbound,
+  z.ZodTypeDef,
+  GetProjectsResponse
+> = z.object({
+  id: z.number().int(),
+  name: z.string(),
+  description: z.nullable(z.string()).optional(),
+  mediaCount: z.number().int(),
+  created: z.date().transform(v => v.toISOString()),
+  updated: z.date().transform(v => v.toISOString()),
+  hashedId: z.string(),
+  public: z.boolean(),
+  publicId: z.nullable(z.string()),
+  anonymousCanUpload: z.boolean().optional(),
+  anonymousCanDownload: z.boolean().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetProjectsResponse$ {
+  /** @deprecated use `GetProjectsResponse$inboundSchema` instead. */
+  export const inboundSchema = GetProjectsResponse$inboundSchema;
+  /** @deprecated use `GetProjectsResponse$outboundSchema` instead. */
+  export const outboundSchema = GetProjectsResponse$outboundSchema;
+  /** @deprecated use `GetProjectsResponse$Outbound` instead. */
+  export type Outbound = GetProjectsResponse$Outbound;
+}
+
+export function getProjectsResponseToJSON(
+  getProjectsResponse: GetProjectsResponse,
+): string {
+  return JSON.stringify(
+    GetProjectsResponse$outboundSchema.parse(getProjectsResponse),
+  );
+}
+
+export function getProjectsResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<GetProjectsResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetProjectsResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetProjectsResponse' from JSON`,
   );
 }

@@ -26,7 +26,6 @@ import * as errors from "../models/errors/index.js";
 import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import { WistiaError } from "../models/errors/wistiaerror.js";
-import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
@@ -50,10 +49,10 @@ export function mediaList(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    Array<models.MediaIndex>,
-    | errors.FourHundredError
-    | errors.FourHundredAndOneError
-    | errors.FiveHundredError
+    Array<operations.GetMediasResponse>,
+    | errors.GetMediasBadRequestError
+    | errors.GetMediasUnauthorizedError
+    | errors.GetMediasInternalServerError
     | WistiaError
     | ResponseValidationError
     | ConnectionError
@@ -78,10 +77,10 @@ async function $do(
 ): Promise<
   [
     Result<
-      Array<models.MediaIndex>,
-      | errors.FourHundredError
-      | errors.FourHundredAndOneError
-      | errors.FiveHundredError
+      Array<operations.GetMediasResponse>,
+      | errors.GetMediasBadRequestError
+      | errors.GetMediasUnauthorizedError
+      | errors.GetMediasInternalServerError
       | WistiaError
       | ResponseValidationError
       | ConnectionError
@@ -182,10 +181,10 @@ async function $do(
   };
 
   const [result] = await M.match<
-    Array<models.MediaIndex>,
-    | errors.FourHundredError
-    | errors.FourHundredAndOneError
-    | errors.FiveHundredError
+    Array<operations.GetMediasResponse>,
+    | errors.GetMediasBadRequestError
+    | errors.GetMediasUnauthorizedError
+    | errors.GetMediasInternalServerError
     | WistiaError
     | ResponseValidationError
     | ConnectionError
@@ -195,10 +194,10 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, z.array(models.MediaIndex$inboundSchema)),
-    M.jsonErr(400, errors.FourHundredError$inboundSchema),
-    M.jsonErr(401, errors.FourHundredAndOneError$inboundSchema),
-    M.jsonErr(500, errors.FiveHundredError$inboundSchema),
+    M.json(200, z.array(operations.GetMediasResponse$inboundSchema)),
+    M.jsonErr(400, errors.GetMediasBadRequestError$inboundSchema),
+    M.jsonErr(401, errors.GetMediasUnauthorizedError$inboundSchema),
+    M.jsonErr(500, errors.GetMediasInternalServerError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

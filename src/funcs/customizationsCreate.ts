@@ -21,7 +21,6 @@ import * as errors from "../models/errors/index.js";
 import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import { WistiaError } from "../models/errors/wistiaerror.js";
-import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
@@ -43,9 +42,9 @@ export function customizationsCreate(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    models.VideoCustomizationResponse,
-    | errors.FourHundredAndOneError
-    | errors.FiveHundredError
+    operations.PostMediasMediaIdCustomizationsResponse,
+    | errors.PostMediasMediaIdCustomizationsUnauthorizedError
+    | errors.PostMediasMediaIdCustomizationsInternalServerError
     | WistiaError
     | ResponseValidationError
     | ConnectionError
@@ -70,9 +69,9 @@ async function $do(
 ): Promise<
   [
     Result<
-      models.VideoCustomizationResponse,
-      | errors.FourHundredAndOneError
-      | errors.FiveHundredError
+      operations.PostMediasMediaIdCustomizationsResponse,
+      | errors.PostMediasMediaIdCustomizationsUnauthorizedError
+      | errors.PostMediasMediaIdCustomizationsInternalServerError
       | WistiaError
       | ResponseValidationError
       | ConnectionError
@@ -97,9 +96,7 @@ async function $do(
     return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
-  const body = encodeJSON("body", payload.VideoCustomization, {
-    explode: true,
-  });
+  const body = encodeJSON("body", payload.RequestBody, { explode: true });
 
   const pathParams = {
     mediaId: encodeSimple("mediaId", payload.mediaId, {
@@ -165,9 +162,9 @@ async function $do(
   };
 
   const [result] = await M.match<
-    models.VideoCustomizationResponse,
-    | errors.FourHundredAndOneError
-    | errors.FiveHundredError
+    operations.PostMediasMediaIdCustomizationsResponse,
+    | errors.PostMediasMediaIdCustomizationsUnauthorizedError
+    | errors.PostMediasMediaIdCustomizationsInternalServerError
     | WistiaError
     | ResponseValidationError
     | ConnectionError
@@ -177,9 +174,18 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(201, models.VideoCustomizationResponse$inboundSchema),
-    M.jsonErr(401, errors.FourHundredAndOneError$inboundSchema),
-    M.jsonErr(500, errors.FiveHundredError$inboundSchema),
+    M.json(
+      201,
+      operations.PostMediasMediaIdCustomizationsResponse$inboundSchema,
+    ),
+    M.jsonErr(
+      401,
+      errors.PostMediasMediaIdCustomizationsUnauthorizedError$inboundSchema,
+    ),
+    M.jsonErr(
+      500,
+      errors.PostMediasMediaIdCustomizationsInternalServerError$inboundSchema,
+    ),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

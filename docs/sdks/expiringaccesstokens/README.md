@@ -80,14 +80,14 @@ run();
 
 ### Response
 
-**Promise\<[models.ExpiringAccessTokenResponse](../../models/expiringaccesstokenresponse.md)\>**
+**Promise\<[operations.PostExpiringTokenResponse](../../models/operations/postexpiringtokenresponse.md)\>**
 
 ### Errors
 
-| Error Type                          | Status Code                         | Content Type                        |
-| ----------------------------------- | ----------------------------------- | ----------------------------------- |
-| errors.FourHundredAndOneError       | 401                                 | application/json                    |
-| errors.FourHundredAndTwentyTwoError | 422                                 | application/json                    |
-| errors.FiveHundredError             | 500                                 | application/json                    |
-| errors.NotImplementedError          | 501                                 | application/json                    |
-| errors.WistiaDefaultError           | 4XX, 5XX                            | \*/\*                               |
+| Error Type                                       | Status Code                                      | Content Type                                     |
+| ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ |
+| errors.PostExpiringTokenUnauthorizedError        | 401                                              | application/json                                 |
+| errors.PostExpiringTokenUnprocessableEntityError | 422                                              | application/json                                 |
+| errors.PostExpiringTokenInternalServerError      | 500                                              | application/json                                 |
+| errors.NotImplementedError                       | 501                                              | application/json                                 |
+| errors.WistiaDefaultError                        | 4XX, 5XX                                         | \*/\*                                            |

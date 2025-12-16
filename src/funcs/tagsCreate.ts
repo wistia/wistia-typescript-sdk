@@ -21,7 +21,6 @@ import * as errors from "../models/errors/index.js";
 import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import { WistiaError } from "../models/errors/wistiaerror.js";
-import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
@@ -43,11 +42,11 @@ export function tagsCreate(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    models.Tag,
+    operations.PostTagsResponse,
     | errors.PostTagsBadRequestError
-    | errors.FourHundredAndOneError
+    | errors.PostTagsUnauthorizedError
     | errors.PostTagsUnprocessableEntityError
-    | errors.FiveHundredError
+    | errors.PostTagsInternalServerError
     | WistiaError
     | ResponseValidationError
     | ConnectionError
@@ -72,11 +71,11 @@ async function $do(
 ): Promise<
   [
     Result<
-      models.Tag,
+      operations.PostTagsResponse,
       | errors.PostTagsBadRequestError
-      | errors.FourHundredAndOneError
+      | errors.PostTagsUnauthorizedError
       | errors.PostTagsUnprocessableEntityError
-      | errors.FiveHundredError
+      | errors.PostTagsInternalServerError
       | WistiaError
       | ResponseValidationError
       | ConnectionError
@@ -157,11 +156,11 @@ async function $do(
   };
 
   const [result] = await M.match<
-    models.Tag,
+    operations.PostTagsResponse,
     | errors.PostTagsBadRequestError
-    | errors.FourHundredAndOneError
+    | errors.PostTagsUnauthorizedError
     | errors.PostTagsUnprocessableEntityError
-    | errors.FiveHundredError
+    | errors.PostTagsInternalServerError
     | WistiaError
     | ResponseValidationError
     | ConnectionError
@@ -171,11 +170,11 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, models.Tag$inboundSchema),
+    M.json(200, operations.PostTagsResponse$inboundSchema),
     M.jsonErr(400, errors.PostTagsBadRequestError$inboundSchema),
-    M.jsonErr(401, errors.FourHundredAndOneError$inboundSchema),
+    M.jsonErr(401, errors.PostTagsUnauthorizedError$inboundSchema),
     M.jsonErr(422, errors.PostTagsUnprocessableEntityError$inboundSchema),
-    M.jsonErr(500, errors.FiveHundredError$inboundSchema),
+    M.jsonErr(500, errors.PostTagsInternalServerError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

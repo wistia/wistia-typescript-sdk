@@ -63,6 +63,36 @@ export type GetProjectsProjectIdSubfoldersRequest = {
   sortDirection?: GetProjectsProjectIdSubfoldersSortDirection | undefined;
 };
 
+/**
+ * A subfolder within a project that contains media files.
+ */
+export type GetProjectsProjectIdSubfoldersResponse = {
+  /**
+   * A unique alphanumeric identifier for this subfolder.
+   */
+  hashedId: string;
+  /**
+   * The display name of the subfolder.
+   */
+  name?: string | null | undefined;
+  /**
+   * A description for the subfolder.
+   */
+  description?: string | null | undefined;
+  /**
+   * The position of this subfolder within its project, used for ordering.
+   */
+  position: number | null;
+  /**
+   * The date when the subfolder was created.
+   */
+  created: Date | null;
+  /**
+   * The date when the subfolder was last modified.
+   */
+  updated: Date | null;
+};
+
 /** @internal */
 export const GetProjectsProjectIdSubfoldersSortBy$inboundSchema:
   z.ZodNativeEnum<typeof GetProjectsProjectIdSubfoldersSortBy> = z.nativeEnum(
@@ -196,5 +226,92 @@ export function getProjectsProjectIdSubfoldersRequestFromJSON(
     (x) =>
       GetProjectsProjectIdSubfoldersRequest$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'GetProjectsProjectIdSubfoldersRequest' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetProjectsProjectIdSubfoldersResponse$inboundSchema: z.ZodType<
+  GetProjectsProjectIdSubfoldersResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  hashed_id: z.string(),
+  name: z.nullable(z.string()).optional(),
+  description: z.nullable(z.string()).optional(),
+  position: z.nullable(z.number().int()),
+  created: z.nullable(
+    z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  ),
+  updated: z.nullable(
+    z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  ),
+}).transform((v) => {
+  return remap$(v, {
+    "hashed_id": "hashedId",
+  });
+});
+
+/** @internal */
+export type GetProjectsProjectIdSubfoldersResponse$Outbound = {
+  hashed_id: string;
+  name?: string | null | undefined;
+  description?: string | null | undefined;
+  position: number | null;
+  created: string | null;
+  updated: string | null;
+};
+
+/** @internal */
+export const GetProjectsProjectIdSubfoldersResponse$outboundSchema: z.ZodType<
+  GetProjectsProjectIdSubfoldersResponse$Outbound,
+  z.ZodTypeDef,
+  GetProjectsProjectIdSubfoldersResponse
+> = z.object({
+  hashedId: z.string(),
+  name: z.nullable(z.string()).optional(),
+  description: z.nullable(z.string()).optional(),
+  position: z.nullable(z.number().int()),
+  created: z.nullable(z.date().transform(v => v.toISOString())),
+  updated: z.nullable(z.date().transform(v => v.toISOString())),
+}).transform((v) => {
+  return remap$(v, {
+    hashedId: "hashed_id",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetProjectsProjectIdSubfoldersResponse$ {
+  /** @deprecated use `GetProjectsProjectIdSubfoldersResponse$inboundSchema` instead. */
+  export const inboundSchema =
+    GetProjectsProjectIdSubfoldersResponse$inboundSchema;
+  /** @deprecated use `GetProjectsProjectIdSubfoldersResponse$outboundSchema` instead. */
+  export const outboundSchema =
+    GetProjectsProjectIdSubfoldersResponse$outboundSchema;
+  /** @deprecated use `GetProjectsProjectIdSubfoldersResponse$Outbound` instead. */
+  export type Outbound = GetProjectsProjectIdSubfoldersResponse$Outbound;
+}
+
+export function getProjectsProjectIdSubfoldersResponseToJSON(
+  getProjectsProjectIdSubfoldersResponse:
+    GetProjectsProjectIdSubfoldersResponse,
+): string {
+  return JSON.stringify(
+    GetProjectsProjectIdSubfoldersResponse$outboundSchema.parse(
+      getProjectsProjectIdSubfoldersResponse,
+    ),
+  );
+}
+
+export function getProjectsProjectIdSubfoldersResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<GetProjectsProjectIdSubfoldersResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetProjectsProjectIdSubfoldersResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetProjectsProjectIdSubfoldersResponse' from JSON`,
   );
 }

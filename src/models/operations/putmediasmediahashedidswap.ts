@@ -5,9 +5,9 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-import * as models from "../index.js";
 
 export type PutMediasMediaHashedIdSwapRequestBody = {
   /**
@@ -25,15 +25,154 @@ export type PutMediasMediaHashedIdSwapRequest = {
 };
 
 /**
+ * A string representing what type of media this is.
+ */
+export const PutMediasMediaHashedIdSwapType = {
+  Video: "Video",
+  Audio: "Audio",
+  Image: "Image",
+  PdfDocument: "PdfDocument",
+  MicrosoftOfficeDocument: "MicrosoftOfficeDocument",
+  Swf: "Swf",
+  UnknownType: "UnknownType",
+} as const;
+/**
+ * A string representing what type of media this is.
+ */
+export type PutMediasMediaHashedIdSwapType = ClosedEnum<
+  typeof PutMediasMediaHashedIdSwapType
+>;
+
+/**
+ * Post upload processing status. - `queued`: the file is waiting in the queue to be processed. - `processing`: the file is actively being processed. - `ready`: the file has been fully processed and is ready for embedding and viewing. - `failed`: the file was unable to be processed (usually a format or size error).
+ *
+ * @remarks
+ */
+export const PutMediasMediaHashedIdSwapStatus = {
+  Queued: "queued",
+  Processing: "processing",
+  Ready: "ready",
+  Failed: "failed",
+} as const;
+/**
+ * Post upload processing status. - `queued`: the file is waiting in the queue to be processed. - `processing`: the file is actively being processed. - `ready`: the file has been fully processed and is ready for embedding and viewing. - `failed`: the file was unable to be processed (usually a format or size error).
+ *
+ * @remarks
+ */
+export type PutMediasMediaHashedIdSwapStatus = ClosedEnum<
+  typeof PutMediasMediaHashedIdSwapStatus
+>;
+
+export type PutMediasMediaHashedIdSwapThumbnail = {
+  url?: string | undefined;
+  width?: number | undefined;
+  height?: number | undefined;
+};
+
+export type PutMediasMediaHashedIdSwapMedia = {
+  /**
+   * A unique numeric identifier for the media within the system.
+   */
+  id?: number | undefined;
+  /**
+   * The display name of the media.
+   */
+  name?: string | undefined;
+  /**
+   * A string representing what type of media this is.
+   */
+  type?: PutMediasMediaHashedIdSwapType | undefined;
+  /**
+   * Whether or not the media is archived, either true or false.
+   */
+  archived?: boolean | undefined;
+  /**
+   * The date when the media was originally uploaded.
+   */
+  created?: Date | undefined;
+  /**
+   * The date when the media was last changed.
+   */
+  updated?: Date | undefined;
+  /**
+   * Specifies the length (in seconds) for audio and video files. Specifies number of pages in the document. Omitted for other types of media.
+   */
+  duration?: number | null | undefined;
+  /**
+   * DEPRECATED: If you want to programmatically embed videos, follow the construct an embed code guide.
+   *
+   * @remarks
+   *
+   * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+   */
+  embedCode?: string | undefined;
+  /**
+   * A unique alphanumeric identifier for this media.
+   */
+  hashedId?: string | undefined;
+  /**
+   * A description for the media which usually appears near the top of the sidebar on the media's page.
+   */
+  description?: string | undefined;
+  /**
+   * A floating point value between 0 and 1 that indicates the progress of the processing for this file.
+   */
+  progress?: number | undefined;
+  /**
+   * Post upload processing status. - `queued`: the file is waiting in the queue to be processed. - `processing`: the file is actively being processed. - `ready`: the file has been fully processed and is ready for embedding and viewing. - `failed`: the file was unable to be processed (usually a format or size error).
+   *
+   * @remarks
+   */
+  status?: PutMediasMediaHashedIdSwapStatus | undefined;
+  /**
+   * The title of the section in which the media appears. This attribute is omitted if the media is not in a section (default).
+   */
+  section?: string | null | undefined;
+  thumbnail?: PutMediasMediaHashedIdSwapThumbnail | undefined;
+};
+
+/**
+ * The status of the background job that's been queued for the request.
+ */
+export const PutMediasMediaHashedIdSwapBackgroundJobStatusStatus = {
+  Queued: "queued",
+  Started: "started",
+  Finished: "finished",
+  Failed: "failed",
+} as const;
+/**
+ * The status of the background job that's been queued for the request.
+ */
+export type PutMediasMediaHashedIdSwapBackgroundJobStatusStatus = ClosedEnum<
+  typeof PutMediasMediaHashedIdSwapBackgroundJobStatusStatus
+>;
+
+/**
+ * Status of the background job.
+ */
+export type PutMediasMediaHashedIdSwapBackgroundJobStatus = {
+  /**
+   * The ID of the background job that's been queued for the request.
+   */
+  id: number;
+  /**
+   * The status of the background job that's been queued for the request.
+   */
+  status: PutMediasMediaHashedIdSwapBackgroundJobStatusStatus;
+};
+
+/**
  * Successfully queued background job for media swap.
  */
 export type PutMediasMediaHashedIdSwapResponse = {
   message?: string | undefined;
-  media?: models.MediaProperties | undefined;
+  media?: PutMediasMediaHashedIdSwapMedia | undefined;
   /**
    * Status of the background job.
    */
-  backgroundJobStatus?: models.BackgroundJobStatus | undefined;
+  backgroundJobStatus?:
+    | PutMediasMediaHashedIdSwapBackgroundJobStatus
+    | undefined;
 };
 
 /** @internal */
@@ -175,14 +314,323 @@ export function putMediasMediaHashedIdSwapRequestFromJSON(
 }
 
 /** @internal */
+export const PutMediasMediaHashedIdSwapType$inboundSchema: z.ZodNativeEnum<
+  typeof PutMediasMediaHashedIdSwapType
+> = z.nativeEnum(PutMediasMediaHashedIdSwapType);
+
+/** @internal */
+export const PutMediasMediaHashedIdSwapType$outboundSchema: z.ZodNativeEnum<
+  typeof PutMediasMediaHashedIdSwapType
+> = PutMediasMediaHashedIdSwapType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PutMediasMediaHashedIdSwapType$ {
+  /** @deprecated use `PutMediasMediaHashedIdSwapType$inboundSchema` instead. */
+  export const inboundSchema = PutMediasMediaHashedIdSwapType$inboundSchema;
+  /** @deprecated use `PutMediasMediaHashedIdSwapType$outboundSchema` instead. */
+  export const outboundSchema = PutMediasMediaHashedIdSwapType$outboundSchema;
+}
+
+/** @internal */
+export const PutMediasMediaHashedIdSwapStatus$inboundSchema: z.ZodNativeEnum<
+  typeof PutMediasMediaHashedIdSwapStatus
+> = z.nativeEnum(PutMediasMediaHashedIdSwapStatus);
+
+/** @internal */
+export const PutMediasMediaHashedIdSwapStatus$outboundSchema: z.ZodNativeEnum<
+  typeof PutMediasMediaHashedIdSwapStatus
+> = PutMediasMediaHashedIdSwapStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PutMediasMediaHashedIdSwapStatus$ {
+  /** @deprecated use `PutMediasMediaHashedIdSwapStatus$inboundSchema` instead. */
+  export const inboundSchema = PutMediasMediaHashedIdSwapStatus$inboundSchema;
+  /** @deprecated use `PutMediasMediaHashedIdSwapStatus$outboundSchema` instead. */
+  export const outboundSchema = PutMediasMediaHashedIdSwapStatus$outboundSchema;
+}
+
+/** @internal */
+export const PutMediasMediaHashedIdSwapThumbnail$inboundSchema: z.ZodType<
+  PutMediasMediaHashedIdSwapThumbnail,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  url: z.string().optional(),
+  width: z.number().int().optional(),
+  height: z.number().int().optional(),
+});
+
+/** @internal */
+export type PutMediasMediaHashedIdSwapThumbnail$Outbound = {
+  url?: string | undefined;
+  width?: number | undefined;
+  height?: number | undefined;
+};
+
+/** @internal */
+export const PutMediasMediaHashedIdSwapThumbnail$outboundSchema: z.ZodType<
+  PutMediasMediaHashedIdSwapThumbnail$Outbound,
+  z.ZodTypeDef,
+  PutMediasMediaHashedIdSwapThumbnail
+> = z.object({
+  url: z.string().optional(),
+  width: z.number().int().optional(),
+  height: z.number().int().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PutMediasMediaHashedIdSwapThumbnail$ {
+  /** @deprecated use `PutMediasMediaHashedIdSwapThumbnail$inboundSchema` instead. */
+  export const inboundSchema =
+    PutMediasMediaHashedIdSwapThumbnail$inboundSchema;
+  /** @deprecated use `PutMediasMediaHashedIdSwapThumbnail$outboundSchema` instead. */
+  export const outboundSchema =
+    PutMediasMediaHashedIdSwapThumbnail$outboundSchema;
+  /** @deprecated use `PutMediasMediaHashedIdSwapThumbnail$Outbound` instead. */
+  export type Outbound = PutMediasMediaHashedIdSwapThumbnail$Outbound;
+}
+
+export function putMediasMediaHashedIdSwapThumbnailToJSON(
+  putMediasMediaHashedIdSwapThumbnail: PutMediasMediaHashedIdSwapThumbnail,
+): string {
+  return JSON.stringify(
+    PutMediasMediaHashedIdSwapThumbnail$outboundSchema.parse(
+      putMediasMediaHashedIdSwapThumbnail,
+    ),
+  );
+}
+
+export function putMediasMediaHashedIdSwapThumbnailFromJSON(
+  jsonString: string,
+): SafeParseResult<PutMediasMediaHashedIdSwapThumbnail, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      PutMediasMediaHashedIdSwapThumbnail$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PutMediasMediaHashedIdSwapThumbnail' from JSON`,
+  );
+}
+
+/** @internal */
+export const PutMediasMediaHashedIdSwapMedia$inboundSchema: z.ZodType<
+  PutMediasMediaHashedIdSwapMedia,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: z.number().int().optional(),
+  name: z.string().optional(),
+  type: PutMediasMediaHashedIdSwapType$inboundSchema.optional(),
+  archived: z.boolean().optional(),
+  created: z.string().datetime({ offset: true }).transform(v => new Date(v))
+    .optional(),
+  updated: z.string().datetime({ offset: true }).transform(v => new Date(v))
+    .optional(),
+  duration: z.nullable(z.number()).optional(),
+  embedCode: z.string().optional(),
+  hashed_id: z.string().optional(),
+  description: z.string().optional(),
+  progress: z.number().optional(),
+  status: PutMediasMediaHashedIdSwapStatus$inboundSchema.optional(),
+  section: z.nullable(z.string()).optional(),
+  thumbnail: z.lazy(() => PutMediasMediaHashedIdSwapThumbnail$inboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "hashed_id": "hashedId",
+  });
+});
+
+/** @internal */
+export type PutMediasMediaHashedIdSwapMedia$Outbound = {
+  id?: number | undefined;
+  name?: string | undefined;
+  type?: string | undefined;
+  archived?: boolean | undefined;
+  created?: string | undefined;
+  updated?: string | undefined;
+  duration?: number | null | undefined;
+  embedCode?: string | undefined;
+  hashed_id?: string | undefined;
+  description?: string | undefined;
+  progress?: number | undefined;
+  status?: string | undefined;
+  section?: string | null | undefined;
+  thumbnail?: PutMediasMediaHashedIdSwapThumbnail$Outbound | undefined;
+};
+
+/** @internal */
+export const PutMediasMediaHashedIdSwapMedia$outboundSchema: z.ZodType<
+  PutMediasMediaHashedIdSwapMedia$Outbound,
+  z.ZodTypeDef,
+  PutMediasMediaHashedIdSwapMedia
+> = z.object({
+  id: z.number().int().optional(),
+  name: z.string().optional(),
+  type: PutMediasMediaHashedIdSwapType$outboundSchema.optional(),
+  archived: z.boolean().optional(),
+  created: z.date().transform(v => v.toISOString()).optional(),
+  updated: z.date().transform(v => v.toISOString()).optional(),
+  duration: z.nullable(z.number()).optional(),
+  embedCode: z.string().optional(),
+  hashedId: z.string().optional(),
+  description: z.string().optional(),
+  progress: z.number().optional(),
+  status: PutMediasMediaHashedIdSwapStatus$outboundSchema.optional(),
+  section: z.nullable(z.string()).optional(),
+  thumbnail: z.lazy(() => PutMediasMediaHashedIdSwapThumbnail$outboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    hashedId: "hashed_id",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PutMediasMediaHashedIdSwapMedia$ {
+  /** @deprecated use `PutMediasMediaHashedIdSwapMedia$inboundSchema` instead. */
+  export const inboundSchema = PutMediasMediaHashedIdSwapMedia$inboundSchema;
+  /** @deprecated use `PutMediasMediaHashedIdSwapMedia$outboundSchema` instead. */
+  export const outboundSchema = PutMediasMediaHashedIdSwapMedia$outboundSchema;
+  /** @deprecated use `PutMediasMediaHashedIdSwapMedia$Outbound` instead. */
+  export type Outbound = PutMediasMediaHashedIdSwapMedia$Outbound;
+}
+
+export function putMediasMediaHashedIdSwapMediaToJSON(
+  putMediasMediaHashedIdSwapMedia: PutMediasMediaHashedIdSwapMedia,
+): string {
+  return JSON.stringify(
+    PutMediasMediaHashedIdSwapMedia$outboundSchema.parse(
+      putMediasMediaHashedIdSwapMedia,
+    ),
+  );
+}
+
+export function putMediasMediaHashedIdSwapMediaFromJSON(
+  jsonString: string,
+): SafeParseResult<PutMediasMediaHashedIdSwapMedia, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PutMediasMediaHashedIdSwapMedia$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PutMediasMediaHashedIdSwapMedia' from JSON`,
+  );
+}
+
+/** @internal */
+export const PutMediasMediaHashedIdSwapBackgroundJobStatusStatus$inboundSchema:
+  z.ZodNativeEnum<typeof PutMediasMediaHashedIdSwapBackgroundJobStatusStatus> =
+    z.nativeEnum(PutMediasMediaHashedIdSwapBackgroundJobStatusStatus);
+
+/** @internal */
+export const PutMediasMediaHashedIdSwapBackgroundJobStatusStatus$outboundSchema:
+  z.ZodNativeEnum<typeof PutMediasMediaHashedIdSwapBackgroundJobStatusStatus> =
+    PutMediasMediaHashedIdSwapBackgroundJobStatusStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PutMediasMediaHashedIdSwapBackgroundJobStatusStatus$ {
+  /** @deprecated use `PutMediasMediaHashedIdSwapBackgroundJobStatusStatus$inboundSchema` instead. */
+  export const inboundSchema =
+    PutMediasMediaHashedIdSwapBackgroundJobStatusStatus$inboundSchema;
+  /** @deprecated use `PutMediasMediaHashedIdSwapBackgroundJobStatusStatus$outboundSchema` instead. */
+  export const outboundSchema =
+    PutMediasMediaHashedIdSwapBackgroundJobStatusStatus$outboundSchema;
+}
+
+/** @internal */
+export const PutMediasMediaHashedIdSwapBackgroundJobStatus$inboundSchema:
+  z.ZodType<
+    PutMediasMediaHashedIdSwapBackgroundJobStatus,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    id: z.number().int(),
+    status: PutMediasMediaHashedIdSwapBackgroundJobStatusStatus$inboundSchema,
+  });
+
+/** @internal */
+export type PutMediasMediaHashedIdSwapBackgroundJobStatus$Outbound = {
+  id: number;
+  status: string;
+};
+
+/** @internal */
+export const PutMediasMediaHashedIdSwapBackgroundJobStatus$outboundSchema:
+  z.ZodType<
+    PutMediasMediaHashedIdSwapBackgroundJobStatus$Outbound,
+    z.ZodTypeDef,
+    PutMediasMediaHashedIdSwapBackgroundJobStatus
+  > = z.object({
+    id: z.number().int(),
+    status: PutMediasMediaHashedIdSwapBackgroundJobStatusStatus$outboundSchema,
+  });
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PutMediasMediaHashedIdSwapBackgroundJobStatus$ {
+  /** @deprecated use `PutMediasMediaHashedIdSwapBackgroundJobStatus$inboundSchema` instead. */
+  export const inboundSchema =
+    PutMediasMediaHashedIdSwapBackgroundJobStatus$inboundSchema;
+  /** @deprecated use `PutMediasMediaHashedIdSwapBackgroundJobStatus$outboundSchema` instead. */
+  export const outboundSchema =
+    PutMediasMediaHashedIdSwapBackgroundJobStatus$outboundSchema;
+  /** @deprecated use `PutMediasMediaHashedIdSwapBackgroundJobStatus$Outbound` instead. */
+  export type Outbound = PutMediasMediaHashedIdSwapBackgroundJobStatus$Outbound;
+}
+
+export function putMediasMediaHashedIdSwapBackgroundJobStatusToJSON(
+  putMediasMediaHashedIdSwapBackgroundJobStatus:
+    PutMediasMediaHashedIdSwapBackgroundJobStatus,
+): string {
+  return JSON.stringify(
+    PutMediasMediaHashedIdSwapBackgroundJobStatus$outboundSchema.parse(
+      putMediasMediaHashedIdSwapBackgroundJobStatus,
+    ),
+  );
+}
+
+export function putMediasMediaHashedIdSwapBackgroundJobStatusFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  PutMediasMediaHashedIdSwapBackgroundJobStatus,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      PutMediasMediaHashedIdSwapBackgroundJobStatus$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'PutMediasMediaHashedIdSwapBackgroundJobStatus' from JSON`,
+  );
+}
+
+/** @internal */
 export const PutMediasMediaHashedIdSwapResponse$inboundSchema: z.ZodType<
   PutMediasMediaHashedIdSwapResponse,
   z.ZodTypeDef,
   unknown
 > = z.object({
   message: z.string().optional(),
-  media: models.MediaProperties$inboundSchema.optional(),
-  background_job_status: models.BackgroundJobStatus$inboundSchema.optional(),
+  media: z.lazy(() => PutMediasMediaHashedIdSwapMedia$inboundSchema).optional(),
+  background_job_status: z.lazy(() =>
+    PutMediasMediaHashedIdSwapBackgroundJobStatus$inboundSchema
+  ).optional(),
 }).transform((v) => {
   return remap$(v, {
     "background_job_status": "backgroundJobStatus",
@@ -192,8 +640,10 @@ export const PutMediasMediaHashedIdSwapResponse$inboundSchema: z.ZodType<
 /** @internal */
 export type PutMediasMediaHashedIdSwapResponse$Outbound = {
   message?: string | undefined;
-  media?: models.MediaProperties$Outbound | undefined;
-  background_job_status?: models.BackgroundJobStatus$Outbound | undefined;
+  media?: PutMediasMediaHashedIdSwapMedia$Outbound | undefined;
+  background_job_status?:
+    | PutMediasMediaHashedIdSwapBackgroundJobStatus$Outbound
+    | undefined;
 };
 
 /** @internal */
@@ -203,8 +653,11 @@ export const PutMediasMediaHashedIdSwapResponse$outboundSchema: z.ZodType<
   PutMediasMediaHashedIdSwapResponse
 > = z.object({
   message: z.string().optional(),
-  media: models.MediaProperties$outboundSchema.optional(),
-  backgroundJobStatus: models.BackgroundJobStatus$outboundSchema.optional(),
+  media: z.lazy(() => PutMediasMediaHashedIdSwapMedia$outboundSchema)
+    .optional(),
+  backgroundJobStatus: z.lazy(() =>
+    PutMediasMediaHashedIdSwapBackgroundJobStatus$outboundSchema
+  ).optional(),
 }).transform((v) => {
   return remap$(v, {
     backgroundJobStatus: "background_job_status",

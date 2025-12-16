@@ -53,8 +53,8 @@ export function captionsGet(
 ): APIPromise<
   Result<
     operations.GetMediasMediaHashedIdCaptionsLanguageCodeResponse,
-    | errors.FourHundredAndOneError
-    | errors.FiveHundredError
+    | errors.GetMediasMediaHashedIdCaptionsLanguageCodeUnauthorizedError
+    | errors.GetMediasMediaHashedIdCaptionsLanguageCodeInternalServerError
     | WistiaError
     | ResponseValidationError
     | ConnectionError
@@ -80,8 +80,8 @@ async function $do(
   [
     Result<
       operations.GetMediasMediaHashedIdCaptionsLanguageCodeResponse,
-      | errors.FourHundredAndOneError
-      | errors.FiveHundredError
+      | errors.GetMediasMediaHashedIdCaptionsLanguageCodeUnauthorizedError
+      | errors.GetMediasMediaHashedIdCaptionsLanguageCodeInternalServerError
       | WistiaError
       | ResponseValidationError
       | ConnectionError
@@ -180,8 +180,8 @@ async function $do(
 
   const [result] = await M.match<
     operations.GetMediasMediaHashedIdCaptionsLanguageCodeResponse,
-    | errors.FourHundredAndOneError
-    | errors.FiveHundredError
+    | errors.GetMediasMediaHashedIdCaptionsLanguageCodeUnauthorizedError
+    | errors.GetMediasMediaHashedIdCaptionsLanguageCodeInternalServerError
     | WistiaError
     | ResponseValidationError
     | ConnectionError
@@ -207,8 +207,16 @@ async function $do(
         .GetMediasMediaHashedIdCaptionsLanguageCodeResponse$inboundSchema,
       { ctype: "text/vtt" },
     ),
-    M.jsonErr(401, errors.FourHundredAndOneError$inboundSchema),
-    M.jsonErr(500, errors.FiveHundredError$inboundSchema),
+    M.jsonErr(
+      401,
+      errors
+        .GetMediasMediaHashedIdCaptionsLanguageCodeUnauthorizedError$inboundSchema,
+    ),
+    M.jsonErr(
+      500,
+      errors
+        .GetMediasMediaHashedIdCaptionsLanguageCodeInternalServerError$inboundSchema,
+    ),
     M.fail([404, "4XX"]),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

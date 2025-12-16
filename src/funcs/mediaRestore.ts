@@ -43,11 +43,11 @@ export function mediaRestore(
 ): APIPromise<
   Result<
     operations.PutMediasRestoreResponse,
-    | errors.FourHundredAndOneError
+    | errors.PutMediasRestoreUnauthorizedError
     | errors.PutMediasRestoreForbiddenError
-    | errors.FourHundredAndFourError
+    | errors.PutMediasRestoreNotFoundError
     | errors.PutMediasRestoreUnprocessableEntityError
-    | errors.FiveHundredError
+    | errors.PutMediasRestoreInternalServerError
     | WistiaError
     | ResponseValidationError
     | ConnectionError
@@ -73,11 +73,11 @@ async function $do(
   [
     Result<
       operations.PutMediasRestoreResponse,
-      | errors.FourHundredAndOneError
+      | errors.PutMediasRestoreUnauthorizedError
       | errors.PutMediasRestoreForbiddenError
-      | errors.FourHundredAndFourError
+      | errors.PutMediasRestoreNotFoundError
       | errors.PutMediasRestoreUnprocessableEntityError
-      | errors.FiveHundredError
+      | errors.PutMediasRestoreInternalServerError
       | WistiaError
       | ResponseValidationError
       | ConnectionError
@@ -159,11 +159,11 @@ async function $do(
 
   const [result] = await M.match<
     operations.PutMediasRestoreResponse,
-    | errors.FourHundredAndOneError
+    | errors.PutMediasRestoreUnauthorizedError
     | errors.PutMediasRestoreForbiddenError
-    | errors.FourHundredAndFourError
+    | errors.PutMediasRestoreNotFoundError
     | errors.PutMediasRestoreUnprocessableEntityError
-    | errors.FiveHundredError
+    | errors.PutMediasRestoreInternalServerError
     | WistiaError
     | ResponseValidationError
     | ConnectionError
@@ -174,14 +174,14 @@ async function $do(
     | SDKValidationError
   >(
     M.json(200, operations.PutMediasRestoreResponse$inboundSchema),
-    M.jsonErr(401, errors.FourHundredAndOneError$inboundSchema),
+    M.jsonErr(401, errors.PutMediasRestoreUnauthorizedError$inboundSchema),
     M.jsonErr(403, errors.PutMediasRestoreForbiddenError$inboundSchema),
-    M.jsonErr(404, errors.FourHundredAndFourError$inboundSchema),
+    M.jsonErr(404, errors.PutMediasRestoreNotFoundError$inboundSchema),
     M.jsonErr(
       422,
       errors.PutMediasRestoreUnprocessableEntityError$inboundSchema,
     ),
-    M.jsonErr(500, errors.FiveHundredError$inboundSchema),
+    M.jsonErr(500, errors.PutMediasRestoreInternalServerError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

@@ -5,15 +5,43 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-import * as models from "../index.js";
 
 export type PutMediasArchiveRequest = {
   /**
    * An array of the media hashed IDs to be archived.
    */
   hashedIds: Array<string>;
+};
+
+/**
+ * The status of the background job that's been queued for the request.
+ */
+export const PutMediasArchiveStatus = {
+  Queued: "queued",
+  Started: "started",
+  Finished: "finished",
+  Failed: "failed",
+} as const;
+/**
+ * The status of the background job that's been queued for the request.
+ */
+export type PutMediasArchiveStatus = ClosedEnum<typeof PutMediasArchiveStatus>;
+
+/**
+ * Status of the background job.
+ */
+export type PutMediasArchiveBackgroundJobStatus = {
+  /**
+   * The ID of the background job that's been queued for the request.
+   */
+  id: number;
+  /**
+   * The status of the background job that's been queued for the request.
+   */
+  status: PutMediasArchiveStatus;
 };
 
 /**
@@ -27,7 +55,7 @@ export type PutMediasArchiveResponse = {
   /**
    * Status of the background job.
    */
-  backgroundJobStatus?: models.BackgroundJobStatus | undefined;
+  backgroundJobStatus?: PutMediasArchiveBackgroundJobStatus | undefined;
 };
 
 /** @internal */
@@ -93,13 +121,98 @@ export function putMediasArchiveRequestFromJSON(
 }
 
 /** @internal */
+export const PutMediasArchiveStatus$inboundSchema: z.ZodNativeEnum<
+  typeof PutMediasArchiveStatus
+> = z.nativeEnum(PutMediasArchiveStatus);
+
+/** @internal */
+export const PutMediasArchiveStatus$outboundSchema: z.ZodNativeEnum<
+  typeof PutMediasArchiveStatus
+> = PutMediasArchiveStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PutMediasArchiveStatus$ {
+  /** @deprecated use `PutMediasArchiveStatus$inboundSchema` instead. */
+  export const inboundSchema = PutMediasArchiveStatus$inboundSchema;
+  /** @deprecated use `PutMediasArchiveStatus$outboundSchema` instead. */
+  export const outboundSchema = PutMediasArchiveStatus$outboundSchema;
+}
+
+/** @internal */
+export const PutMediasArchiveBackgroundJobStatus$inboundSchema: z.ZodType<
+  PutMediasArchiveBackgroundJobStatus,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: z.number().int(),
+  status: PutMediasArchiveStatus$inboundSchema,
+});
+
+/** @internal */
+export type PutMediasArchiveBackgroundJobStatus$Outbound = {
+  id: number;
+  status: string;
+};
+
+/** @internal */
+export const PutMediasArchiveBackgroundJobStatus$outboundSchema: z.ZodType<
+  PutMediasArchiveBackgroundJobStatus$Outbound,
+  z.ZodTypeDef,
+  PutMediasArchiveBackgroundJobStatus
+> = z.object({
+  id: z.number().int(),
+  status: PutMediasArchiveStatus$outboundSchema,
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PutMediasArchiveBackgroundJobStatus$ {
+  /** @deprecated use `PutMediasArchiveBackgroundJobStatus$inboundSchema` instead. */
+  export const inboundSchema =
+    PutMediasArchiveBackgroundJobStatus$inboundSchema;
+  /** @deprecated use `PutMediasArchiveBackgroundJobStatus$outboundSchema` instead. */
+  export const outboundSchema =
+    PutMediasArchiveBackgroundJobStatus$outboundSchema;
+  /** @deprecated use `PutMediasArchiveBackgroundJobStatus$Outbound` instead. */
+  export type Outbound = PutMediasArchiveBackgroundJobStatus$Outbound;
+}
+
+export function putMediasArchiveBackgroundJobStatusToJSON(
+  putMediasArchiveBackgroundJobStatus: PutMediasArchiveBackgroundJobStatus,
+): string {
+  return JSON.stringify(
+    PutMediasArchiveBackgroundJobStatus$outboundSchema.parse(
+      putMediasArchiveBackgroundJobStatus,
+    ),
+  );
+}
+
+export function putMediasArchiveBackgroundJobStatusFromJSON(
+  jsonString: string,
+): SafeParseResult<PutMediasArchiveBackgroundJobStatus, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      PutMediasArchiveBackgroundJobStatus$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PutMediasArchiveBackgroundJobStatus' from JSON`,
+  );
+}
+
+/** @internal */
 export const PutMediasArchiveResponse$inboundSchema: z.ZodType<
   PutMediasArchiveResponse,
   z.ZodTypeDef,
   unknown
 > = z.object({
   message: z.string().optional(),
-  background_job_status: models.BackgroundJobStatus$inboundSchema.optional(),
+  background_job_status: z.lazy(() =>
+    PutMediasArchiveBackgroundJobStatus$inboundSchema
+  ).optional(),
 }).transform((v) => {
   return remap$(v, {
     "background_job_status": "backgroundJobStatus",
@@ -109,7 +222,9 @@ export const PutMediasArchiveResponse$inboundSchema: z.ZodType<
 /** @internal */
 export type PutMediasArchiveResponse$Outbound = {
   message?: string | undefined;
-  background_job_status?: models.BackgroundJobStatus$Outbound | undefined;
+  background_job_status?:
+    | PutMediasArchiveBackgroundJobStatus$Outbound
+    | undefined;
 };
 
 /** @internal */
@@ -119,7 +234,9 @@ export const PutMediasArchiveResponse$outboundSchema: z.ZodType<
   PutMediasArchiveResponse
 > = z.object({
   message: z.string().optional(),
-  backgroundJobStatus: models.BackgroundJobStatus$outboundSchema.optional(),
+  backgroundJobStatus: z.lazy(() =>
+    PutMediasArchiveBackgroundJobStatus$outboundSchema
+  ).optional(),
 }).transform((v) => {
   return remap$(v, {
     backgroundJobStatus: "background_job_status",

@@ -5,9 +5,9 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-import * as models from "../index.js";
 
 export type PostMediasMediaHashedIdTrimsRequestBody = {
   /**
@@ -25,13 +25,50 @@ export type PostMediasMediaHashedIdTrimsRequest = {
 };
 
 /**
+ * Contains a summary of what fields had errors and the errors they had.
+ */
+export type PostMediasMediaHashedIdTrimsErrors = {};
+
+/**
+ * The status of the background job that's been queued for the request.
+ */
+export const PostMediasMediaHashedIdTrimsStatus = {
+  Queued: "queued",
+  Started: "started",
+  Finished: "finished",
+  Failed: "failed",
+} as const;
+/**
+ * The status of the background job that's been queued for the request.
+ */
+export type PostMediasMediaHashedIdTrimsStatus = ClosedEnum<
+  typeof PostMediasMediaHashedIdTrimsStatus
+>;
+
+/**
+ * Status of the background job.
+ */
+export type PostMediasMediaHashedIdTrimsBackgroundJobStatus = {
+  /**
+   * The ID of the background job that's been queued for the request.
+   */
+  id: number;
+  /**
+   * The status of the background job that's been queued for the request.
+   */
+  status: PostMediasMediaHashedIdTrimsStatus;
+};
+
+/**
  * Successful queueing of trims worker.
  */
 export type PostMediasMediaHashedIdTrimsResponse = {
   /**
    * Status of the background job.
    */
-  backgroundJobStatus?: models.BackgroundJobStatus | undefined;
+  backgroundJobStatus?:
+    | PostMediasMediaHashedIdTrimsBackgroundJobStatus
+    | undefined;
 };
 
 /** @internal */
@@ -174,12 +211,159 @@ export function postMediasMediaHashedIdTrimsRequestFromJSON(
 }
 
 /** @internal */
+export const PostMediasMediaHashedIdTrimsErrors$inboundSchema: z.ZodType<
+  PostMediasMediaHashedIdTrimsErrors,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type PostMediasMediaHashedIdTrimsErrors$Outbound = {};
+
+/** @internal */
+export const PostMediasMediaHashedIdTrimsErrors$outboundSchema: z.ZodType<
+  PostMediasMediaHashedIdTrimsErrors$Outbound,
+  z.ZodTypeDef,
+  PostMediasMediaHashedIdTrimsErrors
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostMediasMediaHashedIdTrimsErrors$ {
+  /** @deprecated use `PostMediasMediaHashedIdTrimsErrors$inboundSchema` instead. */
+  export const inboundSchema = PostMediasMediaHashedIdTrimsErrors$inboundSchema;
+  /** @deprecated use `PostMediasMediaHashedIdTrimsErrors$outboundSchema` instead. */
+  export const outboundSchema =
+    PostMediasMediaHashedIdTrimsErrors$outboundSchema;
+  /** @deprecated use `PostMediasMediaHashedIdTrimsErrors$Outbound` instead. */
+  export type Outbound = PostMediasMediaHashedIdTrimsErrors$Outbound;
+}
+
+export function postMediasMediaHashedIdTrimsErrorsToJSON(
+  postMediasMediaHashedIdTrimsErrors: PostMediasMediaHashedIdTrimsErrors,
+): string {
+  return JSON.stringify(
+    PostMediasMediaHashedIdTrimsErrors$outboundSchema.parse(
+      postMediasMediaHashedIdTrimsErrors,
+    ),
+  );
+}
+
+export function postMediasMediaHashedIdTrimsErrorsFromJSON(
+  jsonString: string,
+): SafeParseResult<PostMediasMediaHashedIdTrimsErrors, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      PostMediasMediaHashedIdTrimsErrors$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostMediasMediaHashedIdTrimsErrors' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostMediasMediaHashedIdTrimsStatus$inboundSchema: z.ZodNativeEnum<
+  typeof PostMediasMediaHashedIdTrimsStatus
+> = z.nativeEnum(PostMediasMediaHashedIdTrimsStatus);
+
+/** @internal */
+export const PostMediasMediaHashedIdTrimsStatus$outboundSchema: z.ZodNativeEnum<
+  typeof PostMediasMediaHashedIdTrimsStatus
+> = PostMediasMediaHashedIdTrimsStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostMediasMediaHashedIdTrimsStatus$ {
+  /** @deprecated use `PostMediasMediaHashedIdTrimsStatus$inboundSchema` instead. */
+  export const inboundSchema = PostMediasMediaHashedIdTrimsStatus$inboundSchema;
+  /** @deprecated use `PostMediasMediaHashedIdTrimsStatus$outboundSchema` instead. */
+  export const outboundSchema =
+    PostMediasMediaHashedIdTrimsStatus$outboundSchema;
+}
+
+/** @internal */
+export const PostMediasMediaHashedIdTrimsBackgroundJobStatus$inboundSchema:
+  z.ZodType<
+    PostMediasMediaHashedIdTrimsBackgroundJobStatus,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    id: z.number().int(),
+    status: PostMediasMediaHashedIdTrimsStatus$inboundSchema,
+  });
+
+/** @internal */
+export type PostMediasMediaHashedIdTrimsBackgroundJobStatus$Outbound = {
+  id: number;
+  status: string;
+};
+
+/** @internal */
+export const PostMediasMediaHashedIdTrimsBackgroundJobStatus$outboundSchema:
+  z.ZodType<
+    PostMediasMediaHashedIdTrimsBackgroundJobStatus$Outbound,
+    z.ZodTypeDef,
+    PostMediasMediaHashedIdTrimsBackgroundJobStatus
+  > = z.object({
+    id: z.number().int(),
+    status: PostMediasMediaHashedIdTrimsStatus$outboundSchema,
+  });
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostMediasMediaHashedIdTrimsBackgroundJobStatus$ {
+  /** @deprecated use `PostMediasMediaHashedIdTrimsBackgroundJobStatus$inboundSchema` instead. */
+  export const inboundSchema =
+    PostMediasMediaHashedIdTrimsBackgroundJobStatus$inboundSchema;
+  /** @deprecated use `PostMediasMediaHashedIdTrimsBackgroundJobStatus$outboundSchema` instead. */
+  export const outboundSchema =
+    PostMediasMediaHashedIdTrimsBackgroundJobStatus$outboundSchema;
+  /** @deprecated use `PostMediasMediaHashedIdTrimsBackgroundJobStatus$Outbound` instead. */
+  export type Outbound =
+    PostMediasMediaHashedIdTrimsBackgroundJobStatus$Outbound;
+}
+
+export function postMediasMediaHashedIdTrimsBackgroundJobStatusToJSON(
+  postMediasMediaHashedIdTrimsBackgroundJobStatus:
+    PostMediasMediaHashedIdTrimsBackgroundJobStatus,
+): string {
+  return JSON.stringify(
+    PostMediasMediaHashedIdTrimsBackgroundJobStatus$outboundSchema.parse(
+      postMediasMediaHashedIdTrimsBackgroundJobStatus,
+    ),
+  );
+}
+
+export function postMediasMediaHashedIdTrimsBackgroundJobStatusFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  PostMediasMediaHashedIdTrimsBackgroundJobStatus,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      PostMediasMediaHashedIdTrimsBackgroundJobStatus$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'PostMediasMediaHashedIdTrimsBackgroundJobStatus' from JSON`,
+  );
+}
+
+/** @internal */
 export const PostMediasMediaHashedIdTrimsResponse$inboundSchema: z.ZodType<
   PostMediasMediaHashedIdTrimsResponse,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  background_job_status: models.BackgroundJobStatus$inboundSchema.optional(),
+  background_job_status: z.lazy(() =>
+    PostMediasMediaHashedIdTrimsBackgroundJobStatus$inboundSchema
+  ).optional(),
 }).transform((v) => {
   return remap$(v, {
     "background_job_status": "backgroundJobStatus",
@@ -188,7 +372,9 @@ export const PostMediasMediaHashedIdTrimsResponse$inboundSchema: z.ZodType<
 
 /** @internal */
 export type PostMediasMediaHashedIdTrimsResponse$Outbound = {
-  background_job_status?: models.BackgroundJobStatus$Outbound | undefined;
+  background_job_status?:
+    | PostMediasMediaHashedIdTrimsBackgroundJobStatus$Outbound
+    | undefined;
 };
 
 /** @internal */
@@ -197,7 +383,9 @@ export const PostMediasMediaHashedIdTrimsResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PostMediasMediaHashedIdTrimsResponse
 > = z.object({
-  backgroundJobStatus: models.BackgroundJobStatus$outboundSchema.optional(),
+  backgroundJobStatus: z.lazy(() =>
+    PostMediasMediaHashedIdTrimsBackgroundJobStatus$outboundSchema
+  ).optional(),
 }).transform((v) => {
   return remap$(v, {
     backgroundJobStatus: "background_job_status",

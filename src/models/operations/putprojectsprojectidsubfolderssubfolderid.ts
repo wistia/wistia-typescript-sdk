@@ -37,6 +37,36 @@ export type PutProjectsProjectIdSubfoldersSubfolderIdRequest = {
   requestBody: PutProjectsProjectIdSubfoldersSubfolderIdRequestBody;
 };
 
+/**
+ * A subfolder within a project that contains media files.
+ */
+export type PutProjectsProjectIdSubfoldersSubfolderIdResponse = {
+  /**
+   * A unique alphanumeric identifier for this subfolder.
+   */
+  hashedId: string;
+  /**
+   * The display name of the subfolder.
+   */
+  name?: string | null | undefined;
+  /**
+   * A description for the subfolder.
+   */
+  description?: string | null | undefined;
+  /**
+   * The position of this subfolder within its project, used for ordering.
+   */
+  position: number | null;
+  /**
+   * The date when the subfolder was created.
+   */
+  created: Date | null;
+  /**
+   * The date when the subfolder was last modified.
+   */
+  updated: Date | null;
+};
+
 /** @internal */
 export const PutProjectsProjectIdSubfoldersSubfolderIdRequestBody$inboundSchema:
   z.ZodType<
@@ -191,5 +221,100 @@ export function putProjectsProjectIdSubfoldersSubfolderIdRequestFromJSON(
         JSON.parse(x),
       ),
     `Failed to parse 'PutProjectsProjectIdSubfoldersSubfolderIdRequest' from JSON`,
+  );
+}
+
+/** @internal */
+export const PutProjectsProjectIdSubfoldersSubfolderIdResponse$inboundSchema:
+  z.ZodType<
+    PutProjectsProjectIdSubfoldersSubfolderIdResponse,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    hashed_id: z.string(),
+    name: z.nullable(z.string()).optional(),
+    description: z.nullable(z.string()).optional(),
+    position: z.nullable(z.number().int()),
+    created: z.nullable(
+      z.string().datetime({ offset: true }).transform(v => new Date(v)),
+    ),
+    updated: z.nullable(
+      z.string().datetime({ offset: true }).transform(v => new Date(v)),
+    ),
+  }).transform((v) => {
+    return remap$(v, {
+      "hashed_id": "hashedId",
+    });
+  });
+
+/** @internal */
+export type PutProjectsProjectIdSubfoldersSubfolderIdResponse$Outbound = {
+  hashed_id: string;
+  name?: string | null | undefined;
+  description?: string | null | undefined;
+  position: number | null;
+  created: string | null;
+  updated: string | null;
+};
+
+/** @internal */
+export const PutProjectsProjectIdSubfoldersSubfolderIdResponse$outboundSchema:
+  z.ZodType<
+    PutProjectsProjectIdSubfoldersSubfolderIdResponse$Outbound,
+    z.ZodTypeDef,
+    PutProjectsProjectIdSubfoldersSubfolderIdResponse
+  > = z.object({
+    hashedId: z.string(),
+    name: z.nullable(z.string()).optional(),
+    description: z.nullable(z.string()).optional(),
+    position: z.nullable(z.number().int()),
+    created: z.nullable(z.date().transform(v => v.toISOString())),
+    updated: z.nullable(z.date().transform(v => v.toISOString())),
+  }).transform((v) => {
+    return remap$(v, {
+      hashedId: "hashed_id",
+    });
+  });
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PutProjectsProjectIdSubfoldersSubfolderIdResponse$ {
+  /** @deprecated use `PutProjectsProjectIdSubfoldersSubfolderIdResponse$inboundSchema` instead. */
+  export const inboundSchema =
+    PutProjectsProjectIdSubfoldersSubfolderIdResponse$inboundSchema;
+  /** @deprecated use `PutProjectsProjectIdSubfoldersSubfolderIdResponse$outboundSchema` instead. */
+  export const outboundSchema =
+    PutProjectsProjectIdSubfoldersSubfolderIdResponse$outboundSchema;
+  /** @deprecated use `PutProjectsProjectIdSubfoldersSubfolderIdResponse$Outbound` instead. */
+  export type Outbound =
+    PutProjectsProjectIdSubfoldersSubfolderIdResponse$Outbound;
+}
+
+export function putProjectsProjectIdSubfoldersSubfolderIdResponseToJSON(
+  putProjectsProjectIdSubfoldersSubfolderIdResponse:
+    PutProjectsProjectIdSubfoldersSubfolderIdResponse,
+): string {
+  return JSON.stringify(
+    PutProjectsProjectIdSubfoldersSubfolderIdResponse$outboundSchema.parse(
+      putProjectsProjectIdSubfoldersSubfolderIdResponse,
+    ),
+  );
+}
+
+export function putProjectsProjectIdSubfoldersSubfolderIdResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  PutProjectsProjectIdSubfoldersSubfolderIdResponse,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      PutProjectsProjectIdSubfoldersSubfolderIdResponse$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'PutProjectsProjectIdSubfoldersSubfolderIdResponse' from JSON`,
   );
 }

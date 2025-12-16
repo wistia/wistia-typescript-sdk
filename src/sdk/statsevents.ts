@@ -5,7 +5,6 @@
 import { statsEventsGet } from "../funcs/statsEventsGet.js";
 import { statsEventsList } from "../funcs/statsEventsList.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
-import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -27,7 +26,7 @@ export class StatsEvents extends ClientSDK {
   async list(
     request?: operations.GetStatsEventsRequest | undefined,
     options?: RequestOptions,
-  ): Promise<Array<models.Event>> {
+  ): Promise<Array<operations.GetStatsEventsResponse>> {
     return unwrapAsync(statsEventsList(
       this,
       request,
@@ -52,7 +51,7 @@ export class StatsEvents extends ClientSDK {
   async get(
     request: operations.GetStatsEventsEventKeyRequest,
     options?: RequestOptions,
-  ): Promise<models.Event> {
+  ): Promise<operations.GetStatsEventsEventKeyResponse> {
     return unwrapAsync(statsEventsGet(
       this,
       request,

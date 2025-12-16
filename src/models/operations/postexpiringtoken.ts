@@ -7,11 +7,173 @@ import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-import * as models from "../index.js";
+
+export type Authorization = {
+  /**
+   * The type of object the permission is being performed on, only media is currently supported
+   */
+  type: string;
+  /**
+   * The hashed if of the object the permissions are being performed on.
+   */
+  id: string;
+  /**
+   * The types of permissions, currently only supports edit-transcripts
+   */
+  permissions: Array<string>;
+};
+
+export type ExpiringAccessToken = {
+  /**
+   * an ISO8601 string of when the token will expire, defaults to two days from creation
+   */
+  expiresAt?: string | undefined;
+  /**
+   * a list of authorizations the token will have
+   */
+  authorizations?: Array<Authorization> | undefined;
+};
 
 export type PostExpiringTokenRequest = {
-  expiringAccessToken?: models.ExpiringAccessTokenInput | undefined;
+  expiringAccessToken?: ExpiringAccessToken | undefined;
 };
+
+/**
+ * Contains a summary of what fields had errors and the errors they had.
+ */
+export type PostExpiringTokenErrors = {};
+
+/**
+ * Successful response
+ */
+export type PostExpiringTokenResponse = {
+  /**
+   * A token which can be used to authorize requests to Wistia. Currently only for doing transcript embeds.
+   */
+  token: string;
+};
+
+/** @internal */
+export const Authorization$inboundSchema: z.ZodType<
+  Authorization,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  type: z.string(),
+  id: z.string(),
+  permissions: z.array(z.string()),
+});
+
+/** @internal */
+export type Authorization$Outbound = {
+  type: string;
+  id: string;
+  permissions: Array<string>;
+};
+
+/** @internal */
+export const Authorization$outboundSchema: z.ZodType<
+  Authorization$Outbound,
+  z.ZodTypeDef,
+  Authorization
+> = z.object({
+  type: z.string(),
+  id: z.string(),
+  permissions: z.array(z.string()),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace Authorization$ {
+  /** @deprecated use `Authorization$inboundSchema` instead. */
+  export const inboundSchema = Authorization$inboundSchema;
+  /** @deprecated use `Authorization$outboundSchema` instead. */
+  export const outboundSchema = Authorization$outboundSchema;
+  /** @deprecated use `Authorization$Outbound` instead. */
+  export type Outbound = Authorization$Outbound;
+}
+
+export function authorizationToJSON(authorization: Authorization): string {
+  return JSON.stringify(Authorization$outboundSchema.parse(authorization));
+}
+
+export function authorizationFromJSON(
+  jsonString: string,
+): SafeParseResult<Authorization, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Authorization$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Authorization' from JSON`,
+  );
+}
+
+/** @internal */
+export const ExpiringAccessToken$inboundSchema: z.ZodType<
+  ExpiringAccessToken,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  expires_at: z.string().optional(),
+  authorizations: z.array(z.lazy(() => Authorization$inboundSchema)).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "expires_at": "expiresAt",
+  });
+});
+
+/** @internal */
+export type ExpiringAccessToken$Outbound = {
+  expires_at?: string | undefined;
+  authorizations?: Array<Authorization$Outbound> | undefined;
+};
+
+/** @internal */
+export const ExpiringAccessToken$outboundSchema: z.ZodType<
+  ExpiringAccessToken$Outbound,
+  z.ZodTypeDef,
+  ExpiringAccessToken
+> = z.object({
+  expiresAt: z.string().optional(),
+  authorizations: z.array(z.lazy(() => Authorization$outboundSchema))
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    expiresAt: "expires_at",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ExpiringAccessToken$ {
+  /** @deprecated use `ExpiringAccessToken$inboundSchema` instead. */
+  export const inboundSchema = ExpiringAccessToken$inboundSchema;
+  /** @deprecated use `ExpiringAccessToken$outboundSchema` instead. */
+  export const outboundSchema = ExpiringAccessToken$outboundSchema;
+  /** @deprecated use `ExpiringAccessToken$Outbound` instead. */
+  export type Outbound = ExpiringAccessToken$Outbound;
+}
+
+export function expiringAccessTokenToJSON(
+  expiringAccessToken: ExpiringAccessToken,
+): string {
+  return JSON.stringify(
+    ExpiringAccessToken$outboundSchema.parse(expiringAccessToken),
+  );
+}
+
+export function expiringAccessTokenFromJSON(
+  jsonString: string,
+): SafeParseResult<ExpiringAccessToken, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ExpiringAccessToken$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ExpiringAccessToken' from JSON`,
+  );
+}
 
 /** @internal */
 export const PostExpiringTokenRequest$inboundSchema: z.ZodType<
@@ -19,7 +181,7 @@ export const PostExpiringTokenRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  expiring_access_token: models.ExpiringAccessTokenInput$inboundSchema
+  expiring_access_token: z.lazy(() => ExpiringAccessToken$inboundSchema)
     .optional(),
 }).transform((v) => {
   return remap$(v, {
@@ -29,7 +191,7 @@ export const PostExpiringTokenRequest$inboundSchema: z.ZodType<
 
 /** @internal */
 export type PostExpiringTokenRequest$Outbound = {
-  expiring_access_token?: models.ExpiringAccessTokenInput$Outbound | undefined;
+  expiring_access_token?: ExpiringAccessToken$Outbound | undefined;
 };
 
 /** @internal */
@@ -38,7 +200,7 @@ export const PostExpiringTokenRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PostExpiringTokenRequest
 > = z.object({
-  expiringAccessToken: models.ExpiringAccessTokenInput$outboundSchema
+  expiringAccessToken: z.lazy(() => ExpiringAccessToken$outboundSchema)
     .optional(),
 }).transform((v) => {
   return remap$(v, {
@@ -74,5 +236,107 @@ export function postExpiringTokenRequestFromJSON(
     jsonString,
     (x) => PostExpiringTokenRequest$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'PostExpiringTokenRequest' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostExpiringTokenErrors$inboundSchema: z.ZodType<
+  PostExpiringTokenErrors,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type PostExpiringTokenErrors$Outbound = {};
+
+/** @internal */
+export const PostExpiringTokenErrors$outboundSchema: z.ZodType<
+  PostExpiringTokenErrors$Outbound,
+  z.ZodTypeDef,
+  PostExpiringTokenErrors
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostExpiringTokenErrors$ {
+  /** @deprecated use `PostExpiringTokenErrors$inboundSchema` instead. */
+  export const inboundSchema = PostExpiringTokenErrors$inboundSchema;
+  /** @deprecated use `PostExpiringTokenErrors$outboundSchema` instead. */
+  export const outboundSchema = PostExpiringTokenErrors$outboundSchema;
+  /** @deprecated use `PostExpiringTokenErrors$Outbound` instead. */
+  export type Outbound = PostExpiringTokenErrors$Outbound;
+}
+
+export function postExpiringTokenErrorsToJSON(
+  postExpiringTokenErrors: PostExpiringTokenErrors,
+): string {
+  return JSON.stringify(
+    PostExpiringTokenErrors$outboundSchema.parse(postExpiringTokenErrors),
+  );
+}
+
+export function postExpiringTokenErrorsFromJSON(
+  jsonString: string,
+): SafeParseResult<PostExpiringTokenErrors, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostExpiringTokenErrors$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostExpiringTokenErrors' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostExpiringTokenResponse$inboundSchema: z.ZodType<
+  PostExpiringTokenResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  token: z.string(),
+});
+
+/** @internal */
+export type PostExpiringTokenResponse$Outbound = {
+  token: string;
+};
+
+/** @internal */
+export const PostExpiringTokenResponse$outboundSchema: z.ZodType<
+  PostExpiringTokenResponse$Outbound,
+  z.ZodTypeDef,
+  PostExpiringTokenResponse
+> = z.object({
+  token: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostExpiringTokenResponse$ {
+  /** @deprecated use `PostExpiringTokenResponse$inboundSchema` instead. */
+  export const inboundSchema = PostExpiringTokenResponse$inboundSchema;
+  /** @deprecated use `PostExpiringTokenResponse$outboundSchema` instead. */
+  export const outboundSchema = PostExpiringTokenResponse$outboundSchema;
+  /** @deprecated use `PostExpiringTokenResponse$Outbound` instead. */
+  export type Outbound = PostExpiringTokenResponse$Outbound;
+}
+
+export function postExpiringTokenResponseToJSON(
+  postExpiringTokenResponse: PostExpiringTokenResponse,
+): string {
+  return JSON.stringify(
+    PostExpiringTokenResponse$outboundSchema.parse(postExpiringTokenResponse),
+  );
+}
+
+export function postExpiringTokenResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<PostExpiringTokenResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostExpiringTokenResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostExpiringTokenResponse' from JSON`,
   );
 }

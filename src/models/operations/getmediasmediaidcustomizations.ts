@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod";
+import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -12,6 +13,180 @@ export type GetMediasMediaIdCustomizationsRequest = {
    * The hashed ID of the video.
    */
   mediaId: string;
+};
+
+export type GetMediasMediaIdCustomizationsPasswordProtectedVideo = {
+  on?: string | undefined;
+  src?: string | undefined;
+  challenge?: string | undefined;
+  async?: string | undefined;
+};
+
+export type GetMediasMediaIdCustomizationsVideoThumbnail = {
+  clickToPlayButton?: string | undefined;
+};
+
+export type GetMediasMediaIdCustomizationsSocialbarV1 = {
+  buttons?: string | undefined;
+  showTweetCount?: string | undefined;
+  tweetText?: string | undefined;
+  height?: string | undefined;
+};
+
+export type GetMediasMediaIdCustomizationsChapters = {
+  visibleOnLoad?: string | undefined;
+  chapterList?: string | undefined;
+  on?: string | undefined;
+};
+
+export type GetMediasMediaIdCustomizationsStyle = {
+  /**
+   * The background color of the post-roll.
+   */
+  backgroundColor?: string | undefined;
+};
+
+/**
+ * Adds a Call To Action to your Video (response format)
+ */
+export type GetMediasMediaIdCustomizationsPostRollV1 = {
+  /**
+   * String representation of whether the video can be rewatched.
+   */
+  rewatch?: string | undefined;
+  /**
+   * The URL of the text to be displayed.
+   */
+  text?: string | undefined;
+  /**
+   * The URL of the link to be displayed.
+   */
+  link?: string | undefined;
+  /**
+   * The time when the post-roll should be displayed as a string.
+   */
+  time?: string | undefined;
+  /**
+   * String representation of whether the post-roll will automatically adjust its size.
+   */
+  autoSize?: string | undefined;
+  style?: GetMediasMediaIdCustomizationsStyle | undefined;
+  /**
+   * The type of call-to-action to be displayed.
+   */
+  ctaType?: string | undefined;
+  /**
+   * String representation of whether the post-roll is enabled.
+   */
+  on?: string | undefined;
+  /**
+   * The key used for tracking conversion opportunities.
+   */
+  conversionOpportunityKey?: string | undefined;
+};
+
+/**
+ * Captions plugin configuration (response format)
+ */
+export type GetMediasMediaIdCustomizationsCaptionsV1 = {
+  /**
+   * String representation of whether the captions plugin is enabled ("true" or "false").
+   */
+  on?: string | undefined;
+  /**
+   * String representation of whether captions are turned on by default ("true" or "false").
+   */
+  onByDefault?: string | undefined;
+};
+
+export type GetMediasMediaIdCustomizationsPlugin = {
+  passwordProtectedVideo?:
+    | GetMediasMediaIdCustomizationsPasswordProtectedVideo
+    | undefined;
+  videoThumbnail?: GetMediasMediaIdCustomizationsVideoThumbnail | undefined;
+  socialbarV1?: GetMediasMediaIdCustomizationsSocialbarV1 | undefined;
+  chapters?: GetMediasMediaIdCustomizationsChapters | undefined;
+  /**
+   * Adds a Call To Action to your Video (response format)
+   */
+  postRollV1?: GetMediasMediaIdCustomizationsPostRollV1 | undefined;
+  /**
+   * Captions plugin configuration (response format)
+   */
+  captionsV1?: GetMediasMediaIdCustomizationsCaptionsV1 | undefined;
+};
+
+export type GetMediasMediaIdCustomizationsPrivate = {
+  passwordProtectOn?: string | undefined;
+  showComments?: string | undefined;
+};
+
+export type GetMediasMediaIdCustomizationsEncrypted = {
+  passwordProtectPassword?: string | undefined;
+};
+
+/**
+ * Successful response
+ */
+export type GetMediasMediaIdCustomizationsResponse = {
+  /**
+   * The color of the video player.
+   */
+  playerColor?: string | undefined;
+  stillUrl?: string | undefined;
+  /**
+   * Whether the video should auto play or not.
+   */
+  autoPlay?: string | undefined;
+  bpbTime?: string | undefined;
+  controlsVisibleOnLoad?: string | undefined;
+  /**
+   * Behavior of the video at the end.
+   */
+  endVideoBehavior?: string | undefined;
+  fullscreenButton?: string | undefined;
+  branding?: string | undefined;
+  playbar?: string | undefined;
+  /**
+   * Indicates if the play button is visible.
+   */
+  playButton?: string | undefined;
+  settingsControl?: string | undefined;
+  showCustomerLogo?: string | undefined;
+  qualityControl?: string | undefined;
+  playbackRateControl?: string | undefined;
+  smallPlayButton?: string | undefined;
+  spherical?: string | undefined;
+  volumeControl?: string | undefined;
+  copyLinkAndThumbnailEnabled?: string | undefined;
+  doNotTrack?: string | undefined;
+  email?: string | undefined;
+  fitStrategy?: string | undefined;
+  fullscreenOnRotateToLandscape?: string | undefined;
+  muted?: string | undefined;
+  playlistLinks?: string | undefined;
+  playlistLoop?: string | undefined;
+  playsinline?: string | undefined;
+  playPauseNotifier?: string | undefined;
+  playSuspendedOffScreen?: string | undefined;
+  preload?: string | undefined;
+  qualityMax?: string | undefined;
+  qualityMin?: string | undefined;
+  resumable?: string | undefined;
+  seo?: string | undefined;
+  silentAutoPlay?: string | undefined;
+  time?: string | undefined;
+  thumbnailAltText?: string | undefined;
+  videoFoam?: string | undefined;
+  volume?: string | undefined;
+  wmode?: string | undefined;
+  /**
+   * String representation of whether the key moments feature is enabled.
+   */
+  keyMoments?: string | undefined;
+  plugin?: GetMediasMediaIdCustomizationsPlugin | undefined;
+  private?: GetMediasMediaIdCustomizationsPrivate | undefined;
+  encrypted?: GetMediasMediaIdCustomizationsEncrypted | undefined;
 };
 
 /** @internal */
@@ -70,5 +245,960 @@ export function getMediasMediaIdCustomizationsRequestFromJSON(
     (x) =>
       GetMediasMediaIdCustomizationsRequest$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'GetMediasMediaIdCustomizationsRequest' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetMediasMediaIdCustomizationsPasswordProtectedVideo$inboundSchema:
+  z.ZodType<
+    GetMediasMediaIdCustomizationsPasswordProtectedVideo,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    on: z.string().optional(),
+    src: z.string().optional(),
+    challenge: z.string().optional(),
+    async: z.string().optional(),
+  });
+
+/** @internal */
+export type GetMediasMediaIdCustomizationsPasswordProtectedVideo$Outbound = {
+  on?: string | undefined;
+  src?: string | undefined;
+  challenge?: string | undefined;
+  async?: string | undefined;
+};
+
+/** @internal */
+export const GetMediasMediaIdCustomizationsPasswordProtectedVideo$outboundSchema:
+  z.ZodType<
+    GetMediasMediaIdCustomizationsPasswordProtectedVideo$Outbound,
+    z.ZodTypeDef,
+    GetMediasMediaIdCustomizationsPasswordProtectedVideo
+  > = z.object({
+    on: z.string().optional(),
+    src: z.string().optional(),
+    challenge: z.string().optional(),
+    async: z.string().optional(),
+  });
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetMediasMediaIdCustomizationsPasswordProtectedVideo$ {
+  /** @deprecated use `GetMediasMediaIdCustomizationsPasswordProtectedVideo$inboundSchema` instead. */
+  export const inboundSchema =
+    GetMediasMediaIdCustomizationsPasswordProtectedVideo$inboundSchema;
+  /** @deprecated use `GetMediasMediaIdCustomizationsPasswordProtectedVideo$outboundSchema` instead. */
+  export const outboundSchema =
+    GetMediasMediaIdCustomizationsPasswordProtectedVideo$outboundSchema;
+  /** @deprecated use `GetMediasMediaIdCustomizationsPasswordProtectedVideo$Outbound` instead. */
+  export type Outbound =
+    GetMediasMediaIdCustomizationsPasswordProtectedVideo$Outbound;
+}
+
+export function getMediasMediaIdCustomizationsPasswordProtectedVideoToJSON(
+  getMediasMediaIdCustomizationsPasswordProtectedVideo:
+    GetMediasMediaIdCustomizationsPasswordProtectedVideo,
+): string {
+  return JSON.stringify(
+    GetMediasMediaIdCustomizationsPasswordProtectedVideo$outboundSchema.parse(
+      getMediasMediaIdCustomizationsPasswordProtectedVideo,
+    ),
+  );
+}
+
+export function getMediasMediaIdCustomizationsPasswordProtectedVideoFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetMediasMediaIdCustomizationsPasswordProtectedVideo,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetMediasMediaIdCustomizationsPasswordProtectedVideo$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'GetMediasMediaIdCustomizationsPasswordProtectedVideo' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetMediasMediaIdCustomizationsVideoThumbnail$inboundSchema:
+  z.ZodType<
+    GetMediasMediaIdCustomizationsVideoThumbnail,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    clickToPlayButton: z.string().optional(),
+  });
+
+/** @internal */
+export type GetMediasMediaIdCustomizationsVideoThumbnail$Outbound = {
+  clickToPlayButton?: string | undefined;
+};
+
+/** @internal */
+export const GetMediasMediaIdCustomizationsVideoThumbnail$outboundSchema:
+  z.ZodType<
+    GetMediasMediaIdCustomizationsVideoThumbnail$Outbound,
+    z.ZodTypeDef,
+    GetMediasMediaIdCustomizationsVideoThumbnail
+  > = z.object({
+    clickToPlayButton: z.string().optional(),
+  });
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetMediasMediaIdCustomizationsVideoThumbnail$ {
+  /** @deprecated use `GetMediasMediaIdCustomizationsVideoThumbnail$inboundSchema` instead. */
+  export const inboundSchema =
+    GetMediasMediaIdCustomizationsVideoThumbnail$inboundSchema;
+  /** @deprecated use `GetMediasMediaIdCustomizationsVideoThumbnail$outboundSchema` instead. */
+  export const outboundSchema =
+    GetMediasMediaIdCustomizationsVideoThumbnail$outboundSchema;
+  /** @deprecated use `GetMediasMediaIdCustomizationsVideoThumbnail$Outbound` instead. */
+  export type Outbound = GetMediasMediaIdCustomizationsVideoThumbnail$Outbound;
+}
+
+export function getMediasMediaIdCustomizationsVideoThumbnailToJSON(
+  getMediasMediaIdCustomizationsVideoThumbnail:
+    GetMediasMediaIdCustomizationsVideoThumbnail,
+): string {
+  return JSON.stringify(
+    GetMediasMediaIdCustomizationsVideoThumbnail$outboundSchema.parse(
+      getMediasMediaIdCustomizationsVideoThumbnail,
+    ),
+  );
+}
+
+export function getMediasMediaIdCustomizationsVideoThumbnailFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetMediasMediaIdCustomizationsVideoThumbnail,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetMediasMediaIdCustomizationsVideoThumbnail$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'GetMediasMediaIdCustomizationsVideoThumbnail' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetMediasMediaIdCustomizationsSocialbarV1$inboundSchema: z.ZodType<
+  GetMediasMediaIdCustomizationsSocialbarV1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  buttons: z.string().optional(),
+  showTweetCount: z.string().optional(),
+  tweetText: z.string().optional(),
+  height: z.string().optional(),
+});
+
+/** @internal */
+export type GetMediasMediaIdCustomizationsSocialbarV1$Outbound = {
+  buttons?: string | undefined;
+  showTweetCount?: string | undefined;
+  tweetText?: string | undefined;
+  height?: string | undefined;
+};
+
+/** @internal */
+export const GetMediasMediaIdCustomizationsSocialbarV1$outboundSchema:
+  z.ZodType<
+    GetMediasMediaIdCustomizationsSocialbarV1$Outbound,
+    z.ZodTypeDef,
+    GetMediasMediaIdCustomizationsSocialbarV1
+  > = z.object({
+    buttons: z.string().optional(),
+    showTweetCount: z.string().optional(),
+    tweetText: z.string().optional(),
+    height: z.string().optional(),
+  });
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetMediasMediaIdCustomizationsSocialbarV1$ {
+  /** @deprecated use `GetMediasMediaIdCustomizationsSocialbarV1$inboundSchema` instead. */
+  export const inboundSchema =
+    GetMediasMediaIdCustomizationsSocialbarV1$inboundSchema;
+  /** @deprecated use `GetMediasMediaIdCustomizationsSocialbarV1$outboundSchema` instead. */
+  export const outboundSchema =
+    GetMediasMediaIdCustomizationsSocialbarV1$outboundSchema;
+  /** @deprecated use `GetMediasMediaIdCustomizationsSocialbarV1$Outbound` instead. */
+  export type Outbound = GetMediasMediaIdCustomizationsSocialbarV1$Outbound;
+}
+
+export function getMediasMediaIdCustomizationsSocialbarV1ToJSON(
+  getMediasMediaIdCustomizationsSocialbarV1:
+    GetMediasMediaIdCustomizationsSocialbarV1,
+): string {
+  return JSON.stringify(
+    GetMediasMediaIdCustomizationsSocialbarV1$outboundSchema.parse(
+      getMediasMediaIdCustomizationsSocialbarV1,
+    ),
+  );
+}
+
+export function getMediasMediaIdCustomizationsSocialbarV1FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetMediasMediaIdCustomizationsSocialbarV1,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetMediasMediaIdCustomizationsSocialbarV1$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'GetMediasMediaIdCustomizationsSocialbarV1' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetMediasMediaIdCustomizationsChapters$inboundSchema: z.ZodType<
+  GetMediasMediaIdCustomizationsChapters,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  visibleOnLoad: z.string().optional(),
+  chapterList: z.string().optional(),
+  on: z.string().optional(),
+});
+
+/** @internal */
+export type GetMediasMediaIdCustomizationsChapters$Outbound = {
+  visibleOnLoad?: string | undefined;
+  chapterList?: string | undefined;
+  on?: string | undefined;
+};
+
+/** @internal */
+export const GetMediasMediaIdCustomizationsChapters$outboundSchema: z.ZodType<
+  GetMediasMediaIdCustomizationsChapters$Outbound,
+  z.ZodTypeDef,
+  GetMediasMediaIdCustomizationsChapters
+> = z.object({
+  visibleOnLoad: z.string().optional(),
+  chapterList: z.string().optional(),
+  on: z.string().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetMediasMediaIdCustomizationsChapters$ {
+  /** @deprecated use `GetMediasMediaIdCustomizationsChapters$inboundSchema` instead. */
+  export const inboundSchema =
+    GetMediasMediaIdCustomizationsChapters$inboundSchema;
+  /** @deprecated use `GetMediasMediaIdCustomizationsChapters$outboundSchema` instead. */
+  export const outboundSchema =
+    GetMediasMediaIdCustomizationsChapters$outboundSchema;
+  /** @deprecated use `GetMediasMediaIdCustomizationsChapters$Outbound` instead. */
+  export type Outbound = GetMediasMediaIdCustomizationsChapters$Outbound;
+}
+
+export function getMediasMediaIdCustomizationsChaptersToJSON(
+  getMediasMediaIdCustomizationsChapters:
+    GetMediasMediaIdCustomizationsChapters,
+): string {
+  return JSON.stringify(
+    GetMediasMediaIdCustomizationsChapters$outboundSchema.parse(
+      getMediasMediaIdCustomizationsChapters,
+    ),
+  );
+}
+
+export function getMediasMediaIdCustomizationsChaptersFromJSON(
+  jsonString: string,
+): SafeParseResult<GetMediasMediaIdCustomizationsChapters, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetMediasMediaIdCustomizationsChapters$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetMediasMediaIdCustomizationsChapters' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetMediasMediaIdCustomizationsStyle$inboundSchema: z.ZodType<
+  GetMediasMediaIdCustomizationsStyle,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  backgroundColor: z.string().optional(),
+});
+
+/** @internal */
+export type GetMediasMediaIdCustomizationsStyle$Outbound = {
+  backgroundColor?: string | undefined;
+};
+
+/** @internal */
+export const GetMediasMediaIdCustomizationsStyle$outboundSchema: z.ZodType<
+  GetMediasMediaIdCustomizationsStyle$Outbound,
+  z.ZodTypeDef,
+  GetMediasMediaIdCustomizationsStyle
+> = z.object({
+  backgroundColor: z.string().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetMediasMediaIdCustomizationsStyle$ {
+  /** @deprecated use `GetMediasMediaIdCustomizationsStyle$inboundSchema` instead. */
+  export const inboundSchema =
+    GetMediasMediaIdCustomizationsStyle$inboundSchema;
+  /** @deprecated use `GetMediasMediaIdCustomizationsStyle$outboundSchema` instead. */
+  export const outboundSchema =
+    GetMediasMediaIdCustomizationsStyle$outboundSchema;
+  /** @deprecated use `GetMediasMediaIdCustomizationsStyle$Outbound` instead. */
+  export type Outbound = GetMediasMediaIdCustomizationsStyle$Outbound;
+}
+
+export function getMediasMediaIdCustomizationsStyleToJSON(
+  getMediasMediaIdCustomizationsStyle: GetMediasMediaIdCustomizationsStyle,
+): string {
+  return JSON.stringify(
+    GetMediasMediaIdCustomizationsStyle$outboundSchema.parse(
+      getMediasMediaIdCustomizationsStyle,
+    ),
+  );
+}
+
+export function getMediasMediaIdCustomizationsStyleFromJSON(
+  jsonString: string,
+): SafeParseResult<GetMediasMediaIdCustomizationsStyle, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetMediasMediaIdCustomizationsStyle$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetMediasMediaIdCustomizationsStyle' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetMediasMediaIdCustomizationsPostRollV1$inboundSchema: z.ZodType<
+  GetMediasMediaIdCustomizationsPostRollV1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  rewatch: z.string().optional(),
+  text: z.string().optional(),
+  link: z.string().optional(),
+  time: z.string().optional(),
+  autoSize: z.string().optional(),
+  style: z.lazy(() => GetMediasMediaIdCustomizationsStyle$inboundSchema)
+    .optional(),
+  ctaType: z.string().optional(),
+  on: z.string().optional(),
+  conversionOpportunityKey: z.string().optional(),
+});
+
+/** @internal */
+export type GetMediasMediaIdCustomizationsPostRollV1$Outbound = {
+  rewatch?: string | undefined;
+  text?: string | undefined;
+  link?: string | undefined;
+  time?: string | undefined;
+  autoSize?: string | undefined;
+  style?: GetMediasMediaIdCustomizationsStyle$Outbound | undefined;
+  ctaType?: string | undefined;
+  on?: string | undefined;
+  conversionOpportunityKey?: string | undefined;
+};
+
+/** @internal */
+export const GetMediasMediaIdCustomizationsPostRollV1$outboundSchema: z.ZodType<
+  GetMediasMediaIdCustomizationsPostRollV1$Outbound,
+  z.ZodTypeDef,
+  GetMediasMediaIdCustomizationsPostRollV1
+> = z.object({
+  rewatch: z.string().optional(),
+  text: z.string().optional(),
+  link: z.string().optional(),
+  time: z.string().optional(),
+  autoSize: z.string().optional(),
+  style: z.lazy(() => GetMediasMediaIdCustomizationsStyle$outboundSchema)
+    .optional(),
+  ctaType: z.string().optional(),
+  on: z.string().optional(),
+  conversionOpportunityKey: z.string().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetMediasMediaIdCustomizationsPostRollV1$ {
+  /** @deprecated use `GetMediasMediaIdCustomizationsPostRollV1$inboundSchema` instead. */
+  export const inboundSchema =
+    GetMediasMediaIdCustomizationsPostRollV1$inboundSchema;
+  /** @deprecated use `GetMediasMediaIdCustomizationsPostRollV1$outboundSchema` instead. */
+  export const outboundSchema =
+    GetMediasMediaIdCustomizationsPostRollV1$outboundSchema;
+  /** @deprecated use `GetMediasMediaIdCustomizationsPostRollV1$Outbound` instead. */
+  export type Outbound = GetMediasMediaIdCustomizationsPostRollV1$Outbound;
+}
+
+export function getMediasMediaIdCustomizationsPostRollV1ToJSON(
+  getMediasMediaIdCustomizationsPostRollV1:
+    GetMediasMediaIdCustomizationsPostRollV1,
+): string {
+  return JSON.stringify(
+    GetMediasMediaIdCustomizationsPostRollV1$outboundSchema.parse(
+      getMediasMediaIdCustomizationsPostRollV1,
+    ),
+  );
+}
+
+export function getMediasMediaIdCustomizationsPostRollV1FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetMediasMediaIdCustomizationsPostRollV1,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetMediasMediaIdCustomizationsPostRollV1$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'GetMediasMediaIdCustomizationsPostRollV1' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetMediasMediaIdCustomizationsCaptionsV1$inboundSchema: z.ZodType<
+  GetMediasMediaIdCustomizationsCaptionsV1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  on: z.string().optional(),
+  onByDefault: z.string().optional(),
+});
+
+/** @internal */
+export type GetMediasMediaIdCustomizationsCaptionsV1$Outbound = {
+  on?: string | undefined;
+  onByDefault?: string | undefined;
+};
+
+/** @internal */
+export const GetMediasMediaIdCustomizationsCaptionsV1$outboundSchema: z.ZodType<
+  GetMediasMediaIdCustomizationsCaptionsV1$Outbound,
+  z.ZodTypeDef,
+  GetMediasMediaIdCustomizationsCaptionsV1
+> = z.object({
+  on: z.string().optional(),
+  onByDefault: z.string().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetMediasMediaIdCustomizationsCaptionsV1$ {
+  /** @deprecated use `GetMediasMediaIdCustomizationsCaptionsV1$inboundSchema` instead. */
+  export const inboundSchema =
+    GetMediasMediaIdCustomizationsCaptionsV1$inboundSchema;
+  /** @deprecated use `GetMediasMediaIdCustomizationsCaptionsV1$outboundSchema` instead. */
+  export const outboundSchema =
+    GetMediasMediaIdCustomizationsCaptionsV1$outboundSchema;
+  /** @deprecated use `GetMediasMediaIdCustomizationsCaptionsV1$Outbound` instead. */
+  export type Outbound = GetMediasMediaIdCustomizationsCaptionsV1$Outbound;
+}
+
+export function getMediasMediaIdCustomizationsCaptionsV1ToJSON(
+  getMediasMediaIdCustomizationsCaptionsV1:
+    GetMediasMediaIdCustomizationsCaptionsV1,
+): string {
+  return JSON.stringify(
+    GetMediasMediaIdCustomizationsCaptionsV1$outboundSchema.parse(
+      getMediasMediaIdCustomizationsCaptionsV1,
+    ),
+  );
+}
+
+export function getMediasMediaIdCustomizationsCaptionsV1FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetMediasMediaIdCustomizationsCaptionsV1,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetMediasMediaIdCustomizationsCaptionsV1$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'GetMediasMediaIdCustomizationsCaptionsV1' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetMediasMediaIdCustomizationsPlugin$inboundSchema: z.ZodType<
+  GetMediasMediaIdCustomizationsPlugin,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  passwordProtectedVideo: z.lazy(() =>
+    GetMediasMediaIdCustomizationsPasswordProtectedVideo$inboundSchema
+  ).optional(),
+  videoThumbnail: z.lazy(() =>
+    GetMediasMediaIdCustomizationsVideoThumbnail$inboundSchema
+  ).optional(),
+  "socialbar-v1": z.lazy(() =>
+    GetMediasMediaIdCustomizationsSocialbarV1$inboundSchema
+  ).optional(),
+  chapters: z.lazy(() => GetMediasMediaIdCustomizationsChapters$inboundSchema)
+    .optional(),
+  "postRoll-v1": z.lazy(() =>
+    GetMediasMediaIdCustomizationsPostRollV1$inboundSchema
+  ).optional(),
+  "captions-v1": z.lazy(() =>
+    GetMediasMediaIdCustomizationsCaptionsV1$inboundSchema
+  ).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "socialbar-v1": "socialbarV1",
+    "postRoll-v1": "postRollV1",
+    "captions-v1": "captionsV1",
+  });
+});
+
+/** @internal */
+export type GetMediasMediaIdCustomizationsPlugin$Outbound = {
+  passwordProtectedVideo?:
+    | GetMediasMediaIdCustomizationsPasswordProtectedVideo$Outbound
+    | undefined;
+  videoThumbnail?:
+    | GetMediasMediaIdCustomizationsVideoThumbnail$Outbound
+    | undefined;
+  "socialbar-v1"?:
+    | GetMediasMediaIdCustomizationsSocialbarV1$Outbound
+    | undefined;
+  chapters?: GetMediasMediaIdCustomizationsChapters$Outbound | undefined;
+  "postRoll-v1"?: GetMediasMediaIdCustomizationsPostRollV1$Outbound | undefined;
+  "captions-v1"?: GetMediasMediaIdCustomizationsCaptionsV1$Outbound | undefined;
+};
+
+/** @internal */
+export const GetMediasMediaIdCustomizationsPlugin$outboundSchema: z.ZodType<
+  GetMediasMediaIdCustomizationsPlugin$Outbound,
+  z.ZodTypeDef,
+  GetMediasMediaIdCustomizationsPlugin
+> = z.object({
+  passwordProtectedVideo: z.lazy(() =>
+    GetMediasMediaIdCustomizationsPasswordProtectedVideo$outboundSchema
+  ).optional(),
+  videoThumbnail: z.lazy(() =>
+    GetMediasMediaIdCustomizationsVideoThumbnail$outboundSchema
+  ).optional(),
+  socialbarV1: z.lazy(() =>
+    GetMediasMediaIdCustomizationsSocialbarV1$outboundSchema
+  ).optional(),
+  chapters: z.lazy(() => GetMediasMediaIdCustomizationsChapters$outboundSchema)
+    .optional(),
+  postRollV1: z.lazy(() =>
+    GetMediasMediaIdCustomizationsPostRollV1$outboundSchema
+  ).optional(),
+  captionsV1: z.lazy(() =>
+    GetMediasMediaIdCustomizationsCaptionsV1$outboundSchema
+  ).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    socialbarV1: "socialbar-v1",
+    postRollV1: "postRoll-v1",
+    captionsV1: "captions-v1",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetMediasMediaIdCustomizationsPlugin$ {
+  /** @deprecated use `GetMediasMediaIdCustomizationsPlugin$inboundSchema` instead. */
+  export const inboundSchema =
+    GetMediasMediaIdCustomizationsPlugin$inboundSchema;
+  /** @deprecated use `GetMediasMediaIdCustomizationsPlugin$outboundSchema` instead. */
+  export const outboundSchema =
+    GetMediasMediaIdCustomizationsPlugin$outboundSchema;
+  /** @deprecated use `GetMediasMediaIdCustomizationsPlugin$Outbound` instead. */
+  export type Outbound = GetMediasMediaIdCustomizationsPlugin$Outbound;
+}
+
+export function getMediasMediaIdCustomizationsPluginToJSON(
+  getMediasMediaIdCustomizationsPlugin: GetMediasMediaIdCustomizationsPlugin,
+): string {
+  return JSON.stringify(
+    GetMediasMediaIdCustomizationsPlugin$outboundSchema.parse(
+      getMediasMediaIdCustomizationsPlugin,
+    ),
+  );
+}
+
+export function getMediasMediaIdCustomizationsPluginFromJSON(
+  jsonString: string,
+): SafeParseResult<GetMediasMediaIdCustomizationsPlugin, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetMediasMediaIdCustomizationsPlugin$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetMediasMediaIdCustomizationsPlugin' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetMediasMediaIdCustomizationsPrivate$inboundSchema: z.ZodType<
+  GetMediasMediaIdCustomizationsPrivate,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  password_protect_on: z.string().optional(),
+  show_comments: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "password_protect_on": "passwordProtectOn",
+    "show_comments": "showComments",
+  });
+});
+
+/** @internal */
+export type GetMediasMediaIdCustomizationsPrivate$Outbound = {
+  password_protect_on?: string | undefined;
+  show_comments?: string | undefined;
+};
+
+/** @internal */
+export const GetMediasMediaIdCustomizationsPrivate$outboundSchema: z.ZodType<
+  GetMediasMediaIdCustomizationsPrivate$Outbound,
+  z.ZodTypeDef,
+  GetMediasMediaIdCustomizationsPrivate
+> = z.object({
+  passwordProtectOn: z.string().optional(),
+  showComments: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    passwordProtectOn: "password_protect_on",
+    showComments: "show_comments",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetMediasMediaIdCustomizationsPrivate$ {
+  /** @deprecated use `GetMediasMediaIdCustomizationsPrivate$inboundSchema` instead. */
+  export const inboundSchema =
+    GetMediasMediaIdCustomizationsPrivate$inboundSchema;
+  /** @deprecated use `GetMediasMediaIdCustomizationsPrivate$outboundSchema` instead. */
+  export const outboundSchema =
+    GetMediasMediaIdCustomizationsPrivate$outboundSchema;
+  /** @deprecated use `GetMediasMediaIdCustomizationsPrivate$Outbound` instead. */
+  export type Outbound = GetMediasMediaIdCustomizationsPrivate$Outbound;
+}
+
+export function getMediasMediaIdCustomizationsPrivateToJSON(
+  getMediasMediaIdCustomizationsPrivate: GetMediasMediaIdCustomizationsPrivate,
+): string {
+  return JSON.stringify(
+    GetMediasMediaIdCustomizationsPrivate$outboundSchema.parse(
+      getMediasMediaIdCustomizationsPrivate,
+    ),
+  );
+}
+
+export function getMediasMediaIdCustomizationsPrivateFromJSON(
+  jsonString: string,
+): SafeParseResult<GetMediasMediaIdCustomizationsPrivate, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetMediasMediaIdCustomizationsPrivate$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetMediasMediaIdCustomizationsPrivate' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetMediasMediaIdCustomizationsEncrypted$inboundSchema: z.ZodType<
+  GetMediasMediaIdCustomizationsEncrypted,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  password_protect_password: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "password_protect_password": "passwordProtectPassword",
+  });
+});
+
+/** @internal */
+export type GetMediasMediaIdCustomizationsEncrypted$Outbound = {
+  password_protect_password?: string | undefined;
+};
+
+/** @internal */
+export const GetMediasMediaIdCustomizationsEncrypted$outboundSchema: z.ZodType<
+  GetMediasMediaIdCustomizationsEncrypted$Outbound,
+  z.ZodTypeDef,
+  GetMediasMediaIdCustomizationsEncrypted
+> = z.object({
+  passwordProtectPassword: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    passwordProtectPassword: "password_protect_password",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetMediasMediaIdCustomizationsEncrypted$ {
+  /** @deprecated use `GetMediasMediaIdCustomizationsEncrypted$inboundSchema` instead. */
+  export const inboundSchema =
+    GetMediasMediaIdCustomizationsEncrypted$inboundSchema;
+  /** @deprecated use `GetMediasMediaIdCustomizationsEncrypted$outboundSchema` instead. */
+  export const outboundSchema =
+    GetMediasMediaIdCustomizationsEncrypted$outboundSchema;
+  /** @deprecated use `GetMediasMediaIdCustomizationsEncrypted$Outbound` instead. */
+  export type Outbound = GetMediasMediaIdCustomizationsEncrypted$Outbound;
+}
+
+export function getMediasMediaIdCustomizationsEncryptedToJSON(
+  getMediasMediaIdCustomizationsEncrypted:
+    GetMediasMediaIdCustomizationsEncrypted,
+): string {
+  return JSON.stringify(
+    GetMediasMediaIdCustomizationsEncrypted$outboundSchema.parse(
+      getMediasMediaIdCustomizationsEncrypted,
+    ),
+  );
+}
+
+export function getMediasMediaIdCustomizationsEncryptedFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetMediasMediaIdCustomizationsEncrypted,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetMediasMediaIdCustomizationsEncrypted$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'GetMediasMediaIdCustomizationsEncrypted' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetMediasMediaIdCustomizationsResponse$inboundSchema: z.ZodType<
+  GetMediasMediaIdCustomizationsResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  playerColor: z.string().optional(),
+  stillUrl: z.string().optional(),
+  autoPlay: z.string().optional(),
+  bpbTime: z.string().optional(),
+  controlsVisibleOnLoad: z.string().optional(),
+  endVideoBehavior: z.string().optional(),
+  fullscreenButton: z.string().optional(),
+  branding: z.string().optional(),
+  playbar: z.string().optional(),
+  playButton: z.string().optional(),
+  settingsControl: z.string().optional(),
+  showCustomerLogo: z.string().optional(),
+  qualityControl: z.string().optional(),
+  playbackRateControl: z.string().optional(),
+  smallPlayButton: z.string().optional(),
+  spherical: z.string().optional(),
+  volumeControl: z.string().optional(),
+  copyLinkAndThumbnailEnabled: z.string().optional(),
+  doNotTrack: z.string().optional(),
+  email: z.string().optional(),
+  fitStrategy: z.string().optional(),
+  fullscreenOnRotateToLandscape: z.string().optional(),
+  muted: z.string().optional(),
+  playlistLinks: z.string().optional(),
+  playlistLoop: z.string().optional(),
+  playsinline: z.string().optional(),
+  playPauseNotifier: z.string().optional(),
+  playSuspendedOffScreen: z.string().optional(),
+  preload: z.string().optional(),
+  qualityMax: z.string().optional(),
+  qualityMin: z.string().optional(),
+  resumable: z.string().optional(),
+  seo: z.string().optional(),
+  silentAutoPlay: z.string().optional(),
+  time: z.string().optional(),
+  thumbnailAltText: z.string().optional(),
+  videoFoam: z.string().optional(),
+  volume: z.string().optional(),
+  wmode: z.string().optional(),
+  keyMoments: z.string().optional(),
+  plugin: z.lazy(() => GetMediasMediaIdCustomizationsPlugin$inboundSchema)
+    .optional(),
+  private: z.lazy(() => GetMediasMediaIdCustomizationsPrivate$inboundSchema)
+    .optional(),
+  encrypted: z.lazy(() => GetMediasMediaIdCustomizationsEncrypted$inboundSchema)
+    .optional(),
+});
+
+/** @internal */
+export type GetMediasMediaIdCustomizationsResponse$Outbound = {
+  playerColor?: string | undefined;
+  stillUrl?: string | undefined;
+  autoPlay?: string | undefined;
+  bpbTime?: string | undefined;
+  controlsVisibleOnLoad?: string | undefined;
+  endVideoBehavior?: string | undefined;
+  fullscreenButton?: string | undefined;
+  branding?: string | undefined;
+  playbar?: string | undefined;
+  playButton?: string | undefined;
+  settingsControl?: string | undefined;
+  showCustomerLogo?: string | undefined;
+  qualityControl?: string | undefined;
+  playbackRateControl?: string | undefined;
+  smallPlayButton?: string | undefined;
+  spherical?: string | undefined;
+  volumeControl?: string | undefined;
+  copyLinkAndThumbnailEnabled?: string | undefined;
+  doNotTrack?: string | undefined;
+  email?: string | undefined;
+  fitStrategy?: string | undefined;
+  fullscreenOnRotateToLandscape?: string | undefined;
+  muted?: string | undefined;
+  playlistLinks?: string | undefined;
+  playlistLoop?: string | undefined;
+  playsinline?: string | undefined;
+  playPauseNotifier?: string | undefined;
+  playSuspendedOffScreen?: string | undefined;
+  preload?: string | undefined;
+  qualityMax?: string | undefined;
+  qualityMin?: string | undefined;
+  resumable?: string | undefined;
+  seo?: string | undefined;
+  silentAutoPlay?: string | undefined;
+  time?: string | undefined;
+  thumbnailAltText?: string | undefined;
+  videoFoam?: string | undefined;
+  volume?: string | undefined;
+  wmode?: string | undefined;
+  keyMoments?: string | undefined;
+  plugin?: GetMediasMediaIdCustomizationsPlugin$Outbound | undefined;
+  private?: GetMediasMediaIdCustomizationsPrivate$Outbound | undefined;
+  encrypted?: GetMediasMediaIdCustomizationsEncrypted$Outbound | undefined;
+};
+
+/** @internal */
+export const GetMediasMediaIdCustomizationsResponse$outboundSchema: z.ZodType<
+  GetMediasMediaIdCustomizationsResponse$Outbound,
+  z.ZodTypeDef,
+  GetMediasMediaIdCustomizationsResponse
+> = z.object({
+  playerColor: z.string().optional(),
+  stillUrl: z.string().optional(),
+  autoPlay: z.string().optional(),
+  bpbTime: z.string().optional(),
+  controlsVisibleOnLoad: z.string().optional(),
+  endVideoBehavior: z.string().optional(),
+  fullscreenButton: z.string().optional(),
+  branding: z.string().optional(),
+  playbar: z.string().optional(),
+  playButton: z.string().optional(),
+  settingsControl: z.string().optional(),
+  showCustomerLogo: z.string().optional(),
+  qualityControl: z.string().optional(),
+  playbackRateControl: z.string().optional(),
+  smallPlayButton: z.string().optional(),
+  spherical: z.string().optional(),
+  volumeControl: z.string().optional(),
+  copyLinkAndThumbnailEnabled: z.string().optional(),
+  doNotTrack: z.string().optional(),
+  email: z.string().optional(),
+  fitStrategy: z.string().optional(),
+  fullscreenOnRotateToLandscape: z.string().optional(),
+  muted: z.string().optional(),
+  playlistLinks: z.string().optional(),
+  playlistLoop: z.string().optional(),
+  playsinline: z.string().optional(),
+  playPauseNotifier: z.string().optional(),
+  playSuspendedOffScreen: z.string().optional(),
+  preload: z.string().optional(),
+  qualityMax: z.string().optional(),
+  qualityMin: z.string().optional(),
+  resumable: z.string().optional(),
+  seo: z.string().optional(),
+  silentAutoPlay: z.string().optional(),
+  time: z.string().optional(),
+  thumbnailAltText: z.string().optional(),
+  videoFoam: z.string().optional(),
+  volume: z.string().optional(),
+  wmode: z.string().optional(),
+  keyMoments: z.string().optional(),
+  plugin: z.lazy(() => GetMediasMediaIdCustomizationsPlugin$outboundSchema)
+    .optional(),
+  private: z.lazy(() => GetMediasMediaIdCustomizationsPrivate$outboundSchema)
+    .optional(),
+  encrypted: z.lazy(() =>
+    GetMediasMediaIdCustomizationsEncrypted$outboundSchema
+  ).optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetMediasMediaIdCustomizationsResponse$ {
+  /** @deprecated use `GetMediasMediaIdCustomizationsResponse$inboundSchema` instead. */
+  export const inboundSchema =
+    GetMediasMediaIdCustomizationsResponse$inboundSchema;
+  /** @deprecated use `GetMediasMediaIdCustomizationsResponse$outboundSchema` instead. */
+  export const outboundSchema =
+    GetMediasMediaIdCustomizationsResponse$outboundSchema;
+  /** @deprecated use `GetMediasMediaIdCustomizationsResponse$Outbound` instead. */
+  export type Outbound = GetMediasMediaIdCustomizationsResponse$Outbound;
+}
+
+export function getMediasMediaIdCustomizationsResponseToJSON(
+  getMediasMediaIdCustomizationsResponse:
+    GetMediasMediaIdCustomizationsResponse,
+): string {
+  return JSON.stringify(
+    GetMediasMediaIdCustomizationsResponse$outboundSchema.parse(
+      getMediasMediaIdCustomizationsResponse,
+    ),
+  );
+}
+
+export function getMediasMediaIdCustomizationsResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<GetMediasMediaIdCustomizationsResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetMediasMediaIdCustomizationsResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetMediasMediaIdCustomizationsResponse' from JSON`,
   );
 }

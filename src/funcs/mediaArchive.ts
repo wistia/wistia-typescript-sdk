@@ -43,10 +43,10 @@ export function mediaArchive(
 ): APIPromise<
   Result<
     operations.PutMediasArchiveResponse,
-    | errors.FourHundredAndOneError
+    | errors.PutMediasArchiveUnauthorizedError
     | errors.PutMediasArchiveForbiddenError
     | errors.PutMediasArchiveUnprocessableEntityError
-    | errors.FiveHundredError
+    | errors.PutMediasArchiveInternalServerError
     | WistiaError
     | ResponseValidationError
     | ConnectionError
@@ -72,10 +72,10 @@ async function $do(
   [
     Result<
       operations.PutMediasArchiveResponse,
-      | errors.FourHundredAndOneError
+      | errors.PutMediasArchiveUnauthorizedError
       | errors.PutMediasArchiveForbiddenError
       | errors.PutMediasArchiveUnprocessableEntityError
-      | errors.FiveHundredError
+      | errors.PutMediasArchiveInternalServerError
       | WistiaError
       | ResponseValidationError
       | ConnectionError
@@ -157,10 +157,10 @@ async function $do(
 
   const [result] = await M.match<
     operations.PutMediasArchiveResponse,
-    | errors.FourHundredAndOneError
+    | errors.PutMediasArchiveUnauthorizedError
     | errors.PutMediasArchiveForbiddenError
     | errors.PutMediasArchiveUnprocessableEntityError
-    | errors.FiveHundredError
+    | errors.PutMediasArchiveInternalServerError
     | WistiaError
     | ResponseValidationError
     | ConnectionError
@@ -171,13 +171,13 @@ async function $do(
     | SDKValidationError
   >(
     M.json(200, operations.PutMediasArchiveResponse$inboundSchema),
-    M.jsonErr(401, errors.FourHundredAndOneError$inboundSchema),
+    M.jsonErr(401, errors.PutMediasArchiveUnauthorizedError$inboundSchema),
     M.jsonErr(403, errors.PutMediasArchiveForbiddenError$inboundSchema),
     M.jsonErr(
       422,
       errors.PutMediasArchiveUnprocessableEntityError$inboundSchema,
     ),
-    M.jsonErr(500, errors.FiveHundredError$inboundSchema),
+    M.jsonErr(500, errors.PutMediasArchiveInternalServerError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

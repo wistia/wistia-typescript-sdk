@@ -44,8 +44,8 @@ export function searchSearch(
   Result<
     operations.GetSearchResponse,
     | errors.GetSearchBadRequestError
-    | errors.FourHundredAndOneError
-    | errors.FiveHundredError
+    | errors.GetSearchUnauthorizedError
+    | errors.GetSearchInternalServerError
     | WistiaError
     | ResponseValidationError
     | ConnectionError
@@ -72,8 +72,8 @@ async function $do(
     Result<
       operations.GetSearchResponse,
       | errors.GetSearchBadRequestError
-      | errors.FourHundredAndOneError
-      | errors.FiveHundredError
+      | errors.GetSearchUnauthorizedError
+      | errors.GetSearchInternalServerError
       | WistiaError
       | ResponseValidationError
       | ConnectionError
@@ -160,8 +160,8 @@ async function $do(
   const [result] = await M.match<
     operations.GetSearchResponse,
     | errors.GetSearchBadRequestError
-    | errors.FourHundredAndOneError
-    | errors.FiveHundredError
+    | errors.GetSearchUnauthorizedError
+    | errors.GetSearchInternalServerError
     | WistiaError
     | ResponseValidationError
     | ConnectionError
@@ -173,8 +173,8 @@ async function $do(
   >(
     M.json(200, operations.GetSearchResponse$inboundSchema),
     M.jsonErr(400, errors.GetSearchBadRequestError$inboundSchema),
-    M.jsonErr(401, errors.FourHundredAndOneError$inboundSchema),
-    M.jsonErr(500, errors.FiveHundredError$inboundSchema),
+    M.jsonErr(401, errors.GetSearchUnauthorizedError$inboundSchema),
+    M.jsonErr(500, errors.GetSearchInternalServerError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

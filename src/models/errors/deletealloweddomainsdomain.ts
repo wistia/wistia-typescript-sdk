@@ -6,6 +6,37 @@ import * as z from "zod";
 import { WistiaError } from "./wistiaerror.js";
 
 /**
+ * Internal server error
+ */
+export type DeleteAllowedDomainsDomainInternalServerErrorData = {
+  error?: string | undefined;
+};
+
+/**
+ * Internal server error
+ */
+export class DeleteAllowedDomainsDomainInternalServerError extends WistiaError {
+  error?: string | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: DeleteAllowedDomainsDomainInternalServerErrorData;
+
+  constructor(
+    err: DeleteAllowedDomainsDomainInternalServerErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+
+    this.name = "DeleteAllowedDomainsDomainInternalServerError";
+  }
+}
+
+/**
  * Domain not found
  */
 export type DeleteAllowedDomainsDomainNotFoundErrorData = {
@@ -34,6 +65,89 @@ export class DeleteAllowedDomainsDomainNotFoundError extends WistiaError {
 
     this.name = "DeleteAllowedDomainsDomainNotFoundError";
   }
+}
+
+/**
+ * Unauthorized, invalid or missing token
+ */
+export type DeleteAllowedDomainsDomainUnauthorizedErrorData = {
+  error?: string | undefined;
+};
+
+/**
+ * Unauthorized, invalid or missing token
+ */
+export class DeleteAllowedDomainsDomainUnauthorizedError extends WistiaError {
+  error?: string | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: DeleteAllowedDomainsDomainUnauthorizedErrorData;
+
+  constructor(
+    err: DeleteAllowedDomainsDomainUnauthorizedErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+
+    this.name = "DeleteAllowedDomainsDomainUnauthorizedError";
+  }
+}
+
+/** @internal */
+export const DeleteAllowedDomainsDomainInternalServerError$inboundSchema:
+  z.ZodType<
+    DeleteAllowedDomainsDomainInternalServerError,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    error: z.string().optional(),
+    request$: z.instanceof(Request),
+    response$: z.instanceof(Response),
+    body$: z.string(),
+  })
+    .transform((v) => {
+      return new DeleteAllowedDomainsDomainInternalServerError(v, {
+        request: v.request$,
+        response: v.response$,
+        body: v.body$,
+      });
+    });
+
+/** @internal */
+export type DeleteAllowedDomainsDomainInternalServerError$Outbound = {
+  error?: string | undefined;
+};
+
+/** @internal */
+export const DeleteAllowedDomainsDomainInternalServerError$outboundSchema:
+  z.ZodType<
+    DeleteAllowedDomainsDomainInternalServerError$Outbound,
+    z.ZodTypeDef,
+    DeleteAllowedDomainsDomainInternalServerError
+  > = z.instanceof(DeleteAllowedDomainsDomainInternalServerError)
+    .transform(v => v.data$)
+    .pipe(z.object({
+      error: z.string().optional(),
+    }));
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace DeleteAllowedDomainsDomainInternalServerError$ {
+  /** @deprecated use `DeleteAllowedDomainsDomainInternalServerError$inboundSchema` instead. */
+  export const inboundSchema =
+    DeleteAllowedDomainsDomainInternalServerError$inboundSchema;
+  /** @deprecated use `DeleteAllowedDomainsDomainInternalServerError$outboundSchema` instead. */
+  export const outboundSchema =
+    DeleteAllowedDomainsDomainInternalServerError$outboundSchema;
+  /** @deprecated use `DeleteAllowedDomainsDomainInternalServerError$Outbound` instead. */
+  export type Outbound = DeleteAllowedDomainsDomainInternalServerError$Outbound;
 }
 
 /** @internal */
@@ -84,4 +198,56 @@ export namespace DeleteAllowedDomainsDomainNotFoundError$ {
     DeleteAllowedDomainsDomainNotFoundError$outboundSchema;
   /** @deprecated use `DeleteAllowedDomainsDomainNotFoundError$Outbound` instead. */
   export type Outbound = DeleteAllowedDomainsDomainNotFoundError$Outbound;
+}
+
+/** @internal */
+export const DeleteAllowedDomainsDomainUnauthorizedError$inboundSchema:
+  z.ZodType<
+    DeleteAllowedDomainsDomainUnauthorizedError,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    error: z.string().optional(),
+    request$: z.instanceof(Request),
+    response$: z.instanceof(Response),
+    body$: z.string(),
+  })
+    .transform((v) => {
+      return new DeleteAllowedDomainsDomainUnauthorizedError(v, {
+        request: v.request$,
+        response: v.response$,
+        body: v.body$,
+      });
+    });
+
+/** @internal */
+export type DeleteAllowedDomainsDomainUnauthorizedError$Outbound = {
+  error?: string | undefined;
+};
+
+/** @internal */
+export const DeleteAllowedDomainsDomainUnauthorizedError$outboundSchema:
+  z.ZodType<
+    DeleteAllowedDomainsDomainUnauthorizedError$Outbound,
+    z.ZodTypeDef,
+    DeleteAllowedDomainsDomainUnauthorizedError
+  > = z.instanceof(DeleteAllowedDomainsDomainUnauthorizedError)
+    .transform(v => v.data$)
+    .pipe(z.object({
+      error: z.string().optional(),
+    }));
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace DeleteAllowedDomainsDomainUnauthorizedError$ {
+  /** @deprecated use `DeleteAllowedDomainsDomainUnauthorizedError$inboundSchema` instead. */
+  export const inboundSchema =
+    DeleteAllowedDomainsDomainUnauthorizedError$inboundSchema;
+  /** @deprecated use `DeleteAllowedDomainsDomainUnauthorizedError$outboundSchema` instead. */
+  export const outboundSchema =
+    DeleteAllowedDomainsDomainUnauthorizedError$outboundSchema;
+  /** @deprecated use `DeleteAllowedDomainsDomainUnauthorizedError$Outbound` instead. */
+  export type Outbound = DeleteAllowedDomainsDomainUnauthorizedError$Outbound;
 }

@@ -79,8 +79,8 @@ run();
 
 ### Errors
 
-| Error Type                    | Status Code                   | Content Type                  |
-| ----------------------------- | ----------------------------- | ----------------------------- |
-| errors.FourHundredAndOneError | 401                           | application/json              |
-| errors.FiveHundredError       | 500                           | application/json              |
-| errors.WistiaDefaultError     | 4XX, 5XX                      | \*/\*                         |
+| Error Type                                | Status Code                               | Content Type                              |
+| ----------------------------------------- | ----------------------------------------- | ----------------------------------------- |
+| errors.GetStatsAccountUnauthorizedError   | 401                                       | application/json                          |
+| errors.GetStatsAccountInternalServerError | 500                                       | application/json                          |
+| errors.WistiaDefaultError                 | 4XX, 5XX                                  | \*/\*                                     |

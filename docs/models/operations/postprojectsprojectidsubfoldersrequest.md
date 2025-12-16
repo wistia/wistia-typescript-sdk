@@ -7,7 +7,7 @@ import { PostProjectsProjectIdSubfoldersRequest } from "@wistia/wistia-api-clien
 
 let value: PostProjectsProjectIdSubfoldersRequest = {
   projectId: "abc123def4",
-  subfolderInput: {
+  requestBody: {
     name: "Marketing Videos",
     description: "Collection of all marketing and promotional videos",
   },
@@ -16,7 +16,7 @@ let value: PostProjectsProjectIdSubfoldersRequest = {
 
 ## Fields
 
-| Field                                                   | Type                                                    | Required                                                | Description                                             | Example                                                 |
-| ------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------- |
-| `projectId`                                             | *string*                                                | :heavy_check_mark:                                      | The hashed ID of the project                            | abc123def4                                              |
-| `subfolderInput`                                        | [models.SubfolderInput](../../models/subfolderinput.md) | :heavy_check_mark:                                      | Subfolder data                                          |                                                         |
+| Field                                                                                                                          | Type                                                                                                                           | Required                                                                                                                       | Description                                                                                                                    | Example                                                                                                                        |
+| ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
+| `projectId`                                                                                                                    | *string*                                                                                                                       | :heavy_check_mark:                                                                                                             | The hashed ID of the project                                                                                                   | abc123def4                                                                                                                     |
+| `requestBody`                                                                                                                  | [operations.PostProjectsProjectIdSubfoldersRequestBody](../../models/operations/postprojectsprojectidsubfoldersrequestbody.md) | :heavy_check_mark:                                                                                                             | Subfolder data                                                                                                                 |                                                                                                                                |

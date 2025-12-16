@@ -6,6 +6,39 @@ import * as z from "zod";
 import { WistiaError } from "./wistiaerror.js";
 
 /**
+ * Internal server error
+ */
+export type PostMediasMediaHashedIdLocalizationsInternalServerErrorData = {
+  error?: string | undefined;
+};
+
+/**
+ * Internal server error
+ */
+export class PostMediasMediaHashedIdLocalizationsInternalServerError
+  extends WistiaError
+{
+  error?: string | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: PostMediasMediaHashedIdLocalizationsInternalServerErrorData;
+
+  constructor(
+    err: PostMediasMediaHashedIdLocalizationsInternalServerErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+
+    this.name = "PostMediasMediaHashedIdLocalizationsInternalServerError";
+  }
+}
+
+/**
  * Unprocessible entity, parameters provided were invalid.
  */
 export type PostMediasMediaHashedIdLocalizationsUnprocessableEntityErrorData = {
@@ -42,6 +75,164 @@ export class PostMediasMediaHashedIdLocalizationsUnprocessableEntityError
 
     this.name = "PostMediasMediaHashedIdLocalizationsUnprocessableEntityError";
   }
+}
+
+/**
+ * Resource not found
+ */
+export type PostMediasMediaHashedIdLocalizationsNotFoundErrorData = {
+  error?: string | undefined;
+};
+
+/**
+ * Resource not found
+ */
+export class PostMediasMediaHashedIdLocalizationsNotFoundError
+  extends WistiaError
+{
+  error?: string | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: PostMediasMediaHashedIdLocalizationsNotFoundErrorData;
+
+  constructor(
+    err: PostMediasMediaHashedIdLocalizationsNotFoundErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+
+    this.name = "PostMediasMediaHashedIdLocalizationsNotFoundError";
+  }
+}
+
+/**
+ * Unauthorized, invalid or missing token
+ */
+export type PostMediasMediaHashedIdLocalizationsUnauthorizedErrorData = {
+  error?: string | undefined;
+};
+
+/**
+ * Unauthorized, invalid or missing token
+ */
+export class PostMediasMediaHashedIdLocalizationsUnauthorizedError
+  extends WistiaError
+{
+  error?: string | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: PostMediasMediaHashedIdLocalizationsUnauthorizedErrorData;
+
+  constructor(
+    err: PostMediasMediaHashedIdLocalizationsUnauthorizedErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+
+    this.name = "PostMediasMediaHashedIdLocalizationsUnauthorizedError";
+  }
+}
+
+/**
+ * Bad request
+ */
+export type PostMediasMediaHashedIdLocalizationsBadRequestErrorData = {
+  /**
+   * Error message detailing the reason for the bad request.
+   */
+  error?: string | undefined;
+};
+
+/**
+ * Bad request
+ */
+export class PostMediasMediaHashedIdLocalizationsBadRequestError
+  extends WistiaError
+{
+  /**
+   * Error message detailing the reason for the bad request.
+   */
+  error?: string | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: PostMediasMediaHashedIdLocalizationsBadRequestErrorData;
+
+  constructor(
+    err: PostMediasMediaHashedIdLocalizationsBadRequestErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+
+    this.name = "PostMediasMediaHashedIdLocalizationsBadRequestError";
+  }
+}
+
+/** @internal */
+export const PostMediasMediaHashedIdLocalizationsInternalServerError$inboundSchema:
+  z.ZodType<
+    PostMediasMediaHashedIdLocalizationsInternalServerError,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    error: z.string().optional(),
+    request$: z.instanceof(Request),
+    response$: z.instanceof(Response),
+    body$: z.string(),
+  })
+    .transform((v) => {
+      return new PostMediasMediaHashedIdLocalizationsInternalServerError(v, {
+        request: v.request$,
+        response: v.response$,
+        body: v.body$,
+      });
+    });
+
+/** @internal */
+export type PostMediasMediaHashedIdLocalizationsInternalServerError$Outbound = {
+  error?: string | undefined;
+};
+
+/** @internal */
+export const PostMediasMediaHashedIdLocalizationsInternalServerError$outboundSchema:
+  z.ZodType<
+    PostMediasMediaHashedIdLocalizationsInternalServerError$Outbound,
+    z.ZodTypeDef,
+    PostMediasMediaHashedIdLocalizationsInternalServerError
+  > = z.instanceof(PostMediasMediaHashedIdLocalizationsInternalServerError)
+    .transform(v => v.data$)
+    .pipe(z.object({
+      error: z.string().optional(),
+    }));
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostMediasMediaHashedIdLocalizationsInternalServerError$ {
+  /** @deprecated use `PostMediasMediaHashedIdLocalizationsInternalServerError$inboundSchema` instead. */
+  export const inboundSchema =
+    PostMediasMediaHashedIdLocalizationsInternalServerError$inboundSchema;
+  /** @deprecated use `PostMediasMediaHashedIdLocalizationsInternalServerError$outboundSchema` instead. */
+  export const outboundSchema =
+    PostMediasMediaHashedIdLocalizationsInternalServerError$outboundSchema;
+  /** @deprecated use `PostMediasMediaHashedIdLocalizationsInternalServerError$Outbound` instead. */
+  export type Outbound =
+    PostMediasMediaHashedIdLocalizationsInternalServerError$Outbound;
 }
 
 /** @internal */
@@ -95,4 +286,163 @@ export namespace PostMediasMediaHashedIdLocalizationsUnprocessableEntityError$ {
   /** @deprecated use `PostMediasMediaHashedIdLocalizationsUnprocessableEntityError$Outbound` instead. */
   export type Outbound =
     PostMediasMediaHashedIdLocalizationsUnprocessableEntityError$Outbound;
+}
+
+/** @internal */
+export const PostMediasMediaHashedIdLocalizationsNotFoundError$inboundSchema:
+  z.ZodType<
+    PostMediasMediaHashedIdLocalizationsNotFoundError,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    error: z.string().optional(),
+    request$: z.instanceof(Request),
+    response$: z.instanceof(Response),
+    body$: z.string(),
+  })
+    .transform((v) => {
+      return new PostMediasMediaHashedIdLocalizationsNotFoundError(v, {
+        request: v.request$,
+        response: v.response$,
+        body: v.body$,
+      });
+    });
+
+/** @internal */
+export type PostMediasMediaHashedIdLocalizationsNotFoundError$Outbound = {
+  error?: string | undefined;
+};
+
+/** @internal */
+export const PostMediasMediaHashedIdLocalizationsNotFoundError$outboundSchema:
+  z.ZodType<
+    PostMediasMediaHashedIdLocalizationsNotFoundError$Outbound,
+    z.ZodTypeDef,
+    PostMediasMediaHashedIdLocalizationsNotFoundError
+  > = z.instanceof(PostMediasMediaHashedIdLocalizationsNotFoundError)
+    .transform(v => v.data$)
+    .pipe(z.object({
+      error: z.string().optional(),
+    }));
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostMediasMediaHashedIdLocalizationsNotFoundError$ {
+  /** @deprecated use `PostMediasMediaHashedIdLocalizationsNotFoundError$inboundSchema` instead. */
+  export const inboundSchema =
+    PostMediasMediaHashedIdLocalizationsNotFoundError$inboundSchema;
+  /** @deprecated use `PostMediasMediaHashedIdLocalizationsNotFoundError$outboundSchema` instead. */
+  export const outboundSchema =
+    PostMediasMediaHashedIdLocalizationsNotFoundError$outboundSchema;
+  /** @deprecated use `PostMediasMediaHashedIdLocalizationsNotFoundError$Outbound` instead. */
+  export type Outbound =
+    PostMediasMediaHashedIdLocalizationsNotFoundError$Outbound;
+}
+
+/** @internal */
+export const PostMediasMediaHashedIdLocalizationsUnauthorizedError$inboundSchema:
+  z.ZodType<
+    PostMediasMediaHashedIdLocalizationsUnauthorizedError,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    error: z.string().optional(),
+    request$: z.instanceof(Request),
+    response$: z.instanceof(Response),
+    body$: z.string(),
+  })
+    .transform((v) => {
+      return new PostMediasMediaHashedIdLocalizationsUnauthorizedError(v, {
+        request: v.request$,
+        response: v.response$,
+        body: v.body$,
+      });
+    });
+
+/** @internal */
+export type PostMediasMediaHashedIdLocalizationsUnauthorizedError$Outbound = {
+  error?: string | undefined;
+};
+
+/** @internal */
+export const PostMediasMediaHashedIdLocalizationsUnauthorizedError$outboundSchema:
+  z.ZodType<
+    PostMediasMediaHashedIdLocalizationsUnauthorizedError$Outbound,
+    z.ZodTypeDef,
+    PostMediasMediaHashedIdLocalizationsUnauthorizedError
+  > = z.instanceof(PostMediasMediaHashedIdLocalizationsUnauthorizedError)
+    .transform(v => v.data$)
+    .pipe(z.object({
+      error: z.string().optional(),
+    }));
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostMediasMediaHashedIdLocalizationsUnauthorizedError$ {
+  /** @deprecated use `PostMediasMediaHashedIdLocalizationsUnauthorizedError$inboundSchema` instead. */
+  export const inboundSchema =
+    PostMediasMediaHashedIdLocalizationsUnauthorizedError$inboundSchema;
+  /** @deprecated use `PostMediasMediaHashedIdLocalizationsUnauthorizedError$outboundSchema` instead. */
+  export const outboundSchema =
+    PostMediasMediaHashedIdLocalizationsUnauthorizedError$outboundSchema;
+  /** @deprecated use `PostMediasMediaHashedIdLocalizationsUnauthorizedError$Outbound` instead. */
+  export type Outbound =
+    PostMediasMediaHashedIdLocalizationsUnauthorizedError$Outbound;
+}
+
+/** @internal */
+export const PostMediasMediaHashedIdLocalizationsBadRequestError$inboundSchema:
+  z.ZodType<
+    PostMediasMediaHashedIdLocalizationsBadRequestError,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    error: z.string().optional(),
+    request$: z.instanceof(Request),
+    response$: z.instanceof(Response),
+    body$: z.string(),
+  })
+    .transform((v) => {
+      return new PostMediasMediaHashedIdLocalizationsBadRequestError(v, {
+        request: v.request$,
+        response: v.response$,
+        body: v.body$,
+      });
+    });
+
+/** @internal */
+export type PostMediasMediaHashedIdLocalizationsBadRequestError$Outbound = {
+  error?: string | undefined;
+};
+
+/** @internal */
+export const PostMediasMediaHashedIdLocalizationsBadRequestError$outboundSchema:
+  z.ZodType<
+    PostMediasMediaHashedIdLocalizationsBadRequestError$Outbound,
+    z.ZodTypeDef,
+    PostMediasMediaHashedIdLocalizationsBadRequestError
+  > = z.instanceof(PostMediasMediaHashedIdLocalizationsBadRequestError)
+    .transform(v => v.data$)
+    .pipe(z.object({
+      error: z.string().optional(),
+    }));
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostMediasMediaHashedIdLocalizationsBadRequestError$ {
+  /** @deprecated use `PostMediasMediaHashedIdLocalizationsBadRequestError$inboundSchema` instead. */
+  export const inboundSchema =
+    PostMediasMediaHashedIdLocalizationsBadRequestError$inboundSchema;
+  /** @deprecated use `PostMediasMediaHashedIdLocalizationsBadRequestError$outboundSchema` instead. */
+  export const outboundSchema =
+    PostMediasMediaHashedIdLocalizationsBadRequestError$outboundSchema;
+  /** @deprecated use `PostMediasMediaHashedIdLocalizationsBadRequestError$Outbound` instead. */
+  export type Outbound =
+    PostMediasMediaHashedIdLocalizationsBadRequestError$Outbound;
 }

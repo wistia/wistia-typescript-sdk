@@ -6,6 +6,41 @@ import * as z from "zod";
 import { WistiaError } from "./wistiaerror.js";
 
 /**
+ * Internal server error
+ */
+export type GetBackgroundJobStatusBackgroundJobStatusIdInternalServerErrorData =
+  {
+    error?: string | undefined;
+  };
+
+/**
+ * Internal server error
+ */
+export class GetBackgroundJobStatusBackgroundJobStatusIdInternalServerError
+  extends WistiaError
+{
+  error?: string | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: GetBackgroundJobStatusBackgroundJobStatusIdInternalServerErrorData;
+
+  constructor(
+    err: GetBackgroundJobStatusBackgroundJobStatusIdInternalServerErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+
+    this.name =
+      "GetBackgroundJobStatusBackgroundJobStatusIdInternalServerError";
+  }
+}
+
+/**
  * Background Job Status Not Associated with An Authorized Object
  */
 export type GetBackgroundJobStatusBackgroundJobStatusIdForbiddenErrorData = {
@@ -36,6 +71,94 @@ export class GetBackgroundJobStatusBackgroundJobStatusIdForbiddenError
 
     this.name = "GetBackgroundJobStatusBackgroundJobStatusIdForbiddenError";
   }
+}
+
+/**
+ * Unauthorized, invalid or missing token
+ */
+export type GetBackgroundJobStatusBackgroundJobStatusIdUnauthorizedErrorData = {
+  error?: string | undefined;
+};
+
+/**
+ * Unauthorized, invalid or missing token
+ */
+export class GetBackgroundJobStatusBackgroundJobStatusIdUnauthorizedError
+  extends WistiaError
+{
+  error?: string | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: GetBackgroundJobStatusBackgroundJobStatusIdUnauthorizedErrorData;
+
+  constructor(
+    err: GetBackgroundJobStatusBackgroundJobStatusIdUnauthorizedErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+
+    this.name = "GetBackgroundJobStatusBackgroundJobStatusIdUnauthorizedError";
+  }
+}
+
+/** @internal */
+export const GetBackgroundJobStatusBackgroundJobStatusIdInternalServerError$inboundSchema:
+  z.ZodType<
+    GetBackgroundJobStatusBackgroundJobStatusIdInternalServerError,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    error: z.string().optional(),
+    request$: z.instanceof(Request),
+    response$: z.instanceof(Response),
+    body$: z.string(),
+  })
+    .transform((v) => {
+      return new GetBackgroundJobStatusBackgroundJobStatusIdInternalServerError(
+        v,
+        { request: v.request$, response: v.response$, body: v.body$ },
+      );
+    });
+
+/** @internal */
+export type GetBackgroundJobStatusBackgroundJobStatusIdInternalServerError$Outbound =
+  {
+    error?: string | undefined;
+  };
+
+/** @internal */
+export const GetBackgroundJobStatusBackgroundJobStatusIdInternalServerError$outboundSchema:
+  z.ZodType<
+    GetBackgroundJobStatusBackgroundJobStatusIdInternalServerError$Outbound,
+    z.ZodTypeDef,
+    GetBackgroundJobStatusBackgroundJobStatusIdInternalServerError
+  > = z.instanceof(
+    GetBackgroundJobStatusBackgroundJobStatusIdInternalServerError,
+  )
+    .transform(v => v.data$)
+    .pipe(z.object({
+      error: z.string().optional(),
+    }));
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetBackgroundJobStatusBackgroundJobStatusIdInternalServerError$ {
+  /** @deprecated use `GetBackgroundJobStatusBackgroundJobStatusIdInternalServerError$inboundSchema` instead. */
+  export const inboundSchema =
+    GetBackgroundJobStatusBackgroundJobStatusIdInternalServerError$inboundSchema;
+  /** @deprecated use `GetBackgroundJobStatusBackgroundJobStatusIdInternalServerError$outboundSchema` instead. */
+  export const outboundSchema =
+    GetBackgroundJobStatusBackgroundJobStatusIdInternalServerError$outboundSchema;
+  /** @deprecated use `GetBackgroundJobStatusBackgroundJobStatusIdInternalServerError$Outbound` instead. */
+  export type Outbound =
+    GetBackgroundJobStatusBackgroundJobStatusIdInternalServerError$Outbound;
 }
 
 /** @internal */
@@ -90,4 +213,57 @@ export namespace GetBackgroundJobStatusBackgroundJobStatusIdForbiddenError$ {
   /** @deprecated use `GetBackgroundJobStatusBackgroundJobStatusIdForbiddenError$Outbound` instead. */
   export type Outbound =
     GetBackgroundJobStatusBackgroundJobStatusIdForbiddenError$Outbound;
+}
+
+/** @internal */
+export const GetBackgroundJobStatusBackgroundJobStatusIdUnauthorizedError$inboundSchema:
+  z.ZodType<
+    GetBackgroundJobStatusBackgroundJobStatusIdUnauthorizedError,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    error: z.string().optional(),
+    request$: z.instanceof(Request),
+    response$: z.instanceof(Response),
+    body$: z.string(),
+  })
+    .transform((v) => {
+      return new GetBackgroundJobStatusBackgroundJobStatusIdUnauthorizedError(
+        v,
+        { request: v.request$, response: v.response$, body: v.body$ },
+      );
+    });
+
+/** @internal */
+export type GetBackgroundJobStatusBackgroundJobStatusIdUnauthorizedError$Outbound =
+  {
+    error?: string | undefined;
+  };
+
+/** @internal */
+export const GetBackgroundJobStatusBackgroundJobStatusIdUnauthorizedError$outboundSchema:
+  z.ZodType<
+    GetBackgroundJobStatusBackgroundJobStatusIdUnauthorizedError$Outbound,
+    z.ZodTypeDef,
+    GetBackgroundJobStatusBackgroundJobStatusIdUnauthorizedError
+  > = z.instanceof(GetBackgroundJobStatusBackgroundJobStatusIdUnauthorizedError)
+    .transform(v => v.data$)
+    .pipe(z.object({
+      error: z.string().optional(),
+    }));
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetBackgroundJobStatusBackgroundJobStatusIdUnauthorizedError$ {
+  /** @deprecated use `GetBackgroundJobStatusBackgroundJobStatusIdUnauthorizedError$inboundSchema` instead. */
+  export const inboundSchema =
+    GetBackgroundJobStatusBackgroundJobStatusIdUnauthorizedError$inboundSchema;
+  /** @deprecated use `GetBackgroundJobStatusBackgroundJobStatusIdUnauthorizedError$outboundSchema` instead. */
+  export const outboundSchema =
+    GetBackgroundJobStatusBackgroundJobStatusIdUnauthorizedError$outboundSchema;
+  /** @deprecated use `GetBackgroundJobStatusBackgroundJobStatusIdUnauthorizedError$Outbound` instead. */
+  export type Outbound =
+    GetBackgroundJobStatusBackgroundJobStatusIdUnauthorizedError$Outbound;
 }

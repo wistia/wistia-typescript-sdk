@@ -6,6 +6,37 @@ import * as z from "zod";
 import { WistiaError } from "./wistiaerror.js";
 
 /**
+ * Internal server error
+ */
+export type PutLiveStreamEventsIdInternalServerErrorData = {
+  error?: string | undefined;
+};
+
+/**
+ * Internal server error
+ */
+export class PutLiveStreamEventsIdInternalServerError extends WistiaError {
+  error?: string | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: PutLiveStreamEventsIdInternalServerErrorData;
+
+  constructor(
+    err: PutLiveStreamEventsIdInternalServerErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+
+    this.name = "PutLiveStreamEventsIdInternalServerError";
+  }
+}
+
+/**
  * Validation errors
  */
 export type PutLiveStreamEventsIdUnprocessableEntityErrorData = {
@@ -34,6 +65,87 @@ export class PutLiveStreamEventsIdUnprocessableEntityError extends WistiaError {
 
     this.name = "PutLiveStreamEventsIdUnprocessableEntityError";
   }
+}
+
+/**
+ * Unauthorized, invalid or missing token
+ */
+export type PutLiveStreamEventsIdUnauthorizedErrorData = {
+  error?: string | undefined;
+};
+
+/**
+ * Unauthorized, invalid or missing token
+ */
+export class PutLiveStreamEventsIdUnauthorizedError extends WistiaError {
+  error?: string | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: PutLiveStreamEventsIdUnauthorizedErrorData;
+
+  constructor(
+    err: PutLiveStreamEventsIdUnauthorizedErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+
+    this.name = "PutLiveStreamEventsIdUnauthorizedError";
+  }
+}
+
+/** @internal */
+export const PutLiveStreamEventsIdInternalServerError$inboundSchema: z.ZodType<
+  PutLiveStreamEventsIdInternalServerError,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  error: z.string().optional(),
+  request$: z.instanceof(Request),
+  response$: z.instanceof(Response),
+  body$: z.string(),
+})
+  .transform((v) => {
+    return new PutLiveStreamEventsIdInternalServerError(v, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
+  });
+
+/** @internal */
+export type PutLiveStreamEventsIdInternalServerError$Outbound = {
+  error?: string | undefined;
+};
+
+/** @internal */
+export const PutLiveStreamEventsIdInternalServerError$outboundSchema: z.ZodType<
+  PutLiveStreamEventsIdInternalServerError$Outbound,
+  z.ZodTypeDef,
+  PutLiveStreamEventsIdInternalServerError
+> = z.instanceof(PutLiveStreamEventsIdInternalServerError)
+  .transform(v => v.data$)
+  .pipe(z.object({
+    error: z.string().optional(),
+  }));
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PutLiveStreamEventsIdInternalServerError$ {
+  /** @deprecated use `PutLiveStreamEventsIdInternalServerError$inboundSchema` instead. */
+  export const inboundSchema =
+    PutLiveStreamEventsIdInternalServerError$inboundSchema;
+  /** @deprecated use `PutLiveStreamEventsIdInternalServerError$outboundSchema` instead. */
+  export const outboundSchema =
+    PutLiveStreamEventsIdInternalServerError$outboundSchema;
+  /** @deprecated use `PutLiveStreamEventsIdInternalServerError$Outbound` instead. */
+  export type Outbound = PutLiveStreamEventsIdInternalServerError$Outbound;
 }
 
 /** @internal */
@@ -86,4 +198,54 @@ export namespace PutLiveStreamEventsIdUnprocessableEntityError$ {
     PutLiveStreamEventsIdUnprocessableEntityError$outboundSchema;
   /** @deprecated use `PutLiveStreamEventsIdUnprocessableEntityError$Outbound` instead. */
   export type Outbound = PutLiveStreamEventsIdUnprocessableEntityError$Outbound;
+}
+
+/** @internal */
+export const PutLiveStreamEventsIdUnauthorizedError$inboundSchema: z.ZodType<
+  PutLiveStreamEventsIdUnauthorizedError,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  error: z.string().optional(),
+  request$: z.instanceof(Request),
+  response$: z.instanceof(Response),
+  body$: z.string(),
+})
+  .transform((v) => {
+    return new PutLiveStreamEventsIdUnauthorizedError(v, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
+  });
+
+/** @internal */
+export type PutLiveStreamEventsIdUnauthorizedError$Outbound = {
+  error?: string | undefined;
+};
+
+/** @internal */
+export const PutLiveStreamEventsIdUnauthorizedError$outboundSchema: z.ZodType<
+  PutLiveStreamEventsIdUnauthorizedError$Outbound,
+  z.ZodTypeDef,
+  PutLiveStreamEventsIdUnauthorizedError
+> = z.instanceof(PutLiveStreamEventsIdUnauthorizedError)
+  .transform(v => v.data$)
+  .pipe(z.object({
+    error: z.string().optional(),
+  }));
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PutLiveStreamEventsIdUnauthorizedError$ {
+  /** @deprecated use `PutLiveStreamEventsIdUnauthorizedError$inboundSchema` instead. */
+  export const inboundSchema =
+    PutLiveStreamEventsIdUnauthorizedError$inboundSchema;
+  /** @deprecated use `PutLiveStreamEventsIdUnauthorizedError$outboundSchema` instead. */
+  export const outboundSchema =
+    PutLiveStreamEventsIdUnauthorizedError$outboundSchema;
+  /** @deprecated use `PutLiveStreamEventsIdUnauthorizedError$Outbound` instead. */
+  export type Outbound = PutLiveStreamEventsIdUnauthorizedError$Outbound;
 }

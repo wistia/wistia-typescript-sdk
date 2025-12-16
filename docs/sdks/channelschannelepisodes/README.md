@@ -80,12 +80,12 @@ run();
 
 ### Response
 
-**Promise\<[models.ChannelEpisode[]](../../models/.md)\>**
+**Promise\<[operations.GetChannelsChannelHashedIdChannelEpisodesResponse[]](../../models/.md)\>**
 
 ### Errors
 
-| Error Type                    | Status Code                   | Content Type                  |
-| ----------------------------- | ----------------------------- | ----------------------------- |
-| errors.FourHundredAndOneError | 401                           | application/json              |
-| errors.FiveHundredError       | 500                           | application/json              |
-| errors.WistiaDefaultError     | 4XX, 5XX                      | \*/\*                         |
+| Error Type                                                          | Status Code                                                         | Content Type                                                        |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| errors.GetChannelsChannelHashedIdChannelEpisodesUnauthorizedError   | 401                                                                 | application/json                                                    |
+| errors.GetChannelsChannelHashedIdChannelEpisodesInternalServerError | 500                                                                 | application/json                                                    |
+| errors.WistiaDefaultError                                           | 4XX, 5XX                                                            | \*/\*                                                               |

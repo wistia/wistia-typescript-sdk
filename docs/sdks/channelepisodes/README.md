@@ -84,15 +84,15 @@ run();
 
 ### Response
 
-**Promise\<[models.ChannelEpisode](../../models/channelepisode.md)\>**
+**Promise\<[operations.GetChannelsChannelHashedIdChannelEpisodesChannelEpisodeIdResponse](../../models/operations/getchannelschannelhashedidchannelepisodeschannelepisodeidresponse.md)\>**
 
 ### Errors
 
-| Error Type                    | Status Code                   | Content Type                  |
-| ----------------------------- | ----------------------------- | ----------------------------- |
-| errors.FourHundredAndOneError | 401                           | application/json              |
-| errors.FiveHundredError       | 500                           | application/json              |
-| errors.WistiaDefaultError     | 4XX, 5XX                      | \*/\*                         |
+| Error Type                                                                          | Status Code                                                                         | Content Type                                                                        |
+| ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| errors.GetChannelsChannelHashedIdChannelEpisodesChannelEpisodeIdUnauthorizedError   | 401                                                                                 | application/json                                                                    |
+| errors.GetChannelsChannelHashedIdChannelEpisodesChannelEpisodeIdInternalServerError | 500                                                                                 | application/json                                                                    |
+| errors.WistiaDefaultError                                                           | 4XX, 5XX                                                                            | \*/\*                                                                               |
 
 ## create
 
@@ -117,7 +117,7 @@ const wistia = new Wistia({
 async function run() {
   const result = await wistia.channelEpisodes.create({
     channelHashedId: "<id>",
-    createChannelEpisode: {
+    requestBody: {
       title: "My New Episode",
       description: "My Episode Description.",
       summary: "A short description.",
@@ -148,7 +148,7 @@ const wistia = new WistiaCore({
 async function run() {
   const res = await channelEpisodesCreate(wistia, {
     channelHashedId: "<id>",
-    createChannelEpisode: {
+    requestBody: {
       title: "My New Episode",
       description: "My Episode Description.",
       summary: "A short description.",
@@ -177,16 +177,16 @@ run();
 
 ### Response
 
-**Promise\<[models.ChannelEpisode](../../models/channelepisode.md)\>**
+**Promise\<[operations.PostChannelsChannelHashedIdChannelEpisodesResponse](../../models/operations/postchannelschannelhashedidchannelepisodesresponse.md)\>**
 
 ### Errors
 
-| Error Type                    | Status Code                   | Content Type                  |
-| ----------------------------- | ----------------------------- | ----------------------------- |
-| errors.FourHundredError       | 400                           | application/json              |
-| errors.FourHundredAndOneError | 401                           | application/json              |
-| errors.FiveHundredError       | 500                           | application/json              |
-| errors.WistiaDefaultError     | 4XX, 5XX                      | \*/\*                         |
+| Error Type                                                           | Status Code                                                          | Content Type                                                         |
+| -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| errors.PostChannelsChannelHashedIdChannelEpisodesBadRequestError     | 400                                                                  | application/json                                                     |
+| errors.PostChannelsChannelHashedIdChannelEpisodesUnauthorizedError   | 401                                                                  | application/json                                                     |
+| errors.PostChannelsChannelHashedIdChannelEpisodesInternalServerError | 500                                                                  | application/json                                                     |
+| errors.WistiaDefaultError                                            | 4XX, 5XX                                                             | \*/\*                                                                |
 
 ## list
 
@@ -257,12 +257,12 @@ run();
 
 ### Response
 
-**Promise\<[models.ChannelEpisode[]](../../models/.md)\>**
+**Promise\<[operations.GetChannelEpisodesResponse[]](../../models/.md)\>**
 
 ### Errors
 
-| Error Type                    | Status Code                   | Content Type                  |
-| ----------------------------- | ----------------------------- | ----------------------------- |
-| errors.FourHundredAndOneError | 401                           | application/json              |
-| errors.FiveHundredError       | 500                           | application/json              |
-| errors.WistiaDefaultError     | 4XX, 5XX                      | \*/\*                         |
+| Error Type                                   | Status Code                                  | Content Type                                 |
+| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
+| errors.GetChannelEpisodesUnauthorizedError   | 401                                          | application/json                             |
+| errors.GetChannelEpisodesInternalServerError | 500                                          | application/json                             |
+| errors.WistiaDefaultError                    | 4XX, 5XX                                     | \*/\*                                        |

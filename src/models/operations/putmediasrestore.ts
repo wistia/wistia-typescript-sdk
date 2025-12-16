@@ -5,9 +5,9 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-import * as models from "../index.js";
 
 export type PutMediasRestoreRequest = {
   /**
@@ -40,6 +40,34 @@ export type Container = {
 };
 
 /**
+ * The status of the background job that's been queued for the request.
+ */
+export const PutMediasRestoreStatus = {
+  Queued: "queued",
+  Started: "started",
+  Finished: "finished",
+  Failed: "failed",
+} as const;
+/**
+ * The status of the background job that's been queued for the request.
+ */
+export type PutMediasRestoreStatus = ClosedEnum<typeof PutMediasRestoreStatus>;
+
+/**
+ * Status of the background job.
+ */
+export type PutMediasRestoreBackgroundJobStatus = {
+  /**
+   * The ID of the background job that's been queued for the request.
+   */
+  id: number;
+  /**
+   * The status of the background job that's been queued for the request.
+   */
+  status: PutMediasRestoreStatus;
+};
+
+/**
  * Successful restoration of media.
  */
 export type PutMediasRestoreResponse = {
@@ -51,7 +79,7 @@ export type PutMediasRestoreResponse = {
   /**
    * Status of the background job.
    */
-  backgroundJobStatus?: models.BackgroundJobStatus | undefined;
+  backgroundJobStatus?: PutMediasRestoreBackgroundJobStatus | undefined;
 };
 
 /** @internal */
@@ -183,6 +211,89 @@ export function containerFromJSON(
 }
 
 /** @internal */
+export const PutMediasRestoreStatus$inboundSchema: z.ZodNativeEnum<
+  typeof PutMediasRestoreStatus
+> = z.nativeEnum(PutMediasRestoreStatus);
+
+/** @internal */
+export const PutMediasRestoreStatus$outboundSchema: z.ZodNativeEnum<
+  typeof PutMediasRestoreStatus
+> = PutMediasRestoreStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PutMediasRestoreStatus$ {
+  /** @deprecated use `PutMediasRestoreStatus$inboundSchema` instead. */
+  export const inboundSchema = PutMediasRestoreStatus$inboundSchema;
+  /** @deprecated use `PutMediasRestoreStatus$outboundSchema` instead. */
+  export const outboundSchema = PutMediasRestoreStatus$outboundSchema;
+}
+
+/** @internal */
+export const PutMediasRestoreBackgroundJobStatus$inboundSchema: z.ZodType<
+  PutMediasRestoreBackgroundJobStatus,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: z.number().int(),
+  status: PutMediasRestoreStatus$inboundSchema,
+});
+
+/** @internal */
+export type PutMediasRestoreBackgroundJobStatus$Outbound = {
+  id: number;
+  status: string;
+};
+
+/** @internal */
+export const PutMediasRestoreBackgroundJobStatus$outboundSchema: z.ZodType<
+  PutMediasRestoreBackgroundJobStatus$Outbound,
+  z.ZodTypeDef,
+  PutMediasRestoreBackgroundJobStatus
+> = z.object({
+  id: z.number().int(),
+  status: PutMediasRestoreStatus$outboundSchema,
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PutMediasRestoreBackgroundJobStatus$ {
+  /** @deprecated use `PutMediasRestoreBackgroundJobStatus$inboundSchema` instead. */
+  export const inboundSchema =
+    PutMediasRestoreBackgroundJobStatus$inboundSchema;
+  /** @deprecated use `PutMediasRestoreBackgroundJobStatus$outboundSchema` instead. */
+  export const outboundSchema =
+    PutMediasRestoreBackgroundJobStatus$outboundSchema;
+  /** @deprecated use `PutMediasRestoreBackgroundJobStatus$Outbound` instead. */
+  export type Outbound = PutMediasRestoreBackgroundJobStatus$Outbound;
+}
+
+export function putMediasRestoreBackgroundJobStatusToJSON(
+  putMediasRestoreBackgroundJobStatus: PutMediasRestoreBackgroundJobStatus,
+): string {
+  return JSON.stringify(
+    PutMediasRestoreBackgroundJobStatus$outboundSchema.parse(
+      putMediasRestoreBackgroundJobStatus,
+    ),
+  );
+}
+
+export function putMediasRestoreBackgroundJobStatusFromJSON(
+  jsonString: string,
+): SafeParseResult<PutMediasRestoreBackgroundJobStatus, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      PutMediasRestoreBackgroundJobStatus$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PutMediasRestoreBackgroundJobStatus' from JSON`,
+  );
+}
+
+/** @internal */
 export const PutMediasRestoreResponse$inboundSchema: z.ZodType<
   PutMediasRestoreResponse,
   z.ZodTypeDef,
@@ -190,7 +301,9 @@ export const PutMediasRestoreResponse$inboundSchema: z.ZodType<
 > = z.object({
   message: z.string().optional(),
   container: z.lazy(() => Container$inboundSchema).optional(),
-  background_job_status: models.BackgroundJobStatus$inboundSchema.optional(),
+  background_job_status: z.lazy(() =>
+    PutMediasRestoreBackgroundJobStatus$inboundSchema
+  ).optional(),
 }).transform((v) => {
   return remap$(v, {
     "background_job_status": "backgroundJobStatus",
@@ -201,7 +314,9 @@ export const PutMediasRestoreResponse$inboundSchema: z.ZodType<
 export type PutMediasRestoreResponse$Outbound = {
   message?: string | undefined;
   container?: Container$Outbound | undefined;
-  background_job_status?: models.BackgroundJobStatus$Outbound | undefined;
+  background_job_status?:
+    | PutMediasRestoreBackgroundJobStatus$Outbound
+    | undefined;
 };
 
 /** @internal */
@@ -212,7 +327,9 @@ export const PutMediasRestoreResponse$outboundSchema: z.ZodType<
 > = z.object({
   message: z.string().optional(),
   container: z.lazy(() => Container$outboundSchema).optional(),
-  backgroundJobStatus: models.BackgroundJobStatus$outboundSchema.optional(),
+  backgroundJobStatus: z.lazy(() =>
+    PutMediasRestoreBackgroundJobStatus$outboundSchema
+  ).optional(),
 }).transform((v) => {
   return remap$(v, {
     backgroundJobStatus: "background_job_status",

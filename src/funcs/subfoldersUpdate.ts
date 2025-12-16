@@ -21,7 +21,6 @@ import * as errors from "../models/errors/index.js";
 import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import { WistiaError } from "../models/errors/wistiaerror.js";
-import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
@@ -43,10 +42,10 @@ export function subfoldersUpdate(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    models.Subfolder,
-    | errors.FourHundredAndOneError
+    operations.PutProjectsProjectIdSubfoldersSubfolderIdResponse,
+    | errors.PutProjectsProjectIdSubfoldersSubfolderIdUnauthorizedError
     | errors.PutProjectsProjectIdSubfoldersSubfolderIdNotFoundError
-    | errors.FiveHundredError
+    | errors.PutProjectsProjectIdSubfoldersSubfolderIdInternalServerError
     | WistiaError
     | ResponseValidationError
     | ConnectionError
@@ -71,10 +70,10 @@ async function $do(
 ): Promise<
   [
     Result<
-      models.Subfolder,
-      | errors.FourHundredAndOneError
+      operations.PutProjectsProjectIdSubfoldersSubfolderIdResponse,
+      | errors.PutProjectsProjectIdSubfoldersSubfolderIdUnauthorizedError
       | errors.PutProjectsProjectIdSubfoldersSubfolderIdNotFoundError
-      | errors.FiveHundredError
+      | errors.PutProjectsProjectIdSubfoldersSubfolderIdInternalServerError
       | WistiaError
       | ResponseValidationError
       | ConnectionError
@@ -170,10 +169,10 @@ async function $do(
   };
 
   const [result] = await M.match<
-    models.Subfolder,
-    | errors.FourHundredAndOneError
+    operations.PutProjectsProjectIdSubfoldersSubfolderIdResponse,
+    | errors.PutProjectsProjectIdSubfoldersSubfolderIdUnauthorizedError
     | errors.PutProjectsProjectIdSubfoldersSubfolderIdNotFoundError
-    | errors.FiveHundredError
+    | errors.PutProjectsProjectIdSubfoldersSubfolderIdInternalServerError
     | WistiaError
     | ResponseValidationError
     | ConnectionError
@@ -183,14 +182,26 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, models.Subfolder$inboundSchema),
-    M.jsonErr(401, errors.FourHundredAndOneError$inboundSchema),
+    M.json(
+      200,
+      operations
+        .PutProjectsProjectIdSubfoldersSubfolderIdResponse$inboundSchema,
+    ),
+    M.jsonErr(
+      401,
+      errors
+        .PutProjectsProjectIdSubfoldersSubfolderIdUnauthorizedError$inboundSchema,
+    ),
     M.jsonErr(
       404,
       errors
         .PutProjectsProjectIdSubfoldersSubfolderIdNotFoundError$inboundSchema,
     ),
-    M.jsonErr(500, errors.FiveHundredError$inboundSchema),
+    M.jsonErr(
+      500,
+      errors
+        .PutProjectsProjectIdSubfoldersSubfolderIdInternalServerError$inboundSchema,
+    ),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

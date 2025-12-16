@@ -7,7 +7,7 @@ import { PutMediasMediaIdCustomizationsRequest } from "@wistia/wistia-api-client
 
 let value: PutMediasMediaIdCustomizationsRequest = {
   mediaId: "<id>",
-  videoCustomization: {
+  requestBody: {
     plugin: {
       postRollV1: {
         style: {
@@ -23,7 +23,7 @@ let value: PutMediasMediaIdCustomizationsRequest = {
 
 ## Fields
 
-| Field                                                           | Type                                                            | Required                                                        | Description                                                     |
-| --------------------------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------- |
-| `mediaId`                                                       | *string*                                                        | :heavy_check_mark:                                              | The hashed ID of the video to be customized.                    |
-| `videoCustomization`                                            | [models.VideoCustomization](../../models/videocustomization.md) | :heavy_check_mark:                                              | N/A                                                             |
+| Field                                                                                                                        | Type                                                                                                                         | Required                                                                                                                     | Description                                                                                                                  |
+| ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| `mediaId`                                                                                                                    | *string*                                                                                                                     | :heavy_check_mark:                                                                                                           | The hashed ID of the video to be customized.                                                                                 |
+| `requestBody`                                                                                                                | [operations.PutMediasMediaIdCustomizationsRequestBody](../../models/operations/putmediasmediaidcustomizationsrequestbody.md) | :heavy_check_mark:                                                                                                           | N/A                                                                                                                          |

@@ -5,7 +5,6 @@
 import { statsVisitorsGet } from "../funcs/statsVisitorsGet.js";
 import { statsVisitorsList } from "../funcs/statsVisitorsList.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
-import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -26,7 +25,7 @@ export class StatsVisitors extends ClientSDK {
   async list(
     request?: operations.GetStatsVisitorsRequest | undefined,
     options?: RequestOptions,
-  ): Promise<Array<models.Visitor>> {
+  ): Promise<Array<operations.GetStatsVisitorsResponse>> {
     return unwrapAsync(statsVisitorsList(
       this,
       request,
@@ -50,7 +49,7 @@ export class StatsVisitors extends ClientSDK {
   async get(
     request: operations.GetStatsVisitorsVisitorKeyRequest,
     options?: RequestOptions,
-  ): Promise<models.Visitor> {
+  ): Promise<operations.GetStatsVisitorsVisitorKeyResponse> {
     return unwrapAsync(statsVisitorsGet(
       this,
       request,

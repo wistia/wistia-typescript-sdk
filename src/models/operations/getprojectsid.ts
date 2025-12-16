@@ -3,7 +3,9 @@
  */
 
 import * as z from "zod";
+import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
@@ -12,6 +14,154 @@ export type GetProjectsIdRequest = {
    * Project Hashed ID
    */
   id: string;
+};
+
+/**
+ * A string representing what type of media this is.
+ */
+export const GetProjectsIdType = {
+  Video: "Video",
+  Audio: "Audio",
+  Image: "Image",
+  PdfDocument: "PdfDocument",
+  MicrosoftOfficeDocument: "MicrosoftOfficeDocument",
+  Swf: "Swf",
+  UnknownType: "UnknownType",
+} as const;
+/**
+ * A string representing what type of media this is.
+ */
+export type GetProjectsIdType = ClosedEnum<typeof GetProjectsIdType>;
+
+/**
+ * Post upload processing status. - `queued`: the file is waiting in the queue to be processed. - `processing`: the file is actively being processed. - `ready`: the file has been fully processed and is ready for embedding and viewing. - `failed`: the file was unable to be processed (usually a format or size error).
+ *
+ * @remarks
+ */
+export const GetProjectsIdStatus = {
+  Queued: "queued",
+  Processing: "processing",
+  Ready: "ready",
+  Failed: "failed",
+} as const;
+/**
+ * Post upload processing status. - `queued`: the file is waiting in the queue to be processed. - `processing`: the file is actively being processed. - `ready`: the file has been fully processed and is ready for embedding and viewing. - `failed`: the file was unable to be processed (usually a format or size error).
+ *
+ * @remarks
+ */
+export type GetProjectsIdStatus = ClosedEnum<typeof GetProjectsIdStatus>;
+
+export type GetProjectsIdThumbnail = {
+  url?: string | undefined;
+  width?: number | undefined;
+  height?: number | undefined;
+};
+
+export type GetProjectsIdMedia = {
+  /**
+   * A unique numeric identifier for the media within the system.
+   */
+  id?: number | undefined;
+  /**
+   * The display name of the media.
+   */
+  name?: string | undefined;
+  /**
+   * A string representing what type of media this is.
+   */
+  type?: GetProjectsIdType | undefined;
+  /**
+   * Whether or not the media is archived, either true or false.
+   */
+  archived?: boolean | undefined;
+  /**
+   * The date when the media was originally uploaded.
+   */
+  created?: Date | undefined;
+  /**
+   * The date when the media was last changed.
+   */
+  updated?: Date | undefined;
+  /**
+   * Specifies the length (in seconds) for audio and video files. Specifies number of pages in the document. Omitted for other types of media.
+   */
+  duration?: number | null | undefined;
+  /**
+   * DEPRECATED: If you want to programmatically embed videos, follow the construct an embed code guide.
+   *
+   * @remarks
+   *
+   * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+   */
+  embedCode?: string | undefined;
+  /**
+   * A unique alphanumeric identifier for this media.
+   */
+  hashedId?: string | undefined;
+  /**
+   * A description for the media which usually appears near the top of the sidebar on the media's page.
+   */
+  description?: string | undefined;
+  /**
+   * A floating point value between 0 and 1 that indicates the progress of the processing for this file.
+   */
+  progress?: number | undefined;
+  /**
+   * Post upload processing status. - `queued`: the file is waiting in the queue to be processed. - `processing`: the file is actively being processed. - `ready`: the file has been fully processed and is ready for embedding and viewing. - `failed`: the file was unable to be processed (usually a format or size error).
+   *
+   * @remarks
+   */
+  status?: GetProjectsIdStatus | undefined;
+  /**
+   * The title of the section in which the media appears. This attribute is omitted if the media is not in a section (default).
+   */
+  section?: string | null | undefined;
+  thumbnail?: GetProjectsIdThumbnail | undefined;
+};
+
+/**
+ * A single project
+ */
+export type GetProjectsIdResponse = {
+  /**
+   * A unique numeric identifier for the project within the system.
+   */
+  id: number;
+  /**
+   * The project’s display name.
+   */
+  name: string;
+  /**
+   * The project’s description.
+   */
+  description?: string | null | undefined;
+  /**
+   * The number of different medias that have been uploaded to the project.
+   */
+  mediaCount: number;
+  /**
+   * The date that the project was originally created.
+   */
+  created: Date;
+  /**
+   * The date that the project was last updated.
+   */
+  updated: Date;
+  /**
+   * A private hashed id, uniquely identifying the project within the system.
+   */
+  hashedId: string;
+  /**
+   * A boolean indicating whether the project is available for public (anonymous) viewing.
+   */
+  public: boolean;
+  /**
+   * If the project is public, this field contains a string representing the ID used for referencing the project in public URLs.
+   */
+  publicId: string | null;
+  anonymousCanUpload?: boolean | undefined;
+  anonymousCanDownload?: boolean | undefined;
+  medias: Array<GetProjectsIdMedia>;
 };
 
 /** @internal */
@@ -65,5 +215,297 @@ export function getProjectsIdRequestFromJSON(
     jsonString,
     (x) => GetProjectsIdRequest$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'GetProjectsIdRequest' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetProjectsIdType$inboundSchema: z.ZodNativeEnum<
+  typeof GetProjectsIdType
+> = z.nativeEnum(GetProjectsIdType);
+
+/** @internal */
+export const GetProjectsIdType$outboundSchema: z.ZodNativeEnum<
+  typeof GetProjectsIdType
+> = GetProjectsIdType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetProjectsIdType$ {
+  /** @deprecated use `GetProjectsIdType$inboundSchema` instead. */
+  export const inboundSchema = GetProjectsIdType$inboundSchema;
+  /** @deprecated use `GetProjectsIdType$outboundSchema` instead. */
+  export const outboundSchema = GetProjectsIdType$outboundSchema;
+}
+
+/** @internal */
+export const GetProjectsIdStatus$inboundSchema: z.ZodNativeEnum<
+  typeof GetProjectsIdStatus
+> = z.nativeEnum(GetProjectsIdStatus);
+
+/** @internal */
+export const GetProjectsIdStatus$outboundSchema: z.ZodNativeEnum<
+  typeof GetProjectsIdStatus
+> = GetProjectsIdStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetProjectsIdStatus$ {
+  /** @deprecated use `GetProjectsIdStatus$inboundSchema` instead. */
+  export const inboundSchema = GetProjectsIdStatus$inboundSchema;
+  /** @deprecated use `GetProjectsIdStatus$outboundSchema` instead. */
+  export const outboundSchema = GetProjectsIdStatus$outboundSchema;
+}
+
+/** @internal */
+export const GetProjectsIdThumbnail$inboundSchema: z.ZodType<
+  GetProjectsIdThumbnail,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  url: z.string().optional(),
+  width: z.number().int().optional(),
+  height: z.number().int().optional(),
+});
+
+/** @internal */
+export type GetProjectsIdThumbnail$Outbound = {
+  url?: string | undefined;
+  width?: number | undefined;
+  height?: number | undefined;
+};
+
+/** @internal */
+export const GetProjectsIdThumbnail$outboundSchema: z.ZodType<
+  GetProjectsIdThumbnail$Outbound,
+  z.ZodTypeDef,
+  GetProjectsIdThumbnail
+> = z.object({
+  url: z.string().optional(),
+  width: z.number().int().optional(),
+  height: z.number().int().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetProjectsIdThumbnail$ {
+  /** @deprecated use `GetProjectsIdThumbnail$inboundSchema` instead. */
+  export const inboundSchema = GetProjectsIdThumbnail$inboundSchema;
+  /** @deprecated use `GetProjectsIdThumbnail$outboundSchema` instead. */
+  export const outboundSchema = GetProjectsIdThumbnail$outboundSchema;
+  /** @deprecated use `GetProjectsIdThumbnail$Outbound` instead. */
+  export type Outbound = GetProjectsIdThumbnail$Outbound;
+}
+
+export function getProjectsIdThumbnailToJSON(
+  getProjectsIdThumbnail: GetProjectsIdThumbnail,
+): string {
+  return JSON.stringify(
+    GetProjectsIdThumbnail$outboundSchema.parse(getProjectsIdThumbnail),
+  );
+}
+
+export function getProjectsIdThumbnailFromJSON(
+  jsonString: string,
+): SafeParseResult<GetProjectsIdThumbnail, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetProjectsIdThumbnail$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetProjectsIdThumbnail' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetProjectsIdMedia$inboundSchema: z.ZodType<
+  GetProjectsIdMedia,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: z.number().int().optional(),
+  name: z.string().optional(),
+  type: GetProjectsIdType$inboundSchema.optional(),
+  archived: z.boolean().optional(),
+  created: z.string().datetime({ offset: true }).transform(v => new Date(v))
+    .optional(),
+  updated: z.string().datetime({ offset: true }).transform(v => new Date(v))
+    .optional(),
+  duration: z.nullable(z.number()).optional(),
+  embedCode: z.string().optional(),
+  hashed_id: z.string().optional(),
+  description: z.string().optional(),
+  progress: z.number().optional(),
+  status: GetProjectsIdStatus$inboundSchema.optional(),
+  section: z.nullable(z.string()).optional(),
+  thumbnail: z.lazy(() => GetProjectsIdThumbnail$inboundSchema).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "hashed_id": "hashedId",
+  });
+});
+
+/** @internal */
+export type GetProjectsIdMedia$Outbound = {
+  id?: number | undefined;
+  name?: string | undefined;
+  type?: string | undefined;
+  archived?: boolean | undefined;
+  created?: string | undefined;
+  updated?: string | undefined;
+  duration?: number | null | undefined;
+  embedCode?: string | undefined;
+  hashed_id?: string | undefined;
+  description?: string | undefined;
+  progress?: number | undefined;
+  status?: string | undefined;
+  section?: string | null | undefined;
+  thumbnail?: GetProjectsIdThumbnail$Outbound | undefined;
+};
+
+/** @internal */
+export const GetProjectsIdMedia$outboundSchema: z.ZodType<
+  GetProjectsIdMedia$Outbound,
+  z.ZodTypeDef,
+  GetProjectsIdMedia
+> = z.object({
+  id: z.number().int().optional(),
+  name: z.string().optional(),
+  type: GetProjectsIdType$outboundSchema.optional(),
+  archived: z.boolean().optional(),
+  created: z.date().transform(v => v.toISOString()).optional(),
+  updated: z.date().transform(v => v.toISOString()).optional(),
+  duration: z.nullable(z.number()).optional(),
+  embedCode: z.string().optional(),
+  hashedId: z.string().optional(),
+  description: z.string().optional(),
+  progress: z.number().optional(),
+  status: GetProjectsIdStatus$outboundSchema.optional(),
+  section: z.nullable(z.string()).optional(),
+  thumbnail: z.lazy(() => GetProjectsIdThumbnail$outboundSchema).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    hashedId: "hashed_id",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetProjectsIdMedia$ {
+  /** @deprecated use `GetProjectsIdMedia$inboundSchema` instead. */
+  export const inboundSchema = GetProjectsIdMedia$inboundSchema;
+  /** @deprecated use `GetProjectsIdMedia$outboundSchema` instead. */
+  export const outboundSchema = GetProjectsIdMedia$outboundSchema;
+  /** @deprecated use `GetProjectsIdMedia$Outbound` instead. */
+  export type Outbound = GetProjectsIdMedia$Outbound;
+}
+
+export function getProjectsIdMediaToJSON(
+  getProjectsIdMedia: GetProjectsIdMedia,
+): string {
+  return JSON.stringify(
+    GetProjectsIdMedia$outboundSchema.parse(getProjectsIdMedia),
+  );
+}
+
+export function getProjectsIdMediaFromJSON(
+  jsonString: string,
+): SafeParseResult<GetProjectsIdMedia, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetProjectsIdMedia$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetProjectsIdMedia' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetProjectsIdResponse$inboundSchema: z.ZodType<
+  GetProjectsIdResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: z.number().int(),
+  name: z.string(),
+  description: z.nullable(z.string()).optional(),
+  mediaCount: z.number().int(),
+  created: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  updated: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  hashedId: z.string(),
+  public: z.boolean(),
+  publicId: z.nullable(z.string()),
+  anonymousCanUpload: z.boolean().optional(),
+  anonymousCanDownload: z.boolean().optional(),
+  medias: z.array(z.lazy(() => GetProjectsIdMedia$inboundSchema)),
+});
+
+/** @internal */
+export type GetProjectsIdResponse$Outbound = {
+  id: number;
+  name: string;
+  description?: string | null | undefined;
+  mediaCount: number;
+  created: string;
+  updated: string;
+  hashedId: string;
+  public: boolean;
+  publicId: string | null;
+  anonymousCanUpload?: boolean | undefined;
+  anonymousCanDownload?: boolean | undefined;
+  medias: Array<GetProjectsIdMedia$Outbound>;
+};
+
+/** @internal */
+export const GetProjectsIdResponse$outboundSchema: z.ZodType<
+  GetProjectsIdResponse$Outbound,
+  z.ZodTypeDef,
+  GetProjectsIdResponse
+> = z.object({
+  id: z.number().int(),
+  name: z.string(),
+  description: z.nullable(z.string()).optional(),
+  mediaCount: z.number().int(),
+  created: z.date().transform(v => v.toISOString()),
+  updated: z.date().transform(v => v.toISOString()),
+  hashedId: z.string(),
+  public: z.boolean(),
+  publicId: z.nullable(z.string()),
+  anonymousCanUpload: z.boolean().optional(),
+  anonymousCanDownload: z.boolean().optional(),
+  medias: z.array(z.lazy(() => GetProjectsIdMedia$outboundSchema)),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetProjectsIdResponse$ {
+  /** @deprecated use `GetProjectsIdResponse$inboundSchema` instead. */
+  export const inboundSchema = GetProjectsIdResponse$inboundSchema;
+  /** @deprecated use `GetProjectsIdResponse$outboundSchema` instead. */
+  export const outboundSchema = GetProjectsIdResponse$outboundSchema;
+  /** @deprecated use `GetProjectsIdResponse$Outbound` instead. */
+  export type Outbound = GetProjectsIdResponse$Outbound;
+}
+
+export function getProjectsIdResponseToJSON(
+  getProjectsIdResponse: GetProjectsIdResponse,
+): string {
+  return JSON.stringify(
+    GetProjectsIdResponse$outboundSchema.parse(getProjectsIdResponse),
+  );
+}
+
+export function getProjectsIdResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<GetProjectsIdResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetProjectsIdResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetProjectsIdResponse' from JSON`,
   );
 }

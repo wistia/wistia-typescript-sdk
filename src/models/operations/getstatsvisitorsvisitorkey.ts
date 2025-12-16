@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod";
+import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -12,6 +13,56 @@ export type GetStatsVisitorsVisitorKeyRequest = {
    * The unique key of the visitor.
    */
   visitorKey: string;
+};
+
+export type GetStatsVisitorsVisitorKeyOrg = {
+  name?: string | null | undefined;
+  title?: string | null | undefined;
+};
+
+export type GetStatsVisitorsVisitorKeyVisitorIdentity = {
+  name?: string | undefined;
+  email?: string | null | undefined;
+  org?: GetStatsVisitorsVisitorKeyOrg | undefined;
+};
+
+export type GetStatsVisitorsVisitorKeyUserAgentDetails = {
+  browser?: string | undefined;
+  browserVersion?: string | undefined;
+  platform?: string | undefined;
+  mobile?: boolean | undefined;
+};
+
+/**
+ * Successful response with details of a single visitor.
+ */
+export type GetStatsVisitorsVisitorKeyResponse = {
+  /**
+   * A unique identifier for the visitor.
+   */
+  visitorKey?: string | undefined;
+  /**
+   * When the visitor was created.
+   */
+  createdAt?: Date | undefined;
+  /**
+   * The last time the visitor played a video.
+   */
+  lastActiveAt?: Date | undefined;
+  /**
+   * The event key for the last video play action.
+   */
+  lastEventKey?: string | undefined;
+  /**
+   * The total number of videos loaded by the visitor.
+   */
+  loadCount?: number | undefined;
+  /**
+   * The total number of videos played by the visitor.
+   */
+  playCount?: number | undefined;
+  visitorIdentity?: GetStatsVisitorsVisitorKeyVisitorIdentity | undefined;
+  userAgentDetails?: GetStatsVisitorsVisitorKeyUserAgentDetails | undefined;
 };
 
 /** @internal */
@@ -68,5 +119,333 @@ export function getStatsVisitorsVisitorKeyRequestFromJSON(
     jsonString,
     (x) => GetStatsVisitorsVisitorKeyRequest$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'GetStatsVisitorsVisitorKeyRequest' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetStatsVisitorsVisitorKeyOrg$inboundSchema: z.ZodType<
+  GetStatsVisitorsVisitorKeyOrg,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.nullable(z.string()).optional(),
+  title: z.nullable(z.string()).optional(),
+});
+
+/** @internal */
+export type GetStatsVisitorsVisitorKeyOrg$Outbound = {
+  name?: string | null | undefined;
+  title?: string | null | undefined;
+};
+
+/** @internal */
+export const GetStatsVisitorsVisitorKeyOrg$outboundSchema: z.ZodType<
+  GetStatsVisitorsVisitorKeyOrg$Outbound,
+  z.ZodTypeDef,
+  GetStatsVisitorsVisitorKeyOrg
+> = z.object({
+  name: z.nullable(z.string()).optional(),
+  title: z.nullable(z.string()).optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetStatsVisitorsVisitorKeyOrg$ {
+  /** @deprecated use `GetStatsVisitorsVisitorKeyOrg$inboundSchema` instead. */
+  export const inboundSchema = GetStatsVisitorsVisitorKeyOrg$inboundSchema;
+  /** @deprecated use `GetStatsVisitorsVisitorKeyOrg$outboundSchema` instead. */
+  export const outboundSchema = GetStatsVisitorsVisitorKeyOrg$outboundSchema;
+  /** @deprecated use `GetStatsVisitorsVisitorKeyOrg$Outbound` instead. */
+  export type Outbound = GetStatsVisitorsVisitorKeyOrg$Outbound;
+}
+
+export function getStatsVisitorsVisitorKeyOrgToJSON(
+  getStatsVisitorsVisitorKeyOrg: GetStatsVisitorsVisitorKeyOrg,
+): string {
+  return JSON.stringify(
+    GetStatsVisitorsVisitorKeyOrg$outboundSchema.parse(
+      getStatsVisitorsVisitorKeyOrg,
+    ),
+  );
+}
+
+export function getStatsVisitorsVisitorKeyOrgFromJSON(
+  jsonString: string,
+): SafeParseResult<GetStatsVisitorsVisitorKeyOrg, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetStatsVisitorsVisitorKeyOrg$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetStatsVisitorsVisitorKeyOrg' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetStatsVisitorsVisitorKeyVisitorIdentity$inboundSchema: z.ZodType<
+  GetStatsVisitorsVisitorKeyVisitorIdentity,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string().optional(),
+  email: z.nullable(z.string()).optional(),
+  org: z.lazy(() => GetStatsVisitorsVisitorKeyOrg$inboundSchema).optional(),
+});
+
+/** @internal */
+export type GetStatsVisitorsVisitorKeyVisitorIdentity$Outbound = {
+  name?: string | undefined;
+  email?: string | null | undefined;
+  org?: GetStatsVisitorsVisitorKeyOrg$Outbound | undefined;
+};
+
+/** @internal */
+export const GetStatsVisitorsVisitorKeyVisitorIdentity$outboundSchema:
+  z.ZodType<
+    GetStatsVisitorsVisitorKeyVisitorIdentity$Outbound,
+    z.ZodTypeDef,
+    GetStatsVisitorsVisitorKeyVisitorIdentity
+  > = z.object({
+    name: z.string().optional(),
+    email: z.nullable(z.string()).optional(),
+    org: z.lazy(() => GetStatsVisitorsVisitorKeyOrg$outboundSchema).optional(),
+  });
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetStatsVisitorsVisitorKeyVisitorIdentity$ {
+  /** @deprecated use `GetStatsVisitorsVisitorKeyVisitorIdentity$inboundSchema` instead. */
+  export const inboundSchema =
+    GetStatsVisitorsVisitorKeyVisitorIdentity$inboundSchema;
+  /** @deprecated use `GetStatsVisitorsVisitorKeyVisitorIdentity$outboundSchema` instead. */
+  export const outboundSchema =
+    GetStatsVisitorsVisitorKeyVisitorIdentity$outboundSchema;
+  /** @deprecated use `GetStatsVisitorsVisitorKeyVisitorIdentity$Outbound` instead. */
+  export type Outbound = GetStatsVisitorsVisitorKeyVisitorIdentity$Outbound;
+}
+
+export function getStatsVisitorsVisitorKeyVisitorIdentityToJSON(
+  getStatsVisitorsVisitorKeyVisitorIdentity:
+    GetStatsVisitorsVisitorKeyVisitorIdentity,
+): string {
+  return JSON.stringify(
+    GetStatsVisitorsVisitorKeyVisitorIdentity$outboundSchema.parse(
+      getStatsVisitorsVisitorKeyVisitorIdentity,
+    ),
+  );
+}
+
+export function getStatsVisitorsVisitorKeyVisitorIdentityFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetStatsVisitorsVisitorKeyVisitorIdentity,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetStatsVisitorsVisitorKeyVisitorIdentity$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'GetStatsVisitorsVisitorKeyVisitorIdentity' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetStatsVisitorsVisitorKeyUserAgentDetails$inboundSchema:
+  z.ZodType<GetStatsVisitorsVisitorKeyUserAgentDetails, z.ZodTypeDef, unknown> =
+    z.object({
+      browser: z.string().optional(),
+      browser_version: z.string().optional(),
+      platform: z.string().optional(),
+      mobile: z.boolean().optional(),
+    }).transform((v) => {
+      return remap$(v, {
+        "browser_version": "browserVersion",
+      });
+    });
+
+/** @internal */
+export type GetStatsVisitorsVisitorKeyUserAgentDetails$Outbound = {
+  browser?: string | undefined;
+  browser_version?: string | undefined;
+  platform?: string | undefined;
+  mobile?: boolean | undefined;
+};
+
+/** @internal */
+export const GetStatsVisitorsVisitorKeyUserAgentDetails$outboundSchema:
+  z.ZodType<
+    GetStatsVisitorsVisitorKeyUserAgentDetails$Outbound,
+    z.ZodTypeDef,
+    GetStatsVisitorsVisitorKeyUserAgentDetails
+  > = z.object({
+    browser: z.string().optional(),
+    browserVersion: z.string().optional(),
+    platform: z.string().optional(),
+    mobile: z.boolean().optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      browserVersion: "browser_version",
+    });
+  });
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetStatsVisitorsVisitorKeyUserAgentDetails$ {
+  /** @deprecated use `GetStatsVisitorsVisitorKeyUserAgentDetails$inboundSchema` instead. */
+  export const inboundSchema =
+    GetStatsVisitorsVisitorKeyUserAgentDetails$inboundSchema;
+  /** @deprecated use `GetStatsVisitorsVisitorKeyUserAgentDetails$outboundSchema` instead. */
+  export const outboundSchema =
+    GetStatsVisitorsVisitorKeyUserAgentDetails$outboundSchema;
+  /** @deprecated use `GetStatsVisitorsVisitorKeyUserAgentDetails$Outbound` instead. */
+  export type Outbound = GetStatsVisitorsVisitorKeyUserAgentDetails$Outbound;
+}
+
+export function getStatsVisitorsVisitorKeyUserAgentDetailsToJSON(
+  getStatsVisitorsVisitorKeyUserAgentDetails:
+    GetStatsVisitorsVisitorKeyUserAgentDetails,
+): string {
+  return JSON.stringify(
+    GetStatsVisitorsVisitorKeyUserAgentDetails$outboundSchema.parse(
+      getStatsVisitorsVisitorKeyUserAgentDetails,
+    ),
+  );
+}
+
+export function getStatsVisitorsVisitorKeyUserAgentDetailsFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetStatsVisitorsVisitorKeyUserAgentDetails,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetStatsVisitorsVisitorKeyUserAgentDetails$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'GetStatsVisitorsVisitorKeyUserAgentDetails' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetStatsVisitorsVisitorKeyResponse$inboundSchema: z.ZodType<
+  GetStatsVisitorsVisitorKeyResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  visitor_key: z.string().optional(),
+  created_at: z.string().datetime({ offset: true }).transform(v => new Date(v))
+    .optional(),
+  last_active_at: z.string().datetime({ offset: true }).transform(v =>
+    new Date(v)
+  ).optional(),
+  last_event_key: z.string().optional(),
+  load_count: z.number().int().optional(),
+  play_count: z.number().int().optional(),
+  visitor_identity: z.lazy(() =>
+    GetStatsVisitorsVisitorKeyVisitorIdentity$inboundSchema
+  ).optional(),
+  user_agent_details: z.lazy(() =>
+    GetStatsVisitorsVisitorKeyUserAgentDetails$inboundSchema
+  ).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "visitor_key": "visitorKey",
+    "created_at": "createdAt",
+    "last_active_at": "lastActiveAt",
+    "last_event_key": "lastEventKey",
+    "load_count": "loadCount",
+    "play_count": "playCount",
+    "visitor_identity": "visitorIdentity",
+    "user_agent_details": "userAgentDetails",
+  });
+});
+
+/** @internal */
+export type GetStatsVisitorsVisitorKeyResponse$Outbound = {
+  visitor_key?: string | undefined;
+  created_at?: string | undefined;
+  last_active_at?: string | undefined;
+  last_event_key?: string | undefined;
+  load_count?: number | undefined;
+  play_count?: number | undefined;
+  visitor_identity?:
+    | GetStatsVisitorsVisitorKeyVisitorIdentity$Outbound
+    | undefined;
+  user_agent_details?:
+    | GetStatsVisitorsVisitorKeyUserAgentDetails$Outbound
+    | undefined;
+};
+
+/** @internal */
+export const GetStatsVisitorsVisitorKeyResponse$outboundSchema: z.ZodType<
+  GetStatsVisitorsVisitorKeyResponse$Outbound,
+  z.ZodTypeDef,
+  GetStatsVisitorsVisitorKeyResponse
+> = z.object({
+  visitorKey: z.string().optional(),
+  createdAt: z.date().transform(v => v.toISOString()).optional(),
+  lastActiveAt: z.date().transform(v => v.toISOString()).optional(),
+  lastEventKey: z.string().optional(),
+  loadCount: z.number().int().optional(),
+  playCount: z.number().int().optional(),
+  visitorIdentity: z.lazy(() =>
+    GetStatsVisitorsVisitorKeyVisitorIdentity$outboundSchema
+  ).optional(),
+  userAgentDetails: z.lazy(() =>
+    GetStatsVisitorsVisitorKeyUserAgentDetails$outboundSchema
+  ).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    visitorKey: "visitor_key",
+    createdAt: "created_at",
+    lastActiveAt: "last_active_at",
+    lastEventKey: "last_event_key",
+    loadCount: "load_count",
+    playCount: "play_count",
+    visitorIdentity: "visitor_identity",
+    userAgentDetails: "user_agent_details",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetStatsVisitorsVisitorKeyResponse$ {
+  /** @deprecated use `GetStatsVisitorsVisitorKeyResponse$inboundSchema` instead. */
+  export const inboundSchema = GetStatsVisitorsVisitorKeyResponse$inboundSchema;
+  /** @deprecated use `GetStatsVisitorsVisitorKeyResponse$outboundSchema` instead. */
+  export const outboundSchema =
+    GetStatsVisitorsVisitorKeyResponse$outboundSchema;
+  /** @deprecated use `GetStatsVisitorsVisitorKeyResponse$Outbound` instead. */
+  export type Outbound = GetStatsVisitorsVisitorKeyResponse$Outbound;
+}
+
+export function getStatsVisitorsVisitorKeyResponseToJSON(
+  getStatsVisitorsVisitorKeyResponse: GetStatsVisitorsVisitorKeyResponse,
+): string {
+  return JSON.stringify(
+    GetStatsVisitorsVisitorKeyResponse$outboundSchema.parse(
+      getStatsVisitorsVisitorKeyResponse,
+    ),
+  );
+}
+
+export function getStatsVisitorsVisitorKeyResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<GetStatsVisitorsVisitorKeyResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetStatsVisitorsVisitorKeyResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetStatsVisitorsVisitorKeyResponse' from JSON`,
   );
 }

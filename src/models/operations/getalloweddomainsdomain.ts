@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod";
+import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -12,6 +13,20 @@ export type GetAllowedDomainsDomainRequest = {
    * The domain name to retrieve
    */
   domain: string;
+};
+
+/**
+ * Allowed domain details
+ */
+export type GetAllowedDomainsDomainResponse = {
+  /**
+   * The allowed domain name.
+   */
+  domain: string;
+  /**
+   * The date that the allowed domain was originally created.
+   */
+  createdAt: Date;
 };
 
 /** @internal */
@@ -67,5 +82,72 @@ export function getAllowedDomainsDomainRequestFromJSON(
     jsonString,
     (x) => GetAllowedDomainsDomainRequest$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'GetAllowedDomainsDomainRequest' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetAllowedDomainsDomainResponse$inboundSchema: z.ZodType<
+  GetAllowedDomainsDomainResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  domain: z.string(),
+  created_at: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+}).transform((v) => {
+  return remap$(v, {
+    "created_at": "createdAt",
+  });
+});
+
+/** @internal */
+export type GetAllowedDomainsDomainResponse$Outbound = {
+  domain: string;
+  created_at: string;
+};
+
+/** @internal */
+export const GetAllowedDomainsDomainResponse$outboundSchema: z.ZodType<
+  GetAllowedDomainsDomainResponse$Outbound,
+  z.ZodTypeDef,
+  GetAllowedDomainsDomainResponse
+> = z.object({
+  domain: z.string(),
+  createdAt: z.date().transform(v => v.toISOString()),
+}).transform((v) => {
+  return remap$(v, {
+    createdAt: "created_at",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetAllowedDomainsDomainResponse$ {
+  /** @deprecated use `GetAllowedDomainsDomainResponse$inboundSchema` instead. */
+  export const inboundSchema = GetAllowedDomainsDomainResponse$inboundSchema;
+  /** @deprecated use `GetAllowedDomainsDomainResponse$outboundSchema` instead. */
+  export const outboundSchema = GetAllowedDomainsDomainResponse$outboundSchema;
+  /** @deprecated use `GetAllowedDomainsDomainResponse$Outbound` instead. */
+  export type Outbound = GetAllowedDomainsDomainResponse$Outbound;
+}
+
+export function getAllowedDomainsDomainResponseToJSON(
+  getAllowedDomainsDomainResponse: GetAllowedDomainsDomainResponse,
+): string {
+  return JSON.stringify(
+    GetAllowedDomainsDomainResponse$outboundSchema.parse(
+      getAllowedDomainsDomainResponse,
+    ),
+  );
+}
+
+export function getAllowedDomainsDomainResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<GetAllowedDomainsDomainResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetAllowedDomainsDomainResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetAllowedDomainsDomainResponse' from JSON`,
   );
 }

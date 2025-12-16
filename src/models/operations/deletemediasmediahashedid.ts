@@ -3,7 +3,9 @@
  */
 
 import * as z from "zod";
+import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
@@ -12,6 +14,116 @@ export type DeleteMediasMediaHashedIdRequest = {
    * The hashed ID of the media.
    */
   mediaHashedId: string;
+};
+
+/**
+ * A string representing what type of media this is.
+ */
+export const DeleteMediasMediaHashedIdType = {
+  Video: "Video",
+  Audio: "Audio",
+  Image: "Image",
+  PdfDocument: "PdfDocument",
+  MicrosoftOfficeDocument: "MicrosoftOfficeDocument",
+  Swf: "Swf",
+  UnknownType: "UnknownType",
+} as const;
+/**
+ * A string representing what type of media this is.
+ */
+export type DeleteMediasMediaHashedIdType = ClosedEnum<
+  typeof DeleteMediasMediaHashedIdType
+>;
+
+/**
+ * Post upload processing status. - `queued`: the file is waiting in the queue to be processed. - `processing`: the file is actively being processed. - `ready`: the file has been fully processed and is ready for embedding and viewing. - `failed`: the file was unable to be processed (usually a format or size error).
+ *
+ * @remarks
+ */
+export const DeleteMediasMediaHashedIdStatus = {
+  Queued: "queued",
+  Processing: "processing",
+  Ready: "ready",
+  Failed: "failed",
+} as const;
+/**
+ * Post upload processing status. - `queued`: the file is waiting in the queue to be processed. - `processing`: the file is actively being processed. - `ready`: the file has been fully processed and is ready for embedding and viewing. - `failed`: the file was unable to be processed (usually a format or size error).
+ *
+ * @remarks
+ */
+export type DeleteMediasMediaHashedIdStatus = ClosedEnum<
+  typeof DeleteMediasMediaHashedIdStatus
+>;
+
+export type DeleteMediasMediaHashedIdThumbnail = {
+  url?: string | undefined;
+  width?: number | undefined;
+  height?: number | undefined;
+};
+
+/**
+ * Successful deletion of the media.
+ */
+export type DeleteMediasMediaHashedIdResponse = {
+  /**
+   * A unique numeric identifier for the media within the system.
+   */
+  id?: number | undefined;
+  /**
+   * The display name of the media.
+   */
+  name?: string | undefined;
+  /**
+   * A string representing what type of media this is.
+   */
+  type?: DeleteMediasMediaHashedIdType | undefined;
+  /**
+   * Whether or not the media is archived, either true or false.
+   */
+  archived?: boolean | undefined;
+  /**
+   * The date when the media was originally uploaded.
+   */
+  created?: Date | undefined;
+  /**
+   * The date when the media was last changed.
+   */
+  updated?: Date | undefined;
+  /**
+   * Specifies the length (in seconds) for audio and video files. Specifies number of pages in the document. Omitted for other types of media.
+   */
+  duration?: number | null | undefined;
+  /**
+   * DEPRECATED: If you want to programmatically embed videos, follow the construct an embed code guide.
+   *
+   * @remarks
+   *
+   * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+   */
+  embedCode?: string | undefined;
+  /**
+   * A unique alphanumeric identifier for this media.
+   */
+  hashedId?: string | undefined;
+  /**
+   * A description for the media which usually appears near the top of the sidebar on the media's page.
+   */
+  description?: string | undefined;
+  /**
+   * A floating point value between 0 and 1 that indicates the progress of the processing for this file.
+   */
+  progress?: number | undefined;
+  /**
+   * Post upload processing status. - `queued`: the file is waiting in the queue to be processed. - `processing`: the file is actively being processed. - `ready`: the file has been fully processed and is ready for embedding and viewing. - `failed`: the file was unable to be processed (usually a format or size error).
+   *
+   * @remarks
+   */
+  status?: DeleteMediasMediaHashedIdStatus | undefined;
+  /**
+   * The title of the section in which the media appears. This attribute is omitted if the media is not in a section (default).
+   */
+  section?: string | null | undefined;
+  thumbnail?: DeleteMediasMediaHashedIdThumbnail | undefined;
 };
 
 /** @internal */
@@ -67,5 +179,219 @@ export function deleteMediasMediaHashedIdRequestFromJSON(
     jsonString,
     (x) => DeleteMediasMediaHashedIdRequest$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'DeleteMediasMediaHashedIdRequest' from JSON`,
+  );
+}
+
+/** @internal */
+export const DeleteMediasMediaHashedIdType$inboundSchema: z.ZodNativeEnum<
+  typeof DeleteMediasMediaHashedIdType
+> = z.nativeEnum(DeleteMediasMediaHashedIdType);
+
+/** @internal */
+export const DeleteMediasMediaHashedIdType$outboundSchema: z.ZodNativeEnum<
+  typeof DeleteMediasMediaHashedIdType
+> = DeleteMediasMediaHashedIdType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace DeleteMediasMediaHashedIdType$ {
+  /** @deprecated use `DeleteMediasMediaHashedIdType$inboundSchema` instead. */
+  export const inboundSchema = DeleteMediasMediaHashedIdType$inboundSchema;
+  /** @deprecated use `DeleteMediasMediaHashedIdType$outboundSchema` instead. */
+  export const outboundSchema = DeleteMediasMediaHashedIdType$outboundSchema;
+}
+
+/** @internal */
+export const DeleteMediasMediaHashedIdStatus$inboundSchema: z.ZodNativeEnum<
+  typeof DeleteMediasMediaHashedIdStatus
+> = z.nativeEnum(DeleteMediasMediaHashedIdStatus);
+
+/** @internal */
+export const DeleteMediasMediaHashedIdStatus$outboundSchema: z.ZodNativeEnum<
+  typeof DeleteMediasMediaHashedIdStatus
+> = DeleteMediasMediaHashedIdStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace DeleteMediasMediaHashedIdStatus$ {
+  /** @deprecated use `DeleteMediasMediaHashedIdStatus$inboundSchema` instead. */
+  export const inboundSchema = DeleteMediasMediaHashedIdStatus$inboundSchema;
+  /** @deprecated use `DeleteMediasMediaHashedIdStatus$outboundSchema` instead. */
+  export const outboundSchema = DeleteMediasMediaHashedIdStatus$outboundSchema;
+}
+
+/** @internal */
+export const DeleteMediasMediaHashedIdThumbnail$inboundSchema: z.ZodType<
+  DeleteMediasMediaHashedIdThumbnail,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  url: z.string().optional(),
+  width: z.number().int().optional(),
+  height: z.number().int().optional(),
+});
+
+/** @internal */
+export type DeleteMediasMediaHashedIdThumbnail$Outbound = {
+  url?: string | undefined;
+  width?: number | undefined;
+  height?: number | undefined;
+};
+
+/** @internal */
+export const DeleteMediasMediaHashedIdThumbnail$outboundSchema: z.ZodType<
+  DeleteMediasMediaHashedIdThumbnail$Outbound,
+  z.ZodTypeDef,
+  DeleteMediasMediaHashedIdThumbnail
+> = z.object({
+  url: z.string().optional(),
+  width: z.number().int().optional(),
+  height: z.number().int().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace DeleteMediasMediaHashedIdThumbnail$ {
+  /** @deprecated use `DeleteMediasMediaHashedIdThumbnail$inboundSchema` instead. */
+  export const inboundSchema = DeleteMediasMediaHashedIdThumbnail$inboundSchema;
+  /** @deprecated use `DeleteMediasMediaHashedIdThumbnail$outboundSchema` instead. */
+  export const outboundSchema =
+    DeleteMediasMediaHashedIdThumbnail$outboundSchema;
+  /** @deprecated use `DeleteMediasMediaHashedIdThumbnail$Outbound` instead. */
+  export type Outbound = DeleteMediasMediaHashedIdThumbnail$Outbound;
+}
+
+export function deleteMediasMediaHashedIdThumbnailToJSON(
+  deleteMediasMediaHashedIdThumbnail: DeleteMediasMediaHashedIdThumbnail,
+): string {
+  return JSON.stringify(
+    DeleteMediasMediaHashedIdThumbnail$outboundSchema.parse(
+      deleteMediasMediaHashedIdThumbnail,
+    ),
+  );
+}
+
+export function deleteMediasMediaHashedIdThumbnailFromJSON(
+  jsonString: string,
+): SafeParseResult<DeleteMediasMediaHashedIdThumbnail, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      DeleteMediasMediaHashedIdThumbnail$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'DeleteMediasMediaHashedIdThumbnail' from JSON`,
+  );
+}
+
+/** @internal */
+export const DeleteMediasMediaHashedIdResponse$inboundSchema: z.ZodType<
+  DeleteMediasMediaHashedIdResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: z.number().int().optional(),
+  name: z.string().optional(),
+  type: DeleteMediasMediaHashedIdType$inboundSchema.optional(),
+  archived: z.boolean().optional(),
+  created: z.string().datetime({ offset: true }).transform(v => new Date(v))
+    .optional(),
+  updated: z.string().datetime({ offset: true }).transform(v => new Date(v))
+    .optional(),
+  duration: z.nullable(z.number()).optional(),
+  embedCode: z.string().optional(),
+  hashed_id: z.string().optional(),
+  description: z.string().optional(),
+  progress: z.number().optional(),
+  status: DeleteMediasMediaHashedIdStatus$inboundSchema.optional(),
+  section: z.nullable(z.string()).optional(),
+  thumbnail: z.lazy(() => DeleteMediasMediaHashedIdThumbnail$inboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "hashed_id": "hashedId",
+  });
+});
+
+/** @internal */
+export type DeleteMediasMediaHashedIdResponse$Outbound = {
+  id?: number | undefined;
+  name?: string | undefined;
+  type?: string | undefined;
+  archived?: boolean | undefined;
+  created?: string | undefined;
+  updated?: string | undefined;
+  duration?: number | null | undefined;
+  embedCode?: string | undefined;
+  hashed_id?: string | undefined;
+  description?: string | undefined;
+  progress?: number | undefined;
+  status?: string | undefined;
+  section?: string | null | undefined;
+  thumbnail?: DeleteMediasMediaHashedIdThumbnail$Outbound | undefined;
+};
+
+/** @internal */
+export const DeleteMediasMediaHashedIdResponse$outboundSchema: z.ZodType<
+  DeleteMediasMediaHashedIdResponse$Outbound,
+  z.ZodTypeDef,
+  DeleteMediasMediaHashedIdResponse
+> = z.object({
+  id: z.number().int().optional(),
+  name: z.string().optional(),
+  type: DeleteMediasMediaHashedIdType$outboundSchema.optional(),
+  archived: z.boolean().optional(),
+  created: z.date().transform(v => v.toISOString()).optional(),
+  updated: z.date().transform(v => v.toISOString()).optional(),
+  duration: z.nullable(z.number()).optional(),
+  embedCode: z.string().optional(),
+  hashedId: z.string().optional(),
+  description: z.string().optional(),
+  progress: z.number().optional(),
+  status: DeleteMediasMediaHashedIdStatus$outboundSchema.optional(),
+  section: z.nullable(z.string()).optional(),
+  thumbnail: z.lazy(() => DeleteMediasMediaHashedIdThumbnail$outboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    hashedId: "hashed_id",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace DeleteMediasMediaHashedIdResponse$ {
+  /** @deprecated use `DeleteMediasMediaHashedIdResponse$inboundSchema` instead. */
+  export const inboundSchema = DeleteMediasMediaHashedIdResponse$inboundSchema;
+  /** @deprecated use `DeleteMediasMediaHashedIdResponse$outboundSchema` instead. */
+  export const outboundSchema =
+    DeleteMediasMediaHashedIdResponse$outboundSchema;
+  /** @deprecated use `DeleteMediasMediaHashedIdResponse$Outbound` instead. */
+  export type Outbound = DeleteMediasMediaHashedIdResponse$Outbound;
+}
+
+export function deleteMediasMediaHashedIdResponseToJSON(
+  deleteMediasMediaHashedIdResponse: DeleteMediasMediaHashedIdResponse,
+): string {
+  return JSON.stringify(
+    DeleteMediasMediaHashedIdResponse$outboundSchema.parse(
+      deleteMediasMediaHashedIdResponse,
+    ),
+  );
+}
+
+export function deleteMediasMediaHashedIdResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<DeleteMediasMediaHashedIdResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => DeleteMediasMediaHashedIdResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'DeleteMediasMediaHashedIdResponse' from JSON`,
   );
 }

@@ -80,15 +80,15 @@ run();
 
 ### Response
 
-**Promise\<[models.LiveStreamEvent[]](../../models/.md)\>**
+**Promise\<[operations.GetLiveStreamEventsResponse[]](../../models/.md)\>**
 
 ### Errors
 
-| Error Type                    | Status Code                   | Content Type                  |
-| ----------------------------- | ----------------------------- | ----------------------------- |
-| errors.FourHundredAndOneError | 401                           | application/json              |
-| errors.FiveHundredError       | 500                           | application/json              |
-| errors.WistiaDefaultError     | 4XX, 5XX                      | \*/\*                         |
+| Error Type                                    | Status Code                                   | Content Type                                  |
+| --------------------------------------------- | --------------------------------------------- | --------------------------------------------- |
+| errors.GetLiveStreamEventsUnauthorizedError   | 401                                           | application/json                              |
+| errors.GetLiveStreamEventsInternalServerError | 500                                           | application/json                              |
+| errors.WistiaDefaultError                     | 4XX, 5XX                                      | \*/\*                                         |
 
 ## create
 
@@ -166,23 +166,23 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [models.CreateLiveStreamEvent](../../models/createlivestreamevent.md)                                                                                                          | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.PostLiveStreamEventsRequest](../../models/operations/postlivestreameventsrequest.md)                                                                               | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[models.LiveStreamEvent](../../models/livestreamevent.md)\>**
+**Promise\<[operations.PostLiveStreamEventsResponse](../../models/operations/postlivestreameventsresponse.md)\>**
 
 ### Errors
 
 | Error Type                                          | Status Code                                         | Content Type                                        |
 | --------------------------------------------------- | --------------------------------------------------- | --------------------------------------------------- |
-| errors.FourHundredAndOneError                       | 401                                                 | application/json                                    |
+| errors.PostLiveStreamEventsUnauthorizedError        | 401                                                 | application/json                                    |
 | errors.PostLiveStreamEventsForbiddenError           | 403                                                 | application/json                                    |
 | errors.PostLiveStreamEventsUnprocessableEntityError | 422                                                 | application/json                                    |
-| errors.InternalServerError                          | 500                                                 | application/json                                    |
+| errors.PostLiveStreamEventsInternalServerError      | 500                                                 | application/json                                    |
 | errors.WistiaDefaultError                           | 4XX, 5XX                                            | \*/\*                                               |
 
 ## get
@@ -258,15 +258,15 @@ run();
 
 ### Response
 
-**Promise\<[models.LiveStreamEvent](../../models/livestreamevent.md)\>**
+**Promise\<[operations.GetLiveStreamEventsIdResponse](../../models/operations/getlivestreameventsidresponse.md)\>**
 
 ### Errors
 
-| Error Type                    | Status Code                   | Content Type                  |
-| ----------------------------- | ----------------------------- | ----------------------------- |
-| errors.FourHundredAndOneError | 401                           | application/json              |
-| errors.FiveHundredError       | 500                           | application/json              |
-| errors.WistiaDefaultError     | 4XX, 5XX                      | \*/\*                         |
+| Error Type                                      | Status Code                                     | Content Type                                    |
+| ----------------------------------------------- | ----------------------------------------------- | ----------------------------------------------- |
+| errors.GetLiveStreamEventsIdUnauthorizedError   | 401                                             | application/json                                |
+| errors.GetLiveStreamEventsIdInternalServerError | 500                                             | application/json                                |
+| errors.WistiaDefaultError                       | 4XX, 5XX                                        | \*/\*                                           |
 
 ## update
 
@@ -291,7 +291,7 @@ const wistia = new Wistia({
 async function run() {
   const result = await wistia.liveStreamEvents.update({
     id: "<id>",
-    updateLiveStreamEvent: {
+    requestBody: {
       liveStreamEvent: {
         title: "Updated Event Title",
         description: "Updated event description",
@@ -324,7 +324,7 @@ const wistia = new WistiaCore({
 async function run() {
   const res = await liveStreamEventsUpdate(wistia, {
     id: "<id>",
-    updateLiveStreamEvent: {
+    requestBody: {
       liveStreamEvent: {
         title: "Updated Event Title",
         description: "Updated event description",
@@ -355,15 +355,15 @@ run();
 
 ### Response
 
-**Promise\<[models.LiveStreamEvent](../../models/livestreamevent.md)\>**
+**Promise\<[operations.PutLiveStreamEventsIdResponse](../../models/operations/putlivestreameventsidresponse.md)\>**
 
 ### Errors
 
 | Error Type                                           | Status Code                                          | Content Type                                         |
 | ---------------------------------------------------- | ---------------------------------------------------- | ---------------------------------------------------- |
-| errors.FourHundredAndOneError                        | 401                                                  | application/json                                     |
+| errors.PutLiveStreamEventsIdUnauthorizedError        | 401                                                  | application/json                                     |
 | errors.PutLiveStreamEventsIdUnprocessableEntityError | 422                                                  | application/json                                     |
-| errors.FiveHundredError                              | 500                                                  | application/json                                     |
+| errors.PutLiveStreamEventsIdInternalServerError      | 500                                                  | application/json                                     |
 | errors.WistiaDefaultError                            | 4XX, 5XX                                             | \*/\*                                                |
 
 ## delete
@@ -437,12 +437,12 @@ run();
 
 ### Response
 
-**Promise\<[models.LiveStreamEvent](../../models/livestreamevent.md)\>**
+**Promise\<[operations.DeleteLiveStreamEventsIdResponse](../../models/operations/deletelivestreameventsidresponse.md)\>**
 
 ### Errors
 
-| Error Type                    | Status Code                   | Content Type                  |
-| ----------------------------- | ----------------------------- | ----------------------------- |
-| errors.FourHundredAndOneError | 401                           | application/json              |
-| errors.FiveHundredError       | 500                           | application/json              |
-| errors.WistiaDefaultError     | 4XX, 5XX                      | \*/\*                         |
+| Error Type                                         | Status Code                                        | Content Type                                       |
+| -------------------------------------------------- | -------------------------------------------------- | -------------------------------------------------- |
+| errors.DeleteLiveStreamEventsIdUnauthorizedError   | 401                                                | application/json                                   |
+| errors.DeleteLiveStreamEventsIdInternalServerError | 500                                                | application/json                                   |
+| errors.WistiaDefaultError                          | 4XX, 5XX                                           | \*/\*                                              |

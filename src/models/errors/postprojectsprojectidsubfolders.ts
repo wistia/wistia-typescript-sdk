@@ -6,6 +6,39 @@ import * as z from "zod";
 import { WistiaError } from "./wistiaerror.js";
 
 /**
+ * Internal server error
+ */
+export type PostProjectsProjectIdSubfoldersInternalServerErrorData = {
+  error?: string | undefined;
+};
+
+/**
+ * Internal server error
+ */
+export class PostProjectsProjectIdSubfoldersInternalServerError
+  extends WistiaError
+{
+  error?: string | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: PostProjectsProjectIdSubfoldersInternalServerErrorData;
+
+  constructor(
+    err: PostProjectsProjectIdSubfoldersInternalServerErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+
+    this.name = "PostProjectsProjectIdSubfoldersInternalServerError";
+  }
+}
+
+/**
  * Project not found
  */
 export type PostProjectsProjectIdSubfoldersNotFoundErrorData = {
@@ -34,6 +67,92 @@ export class PostProjectsProjectIdSubfoldersNotFoundError extends WistiaError {
 
     this.name = "PostProjectsProjectIdSubfoldersNotFoundError";
   }
+}
+
+/**
+ * Unauthorized, invalid or missing token
+ */
+export type PostProjectsProjectIdSubfoldersUnauthorizedErrorData = {
+  error?: string | undefined;
+};
+
+/**
+ * Unauthorized, invalid or missing token
+ */
+export class PostProjectsProjectIdSubfoldersUnauthorizedError
+  extends WistiaError
+{
+  error?: string | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: PostProjectsProjectIdSubfoldersUnauthorizedErrorData;
+
+  constructor(
+    err: PostProjectsProjectIdSubfoldersUnauthorizedErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+
+    this.name = "PostProjectsProjectIdSubfoldersUnauthorizedError";
+  }
+}
+
+/** @internal */
+export const PostProjectsProjectIdSubfoldersInternalServerError$inboundSchema:
+  z.ZodType<
+    PostProjectsProjectIdSubfoldersInternalServerError,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    error: z.string().optional(),
+    request$: z.instanceof(Request),
+    response$: z.instanceof(Response),
+    body$: z.string(),
+  })
+    .transform((v) => {
+      return new PostProjectsProjectIdSubfoldersInternalServerError(v, {
+        request: v.request$,
+        response: v.response$,
+        body: v.body$,
+      });
+    });
+
+/** @internal */
+export type PostProjectsProjectIdSubfoldersInternalServerError$Outbound = {
+  error?: string | undefined;
+};
+
+/** @internal */
+export const PostProjectsProjectIdSubfoldersInternalServerError$outboundSchema:
+  z.ZodType<
+    PostProjectsProjectIdSubfoldersInternalServerError$Outbound,
+    z.ZodTypeDef,
+    PostProjectsProjectIdSubfoldersInternalServerError
+  > = z.instanceof(PostProjectsProjectIdSubfoldersInternalServerError)
+    .transform(v => v.data$)
+    .pipe(z.object({
+      error: z.string().optional(),
+    }));
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostProjectsProjectIdSubfoldersInternalServerError$ {
+  /** @deprecated use `PostProjectsProjectIdSubfoldersInternalServerError$inboundSchema` instead. */
+  export const inboundSchema =
+    PostProjectsProjectIdSubfoldersInternalServerError$inboundSchema;
+  /** @deprecated use `PostProjectsProjectIdSubfoldersInternalServerError$outboundSchema` instead. */
+  export const outboundSchema =
+    PostProjectsProjectIdSubfoldersInternalServerError$outboundSchema;
+  /** @deprecated use `PostProjectsProjectIdSubfoldersInternalServerError$Outbound` instead. */
+  export type Outbound =
+    PostProjectsProjectIdSubfoldersInternalServerError$Outbound;
 }
 
 /** @internal */
@@ -86,4 +205,57 @@ export namespace PostProjectsProjectIdSubfoldersNotFoundError$ {
     PostProjectsProjectIdSubfoldersNotFoundError$outboundSchema;
   /** @deprecated use `PostProjectsProjectIdSubfoldersNotFoundError$Outbound` instead. */
   export type Outbound = PostProjectsProjectIdSubfoldersNotFoundError$Outbound;
+}
+
+/** @internal */
+export const PostProjectsProjectIdSubfoldersUnauthorizedError$inboundSchema:
+  z.ZodType<
+    PostProjectsProjectIdSubfoldersUnauthorizedError,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    error: z.string().optional(),
+    request$: z.instanceof(Request),
+    response$: z.instanceof(Response),
+    body$: z.string(),
+  })
+    .transform((v) => {
+      return new PostProjectsProjectIdSubfoldersUnauthorizedError(v, {
+        request: v.request$,
+        response: v.response$,
+        body: v.body$,
+      });
+    });
+
+/** @internal */
+export type PostProjectsProjectIdSubfoldersUnauthorizedError$Outbound = {
+  error?: string | undefined;
+};
+
+/** @internal */
+export const PostProjectsProjectIdSubfoldersUnauthorizedError$outboundSchema:
+  z.ZodType<
+    PostProjectsProjectIdSubfoldersUnauthorizedError$Outbound,
+    z.ZodTypeDef,
+    PostProjectsProjectIdSubfoldersUnauthorizedError
+  > = z.instanceof(PostProjectsProjectIdSubfoldersUnauthorizedError)
+    .transform(v => v.data$)
+    .pipe(z.object({
+      error: z.string().optional(),
+    }));
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostProjectsProjectIdSubfoldersUnauthorizedError$ {
+  /** @deprecated use `PostProjectsProjectIdSubfoldersUnauthorizedError$inboundSchema` instead. */
+  export const inboundSchema =
+    PostProjectsProjectIdSubfoldersUnauthorizedError$inboundSchema;
+  /** @deprecated use `PostProjectsProjectIdSubfoldersUnauthorizedError$outboundSchema` instead. */
+  export const outboundSchema =
+    PostProjectsProjectIdSubfoldersUnauthorizedError$outboundSchema;
+  /** @deprecated use `PostProjectsProjectIdSubfoldersUnauthorizedError$Outbound` instead. */
+  export type Outbound =
+    PostProjectsProjectIdSubfoldersUnauthorizedError$Outbound;
 }

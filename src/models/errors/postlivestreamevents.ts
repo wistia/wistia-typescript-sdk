@@ -8,21 +8,21 @@ import { WistiaError } from "./wistiaerror.js";
 /**
  * Internal server error during event creation
  */
-export type InternalServerErrorData = {
+export type PostLiveStreamEventsInternalServerErrorData = {
   errors?: Array<string> | undefined;
 };
 
 /**
  * Internal server error during event creation
  */
-export class InternalServerError extends WistiaError {
+export class PostLiveStreamEventsInternalServerError extends WistiaError {
   errors?: Array<string> | undefined;
 
   /** The original data that was passed to this error instance. */
-  data$: InternalServerErrorData;
+  data$: PostLiveStreamEventsInternalServerErrorData;
 
   constructor(
-    err: InternalServerErrorData,
+    err: PostLiveStreamEventsInternalServerErrorData,
     httpMeta: { response: Response; request: Request; body: string },
   ) {
     const message = "message" in err && typeof err.message === "string"
@@ -32,7 +32,7 @@ export class InternalServerError extends WistiaError {
     this.data$ = err;
     if (err.errors != null) this.errors = err.errors;
 
-    this.name = "InternalServerError";
+    this.name = "PostLiveStreamEventsInternalServerError";
   }
 }
 
@@ -98,9 +98,40 @@ export class PostLiveStreamEventsForbiddenError extends WistiaError {
   }
 }
 
+/**
+ * Unauthorized, invalid or missing token
+ */
+export type PostLiveStreamEventsUnauthorizedErrorData = {
+  error?: string | undefined;
+};
+
+/**
+ * Unauthorized, invalid or missing token
+ */
+export class PostLiveStreamEventsUnauthorizedError extends WistiaError {
+  error?: string | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: PostLiveStreamEventsUnauthorizedErrorData;
+
+  constructor(
+    err: PostLiveStreamEventsUnauthorizedErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+
+    this.name = "PostLiveStreamEventsUnauthorizedError";
+  }
+}
+
 /** @internal */
-export const InternalServerError$inboundSchema: z.ZodType<
-  InternalServerError,
+export const PostLiveStreamEventsInternalServerError$inboundSchema: z.ZodType<
+  PostLiveStreamEventsInternalServerError,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -110,7 +141,7 @@ export const InternalServerError$inboundSchema: z.ZodType<
   body$: z.string(),
 })
   .transform((v) => {
-    return new InternalServerError(v, {
+    return new PostLiveStreamEventsInternalServerError(v, {
       request: v.request$,
       response: v.response$,
       body: v.body$,
@@ -118,16 +149,16 @@ export const InternalServerError$inboundSchema: z.ZodType<
   });
 
 /** @internal */
-export type InternalServerError$Outbound = {
+export type PostLiveStreamEventsInternalServerError$Outbound = {
   errors?: Array<string> | undefined;
 };
 
 /** @internal */
-export const InternalServerError$outboundSchema: z.ZodType<
-  InternalServerError$Outbound,
+export const PostLiveStreamEventsInternalServerError$outboundSchema: z.ZodType<
+  PostLiveStreamEventsInternalServerError$Outbound,
   z.ZodTypeDef,
-  InternalServerError
-> = z.instanceof(InternalServerError)
+  PostLiveStreamEventsInternalServerError
+> = z.instanceof(PostLiveStreamEventsInternalServerError)
   .transform(v => v.data$)
   .pipe(z.object({
     errors: z.array(z.string()).optional(),
@@ -137,13 +168,15 @@ export const InternalServerError$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace InternalServerError$ {
-  /** @deprecated use `InternalServerError$inboundSchema` instead. */
-  export const inboundSchema = InternalServerError$inboundSchema;
-  /** @deprecated use `InternalServerError$outboundSchema` instead. */
-  export const outboundSchema = InternalServerError$outboundSchema;
-  /** @deprecated use `InternalServerError$Outbound` instead. */
-  export type Outbound = InternalServerError$Outbound;
+export namespace PostLiveStreamEventsInternalServerError$ {
+  /** @deprecated use `PostLiveStreamEventsInternalServerError$inboundSchema` instead. */
+  export const inboundSchema =
+    PostLiveStreamEventsInternalServerError$inboundSchema;
+  /** @deprecated use `PostLiveStreamEventsInternalServerError$outboundSchema` instead. */
+  export const outboundSchema =
+    PostLiveStreamEventsInternalServerError$outboundSchema;
+  /** @deprecated use `PostLiveStreamEventsInternalServerError$Outbound` instead. */
+  export type Outbound = PostLiveStreamEventsInternalServerError$Outbound;
 }
 
 /** @internal */
@@ -245,4 +278,54 @@ export namespace PostLiveStreamEventsForbiddenError$ {
     PostLiveStreamEventsForbiddenError$outboundSchema;
   /** @deprecated use `PostLiveStreamEventsForbiddenError$Outbound` instead. */
   export type Outbound = PostLiveStreamEventsForbiddenError$Outbound;
+}
+
+/** @internal */
+export const PostLiveStreamEventsUnauthorizedError$inboundSchema: z.ZodType<
+  PostLiveStreamEventsUnauthorizedError,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  error: z.string().optional(),
+  request$: z.instanceof(Request),
+  response$: z.instanceof(Response),
+  body$: z.string(),
+})
+  .transform((v) => {
+    return new PostLiveStreamEventsUnauthorizedError(v, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
+  });
+
+/** @internal */
+export type PostLiveStreamEventsUnauthorizedError$Outbound = {
+  error?: string | undefined;
+};
+
+/** @internal */
+export const PostLiveStreamEventsUnauthorizedError$outboundSchema: z.ZodType<
+  PostLiveStreamEventsUnauthorizedError$Outbound,
+  z.ZodTypeDef,
+  PostLiveStreamEventsUnauthorizedError
+> = z.instanceof(PostLiveStreamEventsUnauthorizedError)
+  .transform(v => v.data$)
+  .pipe(z.object({
+    error: z.string().optional(),
+  }));
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostLiveStreamEventsUnauthorizedError$ {
+  /** @deprecated use `PostLiveStreamEventsUnauthorizedError$inboundSchema` instead. */
+  export const inboundSchema =
+    PostLiveStreamEventsUnauthorizedError$inboundSchema;
+  /** @deprecated use `PostLiveStreamEventsUnauthorizedError$outboundSchema` instead. */
+  export const outboundSchema =
+    PostLiveStreamEventsUnauthorizedError$outboundSchema;
+  /** @deprecated use `PostLiveStreamEventsUnauthorizedError$Outbound` instead. */
+  export type Outbound = PostLiveStreamEventsUnauthorizedError$Outbound;
 }

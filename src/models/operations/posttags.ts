@@ -11,6 +11,28 @@ export type PostTagsRequest = {
   name: string;
 };
 
+/**
+ * Tag created successfully
+ */
+export type PostTagsResponse = {
+  /**
+   * The tag’s display name.
+   */
+  name?: string | undefined;
+  /**
+   * The number of different medias that have been associated with this tag.
+   */
+  taggingsCount?: number | undefined;
+  /**
+   * The date that the tag was originally created.
+   */
+  created?: Date | undefined;
+  /**
+   * The date that the tag was last updated.
+   */
+  updated?: Date | undefined;
+};
+
 /** @internal */
 export const PostTagsRequest$inboundSchema: z.ZodType<
   PostTagsRequest,
@@ -60,5 +82,70 @@ export function postTagsRequestFromJSON(
     jsonString,
     (x) => PostTagsRequest$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'PostTagsRequest' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostTagsResponse$inboundSchema: z.ZodType<
+  PostTagsResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string().optional(),
+  taggingsCount: z.number().int().optional(),
+  created: z.string().datetime({ offset: true }).transform(v => new Date(v))
+    .optional(),
+  updated: z.string().datetime({ offset: true }).transform(v => new Date(v))
+    .optional(),
+});
+
+/** @internal */
+export type PostTagsResponse$Outbound = {
+  name?: string | undefined;
+  taggingsCount?: number | undefined;
+  created?: string | undefined;
+  updated?: string | undefined;
+};
+
+/** @internal */
+export const PostTagsResponse$outboundSchema: z.ZodType<
+  PostTagsResponse$Outbound,
+  z.ZodTypeDef,
+  PostTagsResponse
+> = z.object({
+  name: z.string().optional(),
+  taggingsCount: z.number().int().optional(),
+  created: z.date().transform(v => v.toISOString()).optional(),
+  updated: z.date().transform(v => v.toISOString()).optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostTagsResponse$ {
+  /** @deprecated use `PostTagsResponse$inboundSchema` instead. */
+  export const inboundSchema = PostTagsResponse$inboundSchema;
+  /** @deprecated use `PostTagsResponse$outboundSchema` instead. */
+  export const outboundSchema = PostTagsResponse$outboundSchema;
+  /** @deprecated use `PostTagsResponse$Outbound` instead. */
+  export type Outbound = PostTagsResponse$Outbound;
+}
+
+export function postTagsResponseToJSON(
+  postTagsResponse: PostTagsResponse,
+): string {
+  return JSON.stringify(
+    PostTagsResponse$outboundSchema.parse(postTagsResponse),
+  );
+}
+
+export function postTagsResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<PostTagsResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostTagsResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostTagsResponse' from JSON`,
   );
 }

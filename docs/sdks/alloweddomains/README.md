@@ -77,15 +77,15 @@ run();
 
 ### Response
 
-**Promise\<[models.AllowedDomain[]](../../models/.md)\>**
+**Promise\<[operations.GetAllowedDomainsResponse[]](../../models/.md)\>**
 
 ### Errors
 
-| Error Type                    | Status Code                   | Content Type                  |
-| ----------------------------- | ----------------------------- | ----------------------------- |
-| errors.FourHundredAndOneError | 401                           | application/json              |
-| errors.FiveHundredError       | 500                           | application/json              |
-| errors.WistiaDefaultError     | 4XX, 5XX                      | \*/\*                         |
+| Error Type                                  | Status Code                                 | Content Type                                |
+| ------------------------------------------- | ------------------------------------------- | ------------------------------------------- |
+| errors.GetAllowedDomainsUnauthorizedError   | 401                                         | application/json                            |
+| errors.GetAllowedDomainsInternalServerError | 500                                         | application/json                            |
+| errors.WistiaDefaultError                   | 4XX, 5XX                                    | \*/\*                                       |
 
 ## create
 
@@ -158,16 +158,16 @@ run();
 
 ### Response
 
-**Promise\<[models.AllowedDomain](../../models/alloweddomain.md)\>**
+**Promise\<[operations.PostAllowedDomainsResponse](../../models/operations/postalloweddomainsresponse.md)\>**
 
 ### Errors
 
-| Error Type                               | Status Code                              | Content Type                             |
-| ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
-| errors.PostAllowedDomainsBadRequestError | 400                                      | application/json                         |
-| errors.FourHundredAndOneError            | 401                                      | application/json                         |
-| errors.FiveHundredError                  | 500                                      | application/json                         |
-| errors.WistiaDefaultError                | 4XX, 5XX                                 | \*/\*                                    |
+| Error Type                                   | Status Code                                  | Content Type                                 |
+| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
+| errors.PostAllowedDomainsBadRequestError     | 400                                          | application/json                             |
+| errors.PostAllowedDomainsUnauthorizedError   | 401                                          | application/json                             |
+| errors.PostAllowedDomainsInternalServerError | 500                                          | application/json                             |
+| errors.WistiaDefaultError                    | 4XX, 5XX                                     | \*/\*                                        |
 
 ## get
 
@@ -240,16 +240,16 @@ run();
 
 ### Response
 
-**Promise\<[models.AllowedDomain](../../models/alloweddomain.md)\>**
+**Promise\<[operations.GetAllowedDomainsDomainResponse](../../models/operations/getalloweddomainsdomainresponse.md)\>**
 
 ### Errors
 
-| Error Type                                  | Status Code                                 | Content Type                                |
-| ------------------------------------------- | ------------------------------------------- | ------------------------------------------- |
-| errors.FourHundredAndOneError               | 401                                         | application/json                            |
-| errors.GetAllowedDomainsDomainNotFoundError | 404                                         | application/json                            |
-| errors.FiveHundredError                     | 500                                         | application/json                            |
-| errors.WistiaDefaultError                   | 4XX, 5XX                                    | \*/\*                                       |
+| Error Type                                        | Status Code                                       | Content Type                                      |
+| ------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------- |
+| errors.GetAllowedDomainsDomainUnauthorizedError   | 401                                               | application/json                                  |
+| errors.GetAllowedDomainsDomainNotFoundError       | 404                                               | application/json                                  |
+| errors.GetAllowedDomainsDomainInternalServerError | 500                                               | application/json                                  |
+| errors.WistiaDefaultError                         | 4XX, 5XX                                          | \*/\*                                             |
 
 ## delete
 
@@ -322,13 +322,13 @@ run();
 
 ### Response
 
-**Promise\<[models.AllowedDomain](../../models/alloweddomain.md)\>**
+**Promise\<[operations.DeleteAllowedDomainsDomainResponse](../../models/operations/deletealloweddomainsdomainresponse.md)\>**
 
 ### Errors
 
-| Error Type                                     | Status Code                                    | Content Type                                   |
-| ---------------------------------------------- | ---------------------------------------------- | ---------------------------------------------- |
-| errors.FourHundredAndOneError                  | 401                                            | application/json                               |
-| errors.DeleteAllowedDomainsDomainNotFoundError | 404                                            | application/json                               |
-| errors.FiveHundredError                        | 500                                            | application/json                               |
-| errors.WistiaDefaultError                      | 4XX, 5XX                                       | \*/\*                                          |
+| Error Type                                           | Status Code                                          | Content Type                                         |
+| ---------------------------------------------------- | ---------------------------------------------------- | ---------------------------------------------------- |
+| errors.DeleteAllowedDomainsDomainUnauthorizedError   | 401                                                  | application/json                                     |
+| errors.DeleteAllowedDomainsDomainNotFoundError       | 404                                                  | application/json                                     |
+| errors.DeleteAllowedDomainsDomainInternalServerError | 500                                                  | application/json                                     |
+| errors.WistiaDefaultError                            | 4XX, 5XX                                             | \*/\*                                                |

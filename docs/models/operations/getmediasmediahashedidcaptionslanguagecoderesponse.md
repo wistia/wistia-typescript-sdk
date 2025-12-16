@@ -3,14 +3,15 @@
 
 ## Supported Types
 
-### `models.Caption`
+### `operations.GetMediasMediaHashedIdCaptionsLanguageCodeResponseBody`
 
 ```typescript
-const value: models.Caption = {
-  language: "<value>",
-  isDraft: true,
-  id: "<id>",
-};
+const value: operations.GetMediasMediaHashedIdCaptionsLanguageCodeResponseBody =
+  {
+    language: "<value>",
+    isDraft: true,
+    id: "<id>",
+  };
 ```
 
 ### `string`

@@ -2,19 +2,20 @@ speakeasyVersion: 1.630.0
 sources:
     Data API:
         sourceNamespace: data-api
-        sourceRevisionDigest: sha256:861ca0ba7ef1fca76956c6056ff38da0be8711e7f96752b321d4c946befdb075
-        sourceBlobDigest: sha256:62fbdc12bd54d79b550101bbd3acb4b406f71aba3c775ead062c74f6dbe7fde6
+        sourceRevisionDigest: sha256:641674a088e15133ac72b4fe64b4bac0512699bbf60dc09a4973b885fa96bae8
+        sourceBlobDigest: sha256:82330e30ae02c06b5a19a2a766b865545591f034e07d86096f6fb7f616672868
         tags:
             - latest
-            - 1.0.0
+            - speakeasy-sdk-regen-tdevries-change-location-to-modern-endpoint-1765894184
+            - 2025.11.0
 targets:
     wistia:
         source: Data API
         sourceNamespace: data-api
-        sourceRevisionDigest: sha256:861ca0ba7ef1fca76956c6056ff38da0be8711e7f96752b321d4c946befdb075
-        sourceBlobDigest: sha256:62fbdc12bd54d79b550101bbd3acb4b406f71aba3c775ead062c74f6dbe7fde6
+        sourceRevisionDigest: sha256:641674a088e15133ac72b4fe64b4bac0512699bbf60dc09a4973b885fa96bae8
+        sourceBlobDigest: sha256:82330e30ae02c06b5a19a2a766b865545591f034e07d86096f6fb7f616672868
         codeSamplesNamespace: data-api-typescript-code-samples
-        codeSamplesRevisionDigest: sha256:f22f00e587722fb4d30dc0523234bef39e3c85a084cf30c2bae58d1e91a7fd61
+        codeSamplesRevisionDigest: sha256:ca0698bd4f79978e7cc0a78daa8db092c19cf81346e13f9cc17aa808af519881
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
@@ -22,7 +23,7 @@ workflow:
         Data API:
             inputs:
                 - location: https://wistia.github.io/wistia/api/openapi-upload.yaml
-                - location: https://wistia.github.io/wistia/api/openapi.yaml
+                - location: https://wistia.github.io/wistia/api/openapi-latest.yaml
             overlays:
                 - location: .speakeasy/speakeasy-modifications-overlay.yaml
                 - location: .speakeasy/servers-overlay.yaml

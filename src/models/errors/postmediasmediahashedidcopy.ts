@@ -6,6 +6,39 @@ import * as z from "zod";
 import { WistiaError } from "./wistiaerror.js";
 
 /**
+ * Internal server error
+ */
+export type PostMediasMediaHashedIdCopyInternalServerErrorData = {
+  error?: string | undefined;
+};
+
+/**
+ * Internal server error
+ */
+export class PostMediasMediaHashedIdCopyInternalServerError
+  extends WistiaError
+{
+  error?: string | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: PostMediasMediaHashedIdCopyInternalServerErrorData;
+
+  constructor(
+    err: PostMediasMediaHashedIdCopyInternalServerErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+
+    this.name = "PostMediasMediaHashedIdCopyInternalServerError";
+  }
+}
+
+/**
  * Method not allowed, e.g. trying to copy archived media.
  */
 export type MethodNotAllowedErrorData = {
@@ -33,6 +66,68 @@ export class MethodNotAllowedError extends WistiaError {
     if (err.error != null) this.error = err.error;
 
     this.name = "MethodNotAllowedError";
+  }
+}
+
+/**
+ * Resource not found
+ */
+export type PostMediasMediaHashedIdCopyNotFoundErrorData = {
+  error?: string | undefined;
+};
+
+/**
+ * Resource not found
+ */
+export class PostMediasMediaHashedIdCopyNotFoundError extends WistiaError {
+  error?: string | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: PostMediasMediaHashedIdCopyNotFoundErrorData;
+
+  constructor(
+    err: PostMediasMediaHashedIdCopyNotFoundErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+
+    this.name = "PostMediasMediaHashedIdCopyNotFoundError";
+  }
+}
+
+/**
+ * Unauthorized, invalid or missing token
+ */
+export type PostMediasMediaHashedIdCopyUnauthorizedErrorData = {
+  error?: string | undefined;
+};
+
+/**
+ * Unauthorized, invalid or missing token
+ */
+export class PostMediasMediaHashedIdCopyUnauthorizedError extends WistiaError {
+  error?: string | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: PostMediasMediaHashedIdCopyUnauthorizedErrorData;
+
+  constructor(
+    err: PostMediasMediaHashedIdCopyUnauthorizedErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+
+    this.name = "PostMediasMediaHashedIdCopyUnauthorizedError";
   }
 }
 
@@ -65,6 +160,59 @@ export class PostMediasMediaHashedIdCopyBadRequestError extends WistiaError {
 
     this.name = "PostMediasMediaHashedIdCopyBadRequestError";
   }
+}
+
+/** @internal */
+export const PostMediasMediaHashedIdCopyInternalServerError$inboundSchema:
+  z.ZodType<
+    PostMediasMediaHashedIdCopyInternalServerError,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    error: z.string().optional(),
+    request$: z.instanceof(Request),
+    response$: z.instanceof(Response),
+    body$: z.string(),
+  })
+    .transform((v) => {
+      return new PostMediasMediaHashedIdCopyInternalServerError(v, {
+        request: v.request$,
+        response: v.response$,
+        body: v.body$,
+      });
+    });
+
+/** @internal */
+export type PostMediasMediaHashedIdCopyInternalServerError$Outbound = {
+  error?: string | undefined;
+};
+
+/** @internal */
+export const PostMediasMediaHashedIdCopyInternalServerError$outboundSchema:
+  z.ZodType<
+    PostMediasMediaHashedIdCopyInternalServerError$Outbound,
+    z.ZodTypeDef,
+    PostMediasMediaHashedIdCopyInternalServerError
+  > = z.instanceof(PostMediasMediaHashedIdCopyInternalServerError)
+    .transform(v => v.data$)
+    .pipe(z.object({
+      error: z.string().optional(),
+    }));
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostMediasMediaHashedIdCopyInternalServerError$ {
+  /** @deprecated use `PostMediasMediaHashedIdCopyInternalServerError$inboundSchema` instead. */
+  export const inboundSchema =
+    PostMediasMediaHashedIdCopyInternalServerError$inboundSchema;
+  /** @deprecated use `PostMediasMediaHashedIdCopyInternalServerError$outboundSchema` instead. */
+  export const outboundSchema =
+    PostMediasMediaHashedIdCopyInternalServerError$outboundSchema;
+  /** @deprecated use `PostMediasMediaHashedIdCopyInternalServerError$Outbound` instead. */
+  export type Outbound =
+    PostMediasMediaHashedIdCopyInternalServerError$Outbound;
 }
 
 /** @internal */
@@ -113,6 +261,108 @@ export namespace MethodNotAllowedError$ {
   export const outboundSchema = MethodNotAllowedError$outboundSchema;
   /** @deprecated use `MethodNotAllowedError$Outbound` instead. */
   export type Outbound = MethodNotAllowedError$Outbound;
+}
+
+/** @internal */
+export const PostMediasMediaHashedIdCopyNotFoundError$inboundSchema: z.ZodType<
+  PostMediasMediaHashedIdCopyNotFoundError,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  error: z.string().optional(),
+  request$: z.instanceof(Request),
+  response$: z.instanceof(Response),
+  body$: z.string(),
+})
+  .transform((v) => {
+    return new PostMediasMediaHashedIdCopyNotFoundError(v, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
+  });
+
+/** @internal */
+export type PostMediasMediaHashedIdCopyNotFoundError$Outbound = {
+  error?: string | undefined;
+};
+
+/** @internal */
+export const PostMediasMediaHashedIdCopyNotFoundError$outboundSchema: z.ZodType<
+  PostMediasMediaHashedIdCopyNotFoundError$Outbound,
+  z.ZodTypeDef,
+  PostMediasMediaHashedIdCopyNotFoundError
+> = z.instanceof(PostMediasMediaHashedIdCopyNotFoundError)
+  .transform(v => v.data$)
+  .pipe(z.object({
+    error: z.string().optional(),
+  }));
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostMediasMediaHashedIdCopyNotFoundError$ {
+  /** @deprecated use `PostMediasMediaHashedIdCopyNotFoundError$inboundSchema` instead. */
+  export const inboundSchema =
+    PostMediasMediaHashedIdCopyNotFoundError$inboundSchema;
+  /** @deprecated use `PostMediasMediaHashedIdCopyNotFoundError$outboundSchema` instead. */
+  export const outboundSchema =
+    PostMediasMediaHashedIdCopyNotFoundError$outboundSchema;
+  /** @deprecated use `PostMediasMediaHashedIdCopyNotFoundError$Outbound` instead. */
+  export type Outbound = PostMediasMediaHashedIdCopyNotFoundError$Outbound;
+}
+
+/** @internal */
+export const PostMediasMediaHashedIdCopyUnauthorizedError$inboundSchema:
+  z.ZodType<
+    PostMediasMediaHashedIdCopyUnauthorizedError,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    error: z.string().optional(),
+    request$: z.instanceof(Request),
+    response$: z.instanceof(Response),
+    body$: z.string(),
+  })
+    .transform((v) => {
+      return new PostMediasMediaHashedIdCopyUnauthorizedError(v, {
+        request: v.request$,
+        response: v.response$,
+        body: v.body$,
+      });
+    });
+
+/** @internal */
+export type PostMediasMediaHashedIdCopyUnauthorizedError$Outbound = {
+  error?: string | undefined;
+};
+
+/** @internal */
+export const PostMediasMediaHashedIdCopyUnauthorizedError$outboundSchema:
+  z.ZodType<
+    PostMediasMediaHashedIdCopyUnauthorizedError$Outbound,
+    z.ZodTypeDef,
+    PostMediasMediaHashedIdCopyUnauthorizedError
+  > = z.instanceof(PostMediasMediaHashedIdCopyUnauthorizedError)
+    .transform(v => v.data$)
+    .pipe(z.object({
+      error: z.string().optional(),
+    }));
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostMediasMediaHashedIdCopyUnauthorizedError$ {
+  /** @deprecated use `PostMediasMediaHashedIdCopyUnauthorizedError$inboundSchema` instead. */
+  export const inboundSchema =
+    PostMediasMediaHashedIdCopyUnauthorizedError$inboundSchema;
+  /** @deprecated use `PostMediasMediaHashedIdCopyUnauthorizedError$outboundSchema` instead. */
+  export const outboundSchema =
+    PostMediasMediaHashedIdCopyUnauthorizedError$outboundSchema;
+  /** @deprecated use `PostMediasMediaHashedIdCopyUnauthorizedError$Outbound` instead. */
+  export type Outbound = PostMediasMediaHashedIdCopyUnauthorizedError$Outbound;
 }
 
 /** @internal */

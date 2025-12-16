@@ -73,12 +73,12 @@ run();
 
 ### Response
 
-**Promise\<[models.Account](../../models/account.md)\>**
+**Promise\<[operations.GetAccountDetailsResponse](../../models/operations/getaccountdetailsresponse.md)\>**
 
 ### Errors
 
-| Error Type                    | Status Code                   | Content Type                  |
-| ----------------------------- | ----------------------------- | ----------------------------- |
-| errors.FourHundredAndOneError | 401                           | application/json              |
-| errors.FiveHundredError       | 500                           | application/json              |
-| errors.WistiaDefaultError     | 4XX, 5XX                      | \*/\*                         |
+| Error Type                                  | Status Code                                 | Content Type                                |
+| ------------------------------------------- | ------------------------------------------- | ------------------------------------------- |
+| errors.GetAccountDetailsUnauthorizedError   | 401                                         | application/json                            |
+| errors.GetAccountDetailsInternalServerError | 500                                         | application/json                            |
+| errors.WistiaDefaultError                   | 4XX, 5XX                                    | \*/\*                                       |

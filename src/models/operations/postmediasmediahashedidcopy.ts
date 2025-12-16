@@ -5,9 +5,9 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-import * as models from "../index.js";
 
 export type PostMediasMediaHashedIdCopyRequestBody = {
   /**
@@ -28,9 +28,135 @@ export type PostMediasMediaHashedIdCopyRequest = {
   requestBody?: PostMediasMediaHashedIdCopyRequestBody | undefined;
 };
 
+/**
+ * A string representing what type of media this is.
+ */
+export const PostMediasMediaHashedIdCopyType = {
+  Video: "Video",
+  Audio: "Audio",
+  Image: "Image",
+  PdfDocument: "PdfDocument",
+  MicrosoftOfficeDocument: "MicrosoftOfficeDocument",
+  Swf: "Swf",
+  UnknownType: "UnknownType",
+} as const;
+/**
+ * A string representing what type of media this is.
+ */
+export type PostMediasMediaHashedIdCopyType = ClosedEnum<
+  typeof PostMediasMediaHashedIdCopyType
+>;
+
+/**
+ * Post upload processing status. - `queued`: the file is waiting in the queue to be processed. - `processing`: the file is actively being processed. - `ready`: the file has been fully processed and is ready for embedding and viewing. - `failed`: the file was unable to be processed (usually a format or size error).
+ *
+ * @remarks
+ */
+export const PostMediasMediaHashedIdCopyStatus = {
+  Queued: "queued",
+  Processing: "processing",
+  Ready: "ready",
+  Failed: "failed",
+} as const;
+/**
+ * Post upload processing status. - `queued`: the file is waiting in the queue to be processed. - `processing`: the file is actively being processed. - `ready`: the file has been fully processed and is ready for embedding and viewing. - `failed`: the file was unable to be processed (usually a format or size error).
+ *
+ * @remarks
+ */
+export type PostMediasMediaHashedIdCopyStatus = ClosedEnum<
+  typeof PostMediasMediaHashedIdCopyStatus
+>;
+
+export type PostMediasMediaHashedIdCopyThumbnail = {
+  url?: string | undefined;
+  width?: number | undefined;
+  height?: number | undefined;
+};
+
+export type PostMediasMediaHashedIdCopyProject = {
+  /**
+   * A unique numeric identifier for the project within the system.
+   */
+  id?: number | undefined;
+  /**
+   * The project’s display name.
+   */
+  name?: string | undefined;
+  /**
+   * A private hashed id, uniquely identifying the project within the system.
+   */
+  hashedId?: string | undefined;
+};
+
+/**
+ * Successful creation of the media copy.
+ */
+export type PostMediasMediaHashedIdCopyResponseBody = {
+  /**
+   * A unique numeric identifier for the media within the system.
+   */
+  id?: number | undefined;
+  /**
+   * The display name of the media.
+   */
+  name?: string | undefined;
+  /**
+   * A string representing what type of media this is.
+   */
+  type?: PostMediasMediaHashedIdCopyType | undefined;
+  /**
+   * Whether or not the media is archived, either true or false.
+   */
+  archived?: boolean | undefined;
+  /**
+   * The date when the media was originally uploaded.
+   */
+  created?: Date | undefined;
+  /**
+   * The date when the media was last changed.
+   */
+  updated?: Date | undefined;
+  /**
+   * Specifies the length (in seconds) for audio and video files. Specifies number of pages in the document. Omitted for other types of media.
+   */
+  duration?: number | null | undefined;
+  /**
+   * DEPRECATED: If you want to programmatically embed videos, follow the construct an embed code guide.
+   *
+   * @remarks
+   *
+   * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+   */
+  embedCode?: string | undefined;
+  /**
+   * A unique alphanumeric identifier for this media.
+   */
+  hashedId?: string | undefined;
+  /**
+   * A description for the media which usually appears near the top of the sidebar on the media's page.
+   */
+  description?: string | undefined;
+  /**
+   * A floating point value between 0 and 1 that indicates the progress of the processing for this file.
+   */
+  progress?: number | undefined;
+  /**
+   * Post upload processing status. - `queued`: the file is waiting in the queue to be processed. - `processing`: the file is actively being processed. - `ready`: the file has been fully processed and is ready for embedding and viewing. - `failed`: the file was unable to be processed (usually a format or size error).
+   *
+   * @remarks
+   */
+  status?: PostMediasMediaHashedIdCopyStatus | undefined;
+  /**
+   * The title of the section in which the media appears. This attribute is omitted if the media is not in a section (default).
+   */
+  section?: string | null | undefined;
+  thumbnail?: PostMediasMediaHashedIdCopyThumbnail | undefined;
+  project?: PostMediasMediaHashedIdCopyProject | null | undefined;
+};
+
 export type PostMediasMediaHashedIdCopyResponse = {
   headers: { [k: string]: Array<string> };
-  result: models.MediaCopy;
+  result: PostMediasMediaHashedIdCopyResponseBody;
 };
 
 /** @internal */
@@ -178,13 +304,308 @@ export function postMediasMediaHashedIdCopyRequestFromJSON(
 }
 
 /** @internal */
+export const PostMediasMediaHashedIdCopyType$inboundSchema: z.ZodNativeEnum<
+  typeof PostMediasMediaHashedIdCopyType
+> = z.nativeEnum(PostMediasMediaHashedIdCopyType);
+
+/** @internal */
+export const PostMediasMediaHashedIdCopyType$outboundSchema: z.ZodNativeEnum<
+  typeof PostMediasMediaHashedIdCopyType
+> = PostMediasMediaHashedIdCopyType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostMediasMediaHashedIdCopyType$ {
+  /** @deprecated use `PostMediasMediaHashedIdCopyType$inboundSchema` instead. */
+  export const inboundSchema = PostMediasMediaHashedIdCopyType$inboundSchema;
+  /** @deprecated use `PostMediasMediaHashedIdCopyType$outboundSchema` instead. */
+  export const outboundSchema = PostMediasMediaHashedIdCopyType$outboundSchema;
+}
+
+/** @internal */
+export const PostMediasMediaHashedIdCopyStatus$inboundSchema: z.ZodNativeEnum<
+  typeof PostMediasMediaHashedIdCopyStatus
+> = z.nativeEnum(PostMediasMediaHashedIdCopyStatus);
+
+/** @internal */
+export const PostMediasMediaHashedIdCopyStatus$outboundSchema: z.ZodNativeEnum<
+  typeof PostMediasMediaHashedIdCopyStatus
+> = PostMediasMediaHashedIdCopyStatus$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostMediasMediaHashedIdCopyStatus$ {
+  /** @deprecated use `PostMediasMediaHashedIdCopyStatus$inboundSchema` instead. */
+  export const inboundSchema = PostMediasMediaHashedIdCopyStatus$inboundSchema;
+  /** @deprecated use `PostMediasMediaHashedIdCopyStatus$outboundSchema` instead. */
+  export const outboundSchema =
+    PostMediasMediaHashedIdCopyStatus$outboundSchema;
+}
+
+/** @internal */
+export const PostMediasMediaHashedIdCopyThumbnail$inboundSchema: z.ZodType<
+  PostMediasMediaHashedIdCopyThumbnail,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  url: z.string().optional(),
+  width: z.number().int().optional(),
+  height: z.number().int().optional(),
+});
+
+/** @internal */
+export type PostMediasMediaHashedIdCopyThumbnail$Outbound = {
+  url?: string | undefined;
+  width?: number | undefined;
+  height?: number | undefined;
+};
+
+/** @internal */
+export const PostMediasMediaHashedIdCopyThumbnail$outboundSchema: z.ZodType<
+  PostMediasMediaHashedIdCopyThumbnail$Outbound,
+  z.ZodTypeDef,
+  PostMediasMediaHashedIdCopyThumbnail
+> = z.object({
+  url: z.string().optional(),
+  width: z.number().int().optional(),
+  height: z.number().int().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostMediasMediaHashedIdCopyThumbnail$ {
+  /** @deprecated use `PostMediasMediaHashedIdCopyThumbnail$inboundSchema` instead. */
+  export const inboundSchema =
+    PostMediasMediaHashedIdCopyThumbnail$inboundSchema;
+  /** @deprecated use `PostMediasMediaHashedIdCopyThumbnail$outboundSchema` instead. */
+  export const outboundSchema =
+    PostMediasMediaHashedIdCopyThumbnail$outboundSchema;
+  /** @deprecated use `PostMediasMediaHashedIdCopyThumbnail$Outbound` instead. */
+  export type Outbound = PostMediasMediaHashedIdCopyThumbnail$Outbound;
+}
+
+export function postMediasMediaHashedIdCopyThumbnailToJSON(
+  postMediasMediaHashedIdCopyThumbnail: PostMediasMediaHashedIdCopyThumbnail,
+): string {
+  return JSON.stringify(
+    PostMediasMediaHashedIdCopyThumbnail$outboundSchema.parse(
+      postMediasMediaHashedIdCopyThumbnail,
+    ),
+  );
+}
+
+export function postMediasMediaHashedIdCopyThumbnailFromJSON(
+  jsonString: string,
+): SafeParseResult<PostMediasMediaHashedIdCopyThumbnail, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      PostMediasMediaHashedIdCopyThumbnail$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostMediasMediaHashedIdCopyThumbnail' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostMediasMediaHashedIdCopyProject$inboundSchema: z.ZodType<
+  PostMediasMediaHashedIdCopyProject,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: z.number().int().optional(),
+  name: z.string().optional(),
+  hashedId: z.string().optional(),
+});
+
+/** @internal */
+export type PostMediasMediaHashedIdCopyProject$Outbound = {
+  id?: number | undefined;
+  name?: string | undefined;
+  hashedId?: string | undefined;
+};
+
+/** @internal */
+export const PostMediasMediaHashedIdCopyProject$outboundSchema: z.ZodType<
+  PostMediasMediaHashedIdCopyProject$Outbound,
+  z.ZodTypeDef,
+  PostMediasMediaHashedIdCopyProject
+> = z.object({
+  id: z.number().int().optional(),
+  name: z.string().optional(),
+  hashedId: z.string().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostMediasMediaHashedIdCopyProject$ {
+  /** @deprecated use `PostMediasMediaHashedIdCopyProject$inboundSchema` instead. */
+  export const inboundSchema = PostMediasMediaHashedIdCopyProject$inboundSchema;
+  /** @deprecated use `PostMediasMediaHashedIdCopyProject$outboundSchema` instead. */
+  export const outboundSchema =
+    PostMediasMediaHashedIdCopyProject$outboundSchema;
+  /** @deprecated use `PostMediasMediaHashedIdCopyProject$Outbound` instead. */
+  export type Outbound = PostMediasMediaHashedIdCopyProject$Outbound;
+}
+
+export function postMediasMediaHashedIdCopyProjectToJSON(
+  postMediasMediaHashedIdCopyProject: PostMediasMediaHashedIdCopyProject,
+): string {
+  return JSON.stringify(
+    PostMediasMediaHashedIdCopyProject$outboundSchema.parse(
+      postMediasMediaHashedIdCopyProject,
+    ),
+  );
+}
+
+export function postMediasMediaHashedIdCopyProjectFromJSON(
+  jsonString: string,
+): SafeParseResult<PostMediasMediaHashedIdCopyProject, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      PostMediasMediaHashedIdCopyProject$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostMediasMediaHashedIdCopyProject' from JSON`,
+  );
+}
+
+/** @internal */
+export const PostMediasMediaHashedIdCopyResponseBody$inboundSchema: z.ZodType<
+  PostMediasMediaHashedIdCopyResponseBody,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: z.number().int().optional(),
+  name: z.string().optional(),
+  type: PostMediasMediaHashedIdCopyType$inboundSchema.optional(),
+  archived: z.boolean().optional(),
+  created: z.string().datetime({ offset: true }).transform(v => new Date(v))
+    .optional(),
+  updated: z.string().datetime({ offset: true }).transform(v => new Date(v))
+    .optional(),
+  duration: z.nullable(z.number()).optional(),
+  embedCode: z.string().optional(),
+  hashed_id: z.string().optional(),
+  description: z.string().optional(),
+  progress: z.number().optional(),
+  status: PostMediasMediaHashedIdCopyStatus$inboundSchema.optional(),
+  section: z.nullable(z.string()).optional(),
+  thumbnail: z.lazy(() => PostMediasMediaHashedIdCopyThumbnail$inboundSchema)
+    .optional(),
+  project: z.nullable(
+    z.lazy(() => PostMediasMediaHashedIdCopyProject$inboundSchema),
+  ).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "hashed_id": "hashedId",
+  });
+});
+
+/** @internal */
+export type PostMediasMediaHashedIdCopyResponseBody$Outbound = {
+  id?: number | undefined;
+  name?: string | undefined;
+  type?: string | undefined;
+  archived?: boolean | undefined;
+  created?: string | undefined;
+  updated?: string | undefined;
+  duration?: number | null | undefined;
+  embedCode?: string | undefined;
+  hashed_id?: string | undefined;
+  description?: string | undefined;
+  progress?: number | undefined;
+  status?: string | undefined;
+  section?: string | null | undefined;
+  thumbnail?: PostMediasMediaHashedIdCopyThumbnail$Outbound | undefined;
+  project?: PostMediasMediaHashedIdCopyProject$Outbound | null | undefined;
+};
+
+/** @internal */
+export const PostMediasMediaHashedIdCopyResponseBody$outboundSchema: z.ZodType<
+  PostMediasMediaHashedIdCopyResponseBody$Outbound,
+  z.ZodTypeDef,
+  PostMediasMediaHashedIdCopyResponseBody
+> = z.object({
+  id: z.number().int().optional(),
+  name: z.string().optional(),
+  type: PostMediasMediaHashedIdCopyType$outboundSchema.optional(),
+  archived: z.boolean().optional(),
+  created: z.date().transform(v => v.toISOString()).optional(),
+  updated: z.date().transform(v => v.toISOString()).optional(),
+  duration: z.nullable(z.number()).optional(),
+  embedCode: z.string().optional(),
+  hashedId: z.string().optional(),
+  description: z.string().optional(),
+  progress: z.number().optional(),
+  status: PostMediasMediaHashedIdCopyStatus$outboundSchema.optional(),
+  section: z.nullable(z.string()).optional(),
+  thumbnail: z.lazy(() => PostMediasMediaHashedIdCopyThumbnail$outboundSchema)
+    .optional(),
+  project: z.nullable(
+    z.lazy(() => PostMediasMediaHashedIdCopyProject$outboundSchema),
+  ).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    hashedId: "hashed_id",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace PostMediasMediaHashedIdCopyResponseBody$ {
+  /** @deprecated use `PostMediasMediaHashedIdCopyResponseBody$inboundSchema` instead. */
+  export const inboundSchema =
+    PostMediasMediaHashedIdCopyResponseBody$inboundSchema;
+  /** @deprecated use `PostMediasMediaHashedIdCopyResponseBody$outboundSchema` instead. */
+  export const outboundSchema =
+    PostMediasMediaHashedIdCopyResponseBody$outboundSchema;
+  /** @deprecated use `PostMediasMediaHashedIdCopyResponseBody$Outbound` instead. */
+  export type Outbound = PostMediasMediaHashedIdCopyResponseBody$Outbound;
+}
+
+export function postMediasMediaHashedIdCopyResponseBodyToJSON(
+  postMediasMediaHashedIdCopyResponseBody:
+    PostMediasMediaHashedIdCopyResponseBody,
+): string {
+  return JSON.stringify(
+    PostMediasMediaHashedIdCopyResponseBody$outboundSchema.parse(
+      postMediasMediaHashedIdCopyResponseBody,
+    ),
+  );
+}
+
+export function postMediasMediaHashedIdCopyResponseBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  PostMediasMediaHashedIdCopyResponseBody,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      PostMediasMediaHashedIdCopyResponseBody$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'PostMediasMediaHashedIdCopyResponseBody' from JSON`,
+  );
+}
+
+/** @internal */
 export const PostMediasMediaHashedIdCopyResponse$inboundSchema: z.ZodType<
   PostMediasMediaHashedIdCopyResponse,
   z.ZodTypeDef,
   unknown
 > = z.object({
   Headers: z.record(z.array(z.string())),
-  Result: models.MediaCopy$inboundSchema,
+  Result: z.lazy(() => PostMediasMediaHashedIdCopyResponseBody$inboundSchema),
 }).transform((v) => {
   return remap$(v, {
     "Headers": "headers",
@@ -195,7 +616,7 @@ export const PostMediasMediaHashedIdCopyResponse$inboundSchema: z.ZodType<
 /** @internal */
 export type PostMediasMediaHashedIdCopyResponse$Outbound = {
   Headers: { [k: string]: Array<string> };
-  Result: models.MediaCopy$Outbound;
+  Result: PostMediasMediaHashedIdCopyResponseBody$Outbound;
 };
 
 /** @internal */
@@ -205,7 +626,7 @@ export const PostMediasMediaHashedIdCopyResponse$outboundSchema: z.ZodType<
   PostMediasMediaHashedIdCopyResponse
 > = z.object({
   headers: z.record(z.array(z.string())),
-  result: models.MediaCopy$outboundSchema,
+  result: z.lazy(() => PostMediasMediaHashedIdCopyResponseBody$outboundSchema),
 }).transform((v) => {
   return remap$(v, {
     headers: "Headers",
