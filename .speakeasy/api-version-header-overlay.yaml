@@ -1,0 +1,44 @@
+overlay: 1.0.0
+info:
+  title: Add API version header
+  version: 1.0.0
+
+actions:
+  - target: "$"
+    update:
+      x-speakeasy-globals: {}
+  - target: "$.x-speakeasy-globals"
+    update:
+      parameters:
+        - $ref: "#/components/parameters/ApiVersionHeader"
+  - target: "$.components"
+    update:
+      parameters:
+        ApiVersionHeader:
+          name: X-Wistia-API-Version
+          in: header
+          description: The API version
+          schema:
+            type: string
+            default: 2025-11
+            example: 2025-11
+  - target: "$.paths.*.get"
+    update:
+      parameters:
+        - $ref: "#/components/parameters/ApiVersionHeader"
+  - target: "$.paths.*.post"
+    update:
+      parameters:
+        - $ref: "#/components/parameters/ApiVersionHeader"
+  - target: "$.paths.*.put"
+    update:
+      parameters:
+        - $ref: "#/components/parameters/ApiVersionHeader"
+  - target: "$.paths.*.patch"
+    update:
+      parameters:
+        - $ref: "#/components/parameters/ApiVersionHeader"
+  - target: "$.paths.*.delete"
+    update:
+      parameters:
+        - $ref: "#/components/parameters/ApiVersionHeader"

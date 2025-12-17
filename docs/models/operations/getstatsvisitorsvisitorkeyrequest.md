@@ -12,6 +12,7 @@ let value: GetStatsVisitorsVisitorKeyRequest = {
 
 ## Fields
 
-| Field                          | Type                           | Required                       | Description                    |
-| ------------------------------ | ------------------------------ | ------------------------------ | ------------------------------ |
-| `visitorKey`                   | *string*                       | :heavy_check_mark:             | The unique key of the visitor. |
+| Field                          | Type                           | Required                       | Description                    | Example                        |
+| ------------------------------ | ------------------------------ | ------------------------------ | ------------------------------ | ------------------------------ |
+| `visitorKey`                   | *string*                       | :heavy_check_mark:             | The unique key of the visitor. |                                |
+| `xWistiaAPIVersion`            | *string*                       | :heavy_minus_sign:             | The API version                | 2025-11                        |

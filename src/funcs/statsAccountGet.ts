@@ -3,8 +3,10 @@
  */
 
 import { WistiaCore } from "../core.js";
+import { encodeSimple } from "../lib/encodings.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
+import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
@@ -38,6 +40,7 @@ import { Result } from "../types/fp.js";
  */
 export function statsAccountGet(
   client: WistiaCore,
+  request?: operations.GetStatsAccountRequest | undefined,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -56,12 +59,14 @@ export function statsAccountGet(
 > {
   return new APIPromise($do(
     client,
+    request,
     options,
   ));
 }
 
 async function $do(
   client: WistiaCore,
+  request?: operations.GetStatsAccountRequest | undefined,
   options?: RequestOptions,
 ): Promise<
   [
@@ -81,10 +86,27 @@ async function $do(
     APICall,
   ]
 > {
+  const parsed = safeParse(
+    request,
+    (value) =>
+      operations.GetStatsAccountRequest$outboundSchema.optional().parse(value),
+    "Input validation failed",
+  );
+  if (!parsed.ok) {
+    return [parsed, { status: "invalid" }];
+  }
+  const payload = parsed.value;
+  const body = null;
+
   const path = pathToFunc("/stats/account")();
 
   const headers = new Headers(compactMap({
     Accept: "application/json",
+    "X-Wistia-API-Version": encodeSimple(
+      "X-Wistia-API-Version",
+      payload?.["X-Wistia-API-Version"] ?? client._options.xWistiaAPIVersion,
+      { explode: false, charEncoding: "none" },
+    ),
   }));
 
   const secConfig = await extractSecurity(client._options.bearerAuth);
@@ -95,7 +117,7 @@ async function $do(
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
     operationID: "get_/stats/account",
-    oAuth2Scopes: [],
+    oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
 
@@ -112,6 +134,7 @@ async function $do(
     baseURL: options?.serverURL,
     path: path,
     headers: headers,
+    body: body,
     userAgent: client._options.userAgent,
     timeoutMs: options?.timeoutMs || client._options.timeoutMs || -1,
   }, options);

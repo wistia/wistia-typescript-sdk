@@ -1,5 +1,4 @@
 # Media
-(*media*)
 
 ## Overview
 
@@ -34,13 +33,16 @@ Endpoint to upload media files from a local system or import from a web URL.
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
   const result = await wistia.media.uploadForm({
-    url: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-    lowPriority: true,
+    requestBody: {
+      url: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+      lowPriority: true,
+    },
   });
 
   console.log(result);
@@ -60,13 +62,16 @@ import { mediaUploadForm } from "@wistia/wistia-api-client/funcs/mediaUploadForm
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
   const res = await mediaUploadForm(wistia, {
-    url: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-    lowPriority: true,
+    requestBody: {
+      url: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+      lowPriority: true,
+    },
   });
   if (res.ok) {
     const { value: result } = res;
@@ -116,12 +121,15 @@ import { Wistia } from "@wistia/wistia-api-client";
 import { openAsBlob } from "node:fs";
 
 const wistia = new Wistia({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
   const result = await wistia.media.uploadMultipart({
-    file: await openAsBlob("example.file"),
+    requestBody: {
+      file: await openAsBlob("example.file"),
+    },
   });
 
   console.log(result);
@@ -142,12 +150,15 @@ import { openAsBlob } from "node:fs";
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
   const res = await mediaUploadMultipart(wistia, {
-    file: await openAsBlob("example.file"),
+    requestBody: {
+      file: await openAsBlob("example.file"),
+    },
   });
   if (res.ok) {
     const { value: result } = res;
@@ -200,11 +211,12 @@ Read all project and video data
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const result = await wistia.media.list();
+  const result = await wistia.media.list({});
 
   console.log(result);
 }
@@ -223,11 +235,12 @@ import { mediaList } from "@wistia/wistia-api-client/funcs/mediaList.js";
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const res = await mediaList(wistia);
+  const res = await mediaList(wistia, {});
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
@@ -283,6 +296,7 @@ Read all project and video data
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
@@ -308,6 +322,7 @@ import { mediaGet } from "@wistia/wistia-api-client/funcs/mediaGet.js";
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
@@ -365,6 +380,7 @@ Read, update & delete anything
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
@@ -390,6 +406,7 @@ import { mediaUpdate } from "@wistia/wistia-api-client/funcs/mediaUpdate.js";
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
@@ -448,6 +465,7 @@ Read, update & delete anything
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
@@ -473,6 +491,7 @@ import { mediaDelete } from "@wistia/wistia-api-client/funcs/mediaDelete.js";
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
@@ -530,6 +549,7 @@ Read, update & delete anything
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
@@ -555,6 +575,7 @@ import { mediaCopy } from "@wistia/wistia-api-client/funcs/mediaCopy.js";
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
@@ -614,6 +635,7 @@ Read, update & delete anything
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
@@ -639,6 +661,7 @@ import { mediaSwap } from "@wistia/wistia-api-client/funcs/mediaSwap.js";
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
@@ -699,6 +722,7 @@ Read all project and video data
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
@@ -724,6 +748,7 @@ import { mediaGetStats } from "@wistia/wistia-api-client/funcs/mediaGetStats.js"
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
@@ -782,6 +807,7 @@ Read, update & delete anything
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
@@ -807,6 +833,7 @@ import { mediaTranslate } from "@wistia/wistia-api-client/funcs/mediaTranslate.j
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
@@ -866,12 +893,15 @@ Read, update & delete anything
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
   const result = await wistia.media.archive({
-    hashedIds: [],
+    requestBody: {
+      hashedIds: [],
+    },
   });
 
   console.log(result);
@@ -891,12 +921,15 @@ import { mediaArchive } from "@wistia/wistia-api-client/funcs/mediaArchive.js";
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
   const res = await mediaArchive(wistia, {
-    hashedIds: [],
+    requestBody: {
+      hashedIds: [],
+    },
   });
   if (res.ok) {
     const { value: result } = res;
@@ -956,16 +989,19 @@ Read, update & delete anything
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
   const result = await wistia.media.move({
-    hashedIds: [
-      "<value 1>",
-      "<value 2>",
-    ],
-    projectId: "<id>",
+    requestBody: {
+      hashedIds: [
+        "<value 1>",
+        "<value 2>",
+      ],
+      projectId: "<id>",
+    },
   });
 
   console.log(result);
@@ -985,16 +1021,19 @@ import { mediaMove } from "@wistia/wistia-api-client/funcs/mediaMove.js";
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
   const res = await mediaMove(wistia, {
-    hashedIds: [
-      "<value 1>",
-      "<value 2>",
-    ],
-    projectId: "<id>",
+    requestBody: {
+      hashedIds: [
+        "<value 1>",
+        "<value 2>",
+      ],
+      projectId: "<id>",
+    },
   });
   if (res.ok) {
     const { value: result } = res;
@@ -1047,12 +1086,15 @@ Read, update & delete anything
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
   const result = await wistia.media.restore({
-    hashedIds: [],
+    requestBody: {
+      hashedIds: [],
+    },
   });
 
   console.log(result);
@@ -1072,12 +1114,15 @@ import { mediaRestore } from "@wistia/wistia-api-client/funcs/mediaRestore.js";
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
   const res = await mediaRestore(wistia, {
-    hashedIds: [],
+    requestBody: {
+      hashedIds: [],
+    },
   });
   if (res.ok) {
     const { value: result } = res;

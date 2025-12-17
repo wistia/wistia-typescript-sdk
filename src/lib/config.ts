@@ -17,6 +17,11 @@ export const ServerList = [
 export type SDKOptions = {
   bearerAuth?: string | (() => Promise<string>) | undefined;
 
+  /**
+   * Allows setting the xWistiaAPIVersion parameter for all supported operations
+   */
+  xWistiaAPIVersion?: string | undefined;
+
   httpClient?: HTTPClient;
   /**
    * Allows overriding the default server used by the SDK
@@ -58,8 +63,8 @@ export function serverURLFromOptions(options: SDKOptions): URL | null {
 export const SDK_METADATA = {
   language: "typescript",
   openapiDocVersion: "2025.11.0",
-  sdkVersion: "2025.11.0",
-  genVersion: "2.716.10",
+  sdkVersion: "2025.12.1",
+  genVersion: "2.787.2",
   userAgent:
-    "speakeasy-sdk/typescript 2025.11.0 2.716.10 2025.11.0 @wistia/wistia-api-client",
+    "speakeasy-sdk/typescript 2025.12.1 2.787.2 2025.11.0 @wistia/wistia-api-client",
 } as const;

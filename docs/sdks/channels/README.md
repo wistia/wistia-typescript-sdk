@@ -1,5 +1,4 @@
 # Channels
-(*channels*)
 
 ## Overview
 
@@ -27,11 +26,12 @@ Read all project and video data
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const result = await wistia.channels.list();
+  const result = await wistia.channels.list({});
 
   console.log(result);
 }
@@ -50,11 +50,12 @@ import { channelsList } from "@wistia/wistia-api-client/funcs/channelsList.js";
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const res = await channelsList(wistia);
+  const res = await channelsList(wistia, {});
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
@@ -106,6 +107,7 @@ Read all project and video data
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
@@ -131,6 +133,7 @@ import { channelsGet } from "@wistia/wistia-api-client/funcs/channelsGet.js";
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 

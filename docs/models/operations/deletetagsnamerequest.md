@@ -12,6 +12,7 @@ let value: DeleteTagsNameRequest = {
 
 ## Fields
 
-| Field              | Type               | Required           | Description        |
-| ------------------ | ------------------ | ------------------ | ------------------ |
-| `name`             | *string*           | :heavy_check_mark: | Tag ID             |
+| Field               | Type                | Required            | Description         | Example             |
+| ------------------- | ------------------- | ------------------- | ------------------- | ------------------- |
+| `name`              | *string*            | :heavy_check_mark:  | Tag ID              |                     |
+| `xWistiaAPIVersion` | *string*            | :heavy_minus_sign:  | The API version     | 2025-11             |

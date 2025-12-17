@@ -1,0 +1,15 @@
+# PostFormGlobals
+
+## Example Usage
+
+```typescript
+import { PostFormGlobals } from "@wistia/wistia-api-client/models/operations";
+
+let value: PostFormGlobals = {};
+```
+
+## Fields
+
+| Field               | Type                | Required            | Description         | Example             |
+| ------------------- | ------------------- | ------------------- | ------------------- | ------------------- |
+| `xWistiaAPIVersion` | *string*            | :heavy_minus_sign:  | The API version     | 2025-11             |

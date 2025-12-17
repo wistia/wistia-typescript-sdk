@@ -3,7 +3,7 @@
  */
 
 import { WistiaCore } from "../core.js";
-import { encodeBodyForm } from "../lib/encodings.js";
+import { encodeBodyForm, encodeSimple } from "../lib/encodings.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -92,7 +92,7 @@ async function $do(
   }
   const payload = parsed.value;
 
-  const body = Object.entries(payload || {}).map(([k, v]) => {
+  const body = Object.entries(payload?.RequestBody || {}).map(([k, v]) => {
     return encodeBodyForm(k, v, { charEncoding: "percent" });
   }).join("&");
 
@@ -104,6 +104,11 @@ async function $do(
   const headers = new Headers(compactMap({
     "Content-Type": "application/x-www-form-urlencoded",
     Accept: "application/json",
+    "X-Wistia-API-Version": encodeSimple(
+      "X-Wistia-API-Version",
+      payload?.["X-Wistia-API-Version"] ?? client._options.xWistiaAPIVersion,
+      { explode: false, charEncoding: "none" },
+    ),
   }));
 
   const secConfig = await extractSecurity(client._options.bearerAuth);
@@ -114,7 +119,7 @@ async function $do(
     options: client._options,
     baseURL: baseURL ?? "",
     operationID: "post_/_form",
-    oAuth2Scopes: [],
+    oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
 

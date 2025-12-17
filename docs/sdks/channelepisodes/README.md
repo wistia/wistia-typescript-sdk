@@ -1,5 +1,4 @@
 # ChannelEpisodes
-(*channelEpisodes*)
 
 ## Overview
 
@@ -28,6 +27,7 @@ Read all project and video data
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
@@ -54,6 +54,7 @@ import { channelEpisodesGet } from "@wistia/wistia-api-client/funcs/channelEpiso
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
@@ -111,6 +112,7 @@ Read, update & delete anything
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
@@ -142,6 +144,7 @@ import { channelEpisodesCreate } from "@wistia/wistia-api-client/funcs/channelEp
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
@@ -207,11 +210,12 @@ Read all project and video data
 import { Wistia } from "@wistia/wistia-api-client";
 
 const wistia = new Wistia({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const result = await wistia.channelEpisodes.list();
+  const result = await wistia.channelEpisodes.list({});
 
   console.log(result);
 }
@@ -230,11 +234,12 @@ import { channelEpisodesList } from "@wistia/wistia-api-client/funcs/channelEpis
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const wistia = new WistiaCore({
+  xWistiaAPIVersion: "2025-11",
   bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
 });
 
 async function run() {
-  const res = await channelEpisodesList(wistia);
+  const res = await channelEpisodesList(wistia, {});
   if (res.ok) {
     const { value: result } = res;
     console.log(result);

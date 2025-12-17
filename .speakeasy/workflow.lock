@@ -1,21 +1,21 @@
-speakeasyVersion: 1.630.0
+speakeasyVersion: 1.678.0
 sources:
     Data API:
         sourceNamespace: data-api
-        sourceRevisionDigest: sha256:641674a088e15133ac72b4fe64b4bac0512699bbf60dc09a4973b885fa96bae8
-        sourceBlobDigest: sha256:82330e30ae02c06b5a19a2a766b865545591f034e07d86096f6fb7f616672868
+        sourceRevisionDigest: sha256:4b57c3447578f609347e6768ca05973131efc11b13723aa5f3c6f53ef156ed9f
+        sourceBlobDigest: sha256:f322613da6661f9748880caa46d9c415edeedb0a55b4c6a0cf2c615eab0fb7e3
         tags:
             - latest
-            - speakeasy-sdk-regen-tdevries-change-location-to-modern-endpoint-1765894184
+            - speakeasy-sdk-regen-tdevries-add-api-version-header-overlay-1765920019
             - 2025.11.0
 targets:
     wistia:
         source: Data API
         sourceNamespace: data-api
-        sourceRevisionDigest: sha256:641674a088e15133ac72b4fe64b4bac0512699bbf60dc09a4973b885fa96bae8
-        sourceBlobDigest: sha256:82330e30ae02c06b5a19a2a766b865545591f034e07d86096f6fb7f616672868
+        sourceRevisionDigest: sha256:4b57c3447578f609347e6768ca05973131efc11b13723aa5f3c6f53ef156ed9f
+        sourceBlobDigest: sha256:f322613da6661f9748880caa46d9c415edeedb0a55b4c6a0cf2c615eab0fb7e3
         codeSamplesNamespace: data-api-typescript-code-samples
-        codeSamplesRevisionDigest: sha256:ca0698bd4f79978e7cc0a78daa8db092c19cf81346e13f9cc17aa808af519881
+        codeSamplesRevisionDigest: sha256:b52e4819ab1bef55a9a2767dd8c2c023049f1c69a6c8882a4963fb0ef62f7868
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
@@ -27,6 +27,7 @@ workflow:
             overlays:
                 - location: .speakeasy/speakeasy-modifications-overlay.yaml
                 - location: .speakeasy/servers-overlay.yaml
+                - location: .speakeasy/api-version-header-overlay.yaml
             output: .speakeasy/out.openapi.yaml
             registry:
                 location: registry.speakeasyapi.dev/wistia/wistia/data-api

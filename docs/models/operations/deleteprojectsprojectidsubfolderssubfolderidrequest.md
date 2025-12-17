@@ -17,3 +17,4 @@ let value: DeleteProjectsProjectIdSubfoldersSubfolderIdRequest = {
 | ------------------------------ | ------------------------------ | ------------------------------ | ------------------------------ | ------------------------------ |
 | `projectId`                    | *string*                       | :heavy_check_mark:             | The hashed ID of the project   | abc123def4                     |
 | `subfolderId`                  | *string*                       | :heavy_check_mark:             | The hashed ID of the subfolder | xyz789ghi0                     |
+| `xWistiaAPIVersion`            | *string*                       | :heavy_minus_sign:             | The API version                | 2025-11                        |

@@ -12,6 +12,7 @@ let value: GetBackgroundJobStatusBackgroundJobStatusIdRequest = {
 
 ## Fields
 
-| Field                                | Type                                 | Required                             | Description                          |
-| ------------------------------------ | ------------------------------------ | ------------------------------------ | ------------------------------------ |
-| `backgroundJobStatusId`              | *number*                             | :heavy_check_mark:                   | The numeric ID of the background job |
+| Field                                | Type                                 | Required                             | Description                          | Example                              |
+| ------------------------------------ | ------------------------------------ | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| `backgroundJobStatusId`              | *number*                             | :heavy_check_mark:                   | The numeric ID of the background job |                                      |
+| `xWistiaAPIVersion`                  | *string*                             | :heavy_minus_sign:                   | The API version                      | 2025-11                              |

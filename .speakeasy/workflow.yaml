@@ -8,6 +8,7 @@ sources:
         overlays:
             - location: .speakeasy/speakeasy-modifications-overlay.yaml
             - location: .speakeasy/servers-overlay.yaml
+            - location: .speakeasy/api-version-header-overlay.yaml
         output: .speakeasy/out.openapi.yaml
         registry:
             location: registry.speakeasyapi.dev/wistia/wistia/data-api

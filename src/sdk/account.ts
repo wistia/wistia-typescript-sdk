@@ -20,10 +20,12 @@ export class Account extends ClientSDK {
    * ```
    */
   async get(
+    request?: operations.GetAccountDetailsRequest | undefined,
     options?: RequestOptions,
   ): Promise<operations.GetAccountDetailsResponse> {
     return unwrapAsync(accountGet(
       this,
+      request,
       options,
     ));
   }

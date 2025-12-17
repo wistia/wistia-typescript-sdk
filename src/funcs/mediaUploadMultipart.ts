@@ -3,7 +3,7 @@
  */
 
 import { WistiaCore } from "../core.js";
-import { appendForm } from "../lib/encodings.js";
+import { appendForm, encodeSimple } from "../lib/encodings.js";
 import {
   getContentTypeFromFileName,
   readableStreamToArrayBuffer,
@@ -98,39 +98,43 @@ async function $do(
   }
   const payload = parsed.value;
   const body = new FormData();
-  if (payload != null) {
-    if (isBlobLike(payload?.file)) {
-      appendForm(body, "file", payload?.file);
-    } else if (isReadableStream(payload?.file.content)) {
-      const buffer = await readableStreamToArrayBuffer(payload?.file.content);
-      const contentType = getContentTypeFromFileName(payload?.file.fileName)
+  if (payload?.RequestBody != null) {
+    if (isBlobLike(payload?.RequestBody.file)) {
+      appendForm(body, "file", payload?.RequestBody.file);
+    } else if (isReadableStream(payload?.RequestBody.file.content)) {
+      const buffer = await readableStreamToArrayBuffer(
+        payload?.RequestBody.file.content,
+      );
+      const contentType =
+        getContentTypeFromFileName(payload?.RequestBody.file.fileName)
         || "application/octet-stream";
       const blob = new Blob([buffer], { type: contentType });
-      appendForm(body, "file", blob, payload?.file.fileName);
+      appendForm(body, "file", blob, payload?.RequestBody.file.fileName);
     } else {
-      const contentType = getContentTypeFromFileName(payload?.file.fileName)
+      const contentType =
+        getContentTypeFromFileName(payload?.RequestBody.file.fileName)
         || "application/octet-stream";
       appendForm(
         body,
         "file",
-        new Blob([payload?.file.content], { type: contentType }),
-        payload?.file.fileName,
+        new Blob([payload?.RequestBody.file.content], { type: contentType }),
+        payload?.RequestBody.file.fileName,
       );
     }
-    if (payload?.access_token !== undefined) {
-      appendForm(body, "access_token", payload?.access_token);
+    if (payload?.RequestBody.access_token !== undefined) {
+      appendForm(body, "access_token", payload?.RequestBody.access_token);
     }
-    if (payload?.contact_id !== undefined) {
-      appendForm(body, "contact_id", payload?.contact_id);
+    if (payload?.RequestBody.contact_id !== undefined) {
+      appendForm(body, "contact_id", payload?.RequestBody.contact_id);
     }
-    if (payload?.description !== undefined) {
-      appendForm(body, "description", payload?.description);
+    if (payload?.RequestBody.description !== undefined) {
+      appendForm(body, "description", payload?.RequestBody.description);
     }
-    if (payload?.name !== undefined) {
-      appendForm(body, "name", payload?.name);
+    if (payload?.RequestBody.name !== undefined) {
+      appendForm(body, "name", payload?.RequestBody.name);
     }
-    if (payload?.project_id !== undefined) {
-      appendForm(body, "project_id", payload?.project_id);
+    if (payload?.RequestBody.project_id !== undefined) {
+      appendForm(body, "project_id", payload?.RequestBody.project_id);
     }
   }
 
@@ -141,6 +145,11 @@ async function $do(
 
   const headers = new Headers(compactMap({
     Accept: "application/json",
+    "X-Wistia-API-Version": encodeSimple(
+      "X-Wistia-API-Version",
+      payload?.["X-Wistia-API-Version"] ?? client._options.xWistiaAPIVersion,
+      { explode: false, charEncoding: "none" },
+    ),
   }));
 
   const secConfig = await extractSecurity(client._options.bearerAuth);
@@ -151,7 +160,7 @@ async function $do(
     options: client._options,
     baseURL: baseURL ?? "",
     operationID: "post_/_multipart",
-    oAuth2Scopes: [],
+    oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
 

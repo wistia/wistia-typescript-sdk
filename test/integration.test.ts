@@ -204,9 +204,11 @@ describe('Wistia SDK Integration Tests', () => {
   describe('Project Operations', () => {
     it('should create a project', async () => {
       const project = await wistia.projects.create({
-        name: `${testPrefix}-Project`,
-        adminEmail: 'test@example.com',
-        public: false,
+        requestBody: {
+          name: `${testPrefix}-Project`,
+          adminEmail: 'test@example.com',
+          public: false,
+        },
       });
 
       testResources.project = project;
@@ -325,10 +327,12 @@ describe('Wistia SDK Integration Tests', () => {
       assert.ok(videoFile, 'Video file should be generated');
 
       const media = await wistia.media.uploadMultipart({
-        file: await openAsBlob(videoFile),
-        name: `${testPrefix}-Media`,
-        description: 'Test media for SDK integration',
-        projectId: testResources.project.hashedId,
+        requestBody: {
+          file: await openAsBlob(videoFile),
+          name: `${testPrefix}-Media`,
+          description: 'Test media for SDK integration',
+          projectId: testResources.project.hashedId,
+        },
       });
 
       testResources.media = media;
@@ -378,9 +382,11 @@ describe('Wistia SDK Integration Tests', () => {
       log(`Moving media ${testResources.media.hashedId} to subfolder ${testResources.subfolder.hashedId}`);
 
       await wistia.media.move({
-        hashedIds: [testResources.media.hashedId],
-        projectId: testResources.project.hashedId,
-        subfolderId: testResources.subfolder.hashedId,
+        requestBody: {
+          hashedIds: [testResources.media.hashedId],
+          projectId: testResources.project.hashedId,
+          subfolderId: testResources.subfolder.hashedId,
+        },
       });
 
       log(`✅ Moved media to subfolder`);
@@ -561,7 +567,9 @@ describe('Wistia SDK Integration Tests', () => {
       const tagName = `test-${uuidv4()}`;
 
       const tag = await wistia.tags.create({
-        name: tagName,
+        requestBody: {
+          name: tagName,
+        },
       });
 
       testResources.tag = tag;
@@ -615,10 +623,12 @@ describe('Wistia SDK Integration Tests', () => {
       scheduledFor.setDate(scheduledFor.getDate() + 7);
 
       const liveStreamEvent = await wistia.liveStreamEvents.create({
-        title: `${testPrefix} - Live Stream Event`,
-        description: 'Test live stream event for SDK integration testing',
-        scheduledFor: scheduledFor,
-        eventDuration: 60,
+        requestBody: {
+          title: `${testPrefix} - Live Stream Event`,
+          description: 'Test live stream event for SDK integration testing',
+          scheduledFor: scheduledFor,
+          eventDuration: 60,
+        },
       });
 
       testResources.liveStreamEvent = liveStreamEvent;
@@ -720,7 +730,9 @@ describe('Wistia SDK Integration Tests', () => {
       const testDomain = `${testId}-test.example.com`;
 
       const allowedDomain = await wistia.allowedDomains.create({
-        domain: testDomain,
+        requestBody: {
+          domain: testDomain,
+        },
       });
 
       testResources.allowedDomain = allowedDomain;

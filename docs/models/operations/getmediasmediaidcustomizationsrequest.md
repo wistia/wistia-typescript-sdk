@@ -12,6 +12,7 @@ let value: GetMediasMediaIdCustomizationsRequest = {
 
 ## Fields
 
-| Field                       | Type                        | Required                    | Description                 |
-| --------------------------- | --------------------------- | --------------------------- | --------------------------- |
-| `mediaId`                   | *string*                    | :heavy_check_mark:          | The hashed ID of the video. |
+| Field                       | Type                        | Required                    | Description                 | Example                     |
+| --------------------------- | --------------------------- | --------------------------- | --------------------------- | --------------------------- |
+| `mediaId`                   | *string*                    | :heavy_check_mark:          | The hashed ID of the video. |                             |
+| `xWistiaAPIVersion`         | *string*                    | :heavy_minus_sign:          | The API version             | 2025-11                     |
