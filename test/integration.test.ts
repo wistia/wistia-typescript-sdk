@@ -352,6 +352,19 @@ describe('Wistia SDK Integration Tests', () => {
       log(`✅ Retrieved media: ${media.name}`);
     });
 
+    it('should allow grabbing media from the index action', async () => {
+      assert.ok(testResources.media, 'Media should exist');
+      assert.ok(testResources.media.hashedId, 'Media should have a hashedId');
+
+      const medias = await wistia.media.list({
+        hashedIds: [testResources.media.hashedId ?? '']
+      });
+      const media = medias[0];
+
+      assert.strictEqual(media?.hashedId, testResources.media.hashedId);
+      log(`✅ Retrieved media: ${media.name} from list endpoint`);
+    });
+
     it('should list medias and find our uploaded media', async () => {
       assert.ok(testResources.media, 'Media should exist');
 
