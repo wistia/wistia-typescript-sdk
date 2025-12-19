@@ -1,5 +1,4 @@
 # LiveStreamEvents
-(*liveStreamEvents*)
 
 ## Overview
 
@@ -87,6 +86,7 @@ run();
 | Error Type                                    | Status Code                                   | Content Type                                  |
 | --------------------------------------------- | --------------------------------------------- | --------------------------------------------- |
 | errors.GetLiveStreamEventsUnauthorizedError   | 401                                           | application/json                              |
+| errors.GetLiveStreamEventsForbiddenError      | 403                                           | application/json                              |
 | errors.GetLiveStreamEventsInternalServerError | 500                                           | application/json                              |
 | errors.WistiaDefaultError                     | 4XX, 5XX                                      | \*/\*                                         |
 
@@ -265,6 +265,7 @@ run();
 | Error Type                                      | Status Code                                     | Content Type                                    |
 | ----------------------------------------------- | ----------------------------------------------- | ----------------------------------------------- |
 | errors.GetLiveStreamEventsIdUnauthorizedError   | 401                                             | application/json                                |
+| errors.GetLiveStreamEventsIdForbiddenError      | 403                                             | application/json                                |
 | errors.GetLiveStreamEventsIdInternalServerError | 500                                             | application/json                                |
 | errors.WistiaDefaultError                       | 4XX, 5XX                                        | \*/\*                                           |
 
@@ -362,6 +363,7 @@ run();
 | Error Type                                           | Status Code                                          | Content Type                                         |
 | ---------------------------------------------------- | ---------------------------------------------------- | ---------------------------------------------------- |
 | errors.PutLiveStreamEventsIdUnauthorizedError        | 401                                                  | application/json                                     |
+| errors.PutLiveStreamEventsIdForbiddenError           | 403                                                  | application/json                                     |
 | errors.PutLiveStreamEventsIdUnprocessableEntityError | 422                                                  | application/json                                     |
 | errors.PutLiveStreamEventsIdInternalServerError      | 500                                                  | application/json                                     |
 | errors.WistiaDefaultError                            | 4XX, 5XX                                             | \*/\*                                                |
@@ -444,5 +446,6 @@ run();
 | Error Type                                         | Status Code                                        | Content Type                                       |
 | -------------------------------------------------- | -------------------------------------------------- | -------------------------------------------------- |
 | errors.DeleteLiveStreamEventsIdUnauthorizedError   | 401                                                | application/json                                   |
+| errors.DeleteLiveStreamEventsIdForbiddenError      | 403                                                | application/json                                   |
 | errors.DeleteLiveStreamEventsIdInternalServerError | 500                                                | application/json                                   |
 | errors.WistiaDefaultError                          | 4XX, 5XX                                           | \*/\*                                              |

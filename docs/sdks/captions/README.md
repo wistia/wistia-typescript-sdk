@@ -1,5 +1,4 @@
 # Captions
-(*captions*)
 
 ## Overview
 

@@ -1,5 +1,4 @@
 # StatsAccount
-(*statsAccount*)
 
 ## Overview
 

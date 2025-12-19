@@ -2943,7 +2943,7 @@ paths:
           required: false
           schema:
             type: string
-        - name: hashed_ids
+        - name: hashed_ids[]
           in: query
           description: Find all of the medias by these hashed_ids.
           required: false
@@ -9993,6 +9993,17 @@ paths:
                     type: string
                     examples:
                       - Invalid credentials.
+        '403':
+          description: Live streaming feature not available
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    examples:
+                      - Live streaming is not available on your current plan
         '500':
           description: Internal server error
           content:
@@ -10327,6 +10338,17 @@ paths:
                     type: string
                     examples:
                       - Invalid credentials.
+        '403':
+          description: Live streaming feature not available
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    examples:
+                      - Live streaming is not available on your current plan
         '404':
           description: Live stream event not found
         '500':
@@ -10488,6 +10510,17 @@ paths:
                     type: string
                     examples:
                       - Invalid credentials.
+        '403':
+          description: Live streaming feature not available
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    examples:
+                      - Live streaming is not available on your current plan
         '404':
           description: Live stream event not found
         '422':
@@ -10631,6 +10664,17 @@ paths:
                     type: string
                     examples:
                       - Invalid credentials.
+        '403':
+          description: Live streaming feature not available
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    examples:
+                      - Live streaming is not available on your current plan
         '404':
           description: Live stream event not found
         '500':

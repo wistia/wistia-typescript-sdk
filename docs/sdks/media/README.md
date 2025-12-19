@@ -1,5 +1,4 @@
 # Media
-(*media*)
 
 ## Overview
 

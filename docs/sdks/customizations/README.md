@@ -1,5 +1,4 @@
 # Customizations
-(*customizations*)
 
 ## Overview
 

@@ -155,22 +155,22 @@ run();
 <details open>
 <summary>Available methods</summary>
 
-### [account](docs/sdks/account/README.md)
+### [Account](docs/sdks/account/README.md)
 
 * [get](docs/sdks/account/README.md#get) - Account Show
 
-### [allowedDomains](docs/sdks/alloweddomains/README.md)
+### [AllowedDomains](docs/sdks/alloweddomains/README.md)
 
 * [list](docs/sdks/alloweddomains/README.md#list) - Allowed Domains List
 * [create](docs/sdks/alloweddomains/README.md#create) - Allowed Domain Create
 * [get](docs/sdks/alloweddomains/README.md#get) - Allowed Domain Show
 * [delete](docs/sdks/alloweddomains/README.md#delete) - Allowed Domain Delete
 
-### [backgroundJobStatus](docs/sdks/backgroundjobstatus/README.md)
+### [BackgroundJobStatus](docs/sdks/backgroundjobstatus/README.md)
 
 * [get](docs/sdks/backgroundjobstatus/README.md#get) - Background Job Status Show
 
-### [captions](docs/sdks/captions/README.md)
+### [Captions](docs/sdks/captions/README.md)
 
 * [list](docs/sdks/captions/README.md#list) - Captions List
 * [create](docs/sdks/captions/README.md#create) - Captions Create
@@ -181,33 +181,33 @@ run();
 * [updateMultipart](docs/sdks/captions/README.md#updatemultipart) - Captions Update
 * [delete](docs/sdks/captions/README.md#delete) - Captions Delete
 
-### [channelEpisodes](docs/sdks/channelepisodes/README.md)
+### [ChannelEpisodes](docs/sdks/channelepisodes/README.md)
 
 * [get](docs/sdks/channelepisodes/README.md#get) - Channel Episodes Show
 * [create](docs/sdks/channelepisodes/README.md#create) - Channel Episode Create
 * [list](docs/sdks/channelepisodes/README.md#list) - Channel Episodes List
 
-### [channels](docs/sdks/channels/README.md)
+### [Channels](docs/sdks/channels/README.md)
 
 * [list](docs/sdks/channels/README.md#list) - Channels List
 * [get](docs/sdks/channels/README.md#get) - Channels Show
 
-#### [channels.channelEpisodes](docs/sdks/channelschannelepisodes/README.md)
+### [Channels.ChannelEpisodes](docs/sdks/channelschannelepisodes/README.md)
 
 * [list](docs/sdks/channelschannelepisodes/README.md#list) - Channel Episodes List filtered by channel
 
-### [customizations](docs/sdks/customizations/README.md)
+### [Customizations](docs/sdks/customizations/README.md)
 
 * [get](docs/sdks/customizations/README.md#get) - Customizations Show
 * [create](docs/sdks/customizations/README.md#create) - Customizations Create
 * [update](docs/sdks/customizations/README.md#update) - Customizations Update
 * [delete](docs/sdks/customizations/README.md#delete) - Customizations Delete
 
-### [expiringAccessTokens](docs/sdks/expiringaccesstokens/README.md)
+### [ExpiringAccessTokens](docs/sdks/expiringaccesstokens/README.md)
 
 * [create](docs/sdks/expiringaccesstokens/README.md#create) - Create an expiring access token
 
-### [liveStreamEvents](docs/sdks/livestreamevents/README.md)
+### [LiveStreamEvents](docs/sdks/livestreamevents/README.md)
 
 * [list](docs/sdks/livestreamevents/README.md#list) - Live Stream Events List
 * [create](docs/sdks/livestreamevents/README.md#create) - Live Stream Event Create
@@ -215,14 +215,14 @@ run();
 * [update](docs/sdks/livestreamevents/README.md#update) - Live Stream Event Update
 * [delete](docs/sdks/livestreamevents/README.md#delete) - Live Stream Event Delete
 
-### [localizations](docs/sdks/localizations/README.md)
+### [Localizations](docs/sdks/localizations/README.md)
 
 * [list](docs/sdks/localizations/README.md#list) - Localizations List
 * [create](docs/sdks/localizations/README.md#create) - Localizations Create
 * [get](docs/sdks/localizations/README.md#get) - Localizations Show
 * [delete](docs/sdks/localizations/README.md#delete) - Localizations Delete
 
-### [media](docs/sdks/media/README.md)
+### [Media](docs/sdks/media/README.md)
 
 * [uploadForm](docs/sdks/media/README.md#uploadform) - Upload or Import Media
 * [uploadMultipart](docs/sdks/media/README.md#uploadmultipart) - Upload or Import Media
@@ -238,7 +238,7 @@ run();
 * [move](docs/sdks/media/README.md#move) - Media Move
 * [restore](docs/sdks/media/README.md#restore) - Media Restore
 
-### [projects](docs/sdks/projects/README.md)
+### [Projects](docs/sdks/projects/README.md)
 
 * [list](docs/sdks/projects/README.md#list) - Project List
 * [create](docs/sdks/projects/README.md#create) - Project Create
@@ -247,7 +247,7 @@ run();
 * [delete](docs/sdks/projects/README.md#delete) - Project Delete
 * [copy](docs/sdks/projects/README.md#copy) - Project Copy
 
-### [projectSharings](docs/sdks/projectsharings/README.md)
+### [ProjectSharings](docs/sdks/projectsharings/README.md)
 
 * [list](docs/sdks/projectsharings/README.md#list) - Project Sharing List
 * [create](docs/sdks/projectsharings/README.md#create) - Project Sharing Create
@@ -255,35 +255,35 @@ run();
 * [update](docs/sdks/projectsharings/README.md#update) - Project Sharing Update
 * [delete](docs/sdks/projectsharings/README.md#delete) - Project Sharing Delete
 
-### [search](docs/sdks/search/README.md)
+### [Search](docs/sdks/search/README.md)
 
 * [search](docs/sdks/search/README.md#search) - Search
 
-### [statsAccount](docs/sdks/statsaccount/README.md)
+### [StatsAccount](docs/sdks/statsaccount/README.md)
 
 * [get](docs/sdks/statsaccount/README.md#get) - Stats:Account Show
 
-### [statsEvents](docs/sdks/statsevents/README.md)
+### [StatsEvents](docs/sdks/statsevents/README.md)
 
 * [list](docs/sdks/statsevents/README.md#list) - Stats:Events List
 * [get](docs/sdks/statsevents/README.md#get) - Stats:Events Show
 
-### [statsMedia](docs/sdks/statsmedia/README.md)
+### [StatsMedia](docs/sdks/statsmedia/README.md)
 
 * [get](docs/sdks/statsmedia/README.md#get) - Stats:Media Show
 * [getByDate](docs/sdks/statsmedia/README.md#getbydate) - Stats:Media By Date
 * [getEngagement](docs/sdks/statsmedia/README.md#getengagement) - Stats:Media Engagement
 
-### [statsProjects](docs/sdks/statsprojects/README.md)
+### [StatsProjects](docs/sdks/statsprojects/README.md)
 
 * [get](docs/sdks/statsprojects/README.md#get) - Stats:Projects Show
 
-### [statsVisitors](docs/sdks/statsvisitors/README.md)
+### [StatsVisitors](docs/sdks/statsvisitors/README.md)
 
 * [list](docs/sdks/statsvisitors/README.md#list) - Stats:Visitors List
 * [get](docs/sdks/statsvisitors/README.md#get) - Stats:Visitors Show
 
-### [subfolders](docs/sdks/subfolders/README.md)
+### [Subfolders](docs/sdks/subfolders/README.md)
 
 * [list](docs/sdks/subfolders/README.md#list) - Subfolder List
 * [create](docs/sdks/subfolders/README.md#create) - Create Subfolder
@@ -291,16 +291,15 @@ run();
 * [update](docs/sdks/subfolders/README.md#update) - Update Subfolder
 * [deleteSubfolder](docs/sdks/subfolders/README.md#deletesubfolder) - Delete Subfolder
 
-### [tags](docs/sdks/tags/README.md)
+### [Tags](docs/sdks/tags/README.md)
 
 * [list](docs/sdks/tags/README.md#list) - Tags List
 * [create](docs/sdks/tags/README.md#create) - Tags Create
 * [delete](docs/sdks/tags/README.md#delete) - Tags Delete
 
-### [trims](docs/sdks/trims/README.md)
+### [Trims](docs/sdks/trims/README.md)
 
 * [create](docs/sdks/trims/README.md#create) - Trims Create
-
 
 </details>
 <!-- End Available Resources and Operations [operations] -->
@@ -563,7 +562,7 @@ run();
 **Primary error:**
 * [`WistiaError`](./src/models/errors/wistiaerror.ts): The base class for HTTP error responses.
 
-<details><summary>Less common errors (217)</summary>
+<details><summary>Less common errors (221)</summary>
 
 <br />
 
@@ -668,7 +667,11 @@ run();
 * [`PutMediasArchiveForbiddenError`](./src/models/errors/putmediasarchiveforbiddenerror.ts): Forbidden, e.g. account does not have access to archiving. Status code `403`. Applicable to 1 of 77 methods.*
 * [`PutMediasRestoreForbiddenError`](./src/models/errors/putmediasrestoreforbiddenerror.ts): Forbidden, e.g. account does not have access to archiving. Status code `403`. Applicable to 1 of 77 methods.*
 * [`GetBackgroundJobStatusBackgroundJobStatusIdForbiddenError`](./src/models/errors/getbackgroundjobstatusbackgroundjobstatusidforbiddenerror.ts): Background Job Status Not Associated with An Authorized Object. Status code `403`. Applicable to 1 of 77 methods.*
+* [`GetLiveStreamEventsForbiddenError`](./src/models/errors/getlivestreameventsforbiddenerror.ts): Live streaming feature not available. Status code `403`. Applicable to 1 of 77 methods.*
 * [`PostLiveStreamEventsForbiddenError`](./src/models/errors/postlivestreameventsforbiddenerror.ts): Live streaming feature not available. Status code `403`. Applicable to 1 of 77 methods.*
+* [`GetLiveStreamEventsIdForbiddenError`](./src/models/errors/getlivestreameventsidforbiddenerror.ts): Live streaming feature not available. Status code `403`. Applicable to 1 of 77 methods.*
+* [`PutLiveStreamEventsIdForbiddenError`](./src/models/errors/putlivestreameventsidforbiddenerror.ts): Live streaming feature not available. Status code `403`. Applicable to 1 of 77 methods.*
+* [`DeleteLiveStreamEventsIdForbiddenError`](./src/models/errors/deletelivestreameventsidforbiddenerror.ts): Live streaming feature not available. Status code `403`. Applicable to 1 of 77 methods.*
 * [`GetMediasMediaHashedIdNotFoundError`](./src/models/errors/getmediasmediahashedidnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 77 methods.*
 * [`PutMediasMediaHashedIdNotFoundError`](./src/models/errors/putmediasmediahashedidnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 77 methods.*
 * [`DeleteMediasMediaHashedIdNotFoundError`](./src/models/errors/deletemediasmediahashedidnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 77 methods.*
