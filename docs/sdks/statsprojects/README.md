@@ -1,5 +1,4 @@
 # StatsProjects
-(*statsProjects*)
 
 ## Overview
 

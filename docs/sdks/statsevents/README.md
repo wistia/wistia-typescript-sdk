@@ -1,5 +1,4 @@
 # StatsEvents
-(*statsEvents*)
 
 ## Overview
 

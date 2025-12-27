@@ -114,7 +114,7 @@ async function $do(
     options: client._options,
     baseURL: baseURL ?? "",
     operationID: "post_/_form",
-    oAuth2Scopes: [],
+    oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
 
