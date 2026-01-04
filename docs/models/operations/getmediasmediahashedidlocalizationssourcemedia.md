@@ -11,8 +11,8 @@ let value: GetMediasMediaHashedIdLocalizationsSourceMedia = {
   hashedId: "<id>",
   name: "<value>",
   duration: 6844.9,
-  createdAt: new Date("2024-03-03T14:14:45.197Z"),
-  updatedAt: new Date("2023-06-30T02:22:47.552Z"),
+  createdAt: new Date("2025-03-03T14:14:45.197Z"),
+  updatedAt: new Date("2024-06-29T02:22:47.552Z"),
 };
 ```
 

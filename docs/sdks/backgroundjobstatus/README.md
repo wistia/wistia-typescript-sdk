@@ -1,5 +1,4 @@
 # BackgroundJobStatus
-(*backgroundJobStatus*)
 
 ## Overview
 

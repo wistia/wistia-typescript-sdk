@@ -9,13 +9,13 @@ import { GetChannelsChannelHashedIdResponse } from "@wistia/wistia-api-client/mo
 
 let value: GetChannelsChannelHashedIdResponse = {
   id: 832954,
-  created: new Date("2023-10-18T22:49:09.576Z"),
+  created: new Date("2024-10-17T22:49:09.576Z"),
   description:
     "humiliating daddy how celebrate stark idle pastel unsteady than",
   hashedId: "<id>",
   mediaCount: 135769,
   name: "<value>",
-  updated: new Date("2023-12-22T11:17:09.475Z"),
+  updated: new Date("2024-12-21T11:17:09.475Z"),
 };
 ```
 

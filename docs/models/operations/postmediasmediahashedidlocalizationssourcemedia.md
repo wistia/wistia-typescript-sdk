@@ -11,8 +11,8 @@ let value: PostMediasMediaHashedIdLocalizationsSourceMedia = {
   hashedId: "<id>",
   name: "<value>",
   duration: 8939.27,
-  createdAt: new Date("2025-09-13T22:12:49.337Z"),
-  updatedAt: new Date("2024-12-26T18:11:23.123Z"),
+  createdAt: new Date("2026-09-13T22:12:49.337Z"),
+  updatedAt: new Date("2025-12-26T18:11:23.123Z"),
 };
 ```
 

@@ -1,5 +1,4 @@
 # ProjectSharings
-(*projectSharings*)
 
 ## Overview
 

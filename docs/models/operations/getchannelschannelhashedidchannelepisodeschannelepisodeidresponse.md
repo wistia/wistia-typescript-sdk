@@ -9,7 +9,7 @@ import { GetChannelsChannelHashedIdChannelEpisodesChannelEpisodeIdResponse } fro
 
 let value: GetChannelsChannelHashedIdChannelEpisodesChannelEpisodeIdResponse = {
   channelHashedId: "<id>",
-  created: new Date("2025-03-02T05:12:12.783Z"),
+  created: new Date("2026-03-02T05:12:12.783Z"),
   description: "whistle vanish form loftily",
   summary: "A short description.",
   hashedId: "<id>",
@@ -17,7 +17,7 @@ let value: GetChannelsChannelHashedIdChannelEpisodesChannelEpisodeIdResponse = {
   published: true,
   publishAt: new Date("2024-12-31T23:59:59Z"),
   title: null,
-  updated: new Date("2025-10-07T17:12:37.790Z"),
+  updated: new Date("2026-10-07T17:12:37.790Z"),
 };
 ```
 
