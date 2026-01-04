@@ -1,5 +1,4 @@
 # StatsVisitors
-(*statsVisitors*)
 
 ## Overview
 

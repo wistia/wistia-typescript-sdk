@@ -151,7 +151,7 @@ async function $do(
     options: client._options,
     baseURL: baseURL ?? "",
     operationID: "post_/_multipart",
-    oAuth2Scopes: [],
+    oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
 

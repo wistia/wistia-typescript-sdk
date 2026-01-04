@@ -1,5 +1,4 @@
 # ExpiringAccessTokens
-(*expiringAccessTokens*)
 
 ## Overview
 
