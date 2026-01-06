@@ -46,6 +46,7 @@ export function liveStreamEventsGet(
   Result<
     operations.GetLiveStreamEventsIdResponse,
     | errors.GetLiveStreamEventsIdUnauthorizedError
+    | errors.GetLiveStreamEventsIdForbiddenError
     | errors.GetLiveStreamEventsIdInternalServerError
     | WistiaError
     | ResponseValidationError
@@ -73,6 +74,7 @@ async function $do(
     Result<
       operations.GetLiveStreamEventsIdResponse,
       | errors.GetLiveStreamEventsIdUnauthorizedError
+      | errors.GetLiveStreamEventsIdForbiddenError
       | errors.GetLiveStreamEventsIdInternalServerError
       | WistiaError
       | ResponseValidationError
@@ -119,7 +121,7 @@ async function $do(
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
     operationID: "get_/live_stream_events/{id}",
-    oAuth2Scopes: [],
+    oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
 
@@ -147,7 +149,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["401", "404", "4XX", "500", "5XX"],
+    errorCodes: ["401", "403", "404", "4XX", "500", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -163,6 +165,7 @@ async function $do(
   const [result] = await M.match<
     operations.GetLiveStreamEventsIdResponse,
     | errors.GetLiveStreamEventsIdUnauthorizedError
+    | errors.GetLiveStreamEventsIdForbiddenError
     | errors.GetLiveStreamEventsIdInternalServerError
     | WistiaError
     | ResponseValidationError
@@ -175,6 +178,7 @@ async function $do(
   >(
     M.json(200, operations.GetLiveStreamEventsIdResponse$inboundSchema),
     M.jsonErr(401, errors.GetLiveStreamEventsIdUnauthorizedError$inboundSchema),
+    M.jsonErr(403, errors.GetLiveStreamEventsIdForbiddenError$inboundSchema),
     M.jsonErr(
       500,
       errors.GetLiveStreamEventsIdInternalServerError$inboundSchema,

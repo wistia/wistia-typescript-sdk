@@ -12,8 +12,8 @@ let value: GetMediasMediaHashedIdLocalizationsTranscript = {
   languageName: "<value>",
   nativeLanguageName: "<value>",
   text: "<value>",
-  createdAt: new Date("2024-05-13T11:56:44.636Z"),
-  updatedAt: new Date("2024-12-27T14:10:44.292Z"),
+  createdAt: new Date("2025-05-13T11:56:44.636Z"),
+  updatedAt: new Date("2025-12-27T14:10:44.292Z"),
 };
 ```
 

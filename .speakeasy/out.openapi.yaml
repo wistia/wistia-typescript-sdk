@@ -195,6 +195,14 @@ paths:
             enum:
               - 0
               - 1
+        - name: hashed_ids[]
+          in: query
+          description: A collection of hashed ids belonging to projects to fetch
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
       responses:
         '200':
           description: A list of projects
@@ -2923,6 +2931,15 @@ paths:
           required: false
           schema:
             type: string
+        - name: description_format
+          in: query
+          description: Format for media descriptions
+          required: false
+          schema:
+            type: string
+            examples:
+              - markdown
+            const: markdown
         - name: type
           in: query
           description: A string specifying which type of media you would like to get.
@@ -2943,7 +2960,7 @@ paths:
           required: false
           schema:
             type: string
-        - name: hashed_ids
+        - name: hashed_ids[]
           in: query
           description: Find all of the medias by these hashed_ids.
           required: false
@@ -2953,7 +2970,7 @@ paths:
               type: string
           explode: true
           style: form
-        - name: tags
+        - name: tags[]
           in: query
           description: Find all of the medias that match all of these tag names.
           required: false
@@ -3274,6 +3291,15 @@ paths:
           schema:
             description: Hashed ID of the media (e.g., "4d23503f70")
             type: string
+        - name: description_format
+          in: query
+          description: Format for media descriptions
+          required: false
+          schema:
+            type: string
+            examples:
+              - markdown
+            const: markdown
       responses:
         '200':
           description: Successful response
@@ -8889,7 +8915,7 @@ paths:
             enum:
               - 0
               - 1
-        - name: hashed_ids
+        - name: hashed_ids[]
           in: query
           description: Find all of the channels limited to these hashed_ids.
           required: false
@@ -9240,7 +9266,7 @@ paths:
           required: false
           schema:
             type: integer
-        - name: media_id
+        - name: media_id[]
           in: query
           description: Filter by media id
           required: false
@@ -9248,16 +9274,14 @@ paths:
             type: array
             items:
               type: string
-        - name: hashed_id
+        - name: hashed_id[]
           in: query
           description: Filter by hashed id
           required: false
           schema:
-            oneOf:
-              - type: string
-              - type: array
-                items:
-                  type: string
+            type: array
+            items:
+              type: string
         - name: published
           in: query
           description: Filter by published status.
@@ -9605,7 +9629,7 @@ paths:
           required: false
           schema:
             type: integer
-        - name: media_id
+        - name: media_id[]
           in: query
           description: Filter by media id
           required: false
@@ -9613,16 +9637,14 @@ paths:
             type: array
             items:
               type: string
-        - name: hashed_id
+        - name: hashed_id[]
           in: query
           description: Filter by hashed id
           required: false
           schema:
-            oneOf:
-              - type: string
-              - type: array
-                items:
-                  type: string
+            type: array
+            items:
+              type: string
         - name: published
           in: query
           description: Filter by published status.
@@ -9889,7 +9911,7 @@ paths:
             enum:
               - '1'
               - '-1'
-        - name: hashed_ids
+        - name: hashed_ids[]
           in: query
           description: Filter by specific event IDs
           required: false
@@ -9993,6 +10015,17 @@ paths:
                     type: string
                     examples:
                       - Invalid credentials.
+        '403':
+          description: Live streaming feature not available
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    examples:
+                      - Live streaming is not available on your current plan
         '500':
           description: Internal server error
           content:
@@ -10327,6 +10360,17 @@ paths:
                     type: string
                     examples:
                       - Invalid credentials.
+        '403':
+          description: Live streaming feature not available
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    examples:
+                      - Live streaming is not available on your current plan
         '404':
           description: Live stream event not found
         '500':
@@ -10488,6 +10532,17 @@ paths:
                     type: string
                     examples:
                       - Invalid credentials.
+        '403':
+          description: Live streaming feature not available
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    examples:
+                      - Live streaming is not available on your current plan
         '404':
           description: Live stream event not found
         '422':
@@ -10631,6 +10686,17 @@ paths:
                     type: string
                     examples:
                       - Invalid credentials.
+        '403':
+          description: Live streaming feature not available
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    examples:
+                      - Live streaming is not available on your current plan
         '404':
           description: Live stream event not found
         '500':
@@ -15021,7 +15087,7 @@ components:
       schema:
         type: integer
     media_id:
-      name: media_id
+      name: media_id[]
       in: query
       description: Filter by media id
       required: false
@@ -15030,16 +15096,14 @@ components:
         items:
           type: string
     hashed_id:
-      name: hashed_id
+      name: hashed_id[]
       in: query
       description: Filter by hashed id
       required: false
       schema:
-        oneOf:
-          - type: string
-          - type: array
-            items:
-              type: string
+        type: array
+        items:
+          type: string
     published:
       name: published
       in: query

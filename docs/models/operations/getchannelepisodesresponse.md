@@ -7,7 +7,7 @@ import { GetChannelEpisodesResponse } from "@wistia/wistia-api-client/models/ope
 
 let value: GetChannelEpisodesResponse = {
   channelHashedId: "<id>",
-  created: new Date("2023-08-26T09:54:54.073Z"),
+  created: new Date("2024-08-25T09:54:54.073Z"),
   description: "object contravene fantastic geez for amid interviewer",
   summary: "A short description.",
   hashedId: "<id>",
@@ -15,7 +15,7 @@ let value: GetChannelEpisodesResponse = {
   published: false,
   publishAt: new Date("2024-12-31T23:59:59Z"),
   title: "<value>",
-  updated: new Date("2025-12-12T21:46:12.434Z"),
+  updated: new Date("2026-12-12T21:46:12.434Z"),
 };
 ```
 

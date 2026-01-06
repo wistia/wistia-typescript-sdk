@@ -131,7 +131,7 @@ async function $do(
     baseURL: options?.serverURL ?? client._baseURL ?? "",
     operationID:
       "delete_/medias/{mediaHashedId}/localizations/{localizationHashedId}",
-    oAuth2Scopes: [],
+    oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
 

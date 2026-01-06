@@ -1,5 +1,4 @@
 # StatsMedia
-(*statsMedia*)
 
 ## Overview
 

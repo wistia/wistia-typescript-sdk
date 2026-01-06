@@ -7,7 +7,7 @@ import { GetChannelsChannelHashedIdChannelEpisodesResponse } from "@wistia/wisti
 
 let value: GetChannelsChannelHashedIdChannelEpisodesResponse = {
   channelHashedId: "<id>",
-  created: new Date("2024-06-29T13:53:28.541Z"),
+  created: new Date("2025-06-29T13:53:28.541Z"),
   description: "lovely monumental boring",
   summary: "A short description.",
   hashedId: "<id>",
@@ -15,7 +15,7 @@ let value: GetChannelsChannelHashedIdChannelEpisodesResponse = {
   published: true,
   publishAt: new Date("2024-12-31T23:59:59Z"),
   title: "<value>",
-  updated: new Date("2025-06-24T10:34:45.018Z"),
+  updated: new Date("2026-06-24T10:34:45.018Z"),
 };
 ```
 

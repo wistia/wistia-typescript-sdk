@@ -1,5 +1,4 @@
 # Media
-(*media*)
 
 ## Overview
 
@@ -204,7 +203,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.media.list();
+  const result = await wistia.media.list({});
 
   console.log(result);
 }
@@ -227,7 +226,7 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await mediaList(wistia);
+  const res = await mediaList(wistia, {});
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
