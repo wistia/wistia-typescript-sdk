@@ -13,8 +13,8 @@ let value: ChannelEpisode = {
   channelHashedId: "<id>",
   mediaHashedId: "<id>",
   published: true,
-  created: new Date("2023-09-06T02:35:01.550Z"),
-  updated: new Date("2025-04-18T22:48:43.321Z"),
+  created: new Date("2024-09-05T02:35:01.550Z"),
+  updated: new Date("2026-04-18T22:48:43.321Z"),
 };
 ```
 

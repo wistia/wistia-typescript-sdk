@@ -7,12 +7,12 @@ import { GetChannelsResponse } from "@wistia/wistia-api-client/models/operations
 
 let value: GetChannelsResponse = {
   id: 817535,
-  created: new Date("2023-10-19T05:53:50.151Z"),
+  created: new Date("2024-10-18T05:53:50.151Z"),
   description: "till fatherly evenly platter gee instantly near wriggler",
   hashedId: "<id>",
   mediaCount: 143688,
   name: "<value>",
-  updated: new Date("2023-02-26T07:29:40.770Z"),
+  updated: new Date("2024-02-26T07:29:40.770Z"),
 };
 ```
 

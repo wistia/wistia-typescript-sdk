@@ -1,5 +1,4 @@
 # Localizations
-(*localizations*)
 
 ## Overview
 

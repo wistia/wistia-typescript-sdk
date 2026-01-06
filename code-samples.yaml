@@ -441,7 +441,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.media.list();
+              const result = await wistia.media.list({});
 
               console.log(result);
             }

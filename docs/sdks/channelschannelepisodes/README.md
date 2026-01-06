@@ -1,5 +1,4 @@
-# ChannelsChannelEpisodes
-(*channels.channelEpisodes*)
+# Channels.ChannelEpisodes
 
 ## Overview
 
