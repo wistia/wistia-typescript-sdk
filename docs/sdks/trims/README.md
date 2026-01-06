@@ -1,5 +1,4 @@
 # Trims
-(*trims*)
 
 ## Overview
 

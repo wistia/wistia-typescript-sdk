@@ -371,6 +371,27 @@ describe('Wistia SDK Integration Tests', () => {
       log(`✅ Listed medias, found our media: ${media.name}`);
     });
 
+    it('should allow grabbing media from the index action', async () => {
+      assert.ok(testResources.media, 'Media should exist');
+      assert.ok(testResources.media.hashedId, 'Media should have a hashedId');
+      assert.ok(testResources.project, 'Project should exist');
+
+      const anotherMedia = await wistia.media.uploadMultipart({
+        file: await openAsBlob(videoFile),
+        name: `${testPrefix}-Media`,
+        description: 'Test media for SDK integration',
+        projectId: testResources.project.hashedId,
+      });
+
+      const medias = await wistia.media.list({
+        hashedIds: [testResources.media.hashedId ?? '', anotherMedia.hashedId ?? '']
+      })
+      const mediaHashedIds = medias.map((m) => m.hashedId);
+
+      assert.deepEqual([testResources.media.hashedId, anotherMedia?.hashedId], mediaHashedIds);
+      log(`✅ Retrieved medias by hashed id`);
+    });
+
     it('should move media to subfolder', async () => {
       assert.ok(testResources.media && testResources.subfolder && testResources.project, 'Media, subfolder and project should exist');
       assert.ok(testResources.media.hashedId, 'Media should have a hashedId');

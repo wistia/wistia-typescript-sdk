@@ -1,5 +1,4 @@
 # Subfolders
-(*subfolders*)
 
 ## Overview
 

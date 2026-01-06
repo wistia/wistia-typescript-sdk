@@ -11,8 +11,8 @@ let value: GetMediasMediaHashedIdLocalizationsResponse = {
   iso6392LanguageCode: "<value>",
   languageName: "<value>",
   nativeLanguageName: "<value>",
-  createdAt: new Date("2023-06-25T07:36:31.910Z"),
-  updatedAt: new Date("2024-04-08T11:58:34.202Z"),
+  createdAt: new Date("2024-06-24T07:36:31.910Z"),
+  updatedAt: new Date("2025-04-08T11:58:34.202Z"),
   orderedAt: null,
   enabledAt: null,
   enabled: true,
@@ -20,8 +20,8 @@ let value: GetMediasMediaHashedIdLocalizationsResponse = {
     hashedId: "<id>",
     name: "<value>",
     duration: 234.22,
-    createdAt: new Date("2024-06-21T17:53:45.352Z"),
-    updatedAt: new Date("2023-11-02T17:59:13.723Z"),
+    createdAt: new Date("2025-06-21T17:53:45.352Z"),
+    updatedAt: new Date("2024-11-01T17:59:13.723Z"),
   },
 };
 ```

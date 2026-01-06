@@ -11,8 +11,8 @@ let value: Channel = {
   name: "<value>",
   description: "guzzle cycle mindless closed descent amid come following",
   mediaCount: 251066,
-  created: new Date("2024-05-21T03:53:14.193Z"),
-  updated: new Date("2024-03-02T03:13:41.459Z"),
+  created: new Date("2025-05-21T03:53:14.193Z"),
+  updated: new Date("2025-03-02T03:13:41.459Z"),
 };
 ```
 

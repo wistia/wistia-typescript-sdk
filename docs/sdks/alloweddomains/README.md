@@ -1,5 +1,4 @@
 # AllowedDomains
-(*allowedDomains*)
 
 ## Overview
 

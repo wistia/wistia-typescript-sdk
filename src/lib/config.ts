@@ -59,7 +59,7 @@ export const SDK_METADATA = {
   language: "typescript",
   openapiDocVersion: "2025.11.0",
   sdkVersion: "2025.11.0",
-  genVersion: "2.716.10",
+  genVersion: "2.791.1",
   userAgent:
-    "speakeasy-sdk/typescript 2025.11.0 2.716.10 2025.11.0 @wistia/wistia-api-client",
+    "speakeasy-sdk/typescript 2025.11.0 2.791.1 2025.11.0 @wistia/wistia-api-client",
 } as const;

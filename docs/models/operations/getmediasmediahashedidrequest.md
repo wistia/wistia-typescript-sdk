@@ -12,6 +12,7 @@ let value: GetMediasMediaHashedIdRequest = {
 
 ## Fields
 
-| Field                       | Type                        | Required                    | Description                 |
-| --------------------------- | --------------------------- | --------------------------- | --------------------------- |
-| `mediaHashedId`             | *string*                    | :heavy_check_mark:          | The hashed ID of the media. |
+| Field                         | Type                          | Required                      | Description                   | Example                       |
+| ----------------------------- | ----------------------------- | ----------------------------- | ----------------------------- | ----------------------------- |
+| `mediaHashedId`               | *string*                      | :heavy_check_mark:            | The hashed ID of the media.   |                               |
+| `descriptionFormat`           | *"markdown"*                  | :heavy_minus_sign:            | Format for media descriptions | markdown                      |

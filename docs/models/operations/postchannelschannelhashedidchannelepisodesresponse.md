@@ -9,7 +9,7 @@ import { PostChannelsChannelHashedIdChannelEpisodesResponse } from "@wistia/wist
 
 let value: PostChannelsChannelHashedIdChannelEpisodesResponse = {
   channelHashedId: "<id>",
-  created: new Date("2024-04-18T12:53:14.248Z"),
+  created: new Date("2025-04-18T12:53:14.248Z"),
   description: "aha as part hence towards duh wrathful inasmuch humidity",
   summary: "A short description.",
   hashedId: "<id>",
@@ -17,7 +17,7 @@ let value: PostChannelsChannelHashedIdChannelEpisodesResponse = {
   published: true,
   publishAt: new Date("2024-12-31T23:59:59Z"),
   title: "<value>",
-  updated: new Date("2024-02-13T21:40:05.686Z"),
+  updated: new Date("2025-02-12T21:40:05.686Z"),
 };
 ```
 
