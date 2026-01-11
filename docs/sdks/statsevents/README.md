@@ -16,7 +16,7 @@ only events from the last 2 years are available.
 ```
 Read, update & delete anything
 Read all data
-Read all project and video data
+Read all folder and media data
 ```
 
 
@@ -96,7 +96,7 @@ only events from the last 2 years are available.
 ```
 Read, update & delete anything
 Read all data
-Read all project and video data
+Read all folder and media data
 ```
 
 
