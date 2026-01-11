@@ -1,21 +1,21 @@
-speakeasyVersion: 1.682.0
+speakeasyVersion: 1.684.0
 sources:
     Data API:
         sourceNamespace: data-api
-        sourceRevisionDigest: sha256:136303b56d0cab8706d71bcfc84b7e2f756422b98f39093f740089ce8daa6c40
-        sourceBlobDigest: sha256:cb9bf3f34f1e712783342a6aa22fdf09cf3dbb1f5e81c809ebee01724a24e56f
+        sourceRevisionDigest: sha256:f3de0b42c9996d2c34ea998c4c4b4c34fd04d37ac92960b44bc65778492747b7
+        sourceBlobDigest: sha256:d08564b0bd2e26b8aa409eabc2a8c3f2340d79851f6d050e6fbe73cf1c3c4fbe
         tags:
             - latest
-            - speakeasy-sdk-regen-tdevries-fix-hashed-ids-issue-1767719992
+            - speakeasy-sdk-regen-1761610361
             - 2025.11.0
 targets:
     wistia:
         source: Data API
         sourceNamespace: data-api
-        sourceRevisionDigest: sha256:136303b56d0cab8706d71bcfc84b7e2f756422b98f39093f740089ce8daa6c40
-        sourceBlobDigest: sha256:cb9bf3f34f1e712783342a6aa22fdf09cf3dbb1f5e81c809ebee01724a24e56f
+        sourceRevisionDigest: sha256:f3de0b42c9996d2c34ea998c4c4b4c34fd04d37ac92960b44bc65778492747b7
+        sourceBlobDigest: sha256:d08564b0bd2e26b8aa409eabc2a8c3f2340d79851f6d050e6fbe73cf1c3c4fbe
         codeSamplesNamespace: data-api-typescript-code-samples
-        codeSamplesRevisionDigest: sha256:f6ce049c7563b52c38c4d97a8ed8cec432bc59894ca5ae739753ad3aac70c16d
+        codeSamplesRevisionDigest: sha256:cf6d1c3ddaabb9f1dc3458f1917b18e567271cfcb4217a7faff5a9ade512eca2
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
