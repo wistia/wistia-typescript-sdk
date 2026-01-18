@@ -17,7 +17,7 @@ Obtain a list of all the localizations for a media.
 ```
 Read, update & delete anything
 Read all data
-Read all project and video data
+Read all folder and media data
 ```
 
 
@@ -185,7 +185,7 @@ Obtain detailed information about a localization.
 ```
 Read, update & delete anything
 Read all data
-Read all project and video data
+Read all folder and media data
 ```
 
 

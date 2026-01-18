@@ -188,7 +188,7 @@ Obtain a list of all the media in your account. For accounts with more than 100 
 ```
 Read, update & delete anything
 Read all data
-Read all project and video data
+Read all folder and media data
 ```
 
 
@@ -271,7 +271,7 @@ For more information, see https://docs.wistia.com/docs/asset-urls#getting-hls-as
 ```
 Read, update & delete anything
 Read all data
-Read all project and video data
+Read all folder and media data
 ```
 
 
@@ -687,7 +687,7 @@ Aggregated tracking statistics for a video embedded on your site.
 ```
 Read, update & delete anything
 Read all data
-Read all project and video data
+Read all folder and media data
 ```
 
 
