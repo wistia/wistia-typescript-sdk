@@ -15,7 +15,7 @@ This endpoint provides a list of visitors that have watched videos in your accou
 ```
 Read, update & delete anything
 Read all data
-Read all project and video data
+Read all folder and media data
 ```
 
 
@@ -94,7 +94,7 @@ This endpoint provides detailed information about a specific visitor.
 ```
 Read, update & delete anything
 Read all data
-Read all project and video data
+Read all folder and media data
 ```
 
 
