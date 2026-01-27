@@ -15,7 +15,7 @@ Returns all the Channels associated with the account.
 ```
 Read, update & delete anything
 Read all data
-Read all project and video data
+Read all folder and media data
 ```
 
 
@@ -94,7 +94,7 @@ Returns the Channel associated with the hashedId.
 ```
 Read, update & delete anything
 Read all data
-Read all project and video data
+Read all folder and media data
 ```
 
 

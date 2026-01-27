@@ -18,7 +18,7 @@ Use this endpoint to request a list of Live Stream Events in your Wistia account
 ```
 Read, update & delete anything
 Read all data
-Read all project and video data
+Read all folder and media data
 ```
 
 
@@ -193,7 +193,7 @@ Retrieve information for a single live stream event.
 ```
 Read, update & delete anything
 Read all data
-Read all project and video data
+Read all folder and media data
 ```
 
 

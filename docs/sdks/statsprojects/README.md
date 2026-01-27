@@ -14,7 +14,7 @@ Retrieve stats for a project. This endpoint provides statistics for a specific p
 ```
 Read, update & delete anything
 Read all data
-Read all project and video data
+Read all folder and media data
 ```
 
 
