@@ -188,7 +188,7 @@ Obtain a list of all the media in your account. For accounts with more than 100 
 ```
 Read, update & delete anything
 Read all data
-Read all project and video data
+Read all folder and media data
 ```
 
 
@@ -271,7 +271,7 @@ For more information, see https://docs.wistia.com/docs/asset-urls#getting-hls-as
 ```
 Read, update & delete anything
 Read all data
-Read all project and video data
+Read all folder and media data
 ```
 
 
@@ -687,7 +687,7 @@ Aggregated tracking statistics for a video embedded on your site.
 ```
 Read, update & delete anything
 Read all data
-Read all project and video data
+Read all folder and media data
 ```
 
 
@@ -1052,6 +1052,7 @@ const wistia = new Wistia({
 async function run() {
   const result = await wistia.media.restore({
     hashedIds: [],
+    projectId: "<id>",
   });
 
   console.log(result);
@@ -1077,6 +1078,7 @@ const wistia = new WistiaCore({
 async function run() {
   const res = await mediaRestore(wistia, {
     hashedIds: [],
+    projectId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;

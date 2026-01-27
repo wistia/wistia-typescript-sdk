@@ -14,7 +14,7 @@ Retrieve account-wide video stats. Get statistics like the number of video loads
 ```
 Read, update & delete anything
 Read all data
-Read all project and video data
+Read all folder and media data
 ```
 
 

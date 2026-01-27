@@ -508,6 +508,7 @@ actions:
             async function run() {
               const result = await wistia.media.restore({
                 hashedIds: [],
+                projectId: "<id>",
               });
 
               console.log(result);
