@@ -19,7 +19,7 @@ Use this endpoint to request a list of Projects in your Wistia account. This req
 ```
 Read, update & delete anything
 Read all data
-Read all project and video data
+Read all folder and media data
 ```
 
 
@@ -183,7 +183,7 @@ Retrieve a single project. Projects#show uses pagination by default - we’ll re
 ```
 Read, update & delete anything
 Read all data
-Read all project and video data
+Read all folder and media data
 ```
 
 

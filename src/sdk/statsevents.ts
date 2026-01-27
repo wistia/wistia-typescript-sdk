@@ -20,7 +20,7 @@ export class StatsEvents extends ClientSDK {
    * ```
    * Read, update & delete anything
    * Read all data
-   * Read all project and video data
+   * Read all folder and media data
    * ```
    */
   async list(
@@ -45,7 +45,7 @@ export class StatsEvents extends ClientSDK {
    * ```
    * Read, update & delete anything
    * Read all data
-   * Read all project and video data
+   * Read all folder and media data
    * ```
    */
   async get(

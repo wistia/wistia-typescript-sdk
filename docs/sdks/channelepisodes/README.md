@@ -16,7 +16,7 @@ Returns the Channel Episode associated with the hashedId.
 ```
 Read, update & delete anything
 Read all data
-Read all project and video data
+Read all folder and media data
 ```
 
 
@@ -195,7 +195,7 @@ Returns all the Channel Episodes associated with the account, and allows for fil
 ```
 Read, update & delete anything
 Read all data
-Read all project and video data
+Read all folder and media data
 ```
 
 

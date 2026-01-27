@@ -16,7 +16,7 @@ Retrieve stats for a video. This endpoint provides statistics for a specific vid
 ```
 Read, update & delete anything
 Read all data
-Read all project and video data
+Read all folder and media data
 ```
 
 
@@ -99,7 +99,7 @@ Retrieve stats for a media organized by day, between a start and end date parama
 ```
 Read, update & delete anything
 Read all data
-Read all project and video data
+Read all folder and media data
 ```
 
 
@@ -188,7 +188,7 @@ Retrieve engagement data for a video. This endpoint provides engagement data for
 ```
 Read, update & delete anything
 Read all data
-Read all project and video data
+Read all folder and media data
 ```
 
 
