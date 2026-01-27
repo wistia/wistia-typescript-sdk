@@ -15,18 +15,14 @@ export type PutMediasRestoreRequest = {
    */
   hashedIds: Array<string>;
   /**
-   * The hashed ID of the project to restore the medias to. Required unless channel_id is specified.
+   * The hashed ID of the project to restore the medias to.
    */
-  projectId?: string | undefined;
-  /**
-   * The hashed ID of the channel to restore the medias to. Required unless project_id is specified.
-   */
-  channelId?: string | undefined;
+  projectId: string;
 };
 
 export type Container = {
   /**
-   * The type of container the medias will be restored to, either Project or Channel.
+   * The type of container the medias will be restored to.
    */
   type?: string | undefined;
   /**
@@ -85,8 +81,7 @@ export type PutMediasRestoreResponse = {
 /** @internal */
 export type PutMediasRestoreRequest$Outbound = {
   hashed_ids: Array<string>;
-  project_id?: string | undefined;
-  channel_id?: string | undefined;
+  project_id: string;
 };
 
 /** @internal */
@@ -96,13 +91,11 @@ export const PutMediasRestoreRequest$outboundSchema: z.ZodType<
   PutMediasRestoreRequest
 > = z.object({
   hashedIds: z.array(z.string()),
-  projectId: z.string().optional(),
-  channelId: z.string().optional(),
+  projectId: z.string(),
 }).transform((v) => {
   return remap$(v, {
     hashedIds: "hashed_ids",
     projectId: "project_id",
-    channelId: "channel_id",
   });
 });
 

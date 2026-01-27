@@ -23,7 +23,7 @@ If this video does not exist, the response will be an empty HTTP 404 Not Found.
 ```
 Read, update & delete anything
 Read all data
-Read all project and video data
+Read all folder and media data
 ```
 
 
@@ -368,7 +368,7 @@ Use file extensions (.srt, .vtt, .txt) or Accept headers to specify format.
 ```
 Read, update & delete anything
 Read all data
-Read all project and video data
+Read all folder and media data
 ```
 
 

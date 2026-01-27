@@ -14,7 +14,7 @@ Returns all the Channel Episodes belonging the channel passed in the path.
 ```
 Read, update & delete anything
 Read all data
-Read all project and video data
+Read all folder and media data
 ```
 
 
