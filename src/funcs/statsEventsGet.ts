@@ -26,18 +26,18 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Stats:Events Show
+ * Show Event
  *
  * @remarks
  * Retrieve information for a single event. Please note that due to our data retention policy,
  * only events from the last 2 years are available.
  *
+ * <!-- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
- * Read, update & delete anything
- * Read all data
- * Read all folder and media data
+ * Read detailed stats
  * ```
+ * <!-- /HIDE-MCP -->
  */
 export function statsEventsGet(
   client: WistiaCore,

@@ -3,25 +3,30 @@
  */
 
 import { channelEpisodesCreate } from "../funcs/channelEpisodesCreate.js";
+import { channelEpisodesDeleteChannelEpisodesChannelEpisodeHashedId } from "../funcs/channelEpisodesDeleteChannelEpisodesChannelEpisodeHashedId.js";
 import { channelEpisodesGet } from "../funcs/channelEpisodesGet.js";
 import { channelEpisodesList } from "../funcs/channelEpisodesList.js";
+import { channelEpisodesPutChannelEpisodesChannelEpisodeHashedId } from "../funcs/channelEpisodesPutChannelEpisodesChannelEpisodeHashedId.js";
+import { channelEpisodesPutChannelEpisodesChannelEpisodeHashedIdPublish } from "../funcs/channelEpisodesPutChannelEpisodesChannelEpisodeHashedIdPublish.js";
+import { channelEpisodesPutChannelEpisodesChannelEpisodeHashedIdUnpublish } from "../funcs/channelEpisodesPutChannelEpisodesChannelEpisodeHashedIdUnpublish.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
 export class ChannelEpisodes extends ClientSDK {
   /**
-   * Channel Episodes Show
+   * Show Channel Episode
    *
    * @remarks
-   * Returns the Channel Episode associated with the hashedId.
+   * Returns the Channel Episode associated with a channel hashed id
+   * and channel episode hashed id.
    *
+   * <!-- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
-   * Read, update & delete anything
-   * Read all data
    * Read all folder and media data
    * ```
+   * <!-- /HIDE-MCP -->
    */
   async get(
     request:
@@ -38,15 +43,17 @@ export class ChannelEpisodes extends ClientSDK {
   }
 
   /**
-   * Channel Episode Create
+   * Create Channel Episode
    *
    * @remarks
    * Creates a new channel episode in a channel.
    *
+   * <!-- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read, update & delete anything
    * ```
+   * <!-- /HIDE-MCP -->
    */
   async create(
     request: operations.PostChannelsChannelHashedIdChannelEpisodesRequest,
@@ -60,17 +67,18 @@ export class ChannelEpisodes extends ClientSDK {
   }
 
   /**
-   * Channel Episodes List
+   * List Channel Episodes
    *
    * @remarks
-   * Returns all the Channel Episodes associated with the account, and allows for filtering by a particular channel.
+   * Lists Channel Episodes belonging to an account. This endpoint can also be used to
+   * do a batch fetch based off of the hashed id.
    *
+   * <!-- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
-   * Read, update & delete anything
-   * Read all data
    * Read all folder and media data
    * ```
+   * <!-- /HIDE-MCP -->
    */
   async list(
     request?: operations.GetChannelEpisodesRequest | undefined,
@@ -81,5 +89,101 @@ export class ChannelEpisodes extends ClientSDK {
       request,
       options,
     ));
+  }
+
+  /**
+   * Channel Episode Update
+   *
+   * @remarks
+   * Updates an existing channel episode in a channel.
+   * ## Requires api token with one of the following permissions
+   * ```
+   * Read, update & delete anything
+   * ```
+   */
+  async putChannelEpisodesChannelEpisodeHashedId(
+    request: operations.PutChannelEpisodesChannelEpisodeHashedIdRequest,
+    options?: RequestOptions,
+  ): Promise<operations.PutChannelEpisodesChannelEpisodeHashedIdResponse> {
+    return unwrapAsync(channelEpisodesPutChannelEpisodesChannelEpisodeHashedId(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Channel Episode Delete
+   *
+   * @remarks
+   * Deletes an existing channel episode in a channel.
+   *
+   * ## Requires api token with one of the following permissions
+   * ```
+   * Read, update & delete anything
+   * ```
+   */
+  async deleteChannelEpisodesChannelEpisodeHashedId(
+    request: operations.DeleteChannelEpisodesChannelEpisodeHashedIdRequest,
+    options?: RequestOptions,
+  ): Promise<operations.DeleteChannelEpisodesChannelEpisodeHashedIdResponse> {
+    return unwrapAsync(
+      channelEpisodesDeleteChannelEpisodesChannelEpisodeHashedId(
+        this,
+        request,
+        options,
+      ),
+    );
+  }
+
+  /**
+   * Channel Episode Update
+   *
+   * @remarks
+   * Publishes an existing channel episode in a channel.
+   * ## Requires api token with one of the following permissions
+   * ```
+   * Read, update & delete anything
+   * ```
+   */
+  async putChannelEpisodesChannelEpisodeHashedIdPublish(
+    request: operations.PutChannelEpisodesChannelEpisodeHashedIdPublishRequest,
+    options?: RequestOptions,
+  ): Promise<
+    operations.PutChannelEpisodesChannelEpisodeHashedIdPublishResponse
+  > {
+    return unwrapAsync(
+      channelEpisodesPutChannelEpisodesChannelEpisodeHashedIdPublish(
+        this,
+        request,
+        options,
+      ),
+    );
+  }
+
+  /**
+   * Channel Episode Update
+   *
+   * @remarks
+   * Unpublishes an existing channel episode in a channel.
+   * ## Requires api token with one of the following permissions
+   * ```
+   * Read, update & delete anything
+   * ```
+   */
+  async putChannelEpisodesChannelEpisodeHashedIdUnpublish(
+    request:
+      operations.PutChannelEpisodesChannelEpisodeHashedIdUnpublishRequest,
+    options?: RequestOptions,
+  ): Promise<
+    operations.PutChannelEpisodesChannelEpisodeHashedIdUnpublishResponse
+  > {
+    return unwrapAsync(
+      channelEpisodesPutChannelEpisodesChannelEpisodeHashedIdUnpublish(
+        this,
+        request,
+        options,
+      ),
+    );
   }
 }

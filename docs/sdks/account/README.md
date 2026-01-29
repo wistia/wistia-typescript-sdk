@@ -4,16 +4,18 @@
 
 ### Available Operations
 
-* [get](#get) - Account Show
+* [get](#get) - Get Current Account
 
 ## get
 
-Retrieve account details.
+Retrieves a summary of the Wistia account including account name, description, URL and counts of records.
 
+<!-- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 (any scope allowed)
 ```
+<!-- /HIDE-MCP -->
 
 
 ### Example Usage

@@ -32,19 +32,19 @@ export enum GetAcceptEnum {
 }
 
 /**
- * Captions Show
+ * Show Captions
  *
  * @remarks
  * Returns a video's captions in the specified language.
  * Supports multiple formats: JSON (default), SRT, VTT, and TXT.
  * Use file extensions (.srt, .vtt, .txt) or Accept headers to specify format.
  *
+ * <!-- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
- * Read, update & delete anything
- * Read all data
  * Read all folder and media data
  * ```
+ * <!-- /HIDE-MCP -->
  */
 export function captionsGet(
   client: WistiaCore,

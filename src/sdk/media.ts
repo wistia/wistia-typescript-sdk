@@ -9,6 +9,7 @@ import { mediaGet } from "../funcs/mediaGet.js";
 import { mediaGetStats } from "../funcs/mediaGetStats.js";
 import { mediaList } from "../funcs/mediaList.js";
 import { mediaMove } from "../funcs/mediaMove.js";
+import { mediaPutMediasCopy } from "../funcs/mediaPutMediasCopy.js";
 import { mediaRestore } from "../funcs/mediaRestore.js";
 import { mediaSwap } from "../funcs/mediaSwap.js";
 import { mediaTranslate } from "../funcs/mediaTranslate.js";
@@ -61,17 +62,18 @@ export class Media extends ClientSDK {
   }
 
   /**
-   * Media List
+   * List Media
    *
    * @remarks
-   * Obtain a list of all the media in your account. For accounts with more than 100 media, you’ll want to page and sort the returned list.
+   * Lists the media belonging to the account. This endpoint can also be used to
+   * do a batch fetch based off of the hashed id.
    *
+   * <!-- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
-   * Read, update & delete anything
-   * Read all data
    * Read all folder and media data
    * ```
+   * <!-- /HIDE-MCP -->
    */
   async list(
     request?: operations.GetMediasRequest | undefined,
@@ -85,20 +87,17 @@ export class Media extends ClientSDK {
   }
 
   /**
-   * Media Show
+   * Show Media
    *
    * @remarks
-   * Fetch detailed information about a media you’ve uploaded to your account using its hashed_id.
+   * Fetches a single media by its hashed id.
    *
-   * CDN-backed medias are accessible using this url structure: https://fast.wistia.com/embed/medias/{hashed_id}.m3u8.
-   * For more information, see https://docs.wistia.com/docs/asset-urls#getting-hls-assets.
-   *
+   * <!-- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
-   * Read, update & delete anything
-   * Read all data
    * Read all folder and media data
    * ```
+   * <!-- /HIDE-MCP -->
    */
   async get(
     request: operations.GetMediasMediaHashedIdRequest,
@@ -112,15 +111,17 @@ export class Media extends ClientSDK {
   }
 
   /**
-   * Media Update
+   * Update Media
    *
    * @remarks
-   * Update attributes on a media.
+   * Updates the attributes on a media.
    *
+   * <!-- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read, update & delete anything
    * ```
+   * <!-- /HIDE-MCP -->
    */
   async update(
     request: operations.PutMediasMediaHashedIdRequest,
@@ -134,15 +135,17 @@ export class Media extends ClientSDK {
   }
 
   /**
-   * Media Delete
+   * Delete Media
    *
    * @remarks
-   * Delete a media.
+   * Deletes a media.
    *
+   * <!-- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read, update & delete anything
    * ```
+   * <!-- /HIDE-MCP -->
    */
   async delete(
     request: operations.DeleteMediasMediaHashedIdRequest,
@@ -156,15 +159,17 @@ export class Media extends ClientSDK {
   }
 
   /**
-   * Media Copy
+   * Copy Media
    *
    * @remarks
-   * Copy a media.
+   * This endpoint copies a media and its assets to a destination folder (defaults to source media).
    *
+   * <!-- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read, update & delete anything
    * ```
+   * <!-- /HIDE-MCP -->
    */
   async copy(
     request: operations.PostMediasMediaHashedIdCopyRequest,
@@ -178,15 +183,17 @@ export class Media extends ClientSDK {
   }
 
   /**
-   * Media Swap
+   * Swap Media
    *
    * @remarks
    * Swap one media with another media. This operation queues a background job to replace the original media with the replacement media while preserving the original media's hashed ID and URLs.
    *
+   * <!-- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read, update & delete anything
    * ```
+   * <!-- /HIDE-MCP -->
    */
   async swap(
     request: operations.PutMediasMediaHashedIdSwapRequest,
@@ -200,17 +207,17 @@ export class Media extends ClientSDK {
   }
 
   /**
-   * Media Stats
+   * Show Media Aggregated Stats
    *
    * @remarks
    * Aggregated tracking statistics for a video embedded on your site.
    *
+   * <!-- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
-   * Read, update & delete anything
-   * Read all data
    * Read all folder and media data
    * ```
+   * <!-- /HIDE-MCP -->
    */
   async getStats(
     request: operations.GetMediasMediaHashedIdStatsRequest,
@@ -224,15 +231,17 @@ export class Media extends ClientSDK {
   }
 
   /**
-   * Media Translate
+   * Translate Media
    *
    * @remarks
-   * Translate the transcript for a media.
+   * Translates the transcript for a media.
    *
+   * <!-- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read, update & delete anything
    * ```
+   * <!-- /HIDE-MCP -->
    */
   async translate(
     request: operations.PostMediasMediaHashedIdTranslateRequest,
@@ -246,15 +255,17 @@ export class Media extends ClientSDK {
   }
 
   /**
-   * Medias Archive
+   * Archive Media
    *
    * @remarks
-   * This method accepts a list of up to 100 medias to archive per request. It processes requests asynchronously and will return a background_job_status object rather than the typical Media response object. Note that Livestream medias and Soapbox videos imported to Wistia before September 1, 2023 cannot be archived.
+   * This method accepts a list of up to 100 medias to archive per request. It processes requests asynchronously and will return a background_job_status object rather than the typical Media response object. Note that webinar medias and Soapbox videos imported to Wistia before September 1, 2023 cannot be archived.
    *
+   * <!-- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read, update & delete anything
    * ```
+   * <!-- /HIDE-MCP -->
    */
   async archive(
     request: operations.PutMediasArchiveRequest,
@@ -268,22 +279,24 @@ export class Media extends ClientSDK {
   }
 
   /**
-   * Media Move
+   * Move Media
    *
    * @remarks
-   * Move one or many media to a different project and optionally to a specific subfolder.
+   * Move one or many media to a different folder and optionally to a specific subfolder.
    * Max 100 media per request, and max 10 requests in 5 minutes.
    * Note: this is a different rate limit than applies to the rest of the api!
    *
    * If a subfolder_id is provided, media will be moved to that subfolder. The subfolder
-   * must belong to the specified project.
+   * must belong to the specified folder.
    *
    * Returns a Background Job as the move is async.
    *
+   * <!-- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read, update & delete anything
    * ```
+   * <!-- /HIDE-MCP -->
    */
   async move(
     request: operations.PutMediasMoveRequest,
@@ -297,21 +310,49 @@ export class Media extends ClientSDK {
   }
 
   /**
-   * Media Restore
+   * Restore Media
    *
    * @remarks
-   * Restore archived medias to your account. This method accepts a list of up to 100 medias to restore per request. It processes requests asynchronously and will return a background_job_status object rather than the typical Media response object. Your account must have access to the Archiving feature to use this method.
+   * Restores archived medias to your account. This method accepts a list of up to 100 medias to restore per request. It processes requests asynchronously and will return a background_job_status object rather than the typical Media response object. Your account must have access to the Archiving feature to use this method.
    *
+   * <!-- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read, update & delete anything
    * ```
+   * <!-- /HIDE-MCP -->
    */
   async restore(
     request: operations.PutMediasRestoreRequest,
     options?: RequestOptions,
   ): Promise<operations.PutMediasRestoreResponse> {
     return unwrapAsync(mediaRestore(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Bulk Copy Media
+   *
+   * @remarks
+   * This method accepts a list of medias to copy to a destination folder. It processes requests asynchronously and will return a background_job_status object rather than the typical Media response object.
+   *
+   * Each media will be duplicated and the copy will be placed in the specified destination folder. The original media files will not be affected.
+   *
+   * <!-- HIDE-MCP -->
+   * ## Requires api token with one of the following permissions
+   * ```
+   * Read, update & delete anything
+   * ```
+   * <!-- /HIDE-MCP -->
+   */
+  async putMediasCopy(
+    request: operations.PutMediasCopyRequest,
+    options?: RequestOptions,
+  ): Promise<operations.PutMediasCopyResponse> {
+    return unwrapAsync(mediaPutMediasCopy(
       this,
       request,
       options,

@@ -26,15 +26,17 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Media Delete
+ * Delete Media
  *
  * @remarks
- * Delete a media.
+ * Deletes a media.
  *
+ * <!-- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read, update & delete anything
  * ```
+ * <!-- /HIDE-MCP -->
  */
 export function mediaDelete(
   client: WistiaCore,

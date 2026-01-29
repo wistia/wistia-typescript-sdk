@@ -75,6 +75,11 @@ export type GetMediasMediaHashedIdLocalizationsTranscript = {
   updatedAt: Date;
 };
 
+/**
+ * A localization is a translation of a media into another language.
+ *
+ * @remarks
+ */
 export type GetMediasMediaHashedIdLocalizationsResponse = {
   /**
    * A unique alphanumeric identifier for this localization.

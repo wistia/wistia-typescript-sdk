@@ -26,17 +26,17 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Stats:Visitors Show
+ * Show Visitor
  *
  * @remarks
  * This endpoint provides detailed information about a specific visitor.
  *
+ * <!-- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
- * Read, update & delete anything
- * Read all data
- * Read all folder and media data
+ * Read detailed stats
  * ```
+ * <!-- /HIDE-MCP -->
  */
 export function statsVisitorsGet(
   client: WistiaCore,

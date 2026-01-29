@@ -9,21 +9,22 @@ import { unwrapAsync } from "../types/fp.js";
 
 export class ExpiringAccessTokens extends ClientSDK {
   /**
-   * Create an expiring access token
+   * Create Expiring Access Token
    *
    * @remarks
    * ```
    * 🚫 Alert
-   *
    * This API is still under development and can change at any time.
    * ```
    *
    * This endpoint is for creating expiring access tokens which can be used for some iframe embeds.
    *
+   * <!-- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read, update & delete anything
    * ```
+   * <!-- /HIDE-MCP -->
    */
   async create(
     request?: operations.PostExpiringTokenRequest | undefined,

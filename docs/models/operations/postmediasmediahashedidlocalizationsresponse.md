@@ -1,6 +1,7 @@
 # PostMediasMediaHashedIdLocalizationsResponse
 
-Successful creation of the localization.
+A localization is a translation of a media into another language.
+
 
 ## Example Usage
 

@@ -4,16 +4,18 @@
 
 ### Available Operations
 
-* [create](#create) - Trims Create
+* [create](#create) - Create Media from Trims
 
 ## create
 
 Creates a new media that trims off parts of an existing media
 
+<!-- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
+<!-- /HIDE-MCP -->
 
 
 ### Example Usage

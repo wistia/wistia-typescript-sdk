@@ -9,15 +9,17 @@ import { unwrapAsync } from "../types/fp.js";
 
 export class BackgroundJobStatus extends ClientSDK {
   /**
-   * Background Job Status Show
+   * Show Background Job Status
    *
    * @remarks
-   * Retrieve the status of a background job.
+   * Retrieves the status of a background job.
+   *
+   * <!-- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
-   * Read, update & delete anything
    * Read all data
    * ```
+   * <!-- /HIDE-MCP -->
    */
   async get(
     request: operations.GetBackgroundJobStatusBackgroundJobStatusIdRequest,

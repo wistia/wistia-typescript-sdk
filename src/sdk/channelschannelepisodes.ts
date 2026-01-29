@@ -9,17 +9,17 @@ import { unwrapAsync } from "../types/fp.js";
 
 export class ChannelsChannelEpisodes extends ClientSDK {
   /**
-   * Channel Episodes List filtered by channel
+   * List Channel Episodes by Channel
    *
    * @remarks
-   * Returns all the Channel Episodes belonging the channel passed in the path.
+   * Lists Channel Episodes belonging to the channel passed in the path.
    *
+   * <!-- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
-   * Read, update & delete anything
-   * Read all data
    * Read all folder and media data
    * ```
+   * <!-- /HIDE-MCP -->
    */
   async list(
     request: operations.GetChannelsChannelHashedIdChannelEpisodesRequest,

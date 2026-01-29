@@ -12,7 +12,7 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 /**
  * The status of whether or not the episode has been published to your channel.
  */
-export const PublishStatus = {
+export const PostChannelsChannelHashedIdChannelEpisodesPublishStatus = {
   Draft: "draft",
   Published: "published",
   Scheduled: "scheduled",
@@ -20,12 +20,13 @@ export const PublishStatus = {
 /**
  * The status of whether or not the episode has been published to your channel.
  */
-export type PublishStatus = ClosedEnum<typeof PublishStatus>;
+export type PostChannelsChannelHashedIdChannelEpisodesPublishStatus =
+  ClosedEnum<typeof PostChannelsChannelHashedIdChannelEpisodesPublishStatus>;
 
 /**
  * The episode type for your podcast.  This parameter only takes effect if podcasting is enabled for the channel.
  */
-export const EpisodeType = {
+export const PostChannelsChannelHashedIdChannelEpisodesEpisodeType = {
   Full: "full",
   Trailer: "trailer",
   Bonus: "bonus",
@@ -33,7 +34,9 @@ export const EpisodeType = {
 /**
  * The episode type for your podcast.  This parameter only takes effect if podcasting is enabled for the channel.
  */
-export type EpisodeType = ClosedEnum<typeof EpisodeType>;
+export type PostChannelsChannelHashedIdChannelEpisodesEpisodeType = ClosedEnum<
+  typeof PostChannelsChannelHashedIdChannelEpisodesEpisodeType
+>;
 
 export type PostChannelsChannelHashedIdChannelEpisodesRequestBody = {
   /**
@@ -55,7 +58,9 @@ export type PostChannelsChannelHashedIdChannelEpisodesRequestBody = {
   /**
    * The status of whether or not the episode has been published to your channel.
    */
-  publishStatus?: PublishStatus | undefined;
+  publishStatus?:
+    | PostChannelsChannelHashedIdChannelEpisodesPublishStatus
+    | undefined;
   /**
    * The date and time when the episode should be published in UTC timezone. Required when publish_status is 'scheduled'. Must be a valid ISO8601 timestamp in UTC (ending with 'Z').  Can only be provided when publish_status is 'scheduled.'
    */
@@ -63,7 +68,9 @@ export type PostChannelsChannelHashedIdChannelEpisodesRequestBody = {
   /**
    * The episode type for your podcast.  This parameter only takes effect if podcasting is enabled for the channel.
    */
-  episodeType?: EpisodeType | undefined;
+  episodeType?:
+    | PostChannelsChannelHashedIdChannelEpisodesEpisodeType
+    | undefined;
   /**
    * The episode number for this episode in your podcast.  This parameter only takes effect if podcasting is enabled for the channel.
    */
@@ -87,7 +94,10 @@ export type PostChannelsChannelHashedIdChannelEpisodesRequest = {
 };
 
 /**
- * Channel Episode creation successful
+ * A channel episode represents a media that has been added to a channel. Only published
+ *
+ * @remarks
+ * episodes are displayed in a channel.
  */
 export type PostChannelsChannelHashedIdChannelEpisodesResponse = {
   /**
@@ -98,6 +108,10 @@ export type PostChannelsChannelHashedIdChannelEpisodesResponse = {
    * The date when the channel episode was originally created.
    */
   created: Date;
+  /**
+   * A cursor for stable pagination based on current `sort_by` order. You can pass this to `cursor[before]` or `cursor[after]` as a parameter to fetch the records before or after this record in the same sort order. This is only populated if records were fetched with `cursor[enabled]`, or `cursor[before]` or `cursor[after]`.
+   */
+  cursor?: string | null | undefined;
   /**
    * The channel episode's description or episode notes.
    */
@@ -133,13 +147,16 @@ export type PostChannelsChannelHashedIdChannelEpisodesResponse = {
 };
 
 /** @internal */
-export const PublishStatus$outboundSchema: z.ZodNativeEnum<
-  typeof PublishStatus
-> = z.nativeEnum(PublishStatus);
+export const PostChannelsChannelHashedIdChannelEpisodesPublishStatus$outboundSchema:
+  z.ZodNativeEnum<
+    typeof PostChannelsChannelHashedIdChannelEpisodesPublishStatus
+  > = z.nativeEnum(PostChannelsChannelHashedIdChannelEpisodesPublishStatus);
 
 /** @internal */
-export const EpisodeType$outboundSchema: z.ZodNativeEnum<typeof EpisodeType> = z
-  .nativeEnum(EpisodeType);
+export const PostChannelsChannelHashedIdChannelEpisodesEpisodeType$outboundSchema:
+  z.ZodNativeEnum<
+    typeof PostChannelsChannelHashedIdChannelEpisodesEpisodeType
+  > = z.nativeEnum(PostChannelsChannelHashedIdChannelEpisodesEpisodeType);
 
 /** @internal */
 export type PostChannelsChannelHashedIdChannelEpisodesRequestBody$Outbound = {
@@ -166,9 +183,13 @@ export const PostChannelsChannelHashedIdChannelEpisodesRequestBody$outboundSchem
     title: z.string().optional(),
     description: z.string().optional(),
     summary: z.string().optional(),
-    publishStatus: PublishStatus$outboundSchema.optional(),
+    publishStatus:
+      PostChannelsChannelHashedIdChannelEpisodesPublishStatus$outboundSchema
+        .optional(),
     publishAt: z.date().transform(v => v.toISOString()).optional(),
-    episodeType: EpisodeType$outboundSchema.optional(),
+    episodeType:
+      PostChannelsChannelHashedIdChannelEpisodesEpisodeType$outboundSchema
+        .optional(),
     episodeNumber: z.number().int().optional(),
     explicitContent: z.boolean().optional(),
     hideFromFeed: z.boolean().optional(),
@@ -236,12 +257,13 @@ export const PostChannelsChannelHashedIdChannelEpisodesResponse$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    channelHashedId: z.string(),
+    channel_hashed_id: z.string(),
     created: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+    cursor: z.nullable(z.string()).optional(),
     description: z.string(),
     summary: z.string(),
-    hashedId: z.string(),
-    mediaHashedId: z.string(),
+    hashed_id: z.string(),
+    media_hashed_id: z.string(),
     published: z.boolean(),
     publish_at: z.string().datetime({ offset: true }).transform(v =>
       new Date(v)
@@ -250,6 +272,9 @@ export const PostChannelsChannelHashedIdChannelEpisodesResponse$inboundSchema:
     updated: z.string().datetime({ offset: true }).transform(v => new Date(v)),
   }).transform((v) => {
     return remap$(v, {
+      "channel_hashed_id": "channelHashedId",
+      "hashed_id": "hashedId",
+      "media_hashed_id": "mediaHashedId",
       "publish_at": "publishAt",
     });
   });

@@ -9,15 +9,17 @@ import { unwrapAsync } from "../types/fp.js";
 
 export class Account extends ClientSDK {
   /**
-   * Account Show
+   * Get Current Account
    *
    * @remarks
-   * Retrieve account details.
+   * Retrieves a summary of the Wistia account including account name, description, URL and counts of records.
    *
+   * <!-- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * (any scope allowed)
    * ```
+   * <!-- /HIDE-MCP -->
    */
   async get(
     options?: RequestOptions,

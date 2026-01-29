@@ -27,15 +27,17 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Customizations Delete
+ * Delete Customizations
  *
  * @remarks
  * Deletes all explicit customizations for a video, making it act as if it has never been customized.
  *
+ * <!-- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read, update & delete anything
  * ```
+ * <!-- /HIDE-MCP -->
  */
 export function customizationsDelete(
   client: WistiaCore,

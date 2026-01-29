@@ -4,21 +4,21 @@
 
 ### Available Operations
 
-* [get](#get) - Customizations Show
-* [create](#create) - Customizations Create
-* [update](#update) - Customizations Update
-* [delete](#delete) - Customizations Delete
+* [get](#get) - Show Customizations
+* [create](#create) - Create Customizations
+* [update](#update) - Update Customizations
+* [delete](#delete) - Delete Customizations
 
 ## get
 
 Fetches explicitly defined customizations for the video.
 
+<!-- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
-Read, update & delete anything
-Read all data
 Read all folder and media data
 ```
+<!-- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -97,10 +97,12 @@ run();
 
 Set customizations for a video. Replaces the customizations explicitly set for this video.
 
+<!-- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
+<!-- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -200,10 +202,12 @@ run();
 
 Allows for partial updates on a video’s customizations. If a value is null, then that key will be deleted from the saved customizations. If it is not null, that value will be set.
 
+<!-- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
+<!-- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -304,10 +308,12 @@ run();
 
 Deletes all explicit customizations for a video, making it act as if it has never been customized.
 
+<!-- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
+<!-- /HIDE-MCP -->
 
 
 ### Example Usage

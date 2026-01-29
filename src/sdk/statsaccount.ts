@@ -9,17 +9,17 @@ import { unwrapAsync } from "../types/fp.js";
 
 export class StatsAccount extends ClientSDK {
   /**
-   * Stats:Account Show
+   * Show Current Account Stats
    *
    * @remarks
    * Retrieve account-wide video stats. Get statistics like the number of video loads, plays, and hours watched for the entire account.
    *
+   * <!-- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
-   * Read, update & delete anything
-   * Read all data
-   * Read all folder and media data
+   * Read detailed stats
    * ```
+   * <!-- /HIDE-MCP -->
    */
   async get(
     options?: RequestOptions,

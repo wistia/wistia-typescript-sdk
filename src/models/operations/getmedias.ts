@@ -15,7 +15,7 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
  * @remarks
  * values is ignored if `cursor[before]` or `cursor[after]` are set.
  */
-export const Enabled = {
+export const GetMediasEnabled = {
   Zero: 0,
   One: 1,
 } as const;
@@ -25,10 +25,10 @@ export const Enabled = {
  * @remarks
  * values is ignored if `cursor[before]` or `cursor[after]` are set.
  */
-export type Enabled = ClosedEnum<typeof Enabled>;
+export type GetMediasEnabled = ClosedEnum<typeof GetMediasEnabled>;
 
 /**
- * If `cursor` is set to 1 than cursor pagination is enabled and the
+ * If `cursor[enabled]` is set to 1 than cursor pagination is enabled and the
  *
  * @remarks
  * first set of records are fetched up to the `per_page`. Cursor
@@ -41,14 +41,14 @@ export type Enabled = ClosedEnum<typeof Enabled>;
  * last fetch. For example, you cannot fetch using `sort_by` id and than pass that
  * cursor value to a `sort_by` name.
  */
-export type Cursor = {
+export type GetMediasCursor = {
   /**
    * If `cursor[enabled]` is set to 1, the first result set will be fetched with cursor pagination enabled. This
    *
    * @remarks
    * values is ignored if `cursor[before]` or `cursor[after]` are set.
    */
-  enabled?: Enabled | undefined;
+  enabled?: GetMediasEnabled | undefined;
   /**
    * If `cursor[before]` is set than cursor pagination is enabled and all records
    *
@@ -131,7 +131,7 @@ export type GetMediasRequest = {
    */
   perPage?: number | undefined;
   /**
-   * If `cursor` is set to 1 than cursor pagination is enabled and the
+   * If `cursor[enabled]` is set to 1 than cursor pagination is enabled and the
    *
    * @remarks
    * first set of records are fetched up to the `per_page`. Cursor
@@ -144,7 +144,7 @@ export type GetMediasRequest = {
    * last fetch. For example, you cannot fetch using `sort_by` id and than pass that
    * cursor value to a `sort_by` name.
    */
-  cursor?: Cursor | undefined;
+  cursor?: GetMediasCursor | undefined;
   /**
    * Ordering. When using cursor pagination (see cursor param),
    *
@@ -158,9 +158,9 @@ export type GetMediasRequest = {
    */
   sortDirection?: GetMediasSortDirection | undefined;
   /**
-   * A hashed ID specifying the project from which you would like to get results.
+   * A hashed ID specifying the folder from which you would like to get results.
    */
-  projectId?: string | undefined;
+  folderId?: string | undefined;
   /**
    * Find a media or medias whose name exactly matches this parameter.
    */
@@ -173,10 +173,6 @@ export type GetMediasRequest = {
    * A string specifying which type of media you would like to get.
    */
   type?: QueryParamType | undefined;
-  /**
-   * Find the media by hashed_id.
-   */
-  hashedId?: string | undefined;
   /**
    * Find all of the medias by these hashed_ids.
    */
@@ -232,17 +228,17 @@ export type GetMediasThumbnail = {
   height?: number | undefined;
 };
 
-export type GetMediasProject = {
+export type GetMediasFolder = {
   /**
-   * A unique numeric identifier for the project within the system.
+   * A unique numeric identifier for the folder within the system.
    */
   id?: number | undefined;
   /**
-   * The project’s display name.
+   * The folder’s display name.
    */
   name?: string | undefined;
   /**
-   * A private hashed id, uniquely identifying the project within the system.
+   * A private hashed id, uniquely identifying the folder within the system.
    */
   hashedId?: string | undefined;
 };
@@ -277,7 +273,7 @@ export type GetMediasAsset = {
 };
 
 /**
- * A subfolder within a project that contains media files.
+ * A subfolder within a folder that contains media.
  */
 export type GetMediasSubfolder = {
   /**
@@ -293,7 +289,7 @@ export type GetMediasSubfolder = {
    */
   description?: string | null | undefined;
   /**
-   * The position of this subfolder within its project, used for ordering.
+   * The position of this subfolder within its folder, used for ordering.
    */
   position: number | null;
   /**
@@ -304,6 +300,10 @@ export type GetMediasSubfolder = {
    * The date when the subfolder was last modified.
    */
   updated: Date | null;
+  /**
+   * A cursor for stable pagination based on current `sort_by` order. You can pass this to `cursor[before]` or `cursor[after]` as a parameter to fetch the records before or after this record in the same sort order. This is only populated if records were fetched with `cursor[enabled]`, or `cursor[before]` or `cursor[after]`.
+   */
+  cursor?: string | null | undefined;
 };
 
 export type GetMediasTag = {
@@ -313,6 +313,14 @@ export type GetMediasTag = {
   name?: string | undefined;
 };
 
+/**
+ * A media generally represents a video or an audio which can be embedded into your website.
+ *
+ * @remarks
+ *
+ * CDN-backed medias are accessible using this url structure: https://fast.wistia.com/embed/medias/{hashed_id}.m3u8.
+ * For more information, see https://docs.wistia.com/docs/asset-urls#getting-hls-assets.
+ */
 export type GetMediasResponse = {
   /**
    * A unique numeric identifier for the media within the system.
@@ -373,7 +381,7 @@ export type GetMediasResponse = {
    */
   section?: string | null | undefined;
   thumbnail?: GetMediasThumbnail | undefined;
-  project?: GetMediasProject | null | undefined;
+  folder: GetMediasFolder | null;
   /**
    * An array of the assets available for this media.
    */
@@ -387,35 +395,38 @@ export type GetMediasResponse = {
    */
   tags?: Array<GetMediasTag> | undefined;
   /**
-   * A cursor for stable pagination based on current `sort_by` order. You can pass this to `cursor_before` or `cursor_after` as a parameter to fetch the records before or after this record in the same sort order. This is only populated if medias were fetched with `use_cursor`, or `cursor_before` or `cursor_after`.
+   * A cursor for stable pagination based on current `sort_by` order. You can pass this to `cursor[before]` or `cursor[after]` as a parameter to fetch the records before or after this record in the same sort order. This is only populated if records were fetched with `cursor[enabled]`, or `cursor[before]` or `cursor[after]`.
    */
   cursor?: string | null | undefined;
 };
 
 /** @internal */
-export const Enabled$outboundSchema: z.ZodNativeEnum<typeof Enabled> = z
-  .nativeEnum(Enabled);
+export const GetMediasEnabled$outboundSchema: z.ZodNativeEnum<
+  typeof GetMediasEnabled
+> = z.nativeEnum(GetMediasEnabled);
 
 /** @internal */
-export type Cursor$Outbound = {
+export type GetMediasCursor$Outbound = {
   enabled?: number | undefined;
   before?: string | undefined;
   after?: string | undefined;
 };
 
 /** @internal */
-export const Cursor$outboundSchema: z.ZodType<
-  Cursor$Outbound,
+export const GetMediasCursor$outboundSchema: z.ZodType<
+  GetMediasCursor$Outbound,
   z.ZodTypeDef,
-  Cursor
+  GetMediasCursor
 > = z.object({
-  enabled: Enabled$outboundSchema.optional(),
+  enabled: GetMediasEnabled$outboundSchema.optional(),
   before: z.string().optional(),
   after: z.string().optional(),
 });
 
-export function cursorToJSON(cursor: Cursor): string {
-  return JSON.stringify(Cursor$outboundSchema.parse(cursor));
+export function getMediasCursorToJSON(
+  getMediasCursor: GetMediasCursor,
+): string {
+  return JSON.stringify(GetMediasCursor$outboundSchema.parse(getMediasCursor));
 }
 
 /** @internal */
@@ -437,14 +448,13 @@ export const QueryParamType$outboundSchema: z.ZodNativeEnum<
 export type GetMediasRequest$Outbound = {
   page?: number | undefined;
   per_page?: number | undefined;
-  cursor?: Cursor$Outbound | undefined;
+  cursor?: GetMediasCursor$Outbound | undefined;
   sort_by?: string | undefined;
   sort_direction?: number | undefined;
-  project_id?: string | undefined;
+  folder_id?: string | undefined;
   name?: string | undefined;
   description_format?: "markdown" | undefined;
   type?: string | undefined;
-  hashed_id?: string | undefined;
   "hashed_ids[]"?: Array<string> | undefined;
   "tags[]"?: Array<string> | undefined;
   archived?: boolean | undefined;
@@ -458,14 +468,13 @@ export const GetMediasRequest$outboundSchema: z.ZodType<
 > = z.object({
   page: z.number().int().optional(),
   perPage: z.number().int().optional(),
-  cursor: z.lazy(() => Cursor$outboundSchema).optional(),
+  cursor: z.lazy(() => GetMediasCursor$outboundSchema).optional(),
   sortBy: GetMediasSortBy$outboundSchema.optional(),
   sortDirection: GetMediasSortDirection$outboundSchema.optional(),
-  projectId: z.string().optional(),
+  folderId: z.string().optional(),
   name: z.string().optional(),
   descriptionFormat: z.literal("markdown").optional(),
   type: QueryParamType$outboundSchema.optional(),
-  hashedId: z.string().optional(),
   hashedIds: z.array(z.string()).optional(),
   tags: z.array(z.string()).optional(),
   archived: z.boolean().optional(),
@@ -474,9 +483,8 @@ export const GetMediasRequest$outboundSchema: z.ZodType<
     perPage: "per_page",
     sortBy: "sort_by",
     sortDirection: "sort_direction",
-    projectId: "project_id",
+    folderId: "folder_id",
     descriptionFormat: "description_format",
-    hashedId: "hashed_id",
     hashedIds: "hashed_ids[]",
     tags: "tags[]",
   });
@@ -522,8 +530,8 @@ export function getMediasThumbnailFromJSON(
 }
 
 /** @internal */
-export const GetMediasProject$inboundSchema: z.ZodType<
-  GetMediasProject,
+export const GetMediasFolder$inboundSchema: z.ZodType<
+  GetMediasFolder,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -532,13 +540,13 @@ export const GetMediasProject$inboundSchema: z.ZodType<
   hashedId: z.string().optional(),
 });
 
-export function getMediasProjectFromJSON(
+export function getMediasFolderFromJSON(
   jsonString: string,
-): SafeParseResult<GetMediasProject, SDKValidationError> {
+): SafeParseResult<GetMediasFolder, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => GetMediasProject$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetMediasProject' from JSON`,
+    (x) => GetMediasFolder$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetMediasFolder' from JSON`,
   );
 }
 
@@ -551,9 +559,14 @@ export const GetMediasAsset$inboundSchema: z.ZodType<
   url: z.string().optional(),
   width: z.nullable(z.number().int()).optional(),
   height: z.nullable(z.number().int()).optional(),
-  fileSize: z.nullable(z.number().int()).optional(),
-  contentType: z.nullable(z.string()).optional(),
+  file_size: z.nullable(z.number().int()).optional(),
+  content_type: z.nullable(z.string()).optional(),
   type: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "file_size": "fileSize",
+    "content_type": "contentType",
+  });
 });
 
 export function getMediasAssetFromJSON(
@@ -582,6 +595,7 @@ export const GetMediasSubfolder$inboundSchema: z.ZodType<
   updated: z.nullable(
     z.string().datetime({ offset: true }).transform(v => new Date(v)),
   ),
+  cursor: z.nullable(z.string()).optional(),
 }).transform((v) => {
   return remap$(v, {
     "hashed_id": "hashedId",
@@ -639,7 +653,7 @@ export const GetMediasResponse$inboundSchema: z.ZodType<
   status: GetMediasStatus$inboundSchema.optional(),
   section: z.nullable(z.string()).optional(),
   thumbnail: z.lazy(() => GetMediasThumbnail$inboundSchema).optional(),
-  project: z.nullable(z.lazy(() => GetMediasProject$inboundSchema)).optional(),
+  folder: z.nullable(z.lazy(() => GetMediasFolder$inboundSchema)),
   assets: z.array(z.lazy(() => GetMediasAsset$inboundSchema)).optional(),
   subfolder: z.lazy(() => GetMediasSubfolder$inboundSchema).optional(),
   tags: z.array(z.lazy(() => GetMediasTag$inboundSchema)).optional(),

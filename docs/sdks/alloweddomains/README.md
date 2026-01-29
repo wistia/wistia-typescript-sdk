@@ -4,19 +4,21 @@
 
 ### Available Operations
 
-* [list](#list) - Allowed Domains List
-* [create](#create) - Allowed Domain Create
-* [get](#get) - Allowed Domain Show
-* [delete](#delete) - Allowed Domain Delete
+* [list](#list) - List Allowed Domains
+* [create](#create) - Create Allowed Domain
+* [get](#get) - Show Allowed Domain
+* [delete](#delete) - Delete Allowed Domain
 
 ## list
 
-List all allowed domains for the account.
+Lists allowed domains belonging to the account.
 
+<!-- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
-Read, update & delete anything
+Read all data
 ```
+<!-- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -30,7 +32,10 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.allowedDomains.list({});
+  const result = await wistia.allowedDomains.list({
+    page: 1,
+    perPage: 100,
+  });
 
   console.log(result);
 }
@@ -53,7 +58,10 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await allowedDomainsList(wistia, {});
+  const res = await allowedDomainsList(wistia, {
+    page: 1,
+    perPage: 100,
+  });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
@@ -88,12 +96,14 @@ run();
 
 ## create
 
-Create a new allowed domain for the account.
+Creates an allowed domain for the account.
 
+<!-- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
+<!-- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -170,12 +180,14 @@ run();
 
 ## get
 
-Get details for a specific allowed domain.
+Returns the details of an allowed domain.
 
+<!-- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
-Read, update & delete anything
+Read all data
 ```
+<!-- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -252,12 +264,14 @@ run();
 
 ## delete
 
-Delete an allowed domain from the account.
+Deletes an allowed domain from the account.
 
+<!-- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
+<!-- /HIDE-MCP -->
 
 
 ### Example Usage

@@ -12,17 +12,17 @@ import { unwrapAsync } from "../types/fp.js";
 
 export class Localizations extends ClientSDK {
   /**
-   * Localizations List
+   * List Localizations
    *
    * @remarks
-   * Obtain a list of all the localizations for a media.
+   * Lists all the localizations for a media.
    *
+   * <!-- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
-   * Read, update & delete anything
    * Read all data
-   * Read all folder and media data
    * ```
+   * <!-- /HIDE-MCP -->
    */
   async list(
     request: operations.GetMediasMediaHashedIdLocalizationsRequest,
@@ -36,15 +36,17 @@ export class Localizations extends ClientSDK {
   }
 
   /**
-   * Localizations Create
+   * Create Localization
    *
    * @remarks
-   * Create a new localization.
+   * Creates a new localization.
    *
+   * <!-- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read, update & delete anything
    * ```
+   * <!-- /HIDE-MCP -->
    */
   async create(
     request: operations.PostMediasMediaHashedIdLocalizationsRequest,
@@ -58,17 +60,17 @@ export class Localizations extends ClientSDK {
   }
 
   /**
-   * Localizations Show
+   * Show Localization
    *
    * @remarks
    * Obtain detailed information about a localization.
    *
+   * <!-- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
-   * Read, update & delete anything
    * Read all data
-   * Read all folder and media data
    * ```
+   * <!-- /HIDE-MCP -->
    */
   async get(
     request:
@@ -85,15 +87,17 @@ export class Localizations extends ClientSDK {
   }
 
   /**
-   * Localizations Delete
+   * Delete Localization
    *
    * @remarks
-   * Delete a localization.
+   * Deletes a localization.
    *
+   * <!-- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read, update & delete anything
    * ```
+   * <!-- /HIDE-MCP -->
    */
   async delete(
     request:

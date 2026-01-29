@@ -24,15 +24,17 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Account Show
+ * Get Current Account
  *
  * @remarks
- * Retrieve account details.
+ * Retrieves a summary of the Wistia account including account name, description, URL and counts of records.
  *
+ * <!-- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * (any scope allowed)
  * ```
+ * <!-- /HIDE-MCP -->
  */
 export function accountGet(
   client: WistiaCore,

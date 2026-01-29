@@ -20,7 +20,10 @@ export type GetChannelsChannelHashedIdChannelEpisodesChannelEpisodeIdRequest = {
 };
 
 /**
- * Channel Episode retrieval successful
+ * A channel episode represents a media that has been added to a channel. Only published
+ *
+ * @remarks
+ * episodes are displayed in a channel.
  */
 export type GetChannelsChannelHashedIdChannelEpisodesChannelEpisodeIdResponse =
   {
@@ -32,6 +35,10 @@ export type GetChannelsChannelHashedIdChannelEpisodesChannelEpisodeIdResponse =
      * The date when the channel episode was originally created.
      */
     created: Date;
+    /**
+     * A cursor for stable pagination based on current `sort_by` order. You can pass this to `cursor[before]` or `cursor[after]` as a parameter to fetch the records before or after this record in the same sort order. This is only populated if records were fetched with `cursor[enabled]`, or `cursor[before]` or `cursor[after]`.
+     */
+    cursor?: string | null | undefined;
     /**
      * The channel episode's description or episode notes.
      */
@@ -101,12 +108,13 @@ export const GetChannelsChannelHashedIdChannelEpisodesChannelEpisodeIdResponse$i
     z.ZodTypeDef,
     unknown
   > = z.object({
-    channelHashedId: z.string(),
+    channel_hashed_id: z.string(),
     created: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+    cursor: z.nullable(z.string()).optional(),
     description: z.string(),
     summary: z.string(),
-    hashedId: z.string(),
-    mediaHashedId: z.string(),
+    hashed_id: z.string(),
+    media_hashed_id: z.string(),
     published: z.boolean(),
     publish_at: z.string().datetime({ offset: true }).transform(v =>
       new Date(v)
@@ -115,6 +123,9 @@ export const GetChannelsChannelHashedIdChannelEpisodesChannelEpisodeIdResponse$i
     updated: z.string().datetime({ offset: true }).transform(v => new Date(v)),
   }).transform((v) => {
     return remap$(v, {
+      "channel_hashed_id": "channelHashedId",
+      "hashed_id": "hashedId",
+      "media_hashed_id": "mediaHashedId",
       "publish_at": "publishAt",
     });
   });

@@ -4,7 +4,11 @@
 
 import * as z from "zod/v3";
 import { WistiaCore } from "../core.js";
-import { encodeFormQuery } from "../lib/encodings.js";
+import {
+  encodeDeepObjectQuery,
+  encodeFormQuery,
+  queryJoin,
+} from "../lib/encodings.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -27,17 +31,18 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Channels List
+ * List Channels
  *
  * @remarks
- * Returns all the Channels associated with the account.
+ * Lists all Channels belonging to an account. This endpoint can also be used to
+ * do a batch fetch based off of the hashed id.
  *
+ * <!-- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
- * Read, update & delete anything
- * Read all data
  * Read all folder and media data
  * ```
+ * <!-- /HIDE-MCP -->
  */
 export function channelsList(
   client: WistiaCore,
@@ -46,6 +51,7 @@ export function channelsList(
 ): APIPromise<
   Result<
     Array<operations.GetChannelsResponse>,
+    | errors.GetChannelsBadRequestError
     | errors.GetChannelsUnauthorizedError
     | errors.GetChannelsInternalServerError
     | WistiaError
@@ -73,6 +79,7 @@ async function $do(
   [
     Result<
       Array<operations.GetChannelsResponse>,
+      | errors.GetChannelsBadRequestError
       | errors.GetChannelsUnauthorizedError
       | errors.GetChannelsInternalServerError
       | WistiaError
@@ -101,13 +108,18 @@ async function $do(
 
   const path = pathToFunc("/channels")();
 
-  const query = encodeFormQuery({
-    "hashed_ids[]": payload?.["hashed_ids[]"],
-    "page": payload?.page,
-    "per_page": payload?.per_page,
-    "sort_by": payload?.sort_by,
-    "sort_direction": payload?.sort_direction,
-  });
+  const query = queryJoin(
+    encodeDeepObjectQuery({
+      "cursor": payload?.cursor,
+    }),
+    encodeFormQuery({
+      "hashed_ids[]": payload?.["hashed_ids[]"],
+      "page": payload?.page,
+      "per_page": payload?.per_page,
+      "sort_by": payload?.sort_by,
+      "sort_direction": payload?.sort_direction,
+    }),
+  );
 
   const headers = new Headers(compactMap({
     Accept: "application/json",
@@ -150,7 +162,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["401", "4XX", "500", "5XX"],
+    errorCodes: ["400", "401", "4XX", "500", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -165,6 +177,7 @@ async function $do(
 
   const [result] = await M.match<
     Array<operations.GetChannelsResponse>,
+    | errors.GetChannelsBadRequestError
     | errors.GetChannelsUnauthorizedError
     | errors.GetChannelsInternalServerError
     | WistiaError
@@ -177,6 +190,7 @@ async function $do(
     | SDKValidationError
   >(
     M.json(200, z.array(operations.GetChannelsResponse$inboundSchema)),
+    M.jsonErr(400, errors.GetChannelsBadRequestError$inboundSchema),
     M.jsonErr(401, errors.GetChannelsUnauthorizedError$inboundSchema),
     M.jsonErr(500, errors.GetChannelsInternalServerError$inboundSchema),
     M.fail("4XX"),

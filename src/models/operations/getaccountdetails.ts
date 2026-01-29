@@ -3,12 +3,16 @@
  */
 
 import * as z from "zod/v3";
+import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
- * Successful response
+ * An account represents a customer at Wistia. Each account can own media, folders
+ *
+ * @remarks
+ * channels, etc.
  */
 export type GetAccountDetailsResponse = {
   /**
@@ -30,11 +34,11 @@ export type GetAccountDetailsResponse = {
   /**
    * The account's video limit
    */
-  videoLimit: number;
+  videoLimit: number | null;
   /**
-   * The total number of projects in this account
+   * The total number of folders in this account
    */
-  projectCount: number;
+  folderCount: number;
   /**
    * The total number of channels in this account
    */
@@ -50,10 +54,17 @@ export const GetAccountDetailsResponse$inboundSchema: z.ZodType<
   id: z.number().int(),
   name: z.string(),
   url: z.string(),
-  mediaCount: z.number().int(),
-  videoLimit: z.number().int(),
-  projectCount: z.number().int(),
-  channelCount: z.number().int(),
+  media_count: z.number().int(),
+  video_limit: z.nullable(z.number().int()),
+  folder_count: z.number().int(),
+  channel_count: z.number().int(),
+}).transform((v) => {
+  return remap$(v, {
+    "media_count": "mediaCount",
+    "video_limit": "videoLimit",
+    "folder_count": "folderCount",
+    "channel_count": "channelCount",
+  });
 });
 
 export function getAccountDetailsResponseFromJSON(

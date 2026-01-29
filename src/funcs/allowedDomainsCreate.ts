@@ -26,15 +26,17 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Allowed Domain Create
+ * Create Allowed Domain
  *
  * @remarks
- * Create a new allowed domain for the account.
+ * Creates an allowed domain for the account.
  *
+ * <!-- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read, update & delete anything
  * ```
+ * <!-- /HIDE-MCP -->
  */
 export function allowedDomainsCreate(
   client: WistiaCore,

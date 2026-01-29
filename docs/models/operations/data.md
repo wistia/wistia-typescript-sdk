@@ -6,12 +6,13 @@
 import { Data } from "@wistia/wistia-api-client/models/operations";
 
 let value: Data = {
-  projects: [
+  folders: [
     {
       id: 22570,
-      name: "My Project Title",
-      description: "About My Project",
+      name: "My Folder Title",
+      description: "About My Folder",
       mediaCount: 2,
+      medias: {},
       created: new Date("2010-08-13T18:47:39+00:00"),
       updated: new Date("2010-08-19T21:47:00+00:00"),
       hashedId: "4d23503f70",
@@ -23,7 +24,7 @@ let value: Data = {
   ],
   medias: [
     {
-      projectHashedId: "4d23503f70",
+      folderHashedId: "4d23503f70",
     },
   ],
   channels: [
@@ -44,10 +45,10 @@ let value: Data = {
       description: "footrest till psst zowie why supposing usefully unless so",
       summary: "<value>",
       channelHashedId: "<id>",
-      mediaHashedId: "<id>",
-      published: false,
-      created: new Date("2024-02-03T21:15:06.314Z"),
-      updated: new Date("2024-01-20T16:07:24.843Z"),
+      mediaHashedId: null,
+      published: true,
+      created: new Date("2026-01-09T23:07:43.095Z"),
+      updated: new Date("2026-03-03T22:38:29.283Z"),
     },
   ],
 };
@@ -55,9 +56,9 @@ let value: Data = {
 
 ## Fields
 
-| Field                                                                        | Type                                                                         | Required                                                                     | Description                                                                  |
-| ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
-| `projects`                                                                   | [operations.GetSearchProject](../../models/operations/getsearchproject.md)[] | :heavy_check_mark:                                                           | N/A                                                                          |
-| `medias`                                                                     | [operations.GetSearchMedia](../../models/operations/getsearchmedia.md)[]     | :heavy_check_mark:                                                           | N/A                                                                          |
-| `channels`                                                                   | [operations.Channel](../../models/operations/channel.md)[]                   | :heavy_check_mark:                                                           | N/A                                                                          |
-| `channelEpisodes`                                                            | [operations.ChannelEpisode](../../models/operations/channelepisode.md)[]     | :heavy_check_mark:                                                           | N/A                                                                          |
+| Field                                                                      | Type                                                                       | Required                                                                   | Description                                                                |
+| -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| `folders`                                                                  | [operations.GetSearchFolder](../../models/operations/getsearchfolder.md)[] | :heavy_check_mark:                                                         | N/A                                                                        |
+| `medias`                                                                   | [operations.GetSearchMedia](../../models/operations/getsearchmedia.md)[]   | :heavy_check_mark:                                                         | N/A                                                                        |
+| `channels`                                                                 | [operations.Channel](../../models/operations/channel.md)[]                 | :heavy_check_mark:                                                         | N/A                                                                        |
+| `channelEpisodes`                                                          | [operations.ChannelEpisode](../../models/operations/channelepisode.md)[]   | :heavy_check_mark:                                                         | N/A                                                                        |

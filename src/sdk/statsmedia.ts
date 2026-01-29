@@ -11,17 +11,17 @@ import { unwrapAsync } from "../types/fp.js";
 
 export class StatsMedia extends ClientSDK {
   /**
-   * Stats:Media Show
+   * Show Media Stats
    *
    * @remarks
    * Retrieve stats for a video. This endpoint provides statistics for a specific video identified by its media-id.
    *
+   * <!-- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
-   * Read, update & delete anything
-   * Read all data
-   * Read all folder and media data
+   * Read detailed stats
    * ```
+   * <!-- /HIDE-MCP -->
    */
   async get(
     request: operations.GetStatsMediasMediaIdRequest,
@@ -35,17 +35,17 @@ export class StatsMedia extends ClientSDK {
   }
 
   /**
-   * Stats:Media By Date
+   * Show Media Stats by Date
    *
    * @remarks
    * Retrieve stats for a media organized by day, between a start and end date paramater (inclusive). If start and end date are not provided, defaults to yesterday and today.
    *
+   * <!-- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
-   * Read, update & delete anything
-   * Read all data
-   * Read all folder and media data
+   * Read detailed stats
    * ```
+   * <!-- /HIDE-MCP -->
    */
   async getByDate(
     request: operations.GetStatsMediasMediaIdByDateRequest,
@@ -59,17 +59,17 @@ export class StatsMedia extends ClientSDK {
   }
 
   /**
-   * Stats:Media Engagement
+   * Show Media Engagement
    *
    * @remarks
    * Retrieve engagement data for a video. This endpoint provides engagement data for a specific video identified by its media-id.
    *
+   * <!-- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
-   * Read, update & delete anything
-   * Read all data
-   * Read all folder and media data
+   * Read detailed stats
    * ```
+   * <!-- /HIDE-MCP -->
    */
   async getEngagement(
     request: operations.GetStatsMediasMediaIdEngagementRequest,

@@ -37,6 +37,10 @@ export type GetMediasMediaHashedIdCaptionsResponse = {
    * The unique hashed identifier of the time-coded transcript.
    */
   id: string;
+  /**
+   * A cursor for stable pagination based on current `sort_by` order. You can pass this to `cursor[before]` or `cursor[after]` as a parameter to fetch the records before or after this record in the same sort order. This is only populated if records were fetched with `cursor[enabled]`, or `cursor[before]` or `cursor[after]`.
+   */
+  cursor?: string | null | undefined;
 };
 
 /** @internal */
@@ -75,6 +79,7 @@ export const GetMediasMediaHashedIdCaptionsResponse$inboundSchema: z.ZodType<
   text: z.string().optional(),
   is_draft: z.boolean(),
   id: z.string(),
+  cursor: z.nullable(z.string()).optional(),
 }).transform((v) => {
   return remap$(v, {
     "english_name": "englishName",

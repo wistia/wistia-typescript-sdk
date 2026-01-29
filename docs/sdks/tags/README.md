@@ -4,19 +4,20 @@
 
 ### Available Operations
 
-* [list](#list) - Tags List
-* [create](#create) - Tags Create
-* [delete](#delete) - Tags Delete
+* [list](#list) - List Tags
+* [create](#create) - Create Tags
+* [delete](#delete) - Delete Tags
 
 ## list
 
-Use this endpoint to request a list of Tags in your Wistia account. This request supports paging and sorting.
+Lists tags belonging to the account.
 
+<!-- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
-Read, update & delete anything
 Read all data
 ```
+<!-- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -82,18 +83,21 @@ run();
 
 | Error Type                        | Status Code                       | Content Type                      |
 | --------------------------------- | --------------------------------- | --------------------------------- |
+| errors.GetTagsBadRequestError     | 400                               | application/json                  |
 | errors.GetTagsUnauthorizedError   | 401                               | application/json                  |
 | errors.GetTagsInternalServerError | 500                               | application/json                  |
 | errors.WistiaDefaultError         | 4XX, 5XX                          | \*/\*                             |
 
 ## create
 
-Create a new tag.
+Creates a new tag.
 
+<!-- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
+<!-- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -171,12 +175,14 @@ run();
 
 ## delete
 
-Delete a tag
+Deletes a tag
 
+<!-- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
+<!-- /HIDE-MCP -->
 
 
 ### Example Usage

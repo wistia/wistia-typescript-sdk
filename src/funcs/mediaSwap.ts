@@ -26,15 +26,17 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Media Swap
+ * Swap Media
  *
  * @remarks
  * Swap one media with another media. This operation queues a background job to replace the original media with the replacement media while preserving the original media's hashed ID and URLs.
  *
+ * <!-- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read, update & delete anything
  * ```
+ * <!-- /HIDE-MCP -->
  */
 export function mediaSwap(
   client: WistiaCore,

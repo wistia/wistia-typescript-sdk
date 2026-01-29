@@ -26,15 +26,17 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Customizations Create
+ * Create Customizations
  *
  * @remarks
  * Set customizations for a video. Replaces the customizations explicitly set for this video.
  *
+ * <!-- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read, update & delete anything
  * ```
+ * <!-- /HIDE-MCP -->
  */
 export function customizationsCreate(
   client: WistiaCore,

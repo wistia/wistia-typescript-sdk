@@ -6,17 +6,18 @@
 
 * [uploadForm](#uploadform) - Upload or Import Media
 * [uploadMultipart](#uploadmultipart) - Upload or Import Media
-* [list](#list) - Media List
-* [get](#get) - Media Show
-* [update](#update) - Media Update
-* [delete](#delete) - Media Delete
-* [copy](#copy) - Media Copy
-* [swap](#swap) - Media Swap
-* [getStats](#getstats) - Media Stats
-* [translate](#translate) - Media Translate
-* [archive](#archive) - Medias Archive
-* [move](#move) - Media Move
-* [restore](#restore) - Media Restore
+* [list](#list) - List Media
+* [get](#get) - Show Media
+* [update](#update) - Update Media
+* [delete](#delete) - Delete Media
+* [copy](#copy) - Copy Media
+* [swap](#swap) - Swap Media
+* [getStats](#getstats) - Show Media Aggregated Stats
+* [translate](#translate) - Translate Media
+* [archive](#archive) - Archive Media
+* [move](#move) - Move Media
+* [restore](#restore) - Restore Media
+* [putMediasCopy](#putmediascopy) - Bulk Copy Media
 
 ## uploadForm
 
@@ -182,14 +183,15 @@ run();
 
 ## list
 
-Obtain a list of all the media in your account. For accounts with more than 100 media, you’ll want to page and sort the returned list.
+Lists the media belonging to the account. This endpoint can also be used to
+do a batch fetch based off of the hashed id.
 
+<!-- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
-Read, update & delete anything
-Read all data
 Read all folder and media data
 ```
+<!-- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -262,17 +264,14 @@ run();
 
 ## get
 
-Fetch detailed information about a media you’ve uploaded to your account using its hashed_id.
+Fetches a single media by its hashed id.
 
-CDN-backed medias are accessible using this url structure: https://fast.wistia.com/embed/medias/{hashed_id}.m3u8.
-For more information, see https://docs.wistia.com/docs/asset-urls#getting-hls-assets.
-
+<!-- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
-Read, update & delete anything
-Read all data
 Read all folder and media data
 ```
+<!-- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -349,12 +348,14 @@ run();
 
 ## update
 
-Update attributes on a media.
+Updates the attributes on a media.
 
+<!-- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
+<!-- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -432,12 +433,14 @@ run();
 
 ## delete
 
-Delete a media.
+Deletes a media.
 
+<!-- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
+<!-- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -514,12 +517,14 @@ run();
 
 ## copy
 
-Copy a media.
+This endpoint copies a media and its assets to a destination folder (defaults to source media).
 
+<!-- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
+<!-- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -600,10 +605,12 @@ run();
 
 Swap one media with another media. This operation queues a background job to replace the original media with the replacement media while preserving the original media's hashed ID and URLs.
 
+<!-- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
+<!-- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -683,12 +690,12 @@ run();
 
 Aggregated tracking statistics for a video embedded on your site.
 
+<!-- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
-Read, update & delete anything
-Read all data
 Read all folder and media data
 ```
+<!-- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -766,12 +773,14 @@ run();
 
 ## translate
 
-Translate the transcript for a media.
+Translates the transcript for a media.
 
+<!-- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
+<!-- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -850,12 +859,14 @@ run();
 
 ## archive
 
-This method accepts a list of up to 100 medias to archive per request. It processes requests asynchronously and will return a background_job_status object rather than the typical Media response object. Note that Livestream medias and Soapbox videos imported to Wistia before September 1, 2023 cannot be archived.
+This method accepts a list of up to 100 medias to archive per request. It processes requests asynchronously and will return a background_job_status object rather than the typical Media response object. Note that webinar medias and Soapbox videos imported to Wistia before September 1, 2023 cannot be archived.
 
+<!-- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
+<!-- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -933,19 +944,21 @@ run();
 
 ## move
 
-Move one or many media to a different project and optionally to a specific subfolder.
+Move one or many media to a different folder and optionally to a specific subfolder.
 Max 100 media per request, and max 10 requests in 5 minutes.
 Note: this is a different rate limit than applies to the rest of the api!
 
 If a subfolder_id is provided, media will be moved to that subfolder. The subfolder
-must belong to the specified project.
+must belong to the specified folder.
 
 Returns a Background Job as the move is async.
 
+<!-- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
+<!-- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -964,7 +977,7 @@ async function run() {
       "<value 1>",
       "<value 2>",
     ],
-    projectId: "<id>",
+    folderId: "<id>",
   });
 
   console.log(result);
@@ -993,7 +1006,7 @@ async function run() {
       "<value 1>",
       "<value 2>",
     ],
-    projectId: "<id>",
+    folderId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -1031,12 +1044,14 @@ run();
 
 ## restore
 
-Restore archived medias to your account. This method accepts a list of up to 100 medias to restore per request. It processes requests asynchronously and will return a background_job_status object rather than the typical Media response object. Your account must have access to the Archiving feature to use this method.
+Restores archived medias to your account. This method accepts a list of up to 100 medias to restore per request. It processes requests asynchronously and will return a background_job_status object rather than the typical Media response object. Your account must have access to the Archiving feature to use this method.
 
+<!-- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
+<!-- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -1052,7 +1067,7 @@ const wistia = new Wistia({
 async function run() {
   const result = await wistia.media.restore({
     hashedIds: [],
-    projectId: "<id>",
+    folderId: "<id>",
   });
 
   console.log(result);
@@ -1078,7 +1093,7 @@ const wistia = new WistiaCore({
 async function run() {
   const res = await mediaRestore(wistia, {
     hashedIds: [],
-    projectId: "<id>",
+    folderId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -1114,3 +1129,95 @@ run();
 | errors.PutMediasRestoreUnprocessableEntityError | 422                                             | application/json                                |
 | errors.PutMediasRestoreInternalServerError      | 500                                             | application/json                                |
 | errors.WistiaDefaultError                       | 4XX, 5XX                                        | \*/\*                                           |
+
+## putMediasCopy
+
+This method accepts a list of medias to copy to a destination folder. It processes requests asynchronously and will return a background_job_status object rather than the typical Media response object.
+
+Each media will be duplicated and the copy will be placed in the specified destination folder. The original media files will not be affected.
+
+<!-- HIDE-MCP -->
+## Requires api token with one of the following permissions
+```
+Read, update & delete anything
+```
+<!-- /HIDE-MCP -->
+
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="put_/medias/copy" method="put" path="/medias/copy" -->
+```typescript
+import { Wistia } from "@wistia/wistia-api-client";
+
+const wistia = new Wistia({
+  bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
+});
+
+async function run() {
+  const result = await wistia.media.putMediasCopy({
+    hashedIds: [
+      "<value 1>",
+    ],
+    folderId: "<id>",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { WistiaCore } from "@wistia/wistia-api-client/core.js";
+import { mediaPutMediasCopy } from "@wistia/wistia-api-client/funcs/mediaPutMediasCopy.js";
+
+// Use `WistiaCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const wistia = new WistiaCore({
+  bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
+});
+
+async function run() {
+  const res = await mediaPutMediasCopy(wistia, {
+    hashedIds: [
+      "<value 1>",
+    ],
+    folderId: "<id>",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("mediaPutMediasCopy failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.PutMediasCopyRequest](../../models/operations/putmediascopyrequest.md)                                                                                             | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[operations.PutMediasCopyResponse](../../models/operations/putmediascopyresponse.md)\>**
+
+### Errors
+
+| Error Type                                   | Status Code                                  | Content Type                                 |
+| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
+| errors.PutMediasCopyUnauthorizedError        | 401                                          | application/json                             |
+| errors.PutMediasCopyUnprocessableEntityError | 422                                          | application/json                             |
+| errors.PutMediasCopyInternalServerError      | 500                                          | application/json                             |
+| errors.WistiaDefaultError                    | 4XX, 5XX                                     | \*/\*                                        |

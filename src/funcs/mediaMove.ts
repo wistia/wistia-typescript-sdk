@@ -26,22 +26,24 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Media Move
+ * Move Media
  *
  * @remarks
- * Move one or many media to a different project and optionally to a specific subfolder.
+ * Move one or many media to a different folder and optionally to a specific subfolder.
  * Max 100 media per request, and max 10 requests in 5 minutes.
  * Note: this is a different rate limit than applies to the rest of the api!
  *
  * If a subfolder_id is provided, media will be moved to that subfolder. The subfolder
- * must belong to the specified project.
+ * must belong to the specified folder.
  *
  * Returns a Background Job as the move is async.
  *
+ * <!-- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read, update & delete anything
  * ```
+ * <!-- /HIDE-MCP -->
  */
 export function mediaMove(
   client: WistiaCore,

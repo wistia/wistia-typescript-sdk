@@ -13,9 +13,9 @@ let value: PostMediasMediaHashedIdCopyResponse = {
     ],
   },
   result: {
-    project: {
+    folder: {
       id: 22570,
-      name: "My Project Title",
+      name: "My Folder Title",
       hashedId: "4d23503f70",
     },
   },
