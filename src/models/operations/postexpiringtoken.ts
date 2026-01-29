@@ -39,11 +39,6 @@ export type PostExpiringTokenRequest = {
 };
 
 /**
- * Contains a summary of what fields had errors and the errors they had.
- */
-export type PostExpiringTokenErrors = {};
-
-/**
  * Successful response
  */
 export type PostExpiringTokenResponse = {
@@ -128,23 +123,6 @@ export function postExpiringTokenRequestToJSON(
 ): string {
   return JSON.stringify(
     PostExpiringTokenRequest$outboundSchema.parse(postExpiringTokenRequest),
-  );
-}
-
-/** @internal */
-export const PostExpiringTokenErrors$inboundSchema: z.ZodType<
-  PostExpiringTokenErrors,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-export function postExpiringTokenErrorsFromJSON(
-  jsonString: string,
-): SafeParseResult<PostExpiringTokenErrors, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PostExpiringTokenErrors$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostExpiringTokenErrors' from JSON`,
   );
 }
 

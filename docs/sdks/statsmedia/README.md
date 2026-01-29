@@ -4,20 +4,20 @@
 
 ### Available Operations
 
-* [get](#get) - Stats:Media Show
-* [getByDate](#getbydate) - Stats:Media By Date
-* [getEngagement](#getengagement) - Stats:Media Engagement
+* [get](#get) - Show Media Stats
+* [getByDate](#getbydate) - Show Media Stats by Date
+* [getEngagement](#getengagement) - Show Media Engagement
 
 ## get
 
 Retrieve stats for a video. This endpoint provides statistics for a specific video identified by its media-id.
 
+<!-- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
-Read, update & delete anything
-Read all data
-Read all folder and media data
+Read detailed stats
 ```
+<!-- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -95,12 +95,12 @@ run();
 
 Retrieve stats for a media organized by day, between a start and end date paramater (inclusive). If start and end date are not provided, defaults to yesterday and today.
 
+<!-- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
-Read, update & delete anything
-Read all data
-Read all folder and media data
+Read detailed stats
 ```
+<!-- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -184,12 +184,12 @@ run();
 
 Retrieve engagement data for a video. This endpoint provides engagement data for a specific video identified by its media-id.
 
+<!-- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
-Read, update & delete anything
-Read all data
-Read all folder and media data
+Read detailed stats
 ```
+<!-- /HIDE-MCP -->
 
 
 ### Example Usage

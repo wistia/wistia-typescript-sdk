@@ -26,17 +26,17 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Customizations Show
+ * Show Customizations
  *
  * @remarks
  * Fetches explicitly defined customizations for the video.
  *
+ * <!-- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
- * Read, update & delete anything
- * Read all data
  * Read all folder and media data
  * ```
+ * <!-- /HIDE-MCP -->
  */
 export function customizationsGet(
   client: WistiaCore,

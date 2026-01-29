@@ -27,19 +27,17 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Captions List
+ * List Captions by Media
  *
  * @remarks
- * Returns all the captions associated with a specified video.
- * If captions do not exist for this video, the response will be an empty JSON array.
- * If this video does not exist, the response will be an empty HTTP 404 Not Found.
+ * Lists captions belonging to a specific video.
  *
+ * <!-- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
- * Read, update & delete anything
- * Read all data
  * Read all folder and media data
  * ```
+ * <!-- /HIDE-MCP -->
  */
 export function captionsList(
   client: WistiaCore,

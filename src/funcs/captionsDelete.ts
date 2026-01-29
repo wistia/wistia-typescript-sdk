@@ -27,15 +27,17 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Captions Delete
+ * Delete Captions
  *
  * @remarks
- * This method is for removing the captions file from a video for the specified language.
+ * Removes the captions file from a video for the specified language.
  *
+ * <!-- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read, update & delete anything
  * ```
+ * <!-- /HIDE-MCP -->
  */
 export function captionsDelete(
   client: WistiaCore,

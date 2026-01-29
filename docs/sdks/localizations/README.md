@@ -4,21 +4,21 @@
 
 ### Available Operations
 
-* [list](#list) - Localizations List
-* [create](#create) - Localizations Create
-* [get](#get) - Localizations Show
-* [delete](#delete) - Localizations Delete
+* [list](#list) - List Localizations
+* [create](#create) - Create Localization
+* [get](#get) - Show Localization
+* [delete](#delete) - Delete Localization
 
 ## list
 
-Obtain a list of all the localizations for a media.
+Lists all the localizations for a media.
 
+<!-- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
-Read, update & delete anything
 Read all data
-Read all folder and media data
 ```
+<!-- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -95,12 +95,14 @@ run();
 
 ## create
 
-Create a new localization.
+Creates a new localization.
 
+<!-- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
+<!-- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -181,12 +183,12 @@ run();
 
 Obtain detailed information about a localization.
 
+<!-- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
-Read, update & delete anything
 Read all data
-Read all folder and media data
 ```
+<!-- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -265,12 +267,14 @@ run();
 
 ## delete
 
-Delete a localization.
+Deletes a localization.
 
+<!-- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
+<!-- /HIDE-MCP -->
 
 
 ### Example Usage

@@ -27,17 +27,17 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Stats:Media By Date
+ * Show Media Stats by Date
  *
  * @remarks
  * Retrieve stats for a media organized by day, between a start and end date paramater (inclusive). If start and end date are not provided, defaults to yesterday and today.
  *
+ * <!-- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
- * Read, update & delete anything
- * Read all data
- * Read all folder and media data
+ * Read detailed stats
  * ```
+ * <!-- /HIDE-MCP -->
  */
 export function statsMediaGetByDate(
   client: WistiaCore,

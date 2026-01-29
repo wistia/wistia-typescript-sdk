@@ -166,6 +166,25 @@ actions:
             }
 
             run();
+  - target: $["paths"]["/captions"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: Typescript (SDK)
+          source: |-
+            import { Wistia } from "@wistia/wistia-api-client";
+
+            const wistia = new Wistia({
+              bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
+            });
+
+            async function run() {
+              const result = await wistia.captions.getCaptions({});
+
+              console.log(result);
+            }
+
+            run();
   - target: $["paths"]["/channel_episodes"]["get"]
     update:
       x-codeSamples:
@@ -180,6 +199,90 @@ actions:
 
             async function run() {
               const result = await wistia.channelEpisodes.list();
+
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/channel_episodes/{channelEpisodeHashedId}"]["delete"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: Typescript (SDK)
+          source: |-
+            import { Wistia } from "@wistia/wistia-api-client";
+
+            const wistia = new Wistia({
+              bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
+            });
+
+            async function run() {
+              const result = await wistia.channelEpisodes.deleteChannelEpisodesChannelEpisodeHashedId({
+                channelEpisodeHashedId: "<id>",
+              });
+
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/channel_episodes/{channelEpisodeHashedId}"]["put"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: Typescript (SDK)
+          source: |-
+            import { Wistia } from "@wistia/wistia-api-client";
+
+            const wistia = new Wistia({
+              bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
+            });
+
+            async function run() {
+              const result = await wistia.channelEpisodes.putChannelEpisodesChannelEpisodeHashedId({
+                channelEpisodeHashedId: "<id>",
+              });
+
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/channel_episodes/{channelEpisodeHashedId}/publish"]["put"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: Typescript (SDK)
+          source: |-
+            import { Wistia } from "@wistia/wistia-api-client";
+
+            const wistia = new Wistia({
+              bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
+            });
+
+            async function run() {
+              const result = await wistia.channelEpisodes.putChannelEpisodesChannelEpisodeHashedIdPublish({
+                channelEpisodeHashedId: "<id>",
+              });
+
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/channel_episodes/{channelEpisodeHashedId}/unpublish"]["put"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: Typescript (SDK)
+          source: |-
+            import { Wistia } from "@wistia/wistia-api-client";
+
+            const wistia = new Wistia({
+              bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
+            });
+
+            async function run() {
+              const result = await wistia.channelEpisodes.putChannelEpisodesChannelEpisodeHashedIdUnpublish({
+                channelEpisodeHashedId: "<id>",
+              });
 
               console.log(result);
             }
@@ -204,6 +307,46 @@ actions:
             }
 
             run();
+  - target: $["paths"]["/channels"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: Typescript (SDK)
+          source: |-
+            import { Wistia } from "@wistia/wistia-api-client";
+
+            const wistia = new Wistia({
+              bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
+            });
+
+            async function run() {
+              const result = await wistia.channels.postChannels();
+
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/channels/{channelHashedId}"]["delete"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: Typescript (SDK)
+          source: |-
+            import { Wistia } from "@wistia/wistia-api-client";
+
+            const wistia = new Wistia({
+              bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
+            });
+
+            async function run() {
+              const result = await wistia.channels.deleteChannelsChannelHashedId({
+                channelHashedId: "<id>",
+              });
+
+              console.log(result);
+            }
+
+            run();
   - target: $["paths"]["/channels/{channelHashedId}"]["get"]
     update:
       x-codeSamples:
@@ -218,6 +361,27 @@ actions:
 
             async function run() {
               const result = await wistia.channels.get({
+                channelHashedId: "<id>",
+              });
+
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/channels/{channelHashedId}"]["put"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: Typescript (SDK)
+          source: |-
+            import { Wistia } from "@wistia/wistia-api-client";
+
+            const wistia = new Wistia({
+              bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
+            });
+
+            async function run() {
+              const result = await wistia.channels.putChannelsChannelHashedId({
                 channelHashedId: "<id>",
               });
 
@@ -314,7 +478,7 @@ actions:
             }
 
             run();
-  - target: $["paths"]["/live_stream_events"]["get"]
+  - target: $["paths"]["/folders"]["get"]
     update:
       x-codeSamples:
         - lang: typescript
@@ -327,13 +491,13 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.liveStreamEvents.list();
+              const result = await wistia.folders.getFolders();
 
               console.log(result);
             }
 
             run();
-  - target: $["paths"]["/live_stream_events"]["post"]
+  - target: $["paths"]["/folders"]["post"]
     update:
       x-codeSamples:
         - lang: typescript
@@ -346,18 +510,17 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.liveStreamEvents.create({
-                title: "Wellness Session: Coping with Outie Memories",
-                description: "A comprehensive session on managing work-life balance",
-                scheduledFor: new Date("2024-03-20T15:30:00-05:00"),
-                eventDuration: 60,
+              const result = await wistia.folders.postFolders({
+                name: "My New Folder",
+                adminEmail: "admin@example.com",
+                public: false,
               });
 
               console.log(result);
             }
 
             run();
-  - target: $["paths"]["/live_stream_events/{id}"]["delete"]
+  - target: $["paths"]["/folders/{folderId}/sharings"]["get"]
     update:
       x-codeSamples:
         - lang: typescript
@@ -370,7 +533,268 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.liveStreamEvents.delete({
+              const result = await wistia.folderSharings.getFoldersFolderIdSharings({
+                folderId: "<id>",
+              });
+
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/folders/{folderId}/sharings"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: Typescript (SDK)
+          source: |-
+            import { Wistia } from "@wistia/wistia-api-client";
+
+            const wistia = new Wistia({
+              bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
+            });
+
+            async function run() {
+              const result = await wistia.folderSharings.postFoldersFolderIdSharings({
+                folderId: "<id>",
+                requestBody: {
+                  sharing: {
+                    with: "Katrine83@hotmail.com",
+                    requirePassword: false,
+                    canShare: false,
+                    canDownload: false,
+                    canUpload: false,
+                  },
+                },
+              });
+
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/folders/{folderId}/sharings/{sharingId}"]["delete"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: Typescript (SDK)
+          source: |-
+            import { Wistia } from "@wistia/wistia-api-client";
+
+            const wistia = new Wistia({
+              bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
+            });
+
+            async function run() {
+              const result = await wistia.folderSharings.deleteFoldersFolderIdSharingsSharingId({
+                folderId: "<id>",
+                sharingId: "<id>",
+              });
+
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/folders/{folderId}/sharings/{sharingId}"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: Typescript (SDK)
+          source: |-
+            import { Wistia } from "@wistia/wistia-api-client";
+
+            const wistia = new Wistia({
+              bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
+            });
+
+            async function run() {
+              const result = await wistia.folderSharings.getFoldersFolderIdSharingsSharingId({
+                folderId: "<id>",
+                sharingId: 616202,
+              });
+
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/folders/{folderId}/sharings/{sharingId}"]["put"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: Typescript (SDK)
+          source: |-
+            import { Wistia } from "@wistia/wistia-api-client";
+
+            const wistia = new Wistia({
+              bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
+            });
+
+            async function run() {
+              const result = await wistia.folderSharings.putFoldersFolderIdSharingsSharingId({
+                folderId: "<id>",
+                sharingId: "<id>",
+                requestBody: {},
+              });
+
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/folders/{folderId}/subfolders"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: Typescript (SDK)
+          source: |-
+            import { Wistia } from "@wistia/wistia-api-client";
+
+            const wistia = new Wistia({
+              bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
+            });
+
+            async function run() {
+              const result = await wistia.subfolders.getFoldersFolderIdSubfolders({
+                folderId: "abc123def4",
+              });
+
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/folders/{folderId}/subfolders"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: Typescript (SDK)
+          source: |-
+            import { Wistia } from "@wistia/wistia-api-client";
+
+            const wistia = new Wistia({
+              bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
+            });
+
+            async function run() {
+              const result = await wistia.subfolders.postFoldersFolderIdSubfolders({
+                folderId: "abc123def4",
+                requestBody: {
+                  name: "Marketing Videos",
+                  description: "Collection of all marketing and promotional videos",
+                },
+              });
+
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/folders/{folderId}/subfolders/bulk_delete"]["delete"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: Typescript (SDK)
+          source: |-
+            import { Wistia } from "@wistia/wistia-api-client";
+
+            const wistia = new Wistia({
+              bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
+            });
+
+            async function run() {
+              const result = await wistia.subfolders.deleteFoldersFolderIdSubfoldersBulkDelete({
+                folderId: "abc123def4",
+                requestBody: {
+                  hashedIds: [
+                    "<value 1>",
+                    "<value 2>",
+                  ],
+                },
+              });
+
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/folders/{folderId}/subfolders/{subfolderId}"]["delete"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: Typescript (SDK)
+          source: |-
+            import { Wistia } from "@wistia/wistia-api-client";
+
+            const wistia = new Wistia({
+              bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
+            });
+
+            async function run() {
+              const result = await wistia.subfolders.deleteFoldersFolderIdSubfoldersSubfolderId({
+                folderId: "abc123def4",
+                subfolderId: "xyz789ghi0",
+              });
+
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/folders/{folderId}/subfolders/{subfolderId}"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: Typescript (SDK)
+          source: |-
+            import { Wistia } from "@wistia/wistia-api-client";
+
+            const wistia = new Wistia({
+              bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
+            });
+
+            async function run() {
+              const result = await wistia.subfolders.getFoldersFolderIdSubfoldersSubfolderId({
+                folderId: "abc123def4",
+                subfolderId: "xyz789ghi0",
+              });
+
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/folders/{folderId}/subfolders/{subfolderId}"]["put"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: Typescript (SDK)
+          source: |-
+            import { Wistia } from "@wistia/wistia-api-client";
+
+            const wistia = new Wistia({
+              bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
+            });
+
+            async function run() {
+              const result = await wistia.subfolders.putFoldersFolderIdSubfoldersSubfolderId({
+                folderId: "abc123def4",
+                subfolderId: "xyz789ghi0",
+                requestBody: {
+                  name: "Updated Marketing Videos",
+                  description: "Updated collection of marketing materials",
+                },
+              });
+
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/folders/{id}"]["delete"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: Typescript (SDK)
+          source: |-
+            import { Wistia } from "@wistia/wistia-api-client";
+
+            const wistia = new Wistia({
+              bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
+            });
+
+            async function run() {
+              const result = await wistia.folders.deleteFoldersId({
                 id: "<id>",
               });
 
@@ -378,7 +802,7 @@ actions:
             }
 
             run();
-  - target: $["paths"]["/live_stream_events/{id}"]["get"]
+  - target: $["paths"]["/folders/{id}"]["get"]
     update:
       x-codeSamples:
         - lang: typescript
@@ -391,7 +815,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.liveStreamEvents.get({
+              const result = await wistia.folders.getFoldersId({
                 id: "<id>",
               });
 
@@ -399,7 +823,7 @@ actions:
             }
 
             run();
-  - target: $["paths"]["/live_stream_events/{id}"]["put"]
+  - target: $["paths"]["/folders/{id}"]["put"]
     update:
       x-codeSamples:
         - lang: typescript
@@ -412,15 +836,36 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.liveStreamEvents.update({
+              const result = await wistia.folders.putFoldersId({
                 id: "<id>",
                 requestBody: {
-                  liveStreamEvent: {
-                    title: "Updated Event Title",
-                    description: "Updated event description",
-                    scheduledFor: new Date("2024-03-20T15:30:00-05:00"),
-                    eventDuration: 90,
-                  },
+                  name: "My New Folder Name",
+                  description: "My New Folder Description",
+                  public: false,
+                },
+              });
+
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/folders/{id}/copy"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: Typescript (SDK)
+          source: |-
+            import { Wistia } from "@wistia/wistia-api-client";
+
+            const wistia = new Wistia({
+              bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
+            });
+
+            async function run() {
+              const result = await wistia.folders.postFoldersIdCopy({
+                id: "<id>",
+                requestBody: {
+                  adminEmail: "admin@example.com",
                 },
               });
 
@@ -468,6 +913,30 @@ actions:
             }
 
             run();
+  - target: $["paths"]["/medias/copy"]["put"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: Typescript (SDK)
+          source: |-
+            import { Wistia } from "@wistia/wistia-api-client";
+
+            const wistia = new Wistia({
+              bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
+            });
+
+            async function run() {
+              const result = await wistia.media.putMediasCopy({
+                hashedIds: [
+                  "<value 1>",
+                ],
+                folderId: "<id>",
+              });
+
+              console.log(result);
+            }
+
+            run();
   - target: $["paths"]["/medias/move"]["put"]
     update:
       x-codeSamples:
@@ -486,7 +955,7 @@ actions:
                   "<value 1>",
                   "<value 2>",
                 ],
-                projectId: "<id>",
+                folderId: "<id>",
               });
 
               console.log(result);
@@ -508,7 +977,7 @@ actions:
             async function run() {
               const result = await wistia.media.restore({
                 hashedIds: [],
-                projectId: "<id>",
+                folderId: "<id>",
               });
 
               console.log(result);
@@ -1059,374 +1528,6 @@ actions:
             }
 
             run();
-  - target: $["paths"]["/projects"]["get"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: Typescript (SDK)
-          source: |-
-            import { Wistia } from "@wistia/wistia-api-client";
-
-            const wistia = new Wistia({
-              bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
-            });
-
-            async function run() {
-              const result = await wistia.projects.list();
-
-              console.log(result);
-            }
-
-            run();
-  - target: $["paths"]["/projects"]["post"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: Typescript (SDK)
-          source: |-
-            import { Wistia } from "@wistia/wistia-api-client";
-
-            const wistia = new Wistia({
-              bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
-            });
-
-            async function run() {
-              const result = await wistia.projects.create({
-                name: "My New Project",
-                adminEmail: "admin@example.com",
-                public: false,
-              });
-
-              console.log(result);
-            }
-
-            run();
-  - target: $["paths"]["/projects/{id}"]["delete"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: Typescript (SDK)
-          source: |-
-            import { Wistia } from "@wistia/wistia-api-client";
-
-            const wistia = new Wistia({
-              bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
-            });
-
-            async function run() {
-              const result = await wistia.projects.delete({
-                id: "<id>",
-              });
-
-              console.log(result);
-            }
-
-            run();
-  - target: $["paths"]["/projects/{id}"]["get"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: Typescript (SDK)
-          source: |-
-            import { Wistia } from "@wistia/wistia-api-client";
-
-            const wistia = new Wistia({
-              bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
-            });
-
-            async function run() {
-              const result = await wistia.projects.get({
-                id: "<id>",
-              });
-
-              console.log(result);
-            }
-
-            run();
-  - target: $["paths"]["/projects/{id}"]["put"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: Typescript (SDK)
-          source: |-
-            import { Wistia } from "@wistia/wistia-api-client";
-
-            const wistia = new Wistia({
-              bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
-            });
-
-            async function run() {
-              const result = await wistia.projects.update({
-                id: "<id>",
-                requestBody: {
-                  name: "My New Project Name",
-                  description: "My New Project Description",
-                  public: false,
-                },
-              });
-
-              console.log(result);
-            }
-
-            run();
-  - target: $["paths"]["/projects/{id}/copy"]["post"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: Typescript (SDK)
-          source: |-
-            import { Wistia } from "@wistia/wistia-api-client";
-
-            const wistia = new Wistia({
-              bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
-            });
-
-            async function run() {
-              const result = await wistia.projects.copy({
-                id: "<id>",
-                requestBody: {
-                  adminEmail: "admin@example.com",
-                },
-              });
-
-              console.log(result);
-            }
-
-            run();
-  - target: $["paths"]["/projects/{projectId}/sharings"]["get"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: Typescript (SDK)
-          source: |-
-            import { Wistia } from "@wistia/wistia-api-client";
-
-            const wistia = new Wistia({
-              bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
-            });
-
-            async function run() {
-              const result = await wistia.projectSharings.list({
-                projectId: "<id>",
-              });
-
-              console.log(result);
-            }
-
-            run();
-  - target: $["paths"]["/projects/{projectId}/sharings"]["post"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: Typescript (SDK)
-          source: |-
-            import { Wistia } from "@wistia/wistia-api-client";
-
-            const wistia = new Wistia({
-              bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
-            });
-
-            async function run() {
-              const result = await wistia.projectSharings.create({
-                projectId: "<id>",
-                requestBody: {
-                  sharing: {
-                    with: "Dallas_Spinka@yahoo.com",
-                    requirePassword: false,
-                    canShare: false,
-                    canDownload: false,
-                    canUpload: false,
-                  },
-                },
-              });
-
-              console.log(result);
-            }
-
-            run();
-  - target: $["paths"]["/projects/{projectId}/sharings/{sharingId}"]["delete"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: Typescript (SDK)
-          source: |-
-            import { Wistia } from "@wistia/wistia-api-client";
-
-            const wistia = new Wistia({
-              bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
-            });
-
-            async function run() {
-              const result = await wistia.projectSharings.delete({
-                projectId: "<id>",
-                sharingId: "<id>",
-              });
-
-              console.log(result);
-            }
-
-            run();
-  - target: $["paths"]["/projects/{projectId}/sharings/{sharingId}"]["get"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: Typescript (SDK)
-          source: |-
-            import { Wistia } from "@wistia/wistia-api-client";
-
-            const wistia = new Wistia({
-              bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
-            });
-
-            async function run() {
-              const result = await wistia.projectSharings.get({
-                projectId: "<id>",
-                sharingId: 495335,
-              });
-
-              console.log(result);
-            }
-
-            run();
-  - target: $["paths"]["/projects/{projectId}/sharings/{sharingId}"]["put"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: Typescript (SDK)
-          source: |-
-            import { Wistia } from "@wistia/wistia-api-client";
-
-            const wistia = new Wistia({
-              bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
-            });
-
-            async function run() {
-              const result = await wistia.projectSharings.update({
-                projectId: "<id>",
-                sharingId: "<id>",
-                requestBody: {},
-              });
-
-              console.log(result);
-            }
-
-            run();
-  - target: $["paths"]["/projects/{projectId}/subfolders"]["get"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: Typescript (SDK)
-          source: |-
-            import { Wistia } from "@wistia/wistia-api-client";
-
-            const wistia = new Wistia({
-              bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
-            });
-
-            async function run() {
-              const result = await wistia.subfolders.list({
-                projectId: "abc123def4",
-              });
-
-              console.log(result);
-            }
-
-            run();
-  - target: $["paths"]["/projects/{projectId}/subfolders"]["post"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: Typescript (SDK)
-          source: |-
-            import { Wistia } from "@wistia/wistia-api-client";
-
-            const wistia = new Wistia({
-              bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
-            });
-
-            async function run() {
-              const result = await wistia.subfolders.create({
-                projectId: "abc123def4",
-                requestBody: {
-                  name: "Marketing Videos",
-                  description: "Collection of all marketing and promotional videos",
-                },
-              });
-
-              console.log(result);
-            }
-
-            run();
-  - target: $["paths"]["/projects/{projectId}/subfolders/{subfolderId}"]["delete"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: Typescript (SDK)
-          source: |-
-            import { Wistia } from "@wistia/wistia-api-client";
-
-            const wistia = new Wistia({
-              bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
-            });
-
-            async function run() {
-              const result = await wistia.subfolders.deleteSubfolder({
-                projectId: "abc123def4",
-                subfolderId: "xyz789ghi0",
-              });
-
-              console.log(result);
-            }
-
-            run();
-  - target: $["paths"]["/projects/{projectId}/subfolders/{subfolderId}"]["get"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: Typescript (SDK)
-          source: |-
-            import { Wistia } from "@wistia/wistia-api-client";
-
-            const wistia = new Wistia({
-              bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
-            });
-
-            async function run() {
-              const result = await wistia.subfolders.get({
-                projectId: "abc123def4",
-                subfolderId: "xyz789ghi0",
-              });
-
-              console.log(result);
-            }
-
-            run();
-  - target: $["paths"]["/projects/{projectId}/subfolders/{subfolderId}"]["put"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: Typescript (SDK)
-          source: |-
-            import { Wistia } from "@wistia/wistia-api-client";
-
-            const wistia = new Wistia({
-              bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
-            });
-
-            async function run() {
-              const result = await wistia.subfolders.update({
-                projectId: "abc123def4",
-                subfolderId: "xyz789ghi0",
-                requestBody: {
-                  name: "Updated Marketing Videos",
-                  description: "Updated collection of marketing materials",
-                },
-              });
-
-              console.log(result);
-            }
-
-            run();
   - target: $["paths"]["/search"]["get"]
     update:
       x-codeSamples:
@@ -1634,6 +1735,34 @@ actions:
             }
 
             run();
+  - target: $["paths"]["/taggings/bulk_create"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: Typescript (SDK)
+          source: |-
+            import { Wistia } from "@wistia/wistia-api-client";
+
+            const wistia = new Wistia({
+              bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
+            });
+
+            async function run() {
+              const result = await wistia.taggings.postTaggingsBulkCreate({
+                hashedIds: [
+                  "<value 1>",
+                  "<value 2>",
+                  "<value 3>",
+                ],
+                tagNames: [
+                  "<value 1>",
+                ],
+              });
+
+              console.log(result);
+            }
+
+            run();
   - target: $["paths"]["/tags"]["get"]
     update:
       x-codeSamples:
@@ -1692,6 +1821,146 @@ actions:
               });
 
 
+            }
+
+            run();
+  - target: $["paths"]["/webinars"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: Typescript (SDK)
+          source: |-
+            import { Wistia } from "@wistia/wistia-api-client";
+
+            const wistia = new Wistia({
+              bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
+            });
+
+            async function run() {
+              const result = await wistia.webinars.getWebinars();
+
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/webinars"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: Typescript (SDK)
+          source: |-
+            import { Wistia } from "@wistia/wistia-api-client";
+
+            const wistia = new Wistia({
+              bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
+            });
+
+            async function run() {
+              const result = await wistia.webinars.postWebinars({
+                title: "Wellness Session: Coping with Outie Memories",
+                description: "A comprehensive session on managing work-life balance",
+                scheduledFor: new Date("2024-03-20T15:30:00-05:00"),
+                eventDuration: 60,
+              });
+
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/webinars/{id}"]["delete"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: Typescript (SDK)
+          source: |-
+            import { Wistia } from "@wistia/wistia-api-client";
+
+            const wistia = new Wistia({
+              bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
+            });
+
+            async function run() {
+              const result = await wistia.webinars.deleteWebinarsId({
+                id: "<id>",
+              });
+
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/webinars/{id}"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: Typescript (SDK)
+          source: |-
+            import { Wistia } from "@wistia/wistia-api-client";
+
+            const wistia = new Wistia({
+              bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
+            });
+
+            async function run() {
+              const result = await wistia.webinars.getWebinarsId({
+                id: "<id>",
+              });
+
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/webinars/{id}"]["put"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: Typescript (SDK)
+          source: |-
+            import { Wistia } from "@wistia/wistia-api-client";
+
+            const wistia = new Wistia({
+              bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
+            });
+
+            async function run() {
+              const result = await wistia.webinars.putWebinarsId({
+                id: "<id>",
+                requestBody: {
+                  webinar: {
+                    title: "Updated Webinar Title",
+                    description: "Updated webinar description",
+                    scheduledFor: new Date("2024-03-20T15:30:00-05:00"),
+                    eventDuration: 90,
+                  },
+                },
+              });
+
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/webinars/{webinarId}/registrations"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: Typescript (SDK)
+          source: |-
+            import { Wistia } from "@wistia/wistia-api-client";
+
+            const wistia = new Wistia({
+              bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
+            });
+
+            async function run() {
+              const result = await wistia.webinarRegistrations.postWebinarsWebinarIdRegistrations({
+                webinarId: "<id>",
+                requestBody: {
+                  email: "john.doe@example.com",
+                  firstName: "John",
+                  lastName: "Doe",
+                },
+              });
+
+              console.log(result);
             }
 
             run();

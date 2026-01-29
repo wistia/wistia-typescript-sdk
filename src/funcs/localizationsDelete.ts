@@ -26,15 +26,17 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Localizations Delete
+ * Delete Localization
  *
  * @remarks
- * Delete a localization.
+ * Deletes a localization.
  *
+ * <!-- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read, update & delete anything
  * ```
+ * <!-- /HIDE-MCP -->
  */
 export function localizationsDelete(
   client: WistiaCore,

@@ -26,20 +26,17 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Media Show
+ * Show Media
  *
  * @remarks
- * Fetch detailed information about a media you’ve uploaded to your account using its hashed_id.
+ * Fetches a single media by its hashed id.
  *
- * CDN-backed medias are accessible using this url structure: https://fast.wistia.com/embed/medias/{hashed_id}.m3u8.
- * For more information, see https://docs.wistia.com/docs/asset-urls#getting-hls-assets.
- *
+ * <!-- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
- * Read, update & delete anything
- * Read all data
  * Read all folder and media data
  * ```
+ * <!-- /HIDE-MCP -->
  */
 export function mediaGet(
   client: WistiaCore,

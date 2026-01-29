@@ -4,27 +4,26 @@
 
 ### Available Operations
 
-* [list](#list) - Captions List
-* [create](#create) - Captions Create
-* [createMultipart](#createmultipart) - Captions Create
-* [purchase](#purchase) - Captions Purchase
-* [get](#get) - Captions Show
-* [update](#update) - Captions Update
-* [updateMultipart](#updatemultipart) - Captions Update
-* [delete](#delete) - Captions Delete
+* [list](#list) - List Captions by Media
+* [create](#create) - Create Captions
+* [createMultipart](#createmultipart) - Create Captions
+* [getCaptions](#getcaptions) - List Captions
+* [purchase](#purchase) - Purchase Captions
+* [get](#get) - Show Captions
+* [update](#update) - Update Captions
+* [updateMultipart](#updatemultipart) - Update Captions
+* [delete](#delete) - Delete Captions
 
 ## list
 
-Returns all the captions associated with a specified video.
-If captions do not exist for this video, the response will be an empty JSON array.
-If this video does not exist, the response will be an empty HTTP 404 Not Found.
+Lists captions belonging to a specific video.
 
+<!-- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
-Read, update & delete anything
-Read all data
 Read all folder and media data
 ```
+<!-- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -102,10 +101,12 @@ run();
 
 Adds captions to a specified video by providing an SRT file or its contents directly.
 
+<!-- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
+<!-- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -189,10 +190,12 @@ run();
 
 Adds captions to a specified video by providing an SRT file or its contents directly.
 
+<!-- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
+<!-- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -274,14 +277,97 @@ run();
 | errors.PostMediasMediaHashedIdCaptionsMultipartInternalServerError | 500                                                                | application/json                                                   |
 | errors.WistiaDefaultError                                          | 4XX, 5XX                                                           | \*/\*                                                              |
 
+## getCaptions
+
+Lists captions belonging to the account. This endpoint can also narrow down results
+to those belonging to a specific video.
+
+<!-- HIDE-MCP -->
+## Requires api token with one of the following permissions
+```
+Read all folder and media data
+```
+<!-- /HIDE-MCP -->
+
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="get_/captions" method="get" path="/captions" -->
+```typescript
+import { Wistia } from "@wistia/wistia-api-client";
+
+const wistia = new Wistia({
+  bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
+});
+
+async function run() {
+  const result = await wistia.captions.getCaptions({});
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { WistiaCore } from "@wistia/wistia-api-client/core.js";
+import { captionsGetCaptions } from "@wistia/wistia-api-client/funcs/captionsGetCaptions.js";
+
+// Use `WistiaCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const wistia = new WistiaCore({
+  bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
+});
+
+async function run() {
+  const res = await captionsGetCaptions(wistia, {});
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("captionsGetCaptions failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.GetCaptionsRequest](../../models/operations/getcaptionsrequest.md)                                                                                                 | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[operations.GetCaptionsResponse[]](../../models/.md)\>**
+
+### Errors
+
+| Error Type                            | Status Code                           | Content Type                          |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| errors.GetCaptionsBadRequestError     | 400                                   | application/json                      |
+| errors.GetCaptionsUnauthorizedError   | 401                                   | application/json                      |
+| errors.GetCaptionsInternalServerError | 500                                   | application/json                      |
+| errors.WistiaDefaultError             | 4XX, 5XX                              | \*/\*                                 |
+
 ## purchase
 
 This method is for purchasing English captions for a video. The request will charge the credit card on the account if successful. A saved credit card is required to use this endpoint.
 
+<!-- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
+<!-- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -364,12 +450,12 @@ Returns a video's captions in the specified language.
 Supports multiple formats: JSON (default), SRT, VTT, and TXT.
 Use file extensions (.srt, .vtt, .txt) or Accept headers to specify format.
 
+<!-- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
-Read, update & delete anything
-Read all data
 Read all folder and media data
 ```
+<!-- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -449,10 +535,12 @@ run();
 
 This method is for replacing the captions on a video for the specified language.
 
+<!-- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
+<!-- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -538,10 +626,12 @@ run();
 
 This method is for replacing the captions on a video for the specified language.
 
+<!-- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
+<!-- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -627,12 +717,14 @@ run();
 
 ## delete
 
-This method is for removing the captions file from a video for the specified language.
+Removes the captions file from a video for the specified language.
 
+<!-- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
+<!-- /HIDE-MCP -->
 
 
 ### Example Usage

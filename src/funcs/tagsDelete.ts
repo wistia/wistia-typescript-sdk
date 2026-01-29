@@ -27,15 +27,17 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Tags Delete
+ * Delete Tags
  *
  * @remarks
- * Delete a tag
+ * Deletes a tag
  *
+ * <!-- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read, update & delete anything
  * ```
+ * <!-- /HIDE-MCP -->
  */
 export function tagsDelete(
   client: WistiaCore,

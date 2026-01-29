@@ -10,7 +10,68 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
+ * If `cursor[enabled]` is set to 1, the first result set will be fetched with cursor pagination enabled. This
+ *
+ * @remarks
+ * values is ignored if `cursor[before]` or `cursor[after]` are set.
+ */
+export const GetChannelsEnabled = {
+  Zero: 0,
+  One: 1,
+} as const;
+/**
+ * If `cursor[enabled]` is set to 1, the first result set will be fetched with cursor pagination enabled. This
+ *
+ * @remarks
+ * values is ignored if `cursor[before]` or `cursor[after]` are set.
+ */
+export type GetChannelsEnabled = ClosedEnum<typeof GetChannelsEnabled>;
+
+/**
+ * If `cursor[enabled]` is set to 1 than cursor pagination is enabled and the
+ *
+ * @remarks
+ * first set of records are fetched up to the `per_page`. Cursor
+ * pagination will also be turned on if `cursor[before]` or `cursor[after]`
+ * are set. Records returned will have a `cursor` property set which can be used to fetch more records in the same `sort_by` ordering.
+ * The cursor value of the last record can be used to fetch records after the current result set and
+ * the cursor of the first record can be used to fetch records before the result set.
+ *
+ * NOTE: a cursor value is only valid if the `sort_by` value hasn't changed from the
+ * last fetch. For example, you cannot fetch using `sort_by` id and than pass that
+ * cursor value to a `sort_by` name.
+ */
+export type GetChannelsCursor = {
+  /**
+   * If `cursor[enabled]` is set to 1, the first result set will be fetched with cursor pagination enabled. This
+   *
+   * @remarks
+   * values is ignored if `cursor[before]` or `cursor[after]` are set.
+   */
+  enabled?: GetChannelsEnabled | undefined;
+  /**
+   * If `cursor[before]` is set than cursor pagination is enabled and all records
+   *
+   * @remarks
+   * before the cursor up to the `per_page` are returned. This feature is useful for
+   * fetching "new records", for example, in a "pull to refersh" feature when showing records in a descending
+   * order.
+   */
+  before?: string | undefined;
+  /**
+   * If `cursor[after]` is set than cursor pagination is enabled and all records
+   *
+   * @remarks
+   * after the cursor up to the `per_page` are returned.
+   */
+  after?: string | undefined;
+};
+
+/**
  * Ordering. Default is ID ASC.
+ *
+ * @remarks
+ * Note: Only 'id' and 'created' are supported when using cursor pagination.
  */
 export const GetChannelsSortBy = {
   Created: "created",
@@ -20,6 +81,9 @@ export const GetChannelsSortBy = {
 } as const;
 /**
  * Ordering. Default is ID ASC.
+ *
+ * @remarks
+ * Note: Only 'id' and 'created' are supported when using cursor pagination.
  */
 export type GetChannelsSortBy = ClosedEnum<typeof GetChannelsSortBy>;
 
@@ -39,6 +103,21 @@ export type GetChannelsSortDirection = ClosedEnum<
 
 export type GetChannelsRequest = {
   /**
+   * If `cursor[enabled]` is set to 1 than cursor pagination is enabled and the
+   *
+   * @remarks
+   * first set of records are fetched up to the `per_page`. Cursor
+   * pagination will also be turned on if `cursor[before]` or `cursor[after]`
+   * are set. Records returned will have a `cursor` property set which can be used to fetch more records in the same `sort_by` ordering.
+   * The cursor value of the last record can be used to fetch records after the current result set and
+   * the cursor of the first record can be used to fetch records before the result set.
+   *
+   * NOTE: a cursor value is only valid if the `sort_by` value hasn't changed from the
+   * last fetch. For example, you cannot fetch using `sort_by` id and than pass that
+   * cursor value to a `sort_by` name.
+   */
+  cursor?: GetChannelsCursor | undefined;
+  /**
    * Page number to retrieve
    */
   page?: number | undefined;
@@ -48,6 +127,9 @@ export type GetChannelsRequest = {
   perPage?: number | undefined;
   /**
    * Ordering. Default is ID ASC.
+   *
+   * @remarks
+   * Note: Only 'id' and 'created' are supported when using cursor pagination.
    */
   sortBy?: GetChannelsSortBy | undefined;
   /**
@@ -60,9 +142,15 @@ export type GetChannelsRequest = {
   hashedIds?: Array<string> | undefined;
 };
 
+/**
+ * A Channel lets you take a collection of video (or audio) and embed them
+ *
+ * @remarks
+ * on your site, as well as distribute through podcasting.
+ */
 export type GetChannelsResponse = {
   /**
-   * The numeri d of the channel.
+   * The numeric id of the channel.
    */
   id: number;
   /**
@@ -89,7 +177,42 @@ export type GetChannelsResponse = {
    * The date when the channel was last updated.
    */
   updated: Date;
+  /**
+   * A cursor for stable pagination based on current `sort_by` order. You can pass this to `cursor[before]` or `cursor[after]` as a parameter to fetch the records before or after this record in the same sort order. This is only populated if records were fetched with `cursor[enabled]`, or `cursor[before]` or `cursor[after]`.
+   */
+  cursor?: string | null | undefined;
 };
+
+/** @internal */
+export const GetChannelsEnabled$outboundSchema: z.ZodNativeEnum<
+  typeof GetChannelsEnabled
+> = z.nativeEnum(GetChannelsEnabled);
+
+/** @internal */
+export type GetChannelsCursor$Outbound = {
+  enabled?: number | undefined;
+  before?: string | undefined;
+  after?: string | undefined;
+};
+
+/** @internal */
+export const GetChannelsCursor$outboundSchema: z.ZodType<
+  GetChannelsCursor$Outbound,
+  z.ZodTypeDef,
+  GetChannelsCursor
+> = z.object({
+  enabled: GetChannelsEnabled$outboundSchema.optional(),
+  before: z.string().optional(),
+  after: z.string().optional(),
+});
+
+export function getChannelsCursorToJSON(
+  getChannelsCursor: GetChannelsCursor,
+): string {
+  return JSON.stringify(
+    GetChannelsCursor$outboundSchema.parse(getChannelsCursor),
+  );
+}
 
 /** @internal */
 export const GetChannelsSortBy$outboundSchema: z.ZodNativeEnum<
@@ -103,6 +226,7 @@ export const GetChannelsSortDirection$outboundSchema: z.ZodNativeEnum<
 
 /** @internal */
 export type GetChannelsRequest$Outbound = {
+  cursor?: GetChannelsCursor$Outbound | undefined;
   page?: number | undefined;
   per_page?: number | undefined;
   sort_by?: string | undefined;
@@ -116,6 +240,7 @@ export const GetChannelsRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetChannelsRequest
 > = z.object({
+  cursor: z.lazy(() => GetChannelsCursor$outboundSchema).optional(),
   page: z.number().int().optional(),
   perPage: z.number().int().optional(),
   sortBy: GetChannelsSortBy$outboundSchema.optional(),
@@ -147,10 +272,16 @@ export const GetChannelsResponse$inboundSchema: z.ZodType<
   id: z.number().int(),
   created: z.string().datetime({ offset: true }).transform(v => new Date(v)),
   description: z.string(),
-  hashedId: z.string(),
-  mediaCount: z.number().int(),
+  hashed_id: z.string(),
+  media_count: z.number().int(),
   name: z.string(),
   updated: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  cursor: z.nullable(z.string()).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "hashed_id": "hashedId",
+    "media_count": "mediaCount",
+  });
 });
 
 export function getChannelsResponseFromJSON(

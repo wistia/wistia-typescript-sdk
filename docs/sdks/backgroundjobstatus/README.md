@@ -4,16 +4,18 @@
 
 ### Available Operations
 
-* [get](#get) - Background Job Status Show
+* [get](#get) - Show Background Job Status
 
 ## get
 
-Retrieve the status of a background job.
+Retrieves the status of a background job.
+
+<!-- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
-Read, update & delete anything
 Read all data
 ```
+<!-- /HIDE-MCP -->
 
 
 ### Example Usage

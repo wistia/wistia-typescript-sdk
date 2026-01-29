@@ -27,15 +27,17 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Captions Update
+ * Update Captions
  *
  * @remarks
  * This method is for replacing the captions on a video for the specified language.
  *
+ * <!-- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read, update & delete anything
  * ```
+ * <!-- /HIDE-MCP -->
  */
 export function captionsUpdate(
   client: WistiaCore,

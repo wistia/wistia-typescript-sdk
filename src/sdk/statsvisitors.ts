@@ -10,17 +10,17 @@ import { unwrapAsync } from "../types/fp.js";
 
 export class StatsVisitors extends ClientSDK {
   /**
-   * Stats:Visitors List
+   * List Visitors
    *
    * @remarks
    * This endpoint provides a list of visitors that have watched videos in your account.
    *
+   * <!-- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
-   * Read, update & delete anything
-   * Read all data
-   * Read all folder and media data
+   * Read detailed stats
    * ```
+   * <!-- /HIDE-MCP -->
    */
   async list(
     request?: operations.GetStatsVisitorsRequest | undefined,
@@ -34,17 +34,17 @@ export class StatsVisitors extends ClientSDK {
   }
 
   /**
-   * Stats:Visitors Show
+   * Show Visitor
    *
    * @remarks
    * This endpoint provides detailed information about a specific visitor.
    *
+   * <!-- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
-   * Read, update & delete anything
-   * Read all data
-   * Read all folder and media data
+   * Read detailed stats
    * ```
+   * <!-- /HIDE-MCP -->
    */
   async get(
     request: operations.GetStatsVisitorsVisitorKeyRequest,

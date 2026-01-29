@@ -27,17 +27,17 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Stats:Visitors List
+ * List Visitors
  *
  * @remarks
  * This endpoint provides a list of visitors that have watched videos in your account.
  *
+ * <!-- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
- * Read, update & delete anything
- * Read all data
- * Read all folder and media data
+ * Read detailed stats
  * ```
+ * <!-- /HIDE-MCP -->
  */
 export function statsVisitorsList(
   client: WistiaCore,

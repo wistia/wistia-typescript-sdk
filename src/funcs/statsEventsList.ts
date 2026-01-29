@@ -27,18 +27,18 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Stats:Events List
+ * List Events
  *
  * @remarks
  * Retrieve a list of events. Please note that due to our data retention policy,
  * only events from the last 2 years are available.
  *
+ * <!-- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
- * Read, update & delete anything
- * Read all data
- * Read all folder and media data
+ * Read detailed stats
  * ```
+ * <!-- /HIDE-MCP -->
  */
 export function statsEventsList(
   client: WistiaCore,
@@ -48,6 +48,7 @@ export function statsEventsList(
   Result<
     Array<operations.GetStatsEventsResponse>,
     | errors.GetStatsEventsUnauthorizedError
+    | errors.GetStatsEventsUnprocessableEntityError
     | errors.GetStatsEventsInternalServerError
     | WistiaError
     | ResponseValidationError
@@ -75,6 +76,7 @@ async function $do(
     Result<
       Array<operations.GetStatsEventsResponse>,
       | errors.GetStatsEventsUnauthorizedError
+      | errors.GetStatsEventsUnprocessableEntityError
       | errors.GetStatsEventsInternalServerError
       | WistiaError
       | ResponseValidationError
@@ -152,7 +154,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["401", "4XX", "500", "5XX"],
+    errorCodes: ["401", "422", "4XX", "500", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -168,6 +170,7 @@ async function $do(
   const [result] = await M.match<
     Array<operations.GetStatsEventsResponse>,
     | errors.GetStatsEventsUnauthorizedError
+    | errors.GetStatsEventsUnprocessableEntityError
     | errors.GetStatsEventsInternalServerError
     | WistiaError
     | ResponseValidationError
@@ -180,6 +183,7 @@ async function $do(
   >(
     M.json(200, z.array(operations.GetStatsEventsResponse$inboundSchema)),
     M.jsonErr(401, errors.GetStatsEventsUnauthorizedError$inboundSchema),
+    M.jsonErr(422, errors.GetStatsEventsUnprocessableEntityError$inboundSchema),
     M.jsonErr(500, errors.GetStatsEventsInternalServerError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),

@@ -27,15 +27,17 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Captions Create
+ * Create Captions
  *
  * @remarks
  * Adds captions to a specified video by providing an SRT file or its contents directly.
  *
+ * <!-- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read, update & delete anything
  * ```
+ * <!-- /HIDE-MCP -->
  */
 export function captionsCreate(
   client: WistiaCore,

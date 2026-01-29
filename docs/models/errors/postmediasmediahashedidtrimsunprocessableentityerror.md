@@ -1,6 +1,6 @@
 # PostMediasMediaHashedIdTrimsUnprocessableEntityError
 
-Unprocessible entity, parameters provided were invalid.
+Unprocessable entity, the request parameters were invalid.
 
 ## Example Usage
 
@@ -12,6 +12,6 @@ import { PostMediasMediaHashedIdTrimsUnprocessableEntityError } from "@wistia/wi
 
 ## Fields
 
-| Field                                                                                                          | Type                                                                                                           | Required                                                                                                       | Description                                                                                                    |
-| -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
-| `errors`                                                                                                       | [operations.PostMediasMediaHashedIdTrimsErrors](../../models/operations/postmediasmediahashedidtrimserrors.md) | :heavy_minus_sign:                                                                                             | Contains a summary of what fields had errors and the errors they had.                                          |
+| Field                                                                                                      | Type                                                                                                       | Required                                                                                                   | Description                                                                                                | Example                                                                                                    |
+| ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `errors`                                                                                                   | Record<string, *string*[]>                                                                                 | :heavy_minus_sign:                                                                                         | Object containing validation errors grouped by field name. Each field contains an array of error messages. | {<br/>"trims": [<br/>"didn't match hh:mm:ss.xxx-hh:mm:ss.xxx"<br/>],<br/>"media": [<br/>"must be part of a project"<br/>]<br/>} |

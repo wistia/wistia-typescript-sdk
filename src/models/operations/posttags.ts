@@ -12,11 +12,14 @@ export type PostTagsRequest = {
 };
 
 /**
- * Tag created successfully
+ * A tag is used to tag related media. You can then filter media
+ *
+ * @remarks
+ * by a specific tag.
  */
 export type PostTagsResponse = {
   /**
-   * The tag’s display name.
+   * The tag's display name.
    */
   name?: string | undefined;
   /**
@@ -31,6 +34,10 @@ export type PostTagsResponse = {
    * The date that the tag was last updated.
    */
   updated?: Date | undefined;
+  /**
+   * A cursor for stable pagination based on current `sort_by` order. You can pass this to `cursor[before]` or `cursor[after]` as a parameter to fetch the records before or after this record in the same sort order. This is only populated if records were fetched with `cursor[enabled]`, or `cursor[before]` or `cursor[after]`.
+   */
+  cursor?: string | null | undefined;
 };
 
 /** @internal */
@@ -65,6 +72,7 @@ export const PostTagsResponse$inboundSchema: z.ZodType<
     .optional(),
   updated: z.string().datetime({ offset: true }).transform(v => new Date(v))
     .optional(),
+  cursor: z.nullable(z.string()).optional(),
 });
 
 export function postTagsResponseFromJSON(

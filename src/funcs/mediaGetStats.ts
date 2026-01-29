@@ -26,17 +26,17 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Media Stats
+ * Show Media Aggregated Stats
  *
  * @remarks
  * Aggregated tracking statistics for a video embedded on your site.
  *
+ * <!-- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
- * Read, update & delete anything
- * Read all data
  * Read all folder and media data
  * ```
+ * <!-- /HIDE-MCP -->
  */
 export function mediaGetStats(
   client: WistiaCore,

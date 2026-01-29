@@ -4,20 +4,20 @@
 
 ### Available Operations
 
-* [list](#list) - Stats:Events List
-* [get](#get) - Stats:Events Show
+* [list](#list) - List Events
+* [get](#get) - Show Event
 
 ## list
 
 Retrieve a list of events. Please note that due to our data retention policy,
 only events from the last 2 years are available.
 
+<!-- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
-Read, update & delete anything
-Read all data
-Read all folder and media data
+Read detailed stats
 ```
+<!-- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -81,23 +81,24 @@ run();
 
 ### Errors
 
-| Error Type                               | Status Code                              | Content Type                             |
-| ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
-| errors.GetStatsEventsUnauthorizedError   | 401                                      | application/json                         |
-| errors.GetStatsEventsInternalServerError | 500                                      | application/json                         |
-| errors.WistiaDefaultError                | 4XX, 5XX                                 | \*/\*                                    |
+| Error Type                                    | Status Code                                   | Content Type                                  |
+| --------------------------------------------- | --------------------------------------------- | --------------------------------------------- |
+| errors.GetStatsEventsUnauthorizedError        | 401                                           | application/json                              |
+| errors.GetStatsEventsUnprocessableEntityError | 422                                           | application/json                              |
+| errors.GetStatsEventsInternalServerError      | 500                                           | application/json                              |
+| errors.WistiaDefaultError                     | 4XX, 5XX                                      | \*/\*                                         |
 
 ## get
 
 Retrieve information for a single event. Please note that due to our data retention policy,
 only events from the last 2 years are available.
 
+<!-- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
-Read, update & delete anything
-Read all data
-Read all folder and media data
+Read detailed stats
 ```
+<!-- /HIDE-MCP -->
 
 
 ### Example Usage

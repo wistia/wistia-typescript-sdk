@@ -26,15 +26,17 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Allowed Domain Delete
+ * Delete Allowed Domain
  *
  * @remarks
- * Delete an allowed domain from the account.
+ * Deletes an allowed domain from the account.
  *
+ * <!-- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read, update & delete anything
  * ```
+ * <!-- /HIDE-MCP -->
  */
 export function allowedDomainsDelete(
   client: WistiaCore,

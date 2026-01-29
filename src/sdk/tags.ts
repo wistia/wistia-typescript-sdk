@@ -11,16 +11,17 @@ import { unwrapAsync } from "../types/fp.js";
 
 export class Tags extends ClientSDK {
   /**
-   * Tags List
+   * List Tags
    *
    * @remarks
-   * Use this endpoint to request a list of Tags in your Wistia account. This request supports paging and sorting.
+   * Lists tags belonging to the account.
    *
+   * <!-- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
-   * Read, update & delete anything
    * Read all data
    * ```
+   * <!-- /HIDE-MCP -->
    */
   async list(
     request?: operations.GetTagsRequest | undefined,
@@ -34,15 +35,17 @@ export class Tags extends ClientSDK {
   }
 
   /**
-   * Tags Create
+   * Create Tags
    *
    * @remarks
-   * Create a new tag.
+   * Creates a new tag.
    *
+   * <!-- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read, update & delete anything
    * ```
+   * <!-- /HIDE-MCP -->
    */
   async create(
     request: operations.PostTagsRequest,
@@ -56,15 +59,17 @@ export class Tags extends ClientSDK {
   }
 
   /**
-   * Tags Delete
+   * Delete Tags
    *
    * @remarks
-   * Delete a tag
+   * Deletes a tag
    *
+   * <!-- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read, update & delete anything
    * ```
+   * <!-- /HIDE-MCP -->
    */
   async delete(
     request: operations.DeleteTagsNameRequest,

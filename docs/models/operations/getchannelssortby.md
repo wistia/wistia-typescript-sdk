@@ -1,6 +1,8 @@
 # GetChannelsSortBy
 
 Ordering. Default is ID ASC.
+Note: Only 'id' and 'created' are supported when using cursor pagination.
+
 
 ## Example Usage
 

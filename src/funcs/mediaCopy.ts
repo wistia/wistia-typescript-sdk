@@ -26,15 +26,17 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Media Copy
+ * Copy Media
  *
  * @remarks
- * Copy a media.
+ * This endpoint copies a media and its assets to a destination folder (defaults to source media).
  *
+ * <!-- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read, update & delete anything
  * ```
+ * <!-- /HIDE-MCP -->
  */
 export function mediaCopy(
   client: WistiaCore,

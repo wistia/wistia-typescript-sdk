@@ -16,7 +16,12 @@ export type DeleteAllowedDomainsDomainRequest = {
 };
 
 /**
- * Allowed domain deleted successfully
+ * An allowed domain represents a domain where a Wistia video can be embedded. Account
+ *
+ * @remarks
+ * restrictions need to be enabled for an allowed domain to have an effect. See
+ * our [Domain Restrictions](https://support.wistia.com/en/articles/9691672-domain-restrictions)
+ * guide for more details.
  */
 export type DeleteAllowedDomainsDomainResponse = {
   /**
@@ -27,6 +32,10 @@ export type DeleteAllowedDomainsDomainResponse = {
    * The date that the allowed domain was originally created.
    */
   createdAt: Date;
+  /**
+   * A cursor for stable pagination based on current `sort_by` order. You can pass this to `cursor[before]` or `cursor[after]` as a parameter to fetch the records before or after this record in the same sort order. This is only populated if records were fetched with `cursor[enabled]`, or `cursor[before]` or `cursor[after]`.
+   */
+  cursor?: string | null | undefined;
 };
 
 /** @internal */
@@ -61,6 +70,7 @@ export const DeleteAllowedDomainsDomainResponse$inboundSchema: z.ZodType<
 > = z.object({
   domain: z.string(),
   created_at: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  cursor: z.nullable(z.string()).optional(),
 }).transform((v) => {
   return remap$(v, {
     "created_at": "createdAt",

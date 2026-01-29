@@ -4,18 +4,18 @@
 
 ### Available Operations
 
-* [list](#list) - Channel Episodes List filtered by channel
+* [list](#list) - List Channel Episodes by Channel
 
 ## list
 
-Returns all the Channel Episodes belonging the channel passed in the path.
+Lists Channel Episodes belonging to the channel passed in the path.
 
+<!-- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
-Read, update & delete anything
-Read all data
 Read all folder and media data
 ```
+<!-- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -85,6 +85,7 @@ run();
 
 | Error Type                                                          | Status Code                                                         | Content Type                                                        |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| errors.GetChannelsChannelHashedIdChannelEpisodesBadRequestError     | 400                                                                 | application/json                                                    |
 | errors.GetChannelsChannelHashedIdChannelEpisodesUnauthorizedError   | 401                                                                 | application/json                                                    |
 | errors.GetChannelsChannelHashedIdChannelEpisodesInternalServerError | 500                                                                 | application/json                                                    |
 | errors.WistiaDefaultError                                           | 4XX, 5XX                                                            | \*/\*                                                               |

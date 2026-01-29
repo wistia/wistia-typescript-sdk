@@ -65,17 +65,17 @@ export type GetMediasMediaHashedIdThumbnail = {
   height?: number | undefined;
 };
 
-export type GetMediasMediaHashedIdProject = {
+export type GetMediasMediaHashedIdFolder = {
   /**
-   * A unique numeric identifier for the project within the system.
+   * A unique numeric identifier for the folder within the system.
    */
   id?: number | undefined;
   /**
-   * The project’s display name.
+   * The folder’s display name.
    */
   name?: string | undefined;
   /**
-   * A private hashed id, uniquely identifying the project within the system.
+   * A private hashed id, uniquely identifying the folder within the system.
    */
   hashedId?: string | undefined;
 };
@@ -110,7 +110,7 @@ export type GetMediasMediaHashedIdAsset = {
 };
 
 /**
- * A subfolder within a project that contains media files.
+ * A subfolder within a folder that contains media.
  */
 export type GetMediasMediaHashedIdSubfolder = {
   /**
@@ -126,7 +126,7 @@ export type GetMediasMediaHashedIdSubfolder = {
    */
   description?: string | null | undefined;
   /**
-   * The position of this subfolder within its project, used for ordering.
+   * The position of this subfolder within its folder, used for ordering.
    */
   position: number | null;
   /**
@@ -137,6 +137,10 @@ export type GetMediasMediaHashedIdSubfolder = {
    * The date when the subfolder was last modified.
    */
   updated: Date | null;
+  /**
+   * A cursor for stable pagination based on current `sort_by` order. You can pass this to `cursor[before]` or `cursor[after]` as a parameter to fetch the records before or after this record in the same sort order. This is only populated if records were fetched with `cursor[enabled]`, or `cursor[before]` or `cursor[after]`.
+   */
+  cursor?: string | null | undefined;
 };
 
 export type GetMediasMediaHashedIdTag = {
@@ -147,7 +151,12 @@ export type GetMediasMediaHashedIdTag = {
 };
 
 /**
- * Successful response
+ * A media generally represents a video or an audio which can be embedded into your website.
+ *
+ * @remarks
+ *
+ * CDN-backed medias are accessible using this url structure: https://fast.wistia.com/embed/medias/{hashed_id}.m3u8.
+ * For more information, see https://docs.wistia.com/docs/asset-urls#getting-hls-assets.
  */
 export type GetMediasMediaHashedIdResponse = {
   /**
@@ -209,7 +218,7 @@ export type GetMediasMediaHashedIdResponse = {
    */
   section?: string | null | undefined;
   thumbnail?: GetMediasMediaHashedIdThumbnail | undefined;
-  project?: GetMediasMediaHashedIdProject | null | undefined;
+  folder: GetMediasMediaHashedIdFolder | null;
   /**
    * An array of the assets available for this media.
    */
@@ -286,8 +295,8 @@ export function getMediasMediaHashedIdThumbnailFromJSON(
 }
 
 /** @internal */
-export const GetMediasMediaHashedIdProject$inboundSchema: z.ZodType<
-  GetMediasMediaHashedIdProject,
+export const GetMediasMediaHashedIdFolder$inboundSchema: z.ZodType<
+  GetMediasMediaHashedIdFolder,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -296,13 +305,13 @@ export const GetMediasMediaHashedIdProject$inboundSchema: z.ZodType<
   hashedId: z.string().optional(),
 });
 
-export function getMediasMediaHashedIdProjectFromJSON(
+export function getMediasMediaHashedIdFolderFromJSON(
   jsonString: string,
-): SafeParseResult<GetMediasMediaHashedIdProject, SDKValidationError> {
+): SafeParseResult<GetMediasMediaHashedIdFolder, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => GetMediasMediaHashedIdProject$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetMediasMediaHashedIdProject' from JSON`,
+    (x) => GetMediasMediaHashedIdFolder$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetMediasMediaHashedIdFolder' from JSON`,
   );
 }
 
@@ -315,9 +324,14 @@ export const GetMediasMediaHashedIdAsset$inboundSchema: z.ZodType<
   url: z.string().optional(),
   width: z.nullable(z.number().int()).optional(),
   height: z.nullable(z.number().int()).optional(),
-  fileSize: z.nullable(z.number().int()).optional(),
-  contentType: z.nullable(z.string()).optional(),
+  file_size: z.nullable(z.number().int()).optional(),
+  content_type: z.nullable(z.string()).optional(),
   type: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "file_size": "fileSize",
+    "content_type": "contentType",
+  });
 });
 
 export function getMediasMediaHashedIdAssetFromJSON(
@@ -346,6 +360,7 @@ export const GetMediasMediaHashedIdSubfolder$inboundSchema: z.ZodType<
   updated: z.nullable(
     z.string().datetime({ offset: true }).transform(v => new Date(v)),
   ),
+  cursor: z.nullable(z.string()).optional(),
 }).transform((v) => {
   return remap$(v, {
     "hashed_id": "hashedId",
@@ -404,8 +419,7 @@ export const GetMediasMediaHashedIdResponse$inboundSchema: z.ZodType<
   section: z.nullable(z.string()).optional(),
   thumbnail: z.lazy(() => GetMediasMediaHashedIdThumbnail$inboundSchema)
     .optional(),
-  project: z.nullable(z.lazy(() => GetMediasMediaHashedIdProject$inboundSchema))
-    .optional(),
+  folder: z.nullable(z.lazy(() => GetMediasMediaHashedIdFolder$inboundSchema)),
   assets: z.array(z.lazy(() => GetMediasMediaHashedIdAsset$inboundSchema))
     .optional(),
   subfolder: z.lazy(() => GetMediasMediaHashedIdSubfolder$inboundSchema)

@@ -6,6 +6,7 @@ import { captionsCreate } from "../funcs/captionsCreate.js";
 import { captionsCreateMultipart } from "../funcs/captionsCreateMultipart.js";
 import { captionsDelete } from "../funcs/captionsDelete.js";
 import { captionsGet, GetAcceptEnum } from "../funcs/captionsGet.js";
+import { captionsGetCaptions } from "../funcs/captionsGetCaptions.js";
 import { captionsList } from "../funcs/captionsList.js";
 import { captionsPurchase } from "../funcs/captionsPurchase.js";
 import { captionsUpdate } from "../funcs/captionsUpdate.js";
@@ -18,19 +19,17 @@ export { GetAcceptEnum } from "../funcs/captionsGet.js";
 
 export class Captions extends ClientSDK {
   /**
-   * Captions List
+   * List Captions by Media
    *
    * @remarks
-   * Returns all the captions associated with a specified video.
-   * If captions do not exist for this video, the response will be an empty JSON array.
-   * If this video does not exist, the response will be an empty HTTP 404 Not Found.
+   * Lists captions belonging to a specific video.
    *
+   * <!-- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
-   * Read, update & delete anything
-   * Read all data
    * Read all folder and media data
    * ```
+   * <!-- /HIDE-MCP -->
    */
   async list(
     request: operations.GetMediasMediaHashedIdCaptionsRequest,
@@ -44,15 +43,17 @@ export class Captions extends ClientSDK {
   }
 
   /**
-   * Captions Create
+   * Create Captions
    *
    * @remarks
    * Adds captions to a specified video by providing an SRT file or its contents directly.
    *
+   * <!-- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read, update & delete anything
    * ```
+   * <!-- /HIDE-MCP -->
    */
   async create(
     request: operations.PostMediasMediaHashedIdCaptionsRequest,
@@ -66,15 +67,17 @@ export class Captions extends ClientSDK {
   }
 
   /**
-   * Captions Create
+   * Create Captions
    *
    * @remarks
    * Adds captions to a specified video by providing an SRT file or its contents directly.
    *
+   * <!-- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read, update & delete anything
    * ```
+   * <!-- /HIDE-MCP -->
    */
   async createMultipart(
     request: operations.PostMediasMediaHashedIdCaptionsMultipartRequest,
@@ -88,15 +91,42 @@ export class Captions extends ClientSDK {
   }
 
   /**
-   * Captions Purchase
+   * List Captions
+   *
+   * @remarks
+   * Lists captions belonging to the account. This endpoint can also narrow down results
+   * to those belonging to a specific video.
+   *
+   * <!-- HIDE-MCP -->
+   * ## Requires api token with one of the following permissions
+   * ```
+   * Read all folder and media data
+   * ```
+   * <!-- /HIDE-MCP -->
+   */
+  async getCaptions(
+    request?: operations.GetCaptionsRequest | undefined,
+    options?: RequestOptions,
+  ): Promise<Array<operations.GetCaptionsResponse>> {
+    return unwrapAsync(captionsGetCaptions(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Purchase Captions
    *
    * @remarks
    * This method is for purchasing English captions for a video. The request will charge the credit card on the account if successful. A saved credit card is required to use this endpoint.
    *
+   * <!-- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read, update & delete anything
    * ```
+   * <!-- /HIDE-MCP -->
    */
   async purchase(
     request: operations.PostMediasMediaHashedIdCaptionsPurchaseRequest,
@@ -110,19 +140,19 @@ export class Captions extends ClientSDK {
   }
 
   /**
-   * Captions Show
+   * Show Captions
    *
    * @remarks
    * Returns a video's captions in the specified language.
    * Supports multiple formats: JSON (default), SRT, VTT, and TXT.
    * Use file extensions (.srt, .vtt, .txt) or Accept headers to specify format.
    *
+   * <!-- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
-   * Read, update & delete anything
-   * Read all data
    * Read all folder and media data
    * ```
+   * <!-- /HIDE-MCP -->
    */
   async get(
     request: operations.GetMediasMediaHashedIdCaptionsLanguageCodeRequest,
@@ -136,15 +166,17 @@ export class Captions extends ClientSDK {
   }
 
   /**
-   * Captions Update
+   * Update Captions
    *
    * @remarks
    * This method is for replacing the captions on a video for the specified language.
    *
+   * <!-- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read, update & delete anything
    * ```
+   * <!-- /HIDE-MCP -->
    */
   async update(
     request: operations.PutMediasMediaHashedIdCaptionsLanguageCodeRequest,
@@ -158,15 +190,17 @@ export class Captions extends ClientSDK {
   }
 
   /**
-   * Captions Update
+   * Update Captions
    *
    * @remarks
    * This method is for replacing the captions on a video for the specified language.
    *
+   * <!-- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read, update & delete anything
    * ```
+   * <!-- /HIDE-MCP -->
    */
   async updateMultipart(
     request:
@@ -181,15 +215,17 @@ export class Captions extends ClientSDK {
   }
 
   /**
-   * Captions Delete
+   * Delete Captions
    *
    * @remarks
-   * This method is for removing the captions file from a video for the specified language.
+   * Removes the captions file from a video for the specified language.
    *
+   * <!-- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read, update & delete anything
    * ```
+   * <!-- /HIDE-MCP -->
    */
   async delete(
     request: operations.DeleteMediasMediaHashedIdCaptionsLanguageCodeRequest,

@@ -26,17 +26,18 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Channel Episodes Show
+ * Show Channel Episode
  *
  * @remarks
- * Returns the Channel Episode associated with the hashedId.
+ * Returns the Channel Episode associated with a channel hashed id
+ * and channel episode hashed id.
  *
+ * <!-- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
- * Read, update & delete anything
- * Read all data
  * Read all folder and media data
  * ```
+ * <!-- /HIDE-MCP -->
  */
 export function channelEpisodesGet(
   client: WistiaCore,

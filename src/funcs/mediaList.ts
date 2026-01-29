@@ -31,17 +31,18 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Media List
+ * List Media
  *
  * @remarks
- * Obtain a list of all the media in your account. For accounts with more than 100 media, you’ll want to page and sort the returned list.
+ * Lists the media belonging to the account. This endpoint can also be used to
+ * do a batch fetch based off of the hashed id.
  *
+ * <!-- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
- * Read, update & delete anything
- * Read all data
  * Read all folder and media data
  * ```
+ * <!-- /HIDE-MCP -->
  */
 export function mediaList(
   client: WistiaCore,
@@ -114,12 +115,11 @@ async function $do(
     encodeFormQuery({
       "archived": payload?.archived,
       "description_format": payload?.description_format,
-      "hashed_id": payload?.hashed_id,
+      "folder_id": payload?.folder_id,
       "hashed_ids[]": payload?.["hashed_ids[]"],
       "name": payload?.name,
       "page": payload?.page,
       "per_page": payload?.per_page,
-      "project_id": payload?.project_id,
       "sort_by": payload?.sort_by,
       "sort_direction": payload?.sort_direction,
       "tags[]": payload?.["tags[]"],

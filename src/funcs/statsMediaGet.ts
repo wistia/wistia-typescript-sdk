@@ -26,17 +26,17 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Stats:Media Show
+ * Show Media Stats
  *
  * @remarks
  * Retrieve stats for a video. This endpoint provides statistics for a specific video identified by its media-id.
  *
+ * <!-- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
- * Read, update & delete anything
- * Read all data
- * Read all folder and media data
+ * Read detailed stats
  * ```
+ * <!-- /HIDE-MCP -->
  */
 export function statsMediaGet(
   client: WistiaCore,

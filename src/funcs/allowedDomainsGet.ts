@@ -26,15 +26,17 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Allowed Domain Show
+ * Show Allowed Domain
  *
  * @remarks
- * Get details for a specific allowed domain.
+ * Returns the details of an allowed domain.
  *
+ * <!-- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
- * Read, update & delete anything
+ * Read all data
  * ```
+ * <!-- /HIDE-MCP -->
  */
 export function allowedDomainsGet(
   client: WistiaCore,

@@ -11,11 +11,10 @@ import { ChannelEpisodes } from "./channelepisodes.js";
 import { Channels } from "./channels.js";
 import { Customizations } from "./customizations.js";
 import { ExpiringAccessTokens } from "./expiringaccesstokens.js";
-import { LiveStreamEvents } from "./livestreamevents.js";
+import { Folders } from "./folders.js";
+import { FolderSharings } from "./foldersharings.js";
 import { Localizations } from "./localizations.js";
 import { Media } from "./media.js";
-import { Projects } from "./projects.js";
-import { ProjectSharings } from "./projectsharings.js";
 import { Search } from "./search.js";
 import { StatsAccount } from "./statsaccount.js";
 import { StatsEvents } from "./statsevents.js";
@@ -23,8 +22,11 @@ import { StatsMedia } from "./statsmedia.js";
 import { StatsProjects } from "./statsprojects.js";
 import { StatsVisitors } from "./statsvisitors.js";
 import { Subfolders } from "./subfolders.js";
+import { Taggings } from "./taggings.js";
 import { Tags } from "./tags.js";
 import { Trims } from "./trims.js";
+import { WebinarRegistrations } from "./webinarregistrations.js";
+import { Webinars } from "./webinars.js";
 
 export class Wistia extends ClientSDK {
   private _media?: Media;
@@ -32,9 +34,9 @@ export class Wistia extends ClientSDK {
     return (this._media ??= new Media(this._options));
   }
 
-  private _projects?: Projects;
-  get projects(): Projects {
-    return (this._projects ??= new Projects(this._options));
+  private _folders?: Folders;
+  get folders(): Folders {
+    return (this._folders ??= new Folders(this._options));
   }
 
   private _subfolders?: Subfolders;
@@ -42,9 +44,14 @@ export class Wistia extends ClientSDK {
     return (this._subfolders ??= new Subfolders(this._options));
   }
 
-  private _projectSharings?: ProjectSharings;
-  get projectSharings(): ProjectSharings {
-    return (this._projectSharings ??= new ProjectSharings(this._options));
+  private _folderSharings?: FolderSharings;
+  get folderSharings(): FolderSharings {
+    return (this._folderSharings ??= new FolderSharings(this._options));
+  }
+
+  private _taggings?: Taggings;
+  get taggings(): Taggings {
+    return (this._taggings ??= new Taggings(this._options));
   }
 
   private _account?: Account;
@@ -111,9 +118,16 @@ export class Wistia extends ClientSDK {
     ));
   }
 
-  private _liveStreamEvents?: LiveStreamEvents;
-  get liveStreamEvents(): LiveStreamEvents {
-    return (this._liveStreamEvents ??= new LiveStreamEvents(this._options));
+  private _webinars?: Webinars;
+  get webinars(): Webinars {
+    return (this._webinars ??= new Webinars(this._options));
+  }
+
+  private _webinarRegistrations?: WebinarRegistrations;
+  get webinarRegistrations(): WebinarRegistrations {
+    return (this._webinarRegistrations ??= new WebinarRegistrations(
+      this._options,
+    ));
   }
 
   private _statsAccount?: StatsAccount;

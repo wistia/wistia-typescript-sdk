@@ -12,12 +12,14 @@ export class Search extends ClientSDK {
    * Search
    *
    * @remarks
-   * Search across projects, medias, channels, and channel episodes.
+   * Searches across folders, medias, channels, and channel episodes.
    *
+   * <!-- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
-   * Read, update & delete anything
+   * Read all data
    * ```
+   * <!-- /HIDE-MCP -->
    */
   async search(
     request: operations.GetSearchRequest,

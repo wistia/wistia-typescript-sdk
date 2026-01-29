@@ -1,6 +1,9 @@
 # GetChannelEpisodesSortBy
 
-Ordering. Default is ID ASC.
+Ordering. Default is ID ASC. When using cursor pagination (see cursor param),
+only `id` and `created` are supported. All other sort_by options (`position`, `title`, `updated`)
+require offset pagination.
+
 
 ## Example Usage
 
