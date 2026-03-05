@@ -15,9 +15,9 @@ export type PutMediasRestoreRequest = {
    */
   hashedIds: Array<string>;
   /**
-   * The hashed ID of the project to restore the medias to.
+   * The hashed ID of the folder to restore the medias to.
    */
-  projectId: string;
+  folderId: string;
 };
 
 export type Container = {
@@ -50,7 +50,10 @@ export const PutMediasRestoreStatus = {
 export type PutMediasRestoreStatus = ClosedEnum<typeof PutMediasRestoreStatus>;
 
 /**
- * Status of the background job.
+ * A background job keeps track of the progress of an asynchronous task, e.g
+ *
+ * @remarks
+ * bulk archiving media, translating media, etc.
  */
 export type PutMediasRestoreBackgroundJobStatus = {
   /**
@@ -73,7 +76,10 @@ export type PutMediasRestoreResponse = {
   message?: string | undefined;
   container?: Container | undefined;
   /**
-   * Status of the background job.
+   * A background job keeps track of the progress of an asynchronous task, e.g
+   *
+   * @remarks
+   * bulk archiving media, translating media, etc.
    */
   backgroundJobStatus?: PutMediasRestoreBackgroundJobStatus | undefined;
 };
@@ -81,7 +87,7 @@ export type PutMediasRestoreResponse = {
 /** @internal */
 export type PutMediasRestoreRequest$Outbound = {
   hashed_ids: Array<string>;
-  project_id: string;
+  folder_id: string;
 };
 
 /** @internal */
@@ -91,11 +97,11 @@ export const PutMediasRestoreRequest$outboundSchema: z.ZodType<
   PutMediasRestoreRequest
 > = z.object({
   hashedIds: z.array(z.string()),
-  projectId: z.string(),
+  folderId: z.string(),
 }).transform((v) => {
   return remap$(v, {
     hashedIds: "hashed_ids",
-    projectId: "project_id",
+    folderId: "folder_id",
   });
 });
 

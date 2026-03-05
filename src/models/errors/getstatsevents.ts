@@ -37,6 +37,43 @@ export class GetStatsEventsInternalServerError extends WistiaError {
 }
 
 /**
+ * Unprocessable entity, the request parameters were invalid.
+ */
+export type GetStatsEventsUnprocessableEntityErrorData = {
+  /**
+   * Error message describing why the request could not be processed.
+   */
+  error?: string | undefined;
+};
+
+/**
+ * Unprocessable entity, the request parameters were invalid.
+ */
+export class GetStatsEventsUnprocessableEntityError extends WistiaError {
+  /**
+   * Error message describing why the request could not be processed.
+   */
+  error?: string | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: GetStatsEventsUnprocessableEntityErrorData;
+
+  constructor(
+    err: GetStatsEventsUnprocessableEntityErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+
+    this.name = "GetStatsEventsUnprocessableEntityError";
+  }
+}
+
+/**
  * Unauthorized, invalid or missing token
  */
 export type GetStatsEventsUnauthorizedErrorData = {
@@ -80,6 +117,25 @@ export const GetStatsEventsInternalServerError$inboundSchema: z.ZodType<
 })
   .transform((v) => {
     return new GetStatsEventsInternalServerError(v, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
+  });
+
+/** @internal */
+export const GetStatsEventsUnprocessableEntityError$inboundSchema: z.ZodType<
+  GetStatsEventsUnprocessableEntityError,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  error: z.string().optional(),
+  request$: z.instanceof(Request),
+  response$: z.instanceof(Response),
+  body$: z.string(),
+})
+  .transform((v) => {
+    return new GetStatsEventsUnprocessableEntityError(v, {
       request: v.request$,
       response: v.response$,
       body: v.body$,

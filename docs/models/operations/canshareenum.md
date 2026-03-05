@@ -1,6 +1,6 @@
 # CanShareEnum
 
-Default is "0". Set to "1" to allow the user to share the project with others.
+Default is "0". Set to "1" to allow the user to share the folder with others.
 
 ## Example Usage
 

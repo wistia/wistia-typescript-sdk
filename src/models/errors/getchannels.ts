@@ -67,6 +67,43 @@ export class GetChannelsUnauthorizedError extends WistiaError {
   }
 }
 
+/**
+ * Bad request
+ */
+export type GetChannelsBadRequestErrorData = {
+  /**
+   * Error message detailing the reason for the bad request.
+   */
+  error?: string | undefined;
+};
+
+/**
+ * Bad request
+ */
+export class GetChannelsBadRequestError extends WistiaError {
+  /**
+   * Error message detailing the reason for the bad request.
+   */
+  error?: string | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: GetChannelsBadRequestErrorData;
+
+  constructor(
+    err: GetChannelsBadRequestErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+
+    this.name = "GetChannelsBadRequestError";
+  }
+}
+
 /** @internal */
 export const GetChannelsInternalServerError$inboundSchema: z.ZodType<
   GetChannelsInternalServerError,
@@ -99,6 +136,25 @@ export const GetChannelsUnauthorizedError$inboundSchema: z.ZodType<
 })
   .transform((v) => {
     return new GetChannelsUnauthorizedError(v, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
+  });
+
+/** @internal */
+export const GetChannelsBadRequestError$inboundSchema: z.ZodType<
+  GetChannelsBadRequestError,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  error: z.string().optional(),
+  request$: z.instanceof(Request),
+  response$: z.instanceof(Response),
+  body$: z.string(),
+})
+  .transform((v) => {
+    return new GetChannelsBadRequestError(v, {
       request: v.request$,
       response: v.response$,
       body: v.body$,

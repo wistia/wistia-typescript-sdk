@@ -25,11 +25,6 @@ export type PostMediasMediaHashedIdTrimsRequest = {
 };
 
 /**
- * Contains a summary of what fields had errors and the errors they had.
- */
-export type PostMediasMediaHashedIdTrimsErrors = {};
-
-/**
  * The status of the background job that's been queued for the request.
  */
 export const PostMediasMediaHashedIdTrimsStatus = {
@@ -46,7 +41,10 @@ export type PostMediasMediaHashedIdTrimsStatus = ClosedEnum<
 >;
 
 /**
- * Status of the background job.
+ * A background job keeps track of the progress of an asynchronous task, e.g
+ *
+ * @remarks
+ * bulk archiving media, translating media, etc.
  */
 export type PostMediasMediaHashedIdTrimsBackgroundJobStatus = {
   /**
@@ -64,7 +62,10 @@ export type PostMediasMediaHashedIdTrimsBackgroundJobStatus = {
  */
 export type PostMediasMediaHashedIdTrimsResponse = {
   /**
-   * Status of the background job.
+   * A background job keeps track of the progress of an asynchronous task, e.g
+   *
+   * @remarks
+   * bulk archiving media, translating media, etc.
    */
   backgroundJobStatus?:
     | PostMediasMediaHashedIdTrimsBackgroundJobStatus
@@ -125,24 +126,6 @@ export function postMediasMediaHashedIdTrimsRequestToJSON(
     PostMediasMediaHashedIdTrimsRequest$outboundSchema.parse(
       postMediasMediaHashedIdTrimsRequest,
     ),
-  );
-}
-
-/** @internal */
-export const PostMediasMediaHashedIdTrimsErrors$inboundSchema: z.ZodType<
-  PostMediasMediaHashedIdTrimsErrors,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-export function postMediasMediaHashedIdTrimsErrorsFromJSON(
-  jsonString: string,
-): SafeParseResult<PostMediasMediaHashedIdTrimsErrors, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      PostMediasMediaHashedIdTrimsErrors$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostMediasMediaHashedIdTrimsErrors' from JSON`,
   );
 }
 

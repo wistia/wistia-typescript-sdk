@@ -33,15 +33,17 @@ import { Result } from "../types/fp.js";
 import { isReadableStream } from "../types/streams.js";
 
 /**
- * Captions Create
+ * Create Captions
  *
  * @remarks
  * Adds captions to a specified video by providing an SRT file or its contents directly.
  *
+ * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read, update & delete anything
  * ```
+ * <!--- /HIDE-MCP -->
  */
 export function captionsCreateMultipart(
   client: WistiaCore,
@@ -118,6 +120,18 @@ async function $do(
       body,
       "caption_file",
       blob,
+      payload.RequestBody.caption_file.fileName,
+    );
+  } else if (payload.RequestBody.caption_file.content instanceof Uint8Array) {
+    const contentType =
+      getContentTypeFromFileName(payload.RequestBody.caption_file.fileName)
+      || "application/octet-stream";
+    appendForm(
+      body,
+      "caption_file",
+      new Blob([
+        new Uint8Array(payload.RequestBody.caption_file.content).buffer,
+      ], { type: contentType }),
       payload.RequestBody.caption_file.fileName,
     );
   } else {

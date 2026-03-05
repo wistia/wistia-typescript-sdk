@@ -5,20 +5,152 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
+/**
+ * If `cursor[enabled]` is set to 1, the first result set will be fetched with cursor pagination enabled. This
+ *
+ * @remarks
+ * values is ignored if `cursor[before]` or `cursor[after]` are set.
+ */
+export const GetAllowedDomainsEnabled = {
+  Zero: 0,
+  One: 1,
+} as const;
+/**
+ * If `cursor[enabled]` is set to 1, the first result set will be fetched with cursor pagination enabled. This
+ *
+ * @remarks
+ * values is ignored if `cursor[before]` or `cursor[after]` are set.
+ */
+export type GetAllowedDomainsEnabled = ClosedEnum<
+  typeof GetAllowedDomainsEnabled
+>;
+
+/**
+ * If `cursor[enabled]` is set to 1 than cursor pagination is enabled and the
+ *
+ * @remarks
+ * first set of records are fetched up to the `per_page`. Cursor
+ * pagination will also be turned on if `cursor[before]` or `cursor[after]`
+ * are set. Records returned will have a `cursor` property set which can be used to fetch more records in the same `sort_by` ordering.
+ * The cursor value of the last record can be used to fetch records after the current result set and
+ * the cursor of the first record can be used to fetch records before the result set.
+ *
+ * NOTE: a cursor value is only valid if the `sort_by` value hasn't changed from the
+ * last fetch. For example, you cannot fetch using `sort_by` id and than pass that
+ * cursor value to a `sort_by` name.
+ */
+export type GetAllowedDomainsCursor = {
+  /**
+   * If `cursor[enabled]` is set to 1, the first result set will be fetched with cursor pagination enabled. This
+   *
+   * @remarks
+   * values is ignored if `cursor[before]` or `cursor[after]` are set.
+   */
+  enabled?: GetAllowedDomainsEnabled | undefined;
+  /**
+   * If `cursor[before]` is set than cursor pagination is enabled and all records
+   *
+   * @remarks
+   * before the cursor up to the `per_page` are returned. This feature is useful for
+   * fetching "new records", for example, in a "pull to refersh" feature when showing records in a descending
+   * order.
+   */
+  before?: string | undefined;
+  /**
+   * If `cursor[after]` is set than cursor pagination is enabled and all records
+   *
+   * @remarks
+   * after the cursor up to the `per_page` are returned.
+   */
+  after?: string | undefined;
+};
+
+/**
+ * Ordering. When using cursor pagination (see cursor param),
+ *
+ * @remarks
+ * only `id` and `domain` are supported.
+ */
+export const GetAllowedDomainsSortBy = {
+  Id: "id",
+  Domain: "domain",
+} as const;
+/**
+ * Ordering. When using cursor pagination (see cursor param),
+ *
+ * @remarks
+ * only `id` and `domain` are supported.
+ */
+export type GetAllowedDomainsSortBy = ClosedEnum<
+  typeof GetAllowedDomainsSortBy
+>;
+
+/**
+ * Ordering Sort Direction (0 = desc, 1 = asc; default is 1)
+ */
+export const GetAllowedDomainsSortDirection = {
+  Zero: 0,
+  One: 1,
+} as const;
+/**
+ * Ordering Sort Direction (0 = desc, 1 = asc; default is 1)
+ */
+export type GetAllowedDomainsSortDirection = ClosedEnum<
+  typeof GetAllowedDomainsSortDirection
+>;
+
 export type GetAllowedDomainsRequest = {
   /**
-   * Page number for pagination
+   * The page number to retrieve. This cannot be combined with `cursor`,
+   *
+   * @remarks
+   * pagination.
    */
   page?: number | undefined;
   /**
-   * Number of items per page
+   * The number of medias per page. Use this for both offset pagination and cursor pagination.
    */
   perPage?: number | undefined;
+  /**
+   * If `cursor[enabled]` is set to 1 than cursor pagination is enabled and the
+   *
+   * @remarks
+   * first set of records are fetched up to the `per_page`. Cursor
+   * pagination will also be turned on if `cursor[before]` or `cursor[after]`
+   * are set. Records returned will have a `cursor` property set which can be used to fetch more records in the same `sort_by` ordering.
+   * The cursor value of the last record can be used to fetch records after the current result set and
+   * the cursor of the first record can be used to fetch records before the result set.
+   *
+   * NOTE: a cursor value is only valid if the `sort_by` value hasn't changed from the
+   * last fetch. For example, you cannot fetch using `sort_by` id and than pass that
+   * cursor value to a `sort_by` name.
+   */
+  cursor?: GetAllowedDomainsCursor | undefined;
+  /**
+   * Ordering. When using cursor pagination (see cursor param),
+   *
+   * @remarks
+   * only `id` and `domain` are supported.
+   */
+  sortBy?: GetAllowedDomainsSortBy | undefined;
+  /**
+   * Ordering Sort Direction (0 = desc, 1 = asc; default is 1)
+   */
+  sortDirection?: GetAllowedDomainsSortDirection | undefined;
 };
 
+/**
+ * An allowed domain represents a domain where a Wistia video can be embedded. Account
+ *
+ * @remarks
+ * restrictions need to be enabled for an allowed domain to have an effect. See
+ * our [Domain Restrictions](https://support.wistia.com/en/articles/9691672-domain-restrictions)
+ * guide for more details.
+ */
 export type GetAllowedDomainsResponse = {
   /**
    * The allowed domain name.
@@ -28,12 +160,60 @@ export type GetAllowedDomainsResponse = {
    * The date that the allowed domain was originally created.
    */
   createdAt: Date;
+  /**
+   * A cursor for stable pagination based on current `sort_by` order. You can pass this to `cursor[before]` or `cursor[after]` as a parameter to fetch the records before or after this record in the same sort order. This is only populated if records were fetched with `cursor[enabled]`, or `cursor[before]` or `cursor[after]`.
+   */
+  cursor?: string | null | undefined;
 };
 
 /** @internal */
+export const GetAllowedDomainsEnabled$outboundSchema: z.ZodNativeEnum<
+  typeof GetAllowedDomainsEnabled
+> = z.nativeEnum(GetAllowedDomainsEnabled);
+
+/** @internal */
+export type GetAllowedDomainsCursor$Outbound = {
+  enabled?: number | undefined;
+  before?: string | undefined;
+  after?: string | undefined;
+};
+
+/** @internal */
+export const GetAllowedDomainsCursor$outboundSchema: z.ZodType<
+  GetAllowedDomainsCursor$Outbound,
+  z.ZodTypeDef,
+  GetAllowedDomainsCursor
+> = z.object({
+  enabled: GetAllowedDomainsEnabled$outboundSchema.optional(),
+  before: z.string().optional(),
+  after: z.string().optional(),
+});
+
+export function getAllowedDomainsCursorToJSON(
+  getAllowedDomainsCursor: GetAllowedDomainsCursor,
+): string {
+  return JSON.stringify(
+    GetAllowedDomainsCursor$outboundSchema.parse(getAllowedDomainsCursor),
+  );
+}
+
+/** @internal */
+export const GetAllowedDomainsSortBy$outboundSchema: z.ZodNativeEnum<
+  typeof GetAllowedDomainsSortBy
+> = z.nativeEnum(GetAllowedDomainsSortBy);
+
+/** @internal */
+export const GetAllowedDomainsSortDirection$outboundSchema: z.ZodNativeEnum<
+  typeof GetAllowedDomainsSortDirection
+> = z.nativeEnum(GetAllowedDomainsSortDirection);
+
+/** @internal */
 export type GetAllowedDomainsRequest$Outbound = {
-  page: number;
-  per_page: number;
+  page?: number | undefined;
+  per_page?: number | undefined;
+  cursor?: GetAllowedDomainsCursor$Outbound | undefined;
+  sort_by: string;
+  sort_direction: number;
 };
 
 /** @internal */
@@ -42,11 +222,16 @@ export const GetAllowedDomainsRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetAllowedDomainsRequest
 > = z.object({
-  page: z.number().int().default(1),
-  perPage: z.number().int().default(100),
+  page: z.number().int().optional(),
+  perPage: z.number().int().optional(),
+  cursor: z.lazy(() => GetAllowedDomainsCursor$outboundSchema).optional(),
+  sortBy: GetAllowedDomainsSortBy$outboundSchema.default("id"),
+  sortDirection: GetAllowedDomainsSortDirection$outboundSchema.default(1),
 }).transform((v) => {
   return remap$(v, {
     perPage: "per_page",
+    sortBy: "sort_by",
+    sortDirection: "sort_direction",
   });
 });
 
@@ -66,6 +251,7 @@ export const GetAllowedDomainsResponse$inboundSchema: z.ZodType<
 > = z.object({
   domain: z.string(),
   created_at: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  cursor: z.nullable(z.string()).optional(),
 }).transform((v) => {
   return remap$(v, {
     "created_at": "createdAt",

@@ -41,39 +41,6 @@ export class GetBackgroundJobStatusBackgroundJobStatusIdInternalServerError
 }
 
 /**
- * Background Job Status Not Associated with An Authorized Object
- */
-export type GetBackgroundJobStatusBackgroundJobStatusIdForbiddenErrorData = {
-  error?: string | undefined;
-};
-
-/**
- * Background Job Status Not Associated with An Authorized Object
- */
-export class GetBackgroundJobStatusBackgroundJobStatusIdForbiddenError
-  extends WistiaError
-{
-  error?: string | undefined;
-
-  /** The original data that was passed to this error instance. */
-  data$: GetBackgroundJobStatusBackgroundJobStatusIdForbiddenErrorData;
-
-  constructor(
-    err: GetBackgroundJobStatusBackgroundJobStatusIdForbiddenErrorData,
-    httpMeta: { response: Response; request: Request; body: string },
-  ) {
-    const message = "message" in err && typeof err.message === "string"
-      ? err.message
-      : `API error occurred: ${JSON.stringify(err)}`;
-    super(message, httpMeta);
-    this.data$ = err;
-    if (err.error != null) this.error = err.error;
-
-    this.name = "GetBackgroundJobStatusBackgroundJobStatusIdForbiddenError";
-  }
-}
-
-/**
  * Unauthorized, invalid or missing token
  */
 export type GetBackgroundJobStatusBackgroundJobStatusIdUnauthorizedErrorData = {
@@ -123,26 +90,6 @@ export const GetBackgroundJobStatusBackgroundJobStatusIdInternalServerError$inbo
         v,
         { request: v.request$, response: v.response$, body: v.body$ },
       );
-    });
-
-/** @internal */
-export const GetBackgroundJobStatusBackgroundJobStatusIdForbiddenError$inboundSchema:
-  z.ZodType<
-    GetBackgroundJobStatusBackgroundJobStatusIdForbiddenError,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new GetBackgroundJobStatusBackgroundJobStatusIdForbiddenError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
     });
 
 /** @internal */

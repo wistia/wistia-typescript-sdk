@@ -3,7 +3,6 @@
  */
 
 import * as z from "zod/v3";
-import * as operations from "../operations/index.js";
 import { WistiaError } from "./wistiaerror.js";
 
 /**
@@ -40,25 +39,25 @@ export class PostMediasMediaHashedIdTrimsInternalServerError
 }
 
 /**
- * Unprocessible entity, parameters provided were invalid.
+ * Unprocessable entity, the request parameters were invalid.
  */
 export type PostMediasMediaHashedIdTrimsUnprocessableEntityErrorData = {
   /**
-   * Contains a summary of what fields had errors and the errors they had.
+   * Object containing validation errors grouped by field name. Each field contains an array of error messages.
    */
-  errors?: operations.PostMediasMediaHashedIdTrimsErrors | undefined;
+  errors?: { [k: string]: Array<string> } | undefined;
 };
 
 /**
- * Unprocessible entity, parameters provided were invalid.
+ * Unprocessable entity, the request parameters were invalid.
  */
 export class PostMediasMediaHashedIdTrimsUnprocessableEntityError
   extends WistiaError
 {
   /**
-   * Contains a summary of what fields had errors and the errors they had.
+   * Object containing validation errors grouped by field name. Each field contains an array of error messages.
    */
-  errors?: operations.PostMediasMediaHashedIdTrimsErrors | undefined;
+  errors?: { [k: string]: Array<string> } | undefined;
 
   /** The original data that was passed to this error instance. */
   data$: PostMediasMediaHashedIdTrimsUnprocessableEntityErrorData;
@@ -136,9 +135,7 @@ export const PostMediasMediaHashedIdTrimsUnprocessableEntityError$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    errors: z.lazy(() =>
-      operations.PostMediasMediaHashedIdTrimsErrors$inboundSchema
-    ).optional(),
+    errors: z.record(z.array(z.string())).optional(),
     request$: z.instanceof(Request),
     response$: z.instanceof(Response),
     body$: z.string(),
