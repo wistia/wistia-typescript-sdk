@@ -11,9 +11,9 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type PostMediasMediaHashedIdCopyRequestBody = {
   /**
-   * The ID of the project where you want the new copy placed. Defaults to the source media’s current project if omitted or invalid.
+   * The ID of the folder where you want the new copy placed. Defaults to the source media’s current folder if omitted or invalid.
    */
-  projectId?: number | undefined;
+  folderId?: number | undefined;
   /**
    * An email address specifying the owner of the new media. Defaults to the source media’s current owner if omitted or invalid.
    */
@@ -73,23 +73,28 @@ export type PostMediasMediaHashedIdCopyThumbnail = {
   height?: number | undefined;
 };
 
-export type PostMediasMediaHashedIdCopyProject = {
+export type PostMediasMediaHashedIdCopyFolder = {
   /**
-   * A unique numeric identifier for the project within the system.
+   * A unique numeric identifier for the folder within the system.
    */
   id?: number | undefined;
   /**
-   * The project’s display name.
+   * The folder’s display name.
    */
   name?: string | undefined;
   /**
-   * A private hashed id, uniquely identifying the project within the system.
+   * A private hashed id, uniquely identifying the folder within the system.
    */
   hashedId?: string | undefined;
 };
 
 /**
- * Successful creation of the media copy.
+ * A media generally represents a video or an audio which can be embedded into your website.
+ *
+ * @remarks
+ *
+ * CDN-backed medias are accessible using this url structure: https://fast.wistia.com/embed/medias/{hashed_id}.m3u8.
+ * For more information, see https://docs.wistia.com/docs/asset-urls#getting-hls-assets.
  */
 export type PostMediasMediaHashedIdCopyResponseBody = {
   /**
@@ -151,7 +156,7 @@ export type PostMediasMediaHashedIdCopyResponseBody = {
    */
   section?: string | null | undefined;
   thumbnail?: PostMediasMediaHashedIdCopyThumbnail | undefined;
-  project?: PostMediasMediaHashedIdCopyProject | null | undefined;
+  folder: PostMediasMediaHashedIdCopyFolder | null;
 };
 
 export type PostMediasMediaHashedIdCopyResponse = {
@@ -161,7 +166,7 @@ export type PostMediasMediaHashedIdCopyResponse = {
 
 /** @internal */
 export type PostMediasMediaHashedIdCopyRequestBody$Outbound = {
-  project_id?: number | undefined;
+  folder_id?: number | undefined;
   owner?: string | undefined;
 };
 
@@ -171,11 +176,11 @@ export const PostMediasMediaHashedIdCopyRequestBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PostMediasMediaHashedIdCopyRequestBody
 > = z.object({
-  projectId: z.number().int().optional(),
+  folderId: z.number().int().optional(),
   owner: z.string().optional(),
 }).transform((v) => {
   return remap$(v, {
-    projectId: "project_id",
+    folderId: "folder_id",
   });
 });
 
@@ -255,8 +260,8 @@ export function postMediasMediaHashedIdCopyThumbnailFromJSON(
 }
 
 /** @internal */
-export const PostMediasMediaHashedIdCopyProject$inboundSchema: z.ZodType<
-  PostMediasMediaHashedIdCopyProject,
+export const PostMediasMediaHashedIdCopyFolder$inboundSchema: z.ZodType<
+  PostMediasMediaHashedIdCopyFolder,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -265,14 +270,13 @@ export const PostMediasMediaHashedIdCopyProject$inboundSchema: z.ZodType<
   hashedId: z.string().optional(),
 });
 
-export function postMediasMediaHashedIdCopyProjectFromJSON(
+export function postMediasMediaHashedIdCopyFolderFromJSON(
   jsonString: string,
-): SafeParseResult<PostMediasMediaHashedIdCopyProject, SDKValidationError> {
+): SafeParseResult<PostMediasMediaHashedIdCopyFolder, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) =>
-      PostMediasMediaHashedIdCopyProject$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostMediasMediaHashedIdCopyProject' from JSON`,
+    (x) => PostMediasMediaHashedIdCopyFolder$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostMediasMediaHashedIdCopyFolder' from JSON`,
   );
 }
 
@@ -299,9 +303,9 @@ export const PostMediasMediaHashedIdCopyResponseBody$inboundSchema: z.ZodType<
   section: z.nullable(z.string()).optional(),
   thumbnail: z.lazy(() => PostMediasMediaHashedIdCopyThumbnail$inboundSchema)
     .optional(),
-  project: z.nullable(
-    z.lazy(() => PostMediasMediaHashedIdCopyProject$inboundSchema),
-  ).optional(),
+  folder: z.nullable(
+    z.lazy(() => PostMediasMediaHashedIdCopyFolder$inboundSchema),
+  ),
 }).transform((v) => {
   return remap$(v, {
     "hashed_id": "hashedId",

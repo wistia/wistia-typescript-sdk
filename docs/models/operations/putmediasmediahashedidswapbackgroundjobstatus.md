@@ -1,6 +1,8 @@
 # PutMediasMediaHashedIdSwapBackgroundJobStatus
 
-Status of the background job.
+A background job keeps track of the progress of an asynchronous task, e.g
+bulk archiving media, translating media, etc.
+
 
 ## Example Usage
 

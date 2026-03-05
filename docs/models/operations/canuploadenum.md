@@ -1,6 +1,6 @@
 # CanUploadEnum
 
-Default is "0". Set to "1" to allow the user to upload files to the project.
+Default is "0". Set to "1" to allow the user to upload files to the folder.
 
 ## Example Usage
 

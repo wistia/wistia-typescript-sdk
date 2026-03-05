@@ -1,6 +1,7 @@
 # GetMediasMediaHashedIdLocalizationsLocalizationHashedIdResponse
 
-Successful response
+A localization is a translation of a media into another language.
+
 
 ## Example Usage
 

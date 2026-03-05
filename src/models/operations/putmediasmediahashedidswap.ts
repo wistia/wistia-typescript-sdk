@@ -69,6 +69,14 @@ export type PutMediasMediaHashedIdSwapThumbnail = {
   height?: number | undefined;
 };
 
+/**
+ * A media generally represents a video or an audio which can be embedded into your website.
+ *
+ * @remarks
+ *
+ * CDN-backed medias are accessible using this url structure: https://fast.wistia.com/embed/medias/{hashed_id}.m3u8.
+ * For more information, see https://docs.wistia.com/docs/asset-urls#getting-hls-assets.
+ */
 export type PutMediasMediaHashedIdSwapMedia = {
   /**
    * A unique numeric identifier for the media within the system.
@@ -148,7 +156,10 @@ export type PutMediasMediaHashedIdSwapBackgroundJobStatusStatus = ClosedEnum<
 >;
 
 /**
- * Status of the background job.
+ * A background job keeps track of the progress of an asynchronous task, e.g
+ *
+ * @remarks
+ * bulk archiving media, translating media, etc.
  */
 export type PutMediasMediaHashedIdSwapBackgroundJobStatus = {
   /**
@@ -166,9 +177,20 @@ export type PutMediasMediaHashedIdSwapBackgroundJobStatus = {
  */
 export type PutMediasMediaHashedIdSwapResponse = {
   message?: string | undefined;
+  /**
+   * A media generally represents a video or an audio which can be embedded into your website.
+   *
+   * @remarks
+   *
+   * CDN-backed medias are accessible using this url structure: https://fast.wistia.com/embed/medias/{hashed_id}.m3u8.
+   * For more information, see https://docs.wistia.com/docs/asset-urls#getting-hls-assets.
+   */
   media?: PutMediasMediaHashedIdSwapMedia | undefined;
   /**
-   * Status of the background job.
+   * A background job keeps track of the progress of an asynchronous task, e.g
+   *
+   * @remarks
+   * bulk archiving media, translating media, etc.
    */
   backgroundJobStatus?:
     | PutMediasMediaHashedIdSwapBackgroundJobStatus

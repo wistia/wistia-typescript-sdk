@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -15,11 +16,14 @@ export type GetChannelsChannelHashedIdRequest = {
 };
 
 /**
- * Channel retrieval successful
+ * A Channel lets you take a collection of video (or audio) and embed them
+ *
+ * @remarks
+ * on your site, as well as distribute through podcasting.
  */
 export type GetChannelsChannelHashedIdResponse = {
   /**
-   * The numeri d of the channel.
+   * The numeric id of the channel.
    */
   id: number;
   /**
@@ -46,6 +50,10 @@ export type GetChannelsChannelHashedIdResponse = {
    * The date when the channel was last updated.
    */
   updated: Date;
+  /**
+   * A cursor for stable pagination based on current `sort_by` order. You can pass this to `cursor[before]` or `cursor[after]` as a parameter to fetch the records before or after this record in the same sort order. This is only populated if records were fetched with `cursor[enabled]`, or `cursor[before]` or `cursor[after]`.
+   */
+  cursor?: string | null | undefined;
 };
 
 /** @internal */
@@ -81,10 +89,16 @@ export const GetChannelsChannelHashedIdResponse$inboundSchema: z.ZodType<
   id: z.number().int(),
   created: z.string().datetime({ offset: true }).transform(v => new Date(v)),
   description: z.string(),
-  hashedId: z.string(),
-  mediaCount: z.number().int(),
+  hashed_id: z.string(),
+  media_count: z.number().int(),
   name: z.string(),
   updated: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  cursor: z.nullable(z.string()).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "hashed_id": "hashedId",
+    "media_count": "mediaCount",
+  });
 });
 
 export function getChannelsChannelHashedIdResponseFromJSON(

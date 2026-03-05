@@ -1,5 +1,9 @@
 # PutMediasMediaIdCustomizationsRequestBody
 
+A collection of settings you can apply to a video to change its appearance and
+behavior.
+
+
 ## Example Usage
 
 ```typescript

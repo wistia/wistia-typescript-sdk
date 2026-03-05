@@ -159,6 +159,12 @@ export type PostMediasMediaIdCustomizationsVideoFoamUnion =
   | boolean
   | PostMediasMediaIdCustomizationsVideoFoam;
 
+/**
+ * A collection of settings you can apply to a video to change its appearance and
+ *
+ * @remarks
+ * behavior.
+ */
 export type PostMediasMediaIdCustomizationsRequestBody = {
   /**
    * If set to true, the video will play as soon as it’s ready. Note that autoplay might not work on some devices and browsers.

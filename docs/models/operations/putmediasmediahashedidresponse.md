@@ -1,6 +1,10 @@
 # PutMediasMediaHashedIdResponse
 
-Successful response
+A media generally represents a video or an audio which can be embedded into your website.
+
+CDN-backed medias are accessible using this url structure: https://fast.wistia.com/embed/medias/{hashed_id}.m3u8.
+For more information, see https://docs.wistia.com/docs/asset-urls#getting-hls-assets.
+
 
 ## Example Usage
 

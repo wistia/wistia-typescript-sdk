@@ -26,15 +26,17 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Background Job Status Show
+ * Show Background Job Status
  *
  * @remarks
- * Retrieve the status of a background job.
+ * Retrieves the status of a background job.
+ *
+ * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
- * Read, update & delete anything
  * Read all data
  * ```
+ * <!--- /HIDE-MCP -->
  */
 export function backgroundJobStatusGet(
   client: WistiaCore,
@@ -44,7 +46,6 @@ export function backgroundJobStatusGet(
   Result<
     operations.GetBackgroundJobStatusBackgroundJobStatusIdResponse,
     | errors.GetBackgroundJobStatusBackgroundJobStatusIdUnauthorizedError
-    | errors.GetBackgroundJobStatusBackgroundJobStatusIdForbiddenError
     | errors.GetBackgroundJobStatusBackgroundJobStatusIdInternalServerError
     | WistiaError
     | ResponseValidationError
@@ -72,7 +73,6 @@ async function $do(
     Result<
       operations.GetBackgroundJobStatusBackgroundJobStatusIdResponse,
       | errors.GetBackgroundJobStatusBackgroundJobStatusIdUnauthorizedError
-      | errors.GetBackgroundJobStatusBackgroundJobStatusIdForbiddenError
       | errors.GetBackgroundJobStatusBackgroundJobStatusIdInternalServerError
       | WistiaError
       | ResponseValidationError
@@ -152,7 +152,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["401", "403", "404", "4XX", "500", "5XX"],
+    errorCodes: ["401", "404", "4XX", "500", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -168,7 +168,6 @@ async function $do(
   const [result] = await M.match<
     operations.GetBackgroundJobStatusBackgroundJobStatusIdResponse,
     | errors.GetBackgroundJobStatusBackgroundJobStatusIdUnauthorizedError
-    | errors.GetBackgroundJobStatusBackgroundJobStatusIdForbiddenError
     | errors.GetBackgroundJobStatusBackgroundJobStatusIdInternalServerError
     | WistiaError
     | ResponseValidationError
@@ -188,11 +187,6 @@ async function $do(
       401,
       errors
         .GetBackgroundJobStatusBackgroundJobStatusIdUnauthorizedError$inboundSchema,
-    ),
-    M.jsonErr(
-      403,
-      errors
-        .GetBackgroundJobStatusBackgroundJobStatusIdForbiddenError$inboundSchema,
     ),
     M.jsonErr(
       500,
