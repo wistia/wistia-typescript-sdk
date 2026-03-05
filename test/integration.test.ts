@@ -31,9 +31,9 @@ function log(...args: any[]) {
 
 dotenv.config();
 
-function handleError(callback: () => Promise<void>, message: string) {
+async function handleError(callback: () => Promise<void>, message: string) {
   try {
-    callback();
+    await callback();
   } catch (error: unknown) {
     if (error instanceof Error) {
       log(`⚠️  ${message}:`, error.message);
@@ -99,7 +99,7 @@ const localFiles: string[] = [];
 async function cleanup() {
   log('\n🧹 Cleaning up test resources...');
 
-  handleError(async () => {
+  await handleError(async () => {
     for (const file of localFiles) {
       await rm(file, { force: true });
     }
@@ -107,7 +107,7 @@ async function cleanup() {
     log('✅ Cleaned up local files');
   }, 'Failed to clean up local files');
 
-  handleError(async () => {
+  await handleError(async () => {
     if (testResources.hasCaptions && testResources.media && testResources.media.hashedId) {
       await wistia.captions.delete({
         mediaHashedId: testResources.media.hashedId,
@@ -117,7 +117,7 @@ async function cleanup() {
     }
   }, 'Failed to delete captions');
 
-  handleError(async () => {
+  await handleError(async () => {
     if (testResources.hasCustomization && testResources.media && testResources.media.hashedId) {
       await wistia.customizations.delete({
         mediaId: testResources.media.hashedId,
@@ -127,9 +127,9 @@ async function cleanup() {
   }, 'Failed to delete customization');
 
 
-  handleError(async () => {
+  await handleError(async () => {
     if (testResources.liveStreamEvent) {
-      await wistia.liveStreamEvents.delete({
+      await wistia.webinars.deleteWebinarsId({
         id: testResources.liveStreamEvent.id,
       });
       log('✅ Deleted live stream event');
@@ -137,7 +137,7 @@ async function cleanup() {
   }, 'Failed to delete live stream event');
 
 
-  handleError(async () => {
+  await handleError(async () => {
     if (testResources.allowedDomain) {
       await wistia.allowedDomains.delete({
         domain: testResources.allowedDomain.domain,
@@ -147,7 +147,7 @@ async function cleanup() {
   }, 'Failed to delete allowed domain');
 
 
-  handleError(async () => {
+  await handleError(async () => {
     if (testResources.tag && testResources.tag.name) {
       await wistia.tags.delete({
         name: testResources.tag.name,
@@ -156,7 +156,7 @@ async function cleanup() {
     }
   }, 'Failed to delete tag');
 
-  handleError(async () => {
+  await handleError(async () => {
     if (testResources.media && testResources.media.hashedId) {
       await wistia.media.delete({
         mediaHashedId: testResources.media.hashedId,
@@ -165,19 +165,19 @@ async function cleanup() {
     }
   }, 'Failed to delete media');
 
-  handleError(async () => {
+  await handleError(async () => {
     if (testResources.subfolder && testResources.project && testResources.subfolder.hashedId) {
-      await wistia.subfolders.deleteSubfolder({
-        projectId: testResources.project.hashedId,
+      await wistia.subfolders.deleteFoldersFolderIdSubfoldersSubfolderId({
+        folderId: testResources.project.hashedId,
         subfolderId: testResources.subfolder.hashedId,
       });
       log('✅ Deleted subfolder');
     }
   }, 'Failed to delete subfolder');
 
-  handleError(async () => {
+  await handleError(async () => {
     if (testResources.project) {
-      await wistia.projects.delete({
+      await wistia.folders.deleteFoldersId({
         id: testResources.project.hashedId,
       });
       log('✅ Deleted project');
