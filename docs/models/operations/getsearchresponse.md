@@ -9,12 +9,13 @@ import { GetSearchResponse } from "@wistia/wistia-api-client/models/operations";
 
 let value: GetSearchResponse = {
   data: {
-    projects: [
+    folders: [
       {
         id: 22570,
-        name: "My Project Title",
-        description: "About My Project",
+        name: "My Folder Title",
+        description: "About My Folder",
         mediaCount: 2,
+        medias: {},
         created: new Date("2010-08-13T18:47:39+00:00"),
         updated: new Date("2010-08-19T21:47:00+00:00"),
         hashedId: "4d23503f70",
@@ -26,7 +27,7 @@ let value: GetSearchResponse = {
     ],
     medias: [
       {
-        projectHashedId: "4d23503f70",
+        folderHashedId: "4d23503f70",
       },
     ],
     channels: [

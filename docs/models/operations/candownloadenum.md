@@ -1,6 +1,6 @@
 # CanDownloadEnum
 
-Default is "0". Set to "1" to allow the user to download files from the project.
+Default is "0". Set to "1" to allow the user to download files from the folder.
 
 ## Example Usage
 

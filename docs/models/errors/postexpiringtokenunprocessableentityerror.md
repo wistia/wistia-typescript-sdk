@@ -1,6 +1,6 @@
 # PostExpiringTokenUnprocessableEntityError
 
-Unprocessible entity, parameters provided were invalid.
+Unprocessable entity, the request parameters were invalid.
 
 ## Example Usage
 
@@ -12,6 +12,6 @@ import { PostExpiringTokenUnprocessableEntityError } from "@wistia/wistia-api-cl
 
 ## Fields
 
-| Field                                                                                    | Type                                                                                     | Required                                                                                 | Description                                                                              |
-| ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
-| `errors`                                                                                 | [operations.PostExpiringTokenErrors](../../models/operations/postexpiringtokenerrors.md) | :heavy_minus_sign:                                                                       | Contains a summary of what fields had errors and the errors they had.                    |
+| Field                                                                 | Type                                                                  | Required                                                              | Description                                                           | Example                                                               |
+| --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| `errors`                                                              | *string*[]                                                            | :heavy_minus_sign:                                                    | Array of error messages describing what went wrong.                   | [<br/>"Title is required",<br/>"Event duration must be at least 15 minutes"<br/>] |

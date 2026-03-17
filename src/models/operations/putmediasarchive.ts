@@ -31,7 +31,10 @@ export const PutMediasArchiveStatus = {
 export type PutMediasArchiveStatus = ClosedEnum<typeof PutMediasArchiveStatus>;
 
 /**
- * Status of the background job.
+ * A background job keeps track of the progress of an asynchronous task, e.g
+ *
+ * @remarks
+ * bulk archiving media, translating media, etc.
  */
 export type PutMediasArchiveBackgroundJobStatus = {
   /**
@@ -53,7 +56,10 @@ export type PutMediasArchiveResponse = {
    */
   message?: string | undefined;
   /**
-   * Status of the background job.
+   * A background job keeps track of the progress of an asynchronous task, e.g
+   *
+   * @remarks
+   * bulk archiving media, translating media, etc.
    */
   backgroundJobStatus?: PutMediasArchiveBackgroundJobStatus | undefined;
 };
