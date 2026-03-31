@@ -31,12 +31,10 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Set customizations for a video. Replaces the customizations explicitly set for this video.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read, update & delete anything
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function customizationsCreate(
   client: WistiaCore,
@@ -46,6 +44,7 @@ export function customizationsCreate(
   Result<
     operations.PostMediasMediaIdCustomizationsResponse,
     | errors.PostMediasMediaIdCustomizationsUnauthorizedError
+    | errors.PostMediasMediaIdCustomizationsForbiddenError
     | errors.PostMediasMediaIdCustomizationsInternalServerError
     | WistiaError
     | ResponseValidationError
@@ -73,6 +72,7 @@ async function $do(
     Result<
       operations.PostMediasMediaIdCustomizationsResponse,
       | errors.PostMediasMediaIdCustomizationsUnauthorizedError
+      | errors.PostMediasMediaIdCustomizationsForbiddenError
       | errors.PostMediasMediaIdCustomizationsInternalServerError
       | WistiaError
       | ResponseValidationError
@@ -106,7 +106,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/medias/{mediaId}/customizations")(pathParams);
 
   const headers = new Headers(compactMap({
@@ -150,7 +149,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["401", "4XX", "500", "5XX"],
+    errorCodes: ["401", "403", "4XX", "500", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -166,6 +165,7 @@ async function $do(
   const [result] = await M.match<
     operations.PostMediasMediaIdCustomizationsResponse,
     | errors.PostMediasMediaIdCustomizationsUnauthorizedError
+    | errors.PostMediasMediaIdCustomizationsForbiddenError
     | errors.PostMediasMediaIdCustomizationsInternalServerError
     | WistiaError
     | ResponseValidationError
@@ -183,6 +183,10 @@ async function $do(
     M.jsonErr(
       401,
       errors.PostMediasMediaIdCustomizationsUnauthorizedError$inboundSchema,
+    ),
+    M.jsonErr(
+      403,
+      errors.PostMediasMediaIdCustomizationsForbiddenError$inboundSchema,
     ),
     M.jsonErr(
       500,

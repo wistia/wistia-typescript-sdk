@@ -31,12 +31,10 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Updates the attributes on a media.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read, update & delete anything
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function mediaUpdate(
   client: WistiaCore,
@@ -47,6 +45,7 @@ export function mediaUpdate(
     operations.PutMediasMediaHashedIdResponse,
     | errors.PutMediasMediaHashedIdBadRequestError
     | errors.PutMediasMediaHashedIdUnauthorizedError
+    | errors.PutMediasMediaHashedIdForbiddenError
     | errors.PutMediasMediaHashedIdNotFoundError
     | errors.PutMediasMediaHashedIdInternalServerError
     | WistiaError
@@ -76,6 +75,7 @@ async function $do(
       operations.PutMediasMediaHashedIdResponse,
       | errors.PutMediasMediaHashedIdBadRequestError
       | errors.PutMediasMediaHashedIdUnauthorizedError
+      | errors.PutMediasMediaHashedIdForbiddenError
       | errors.PutMediasMediaHashedIdNotFoundError
       | errors.PutMediasMediaHashedIdInternalServerError
       | WistiaError
@@ -108,7 +108,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/medias/{mediaHashedId}")(pathParams);
 
   const headers = new Headers(compactMap({
@@ -152,7 +151,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["400", "401", "404", "4XX", "500", "5XX"],
+    errorCodes: ["400", "401", "403", "404", "4XX", "500", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -169,6 +168,7 @@ async function $do(
     operations.PutMediasMediaHashedIdResponse,
     | errors.PutMediasMediaHashedIdBadRequestError
     | errors.PutMediasMediaHashedIdUnauthorizedError
+    | errors.PutMediasMediaHashedIdForbiddenError
     | errors.PutMediasMediaHashedIdNotFoundError
     | errors.PutMediasMediaHashedIdInternalServerError
     | WistiaError
@@ -186,6 +186,7 @@ async function $do(
       401,
       errors.PutMediasMediaHashedIdUnauthorizedError$inboundSchema,
     ),
+    M.jsonErr(403, errors.PutMediasMediaHashedIdForbiddenError$inboundSchema),
     M.jsonErr(404, errors.PutMediasMediaHashedIdNotFoundError$inboundSchema),
     M.jsonErr(
       500,

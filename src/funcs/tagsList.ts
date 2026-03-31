@@ -36,12 +36,10 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Lists tags belonging to the account.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read all data
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function tagsList(
   client: WistiaCore,

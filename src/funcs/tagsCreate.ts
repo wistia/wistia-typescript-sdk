@@ -31,12 +31,10 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Creates a new tag.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read, update & delete anything
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function tagsCreate(
   client: WistiaCore,
@@ -47,6 +45,7 @@ export function tagsCreate(
     operations.PostTagsResponse,
     | errors.PostTagsBadRequestError
     | errors.PostTagsUnauthorizedError
+    | errors.PostTagsForbiddenError
     | errors.PostTagsUnprocessableEntityError
     | errors.PostTagsInternalServerError
     | WistiaError
@@ -76,6 +75,7 @@ async function $do(
       operations.PostTagsResponse,
       | errors.PostTagsBadRequestError
       | errors.PostTagsUnauthorizedError
+      | errors.PostTagsForbiddenError
       | errors.PostTagsUnprocessableEntityError
       | errors.PostTagsInternalServerError
       | WistiaError
@@ -144,7 +144,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["400", "401", "422", "4XX", "500", "5XX"],
+    errorCodes: ["400", "401", "403", "422", "4XX", "500", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -161,6 +161,7 @@ async function $do(
     operations.PostTagsResponse,
     | errors.PostTagsBadRequestError
     | errors.PostTagsUnauthorizedError
+    | errors.PostTagsForbiddenError
     | errors.PostTagsUnprocessableEntityError
     | errors.PostTagsInternalServerError
     | WistiaError
@@ -175,6 +176,7 @@ async function $do(
     M.json(200, operations.PostTagsResponse$inboundSchema),
     M.jsonErr(400, errors.PostTagsBadRequestError$inboundSchema),
     M.jsonErr(401, errors.PostTagsUnauthorizedError$inboundSchema),
+    M.jsonErr(403, errors.PostTagsForbiddenError$inboundSchema),
     M.jsonErr(422, errors.PostTagsUnprocessableEntityError$inboundSchema),
     M.jsonErr(500, errors.PostTagsInternalServerError$inboundSchema),
     M.fail("4XX"),

@@ -101,7 +101,7 @@ export type GetCaptionsSortDirection = ClosedEnum<
 
 export type GetCaptionsRequest = {
   /**
-   * Find captions for a particular video by providing the media hashed ID
+   * Find captions for a particular media by providing the media hashed ID
    */
   mediaId?: string | undefined;
   /**
@@ -159,7 +159,7 @@ export type GetCaptionsResponse = {
   /**
    * The text of the captions for the specified language in SRT format.
    */
-  text?: string | undefined;
+  text?: string | null | undefined;
   isDraft: boolean;
   /**
    * The unique hashed identifier of the time-coded transcript.
@@ -260,7 +260,7 @@ export const GetCaptionsResponse$inboundSchema: z.ZodType<
   english_name: z.string().optional(),
   native_name: z.string().optional(),
   language: z.string(),
-  text: z.string().optional(),
+  text: z.nullable(z.string()).optional(),
   is_draft: z.boolean(),
   id: z.string(),
   cursor: z.nullable(z.string()).optional(),

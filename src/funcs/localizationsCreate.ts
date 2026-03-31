@@ -31,12 +31,10 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Creates a new localization.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read, update & delete anything
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function localizationsCreate(
   client: WistiaCore,
@@ -47,6 +45,7 @@ export function localizationsCreate(
     operations.PostMediasMediaHashedIdLocalizationsResponse,
     | errors.PostMediasMediaHashedIdLocalizationsBadRequestError
     | errors.PostMediasMediaHashedIdLocalizationsUnauthorizedError
+    | errors.PostMediasMediaHashedIdLocalizationsForbiddenError
     | errors.PostMediasMediaHashedIdLocalizationsNotFoundError
     | errors.PostMediasMediaHashedIdLocalizationsUnprocessableEntityError
     | errors.PostMediasMediaHashedIdLocalizationsInternalServerError
@@ -77,6 +76,7 @@ async function $do(
       operations.PostMediasMediaHashedIdLocalizationsResponse,
       | errors.PostMediasMediaHashedIdLocalizationsBadRequestError
       | errors.PostMediasMediaHashedIdLocalizationsUnauthorizedError
+      | errors.PostMediasMediaHashedIdLocalizationsForbiddenError
       | errors.PostMediasMediaHashedIdLocalizationsNotFoundError
       | errors.PostMediasMediaHashedIdLocalizationsUnprocessableEntityError
       | errors.PostMediasMediaHashedIdLocalizationsInternalServerError
@@ -111,7 +111,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/medias/{mediaHashedId}/localizations")(pathParams);
 
   const headers = new Headers(compactMap({
@@ -155,7 +154,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["400", "401", "404", "422", "4XX", "500", "5XX"],
+    errorCodes: ["400", "401", "403", "404", "422", "4XX", "500", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -172,6 +171,7 @@ async function $do(
     operations.PostMediasMediaHashedIdLocalizationsResponse,
     | errors.PostMediasMediaHashedIdLocalizationsBadRequestError
     | errors.PostMediasMediaHashedIdLocalizationsUnauthorizedError
+    | errors.PostMediasMediaHashedIdLocalizationsForbiddenError
     | errors.PostMediasMediaHashedIdLocalizationsNotFoundError
     | errors.PostMediasMediaHashedIdLocalizationsUnprocessableEntityError
     | errors.PostMediasMediaHashedIdLocalizationsInternalServerError
@@ -196,6 +196,10 @@ async function $do(
       401,
       errors
         .PostMediasMediaHashedIdLocalizationsUnauthorizedError$inboundSchema,
+    ),
+    M.jsonErr(
+      403,
+      errors.PostMediasMediaHashedIdLocalizationsForbiddenError$inboundSchema,
     ),
     M.jsonErr(
       404,

@@ -9,11 +9,37 @@ import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
+export const ResourceType = {
+  Media: "media",
+  Folder: "folder",
+  Subfolder: "subfolder",
+  Channel: "channel",
+  ChannelEpisode: "channel_episode",
+  Webinar: "webinar",
+} as const;
+export type ResourceType = ClosedEnum<typeof ResourceType>;
+
 export type GetSearchRequest = {
   /**
    * The search query string
    */
   q: string;
+  /**
+   * Filter results by one or more tag names. When multiple tags are provided, results matching any of the specified tags are returned (OR logic).
+   */
+  tags?: Array<string> | undefined;
+  /**
+   * Filter results by one or more resource types.
+   */
+  resourceType?: Array<ResourceType> | undefined;
+  /**
+   * Filter results created on or after this datetime. Must be a valid ISO8601 timestamp in UTC (ending with 'Z').
+   */
+  createdAfter?: Date | undefined;
+  /**
+   * Filter results created on or before this datetime. Must be a valid ISO8601 timestamp in UTC (ending with 'Z').
+   */
+  createdBefore?: Date | undefined;
 };
 
 /**
@@ -179,6 +205,40 @@ export type GetSearchFolder = {
 };
 
 /**
+ * A subfolder within a folder that contains media.
+ */
+export type GetSearchSubfolder = {
+  /**
+   * A unique alphanumeric identifier for this subfolder.
+   */
+  hashedId: string;
+  /**
+   * The display name of the subfolder.
+   */
+  name?: string | null | undefined;
+  /**
+   * A description for the subfolder.
+   */
+  description?: string | null | undefined;
+  /**
+   * The position of this subfolder within its folder, used for ordering.
+   */
+  position: number | null;
+  /**
+   * The date when the subfolder was created.
+   */
+  created: Date | null;
+  /**
+   * The date when the subfolder was last modified.
+   */
+  updated: Date | null;
+  /**
+   * A cursor for stable pagination based on current `sort_by` order. You can pass this to `cursor[before]` or `cursor[after]` as a parameter to fetch the records before or after this record in the same sort order. This is only populated if records were fetched with `cursor[enabled]`, or `cursor[before]` or `cursor[after]`.
+   */
+  cursor?: string | null | undefined;
+};
+
+/**
  * A string representing what type of media this is.
  */
 export const GetSearchMediaType = {
@@ -217,6 +277,25 @@ export type GetSearchMediaThumbnail = {
   url?: string | undefined;
   width?: number | undefined;
   height?: number | undefined;
+};
+
+export type TranscriptMatch = {
+  /**
+   * The matched transcript text with context
+   */
+  text: string;
+  /**
+   * Start time of the match in seconds
+   */
+  startTimeSeconds: number;
+  /**
+   * Human-readable start time (e.g., "0:03" or "1:23:45")
+   */
+  startTimeFormatted: string;
+  /**
+   * Thumbnail URL at the match timestamp
+   */
+  thumbnailUrl: string | null;
 };
 
 /**
@@ -291,6 +370,10 @@ export type GetSearchMedia = {
    * The hashed ID of the folder this media belongs to
    */
   folderHashedId: string | null;
+  /**
+   * Array of transcript matches with timestamps
+   */
+  transcriptMatches: Array<TranscriptMatch>;
 };
 
 export type Channel = {
@@ -371,23 +454,91 @@ export type ChannelEpisode = {
   publishAt?: Date | null | undefined;
 };
 
-export type Data = {
+/**
+ * A webinar is an event which allows you to stream a video
+ *
+ * @remarks
+ * to multiple participants. See our [Webinars Guide](https://support.wistia.com/en/articles/8288501-getting-started-with-webinars)
+ * for more info.
+ */
+export type GetSearchWebinar = {
+  /**
+   * The hashed ID of the webinar
+   */
+  id: string;
+  /**
+   * The title of the webinar
+   */
+  title: string;
+  /**
+   * The description of the webinar
+   */
+  description?: string | null | undefined;
+  /**
+   * The scheduled start time in W3C format with timezone
+   */
+  scheduledFor?: Date | null | undefined;
+  /**
+   * Duration of the webinar in minutes
+   */
+  eventDuration?: number | null | undefined;
+  /**
+   * Current lifecycle status of the event
+   */
+  lifecycleStatus: string;
+  /**
+   * Registration status of the event
+   */
+  registrationStatus: string;
+  /**
+   * When the event was created (UTC)
+   */
+  createdAt: Date;
+  /**
+   * When the event was last updated (UTC)
+   */
+  updatedAt: Date;
+  /**
+   * Link for the audience to join the event
+   */
+  audienceLink: string;
+  /**
+   * Link for the host to manage the event
+   */
+  hostLink: string;
+  /**
+   * Link for panelists to join the event
+   */
+  panelistLink: string;
+};
+
+export type GetSearchData = {
   folders: Array<GetSearchFolder>;
+  subfolders: Array<GetSearchSubfolder>;
   medias: Array<GetSearchMedia>;
   channels: Array<Channel>;
   channelEpisodes: Array<ChannelEpisode>;
+  webinars: Array<GetSearchWebinar>;
 };
 
 /**
  * Search results
  */
 export type GetSearchResponse = {
-  data: Data;
+  data: GetSearchData;
 };
+
+/** @internal */
+export const ResourceType$outboundSchema: z.ZodNativeEnum<typeof ResourceType> =
+  z.nativeEnum(ResourceType);
 
 /** @internal */
 export type GetSearchRequest$Outbound = {
   q: string;
+  "tags[]"?: Array<string> | undefined;
+  "resource_type[]"?: Array<string> | undefined;
+  created_after?: string | undefined;
+  created_before?: string | undefined;
 };
 
 /** @internal */
@@ -397,6 +548,17 @@ export const GetSearchRequest$outboundSchema: z.ZodType<
   GetSearchRequest
 > = z.object({
   q: z.string(),
+  tags: z.array(z.string()).optional(),
+  resourceType: z.array(ResourceType$outboundSchema).optional(),
+  createdAfter: z.date().transform(v => v.toISOString()).optional(),
+  createdBefore: z.date().transform(v => v.toISOString()).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    tags: "tags[]",
+    resourceType: "resource_type[]",
+    createdAfter: "created_after",
+    createdBefore: "created_before",
+  });
 });
 
 export function getSearchRequestToJSON(
@@ -514,6 +676,39 @@ export function getSearchFolderFromJSON(
 }
 
 /** @internal */
+export const GetSearchSubfolder$inboundSchema: z.ZodType<
+  GetSearchSubfolder,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  hashed_id: z.string(),
+  name: z.nullable(z.string()).optional(),
+  description: z.nullable(z.string()).optional(),
+  position: z.nullable(z.number().int()),
+  created: z.nullable(
+    z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  ),
+  updated: z.nullable(
+    z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  ),
+  cursor: z.nullable(z.string()).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "hashed_id": "hashedId",
+  });
+});
+
+export function getSearchSubfolderFromJSON(
+  jsonString: string,
+): SafeParseResult<GetSearchSubfolder, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetSearchSubfolder$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetSearchSubfolder' from JSON`,
+  );
+}
+
+/** @internal */
 export const GetSearchMediaType$inboundSchema: z.ZodNativeEnum<
   typeof GetSearchMediaType
 > = z.nativeEnum(GetSearchMediaType);
@@ -545,6 +740,34 @@ export function getSearchMediaThumbnailFromJSON(
 }
 
 /** @internal */
+export const TranscriptMatch$inboundSchema: z.ZodType<
+  TranscriptMatch,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  text: z.string(),
+  start_time_seconds: z.number(),
+  start_time_formatted: z.string(),
+  thumbnail_url: z.nullable(z.string()),
+}).transform((v) => {
+  return remap$(v, {
+    "start_time_seconds": "startTimeSeconds",
+    "start_time_formatted": "startTimeFormatted",
+    "thumbnail_url": "thumbnailUrl",
+  });
+});
+
+export function transcriptMatchFromJSON(
+  jsonString: string,
+): SafeParseResult<TranscriptMatch, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => TranscriptMatch$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'TranscriptMatch' from JSON`,
+  );
+}
+
+/** @internal */
 export const GetSearchMedia$inboundSchema: z.ZodType<
   GetSearchMedia,
   z.ZodTypeDef,
@@ -567,10 +790,12 @@ export const GetSearchMedia$inboundSchema: z.ZodType<
   section: z.nullable(z.string()).optional(),
   thumbnail: z.lazy(() => GetSearchMediaThumbnail$inboundSchema).optional(),
   folder_hashed_id: z.nullable(z.string()),
+  transcript_matches: z.array(z.lazy(() => TranscriptMatch$inboundSchema)),
 }).transform((v) => {
   return remap$(v, {
     "hashed_id": "hashedId",
     "folder_hashed_id": "folderHashedId",
+    "transcript_matches": "transcriptMatches",
   });
 });
 
@@ -650,25 +875,74 @@ export function channelEpisodeFromJSON(
 }
 
 /** @internal */
-export const Data$inboundSchema: z.ZodType<Data, z.ZodTypeDef, unknown> = z
-  .object({
-    folders: z.array(z.lazy(() => GetSearchFolder$inboundSchema)),
-    medias: z.array(z.lazy(() => GetSearchMedia$inboundSchema)),
-    channels: z.array(z.lazy(() => Channel$inboundSchema)),
-    channel_episodes: z.array(z.lazy(() => ChannelEpisode$inboundSchema)),
-  }).transform((v) => {
-    return remap$(v, {
-      "channel_episodes": "channelEpisodes",
-    });
+export const GetSearchWebinar$inboundSchema: z.ZodType<
+  GetSearchWebinar,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: z.string(),
+  title: z.string(),
+  description: z.nullable(z.string()).optional(),
+  scheduled_for: z.nullable(
+    z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  ).optional(),
+  event_duration: z.nullable(z.number().int()).optional(),
+  lifecycle_status: z.string(),
+  registration_status: z.string(),
+  created_at: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  updated_at: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  audience_link: z.string(),
+  host_link: z.string(),
+  panelist_link: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    "scheduled_for": "scheduledFor",
+    "event_duration": "eventDuration",
+    "lifecycle_status": "lifecycleStatus",
+    "registration_status": "registrationStatus",
+    "created_at": "createdAt",
+    "updated_at": "updatedAt",
+    "audience_link": "audienceLink",
+    "host_link": "hostLink",
+    "panelist_link": "panelistLink",
   });
+});
 
-export function dataFromJSON(
+export function getSearchWebinarFromJSON(
   jsonString: string,
-): SafeParseResult<Data, SDKValidationError> {
+): SafeParseResult<GetSearchWebinar, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => Data$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Data' from JSON`,
+    (x) => GetSearchWebinar$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetSearchWebinar' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetSearchData$inboundSchema: z.ZodType<
+  GetSearchData,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  folders: z.array(z.lazy(() => GetSearchFolder$inboundSchema)),
+  subfolders: z.array(z.lazy(() => GetSearchSubfolder$inboundSchema)),
+  medias: z.array(z.lazy(() => GetSearchMedia$inboundSchema)),
+  channels: z.array(z.lazy(() => Channel$inboundSchema)),
+  channel_episodes: z.array(z.lazy(() => ChannelEpisode$inboundSchema)),
+  webinars: z.array(z.lazy(() => GetSearchWebinar$inboundSchema)),
+}).transform((v) => {
+  return remap$(v, {
+    "channel_episodes": "channelEpisodes",
+  });
+});
+
+export function getSearchDataFromJSON(
+  jsonString: string,
+): SafeParseResult<GetSearchData, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetSearchData$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetSearchData' from JSON`,
   );
 }
 
@@ -678,7 +952,7 @@ export const GetSearchResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  data: z.lazy(() => Data$inboundSchema),
+  data: z.lazy(() => GetSearchData$inboundSchema),
 });
 
 export function getSearchResponseFromJSON(

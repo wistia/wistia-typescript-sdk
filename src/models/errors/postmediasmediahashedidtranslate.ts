@@ -109,6 +109,39 @@ export class PostMediasMediaHashedIdTranslateNotFoundError extends WistiaError {
 }
 
 /**
+ * Forbidden, token is valid but account does not have access to feature
+ */
+export type PostMediasMediaHashedIdTranslateForbiddenErrorData = {
+  error?: string | undefined;
+};
+
+/**
+ * Forbidden, token is valid but account does not have access to feature
+ */
+export class PostMediasMediaHashedIdTranslateForbiddenError
+  extends WistiaError
+{
+  error?: string | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: PostMediasMediaHashedIdTranslateForbiddenErrorData;
+
+  constructor(
+    err: PostMediasMediaHashedIdTranslateForbiddenErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+
+    this.name = "PostMediasMediaHashedIdTranslateForbiddenError";
+  }
+}
+
+/**
  * Unauthorized, invalid or missing token
  */
 export type PostMediasMediaHashedIdTranslateUnauthorizedErrorData = {
@@ -234,6 +267,26 @@ export const PostMediasMediaHashedIdTranslateNotFoundError$inboundSchema:
   })
     .transform((v) => {
       return new PostMediasMediaHashedIdTranslateNotFoundError(v, {
+        request: v.request$,
+        response: v.response$,
+        body: v.body$,
+      });
+    });
+
+/** @internal */
+export const PostMediasMediaHashedIdTranslateForbiddenError$inboundSchema:
+  z.ZodType<
+    PostMediasMediaHashedIdTranslateForbiddenError,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    error: z.string().optional(),
+    request$: z.instanceof(Request),
+    response$: z.instanceof(Response),
+    body$: z.string(),
+  })
+    .transform((v) => {
+      return new PostMediasMediaHashedIdTranslateForbiddenError(v, {
         request: v.request$,
         response: v.response$,
         body: v.body$,

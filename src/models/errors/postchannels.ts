@@ -37,6 +37,37 @@ export class PostChannelsInternalServerError extends WistiaError {
 }
 
 /**
+ * Forbidden, token is valid but account does not have access to feature
+ */
+export type PostChannelsForbiddenErrorData = {
+  error?: string | undefined;
+};
+
+/**
+ * Forbidden, token is valid but account does not have access to feature
+ */
+export class PostChannelsForbiddenError extends WistiaError {
+  error?: string | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: PostChannelsForbiddenErrorData;
+
+  constructor(
+    err: PostChannelsForbiddenErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+
+    this.name = "PostChannelsForbiddenError";
+  }
+}
+
+/**
  * Unauthorized, invalid or missing token
  */
 export type PostChannelsUnauthorizedErrorData = {
@@ -80,6 +111,25 @@ export const PostChannelsInternalServerError$inboundSchema: z.ZodType<
 })
   .transform((v) => {
     return new PostChannelsInternalServerError(v, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
+  });
+
+/** @internal */
+export const PostChannelsForbiddenError$inboundSchema: z.ZodType<
+  PostChannelsForbiddenError,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  error: z.string().optional(),
+  request$: z.instanceof(Request),
+  response$: z.instanceof(Response),
+  body$: z.string(),
+})
+  .transform((v) => {
+    return new PostChannelsForbiddenError(v, {
       request: v.request$,
       response: v.response$,
       body: v.body$,

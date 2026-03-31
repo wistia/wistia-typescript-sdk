@@ -16,12 +16,10 @@ export class Tags extends ClientSDK {
    * @remarks
    * Lists tags belonging to the account.
    *
-   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read all data
    * ```
-   * <!--- /HIDE-MCP -->
    */
   async list(
     request?: operations.GetTagsRequest | undefined,
@@ -40,12 +38,10 @@ export class Tags extends ClientSDK {
    * @remarks
    * Creates a new tag.
    *
-   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read, update & delete anything
    * ```
-   * <!--- /HIDE-MCP -->
    */
   async create(
     request: operations.PostTagsRequest,
@@ -59,17 +55,15 @@ export class Tags extends ClientSDK {
   }
 
   /**
-   * Delete Tags
+   * Delete Tag
    *
    * @remarks
    * Deletes a tag
    *
-   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read, update & delete anything
    * ```
-   * <!--- /HIDE-MCP -->
    */
   async delete(
     request: operations.DeleteTagsNameRequest,

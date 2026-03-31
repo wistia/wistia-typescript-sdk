@@ -31,12 +31,10 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Creates an allowed domain for the account.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read, update & delete anything
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function allowedDomainsCreate(
   client: WistiaCore,
@@ -47,6 +45,7 @@ export function allowedDomainsCreate(
     operations.PostAllowedDomainsResponse,
     | errors.PostAllowedDomainsBadRequestError
     | errors.PostAllowedDomainsUnauthorizedError
+    | errors.PostAllowedDomainsForbiddenError
     | errors.PostAllowedDomainsInternalServerError
     | WistiaError
     | ResponseValidationError
@@ -75,6 +74,7 @@ async function $do(
       operations.PostAllowedDomainsResponse,
       | errors.PostAllowedDomainsBadRequestError
       | errors.PostAllowedDomainsUnauthorizedError
+      | errors.PostAllowedDomainsForbiddenError
       | errors.PostAllowedDomainsInternalServerError
       | WistiaError
       | ResponseValidationError
@@ -142,7 +142,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["400", "401", "4XX", "500", "5XX"],
+    errorCodes: ["400", "401", "403", "4XX", "500", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -159,6 +159,7 @@ async function $do(
     operations.PostAllowedDomainsResponse,
     | errors.PostAllowedDomainsBadRequestError
     | errors.PostAllowedDomainsUnauthorizedError
+    | errors.PostAllowedDomainsForbiddenError
     | errors.PostAllowedDomainsInternalServerError
     | WistiaError
     | ResponseValidationError
@@ -172,6 +173,7 @@ async function $do(
     M.json(200, operations.PostAllowedDomainsResponse$inboundSchema),
     M.jsonErr(400, errors.PostAllowedDomainsBadRequestError$inboundSchema),
     M.jsonErr(401, errors.PostAllowedDomainsUnauthorizedError$inboundSchema),
+    M.jsonErr(403, errors.PostAllowedDomainsForbiddenError$inboundSchema),
     M.jsonErr(500, errors.PostAllowedDomainsInternalServerError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),

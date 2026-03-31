@@ -12,14 +12,16 @@ export class Trims extends ClientSDK {
    * Create Media from Trims
    *
    * @remarks
-   * Creates a new media that trims off parts of an existing media
+   * Creates a new media that trims off parts of an existing media.
    *
-   * <!--- HIDE-MCP -->
+   * By default, the `trims` parameter specifies time ranges to **remove** from the media. When `keep_trims` is set to `true`, the `trims` parameter instead specifies time ranges to **keep** in the media.
+   *
+   * **NOTE:** currently this endpoint only supports trimming video files.
+   *
    * ## Requires api token with one of the following permissions
    * ```
    * Read, update & delete anything
    * ```
-   * <!--- /HIDE-MCP -->
    */
   async create(
     request: operations.PostMediasMediaHashedIdTrimsRequest,

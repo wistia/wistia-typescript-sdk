@@ -17,12 +17,10 @@ export class Customizations extends ClientSDK {
    * @remarks
    * Fetches explicitly defined customizations for the video.
    *
-   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read all folder and media data
    * ```
-   * <!--- /HIDE-MCP -->
    */
   async get(
     request: operations.GetMediasMediaIdCustomizationsRequest,
@@ -41,12 +39,10 @@ export class Customizations extends ClientSDK {
    * @remarks
    * Set customizations for a video. Replaces the customizations explicitly set for this video.
    *
-   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read, update & delete anything
    * ```
-   * <!--- /HIDE-MCP -->
    */
   async create(
     request: operations.PostMediasMediaIdCustomizationsRequest,
@@ -65,12 +61,10 @@ export class Customizations extends ClientSDK {
    * @remarks
    * Allows for partial updates on a video’s customizations. If a value is null, then that key will be deleted from the saved customizations. If it is not null, that value will be set.
    *
-   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read, update & delete anything
    * ```
-   * <!--- /HIDE-MCP -->
    */
   async update(
     request: operations.PutMediasMediaIdCustomizationsRequest,
@@ -89,12 +83,10 @@ export class Customizations extends ClientSDK {
    * @remarks
    * Deletes all explicit customizations for a video, making it act as if it has never been customized.
    *
-   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read, update & delete anything
    * ```
-   * <!--- /HIDE-MCP -->
    */
   async delete(
     request: operations.DeleteMediasMediaIdCustomizationsRequest,

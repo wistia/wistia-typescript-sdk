@@ -25,29 +25,44 @@ let value: GetSearchResponse = {
         anonymousCanDownload: false,
       },
     ],
+    subfolders: [
+      {
+        hashedId: "abc123def4",
+        name: "Marketing Videos",
+        description: "Collection of all marketing and promotional videos",
+        position: 1,
+        created: new Date("2024-01-15T10:30:00+00:00"),
+        updated: new Date("2024-01-20T14:45:00+00:00"),
+      },
+    ],
     medias: [
       {
         folderHashedId: "4d23503f70",
+        transcriptMatches: [],
       },
     ],
-    channels: [
+    channels: [],
+    channelEpisodes: [
       {
-        id: 21457,
+        id: 969848,
         hashedId: "<id>",
-        name: "<value>",
-        description: "over runny till offensively pro eek pension",
-        mediaCount: 751106,
-        created: new Date("2026-09-20T12:15:22.877Z"),
-        updated: new Date("2024-10-21T18:31:11.912Z"),
+        description:
+          "encouragement woefully saloon advancement shovel until frenetically mallard fooey thoughtfully",
+        summary: "<value>",
+        channelHashedId: "<id>",
+        mediaHashedId: "<id>",
+        published: false,
+        created: new Date("2024-07-01T15:43:15.624Z"),
+        updated: new Date("2026-08-01T01:22:36.889Z"),
       },
     ],
-    channelEpisodes: [],
+    webinars: [],
   },
 };
 ```
 
 ## Fields
 
-| Field                                              | Type                                               | Required                                           | Description                                        |
-| -------------------------------------------------- | -------------------------------------------------- | -------------------------------------------------- | -------------------------------------------------- |
-| `data`                                             | [operations.Data](../../models/operations/data.md) | :heavy_check_mark:                                 | N/A                                                |
+| Field                                                                | Type                                                                 | Required                                                             | Description                                                          |
+| -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| `data`                                                               | [operations.GetSearchData](../../models/operations/getsearchdata.md) | :heavy_check_mark:                                                   | N/A                                                                  |

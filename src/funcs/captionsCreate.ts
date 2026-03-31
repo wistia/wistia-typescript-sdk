@@ -30,14 +30,12 @@ import { Result } from "../types/fp.js";
  * Create Captions
  *
  * @remarks
- * Adds captions to a specified video by providing an SRT file or its contents directly.
+ * Adds captions to a specified media by providing an SRT file or its contents directly.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read, update & delete anything
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function captionsCreate(
   client: WistiaCore,
@@ -47,6 +45,7 @@ export function captionsCreate(
   Result<
     void,
     | errors.PostMediasMediaHashedIdCaptionsUnauthorizedError
+    | errors.PostMediasMediaHashedIdCaptionsForbiddenError
     | errors.PostMediasMediaHashedIdCaptionsInternalServerError
     | WistiaError
     | ResponseValidationError
@@ -74,6 +73,7 @@ async function $do(
     Result<
       void,
       | errors.PostMediasMediaHashedIdCaptionsUnauthorizedError
+      | errors.PostMediasMediaHashedIdCaptionsForbiddenError
       | errors.PostMediasMediaHashedIdCaptionsInternalServerError
       | WistiaError
       | ResponseValidationError
@@ -107,7 +107,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/medias/{mediaHashedId}/captions")(pathParams);
 
   const headers = new Headers(compactMap({
@@ -151,7 +150,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["400", "401", "404", "4XX", "500", "5XX"],
+    errorCodes: ["400", "401", "403", "404", "4XX", "500", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -167,6 +166,7 @@ async function $do(
   const [result] = await M.match<
     void,
     | errors.PostMediasMediaHashedIdCaptionsUnauthorizedError
+    | errors.PostMediasMediaHashedIdCaptionsForbiddenError
     | errors.PostMediasMediaHashedIdCaptionsInternalServerError
     | WistiaError
     | ResponseValidationError
@@ -181,6 +181,10 @@ async function $do(
     M.jsonErr(
       401,
       errors.PostMediasMediaHashedIdCaptionsUnauthorizedError$inboundSchema,
+    ),
+    M.jsonErr(
+      403,
+      errors.PostMediasMediaHashedIdCaptionsForbiddenError$inboundSchema,
     ),
     M.jsonErr(
       500,

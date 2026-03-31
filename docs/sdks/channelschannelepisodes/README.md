@@ -10,12 +10,10 @@
 
 Lists Channel Episodes belonging to the channel passed in the path.
 
-<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read all folder and media data
 ```
-<!--- /HIDE-MCP -->
 
 
 ### Example Usage

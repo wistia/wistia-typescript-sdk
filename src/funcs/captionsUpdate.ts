@@ -32,12 +32,10 @@ import { Result } from "../types/fp.js";
  * @remarks
  * This method is for replacing the captions on a video for the specified language.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read, update & delete anything
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function captionsUpdate(
   client: WistiaCore,
@@ -112,7 +110,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/medias/{mediaHashedId}/captions/{languageCode}")(
     pathParams,
   );

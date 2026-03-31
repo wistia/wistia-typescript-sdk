@@ -3,7 +3,7 @@
  */
 
 import { WistiaCore } from "../core.js";
-import { encodeJSON, encodeSimple } from "../lib/encodings.js";
+import { encodeSimple } from "../lib/encodings.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -26,10 +26,10 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Channel Episode Update
+ * Un-publish Channel Episode
  *
  * @remarks
- * Unpublishes an existing channel episode in a channel.
+ * Un-publishes an existing channel episode in a channel.
  * ## Requires api token with one of the following permissions
  * ```
  * Read, update & delete anything
@@ -43,6 +43,7 @@ export function channelEpisodesPutChannelEpisodesChannelEpisodeHashedIdUnpublish
   Result<
     operations.PutChannelEpisodesChannelEpisodeHashedIdUnpublishResponse,
     | errors.PutChannelEpisodesChannelEpisodeHashedIdUnpublishUnauthorizedError
+    | errors.PutChannelEpisodesChannelEpisodeHashedIdUnpublishForbiddenError
     | errors.PutChannelEpisodesChannelEpisodeHashedIdUnpublishInternalServerError
     | WistiaError
     | ResponseValidationError
@@ -70,6 +71,7 @@ async function $do(
     Result<
       operations.PutChannelEpisodesChannelEpisodeHashedIdUnpublishResponse,
       | errors.PutChannelEpisodesChannelEpisodeHashedIdUnpublishUnauthorizedError
+      | errors.PutChannelEpisodesChannelEpisodeHashedIdUnpublishForbiddenError
       | errors.PutChannelEpisodesChannelEpisodeHashedIdUnpublishInternalServerError
       | WistiaError
       | ResponseValidationError
@@ -95,7 +97,7 @@ async function $do(
     return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
-  const body = encodeJSON("body", payload.RequestBody, { explode: true });
+  const body = null;
 
   const pathParams = {
     channelEpisodeHashedId: encodeSimple(
@@ -104,13 +106,11 @@ async function $do(
       { explode: false, charEncoding: "percent" },
     ),
   };
-
   const path = pathToFunc(
     "/channel_episodes/{channelEpisodeHashedId}/unpublish",
   )(pathParams);
 
   const headers = new Headers(compactMap({
-    "Content-Type": "application/json",
     Accept: "application/json",
   }));
 
@@ -150,7 +150,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["401", "4XX", "500", "5XX"],
+    errorCodes: ["401", "403", "4XX", "500", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -166,6 +166,7 @@ async function $do(
   const [result] = await M.match<
     operations.PutChannelEpisodesChannelEpisodeHashedIdUnpublishResponse,
     | errors.PutChannelEpisodesChannelEpisodeHashedIdUnpublishUnauthorizedError
+    | errors.PutChannelEpisodesChannelEpisodeHashedIdUnpublishForbiddenError
     | errors.PutChannelEpisodesChannelEpisodeHashedIdUnpublishInternalServerError
     | WistiaError
     | ResponseValidationError
@@ -185,6 +186,11 @@ async function $do(
       401,
       errors
         .PutChannelEpisodesChannelEpisodeHashedIdUnpublishUnauthorizedError$inboundSchema,
+    ),
+    M.jsonErr(
+      403,
+      errors
+        .PutChannelEpisodesChannelEpisodeHashedIdUnpublishForbiddenError$inboundSchema,
     ),
     M.jsonErr(
       500,

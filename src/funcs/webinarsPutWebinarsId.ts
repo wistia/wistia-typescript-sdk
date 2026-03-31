@@ -31,12 +31,10 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Updates an existing webinar.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read, update & delete anything
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function webinarsPutWebinarsId(
   client: WistiaCore,
@@ -107,7 +105,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/webinars/{id}")(pathParams);
 
   const headers = new Headers(compactMap({

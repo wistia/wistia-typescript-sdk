@@ -83,6 +83,7 @@ run();
 | Error Type                                 | Status Code                                | Content Type                               |
 | ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
 | errors.GetStatsVisitorsUnauthorizedError   | 401                                        | application/json                           |
+| errors.GetStatsVisitorsForbiddenError      | 403                                        | application/json                           |
 | errors.GetStatsVisitorsInternalServerError | 500                                        | application/json                           |
 | errors.WistiaDefaultError                  | 4XX, 5XX                                   | \*/\*                                      |
 
@@ -166,5 +167,6 @@ run();
 | Error Type                                           | Status Code                                          | Content Type                                         |
 | ---------------------------------------------------- | ---------------------------------------------------- | ---------------------------------------------------- |
 | errors.GetStatsVisitorsVisitorKeyUnauthorizedError   | 401                                                  | application/json                                     |
+| errors.GetStatsVisitorsVisitorKeyForbiddenError      | 403                                                  | application/json                                     |
 | errors.GetStatsVisitorsVisitorKeyInternalServerError | 500                                                  | application/json                                     |
 | errors.WistiaDefaultError                            | 4XX, 5XX                                             | \*/\*                                                |

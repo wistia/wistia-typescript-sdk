@@ -47,6 +47,7 @@ export function statsEventsGet(
   Result<
     operations.GetStatsEventsEventKeyResponse,
     | errors.GetStatsEventsEventKeyUnauthorizedError
+    | errors.GetStatsEventsEventKeyForbiddenError
     | errors.GetStatsEventsEventKeyInternalServerError
     | WistiaError
     | ResponseValidationError
@@ -74,6 +75,7 @@ async function $do(
     Result<
       operations.GetStatsEventsEventKeyResponse,
       | errors.GetStatsEventsEventKeyUnauthorizedError
+      | errors.GetStatsEventsEventKeyForbiddenError
       | errors.GetStatsEventsEventKeyInternalServerError
       | WistiaError
       | ResponseValidationError
@@ -105,7 +107,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/stats/events/{eventKey}")(pathParams);
 
   const headers = new Headers(compactMap({
@@ -148,7 +149,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["401", "404", "4XX", "500", "5XX"],
+    errorCodes: ["401", "403", "404", "4XX", "500", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -164,6 +165,7 @@ async function $do(
   const [result] = await M.match<
     operations.GetStatsEventsEventKeyResponse,
     | errors.GetStatsEventsEventKeyUnauthorizedError
+    | errors.GetStatsEventsEventKeyForbiddenError
     | errors.GetStatsEventsEventKeyInternalServerError
     | WistiaError
     | ResponseValidationError
@@ -179,6 +181,7 @@ async function $do(
       401,
       errors.GetStatsEventsEventKeyUnauthorizedError$inboundSchema,
     ),
+    M.jsonErr(403, errors.GetStatsEventsEventKeyForbiddenError$inboundSchema),
     M.jsonErr(
       500,
       errors.GetStatsEventsEventKeyInternalServerError$inboundSchema,

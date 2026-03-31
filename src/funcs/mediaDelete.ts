@@ -31,12 +31,10 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Deletes a media.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read, update & delete anything
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function mediaDelete(
   client: WistiaCore,
@@ -46,6 +44,7 @@ export function mediaDelete(
   Result<
     operations.DeleteMediasMediaHashedIdResponse,
     | errors.DeleteMediasMediaHashedIdUnauthorizedError
+    | errors.DeleteMediasMediaHashedIdForbiddenError
     | errors.DeleteMediasMediaHashedIdNotFoundError
     | errors.DeleteMediasMediaHashedIdInternalServerError
     | WistiaError
@@ -74,6 +73,7 @@ async function $do(
     Result<
       operations.DeleteMediasMediaHashedIdResponse,
       | errors.DeleteMediasMediaHashedIdUnauthorizedError
+      | errors.DeleteMediasMediaHashedIdForbiddenError
       | errors.DeleteMediasMediaHashedIdNotFoundError
       | errors.DeleteMediasMediaHashedIdInternalServerError
       | WistiaError
@@ -106,7 +106,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/medias/{mediaHashedId}")(pathParams);
 
   const headers = new Headers(compactMap({
@@ -149,7 +148,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["401", "404", "4XX", "500", "5XX"],
+    errorCodes: ["401", "403", "404", "4XX", "500", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -165,6 +164,7 @@ async function $do(
   const [result] = await M.match<
     operations.DeleteMediasMediaHashedIdResponse,
     | errors.DeleteMediasMediaHashedIdUnauthorizedError
+    | errors.DeleteMediasMediaHashedIdForbiddenError
     | errors.DeleteMediasMediaHashedIdNotFoundError
     | errors.DeleteMediasMediaHashedIdInternalServerError
     | WistiaError
@@ -180,6 +180,10 @@ async function $do(
     M.jsonErr(
       401,
       errors.DeleteMediasMediaHashedIdUnauthorizedError$inboundSchema,
+    ),
+    M.jsonErr(
+      403,
+      errors.DeleteMediasMediaHashedIdForbiddenError$inboundSchema,
     ),
     M.jsonErr(404, errors.DeleteMediasMediaHashedIdNotFoundError$inboundSchema),
     M.jsonErr(

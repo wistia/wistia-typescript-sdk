@@ -31,12 +31,10 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Creates a new sharing object for a folder by specifying the email of the person to share with and other optional parameters.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read, update & delete anything
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function folderSharingsPostFoldersFolderIdSharings(
   client: WistiaCore,
@@ -46,6 +44,7 @@ export function folderSharingsPostFoldersFolderIdSharings(
   Result<
     operations.PostFoldersFolderIdSharingsResponse,
     | errors.PostFoldersFolderIdSharingsUnauthorizedError
+    | errors.PostFoldersFolderIdSharingsForbiddenError
     | errors.PostFoldersFolderIdSharingsInternalServerError
     | WistiaError
     | ResponseValidationError
@@ -73,6 +72,7 @@ async function $do(
     Result<
       operations.PostFoldersFolderIdSharingsResponse,
       | errors.PostFoldersFolderIdSharingsUnauthorizedError
+      | errors.PostFoldersFolderIdSharingsForbiddenError
       | errors.PostFoldersFolderIdSharingsInternalServerError
       | WistiaError
       | ResponseValidationError
@@ -104,7 +104,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/folders/{folderId}/sharings")(pathParams);
 
   const headers = new Headers(compactMap({
@@ -148,7 +147,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["400", "401", "4XX", "500", "5XX"],
+    errorCodes: ["400", "401", "403", "4XX", "500", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -164,6 +163,7 @@ async function $do(
   const [result] = await M.match<
     operations.PostFoldersFolderIdSharingsResponse,
     | errors.PostFoldersFolderIdSharingsUnauthorizedError
+    | errors.PostFoldersFolderIdSharingsForbiddenError
     | errors.PostFoldersFolderIdSharingsInternalServerError
     | WistiaError
     | ResponseValidationError
@@ -181,6 +181,10 @@ async function $do(
     M.jsonErr(
       401,
       errors.PostFoldersFolderIdSharingsUnauthorizedError$inboundSchema,
+    ),
+    M.jsonErr(
+      403,
+      errors.PostFoldersFolderIdSharingsForbiddenError$inboundSchema,
     ),
     M.jsonErr(
       500,

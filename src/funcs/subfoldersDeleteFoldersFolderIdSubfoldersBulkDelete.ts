@@ -31,12 +31,10 @@ import { Result } from "../types/fp.js";
  * @remarks
  * This method accepts a list of subfolders to delete. It processes requests asynchronously and will return a background_job_status object. All media files in each deleted subfolder will be moved to the folder's root level.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read, update & delete anything
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function subfoldersDeleteFoldersFolderIdSubfoldersBulkDelete(
   client: WistiaCore,
@@ -109,7 +107,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/folders/{folderId}/subfolders/bulk_delete")(
     pathParams,
   );

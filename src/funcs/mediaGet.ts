@@ -31,12 +31,10 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Fetches a single media by its hashed id.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read all folder and media data
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function mediaGet(
   client: WistiaCore,
@@ -106,7 +104,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/medias/{mediaHashedId}")(pathParams);
 
   const query = encodeFormQuery({

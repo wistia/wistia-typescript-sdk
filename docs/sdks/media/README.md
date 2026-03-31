@@ -14,6 +14,7 @@
 * [swap](#swap) - Swap Media
 * [getStats](#getstats) - Show Media Aggregated Stats
 * [translate](#translate) - Translate Media
+* [postMediasImportUrl](#postmediasimporturl) - Import Media from URL
 * [archive](#archive) - Archive Media
 * [move](#move) - Move Media
 * [restore](#restore) - Restore Media
@@ -186,12 +187,10 @@ run();
 Lists the media belonging to the account. This endpoint can also be used to
 do a batch fetch based off of the hashed id.
 
-<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read all folder and media data
 ```
-<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -266,12 +265,10 @@ run();
 
 Fetches a single media by its hashed id.
 
-<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read all folder and media data
 ```
-<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -350,12 +347,10 @@ run();
 
 Updates the attributes on a media.
 
-<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
-<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -427,6 +422,7 @@ run();
 | ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ |
 | errors.PutMediasMediaHashedIdBadRequestError     | 400                                              | application/json                                 |
 | errors.PutMediasMediaHashedIdUnauthorizedError   | 401                                              | application/json                                 |
+| errors.PutMediasMediaHashedIdForbiddenError      | 403                                              | application/json                                 |
 | errors.PutMediasMediaHashedIdNotFoundError       | 404                                              | application/json                                 |
 | errors.PutMediasMediaHashedIdInternalServerError | 500                                              | application/json                                 |
 | errors.WistiaDefaultError                        | 4XX, 5XX                                         | \*/\*                                            |
@@ -435,12 +431,10 @@ run();
 
 Deletes a media.
 
-<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
-<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -511,6 +505,7 @@ run();
 | Error Type                                          | Status Code                                         | Content Type                                        |
 | --------------------------------------------------- | --------------------------------------------------- | --------------------------------------------------- |
 | errors.DeleteMediasMediaHashedIdUnauthorizedError   | 401                                                 | application/json                                    |
+| errors.DeleteMediasMediaHashedIdForbiddenError      | 403                                                 | application/json                                    |
 | errors.DeleteMediasMediaHashedIdNotFoundError       | 404                                                 | application/json                                    |
 | errors.DeleteMediasMediaHashedIdInternalServerError | 500                                                 | application/json                                    |
 | errors.WistiaDefaultError                           | 4XX, 5XX                                            | \*/\*                                               |
@@ -519,12 +514,10 @@ run();
 
 This endpoint copies a media and its assets to a destination folder (defaults to source media).
 
-<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
-<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -596,6 +589,7 @@ run();
 | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
 | errors.PostMediasMediaHashedIdCopyBadRequestError     | 400                                                   | application/json                                      |
 | errors.PostMediasMediaHashedIdCopyUnauthorizedError   | 401                                                   | application/json                                      |
+| errors.PostMediasMediaHashedIdCopyForbiddenError      | 403                                                   | application/json                                      |
 | errors.PostMediasMediaHashedIdCopyNotFoundError       | 404                                                   | application/json                                      |
 | errors.MethodNotAllowedError                          | 405                                                   | application/json                                      |
 | errors.PostMediasMediaHashedIdCopyInternalServerError | 500                                                   | application/json                                      |
@@ -605,12 +599,10 @@ run();
 
 Swap one media with another media. This operation queues a background job to replace the original media with the replacement media while preserving the original media's hashed ID and URLs.
 
-<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
-<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -682,6 +674,7 @@ run();
 | ---------------------------------------------------- | ---------------------------------------------------- | ---------------------------------------------------- |
 | errors.PutMediasMediaHashedIdSwapBadRequestError     | 400                                                  | application/json                                     |
 | errors.PutMediasMediaHashedIdSwapUnauthorizedError   | 401                                                  | application/json                                     |
+| errors.PutMediasMediaHashedIdSwapForbiddenError      | 403                                                  | application/json                                     |
 | errors.PutMediasMediaHashedIdSwapNotFoundError       | 404                                                  | application/json                                     |
 | errors.PutMediasMediaHashedIdSwapInternalServerError | 500                                                  | application/json                                     |
 | errors.WistiaDefaultError                            | 4XX, 5XX                                             | \*/\*                                                |
@@ -690,12 +683,10 @@ run();
 
 Aggregated tracking statistics for a video embedded on your site.
 
-<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read all folder and media data
 ```
-<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -767,6 +758,7 @@ run();
 | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
 | errors.GetMediasMediaHashedIdStatsBadRequestError     | 400                                                   | application/json                                      |
 | errors.GetMediasMediaHashedIdStatsUnauthorizedError   | 401                                                   | application/json                                      |
+| errors.GetMediasMediaHashedIdStatsForbiddenError      | 403                                                   | application/json                                      |
 | errors.GetMediasMediaHashedIdStatsNotFoundError       | 404                                                   | application/json                                      |
 | errors.GetMediasMediaHashedIdStatsInternalServerError | 500                                                   | application/json                                      |
 | errors.WistiaDefaultError                             | 4XX, 5XX                                              | \*/\*                                                 |
@@ -775,12 +767,10 @@ run();
 
 Translates the transcript for a media.
 
-<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
-<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -852,14 +842,23 @@ run();
 | --------------------------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------- |
 | errors.PostMediasMediaHashedIdTranslateBadRequestError          | 400                                                             | application/json                                                |
 | errors.PostMediasMediaHashedIdTranslateUnauthorizedError        | 401                                                             | application/json                                                |
+| errors.PostMediasMediaHashedIdTranslateForbiddenError           | 403                                                             | application/json                                                |
 | errors.PostMediasMediaHashedIdTranslateNotFoundError            | 404                                                             | application/json                                                |
 | errors.PostMediasMediaHashedIdTranslateUnprocessableEntityError | 422                                                             | application/json                                                |
 | errors.PostMediasMediaHashedIdTranslateInternalServerError      | 500                                                             | application/json                                                |
 | errors.WistiaDefaultError                                       | 4XX, 5XX                                                        | \*/\*                                                           |
 
-## archive
+## postMediasImportUrl
 
-This method accepts a list of up to 100 medias to archive per request. It processes requests asynchronously and will return a background_job_status object rather than the typical Media response object. Note that webinar medias and Soapbox videos imported to Wistia before September 1, 2023 cannot be archived.
+This endpoint imports a media file from a given URL. The import is processed
+asynchronously and will return a background_job_status object rather than the
+typical Media response object. You can poll the background job status endpoint
+to check on the progress of the import.
+
+If no folder_id is provided, a new folder called "Untitled Folder" will be
+created and the imported media will be placed there.
+
+Note: imports from certain domains (e.g. vimeo.com, wistia.com) are not permitted.
 
 <!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
@@ -867,6 +866,91 @@ This method accepts a list of up to 100 medias to archive per request. It proces
 Read, update & delete anything
 ```
 <!--- /HIDE-MCP -->
+
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="post_/medias/import_url" method="post" path="/medias/import_url" -->
+```typescript
+import { Wistia } from "@wistia/wistia-api-client";
+
+const wistia = new Wistia({
+  bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
+});
+
+async function run() {
+  const result = await wistia.media.postMediasImportUrl({
+    url: "https://example.com/video.mp4",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { WistiaCore } from "@wistia/wistia-api-client/core.js";
+import { mediaPostMediasImportUrl } from "@wistia/wistia-api-client/funcs/mediaPostMediasImportUrl.js";
+
+// Use `WistiaCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const wistia = new WistiaCore({
+  bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
+});
+
+async function run() {
+  const res = await mediaPostMediasImportUrl(wistia, {
+    url: "https://example.com/video.mp4",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("mediaPostMediasImportUrl failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.PostMediasImportUrlRequest](../../models/operations/postmediasimporturlrequest.md)                                                                                 | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[operations.PostMediasImportUrlResponse](../../models/operations/postmediasimporturlresponse.md)\>**
+
+### Errors
+
+| Error Type                                         | Status Code                                        | Content Type                                       |
+| -------------------------------------------------- | -------------------------------------------------- | -------------------------------------------------- |
+| errors.PostMediasImportUrlBadRequestError          | 400                                                | application/json                                   |
+| errors.PostMediasImportUrlUnauthorizedError        | 401                                                | application/json                                   |
+| errors.PostMediasImportUrlForbiddenError           | 403                                                | application/json                                   |
+| errors.PostMediasImportUrlNotFoundError            | 404                                                | application/json                                   |
+| errors.PostMediasImportUrlUnprocessableEntityError | 422                                                | application/json                                   |
+| errors.PostMediasImportUrlInternalServerError      | 500                                                | application/json                                   |
+| errors.WistiaDefaultError                          | 4XX, 5XX                                           | \*/\*                                              |
+
+## archive
+
+This method accepts a list of up to 100 medias to archive per request. It processes requests asynchronously and will return a background_job_status object rather than the typical Media response object. Note that webinar medias and Soapbox videos imported to Wistia before September 1, 2023 cannot be archived.
+
+## Requires api token with one of the following permissions
+```
+Read, update & delete anything
+```
 
 
 ### Example Usage
@@ -953,12 +1037,10 @@ must belong to the specified folder.
 
 Returns a Background Job as the move is async.
 
-<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
-<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -1038,6 +1120,7 @@ run();
 | --------------------------------------- | --------------------------------------- | --------------------------------------- |
 | errors.PutMediasMoveBadRequestError     | 400                                     | application/json                        |
 | errors.PutMediasMoveUnauthorizedError   | 401                                     | application/json                        |
+| errors.PutMediasMoveForbiddenError      | 403                                     | application/json                        |
 | errors.PutMediasMoveNotFoundError       | 404                                     | application/json                        |
 | errors.PutMediasMoveInternalServerError | 500                                     | application/json                        |
 | errors.WistiaDefaultError               | 4XX, 5XX                                | \*/\*                                   |
@@ -1046,12 +1129,10 @@ run();
 
 Restores archived medias to your account. This method accepts a list of up to 100 medias to restore per request. It processes requests asynchronously and will return a background_job_status object rather than the typical Media response object. Your account must have access to the Archiving feature to use this method.
 
-<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
-<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -1136,12 +1217,10 @@ This method accepts a list of medias to copy to a destination folder. It process
 
 Each media will be duplicated and the copy will be placed in the specified destination folder. The original media files will not be affected.
 
-<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
-<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -1218,6 +1297,7 @@ run();
 | Error Type                                   | Status Code                                  | Content Type                                 |
 | -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
 | errors.PutMediasCopyUnauthorizedError        | 401                                          | application/json                             |
+| errors.PutMediasCopyForbiddenError           | 403                                          | application/json                             |
 | errors.PutMediasCopyUnprocessableEntityError | 422                                          | application/json                             |
 | errors.PutMediasCopyInternalServerError      | 500                                          | application/json                             |
 | errors.WistiaDefaultError                    | 4XX, 5XX                                     | \*/\*                                        |

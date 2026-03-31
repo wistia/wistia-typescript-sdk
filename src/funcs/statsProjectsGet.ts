@@ -46,6 +46,7 @@ export function statsProjectsGet(
   Result<
     operations.GetStatsProjectsProjectIdResponse,
     | errors.GetStatsProjectsProjectIdUnauthorizedError
+    | errors.GetStatsProjectsProjectIdForbiddenError
     | errors.GetStatsProjectsProjectIdInternalServerError
     | WistiaError
     | ResponseValidationError
@@ -73,6 +74,7 @@ async function $do(
     Result<
       operations.GetStatsProjectsProjectIdResponse,
       | errors.GetStatsProjectsProjectIdUnauthorizedError
+      | errors.GetStatsProjectsProjectIdForbiddenError
       | errors.GetStatsProjectsProjectIdInternalServerError
       | WistiaError
       | ResponseValidationError
@@ -104,7 +106,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/stats/projects/{projectId}")(pathParams);
 
   const headers = new Headers(compactMap({
@@ -147,7 +148,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["401", "404", "4XX", "500", "5XX"],
+    errorCodes: ["401", "403", "404", "4XX", "500", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -163,6 +164,7 @@ async function $do(
   const [result] = await M.match<
     operations.GetStatsProjectsProjectIdResponse,
     | errors.GetStatsProjectsProjectIdUnauthorizedError
+    | errors.GetStatsProjectsProjectIdForbiddenError
     | errors.GetStatsProjectsProjectIdInternalServerError
     | WistiaError
     | ResponseValidationError
@@ -177,6 +179,10 @@ async function $do(
     M.jsonErr(
       401,
       errors.GetStatsProjectsProjectIdUnauthorizedError$inboundSchema,
+    ),
+    M.jsonErr(
+      403,
+      errors.GetStatsProjectsProjectIdForbiddenError$inboundSchema,
     ),
     M.jsonErr(
       500,
