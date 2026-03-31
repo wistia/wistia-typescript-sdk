@@ -17,12 +17,10 @@ export class Localizations extends ClientSDK {
    * @remarks
    * Lists all the localizations for a media.
    *
-   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read all data
    * ```
-   * <!--- /HIDE-MCP -->
    */
   async list(
     request: operations.GetMediasMediaHashedIdLocalizationsRequest,
@@ -41,12 +39,10 @@ export class Localizations extends ClientSDK {
    * @remarks
    * Creates a new localization.
    *
-   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read, update & delete anything
    * ```
-   * <!--- /HIDE-MCP -->
    */
   async create(
     request: operations.PostMediasMediaHashedIdLocalizationsRequest,
@@ -65,12 +61,10 @@ export class Localizations extends ClientSDK {
    * @remarks
    * Obtain detailed information about a localization.
    *
-   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read all data
    * ```
-   * <!--- /HIDE-MCP -->
    */
   async get(
     request:
@@ -92,12 +86,10 @@ export class Localizations extends ClientSDK {
    * @remarks
    * Deletes a localization.
    *
-   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read, update & delete anything
    * ```
-   * <!--- /HIDE-MCP -->
    */
   async delete(
     request:

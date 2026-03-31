@@ -32,12 +32,10 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Lists all the localizations for a media.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read all data
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function localizationsList(
   client: WistiaCore,
@@ -108,7 +106,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/medias/{mediaHashedId}/localizations")(pathParams);
 
   const query = encodeFormQuery({

@@ -112,7 +112,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/webinars/{webinarId}/registrations")(pathParams);
 
   const headers = new Headers(compactMap({

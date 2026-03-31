@@ -29,7 +29,7 @@ import { Result } from "../types/fp.js";
  * Update Channel
  *
  * @remarks
- * Update endpoint for a channel.
+ * Updates a channel.
  */
 export function channelsPutChannelsChannelHashedId(
   client: WistiaCore,
@@ -39,6 +39,7 @@ export function channelsPutChannelsChannelHashedId(
   Result<
     operations.PutChannelsChannelHashedIdResponse,
     | errors.PutChannelsChannelHashedIdUnauthorizedError
+    | errors.PutChannelsChannelHashedIdForbiddenError
     | errors.PutChannelsChannelHashedIdInternalServerError
     | WistiaError
     | ResponseValidationError
@@ -66,6 +67,7 @@ async function $do(
     Result<
       operations.PutChannelsChannelHashedIdResponse,
       | errors.PutChannelsChannelHashedIdUnauthorizedError
+      | errors.PutChannelsChannelHashedIdForbiddenError
       | errors.PutChannelsChannelHashedIdInternalServerError
       | WistiaError
       | ResponseValidationError
@@ -97,7 +99,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/channels/{channelHashedId}")(pathParams);
 
   const headers = new Headers(compactMap({
@@ -141,7 +142,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["401", "4XX", "500", "5XX"],
+    errorCodes: ["401", "403", "4XX", "500", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -157,6 +158,7 @@ async function $do(
   const [result] = await M.match<
     operations.PutChannelsChannelHashedIdResponse,
     | errors.PutChannelsChannelHashedIdUnauthorizedError
+    | errors.PutChannelsChannelHashedIdForbiddenError
     | errors.PutChannelsChannelHashedIdInternalServerError
     | WistiaError
     | ResponseValidationError
@@ -171,6 +173,10 @@ async function $do(
     M.jsonErr(
       401,
       errors.PutChannelsChannelHashedIdUnauthorizedError$inboundSchema,
+    ),
+    M.jsonErr(
+      403,
+      errors.PutChannelsChannelHashedIdForbiddenError$inboundSchema,
     ),
     M.jsonErr(
       500,

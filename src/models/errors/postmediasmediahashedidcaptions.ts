@@ -39,6 +39,37 @@ export class PostMediasMediaHashedIdCaptionsInternalServerError
 }
 
 /**
+ * Forbidden, token is valid but account does not have access to feature
+ */
+export type PostMediasMediaHashedIdCaptionsForbiddenErrorData = {
+  error?: string | undefined;
+};
+
+/**
+ * Forbidden, token is valid but account does not have access to feature
+ */
+export class PostMediasMediaHashedIdCaptionsForbiddenError extends WistiaError {
+  error?: string | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: PostMediasMediaHashedIdCaptionsForbiddenErrorData;
+
+  constructor(
+    err: PostMediasMediaHashedIdCaptionsForbiddenErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+
+    this.name = "PostMediasMediaHashedIdCaptionsForbiddenError";
+  }
+}
+
+/**
  * Unauthorized, invalid or missing token
  */
 export type PostMediasMediaHashedIdCaptionsUnauthorizedErrorData = {
@@ -85,6 +116,26 @@ export const PostMediasMediaHashedIdCaptionsInternalServerError$inboundSchema:
   })
     .transform((v) => {
       return new PostMediasMediaHashedIdCaptionsInternalServerError(v, {
+        request: v.request$,
+        response: v.response$,
+        body: v.body$,
+      });
+    });
+
+/** @internal */
+export const PostMediasMediaHashedIdCaptionsForbiddenError$inboundSchema:
+  z.ZodType<
+    PostMediasMediaHashedIdCaptionsForbiddenError,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    error: z.string().optional(),
+    request$: z.instanceof(Request),
+    response$: z.instanceof(Response),
+    body$: z.string(),
+  })
+    .transform((v) => {
+      return new PostMediasMediaHashedIdCaptionsForbiddenError(v, {
         request: v.request$,
         response: v.response$,
         body: v.body$,

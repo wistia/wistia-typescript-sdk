@@ -31,12 +31,10 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Returns the webinar associated with the hashed id.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read all data
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function webinarsGetWebinarsId(
   client: WistiaCore,
@@ -105,7 +103,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/webinars/{id}")(pathParams);
 
   const headers = new Headers(compactMap({

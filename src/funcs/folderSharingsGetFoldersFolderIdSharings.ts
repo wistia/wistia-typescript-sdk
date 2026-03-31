@@ -37,12 +37,10 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Lists the sharings of contacts and contact groups on a folder.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read all data
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function folderSharingsGetFoldersFolderIdSharings(
   client: WistiaCore,
@@ -110,7 +108,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/folders/{folderId}/sharings")(pathParams);
 
   const query = queryJoin(

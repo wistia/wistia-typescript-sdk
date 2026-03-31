@@ -31,12 +31,10 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Creates a new webinar.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read, update & delete anything
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function webinarsPostWebinars(
   client: WistiaCore,

@@ -32,12 +32,10 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Deletes all explicit customizations for a video, making it act as if it has never been customized.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read, update & delete anything
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function customizationsDelete(
   client: WistiaCore,
@@ -109,7 +107,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/medias/{mediaId}/customizations")(pathParams);
 
   const headers = new Headers(compactMap({

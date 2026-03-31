@@ -31,12 +31,10 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Deletes an allowed domain from the account.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read, update & delete anything
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function allowedDomainsDelete(
   client: WistiaCore,
@@ -46,6 +44,7 @@ export function allowedDomainsDelete(
   Result<
     operations.DeleteAllowedDomainsDomainResponse,
     | errors.DeleteAllowedDomainsDomainUnauthorizedError
+    | errors.DeleteAllowedDomainsDomainForbiddenError
     | errors.DeleteAllowedDomainsDomainNotFoundError
     | errors.DeleteAllowedDomainsDomainInternalServerError
     | WistiaError
@@ -74,6 +73,7 @@ async function $do(
     Result<
       operations.DeleteAllowedDomainsDomainResponse,
       | errors.DeleteAllowedDomainsDomainUnauthorizedError
+      | errors.DeleteAllowedDomainsDomainForbiddenError
       | errors.DeleteAllowedDomainsDomainNotFoundError
       | errors.DeleteAllowedDomainsDomainInternalServerError
       | WistiaError
@@ -106,7 +106,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/allowed_domains/{domain}")(pathParams);
 
   const headers = new Headers(compactMap({
@@ -149,7 +148,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["401", "404", "4XX", "500", "5XX"],
+    errorCodes: ["401", "403", "404", "4XX", "500", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -165,6 +164,7 @@ async function $do(
   const [result] = await M.match<
     operations.DeleteAllowedDomainsDomainResponse,
     | errors.DeleteAllowedDomainsDomainUnauthorizedError
+    | errors.DeleteAllowedDomainsDomainForbiddenError
     | errors.DeleteAllowedDomainsDomainNotFoundError
     | errors.DeleteAllowedDomainsDomainInternalServerError
     | WistiaError
@@ -180,6 +180,10 @@ async function $do(
     M.jsonErr(
       401,
       errors.DeleteAllowedDomainsDomainUnauthorizedError$inboundSchema,
+    ),
+    M.jsonErr(
+      403,
+      errors.DeleteAllowedDomainsDomainForbiddenError$inboundSchema,
     ),
     M.jsonErr(
       404,

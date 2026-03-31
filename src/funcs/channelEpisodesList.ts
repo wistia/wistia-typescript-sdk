@@ -37,12 +37,10 @@ import { Result } from "../types/fp.js";
  * Lists Channel Episodes belonging to an account. This endpoint can also be used to
  * do a batch fetch based off of the hashed id.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read all folder and media data
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function channelEpisodesList(
   client: WistiaCore,
@@ -115,6 +113,7 @@ async function $do(
       "cursor": payload?.cursor,
     }),
     encodeFormQuery({
+      "channel_id": payload?.channel_id,
       "hashed_ids[]": payload?.["hashed_ids[]"],
       "media_id[]": payload?.["media_id[]"],
       "page": payload?.page,

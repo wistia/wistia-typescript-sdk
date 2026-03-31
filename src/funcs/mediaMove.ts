@@ -38,12 +38,10 @@ import { Result } from "../types/fp.js";
  *
  * Returns a Background Job as the move is async.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read, update & delete anything
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function mediaMove(
   client: WistiaCore,
@@ -54,6 +52,7 @@ export function mediaMove(
     operations.PutMediasMoveResponse,
     | errors.PutMediasMoveBadRequestError
     | errors.PutMediasMoveUnauthorizedError
+    | errors.PutMediasMoveForbiddenError
     | errors.PutMediasMoveNotFoundError
     | errors.PutMediasMoveInternalServerError
     | WistiaError
@@ -83,6 +82,7 @@ async function $do(
       operations.PutMediasMoveResponse,
       | errors.PutMediasMoveBadRequestError
       | errors.PutMediasMoveUnauthorizedError
+      | errors.PutMediasMoveForbiddenError
       | errors.PutMediasMoveNotFoundError
       | errors.PutMediasMoveInternalServerError
       | WistiaError
@@ -151,7 +151,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["400", "401", "404", "4XX", "500", "5XX"],
+    errorCodes: ["400", "401", "403", "404", "4XX", "500", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -168,6 +168,7 @@ async function $do(
     operations.PutMediasMoveResponse,
     | errors.PutMediasMoveBadRequestError
     | errors.PutMediasMoveUnauthorizedError
+    | errors.PutMediasMoveForbiddenError
     | errors.PutMediasMoveNotFoundError
     | errors.PutMediasMoveInternalServerError
     | WistiaError
@@ -183,6 +184,7 @@ async function $do(
     M.json(207, operations.PutMediasMoveResponse$inboundSchema),
     M.jsonErr(400, errors.PutMediasMoveBadRequestError$inboundSchema),
     M.jsonErr(401, errors.PutMediasMoveUnauthorizedError$inboundSchema),
+    M.jsonErr(403, errors.PutMediasMoveForbiddenError$inboundSchema),
     M.jsonErr(404, errors.PutMediasMoveNotFoundError$inboundSchema),
     M.jsonErr(500, errors.PutMediasMoveInternalServerError$inboundSchema),
     M.fail("4XX"),

@@ -13,12 +13,10 @@
 
 Fetches explicitly defined customizations for the video.
 
-<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read all folder and media data
 ```
-<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -97,12 +95,10 @@ run();
 
 Set customizations for a video. Replaces the customizations explicitly set for this video.
 
-<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
-<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -195,6 +191,7 @@ run();
 | Error Type                                                | Status Code                                               | Content Type                                              |
 | --------------------------------------------------------- | --------------------------------------------------------- | --------------------------------------------------------- |
 | errors.PostMediasMediaIdCustomizationsUnauthorizedError   | 401                                                       | application/json                                          |
+| errors.PostMediasMediaIdCustomizationsForbiddenError      | 403                                                       | application/json                                          |
 | errors.PostMediasMediaIdCustomizationsInternalServerError | 500                                                       | application/json                                          |
 | errors.WistiaDefaultError                                 | 4XX, 5XX                                                  | \*/\*                                                     |
 
@@ -202,12 +199,10 @@ run();
 
 Allows for partial updates on a video’s customizations. If a value is null, then that key will be deleted from the saved customizations. If it is not null, that value will be set.
 
-<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
-<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -308,12 +303,10 @@ run();
 
 Deletes all explicit customizations for a video, making it act as if it has never been customized.
 
-<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
-<!--- /HIDE-MCP -->
 
 
 ### Example Usage

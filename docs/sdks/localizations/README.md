@@ -13,12 +13,10 @@
 
 Lists all the localizations for a media.
 
-<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read all data
 ```
-<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -97,12 +95,10 @@ run();
 
 Creates a new localization.
 
-<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
-<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -174,6 +170,7 @@ run();
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
 | errors.PostMediasMediaHashedIdLocalizationsBadRequestError          | 400                                                                 | application/json                                                    |
 | errors.PostMediasMediaHashedIdLocalizationsUnauthorizedError        | 401                                                                 | application/json                                                    |
+| errors.PostMediasMediaHashedIdLocalizationsForbiddenError           | 403                                                                 | application/json                                                    |
 | errors.PostMediasMediaHashedIdLocalizationsNotFoundError            | 404                                                                 | application/json                                                    |
 | errors.PostMediasMediaHashedIdLocalizationsUnprocessableEntityError | 422                                                                 | application/json                                                    |
 | errors.PostMediasMediaHashedIdLocalizationsInternalServerError      | 500                                                                 | application/json                                                    |
@@ -183,12 +180,10 @@ run();
 
 Obtain detailed information about a localization.
 
-<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read all data
 ```
-<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -269,12 +264,10 @@ run();
 
 Deletes a localization.
 
-<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
-<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -347,6 +340,7 @@ run();
 | Error Type                                                                           | Status Code                                                                          | Content Type                                                                         |
 | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
 | errors.DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdUnauthorizedError   | 401                                                                                  | application/json                                                                     |
+| errors.DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdForbiddenError      | 403                                                                                  | application/json                                                                     |
 | errors.DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdNotFoundError       | 404                                                                                  | application/json                                                                     |
 | errors.DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdInternalServerError | 500                                                                                  | application/json                                                                     |
 | errors.WistiaDefaultError                                                            | 4XX, 5XX                                                                             | \*/\*                                                                                |

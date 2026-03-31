@@ -19,12 +19,10 @@ export class Webinars extends ClientSDK {
    * Lists webinars belonging to the account. This endpoint can also be used to
    * do a batch fetch based off of the hashed id.
    *
-   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read all data
    * ```
-   * <!--- /HIDE-MCP -->
    */
   async getWebinars(
     request?: operations.GetWebinarsRequest | undefined,
@@ -43,12 +41,10 @@ export class Webinars extends ClientSDK {
    * @remarks
    * Creates a new webinar.
    *
-   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read, update & delete anything
    * ```
-   * <!--- /HIDE-MCP -->
    */
   async postWebinars(
     request: operations.PostWebinarsRequest,
@@ -67,12 +63,10 @@ export class Webinars extends ClientSDK {
    * @remarks
    * Returns the webinar associated with the hashed id.
    *
-   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read all data
    * ```
-   * <!--- /HIDE-MCP -->
    */
   async getWebinarsId(
     request: operations.GetWebinarsIdRequest,
@@ -91,12 +85,10 @@ export class Webinars extends ClientSDK {
    * @remarks
    * Updates an existing webinar.
    *
-   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read, update & delete anything
    * ```
-   * <!--- /HIDE-MCP -->
    */
   async putWebinarsId(
     request: operations.PutWebinarsIdRequest,
@@ -113,14 +105,12 @@ export class Webinars extends ClientSDK {
    * Delete Webinar
    *
    * @remarks
-   * Deletes an existing webinar
+   * Deletes an existing webinar.
    *
-   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read, update & delete anything
    * ```
-   * <!--- /HIDE-MCP -->
    */
   async deleteWebinarsId(
     request: operations.DeleteWebinarsIdRequest,

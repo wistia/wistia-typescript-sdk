@@ -31,12 +31,10 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Creates a new folder (previously called project). If the folder is created successfully the Location HTTP header will point to the new folder.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read, update & delete anything
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function foldersPostFolders(
   client: WistiaCore,

@@ -80,6 +80,43 @@ export class DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdNotFoundE
 }
 
 /**
+ * Forbidden, token is valid but account does not have access to feature
+ */
+export type DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdForbiddenErrorData =
+  {
+    error?: string | undefined;
+  };
+
+/**
+ * Forbidden, token is valid but account does not have access to feature
+ */
+export class DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdForbiddenError
+  extends WistiaError
+{
+  error?: string | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$:
+    DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdForbiddenErrorData;
+
+  constructor(
+    err:
+      DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdForbiddenErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+
+    this.name =
+      "DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdForbiddenError";
+  }
+}
+
+/**
  * Unauthorized, invalid or missing token
  */
 export type DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdUnauthorizedErrorData =
@@ -149,6 +186,25 @@ export const DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdNotFoundE
   })
     .transform((v) => {
       return new DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdNotFoundError(
+        v,
+        { request: v.request$, response: v.response$, body: v.body$ },
+      );
+    });
+
+/** @internal */
+export const DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdForbiddenError$inboundSchema:
+  z.ZodType<
+    DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdForbiddenError,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    error: z.string().optional(),
+    request$: z.instanceof(Request),
+    response$: z.instanceof(Response),
+    body$: z.string(),
+  })
+    .transform((v) => {
+      return new DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdForbiddenError(
         v,
         { request: v.request$, response: v.response$, body: v.body$ },
       );

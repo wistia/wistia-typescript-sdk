@@ -33,12 +33,10 @@ import { Result } from "../types/fp.js";
  *
  * Each media will be duplicated and the copy will be placed in the specified destination folder. The original media files will not be affected.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read, update & delete anything
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function mediaPutMediasCopy(
   client: WistiaCore,
@@ -48,6 +46,7 @@ export function mediaPutMediasCopy(
   Result<
     operations.PutMediasCopyResponse,
     | errors.PutMediasCopyUnauthorizedError
+    | errors.PutMediasCopyForbiddenError
     | errors.PutMediasCopyUnprocessableEntityError
     | errors.PutMediasCopyInternalServerError
     | WistiaError
@@ -76,6 +75,7 @@ async function $do(
     Result<
       operations.PutMediasCopyResponse,
       | errors.PutMediasCopyUnauthorizedError
+      | errors.PutMediasCopyForbiddenError
       | errors.PutMediasCopyUnprocessableEntityError
       | errors.PutMediasCopyInternalServerError
       | WistiaError
@@ -144,7 +144,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["401", "422", "4XX", "500", "5XX"],
+    errorCodes: ["401", "403", "422", "4XX", "500", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -160,6 +160,7 @@ async function $do(
   const [result] = await M.match<
     operations.PutMediasCopyResponse,
     | errors.PutMediasCopyUnauthorizedError
+    | errors.PutMediasCopyForbiddenError
     | errors.PutMediasCopyUnprocessableEntityError
     | errors.PutMediasCopyInternalServerError
     | WistiaError
@@ -173,6 +174,7 @@ async function $do(
   >(
     M.json(200, operations.PutMediasCopyResponse$inboundSchema),
     M.jsonErr(401, errors.PutMediasCopyUnauthorizedError$inboundSchema),
+    M.jsonErr(403, errors.PutMediasCopyForbiddenError$inboundSchema),
     M.jsonErr(422, errors.PutMediasCopyUnprocessableEntityError$inboundSchema),
     M.jsonErr(500, errors.PutMediasCopyInternalServerError$inboundSchema),
     M.fail("4XX"),

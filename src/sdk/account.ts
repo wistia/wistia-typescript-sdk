@@ -3,6 +3,7 @@
  */
 
 import { accountGet } from "../funcs/accountGet.js";
+import { accountGetTokenDetails } from "../funcs/accountGetTokenDetails.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
@@ -14,17 +15,31 @@ export class Account extends ClientSDK {
    * @remarks
    * Retrieves a summary of the Wistia account including account name, description, URL and counts of records.
    *
-   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * (any scope allowed)
    * ```
-   * <!--- /HIDE-MCP -->
    */
   async get(
     options?: RequestOptions,
   ): Promise<operations.GetAccountDetailsResponse> {
     return unwrapAsync(accountGet(
+      this,
+      options,
+    ));
+  }
+
+  /**
+   * Get Current Token
+   *
+   * @remarks
+   * Retrieves a summary of the token used to make the API request. This endpoint can primarily be used to
+   * debug permission issues with the API.
+   */
+  async getTokenDetails(
+    options?: RequestOptions,
+  ): Promise<operations.GetTokenDetailsResponse> {
+    return unwrapAsync(accountGetTokenDetails(
       this,
       options,
     ));

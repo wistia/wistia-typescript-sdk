@@ -30,14 +30,12 @@ import { Result } from "../types/fp.js";
  * List Captions by Media
  *
  * @remarks
- * Lists captions belonging to a specific video.
+ * Lists captions belonging to a specific media.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read all folder and media data
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function captionsList(
   client: WistiaCore,
@@ -107,7 +105,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/medias/{mediaHashedId}/captions")(pathParams);
 
   const headers = new Headers(compactMap({

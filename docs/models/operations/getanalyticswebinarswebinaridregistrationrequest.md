@@ -1,0 +1,22 @@
+# GetAnalyticsWebinarsWebinarIdRegistrationRequest
+
+## Example Usage
+
+```typescript
+import { GetAnalyticsWebinarsWebinarIdRegistrationRequest } from "@wistia/wistia-api-client/models/operations";
+
+let value: GetAnalyticsWebinarsWebinarIdRegistrationRequest = {
+  webinarId: "<id>",
+  granularity: "monthly",
+};
+```
+
+## Fields
+
+| Field                                                                                                                                              | Type                                                                                                                                               | Required                                                                                                                                           | Description                                                                                                                                        |
+| -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `webinarId`                                                                                                                                        | *string*                                                                                                                                           | :heavy_check_mark:                                                                                                                                 | The hashed ID of the webinar.                                                                                                                      |
+| `granularity`                                                                                                                                      | [operations.GetAnalyticsWebinarsWebinarIdRegistrationGranularity](../../models/operations/getanalyticswebinarswebinaridregistrationgranularity.md) | :heavy_check_mark:                                                                                                                                 | The time granularity for the timeseries data.                                                                                                      |
+| `includePostEvent`                                                                                                                                 | *boolean*                                                                                                                                          | :heavy_minus_sign:                                                                                                                                 | Whether to include on-demand viewing data after the live event ended.                                                                              |
+| `postEventStartDate`                                                                                                                               | [RFCDate](../../types/rfcdate.md)                                                                                                                  | :heavy_minus_sign:                                                                                                                                 | Start date for the post-event analytics period in ISO 8601 format (YYYY-MM-DD). Only used when include_post_event is true.                         |
+| `postEventEndDate`                                                                                                                                 | [RFCDate](../../types/rfcdate.md)                                                                                                                  | :heavy_minus_sign:                                                                                                                                 | End date for the post-event analytics period in ISO 8601 format (YYYY-MM-DD). Only used when include_post_event is true.                           |

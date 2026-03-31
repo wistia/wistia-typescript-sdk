@@ -5,17 +5,16 @@
 ### Available Operations
 
 * [get](#get) - Get Current Account
+* [getTokenDetails](#gettokendetails) - Get Current Token
 
 ## get
 
 Retrieves a summary of the Wistia account including account name, description, URL and counts of records.
 
-<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 (any scope allowed)
 ```
-<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -83,3 +82,75 @@ run();
 | errors.GetAccountDetailsUnauthorizedError   | 401                                         | application/json                            |
 | errors.GetAccountDetailsInternalServerError | 500                                         | application/json                            |
 | errors.WistiaDefaultError                   | 4XX, 5XX                                    | \*/\*                                       |
+
+## getTokenDetails
+
+Retrieves a summary of the token used to make the API request. This endpoint can primarily be used to
+debug permission issues with the API.
+
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="getTokenDetails" method="get" path="/token" -->
+```typescript
+import { Wistia } from "@wistia/wistia-api-client";
+
+const wistia = new Wistia({
+  bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
+});
+
+async function run() {
+  const result = await wistia.account.getTokenDetails();
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { WistiaCore } from "@wistia/wistia-api-client/core.js";
+import { accountGetTokenDetails } from "@wistia/wistia-api-client/funcs/accountGetTokenDetails.js";
+
+// Use `WistiaCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const wistia = new WistiaCore({
+  bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
+});
+
+async function run() {
+  const res = await accountGetTokenDetails(wistia);
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("accountGetTokenDetails failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[operations.GetTokenDetailsResponse](../../models/operations/gettokendetailsresponse.md)\>**
+
+### Errors
+
+| Error Type                                | Status Code                               | Content Type                              |
+| ----------------------------------------- | ----------------------------------------- | ----------------------------------------- |
+| errors.GetTokenDetailsUnauthorizedError   | 401                                       | application/json                          |
+| errors.GetTokenDetailsInternalServerError | 500                                       | application/json                          |
+| errors.WistiaDefaultError                 | 4XX, 5XX                                  | \*/\*                                     |

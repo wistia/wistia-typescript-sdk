@@ -31,12 +31,10 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Retrieves detailed information about a specific subfolder, including all media contained within it.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read all folder and media data
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function subfoldersGetFoldersFolderIdSubfoldersSubfolderId(
   client: WistiaCore,
@@ -111,7 +109,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/folders/{folderId}/subfolders/{subfolderId}")(
     pathParams,
   );

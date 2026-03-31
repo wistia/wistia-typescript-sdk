@@ -31,12 +31,10 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Deletes a sharing on a folder.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read, update & delete anything
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function folderSharingsDeleteFoldersFolderIdSharingsSharingId(
   client: WistiaCore,
@@ -111,7 +109,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/folders/{folderId}/sharings/{sharingId}")(
     pathParams,
   );

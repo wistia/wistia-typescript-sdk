@@ -35,14 +35,12 @@ import { Result } from "../types/fp.js";
  *
  * @remarks
  * Lists captions belonging to the account. This endpoint can also narrow down results
- * to those belonging to a specific video.
+ * to those belonging to a specific media.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read all folder and media data
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function captionsGetCaptions(
   client: WistiaCore,

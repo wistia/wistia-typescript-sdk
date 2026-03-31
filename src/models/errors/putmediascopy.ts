@@ -68,6 +68,37 @@ export class PutMediasCopyUnprocessableEntityError extends WistiaError {
 }
 
 /**
+ * Forbidden, token is valid but account does not have access to feature
+ */
+export type PutMediasCopyForbiddenErrorData = {
+  error?: string | undefined;
+};
+
+/**
+ * Forbidden, token is valid but account does not have access to feature
+ */
+export class PutMediasCopyForbiddenError extends WistiaError {
+  error?: string | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: PutMediasCopyForbiddenErrorData;
+
+  constructor(
+    err: PutMediasCopyForbiddenErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+
+    this.name = "PutMediasCopyForbiddenError";
+  }
+}
+
+/**
  * Unauthorized, invalid or missing token
  */
 export type PutMediasCopyUnauthorizedErrorData = {
@@ -130,6 +161,25 @@ export const PutMediasCopyUnprocessableEntityError$inboundSchema: z.ZodType<
 })
   .transform((v) => {
     return new PutMediasCopyUnprocessableEntityError(v, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
+  });
+
+/** @internal */
+export const PutMediasCopyForbiddenError$inboundSchema: z.ZodType<
+  PutMediasCopyForbiddenError,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  error: z.string().optional(),
+  request$: z.instanceof(Request),
+  response$: z.instanceof(Response),
+  body$: z.string(),
+})
+  .transform((v) => {
+    return new PutMediasCopyForbiddenError(v, {
       request: v.request$,
       response: v.response$,
       body: v.body$,

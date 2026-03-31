@@ -31,12 +31,10 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Allows for partial updates on a video’s customizations. If a value is null, then that key will be deleted from the saved customizations. If it is not null, that value will be set.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read, update & delete anything
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function customizationsUpdate(
   client: WistiaCore,
@@ -108,7 +106,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/medias/{mediaId}/customizations")(pathParams);
 
   const headers = new Headers(compactMap({

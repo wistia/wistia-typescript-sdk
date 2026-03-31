@@ -29,14 +29,12 @@ import { Result } from "../types/fp.js";
  * Purchase Captions
  *
  * @remarks
- * This method is for purchasing English captions for a video. The request will charge the credit card on the account if successful. A saved credit card is required to use this endpoint.
+ * This method is for purchasing English captions for a media. The request will charge the credit card on the account if successful. A saved credit card is required to use this endpoint.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read, update & delete anything
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function captionsPurchase(
   client: WistiaCore,
@@ -107,7 +105,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/medias/{mediaHashedId}/captions/purchase")(
     pathParams,
   );

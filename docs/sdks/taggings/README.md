@@ -12,12 +12,10 @@ This method accepts a list of medias to tag. It processes requests asynchronousl
 
 The tags will be added to the existing tags on each media file, not replaced.
 
-<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
-<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -102,6 +100,7 @@ run();
 | Error Type                                            | Status Code                                           | Content Type                                          |
 | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
 | errors.PostTaggingsBulkCreateUnauthorizedError        | 401                                                   | application/json                                      |
+| errors.PostTaggingsBulkCreateForbiddenError           | 403                                                   | application/json                                      |
 | errors.PostTaggingsBulkCreateUnprocessableEntityError | 422                                                   | application/json                                      |
 | errors.PostTaggingsBulkCreateInternalServerError      | 500                                                   | application/json                                      |
 | errors.WistiaDefaultError                             | 4XX, 5XX                                              | \*/\*                                                 |

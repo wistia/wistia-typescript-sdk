@@ -31,12 +31,10 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Retrieves a single folder (previously called project).
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read all folder and media data
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function foldersGetFoldersId(
   client: WistiaCore,
@@ -105,7 +103,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/folders/{id}")(pathParams);
 
   const headers = new Headers(compactMap({

@@ -5,6 +5,8 @@
 import { ClientSDK } from "../lib/sdks.js";
 import { Account } from "./account.js";
 import { AllowedDomains } from "./alloweddomains.js";
+import { AnalyticsMedia } from "./analyticsmedia.js";
+import { AnalyticsWebinar } from "./analyticswebinar.js";
 import { BackgroundJobStatus } from "./backgroundjobstatus.js";
 import { Captions } from "./captions.js";
 import { ChannelEpisodes } from "./channelepisodes.js";
@@ -15,6 +17,7 @@ import { Folders } from "./folders.js";
 import { FolderSharings } from "./foldersharings.js";
 import { Localizations } from "./localizations.js";
 import { Media } from "./media.js";
+import { MediaExtendedAudioDescriptions } from "./mediaextendedaudiodescriptions.js";
 import { Search } from "./search.js";
 import { StatsAccount } from "./statsaccount.js";
 import { StatsEvents } from "./statsevents.js";
@@ -32,6 +35,12 @@ export class Wistia extends ClientSDK {
   private _media?: Media;
   get media(): Media {
     return (this._media ??= new Media(this._options));
+  }
+
+  private _mediaExtendedAudioDescriptions?: MediaExtendedAudioDescriptions;
+  get mediaExtendedAudioDescriptions(): MediaExtendedAudioDescriptions {
+    return (this._mediaExtendedAudioDescriptions ??=
+      new MediaExtendedAudioDescriptions(this._options));
   }
 
   private _folders?: Folders;
@@ -153,5 +162,15 @@ export class Wistia extends ClientSDK {
   private _statsEvents?: StatsEvents;
   get statsEvents(): StatsEvents {
     return (this._statsEvents ??= new StatsEvents(this._options));
+  }
+
+  private _analyticsMedia?: AnalyticsMedia;
+  get analyticsMedia(): AnalyticsMedia {
+    return (this._analyticsMedia ??= new AnalyticsMedia(this._options));
+  }
+
+  private _analyticsWebinar?: AnalyticsWebinar;
+  get analyticsWebinar(): AnalyticsWebinar {
+    return (this._analyticsWebinar ??= new AnalyticsWebinar(this._options));
   }
 }

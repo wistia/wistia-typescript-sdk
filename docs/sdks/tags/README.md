@@ -6,18 +6,16 @@
 
 * [list](#list) - List Tags
 * [create](#create) - Create Tags
-* [delete](#delete) - Delete Tags
+* [delete](#delete) - Delete Tag
 
 ## list
 
 Lists tags belonging to the account.
 
-<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read all data
 ```
-<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -92,12 +90,10 @@ run();
 
 Creates a new tag.
 
-<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
-<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -169,6 +165,7 @@ run();
 | --------------------------------------- | --------------------------------------- | --------------------------------------- |
 | errors.PostTagsBadRequestError          | 400                                     | application/json                        |
 | errors.PostTagsUnauthorizedError        | 401                                     | application/json                        |
+| errors.PostTagsForbiddenError           | 403                                     | application/json                        |
 | errors.PostTagsUnprocessableEntityError | 422                                     | application/json                        |
 | errors.PostTagsInternalServerError      | 500                                     | application/json                        |
 | errors.WistiaDefaultError               | 4XX, 5XX                                | \*/\*                                   |
@@ -177,12 +174,10 @@ run();
 
 Deletes a tag
 
-<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
-<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -253,5 +248,6 @@ run();
 | Error Type                               | Status Code                              | Content Type                             |
 | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
 | errors.DeleteTagsNameUnauthorizedError   | 401                                      | application/json                         |
+| errors.DeleteTagsNameForbiddenError      | 403                                      | application/json                         |
 | errors.DeleteTagsNameInternalServerError | 500                                      | application/json                         |
 | errors.WistiaDefaultError                | 4XX, 5XX                                 | \*/\*                                    |

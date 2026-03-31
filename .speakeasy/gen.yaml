@@ -33,7 +33,7 @@ generation:
     generateNewTests: true
     skipResponseBodyAssertions: false
 typescript:
-  version: 2026.1.2
+  version: 2026-03
   acceptHeaderEnum: true
   additionalDependencies:
     dependencies: {}
@@ -58,6 +58,7 @@ typescript:
   enumFormat: union
   envVarPrefix: WISTIA
   exportZodModelNamespace: false
+  fixEnumNameSanitization: false
   flatAdditionalProperties: false
   flattenGlobalSecurity: true
   flatteningOrder: parameters-first
