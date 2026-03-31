@@ -84,6 +84,7 @@ run();
 | Error Type                                    | Status Code                                   | Content Type                                  |
 | --------------------------------------------- | --------------------------------------------- | --------------------------------------------- |
 | errors.GetStatsEventsUnauthorizedError        | 401                                           | application/json                              |
+| errors.GetStatsEventsForbiddenError           | 403                                           | application/json                              |
 | errors.GetStatsEventsUnprocessableEntityError | 422                                           | application/json                              |
 | errors.GetStatsEventsInternalServerError      | 500                                           | application/json                              |
 | errors.WistiaDefaultError                     | 4XX, 5XX                                      | \*/\*                                         |
@@ -169,5 +170,6 @@ run();
 | Error Type                                       | Status Code                                      | Content Type                                     |
 | ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ |
 | errors.GetStatsEventsEventKeyUnauthorizedError   | 401                                              | application/json                                 |
+| errors.GetStatsEventsEventKeyForbiddenError      | 403                                              | application/json                                 |
 | errors.GetStatsEventsEventKeyInternalServerError | 500                                              | application/json                                 |
 | errors.WistiaDefaultError                        | 4XX, 5XX                                         | \*/\*                                            |

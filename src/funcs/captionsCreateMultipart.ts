@@ -6,6 +6,7 @@ import * as z from "zod/v3";
 import { WistiaCore } from "../core.js";
 import { appendForm, encodeSimple } from "../lib/encodings.js";
 import {
+  bytesToBlob,
   getContentTypeFromFileName,
   readableStreamToArrayBuffer,
 } from "../lib/files.js";
@@ -36,14 +37,12 @@ import { isReadableStream } from "../types/streams.js";
  * Create Captions
  *
  * @remarks
- * Adds captions to a specified video by providing an SRT file or its contents directly.
+ * Adds captions to a specified media by providing an SRT file or its contents directly.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read, update & delete anything
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function captionsCreateMultipart(
   client: WistiaCore,
@@ -53,6 +52,7 @@ export function captionsCreateMultipart(
   Result<
     void,
     | errors.PostMediasMediaHashedIdCaptionsMultipartUnauthorizedError
+    | errors.PostMediasMediaHashedIdCaptionsMultipartForbiddenError
     | errors.PostMediasMediaHashedIdCaptionsMultipartInternalServerError
     | WistiaError
     | ResponseValidationError
@@ -80,6 +80,7 @@ async function $do(
     Result<
       void,
       | errors.PostMediasMediaHashedIdCaptionsMultipartUnauthorizedError
+      | errors.PostMediasMediaHashedIdCaptionsMultipartForbiddenError
       | errors.PostMediasMediaHashedIdCaptionsMultipartInternalServerError
       | WistiaError
       | ResponseValidationError
@@ -107,7 +108,9 @@ async function $do(
   const body = new FormData();
 
   if (isBlobLike(payload.RequestBody.caption_file)) {
-    appendForm(body, "caption_file", payload.RequestBody.caption_file);
+    const blob = payload.RequestBody.caption_file;
+    const name = "name" in blob ? (blob.name as string) : undefined;
+    appendForm(body, "caption_file", blob, name);
   } else if (isReadableStream(payload.RequestBody.caption_file.content)) {
     const buffer = await readableStreamToArrayBuffer(
       payload.RequestBody.caption_file.content,
@@ -115,23 +118,10 @@ async function $do(
     const contentType =
       getContentTypeFromFileName(payload.RequestBody.caption_file.fileName)
       || "application/octet-stream";
-    const blob = new Blob([buffer], { type: contentType });
     appendForm(
       body,
       "caption_file",
-      blob,
-      payload.RequestBody.caption_file.fileName,
-    );
-  } else if (payload.RequestBody.caption_file.content instanceof Uint8Array) {
-    const contentType =
-      getContentTypeFromFileName(payload.RequestBody.caption_file.fileName)
-      || "application/octet-stream";
-    appendForm(
-      body,
-      "caption_file",
-      new Blob([
-        new Uint8Array(payload.RequestBody.caption_file.content).buffer,
-      ], { type: contentType }),
+      bytesToBlob(buffer, contentType),
       payload.RequestBody.caption_file.fileName,
     );
   } else {
@@ -141,9 +131,7 @@ async function $do(
     appendForm(
       body,
       "caption_file",
-      new Blob([payload.RequestBody.caption_file.content], {
-        type: contentType,
-      }),
+      bytesToBlob(payload.RequestBody.caption_file.content, contentType),
       payload.RequestBody.caption_file.fileName,
     );
   }
@@ -157,7 +145,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/medias/{mediaHashedId}/captions")(pathParams);
 
   const headers = new Headers(compactMap({
@@ -200,7 +187,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["400", "401", "404", "4XX", "500", "5XX"],
+    errorCodes: ["400", "401", "403", "404", "4XX", "500", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -216,6 +203,7 @@ async function $do(
   const [result] = await M.match<
     void,
     | errors.PostMediasMediaHashedIdCaptionsMultipartUnauthorizedError
+    | errors.PostMediasMediaHashedIdCaptionsMultipartForbiddenError
     | errors.PostMediasMediaHashedIdCaptionsMultipartInternalServerError
     | WistiaError
     | ResponseValidationError
@@ -231,6 +219,11 @@ async function $do(
       401,
       errors
         .PostMediasMediaHashedIdCaptionsMultipartUnauthorizedError$inboundSchema,
+    ),
+    M.jsonErr(
+      403,
+      errors
+        .PostMediasMediaHashedIdCaptionsMultipartForbiddenError$inboundSchema,
     ),
     M.jsonErr(
       500,

@@ -68,6 +68,37 @@ export class DeleteAllowedDomainsDomainNotFoundError extends WistiaError {
 }
 
 /**
+ * Forbidden, token is valid but account does not have access to feature
+ */
+export type DeleteAllowedDomainsDomainForbiddenErrorData = {
+  error?: string | undefined;
+};
+
+/**
+ * Forbidden, token is valid but account does not have access to feature
+ */
+export class DeleteAllowedDomainsDomainForbiddenError extends WistiaError {
+  error?: string | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: DeleteAllowedDomainsDomainForbiddenErrorData;
+
+  constructor(
+    err: DeleteAllowedDomainsDomainForbiddenErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+
+    this.name = "DeleteAllowedDomainsDomainForbiddenError";
+  }
+}
+
+/**
  * Unauthorized, invalid or missing token
  */
 export type DeleteAllowedDomainsDomainUnauthorizedErrorData = {
@@ -131,6 +162,25 @@ export const DeleteAllowedDomainsDomainNotFoundError$inboundSchema: z.ZodType<
 })
   .transform((v) => {
     return new DeleteAllowedDomainsDomainNotFoundError(v, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
+  });
+
+/** @internal */
+export const DeleteAllowedDomainsDomainForbiddenError$inboundSchema: z.ZodType<
+  DeleteAllowedDomainsDomainForbiddenError,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  error: z.string().optional(),
+  request$: z.instanceof(Request),
+  response$: z.instanceof(Response),
+  body$: z.string(),
+})
+  .transform((v) => {
+    return new DeleteAllowedDomainsDomainForbiddenError(v, {
       request: v.request$,
       response: v.response$,
       body: v.body$,

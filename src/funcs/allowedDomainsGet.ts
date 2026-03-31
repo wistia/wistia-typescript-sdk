@@ -31,12 +31,10 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Returns the details of an allowed domain.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read all data
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function allowedDomainsGet(
   client: WistiaCore,
@@ -106,7 +104,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/allowed_domains/{domain}")(pathParams);
 
   const headers = new Headers(compactMap({

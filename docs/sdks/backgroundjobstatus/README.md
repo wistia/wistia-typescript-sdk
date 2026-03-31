@@ -10,12 +10,10 @@
 
 Retrieves the status of a background job.
 
-<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read all data
 ```
-<!--- /HIDE-MCP -->
 
 
 ### Example Usage

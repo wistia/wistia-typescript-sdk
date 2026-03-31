@@ -47,6 +47,7 @@ export function statsVisitorsList(
   Result<
     Array<operations.GetStatsVisitorsResponse>,
     | errors.GetStatsVisitorsUnauthorizedError
+    | errors.GetStatsVisitorsForbiddenError
     | errors.GetStatsVisitorsInternalServerError
     | WistiaError
     | ResponseValidationError
@@ -74,6 +75,7 @@ async function $do(
     Result<
       Array<operations.GetStatsVisitorsResponse>,
       | errors.GetStatsVisitorsUnauthorizedError
+      | errors.GetStatsVisitorsForbiddenError
       | errors.GetStatsVisitorsInternalServerError
       | WistiaError
       | ResponseValidationError
@@ -149,7 +151,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["401", "4XX", "500", "5XX"],
+    errorCodes: ["401", "403", "4XX", "500", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -165,6 +167,7 @@ async function $do(
   const [result] = await M.match<
     Array<operations.GetStatsVisitorsResponse>,
     | errors.GetStatsVisitorsUnauthorizedError
+    | errors.GetStatsVisitorsForbiddenError
     | errors.GetStatsVisitorsInternalServerError
     | WistiaError
     | ResponseValidationError
@@ -177,6 +180,7 @@ async function $do(
   >(
     M.json(200, z.array(operations.GetStatsVisitorsResponse$inboundSchema)),
     M.jsonErr(401, errors.GetStatsVisitorsUnauthorizedError$inboundSchema),
+    M.jsonErr(403, errors.GetStatsVisitorsForbiddenError$inboundSchema),
     M.jsonErr(500, errors.GetStatsVisitorsInternalServerError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),

@@ -17,12 +17,10 @@ export class AllowedDomains extends ClientSDK {
    * @remarks
    * Lists allowed domains belonging to the account.
    *
-   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read all data
    * ```
-   * <!--- /HIDE-MCP -->
    */
   async list(
     request?: operations.GetAllowedDomainsRequest | undefined,
@@ -41,12 +39,10 @@ export class AllowedDomains extends ClientSDK {
    * @remarks
    * Creates an allowed domain for the account.
    *
-   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read, update & delete anything
    * ```
-   * <!--- /HIDE-MCP -->
    */
   async create(
     request: operations.PostAllowedDomainsRequest,
@@ -65,12 +61,10 @@ export class AllowedDomains extends ClientSDK {
    * @remarks
    * Returns the details of an allowed domain.
    *
-   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read all data
    * ```
-   * <!--- /HIDE-MCP -->
    */
   async get(
     request: operations.GetAllowedDomainsDomainRequest,
@@ -89,12 +83,10 @@ export class AllowedDomains extends ClientSDK {
    * @remarks
    * Deletes an allowed domain from the account.
    *
-   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read, update & delete anything
    * ```
-   * <!--- /HIDE-MCP -->
    */
   async delete(
     request: operations.DeleteAllowedDomainsDomainRequest,

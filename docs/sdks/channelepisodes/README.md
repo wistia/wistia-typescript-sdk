@@ -7,22 +7,20 @@
 * [get](#get) - Show Channel Episode
 * [create](#create) - Create Channel Episode
 * [list](#list) - List Channel Episodes
-* [putChannelEpisodesChannelEpisodeHashedId](#putchannelepisodeschannelepisodehashedid) - Channel Episode Update
-* [deleteChannelEpisodesChannelEpisodeHashedId](#deletechannelepisodeschannelepisodehashedid) - Channel Episode Delete
-* [putChannelEpisodesChannelEpisodeHashedIdPublish](#putchannelepisodeschannelepisodehashedidpublish) - Channel Episode Update
-* [putChannelEpisodesChannelEpisodeHashedIdUnpublish](#putchannelepisodeschannelepisodehashedidunpublish) - Channel Episode Update
+* [putChannelEpisodesChannelEpisodeHashedId](#putchannelepisodeschannelepisodehashedid) - Update Channel Episode
+* [deleteChannelEpisodesChannelEpisodeHashedId](#deletechannelepisodeschannelepisodehashedid) - Delete Channel Episode
+* [putChannelEpisodesChannelEpisodeHashedIdPublish](#putchannelepisodeschannelepisodehashedidpublish) - Publish Channel Episode
+* [putChannelEpisodesChannelEpisodeHashedIdUnpublish](#putchannelepisodeschannelepisodehashedidunpublish) - Un-publish Channel Episode
 
 ## get
 
 Returns the Channel Episode associated with a channel hashed id
 and channel episode hashed id.
 
-<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read all folder and media data
 ```
-<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -102,12 +100,10 @@ run();
 
 Creates a new channel episode in a channel.
 
-<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
-<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -191,6 +187,7 @@ run();
 | -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
 | errors.PostChannelsChannelHashedIdChannelEpisodesBadRequestError     | 400                                                                  | application/json                                                     |
 | errors.PostChannelsChannelHashedIdChannelEpisodesUnauthorizedError   | 401                                                                  | application/json                                                     |
+| errors.PostChannelsChannelHashedIdChannelEpisodesForbiddenError      | 403                                                                  | application/json                                                     |
 | errors.PostChannelsChannelHashedIdChannelEpisodesInternalServerError | 500                                                                  | application/json                                                     |
 | errors.WistiaDefaultError                                            | 4XX, 5XX                                                             | \*/\*                                                                |
 
@@ -199,12 +196,10 @@ run();
 Lists Channel Episodes belonging to an account. This endpoint can also be used to
 do a batch fetch based off of the hashed id.
 
-<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read all folder and media data
 ```
-<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -352,6 +347,7 @@ run();
 | Error Type                                                         | Status Code                                                        | Content Type                                                       |
 | ------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------ |
 | errors.PutChannelEpisodesChannelEpisodeHashedIdUnauthorizedError   | 401                                                                | application/json                                                   |
+| errors.PutChannelEpisodesChannelEpisodeHashedIdForbiddenError      | 403                                                                | application/json                                                   |
 | errors.PutChannelEpisodesChannelEpisodeHashedIdInternalServerError | 500                                                                | application/json                                                   |
 | errors.WistiaDefaultError                                          | 4XX, 5XX                                                           | \*/\*                                                              |
 
@@ -433,6 +429,7 @@ run();
 | Error Type                                                            | Status Code                                                           | Content Type                                                          |
 | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | errors.DeleteChannelEpisodesChannelEpisodeHashedIdUnauthorizedError   | 401                                                                   | application/json                                                      |
+| errors.DeleteChannelEpisodesChannelEpisodeHashedIdForbiddenError      | 403                                                                   | application/json                                                      |
 | errors.DeleteChannelEpisodesChannelEpisodeHashedIdInternalServerError | 500                                                                   | application/json                                                      |
 | errors.WistiaDefaultError                                             | 4XX, 5XX                                                              | \*/\*                                                                 |
 
@@ -513,12 +510,13 @@ run();
 | Error Type                                                                | Status Code                                                               | Content Type                                                              |
 | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
 | errors.PutChannelEpisodesChannelEpisodeHashedIdPublishUnauthorizedError   | 401                                                                       | application/json                                                          |
+| errors.PutChannelEpisodesChannelEpisodeHashedIdPublishForbiddenError      | 403                                                                       | application/json                                                          |
 | errors.PutChannelEpisodesChannelEpisodeHashedIdPublishInternalServerError | 500                                                                       | application/json                                                          |
 | errors.WistiaDefaultError                                                 | 4XX, 5XX                                                                  | \*/\*                                                                     |
 
 ## putChannelEpisodesChannelEpisodeHashedIdUnpublish
 
-Unpublishes an existing channel episode in a channel.
+Un-publishes an existing channel episode in a channel.
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
@@ -593,5 +591,6 @@ run();
 | Error Type                                                                  | Status Code                                                                 | Content Type                                                                |
 | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
 | errors.PutChannelEpisodesChannelEpisodeHashedIdUnpublishUnauthorizedError   | 401                                                                         | application/json                                                            |
+| errors.PutChannelEpisodesChannelEpisodeHashedIdUnpublishForbiddenError      | 403                                                                         | application/json                                                            |
 | errors.PutChannelEpisodesChannelEpisodeHashedIdUnpublishInternalServerError | 500                                                                         | application/json                                                            |
 | errors.WistiaDefaultError                                                   | 4XX, 5XX                                                                    | \*/\*                                                                       |

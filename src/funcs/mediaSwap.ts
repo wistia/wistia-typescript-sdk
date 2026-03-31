@@ -31,12 +31,10 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Swap one media with another media. This operation queues a background job to replace the original media with the replacement media while preserving the original media's hashed ID and URLs.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read, update & delete anything
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function mediaSwap(
   client: WistiaCore,
@@ -47,6 +45,7 @@ export function mediaSwap(
     operations.PutMediasMediaHashedIdSwapResponse,
     | errors.PutMediasMediaHashedIdSwapBadRequestError
     | errors.PutMediasMediaHashedIdSwapUnauthorizedError
+    | errors.PutMediasMediaHashedIdSwapForbiddenError
     | errors.PutMediasMediaHashedIdSwapNotFoundError
     | errors.PutMediasMediaHashedIdSwapInternalServerError
     | WistiaError
@@ -76,6 +75,7 @@ async function $do(
       operations.PutMediasMediaHashedIdSwapResponse,
       | errors.PutMediasMediaHashedIdSwapBadRequestError
       | errors.PutMediasMediaHashedIdSwapUnauthorizedError
+      | errors.PutMediasMediaHashedIdSwapForbiddenError
       | errors.PutMediasMediaHashedIdSwapNotFoundError
       | errors.PutMediasMediaHashedIdSwapInternalServerError
       | WistiaError
@@ -108,7 +108,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/medias/{mediaHashedId}/swap")(pathParams);
 
   const headers = new Headers(compactMap({
@@ -152,7 +151,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["400", "401", "404", "4XX", "500", "5XX"],
+    errorCodes: ["400", "401", "403", "404", "4XX", "500", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -169,6 +168,7 @@ async function $do(
     operations.PutMediasMediaHashedIdSwapResponse,
     | errors.PutMediasMediaHashedIdSwapBadRequestError
     | errors.PutMediasMediaHashedIdSwapUnauthorizedError
+    | errors.PutMediasMediaHashedIdSwapForbiddenError
     | errors.PutMediasMediaHashedIdSwapNotFoundError
     | errors.PutMediasMediaHashedIdSwapInternalServerError
     | WistiaError
@@ -188,6 +188,10 @@ async function $do(
     M.jsonErr(
       401,
       errors.PutMediasMediaHashedIdSwapUnauthorizedError$inboundSchema,
+    ),
+    M.jsonErr(
+      403,
+      errors.PutMediasMediaHashedIdSwapForbiddenError$inboundSchema,
     ),
     M.jsonErr(
       404,

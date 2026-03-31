@@ -88,6 +88,7 @@ run();
 | Error Type                                      | Status Code                                     | Content Type                                    |
 | ----------------------------------------------- | ----------------------------------------------- | ----------------------------------------------- |
 | errors.GetStatsMediasMediaIdUnauthorizedError   | 401                                             | application/json                                |
+| errors.GetStatsMediasMediaIdForbiddenError      | 403                                             | application/json                                |
 | errors.GetStatsMediasMediaIdInternalServerError | 500                                             | application/json                                |
 | errors.WistiaDefaultError                       | 4XX, 5XX                                        | \*/\*                                           |
 
@@ -177,6 +178,7 @@ run();
 | Error Type                                            | Status Code                                           | Content Type                                          |
 | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
 | errors.GetStatsMediasMediaIdByDateUnauthorizedError   | 401                                                   | application/json                                      |
+| errors.GetStatsMediasMediaIdByDateForbiddenError      | 403                                                   | application/json                                      |
 | errors.GetStatsMediasMediaIdByDateInternalServerError | 500                                                   | application/json                                      |
 | errors.WistiaDefaultError                             | 4XX, 5XX                                              | \*/\*                                                 |
 
@@ -260,5 +262,6 @@ run();
 | Error Type                                                | Status Code                                               | Content Type                                              |
 | --------------------------------------------------------- | --------------------------------------------------------- | --------------------------------------------------------- |
 | errors.GetStatsMediasMediaIdEngagementUnauthorizedError   | 401                                                       | application/json                                          |
+| errors.GetStatsMediasMediaIdEngagementForbiddenError      | 403                                                       | application/json                                          |
 | errors.GetStatsMediasMediaIdEngagementInternalServerError | 500                                                       | application/json                                          |
 | errors.WistiaDefaultError                                 | 4XX, 5XX                                                  | \*/\*                                                     |

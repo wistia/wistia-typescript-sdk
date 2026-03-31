@@ -33,12 +33,10 @@ import { Result } from "../types/fp.js";
  *
  * The subfolder is soft-deleted and may be recoverable through other means, but is no longer accessible via the API.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read, update & delete anything
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function subfoldersDeleteFoldersFolderIdSubfoldersSubfolderId(
   client: WistiaCore,
@@ -115,7 +113,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/folders/{folderId}/subfolders/{subfolderId}")(
     pathParams,
   );

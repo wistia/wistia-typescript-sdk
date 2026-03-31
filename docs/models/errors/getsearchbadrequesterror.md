@@ -1,6 +1,6 @@
 # GetSearchBadRequestError
 
-Bad request - missing query parameter
+Bad request
 
 ## Example Usage
 
@@ -12,6 +12,6 @@ import { GetSearchBadRequestError } from "@wistia/wistia-api-client/models/error
 
 ## Fields
 
-| Field                                                                  | Type                                                                   | Required                                                               | Description                                                            | Example                                                                |
-| ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- |
-| `error`                                                                | *string*                                                               | :heavy_minus_sign:                                                     | N/A                                                                    | the "q" parameter should specify the search query, e.g. "q=screencast" |
+| Field                                                   | Type                                                    | Required                                                | Description                                             | Example                                                 |
+| ------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------- |
+| `error`                                                 | *string*                                                | :heavy_minus_sign:                                      | Error message detailing the reason for the bad request. | Bad request                                             |

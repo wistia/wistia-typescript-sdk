@@ -3,6 +3,7 @@
  */
 
 import { statsAccountGet } from "../funcs/statsAccountGet.js";
+import { statsAccountGetStatsAccountByDate } from "../funcs/statsAccountGetStatsAccountByDate.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
@@ -26,6 +27,30 @@ export class StatsAccount extends ClientSDK {
   ): Promise<operations.GetStatsAccountResponse> {
     return unwrapAsync(statsAccountGet(
       this,
+      options,
+    ));
+  }
+
+  /**
+   * Show Account Stats by Date
+   *
+   * @remarks
+   * Retrieve account-wide stats organized by day, between a start and end date parameter (inclusive). If start and end date are not provided, defaults to yesterday and today.
+   *
+   * <!--- HIDE-MCP -->
+   * ## Requires api token with one of the following permissions
+   * ```
+   * Read detailed stats
+   * ```
+   * <!--- /HIDE-MCP -->
+   */
+  async getStatsAccountByDate(
+    request?: operations.GetStatsAccountByDateRequest | undefined,
+    options?: RequestOptions,
+  ): Promise<Array<operations.GetStatsAccountByDateResponse>> {
+    return unwrapAsync(statsAccountGetStatsAccountByDate(
+      this,
+      request,
       options,
     ));
   }

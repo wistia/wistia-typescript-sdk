@@ -31,12 +31,10 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Aggregated tracking statistics for a video embedded on your site.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read all folder and media data
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function mediaGetStats(
   client: WistiaCore,
@@ -47,6 +45,7 @@ export function mediaGetStats(
     operations.GetMediasMediaHashedIdStatsResponse,
     | errors.GetMediasMediaHashedIdStatsBadRequestError
     | errors.GetMediasMediaHashedIdStatsUnauthorizedError
+    | errors.GetMediasMediaHashedIdStatsForbiddenError
     | errors.GetMediasMediaHashedIdStatsNotFoundError
     | errors.GetMediasMediaHashedIdStatsInternalServerError
     | WistiaError
@@ -76,6 +75,7 @@ async function $do(
       operations.GetMediasMediaHashedIdStatsResponse,
       | errors.GetMediasMediaHashedIdStatsBadRequestError
       | errors.GetMediasMediaHashedIdStatsUnauthorizedError
+      | errors.GetMediasMediaHashedIdStatsForbiddenError
       | errors.GetMediasMediaHashedIdStatsNotFoundError
       | errors.GetMediasMediaHashedIdStatsInternalServerError
       | WistiaError
@@ -108,7 +108,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/medias/{mediaHashedId}/stats")(pathParams);
 
   const headers = new Headers(compactMap({
@@ -151,7 +150,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["400", "401", "404", "4XX", "500", "5XX"],
+    errorCodes: ["400", "401", "403", "404", "4XX", "500", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -168,6 +167,7 @@ async function $do(
     operations.GetMediasMediaHashedIdStatsResponse,
     | errors.GetMediasMediaHashedIdStatsBadRequestError
     | errors.GetMediasMediaHashedIdStatsUnauthorizedError
+    | errors.GetMediasMediaHashedIdStatsForbiddenError
     | errors.GetMediasMediaHashedIdStatsNotFoundError
     | errors.GetMediasMediaHashedIdStatsInternalServerError
     | WistiaError
@@ -187,6 +187,10 @@ async function $do(
     M.jsonErr(
       401,
       errors.GetMediasMediaHashedIdStatsUnauthorizedError$inboundSchema,
+    ),
+    M.jsonErr(
+      403,
+      errors.GetMediasMediaHashedIdStatsForbiddenError$inboundSchema,
     ),
     M.jsonErr(
       404,

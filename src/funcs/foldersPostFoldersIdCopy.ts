@@ -37,12 +37,10 @@ import { Result } from "../types/fp.js";
  *
  * The body of the response will contain an object representing the background job that was created.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read, update & delete anything
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function foldersPostFoldersIdCopy(
   client: WistiaCore,
@@ -111,7 +109,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/folders/{id}/copy")(pathParams);
 
   const headers = new Headers(compactMap({

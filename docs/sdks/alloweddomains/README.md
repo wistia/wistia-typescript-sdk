@@ -13,12 +13,10 @@
 
 Lists allowed domains belonging to the account.
 
-<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read all data
 ```
-<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -98,12 +96,10 @@ run();
 
 Creates an allowed domain for the account.
 
-<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
-<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -175,6 +171,7 @@ run();
 | -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
 | errors.PostAllowedDomainsBadRequestError     | 400                                          | application/json                             |
 | errors.PostAllowedDomainsUnauthorizedError   | 401                                          | application/json                             |
+| errors.PostAllowedDomainsForbiddenError      | 403                                          | application/json                             |
 | errors.PostAllowedDomainsInternalServerError | 500                                          | application/json                             |
 | errors.WistiaDefaultError                    | 4XX, 5XX                                     | \*/\*                                        |
 
@@ -182,12 +179,10 @@ run();
 
 Returns the details of an allowed domain.
 
-<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read all data
 ```
-<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -266,12 +261,10 @@ run();
 
 Deletes an allowed domain from the account.
 
-<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
-<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -342,6 +335,7 @@ run();
 | Error Type                                           | Status Code                                          | Content Type                                         |
 | ---------------------------------------------------- | ---------------------------------------------------- | ---------------------------------------------------- |
 | errors.DeleteAllowedDomainsDomainUnauthorizedError   | 401                                                  | application/json                                     |
+| errors.DeleteAllowedDomainsDomainForbiddenError      | 403                                                  | application/json                                     |
 | errors.DeleteAllowedDomainsDomainNotFoundError       | 404                                                  | application/json                                     |
 | errors.DeleteAllowedDomainsDomainInternalServerError | 500                                                  | application/json                                     |
 | errors.WistiaDefaultError                            | 4XX, 5XX                                             | \*/\*                                                |

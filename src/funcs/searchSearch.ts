@@ -29,14 +29,14 @@ import { Result } from "../types/fp.js";
  * Search
  *
  * @remarks
- * Searches across folders, medias, channels, and channel episodes.
+ * Searches across folders, subfolders, medias, channels, channel episodes, and webinars.
+ * Also searches through video transcripts, so media results may include transcript matches with
+ * timestamps when the query matches spoken content.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read all data
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function searchSearch(
   client: WistiaCore,
@@ -102,7 +102,11 @@ async function $do(
   const path = pathToFunc("/search")();
 
   const query = encodeFormQuery({
+    "created_after": payload.created_after,
+    "created_before": payload.created_before,
     "q": payload.q,
+    "resource_type[]": payload["resource_type[]"],
+    "tags[]": payload["tags[]"],
   });
 
   const headers = new Headers(compactMap({

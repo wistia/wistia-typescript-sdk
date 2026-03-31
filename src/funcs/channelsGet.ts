@@ -31,12 +31,10 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Returns the Channel associated with the hashedId.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read all folder and media data
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function channelsGet(
   client: WistiaCore,
@@ -106,7 +104,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/channels/{channelHashedId}")(pathParams);
 
   const headers = new Headers(compactMap({

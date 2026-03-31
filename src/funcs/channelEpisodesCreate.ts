@@ -31,12 +31,10 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Creates a new channel episode in a channel.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read, update & delete anything
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function channelEpisodesCreate(
   client: WistiaCore,
@@ -47,6 +45,7 @@ export function channelEpisodesCreate(
     operations.PostChannelsChannelHashedIdChannelEpisodesResponse,
     | errors.PostChannelsChannelHashedIdChannelEpisodesBadRequestError
     | errors.PostChannelsChannelHashedIdChannelEpisodesUnauthorizedError
+    | errors.PostChannelsChannelHashedIdChannelEpisodesForbiddenError
     | errors.PostChannelsChannelHashedIdChannelEpisodesInternalServerError
     | WistiaError
     | ResponseValidationError
@@ -75,6 +74,7 @@ async function $do(
       operations.PostChannelsChannelHashedIdChannelEpisodesResponse,
       | errors.PostChannelsChannelHashedIdChannelEpisodesBadRequestError
       | errors.PostChannelsChannelHashedIdChannelEpisodesUnauthorizedError
+      | errors.PostChannelsChannelHashedIdChannelEpisodesForbiddenError
       | errors.PostChannelsChannelHashedIdChannelEpisodesInternalServerError
       | WistiaError
       | ResponseValidationError
@@ -109,7 +109,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/channels/{channelHashedId}/channel_episodes")(
     pathParams,
   );
@@ -155,7 +154,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["400", "401", "4XX", "500", "5XX"],
+    errorCodes: ["400", "401", "403", "4XX", "500", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -172,6 +171,7 @@ async function $do(
     operations.PostChannelsChannelHashedIdChannelEpisodesResponse,
     | errors.PostChannelsChannelHashedIdChannelEpisodesBadRequestError
     | errors.PostChannelsChannelHashedIdChannelEpisodesUnauthorizedError
+    | errors.PostChannelsChannelHashedIdChannelEpisodesForbiddenError
     | errors.PostChannelsChannelHashedIdChannelEpisodesInternalServerError
     | WistiaError
     | ResponseValidationError
@@ -196,6 +196,11 @@ async function $do(
       401,
       errors
         .PostChannelsChannelHashedIdChannelEpisodesUnauthorizedError$inboundSchema,
+    ),
+    M.jsonErr(
+      403,
+      errors
+        .PostChannelsChannelHashedIdChannelEpisodesForbiddenError$inboundSchema,
     ),
     M.jsonErr(
       500,

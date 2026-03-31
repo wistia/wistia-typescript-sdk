@@ -1,0 +1,20 @@
+# GetAnalyticsWebinarsWebinarIdRequest
+
+## Example Usage
+
+```typescript
+import { GetAnalyticsWebinarsWebinarIdRequest } from "@wistia/wistia-api-client/models/operations";
+
+let value: GetAnalyticsWebinarsWebinarIdRequest = {
+  webinarId: "<id>",
+};
+```
+
+## Fields
+
+| Field                                                                                                                      | Type                                                                                                                       | Required                                                                                                                   | Description                                                                                                                |
+| -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `webinarId`                                                                                                                | *string*                                                                                                                   | :heavy_check_mark:                                                                                                         | The hashed ID of the webinar.                                                                                              |
+| `includePostEvent`                                                                                                         | *boolean*                                                                                                                  | :heavy_minus_sign:                                                                                                         | Whether to include on-demand viewing data after the live event ended.                                                      |
+| `postEventStartDate`                                                                                                       | [RFCDate](../../types/rfcdate.md)                                                                                          | :heavy_minus_sign:                                                                                                         | Start date for the post-event analytics period in ISO 8601 format (YYYY-MM-DD). Only used when include_post_event is true. |
+| `postEventEndDate`                                                                                                         | [RFCDate](../../types/rfcdate.md)                                                                                          | :heavy_minus_sign:                                                                                                         | End date for the post-event analytics period in ISO 8601 format (YYYY-MM-DD). Only used when include_post_event is true.   |

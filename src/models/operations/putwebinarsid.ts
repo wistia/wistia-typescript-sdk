@@ -8,7 +8,7 @@ import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type Webinar = {
+export type PutWebinarsIdWebinar = {
   /**
    * The title of the webinar
    */
@@ -28,7 +28,7 @@ export type Webinar = {
 };
 
 export type PutWebinarsIdRequestBody = {
-  webinar?: Webinar | undefined;
+  webinar?: PutWebinarsIdWebinar | undefined;
 };
 
 export type PutWebinarsIdRequest = {
@@ -98,7 +98,7 @@ export type PutWebinarsIdResponse = {
 };
 
 /** @internal */
-export type Webinar$Outbound = {
+export type PutWebinarsIdWebinar$Outbound = {
   title?: string | undefined;
   description?: string | undefined;
   scheduled_for?: string | undefined;
@@ -106,10 +106,10 @@ export type Webinar$Outbound = {
 };
 
 /** @internal */
-export const Webinar$outboundSchema: z.ZodType<
-  Webinar$Outbound,
+export const PutWebinarsIdWebinar$outboundSchema: z.ZodType<
+  PutWebinarsIdWebinar$Outbound,
   z.ZodTypeDef,
-  Webinar
+  PutWebinarsIdWebinar
 > = z.object({
   title: z.string().optional(),
   description: z.string().optional(),
@@ -122,13 +122,17 @@ export const Webinar$outboundSchema: z.ZodType<
   });
 });
 
-export function webinarToJSON(webinar: Webinar): string {
-  return JSON.stringify(Webinar$outboundSchema.parse(webinar));
+export function putWebinarsIdWebinarToJSON(
+  putWebinarsIdWebinar: PutWebinarsIdWebinar,
+): string {
+  return JSON.stringify(
+    PutWebinarsIdWebinar$outboundSchema.parse(putWebinarsIdWebinar),
+  );
 }
 
 /** @internal */
 export type PutWebinarsIdRequestBody$Outbound = {
-  webinar?: Webinar$Outbound | undefined;
+  webinar?: PutWebinarsIdWebinar$Outbound | undefined;
 };
 
 /** @internal */
@@ -137,7 +141,7 @@ export const PutWebinarsIdRequestBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PutWebinarsIdRequestBody
 > = z.object({
-  webinar: z.lazy(() => Webinar$outboundSchema).optional(),
+  webinar: z.lazy(() => PutWebinarsIdWebinar$outboundSchema).optional(),
 });
 
 export function putWebinarsIdRequestBodyToJSON(

@@ -32,12 +32,10 @@ import { Result } from "../types/fp.js";
  * Returns the Channel Episode associated with a channel hashed id
  * and channel episode hashed id.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read all folder and media data
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function channelEpisodesGet(
   client: WistiaCore,
@@ -114,7 +112,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc(
     "/channels/{channelHashedId}/channel_episodes/{channelEpisodeId}",
   )(pathParams);
