@@ -106,7 +106,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/allowed_domains/{domain}")(pathParams);
 
   const headers = new Headers(compactMap({

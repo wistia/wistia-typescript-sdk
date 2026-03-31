@@ -6,6 +6,7 @@ import * as z from "zod/v3";
 import { WistiaCore } from "../core.js";
 import { appendForm, encodeSimple } from "../lib/encodings.js";
 import {
+  bytesToBlob,
   getContentTypeFromFileName,
   readableStreamToArrayBuffer,
 } from "../lib/files.js";
@@ -107,7 +108,9 @@ async function $do(
   const body = new FormData();
 
   if (isBlobLike(payload.RequestBody.caption_file)) {
-    appendForm(body, "caption_file", payload.RequestBody.caption_file);
+    const blob = payload.RequestBody.caption_file;
+    const name = "name" in blob ? (blob.name as string) : undefined;
+    appendForm(body, "caption_file", blob, name);
   } else if (isReadableStream(payload.RequestBody.caption_file.content)) {
     const buffer = await readableStreamToArrayBuffer(
       payload.RequestBody.caption_file.content,
@@ -115,23 +118,10 @@ async function $do(
     const contentType =
       getContentTypeFromFileName(payload.RequestBody.caption_file.fileName)
       || "application/octet-stream";
-    const blob = new Blob([buffer], { type: contentType });
     appendForm(
       body,
       "caption_file",
-      blob,
-      payload.RequestBody.caption_file.fileName,
-    );
-  } else if (payload.RequestBody.caption_file.content instanceof Uint8Array) {
-    const contentType =
-      getContentTypeFromFileName(payload.RequestBody.caption_file.fileName)
-      || "application/octet-stream";
-    appendForm(
-      body,
-      "caption_file",
-      new Blob([
-        new Uint8Array(payload.RequestBody.caption_file.content).buffer,
-      ], { type: contentType }),
+      bytesToBlob(buffer, contentType),
       payload.RequestBody.caption_file.fileName,
     );
   } else {
@@ -141,9 +131,7 @@ async function $do(
     appendForm(
       body,
       "caption_file",
-      new Blob([payload.RequestBody.caption_file.content], {
-        type: contentType,
-      }),
+      bytesToBlob(payload.RequestBody.caption_file.content, contentType),
       payload.RequestBody.caption_file.fileName,
     );
   }
@@ -157,7 +145,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/medias/{mediaHashedId}/captions")(pathParams);
 
   const headers = new Headers(compactMap({

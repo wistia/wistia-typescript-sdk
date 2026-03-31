@@ -105,7 +105,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/stats/medias/{mediaId}/by_date")(pathParams);
 
   const query = encodeFormQuery({

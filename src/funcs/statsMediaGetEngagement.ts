@@ -106,7 +106,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/stats/medias/{mediaId}/engagement")(pathParams);
 
   const headers = new Headers(compactMap({

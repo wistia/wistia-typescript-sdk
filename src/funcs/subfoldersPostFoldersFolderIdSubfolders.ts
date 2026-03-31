@@ -108,7 +108,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/folders/{folderId}/subfolders")(pathParams);
 
   const headers = new Headers(compactMap({

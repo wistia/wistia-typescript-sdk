@@ -107,7 +107,6 @@ async function $do(
       { explode: false, charEncoding: "percent" },
     ),
   };
-
   const path = pathToFunc("/background_job_status/{backgroundJobStatusId}")(
     pathParams,
   );

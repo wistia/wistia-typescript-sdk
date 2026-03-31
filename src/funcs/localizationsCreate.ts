@@ -111,7 +111,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/medias/{mediaHashedId}/localizations")(pathParams);
 
   const headers = new Headers(compactMap({

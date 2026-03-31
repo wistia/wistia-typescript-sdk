@@ -1,4 +1,4 @@
-speakeasyVersion: 1.741.4
+speakeasyVersion: 1.760.0
 sources:
     Data API:
         sourceNamespace: data-api
@@ -14,7 +14,7 @@ targets:
         sourceRevisionDigest: sha256:626d2f8feb11a14fe2e90261c66e16e27a8d2e0c33286bef155b749357750b59
         sourceBlobDigest: sha256:7dea3ae16ca56ec329746052ed202135f97a95aa094cf25b525a2c25e40e8602
         codeSamplesNamespace: data-api-typescript-code-samples
-        codeSamplesRevisionDigest: sha256:49f6b083348cbf8fc1da199896c2c1c230a1fcce2107fae083efc0c3587b160b
+        codeSamplesRevisionDigest: sha256:8f5419904c7c8b422b96a3d1733403a0916ae3261e0d510a5f43da041977ea34
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
