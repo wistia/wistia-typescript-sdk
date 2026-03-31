@@ -39,12 +39,10 @@ export enum GetAcceptEnum {
  * Supports multiple formats: JSON (default), SRT, VTT, and TXT.
  * Use file extensions (.srt, .vtt, .txt) or Accept headers to specify format.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read all folder and media data
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function captionsGet(
   client: WistiaCore,
@@ -119,7 +117,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/medias/{mediaHashedId}/captions/{languageCode}")(
     pathParams,
   );

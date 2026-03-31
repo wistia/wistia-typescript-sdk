@@ -30,14 +30,12 @@ import { Result } from "../types/fp.js";
  * Delete Captions
  *
  * @remarks
- * Removes the captions file from a video for the specified language.
+ * Removes the captions file from a media for the specified language.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read, update & delete anything
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function captionsDelete(
   client: WistiaCore,
@@ -111,7 +109,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/medias/{mediaHashedId}/captions/{languageCode}")(
     pathParams,
   );

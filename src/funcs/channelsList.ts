@@ -37,12 +37,10 @@ import { Result } from "../types/fp.js";
  * Lists all Channels belonging to an account. This endpoint can also be used to
  * do a batch fetch based off of the hashed id.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read all folder and media data
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function channelsList(
   client: WistiaCore,

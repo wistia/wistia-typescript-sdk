@@ -22,16 +22,18 @@ export type PostMediasMediaIdCustomizationsSocialbarV1Request = {
   height?: number | undefined;
 };
 
-export type PostMediasMediaIdCustomizationsChapterList = {
-  id?: number | undefined;
+export type PostMediasMediaIdCustomizationsChapterListRequest = {
+  id?: string | undefined;
   title?: string | undefined;
-  time?: number | undefined;
-  deleted?: boolean | undefined;
+  time?: string | undefined;
+  deleted?: string | undefined;
 };
 
 export type PostMediasMediaIdCustomizationsChaptersRequest = {
   visibleOnLoad?: boolean | undefined;
-  chapterList?: Array<PostMediasMediaIdCustomizationsChapterList> | undefined;
+  chapterList?:
+    | Array<PostMediasMediaIdCustomizationsChapterListRequest>
+    | undefined;
   on?: boolean | undefined;
 };
 
@@ -340,9 +342,18 @@ export type PostMediasMediaIdCustomizationsSocialbarV1Response = {
   height?: string | undefined;
 };
 
+export type PostMediasMediaIdCustomizationsChapterListResponse = {
+  id?: string | undefined;
+  title?: string | undefined;
+  time?: string | undefined;
+  deleted?: string | undefined;
+};
+
 export type PostMediasMediaIdCustomizationsChaptersResponse = {
   visibleOnLoad?: string | undefined;
-  chapterList?: string | undefined;
+  chapterList?:
+    | Array<PostMediasMediaIdCustomizationsChapterListResponse>
+    | undefined;
   on?: string | undefined;
 };
 
@@ -557,33 +568,33 @@ export function postMediasMediaIdCustomizationsSocialbarV1RequestToJSON(
 }
 
 /** @internal */
-export type PostMediasMediaIdCustomizationsChapterList$Outbound = {
-  id?: number | undefined;
+export type PostMediasMediaIdCustomizationsChapterListRequest$Outbound = {
+  id?: string | undefined;
   title?: string | undefined;
-  time?: number | undefined;
-  deleted?: boolean | undefined;
+  time?: string | undefined;
+  deleted?: string | undefined;
 };
 
 /** @internal */
-export const PostMediasMediaIdCustomizationsChapterList$outboundSchema:
+export const PostMediasMediaIdCustomizationsChapterListRequest$outboundSchema:
   z.ZodType<
-    PostMediasMediaIdCustomizationsChapterList$Outbound,
+    PostMediasMediaIdCustomizationsChapterListRequest$Outbound,
     z.ZodTypeDef,
-    PostMediasMediaIdCustomizationsChapterList
+    PostMediasMediaIdCustomizationsChapterListRequest
   > = z.object({
-    id: z.number().int().optional(),
+    id: z.string().optional(),
     title: z.string().optional(),
-    time: z.number().optional(),
-    deleted: z.boolean().optional(),
+    time: z.string().optional(),
+    deleted: z.string().optional(),
   });
 
-export function postMediasMediaIdCustomizationsChapterListToJSON(
-  postMediasMediaIdCustomizationsChapterList:
-    PostMediasMediaIdCustomizationsChapterList,
+export function postMediasMediaIdCustomizationsChapterListRequestToJSON(
+  postMediasMediaIdCustomizationsChapterListRequest:
+    PostMediasMediaIdCustomizationsChapterListRequest,
 ): string {
   return JSON.stringify(
-    PostMediasMediaIdCustomizationsChapterList$outboundSchema.parse(
-      postMediasMediaIdCustomizationsChapterList,
+    PostMediasMediaIdCustomizationsChapterListRequest$outboundSchema.parse(
+      postMediasMediaIdCustomizationsChapterListRequest,
     ),
   );
 }
@@ -592,7 +603,7 @@ export function postMediasMediaIdCustomizationsChapterListToJSON(
 export type PostMediasMediaIdCustomizationsChaptersRequest$Outbound = {
   visibleOnLoad?: boolean | undefined;
   chapterList?:
-    | Array<PostMediasMediaIdCustomizationsChapterList$Outbound>
+    | Array<PostMediasMediaIdCustomizationsChapterListRequest$Outbound>
     | undefined;
   on?: boolean | undefined;
 };
@@ -606,7 +617,9 @@ export const PostMediasMediaIdCustomizationsChaptersRequest$outboundSchema:
   > = z.object({
     visibleOnLoad: z.boolean().optional(),
     chapterList: z.array(
-      z.lazy(() => PostMediasMediaIdCustomizationsChapterList$outboundSchema),
+      z.lazy(() =>
+        PostMediasMediaIdCustomizationsChapterListRequest$outboundSchema
+      ),
     ).optional(),
     on: z.boolean().optional(),
   });
@@ -1084,6 +1097,35 @@ export function postMediasMediaIdCustomizationsSocialbarV1ResponseFromJSON(
 }
 
 /** @internal */
+export const PostMediasMediaIdCustomizationsChapterListResponse$inboundSchema:
+  z.ZodType<
+    PostMediasMediaIdCustomizationsChapterListResponse,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    id: z.string().optional(),
+    title: z.string().optional(),
+    time: z.string().optional(),
+    deleted: z.string().optional(),
+  });
+
+export function postMediasMediaIdCustomizationsChapterListResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  PostMediasMediaIdCustomizationsChapterListResponse,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      PostMediasMediaIdCustomizationsChapterListResponse$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'PostMediasMediaIdCustomizationsChapterListResponse' from JSON`,
+  );
+}
+
+/** @internal */
 export const PostMediasMediaIdCustomizationsChaptersResponse$inboundSchema:
   z.ZodType<
     PostMediasMediaIdCustomizationsChaptersResponse,
@@ -1091,7 +1133,11 @@ export const PostMediasMediaIdCustomizationsChaptersResponse$inboundSchema:
     unknown
   > = z.object({
     visibleOnLoad: z.string().optional(),
-    chapterList: z.string().optional(),
+    chapterList: z.array(
+      z.lazy(() =>
+        PostMediasMediaIdCustomizationsChapterListResponse$inboundSchema
+      ),
+    ).optional(),
     on: z.string().optional(),
   });
 

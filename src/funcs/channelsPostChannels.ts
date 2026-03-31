@@ -29,7 +29,7 @@ import { Result } from "../types/fp.js";
  * Create Channel
  *
  * @remarks
- * Create endpoint for a new channel.
+ * Creates a channel.
  */
 export function channelsPostChannels(
   client: WistiaCore,
@@ -39,6 +39,7 @@ export function channelsPostChannels(
   Result<
     operations.PostChannelsResponse,
     | errors.PostChannelsUnauthorizedError
+    | errors.PostChannelsForbiddenError
     | errors.PostChannelsInternalServerError
     | WistiaError
     | ResponseValidationError
@@ -66,6 +67,7 @@ async function $do(
     Result<
       operations.PostChannelsResponse,
       | errors.PostChannelsUnauthorizedError
+      | errors.PostChannelsForbiddenError
       | errors.PostChannelsInternalServerError
       | WistiaError
       | ResponseValidationError
@@ -136,7 +138,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["401", "4XX", "500", "5XX"],
+    errorCodes: ["401", "403", "4XX", "500", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -152,6 +154,7 @@ async function $do(
   const [result] = await M.match<
     operations.PostChannelsResponse,
     | errors.PostChannelsUnauthorizedError
+    | errors.PostChannelsForbiddenError
     | errors.PostChannelsInternalServerError
     | WistiaError
     | ResponseValidationError
@@ -164,6 +167,7 @@ async function $do(
   >(
     M.json(201, operations.PostChannelsResponse$inboundSchema),
     M.jsonErr(401, errors.PostChannelsUnauthorizedError$inboundSchema),
+    M.jsonErr(403, errors.PostChannelsForbiddenError$inboundSchema),
     M.jsonErr(500, errors.PostChannelsInternalServerError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),

@@ -21,12 +21,10 @@ export class ChannelEpisodes extends ClientSDK {
    * Returns the Channel Episode associated with a channel hashed id
    * and channel episode hashed id.
    *
-   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read all folder and media data
    * ```
-   * <!--- /HIDE-MCP -->
    */
   async get(
     request:
@@ -48,12 +46,10 @@ export class ChannelEpisodes extends ClientSDK {
    * @remarks
    * Creates a new channel episode in a channel.
    *
-   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read, update & delete anything
    * ```
-   * <!--- /HIDE-MCP -->
    */
   async create(
     request: operations.PostChannelsChannelHashedIdChannelEpisodesRequest,
@@ -73,12 +69,10 @@ export class ChannelEpisodes extends ClientSDK {
    * Lists Channel Episodes belonging to an account. This endpoint can also be used to
    * do a batch fetch based off of the hashed id.
    *
-   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read all folder and media data
    * ```
-   * <!--- /HIDE-MCP -->
    */
   async list(
     request?: operations.GetChannelEpisodesRequest | undefined,
@@ -92,7 +86,7 @@ export class ChannelEpisodes extends ClientSDK {
   }
 
   /**
-   * Channel Episode Update
+   * Update Channel Episode
    *
    * @remarks
    * Updates an existing channel episode in a channel.
@@ -113,7 +107,7 @@ export class ChannelEpisodes extends ClientSDK {
   }
 
   /**
-   * Channel Episode Delete
+   * Delete Channel Episode
    *
    * @remarks
    * Deletes an existing channel episode in a channel.
@@ -137,7 +131,7 @@ export class ChannelEpisodes extends ClientSDK {
   }
 
   /**
-   * Channel Episode Update
+   * Publish Channel Episode
    *
    * @remarks
    * Publishes an existing channel episode in a channel.
@@ -162,10 +156,10 @@ export class ChannelEpisodes extends ClientSDK {
   }
 
   /**
-   * Channel Episode Update
+   * Un-publish Channel Episode
    *
    * @remarks
-   * Unpublishes an existing channel episode in a channel.
+   * Un-publishes an existing channel episode in a channel.
    * ## Requires api token with one of the following permissions
    * ```
    * Read, update & delete anything

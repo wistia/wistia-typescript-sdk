@@ -27,12 +27,10 @@ export class Channels extends ClientSDK {
    * Lists all Channels belonging to an account. This endpoint can also be used to
    * do a batch fetch based off of the hashed id.
    *
-   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read all folder and media data
    * ```
-   * <!--- /HIDE-MCP -->
    */
   async list(
     request?: operations.GetChannelsRequest | undefined,
@@ -49,7 +47,7 @@ export class Channels extends ClientSDK {
    * Create Channel
    *
    * @remarks
-   * Create endpoint for a new channel.
+   * Creates a channel.
    */
   async postChannels(
     request?: operations.PostChannelsRequest | undefined,
@@ -68,12 +66,10 @@ export class Channels extends ClientSDK {
    * @remarks
    * Returns the Channel associated with the hashedId.
    *
-   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read all folder and media data
    * ```
-   * <!--- /HIDE-MCP -->
    */
   async get(
     request: operations.GetChannelsChannelHashedIdRequest,
@@ -90,7 +86,7 @@ export class Channels extends ClientSDK {
    * Update Channel
    *
    * @remarks
-   * Update endpoint for a channel.
+   * Updates a channel.
    */
   async putChannelsChannelHashedId(
     request: operations.PutChannelsChannelHashedIdRequest,
@@ -107,7 +103,7 @@ export class Channels extends ClientSDK {
    * Delete Channel
    *
    * @remarks
-   * Delete endpoint for a channel.
+   * Deletes a channel.
    */
   async deleteChannelsChannelHashedId(
     request: operations.DeleteChannelsChannelHashedIdRequest,

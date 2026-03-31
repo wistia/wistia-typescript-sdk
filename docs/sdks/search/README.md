@@ -8,14 +8,14 @@
 
 ## search
 
-Searches across folders, medias, channels, and channel episodes.
+Searches across folders, subfolders, medias, channels, channel episodes, and webinars.
+Also searches through video transcripts, so media results may include transcript matches with
+timestamps when the query matches spoken content.
 
-<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read all data
 ```
-<!--- /HIDE-MCP -->
 
 
 ### Example Usage

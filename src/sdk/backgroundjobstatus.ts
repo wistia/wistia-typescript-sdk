@@ -14,12 +14,10 @@ export class BackgroundJobStatus extends ClientSDK {
    * @remarks
    * Retrieves the status of a background job.
    *
-   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read all data
    * ```
-   * <!--- /HIDE-MCP -->
    */
   async get(
     request: operations.GetBackgroundJobStatusBackgroundJobStatusIdRequest,

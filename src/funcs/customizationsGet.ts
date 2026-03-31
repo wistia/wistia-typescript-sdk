@@ -31,12 +31,10 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Fetches explicitly defined customizations for the video.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read all folder and media data
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function customizationsGet(
   client: WistiaCore,
@@ -108,7 +106,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/medias/{mediaId}/customizations")(pathParams);
 
   const headers = new Headers(compactMap({

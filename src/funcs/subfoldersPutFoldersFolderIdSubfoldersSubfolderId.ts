@@ -31,14 +31,10 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Updates a subfolder's name and/or description.
  *
- * Retrieves detailed information about a specific subfolder, including all media contained within it.
- *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read, update & delete anything
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function subfoldersPutFoldersFolderIdSubfoldersSubfolderId(
   client: WistiaCore,
@@ -113,7 +109,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/folders/{folderId}/subfolders/{subfolderId}")(
     pathParams,
   );

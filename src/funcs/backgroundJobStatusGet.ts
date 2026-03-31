@@ -31,12 +31,10 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Retrieves the status of a background job.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read all data
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function backgroundJobStatusGet(
   client: WistiaCore,
@@ -107,7 +105,6 @@ async function $do(
       { explode: false, charEncoding: "percent" },
     ),
   };
-
   const path = pathToFunc("/background_job_status/{backgroundJobStatusId}")(
     pathParams,
   );

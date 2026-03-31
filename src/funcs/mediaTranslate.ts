@@ -31,12 +31,10 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Translates the transcript for a media.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read, update & delete anything
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function mediaTranslate(
   client: WistiaCore,
@@ -47,6 +45,7 @@ export function mediaTranslate(
     operations.PostMediasMediaHashedIdTranslateResponse,
     | errors.PostMediasMediaHashedIdTranslateBadRequestError
     | errors.PostMediasMediaHashedIdTranslateUnauthorizedError
+    | errors.PostMediasMediaHashedIdTranslateForbiddenError
     | errors.PostMediasMediaHashedIdTranslateNotFoundError
     | errors.PostMediasMediaHashedIdTranslateUnprocessableEntityError
     | errors.PostMediasMediaHashedIdTranslateInternalServerError
@@ -77,6 +76,7 @@ async function $do(
       operations.PostMediasMediaHashedIdTranslateResponse,
       | errors.PostMediasMediaHashedIdTranslateBadRequestError
       | errors.PostMediasMediaHashedIdTranslateUnauthorizedError
+      | errors.PostMediasMediaHashedIdTranslateForbiddenError
       | errors.PostMediasMediaHashedIdTranslateNotFoundError
       | errors.PostMediasMediaHashedIdTranslateUnprocessableEntityError
       | errors.PostMediasMediaHashedIdTranslateInternalServerError
@@ -112,7 +112,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/medias/{mediaHashedId}/translate")(pathParams);
 
   const headers = new Headers(compactMap({
@@ -156,7 +155,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["400", "401", "404", "422", "4XX", "500", "5XX"],
+    errorCodes: ["400", "401", "403", "404", "422", "4XX", "500", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -173,6 +172,7 @@ async function $do(
     operations.PostMediasMediaHashedIdTranslateResponse,
     | errors.PostMediasMediaHashedIdTranslateBadRequestError
     | errors.PostMediasMediaHashedIdTranslateUnauthorizedError
+    | errors.PostMediasMediaHashedIdTranslateForbiddenError
     | errors.PostMediasMediaHashedIdTranslateNotFoundError
     | errors.PostMediasMediaHashedIdTranslateUnprocessableEntityError
     | errors.PostMediasMediaHashedIdTranslateInternalServerError
@@ -196,6 +196,10 @@ async function $do(
     M.jsonErr(
       401,
       errors.PostMediasMediaHashedIdTranslateUnauthorizedError$inboundSchema,
+    ),
+    M.jsonErr(
+      403,
+      errors.PostMediasMediaHashedIdTranslateForbiddenError$inboundSchema,
     ),
     M.jsonErr(
       404,

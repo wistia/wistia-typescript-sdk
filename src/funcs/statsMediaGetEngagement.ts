@@ -46,6 +46,7 @@ export function statsMediaGetEngagement(
   Result<
     operations.GetStatsMediasMediaIdEngagementResponse,
     | errors.GetStatsMediasMediaIdEngagementUnauthorizedError
+    | errors.GetStatsMediasMediaIdEngagementForbiddenError
     | errors.GetStatsMediasMediaIdEngagementInternalServerError
     | WistiaError
     | ResponseValidationError
@@ -73,6 +74,7 @@ async function $do(
     Result<
       operations.GetStatsMediasMediaIdEngagementResponse,
       | errors.GetStatsMediasMediaIdEngagementUnauthorizedError
+      | errors.GetStatsMediasMediaIdEngagementForbiddenError
       | errors.GetStatsMediasMediaIdEngagementInternalServerError
       | WistiaError
       | ResponseValidationError
@@ -106,7 +108,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/stats/medias/{mediaId}/engagement")(pathParams);
 
   const headers = new Headers(compactMap({
@@ -149,7 +150,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["401", "404", "4XX", "500", "5XX"],
+    errorCodes: ["401", "403", "404", "4XX", "500", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -165,6 +166,7 @@ async function $do(
   const [result] = await M.match<
     operations.GetStatsMediasMediaIdEngagementResponse,
     | errors.GetStatsMediasMediaIdEngagementUnauthorizedError
+    | errors.GetStatsMediasMediaIdEngagementForbiddenError
     | errors.GetStatsMediasMediaIdEngagementInternalServerError
     | WistiaError
     | ResponseValidationError
@@ -182,6 +184,10 @@ async function $do(
     M.jsonErr(
       401,
       errors.GetStatsMediasMediaIdEngagementUnauthorizedError$inboundSchema,
+    ),
+    M.jsonErr(
+      403,
+      errors.GetStatsMediasMediaIdEngagementForbiddenError$inboundSchema,
     ),
     M.jsonErr(
       500,

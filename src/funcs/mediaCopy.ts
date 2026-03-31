@@ -31,12 +31,10 @@ import { Result } from "../types/fp.js";
  * @remarks
  * This endpoint copies a media and its assets to a destination folder (defaults to source media).
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read, update & delete anything
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function mediaCopy(
   client: WistiaCore,
@@ -47,6 +45,7 @@ export function mediaCopy(
     operations.PostMediasMediaHashedIdCopyResponse,
     | errors.PostMediasMediaHashedIdCopyBadRequestError
     | errors.PostMediasMediaHashedIdCopyUnauthorizedError
+    | errors.PostMediasMediaHashedIdCopyForbiddenError
     | errors.PostMediasMediaHashedIdCopyNotFoundError
     | errors.MethodNotAllowedError
     | errors.PostMediasMediaHashedIdCopyInternalServerError
@@ -77,6 +76,7 @@ async function $do(
       operations.PostMediasMediaHashedIdCopyResponse,
       | errors.PostMediasMediaHashedIdCopyBadRequestError
       | errors.PostMediasMediaHashedIdCopyUnauthorizedError
+      | errors.PostMediasMediaHashedIdCopyForbiddenError
       | errors.PostMediasMediaHashedIdCopyNotFoundError
       | errors.MethodNotAllowedError
       | errors.PostMediasMediaHashedIdCopyInternalServerError
@@ -110,7 +110,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/medias/{mediaHashedId}/copy")(pathParams);
 
   const headers = new Headers(compactMap({
@@ -154,7 +153,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["400", "401", "404", "405", "4XX", "500", "5XX"],
+    errorCodes: ["400", "401", "403", "404", "405", "4XX", "500", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -171,6 +170,7 @@ async function $do(
     operations.PostMediasMediaHashedIdCopyResponse,
     | errors.PostMediasMediaHashedIdCopyBadRequestError
     | errors.PostMediasMediaHashedIdCopyUnauthorizedError
+    | errors.PostMediasMediaHashedIdCopyForbiddenError
     | errors.PostMediasMediaHashedIdCopyNotFoundError
     | errors.MethodNotAllowedError
     | errors.PostMediasMediaHashedIdCopyInternalServerError
@@ -194,6 +194,10 @@ async function $do(
     M.jsonErr(
       401,
       errors.PostMediasMediaHashedIdCopyUnauthorizedError$inboundSchema,
+    ),
+    M.jsonErr(
+      403,
+      errors.PostMediasMediaHashedIdCopyForbiddenError$inboundSchema,
     ),
     M.jsonErr(
       404,

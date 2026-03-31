@@ -31,12 +31,10 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Retrieves the details of a specific sharing object for a given folder.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read all data
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function folderSharingsGetFoldersFolderIdSharingsSharingId(
   client: WistiaCore,
@@ -111,7 +109,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/folders/{folderId}/sharings/{sharingId}")(
     pathParams,
   );

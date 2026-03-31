@@ -15,12 +15,10 @@
 
 Lists subfolders in a specific folder.
 
-<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read all folder and media data
 ```
-<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -100,12 +98,10 @@ run();
 
 Creates a new subfolder within a folder. The subfolder will be created with the next available position.
 
-<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
-<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -184,6 +180,7 @@ run();
 | Error Type                                              | Status Code                                             | Content Type                                            |
 | ------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------- |
 | errors.PostFoldersFolderIdSubfoldersUnauthorizedError   | 401                                                     | application/json                                        |
+| errors.PostFoldersFolderIdSubfoldersForbiddenError      | 403                                                     | application/json                                        |
 | errors.PostFoldersFolderIdSubfoldersNotFoundError       | 404                                                     | application/json                                        |
 | errors.PostFoldersFolderIdSubfoldersInternalServerError | 500                                                     | application/json                                        |
 | errors.WistiaDefaultError                               | 4XX, 5XX                                                | \*/\*                                                   |
@@ -192,12 +189,10 @@ run();
 
 Retrieves detailed information about a specific subfolder, including all media contained within it.
 
-<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read all folder and media data
 ```
-<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -276,16 +271,12 @@ run();
 
 ## putFoldersFolderIdSubfoldersSubfolderId
 
-Updates a subfolder's name and/or description. 
+Updates a subfolder's name and/or description.
 
-Retrieves detailed information about a specific subfolder, including all media contained within it.
-
-<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
-<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -376,12 +367,10 @@ Deletes a subfolder from a folder. All media files in the subfolder will be move
 
 The subfolder is soft-deleted and may be recoverable through other means, but is no longer accessible via the API.
 
-<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
-<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -462,12 +451,10 @@ run();
 
 This method accepts a list of subfolders to delete. It processes requests asynchronously and will return a background_job_status object. All media files in each deleted subfolder will be moved to the folder's root level.
 
-<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
-<!--- /HIDE-MCP -->
 
 
 ### Example Usage

@@ -29,14 +29,16 @@ import { Result } from "../types/fp.js";
  * Create Media from Trims
  *
  * @remarks
- * Creates a new media that trims off parts of an existing media
+ * Creates a new media that trims off parts of an existing media.
  *
- * <!--- HIDE-MCP -->
+ * By default, the `trims` parameter specifies time ranges to **remove** from the media. When `keep_trims` is set to `true`, the `trims` parameter instead specifies time ranges to **keep** in the media.
+ *
+ * **NOTE:** currently this endpoint only supports trimming video files.
+ *
  * ## Requires api token with one of the following permissions
  * ```
  * Read, update & delete anything
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function trimsCreate(
   client: WistiaCore,
@@ -46,6 +48,7 @@ export function trimsCreate(
   Result<
     operations.PostMediasMediaHashedIdTrimsResponse,
     | errors.PostMediasMediaHashedIdTrimsUnauthorizedError
+    | errors.PostMediasMediaHashedIdTrimsForbiddenError
     | errors.PostMediasMediaHashedIdTrimsUnprocessableEntityError
     | errors.PostMediasMediaHashedIdTrimsInternalServerError
     | WistiaError
@@ -74,6 +77,7 @@ async function $do(
     Result<
       operations.PostMediasMediaHashedIdTrimsResponse,
       | errors.PostMediasMediaHashedIdTrimsUnauthorizedError
+      | errors.PostMediasMediaHashedIdTrimsForbiddenError
       | errors.PostMediasMediaHashedIdTrimsUnprocessableEntityError
       | errors.PostMediasMediaHashedIdTrimsInternalServerError
       | WistiaError
@@ -108,7 +112,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/medias/{mediaHashedId}/trims")(pathParams);
 
   const headers = new Headers(compactMap({
@@ -152,7 +155,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["401", "422", "4XX", "500", "5XX"],
+    errorCodes: ["401", "403", "422", "4XX", "500", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -168,6 +171,7 @@ async function $do(
   const [result] = await M.match<
     operations.PostMediasMediaHashedIdTrimsResponse,
     | errors.PostMediasMediaHashedIdTrimsUnauthorizedError
+    | errors.PostMediasMediaHashedIdTrimsForbiddenError
     | errors.PostMediasMediaHashedIdTrimsUnprocessableEntityError
     | errors.PostMediasMediaHashedIdTrimsInternalServerError
     | WistiaError
@@ -183,6 +187,10 @@ async function $do(
     M.jsonErr(
       401,
       errors.PostMediasMediaHashedIdTrimsUnauthorizedError$inboundSchema,
+    ),
+    M.jsonErr(
+      403,
+      errors.PostMediasMediaHashedIdTrimsForbiddenError$inboundSchema,
     ),
     M.jsonErr(
       422,

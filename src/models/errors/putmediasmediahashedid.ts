@@ -68,6 +68,37 @@ export class PutMediasMediaHashedIdNotFoundError extends WistiaError {
 }
 
 /**
+ * Forbidden, token is valid but account does not have access to feature
+ */
+export type PutMediasMediaHashedIdForbiddenErrorData = {
+  error?: string | undefined;
+};
+
+/**
+ * Forbidden, token is valid but account does not have access to feature
+ */
+export class PutMediasMediaHashedIdForbiddenError extends WistiaError {
+  error?: string | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: PutMediasMediaHashedIdForbiddenErrorData;
+
+  constructor(
+    err: PutMediasMediaHashedIdForbiddenErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+
+    this.name = "PutMediasMediaHashedIdForbiddenError";
+  }
+}
+
+/**
  * Unauthorized, invalid or missing token
  */
 export type PutMediasMediaHashedIdUnauthorizedErrorData = {
@@ -167,6 +198,25 @@ export const PutMediasMediaHashedIdNotFoundError$inboundSchema: z.ZodType<
 })
   .transform((v) => {
     return new PutMediasMediaHashedIdNotFoundError(v, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
+  });
+
+/** @internal */
+export const PutMediasMediaHashedIdForbiddenError$inboundSchema: z.ZodType<
+  PutMediasMediaHashedIdForbiddenError,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  error: z.string().optional(),
+  request$: z.instanceof(Request),
+  response$: z.instanceof(Response),
+  body$: z.string(),
+})
+  .transform((v) => {
+    return new PutMediasMediaHashedIdForbiddenError(v, {
       request: v.request$,
       response: v.response$,
       body: v.body$,

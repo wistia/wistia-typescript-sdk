@@ -15,12 +15,10 @@
 Lists all Channels belonging to an account. This endpoint can also be used to
 do a batch fetch based off of the hashed id.
 
-<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read all folder and media data
 ```
-<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -93,7 +91,7 @@ run();
 
 ## postChannels
 
-Create endpoint for a new channel.
+Creates a channel.
 
 
 ### Example Usage
@@ -160,6 +158,7 @@ run();
 | Error Type                             | Status Code                            | Content Type                           |
 | -------------------------------------- | -------------------------------------- | -------------------------------------- |
 | errors.PostChannelsUnauthorizedError   | 401                                    | application/json                       |
+| errors.PostChannelsForbiddenError      | 403                                    | application/json                       |
 | errors.PostChannelsInternalServerError | 500                                    | application/json                       |
 | errors.WistiaDefaultError              | 4XX, 5XX                               | \*/\*                                  |
 
@@ -167,12 +166,10 @@ run();
 
 Returns the Channel associated with the hashedId.
 
-<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read all folder and media data
 ```
-<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -249,7 +246,7 @@ run();
 
 ## putChannelsChannelHashedId
 
-Update endpoint for a channel.
+Updates a channel.
 
 
 ### Example Usage
@@ -320,12 +317,13 @@ run();
 | Error Type                                           | Status Code                                          | Content Type                                         |
 | ---------------------------------------------------- | ---------------------------------------------------- | ---------------------------------------------------- |
 | errors.PutChannelsChannelHashedIdUnauthorizedError   | 401                                                  | application/json                                     |
+| errors.PutChannelsChannelHashedIdForbiddenError      | 403                                                  | application/json                                     |
 | errors.PutChannelsChannelHashedIdInternalServerError | 500                                                  | application/json                                     |
 | errors.WistiaDefaultError                            | 4XX, 5XX                                             | \*/\*                                                |
 
 ## deleteChannelsChannelHashedId
 
-Delete endpoint for a channel.
+Deletes a channel.
 
 
 ### Example Usage
@@ -396,5 +394,6 @@ run();
 | Error Type                                              | Status Code                                             | Content Type                                            |
 | ------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------- |
 | errors.DeleteChannelsChannelHashedIdUnauthorizedError   | 401                                                     | application/json                                        |
+| errors.DeleteChannelsChannelHashedIdForbiddenError      | 403                                                     | application/json                                        |
 | errors.DeleteChannelsChannelHashedIdInternalServerError | 500                                                     | application/json                                        |
 | errors.WistiaDefaultError                               | 4XX, 5XX                                                | \*/\*                                                   |

@@ -18,12 +18,10 @@ export class FolderSharings extends ClientSDK {
    * @remarks
    * Lists the sharings of contacts and contact groups on a folder.
    *
-   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read all data
    * ```
-   * <!--- /HIDE-MCP -->
    */
   async getFoldersFolderIdSharings(
     request: operations.GetFoldersFolderIdSharingsRequest,
@@ -42,12 +40,10 @@ export class FolderSharings extends ClientSDK {
    * @remarks
    * Creates a new sharing object for a folder by specifying the email of the person to share with and other optional parameters.
    *
-   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read, update & delete anything
    * ```
-   * <!--- /HIDE-MCP -->
    */
   async postFoldersFolderIdSharings(
     request: operations.PostFoldersFolderIdSharingsRequest,
@@ -66,12 +62,10 @@ export class FolderSharings extends ClientSDK {
    * @remarks
    * Retrieves the details of a specific sharing object for a given folder.
    *
-   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read all data
    * ```
-   * <!--- /HIDE-MCP -->
    */
   async getFoldersFolderIdSharingsSharingId(
     request: operations.GetFoldersFolderIdSharingsSharingIdRequest,
@@ -90,12 +84,10 @@ export class FolderSharings extends ClientSDK {
    * @remarks
    * Updates a sharing on a folder.
    *
-   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read, update & delete anything
    * ```
-   * <!--- /HIDE-MCP -->
    */
   async putFoldersFolderIdSharingsSharingId(
     request: operations.PutFoldersFolderIdSharingsSharingIdRequest,
@@ -114,12 +106,10 @@ export class FolderSharings extends ClientSDK {
    * @remarks
    * Deletes a sharing on a folder.
    *
-   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read, update & delete anything
    * ```
-   * <!--- /HIDE-MCP -->
    */
   async deleteFoldersFolderIdSharingsSharingId(
     request: operations.DeleteFoldersFolderIdSharingsSharingIdRequest,

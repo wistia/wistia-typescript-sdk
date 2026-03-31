@@ -31,12 +31,10 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Deletes a localization.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read, update & delete anything
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function localizationsDelete(
   client: WistiaCore,
@@ -47,6 +45,7 @@ export function localizationsDelete(
   Result<
     operations.DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdResponse,
     | errors.DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdUnauthorizedError
+    | errors.DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdForbiddenError
     | errors.DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdNotFoundError
     | errors.DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdInternalServerError
     | WistiaError
@@ -76,6 +75,7 @@ async function $do(
     Result<
       operations.DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdResponse,
       | errors.DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdUnauthorizedError
+      | errors.DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdForbiddenError
       | errors.DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdNotFoundError
       | errors.DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdInternalServerError
       | WistiaError
@@ -115,7 +115,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc(
     "/medias/{mediaHashedId}/localizations/{localizationHashedId}",
   )(pathParams);
@@ -161,7 +160,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["401", "404", "4XX", "500", "5XX"],
+    errorCodes: ["401", "403", "404", "4XX", "500", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -177,6 +176,7 @@ async function $do(
   const [result] = await M.match<
     operations.DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdResponse,
     | errors.DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdUnauthorizedError
+    | errors.DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdForbiddenError
     | errors.DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdNotFoundError
     | errors.DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdInternalServerError
     | WistiaError
@@ -197,6 +197,11 @@ async function $do(
       401,
       errors
         .DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdUnauthorizedError$inboundSchema,
+    ),
+    M.jsonErr(
+      403,
+      errors
+        .DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdForbiddenError$inboundSchema,
     ),
     M.jsonErr(
       404,

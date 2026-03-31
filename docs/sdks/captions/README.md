@@ -16,14 +16,12 @@
 
 ## list
 
-Lists captions belonging to a specific video.
+Lists captions belonging to a specific media.
 
-<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read all folder and media data
 ```
-<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -99,14 +97,12 @@ run();
 
 ## create
 
-Adds captions to a specified video by providing an SRT file or its contents directly.
+Adds captions to a specified media by providing an SRT file or its contents directly.
 
-<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
-<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -183,19 +179,18 @@ run();
 | Error Type                                                | Status Code                                               | Content Type                                              |
 | --------------------------------------------------------- | --------------------------------------------------------- | --------------------------------------------------------- |
 | errors.PostMediasMediaHashedIdCaptionsUnauthorizedError   | 401                                                       | application/json                                          |
+| errors.PostMediasMediaHashedIdCaptionsForbiddenError      | 403                                                       | application/json                                          |
 | errors.PostMediasMediaHashedIdCaptionsInternalServerError | 500                                                       | application/json                                          |
 | errors.WistiaDefaultError                                 | 4XX, 5XX                                                  | \*/\*                                                     |
 
 ## createMultipart
 
-Adds captions to a specified video by providing an SRT file or its contents directly.
+Adds captions to a specified media by providing an SRT file or its contents directly.
 
-<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
-<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -274,20 +269,19 @@ run();
 | Error Type                                                         | Status Code                                                        | Content Type                                                       |
 | ------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------ |
 | errors.PostMediasMediaHashedIdCaptionsMultipartUnauthorizedError   | 401                                                                | application/json                                                   |
+| errors.PostMediasMediaHashedIdCaptionsMultipartForbiddenError      | 403                                                                | application/json                                                   |
 | errors.PostMediasMediaHashedIdCaptionsMultipartInternalServerError | 500                                                                | application/json                                                   |
 | errors.WistiaDefaultError                                          | 4XX, 5XX                                                           | \*/\*                                                              |
 
 ## getCaptions
 
 Lists captions belonging to the account. This endpoint can also narrow down results
-to those belonging to a specific video.
+to those belonging to a specific media.
 
-<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read all folder and media data
 ```
-<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -360,14 +354,12 @@ run();
 
 ## purchase
 
-This method is for purchasing English captions for a video. The request will charge the credit card on the account if successful. A saved credit card is required to use this endpoint.
+This method is for purchasing English captions for a media. The request will charge the credit card on the account if successful. A saved credit card is required to use this endpoint.
 
-<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
-<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -450,12 +442,10 @@ Returns a video's captions in the specified language.
 Supports multiple formats: JSON (default), SRT, VTT, and TXT.
 Use file extensions (.srt, .vtt, .txt) or Accept headers to specify format.
 
-<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read all folder and media data
 ```
-<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -535,12 +525,10 @@ run();
 
 This method is for replacing the captions on a video for the specified language.
 
-<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
-<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -626,12 +614,10 @@ run();
 
 This method is for replacing the captions on a video for the specified language.
 
-<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
-<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -717,14 +703,12 @@ run();
 
 ## delete
 
-Removes the captions file from a video for the specified language.
+Removes the captions file from a media for the specified language.
 
-<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
-<!--- /HIDE-MCP -->
 
 
 ### Example Usage

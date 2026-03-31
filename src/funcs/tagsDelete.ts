@@ -27,17 +27,15 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Delete Tags
+ * Delete Tag
  *
  * @remarks
  * Deletes a tag
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read, update & delete anything
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function tagsDelete(
   client: WistiaCore,
@@ -47,6 +45,7 @@ export function tagsDelete(
   Result<
     void,
     | errors.DeleteTagsNameUnauthorizedError
+    | errors.DeleteTagsNameForbiddenError
     | errors.DeleteTagsNameInternalServerError
     | WistiaError
     | ResponseValidationError
@@ -74,6 +73,7 @@ async function $do(
     Result<
       void,
       | errors.DeleteTagsNameUnauthorizedError
+      | errors.DeleteTagsNameForbiddenError
       | errors.DeleteTagsNameInternalServerError
       | WistiaError
       | ResponseValidationError
@@ -104,7 +104,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/tags/{name}")(pathParams);
 
   const headers = new Headers(compactMap({
@@ -147,7 +146,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["401", "404", "4XX", "500", "5XX"],
+    errorCodes: ["401", "403", "404", "4XX", "500", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -163,6 +162,7 @@ async function $do(
   const [result] = await M.match<
     void,
     | errors.DeleteTagsNameUnauthorizedError
+    | errors.DeleteTagsNameForbiddenError
     | errors.DeleteTagsNameInternalServerError
     | WistiaError
     | ResponseValidationError
@@ -175,6 +175,7 @@ async function $do(
   >(
     M.nil(200, z.void()),
     M.jsonErr(401, errors.DeleteTagsNameUnauthorizedError$inboundSchema),
+    M.jsonErr(403, errors.DeleteTagsNameForbiddenError$inboundSchema),
     M.jsonErr(500, errors.DeleteTagsNameInternalServerError$inboundSchema),
     M.fail([404, "4XX"]),
     M.fail("5XX"),

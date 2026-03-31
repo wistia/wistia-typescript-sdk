@@ -37,12 +37,10 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Lists subfolders in a specific folder.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read all folder and media data
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function subfoldersGetFoldersFolderIdSubfolders(
   client: WistiaCore,
@@ -116,7 +114,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/folders/{folderId}/subfolders")(pathParams);
 
   const query = queryJoin(

@@ -70,6 +70,37 @@ export class PostTaggingsBulkCreateUnprocessableEntityError
 }
 
 /**
+ * Forbidden, token is valid but account does not have access to feature
+ */
+export type PostTaggingsBulkCreateForbiddenErrorData = {
+  error?: string | undefined;
+};
+
+/**
+ * Forbidden, token is valid but account does not have access to feature
+ */
+export class PostTaggingsBulkCreateForbiddenError extends WistiaError {
+  error?: string | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: PostTaggingsBulkCreateForbiddenErrorData;
+
+  constructor(
+    err: PostTaggingsBulkCreateForbiddenErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+
+    this.name = "PostTaggingsBulkCreateForbiddenError";
+  }
+}
+
+/**
  * Unauthorized, invalid or missing token
  */
 export type PostTaggingsBulkCreateUnauthorizedErrorData = {
@@ -138,6 +169,25 @@ export const PostTaggingsBulkCreateUnprocessableEntityError$inboundSchema:
         body: v.body$,
       });
     });
+
+/** @internal */
+export const PostTaggingsBulkCreateForbiddenError$inboundSchema: z.ZodType<
+  PostTaggingsBulkCreateForbiddenError,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  error: z.string().optional(),
+  request$: z.instanceof(Request),
+  response$: z.instanceof(Response),
+  body$: z.string(),
+})
+  .transform((v) => {
+    return new PostTaggingsBulkCreateForbiddenError(v, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
+  });
 
 /** @internal */
 export const PostTaggingsBulkCreateUnauthorizedError$inboundSchema: z.ZodType<

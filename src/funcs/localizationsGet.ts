@@ -31,12 +31,10 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Obtain detailed information about a localization.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read all data
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function localizationsGet(
   client: WistiaCore,
@@ -115,7 +113,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc(
     "/medias/{mediaHashedId}/localizations/{localizationHashedId}",
   )(pathParams);
