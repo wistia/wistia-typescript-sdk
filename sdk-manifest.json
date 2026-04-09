@@ -1,0 +1,426 @@
+{
+  "version": "2026.3.1",
+  "generatedAt": "2026-04-09T16:24:35.306Z",
+  "operations": {
+    "POST /": {
+      "sdkModule": "media",
+      "sdkMethod": "uploadForm"
+    },
+    "GET /medias": {
+      "sdkModule": "media",
+      "sdkMethod": "list"
+    },
+    "GET /medias/{mediaHashedId}": {
+      "sdkModule": "media",
+      "sdkMethod": "get"
+    },
+    "PUT /medias/{mediaHashedId}": {
+      "sdkModule": "media",
+      "sdkMethod": "update"
+    },
+    "DELETE /medias/{mediaHashedId}": {
+      "sdkModule": "media",
+      "sdkMethod": "delete"
+    },
+    "POST /medias/{mediaHashedId}/copy": {
+      "sdkModule": "media",
+      "sdkMethod": "copy"
+    },
+    "PUT /medias/{mediaHashedId}/swap": {
+      "sdkModule": "media",
+      "sdkMethod": "swap"
+    },
+    "GET /medias/{mediaHashedId}/stats": {
+      "sdkModule": "media",
+      "sdkMethod": "getStats"
+    },
+    "POST /medias/{mediaHashedId}/translate": {
+      "sdkModule": "media",
+      "sdkMethod": "translate"
+    },
+    "POST /medias/import_url": {
+      "sdkModule": "media",
+      "sdkMethod": "postMediasImportUrl"
+    },
+    "PUT /medias/archive": {
+      "sdkModule": "media",
+      "sdkMethod": "archive"
+    },
+    "PUT /medias/move": {
+      "sdkModule": "media",
+      "sdkMethod": "move"
+    },
+    "PUT /medias/restore": {
+      "sdkModule": "media",
+      "sdkMethod": "restore"
+    },
+    "PUT /medias/copy": {
+      "sdkModule": "media",
+      "sdkMethod": "putMediasCopy"
+    },
+    "GET /media_extended_audio_descriptions": {
+      "sdkModule": "mediaExtendedAudioDescriptions",
+      "sdkMethod": "getMediaExtendedAudioDescriptions"
+    },
+    "GET /media_extended_audio_descriptions/{id}": {
+      "sdkModule": "mediaExtendedAudioDescriptions",
+      "sdkMethod": "getMediaExtendedAudioDescriptionsId"
+    },
+    "DELETE /media_extended_audio_descriptions/{id}": {
+      "sdkModule": "mediaExtendedAudioDescriptions",
+      "sdkMethod": "deleteMediaExtendedAudioDescriptionsId"
+    },
+    "POST /media_extended_audio_descriptions/order": {
+      "sdkModule": "mediaExtendedAudioDescriptions",
+      "sdkMethod": "postMediaExtendedAudioDescriptionsOrder"
+    },
+    "GET /media_extended_audio_descriptions/order_status/{id}": {
+      "sdkModule": "mediaExtendedAudioDescriptions",
+      "sdkMethod": "getMediaExtendedAudioDescriptionsOrderStatusId"
+    },
+    "GET /folders": {
+      "sdkModule": "folders",
+      "sdkMethod": "getFolders"
+    },
+    "POST /folders": {
+      "sdkModule": "folders",
+      "sdkMethod": "postFolders"
+    },
+    "GET /folders/{id}": {
+      "sdkModule": "folders",
+      "sdkMethod": "getFoldersId"
+    },
+    "PUT /folders/{id}": {
+      "sdkModule": "folders",
+      "sdkMethod": "putFoldersId"
+    },
+    "DELETE /folders/{id}": {
+      "sdkModule": "folders",
+      "sdkMethod": "deleteFoldersId"
+    },
+    "POST /folders/{id}/copy": {
+      "sdkModule": "folders",
+      "sdkMethod": "postFoldersIdCopy"
+    },
+    "GET /folders/{folderId}/subfolders": {
+      "sdkModule": "subfolders",
+      "sdkMethod": "getFoldersFolderIdSubfolders"
+    },
+    "POST /folders/{folderId}/subfolders": {
+      "sdkModule": "subfolders",
+      "sdkMethod": "postFoldersFolderIdSubfolders"
+    },
+    "GET /folders/{folderId}/subfolders/{subfolderId}": {
+      "sdkModule": "subfolders",
+      "sdkMethod": "getFoldersFolderIdSubfoldersSubfolderId"
+    },
+    "PUT /folders/{folderId}/subfolders/{subfolderId}": {
+      "sdkModule": "subfolders",
+      "sdkMethod": "putFoldersFolderIdSubfoldersSubfolderId"
+    },
+    "DELETE /folders/{folderId}/subfolders/{subfolderId}": {
+      "sdkModule": "subfolders",
+      "sdkMethod": "deleteFoldersFolderIdSubfoldersSubfolderId"
+    },
+    "DELETE /folders/{folderId}/subfolders/bulk_delete": {
+      "sdkModule": "subfolders",
+      "sdkMethod": "deleteFoldersFolderIdSubfoldersBulkDelete"
+    },
+    "GET /folders/{folderId}/sharings": {
+      "sdkModule": "folderSharings",
+      "sdkMethod": "getFoldersFolderIdSharings"
+    },
+    "POST /folders/{folderId}/sharings": {
+      "sdkModule": "folderSharings",
+      "sdkMethod": "postFoldersFolderIdSharings"
+    },
+    "GET /folders/{folderId}/sharings/{sharingId}": {
+      "sdkModule": "folderSharings",
+      "sdkMethod": "getFoldersFolderIdSharingsSharingId"
+    },
+    "PUT /folders/{folderId}/sharings/{sharingId}": {
+      "sdkModule": "folderSharings",
+      "sdkMethod": "putFoldersFolderIdSharingsSharingId"
+    },
+    "DELETE /folders/{folderId}/sharings/{sharingId}": {
+      "sdkModule": "folderSharings",
+      "sdkMethod": "deleteFoldersFolderIdSharingsSharingId"
+    },
+    "POST /taggings/bulk_create": {
+      "sdkModule": "taggings",
+      "sdkMethod": "postTaggingsBulkCreate"
+    },
+    "GET /account": {
+      "sdkModule": "account",
+      "sdkMethod": "get"
+    },
+    "GET /token": {
+      "sdkModule": "account",
+      "sdkMethod": "getTokenDetails"
+    },
+    "GET /allowed_domains": {
+      "sdkModule": "allowedDomains",
+      "sdkMethod": "list"
+    },
+    "POST /allowed_domains": {
+      "sdkModule": "allowedDomains",
+      "sdkMethod": "create"
+    },
+    "GET /allowed_domains/{domain}": {
+      "sdkModule": "allowedDomains",
+      "sdkMethod": "get"
+    },
+    "DELETE /allowed_domains/{domain}": {
+      "sdkModule": "allowedDomains",
+      "sdkMethod": "delete"
+    },
+    "GET /background_job_status/{backgroundJobStatusId}": {
+      "sdkModule": "backgroundJobStatus",
+      "sdkMethod": "get"
+    },
+    "GET /medias/{mediaId}/customizations": {
+      "sdkModule": "customizations",
+      "sdkMethod": "get"
+    },
+    "POST /medias/{mediaId}/customizations": {
+      "sdkModule": "customizations",
+      "sdkMethod": "create"
+    },
+    "PUT /medias/{mediaId}/customizations": {
+      "sdkModule": "customizations",
+      "sdkMethod": "update"
+    },
+    "DELETE /medias/{mediaId}/customizations": {
+      "sdkModule": "customizations",
+      "sdkMethod": "delete"
+    },
+    "GET /medias/{mediaHashedId}/captions": {
+      "sdkModule": "captions",
+      "sdkMethod": "list"
+    },
+    "POST /medias/{mediaHashedId}/captions": {
+      "sdkModule": "captions",
+      "sdkMethod": "create"
+    },
+    "GET /captions": {
+      "sdkModule": "captions",
+      "sdkMethod": "getCaptions"
+    },
+    "POST /medias/{mediaHashedId}/captions/purchase": {
+      "sdkModule": "captions",
+      "sdkMethod": "purchase"
+    },
+    "GET /medias/{mediaHashedId}/captions/{languageCode}": {
+      "sdkModule": "captions",
+      "sdkMethod": "get"
+    },
+    "PUT /medias/{mediaHashedId}/captions/{languageCode}": {
+      "sdkModule": "captions",
+      "sdkMethod": "update"
+    },
+    "DELETE /medias/{mediaHashedId}/captions/{languageCode}": {
+      "sdkModule": "captions",
+      "sdkMethod": "delete"
+    },
+    "POST /medias/{mediaHashedId}/trims": {
+      "sdkModule": "trims",
+      "sdkMethod": "create"
+    },
+    "GET /medias/{mediaHashedId}/localizations": {
+      "sdkModule": "localizations",
+      "sdkMethod": "list"
+    },
+    "POST /medias/{mediaHashedId}/localizations": {
+      "sdkModule": "localizations",
+      "sdkMethod": "create"
+    },
+    "GET /medias/{mediaHashedId}/localizations/{localizationHashedId}": {
+      "sdkModule": "localizations",
+      "sdkMethod": "get"
+    },
+    "DELETE /medias/{mediaHashedId}/localizations/{localizationHashedId}": {
+      "sdkModule": "localizations",
+      "sdkMethod": "delete"
+    },
+    "GET /tags": {
+      "sdkModule": "tags",
+      "sdkMethod": "list"
+    },
+    "POST /tags": {
+      "sdkModule": "tags",
+      "sdkMethod": "create"
+    },
+    "DELETE /tags/{name}": {
+      "sdkModule": "tags",
+      "sdkMethod": "delete"
+    },
+    "GET /search": {
+      "sdkModule": "search",
+      "sdkMethod": "search"
+    },
+    "GET /channels": {
+      "sdkModule": "channels",
+      "sdkMethod": "list"
+    },
+    "POST /channels": {
+      "sdkModule": "channels",
+      "sdkMethod": "postChannels"
+    },
+    "GET /channels/{channelHashedId}": {
+      "sdkModule": "channels",
+      "sdkMethod": "get"
+    },
+    "PUT /channels/{channelHashedId}": {
+      "sdkModule": "channels",
+      "sdkMethod": "putChannelsChannelHashedId"
+    },
+    "DELETE /channels/{channelHashedId}": {
+      "sdkModule": "channels",
+      "sdkMethod": "deleteChannelsChannelHashedId"
+    },
+    "GET /channels/{channelHashedId}/channel_episodes": {
+      "sdkModule": "channels.channelEpisodes",
+      "sdkMethod": "list"
+    },
+    "GET /channels/{channelHashedId}/channel_episodes/{channelEpisodeId}": {
+      "sdkModule": "channelEpisodes",
+      "sdkMethod": "get"
+    },
+    "POST /channels/{channelHashedId}/channel_episodes": {
+      "sdkModule": "channelEpisodes",
+      "sdkMethod": "create"
+    },
+    "GET /channel_episodes": {
+      "sdkModule": "channelEpisodes",
+      "sdkMethod": "list"
+    },
+    "PUT /channel_episodes/{channelEpisodeHashedId}": {
+      "sdkModule": "channelEpisodes",
+      "sdkMethod": "putChannelEpisodesChannelEpisodeHashedId"
+    },
+    "DELETE /channel_episodes/{channelEpisodeHashedId}": {
+      "sdkModule": "channelEpisodes",
+      "sdkMethod": "deleteChannelEpisodesChannelEpisodeHashedId"
+    },
+    "PUT /channel_episodes/{channelEpisodeHashedId}/publish": {
+      "sdkModule": "channelEpisodes",
+      "sdkMethod": "putChannelEpisodesChannelEpisodeHashedIdPublish"
+    },
+    "PUT /channel_episodes/{channelEpisodeHashedId}/unpublish": {
+      "sdkModule": "channelEpisodes",
+      "sdkMethod": "putChannelEpisodesChannelEpisodeHashedIdUnpublish"
+    },
+    "POST /expiring_token": {
+      "sdkModule": "expiringAccessTokens",
+      "sdkMethod": "create"
+    },
+    "GET /webinars": {
+      "sdkModule": "webinars",
+      "sdkMethod": "getWebinars"
+    },
+    "POST /webinars": {
+      "sdkModule": "webinars",
+      "sdkMethod": "postWebinars"
+    },
+    "GET /webinars/{id}": {
+      "sdkModule": "webinars",
+      "sdkMethod": "getWebinarsId"
+    },
+    "PUT /webinars/{id}": {
+      "sdkModule": "webinars",
+      "sdkMethod": "putWebinarsId"
+    },
+    "DELETE /webinars/{id}": {
+      "sdkModule": "webinars",
+      "sdkMethod": "deleteWebinarsId"
+    },
+    "POST /webinars/{webinarId}/registrations": {
+      "sdkModule": "webinarRegistrations",
+      "sdkMethod": "postWebinarsWebinarIdRegistrations"
+    },
+    "GET /stats/account": {
+      "sdkModule": "statsAccount",
+      "sdkMethod": "get"
+    },
+    "GET /stats/account/by_date": {
+      "sdkModule": "statsAccount",
+      "sdkMethod": "getStatsAccountByDate"
+    },
+    "GET /stats/projects/{projectId}": {
+      "sdkModule": "statsProjects",
+      "sdkMethod": "get"
+    },
+    "GET /stats/medias/{mediaId}": {
+      "sdkModule": "statsMedia",
+      "sdkMethod": "get"
+    },
+    "GET /stats/medias/{mediaId}/by_date": {
+      "sdkModule": "statsMedia",
+      "sdkMethod": "getByDate"
+    },
+    "GET /stats/medias/{mediaId}/engagement": {
+      "sdkModule": "statsMedia",
+      "sdkMethod": "getEngagement"
+    },
+    "GET /stats/visitors": {
+      "sdkModule": "statsVisitors",
+      "sdkMethod": "list"
+    },
+    "GET /stats/visitors/{visitorKey}": {
+      "sdkModule": "statsVisitors",
+      "sdkMethod": "get"
+    },
+    "GET /stats/events": {
+      "sdkModule": "statsEvents",
+      "sdkMethod": "list"
+    },
+    "GET /stats/events/{eventKey}": {
+      "sdkModule": "statsEvents",
+      "sdkMethod": "get"
+    },
+    "GET /analytics/medias/{mediaId}": {
+      "sdkModule": "analyticsMedia",
+      "sdkMethod": "getAnalyticsMediasMediaId"
+    },
+    "GET /analytics/medias/{mediaId}/timeseries": {
+      "sdkModule": "analyticsMedia",
+      "sdkMethod": "getAnalyticsMediasMediaIdTimeseries"
+    },
+    "GET /analytics/medias/{mediaId}/embed_locations": {
+      "sdkModule": "analyticsMedia",
+      "sdkMethod": "getAnalyticsMediasMediaIdEmbedLocations"
+    },
+    "GET /analytics/medias/{mediaId}/traffic": {
+      "sdkModule": "analyticsMedia",
+      "sdkMethod": "getAnalyticsMediasMediaIdTraffic"
+    },
+    "GET /analytics/medias/{mediaId}/conversions": {
+      "sdkModule": "analyticsMedia",
+      "sdkMethod": "getAnalyticsMediasMediaIdConversions"
+    },
+    "GET /analytics/medias/{mediaId}/languages": {
+      "sdkModule": "analyticsMedia",
+      "sdkMethod": "getAnalyticsMediasMediaIdLanguages"
+    },
+    "GET /analytics/webinars/{webinarId}": {
+      "sdkModule": "analyticsWebinar",
+      "sdkMethod": "getAnalyticsWebinarsWebinarId"
+    },
+    "GET /analytics/webinars/{webinarId}/registration": {
+      "sdkModule": "analyticsWebinar",
+      "sdkMethod": "getAnalyticsWebinarsWebinarIdRegistration"
+    },
+    "GET /analytics/webinars/{webinarId}/traffic": {
+      "sdkModule": "analyticsWebinar",
+      "sdkMethod": "getAnalyticsWebinarsWebinarIdTraffic"
+    },
+    "GET /analytics/webinars/{webinarId}/audience": {
+      "sdkModule": "analyticsWebinar",
+      "sdkMethod": "getAnalyticsWebinarsWebinarIdAudience"
+    },
+    "GET /analytics/webinars/{webinarId}/histograms": {
+      "sdkModule": "analyticsWebinar",
+      "sdkMethod": "getAnalyticsWebinarsWebinarIdHistograms"
+    }
+  }
+}

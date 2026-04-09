@@ -26,8 +26,16 @@
   "scripts": {
     "lint": "eslint --cache --max-warnings=0 src",
     "build": "tshy",
-    "prepublishOnly": "npm run build"
+    "generate-manifest": "npx tsx scripts/generate-manifest.ts",
+    "prepublishOnly": "npm run generate-manifest && npm run build"
   },
+  "files": [
+    "dist",
+    "src",
+    "sdk-manifest.json",
+    "FUNCTIONS.md",
+    "USAGE.md"
+  ],
   "peerDependencies": {},
   "devDependencies": {
     "@eslint/js": "^9.26.0",
