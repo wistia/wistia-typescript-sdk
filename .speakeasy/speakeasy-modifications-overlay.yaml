@@ -1070,3 +1070,473 @@ actions:
     x-speakeasy-metadata:
       created_at: 1757613478244
       type: user-edit
+
+  # ── Folders ──────────────────────────────────────────────────────────
+  - target: $["paths"]["/folders"]["get"]
+    update:
+      x-speakeasy-name-override: list
+    x-speakeasy-metadata:
+      after: sdk.folders.list()
+      before: sdk.Folders.getFolders()
+      created_at: 1744199000000
+      type: method-name
+  - target: $["paths"]["/folders"]["post"]
+    update:
+      x-speakeasy-name-override: create
+    x-speakeasy-metadata:
+      after: sdk.folders.create()
+      before: sdk.Folders.postFolders()
+      created_at: 1744199000000
+      type: method-name
+  - target: $["paths"]["/folders/{id}"]["get"]
+    update:
+      x-speakeasy-name-override: get
+    x-speakeasy-metadata:
+      after: sdk.folders.get()
+      before: sdk.Folders.getFoldersId()
+      created_at: 1744199000000
+      type: method-name
+  - target: $["paths"]["/folders/{id}"]["put"]
+    update:
+      x-speakeasy-name-override: update
+    x-speakeasy-metadata:
+      after: sdk.folders.update()
+      before: sdk.Folders.putFoldersId()
+      created_at: 1744199000000
+      type: method-name
+  - target: $["paths"]["/folders/{id}"]["delete"]
+    update:
+      x-speakeasy-name-override: delete
+    x-speakeasy-metadata:
+      after: sdk.folders.delete()
+      before: sdk.Folders.deleteFoldersId()
+      created_at: 1744199000000
+      type: method-name
+  - target: $["paths"]["/folders/{id}/copy"]["post"]
+    update:
+      x-speakeasy-name-override: copy
+    x-speakeasy-metadata:
+      after: sdk.folders.copy()
+      before: sdk.Folders.postFoldersIdCopy()
+      created_at: 1744199000000
+      type: method-name
+
+  # ── Folder Sharings ──────────────────────────────────────────────────
+  - target: $["paths"]["/folders/{folderId}/sharings"]["get"]
+    update:
+      x-speakeasy-group: folderSharings
+      x-speakeasy-name-override: list
+    x-speakeasy-metadata:
+      after: sdk.folderSharings.list()
+      before: sdk.FolderSharings.getFoldersFolderIdSharings()
+      created_at: 1744199000000
+      type: method-name
+  - target: $["paths"]["/folders/{folderId}/sharings"]["post"]
+    update:
+      x-speakeasy-group: folderSharings
+      x-speakeasy-name-override: create
+    x-speakeasy-metadata:
+      after: sdk.folderSharings.create()
+      before: sdk.FolderSharings.postFoldersFolderIdSharings()
+      created_at: 1744199000000
+      type: method-name
+  - target: $["paths"]["/folders/{folderId}/sharings/{sharingId}"]["get"]
+    update:
+      x-speakeasy-group: folderSharings
+      x-speakeasy-name-override: get
+    x-speakeasy-metadata:
+      after: sdk.folderSharings.get()
+      before: sdk.FolderSharings.getFoldersFolderIdSharingsSharingId()
+      created_at: 1744199000000
+      type: method-name
+  - target: $["paths"]["/folders/{folderId}/sharings/{sharingId}"]["put"]
+    update:
+      x-speakeasy-group: folderSharings
+      x-speakeasy-name-override: update
+    x-speakeasy-metadata:
+      after: sdk.folderSharings.update()
+      before: sdk.FolderSharings.putFoldersFolderIdSharingsSharingId()
+      created_at: 1744199000000
+      type: method-name
+  - target: $["paths"]["/folders/{folderId}/sharings/{sharingId}"]["delete"]
+    update:
+      x-speakeasy-group: folderSharings
+      x-speakeasy-name-override: delete
+    x-speakeasy-metadata:
+      after: sdk.folderSharings.delete()
+      before: sdk.FolderSharings.deleteFoldersFolderIdSharingsSharingId()
+      created_at: 1744199000000
+      type: method-name
+
+  # ── Subfolders (correct paths: /folders/...) ─────────────────────────
+  - target: $["paths"]["/folders/{folderId}/subfolders"]["get"]
+    update:
+      x-speakeasy-group: subfolders
+      x-speakeasy-name-override: list
+    x-speakeasy-metadata:
+      after: sdk.subfolders.list()
+      before: sdk.Subfolders.getFoldersFolderIdSubfolders()
+      created_at: 1744199000000
+      type: method-name
+  - target: $["paths"]["/folders/{folderId}/subfolders"]["post"]
+    update:
+      x-speakeasy-group: subfolders
+      x-speakeasy-name-override: create
+    x-speakeasy-metadata:
+      after: sdk.subfolders.create()
+      before: sdk.Subfolders.postFoldersFolderIdSubfolders()
+      created_at: 1744199000000
+      type: method-name
+  - target: $["paths"]["/folders/{folderId}/subfolders/{subfolderId}"]["get"]
+    update:
+      x-speakeasy-group: subfolders
+      x-speakeasy-name-override: get
+    x-speakeasy-metadata:
+      after: sdk.subfolders.get()
+      before: sdk.Subfolders.getFoldersFolderIdSubfoldersSubfolderId()
+      created_at: 1744199000000
+      type: method-name
+  - target: $["paths"]["/folders/{folderId}/subfolders/{subfolderId}"]["put"]
+    update:
+      x-speakeasy-group: subfolders
+      x-speakeasy-name-override: update
+    x-speakeasy-metadata:
+      after: sdk.subfolders.update()
+      before: sdk.Subfolders.putFoldersFolderIdSubfoldersSubfolderId()
+      created_at: 1744199000000
+      type: method-name
+  - target: $["paths"]["/folders/{folderId}/subfolders/{subfolderId}"]["delete"]
+    update:
+      x-speakeasy-group: subfolders
+      x-speakeasy-name-override: delete
+    x-speakeasy-metadata:
+      after: sdk.subfolders.delete()
+      before: sdk.Subfolders.deleteFoldersFolderIdSubfoldersSubfolderId()
+      created_at: 1744199000000
+      type: method-name
+  - target: $["paths"]["/folders/{folderId}/subfolders/bulk_delete"]["delete"]
+    update:
+      x-speakeasy-group: subfolders
+      x-speakeasy-name-override: bulkDelete
+    x-speakeasy-metadata:
+      after: sdk.subfolders.bulkDelete()
+      before: sdk.Subfolders.deleteFoldersFolderIdSubfoldersBulkDelete()
+      created_at: 1744199000000
+      type: method-name
+
+  # ── Webinars ─────────────────────────────────────────────────────────
+  - target: $["paths"]["/webinars"]["get"]
+    update:
+      x-speakeasy-name-override: list
+    x-speakeasy-metadata:
+      after: sdk.webinars.list()
+      before: sdk.Webinars.getWebinars()
+      created_at: 1744199000000
+      type: method-name
+  - target: $["paths"]["/webinars"]["post"]
+    update:
+      x-speakeasy-name-override: create
+    x-speakeasy-metadata:
+      after: sdk.webinars.create()
+      before: sdk.Webinars.postWebinars()
+      created_at: 1744199000000
+      type: method-name
+  - target: $["paths"]["/webinars/{id}"]["get"]
+    update:
+      x-speakeasy-name-override: get
+    x-speakeasy-metadata:
+      after: sdk.webinars.get()
+      before: sdk.Webinars.getWebinarsId()
+      created_at: 1744199000000
+      type: method-name
+  - target: $["paths"]["/webinars/{id}"]["put"]
+    update:
+      x-speakeasy-name-override: update
+    x-speakeasy-metadata:
+      after: sdk.webinars.update()
+      before: sdk.Webinars.putWebinarsId()
+      created_at: 1744199000000
+      type: method-name
+  - target: $["paths"]["/webinars/{id}"]["delete"]
+    update:
+      x-speakeasy-name-override: delete
+    x-speakeasy-metadata:
+      after: sdk.webinars.delete()
+      before: sdk.Webinars.deleteWebinarsId()
+      created_at: 1744199000000
+      type: method-name
+
+  # ── Webinar Registrations ────────────────────────────────────────────
+  - target: $["paths"]["/webinars/{webinarId}/registrations"]["post"]
+    update:
+      x-speakeasy-group: webinarRegistrations
+      x-speakeasy-name-override: create
+    x-speakeasy-metadata:
+      after: sdk.webinarRegistrations.create()
+      before: sdk.WebinarRegistrations.postWebinarsWebinarIdRegistrations()
+      created_at: 1744199000000
+      type: method-name
+
+  # ── Analytics: Media ─────────────────────────────────────────────────
+  - target: $["paths"]["/analytics/medias/{mediaId}"]["get"]
+    update:
+      x-speakeasy-group: analyticsMedia
+      x-speakeasy-name-override: get
+    x-speakeasy-metadata:
+      after: sdk.analyticsMedia.get()
+      before: sdk.AnalyticsMedia.getAnalyticsMediasMediaId()
+      created_at: 1744199000000
+      type: method-name
+  - target: $["paths"]["/analytics/medias/{mediaId}/timeseries"]["get"]
+    update:
+      x-speakeasy-group: analyticsMedia
+      x-speakeasy-name-override: getTimeseries
+    x-speakeasy-metadata:
+      after: sdk.analyticsMedia.getTimeseries()
+      before: sdk.AnalyticsMedia.getAnalyticsMediasMediaIdTimeseries()
+      created_at: 1744199000000
+      type: method-name
+  - target: $["paths"]["/analytics/medias/{mediaId}/embed_locations"]["get"]
+    update:
+      x-speakeasy-group: analyticsMedia
+      x-speakeasy-name-override: getEmbedLocations
+    x-speakeasy-metadata:
+      after: sdk.analyticsMedia.getEmbedLocations()
+      before: sdk.AnalyticsMedia.getAnalyticsMediasMediaIdEmbedLocations()
+      created_at: 1744199000000
+      type: method-name
+  - target: $["paths"]["/analytics/medias/{mediaId}/traffic"]["get"]
+    update:
+      x-speakeasy-group: analyticsMedia
+      x-speakeasy-name-override: getTraffic
+    x-speakeasy-metadata:
+      after: sdk.analyticsMedia.getTraffic()
+      before: sdk.AnalyticsMedia.getAnalyticsMediasMediaIdTraffic()
+      created_at: 1744199000000
+      type: method-name
+  - target: $["paths"]["/analytics/medias/{mediaId}/conversions"]["get"]
+    update:
+      x-speakeasy-group: analyticsMedia
+      x-speakeasy-name-override: getConversions
+    x-speakeasy-metadata:
+      after: sdk.analyticsMedia.getConversions()
+      before: sdk.AnalyticsMedia.getAnalyticsMediasMediaIdConversions()
+      created_at: 1744199000000
+      type: method-name
+  - target: $["paths"]["/analytics/medias/{mediaId}/languages"]["get"]
+    update:
+      x-speakeasy-group: analyticsMedia
+      x-speakeasy-name-override: getLanguages
+    x-speakeasy-metadata:
+      after: sdk.analyticsMedia.getLanguages()
+      before: sdk.AnalyticsMedia.getAnalyticsMediasMediaIdLanguages()
+      created_at: 1744199000000
+      type: method-name
+
+  # ── Analytics: Webinar ───────────────────────────────────────────────
+  - target: $["paths"]["/analytics/webinars/{webinarId}"]["get"]
+    update:
+      x-speakeasy-group: analyticsWebinar
+      x-speakeasy-name-override: get
+    x-speakeasy-metadata:
+      after: sdk.analyticsWebinar.get()
+      before: sdk.AnalyticsWebinar.getAnalyticsWebinarsWebinarId()
+      created_at: 1744199000000
+      type: method-name
+  - target: $["paths"]["/analytics/webinars/{webinarId}/registration"]["get"]
+    update:
+      x-speakeasy-group: analyticsWebinar
+      x-speakeasy-name-override: getRegistration
+    x-speakeasy-metadata:
+      after: sdk.analyticsWebinar.getRegistration()
+      before: sdk.AnalyticsWebinar.getAnalyticsWebinarsWebinarIdRegistration()
+      created_at: 1744199000000
+      type: method-name
+  - target: $["paths"]["/analytics/webinars/{webinarId}/traffic"]["get"]
+    update:
+      x-speakeasy-group: analyticsWebinar
+      x-speakeasy-name-override: getTraffic
+    x-speakeasy-metadata:
+      after: sdk.analyticsWebinar.getTraffic()
+      before: sdk.AnalyticsWebinar.getAnalyticsWebinarsWebinarIdTraffic()
+      created_at: 1744199000000
+      type: method-name
+  - target: $["paths"]["/analytics/webinars/{webinarId}/audience"]["get"]
+    update:
+      x-speakeasy-group: analyticsWebinar
+      x-speakeasy-name-override: getAudience
+    x-speakeasy-metadata:
+      after: sdk.analyticsWebinar.getAudience()
+      before: sdk.AnalyticsWebinar.getAnalyticsWebinarsWebinarIdAudience()
+      created_at: 1744199000000
+      type: method-name
+  - target: $["paths"]["/analytics/webinars/{webinarId}/histograms"]["get"]
+    update:
+      x-speakeasy-group: analyticsWebinar
+      x-speakeasy-name-override: getHistograms
+    x-speakeasy-metadata:
+      after: sdk.analyticsWebinar.getHistograms()
+      before: sdk.AnalyticsWebinar.getAnalyticsWebinarsWebinarIdHistograms()
+      created_at: 1744199000000
+      type: method-name
+
+  # ── Channels (missing overrides) ─────────────────────────────────────
+  - target: $["paths"]["/channels"]["post"]
+    update:
+      x-speakeasy-name-override: create
+    x-speakeasy-metadata:
+      after: sdk.channels.create()
+      before: sdk.Channels.postChannels()
+      created_at: 1744199000000
+      type: method-name
+  - target: $["paths"]["/channels/{channelHashedId}"]["put"]
+    update:
+      x-speakeasy-name-override: update
+    x-speakeasy-metadata:
+      after: sdk.channels.update()
+      before: sdk.Channels.putChannelsChannelHashedId()
+      created_at: 1744199000000
+      type: method-name
+  - target: $["paths"]["/channels/{channelHashedId}"]["delete"]
+    update:
+      x-speakeasy-name-override: delete
+    x-speakeasy-metadata:
+      after: sdk.channels.delete()
+      before: sdk.Channels.deleteChannelsChannelHashedId()
+      created_at: 1744199000000
+      type: method-name
+
+  # ── Channel Episodes (missing overrides) ──────────────────────────────
+  - target: $["paths"]["/channel_episodes/{channelEpisodeHashedId}"]["put"]
+    update:
+      x-speakeasy-group: channelEpisodes
+      x-speakeasy-name-override: update
+    x-speakeasy-metadata:
+      after: sdk.channelEpisodes.update()
+      before: sdk.ChannelEpisodes.putChannelEpisodesChannelEpisodeHashedId()
+      created_at: 1744199000000
+      type: method-name
+  - target: $["paths"]["/channel_episodes/{channelEpisodeHashedId}"]["delete"]
+    update:
+      x-speakeasy-group: channelEpisodes
+      x-speakeasy-name-override: delete
+    x-speakeasy-metadata:
+      after: sdk.channelEpisodes.delete()
+      before: sdk.ChannelEpisodes.deleteChannelEpisodesChannelEpisodeHashedId()
+      created_at: 1744199000000
+      type: method-name
+  - target: $["paths"]["/channel_episodes/{channelEpisodeHashedId}/publish"]["put"]
+    update:
+      x-speakeasy-group: channelEpisodes
+      x-speakeasy-name-override: publish
+    x-speakeasy-metadata:
+      after: sdk.channelEpisodes.publish()
+      before: sdk.ChannelEpisodes.putChannelEpisodesChannelEpisodeHashedIdPublish()
+      created_at: 1744199000000
+      type: method-name
+  - target: $["paths"]["/channel_episodes/{channelEpisodeHashedId}/unpublish"]["put"]
+    update:
+      x-speakeasy-group: channelEpisodes
+      x-speakeasy-name-override: unpublish
+    x-speakeasy-metadata:
+      after: sdk.channelEpisodes.unpublish()
+      before: sdk.ChannelEpisodes.putChannelEpisodesChannelEpisodeHashedIdUnpublish()
+      created_at: 1744199000000
+      type: method-name
+
+  # ── Media Extended Audio Descriptions ─────────────────────────────────
+  - target: $["paths"]["/media_extended_audio_descriptions"]["get"]
+    update:
+      x-speakeasy-group: mediaExtendedAudioDescriptions
+      x-speakeasy-name-override: list
+    x-speakeasy-metadata:
+      after: sdk.mediaExtendedAudioDescriptions.list()
+      before: sdk.MediaExtendedAudioDescriptions.getMediaExtendedAudioDescriptions()
+      created_at: 1744199000000
+      type: method-name
+  - target: $["paths"]["/media_extended_audio_descriptions/{id}"]["get"]
+    update:
+      x-speakeasy-group: mediaExtendedAudioDescriptions
+      x-speakeasy-name-override: get
+    x-speakeasy-metadata:
+      after: sdk.mediaExtendedAudioDescriptions.get()
+      before: sdk.MediaExtendedAudioDescriptions.getMediaExtendedAudioDescriptionsId()
+      created_at: 1744199000000
+      type: method-name
+  - target: $["paths"]["/media_extended_audio_descriptions/{id}"]["delete"]
+    update:
+      x-speakeasy-group: mediaExtendedAudioDescriptions
+      x-speakeasy-name-override: delete
+    x-speakeasy-metadata:
+      after: sdk.mediaExtendedAudioDescriptions.delete()
+      before: sdk.MediaExtendedAudioDescriptions.deleteMediaExtendedAudioDescriptionsId()
+      created_at: 1744199000000
+      type: method-name
+  - target: $["paths"]["/media_extended_audio_descriptions/order"]["post"]
+    update:
+      x-speakeasy-group: mediaExtendedAudioDescriptions
+      x-speakeasy-name-override: order
+    x-speakeasy-metadata:
+      after: sdk.mediaExtendedAudioDescriptions.order()
+      before: sdk.MediaExtendedAudioDescriptions.postMediaExtendedAudioDescriptionsOrder()
+      created_at: 1744199000000
+      type: method-name
+  - target: $["paths"]["/media_extended_audio_descriptions/order_status/{id}"]["get"]
+    update:
+      x-speakeasy-group: mediaExtendedAudioDescriptions
+      x-speakeasy-name-override: getOrderStatus
+    x-speakeasy-metadata:
+      after: sdk.mediaExtendedAudioDescriptions.getOrderStatus()
+      before: sdk.MediaExtendedAudioDescriptions.getMediaExtendedAudioDescriptionsOrderStatusId()
+      created_at: 1744199000000
+      type: method-name
+
+  # ── Taggings ─────────────────────────────────────────────────────────
+  - target: $["paths"]["/taggings/bulk_create"]["post"]
+    update:
+      x-speakeasy-group: taggings
+      x-speakeasy-name-override: bulkCreate
+    x-speakeasy-metadata:
+      after: sdk.taggings.bulkCreate()
+      before: sdk.Taggings.postTaggingsBulkCreate()
+      created_at: 1744199000000
+      type: method-name
+
+  # ── Stats Account (missing by_date) ──────────────────────────────────
+  - target: $["paths"]["/stats/account/by_date"]["get"]
+    update:
+      x-speakeasy-group: statsAccount
+      x-speakeasy-name-override: getByDate
+    x-speakeasy-metadata:
+      after: sdk.statsAccount.getByDate()
+      before: sdk.StatsAccount.getStatsAccountByDate()
+      created_at: 1744199000000
+      type: method-name
+
+  # ── Captions (missing listAll) ───────────────────────────────────────
+  - target: $["paths"]["/captions"]["get"]
+    update:
+      x-speakeasy-name-override: listAll
+    x-speakeasy-metadata:
+      after: sdk.captions.listAll()
+      before: sdk.Captions.getCaptions()
+      created_at: 1744199000000
+      type: method-name
+
+  # ── Media (missing importUrl and bulkCopy) ───────────────────────────
+  - target: $["paths"]["/medias/import_url"]["post"]
+    update:
+      x-speakeasy-name-override: importUrl
+    x-speakeasy-metadata:
+      after: sdk.media.importUrl()
+      before: sdk.Media.postMediasImportUrl()
+      created_at: 1744199000000
+      type: method-name
+  - target: $["paths"]["/medias/copy"]["put"]
+    update:
+      x-speakeasy-name-override: bulkCopy
+    x-speakeasy-metadata:
+      after: sdk.media.bulkCopy()
+      before: sdk.Media.putMediasCopy()
+      created_at: 1744199000000
+      type: method-name
