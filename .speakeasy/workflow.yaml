@@ -6,7 +6,6 @@ sources:
             - location: https://wistia.github.io/wistia/api/openapi-upload.yaml
             - location: https://wistia.github.io/wistia/api/openapi-latest.yaml
         overlays:
-            - location: .speakeasy/speakeasy-modifications-overlay.yaml
             - location: .speakeasy/servers-overlay.yaml
         output: .speakeasy/out.openapi.yaml
         registry:
