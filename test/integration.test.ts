@@ -646,6 +646,9 @@ describe('Wistia SDK Integration Tests', () => {
       assert.ok(liveStreamEvent.id, 'Live stream event should have an ID');
       assert.strictEqual(liveStreamEvent.title, `${testPrefix} - Live Stream Event`);
       log(`✅ Created live stream event: ${liveStreamEvent.title} (${liveStreamEvent.id})`);
+
+      log('⏳ Waiting for live stream event to be available in list...');
+      await new Promise(resolve => setTimeout(resolve, 2000));
     });
 
     it('should list live stream events and find our created event', async () => {
