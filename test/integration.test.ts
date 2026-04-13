@@ -646,22 +646,25 @@ describe('Wistia SDK Integration Tests', () => {
       assert.ok(liveStreamEvent.id, 'Live stream event should have an ID');
       assert.strictEqual(liveStreamEvent.title, `${testPrefix} - Live Stream Event`);
       log(`✅ Created live stream event: ${liveStreamEvent.title} (${liveStreamEvent.id})`);
-
-      log('⏳ Waiting for live stream event to be available in list...');
-      await new Promise(resolve => setTimeout(resolve, 2000));
     });
 
     it('should list live stream events and find our created event', async () => {
       assert.ok(testResources.liveStreamEvent, 'Live stream event should exist');
       const liveStreamEvent = testResources.liveStreamEvent;
 
-      const liveStreamEvents = await wistia.webinars.getWebinars();
+      // Retry a few times — the event may not appear in the list immediately
+      let ourEvent;
+      for (let attempt = 0; attempt < 5; attempt++) {
+        const liveStreamEvents = await wistia.webinars.getWebinars();
+        assert.ok(Array.isArray(liveStreamEvents), 'Should return array of live stream events');
+        ourEvent = liveStreamEvents.find(event => event.id === liveStreamEvent.id);
+        if (ourEvent) break;
+        log(`  Attempt ${attempt + 1}: event not in list yet, waiting 2s...`);
+        await new Promise(resolve => setTimeout(resolve, 2000));
+      }
 
-      assert.ok(Array.isArray(liveStreamEvents), 'Should return array of live stream events');
-
-      const ourEvent = liveStreamEvents.find(event => event.id === liveStreamEvent.id);
       assert.ok(ourEvent, 'Should find our created live stream event');
-      log(`✅ Listed live stream events, found our event: ${ourEvent.title}`);
+      log(`✅ Listed live stream events, found our event: ${ourEvent!.title}`);
     });
 
     it('should get live stream event info', async () => {
