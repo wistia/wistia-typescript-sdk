@@ -652,15 +652,15 @@ describe('Wistia SDK Integration Tests', () => {
       assert.ok(testResources.liveStreamEvent, 'Live stream event should exist');
       const liveStreamEvent = testResources.liveStreamEvent;
 
-      // Retry a few times — the event may not appear in the list immediately
+      // Fetch with a large page size and retry — the event may take time to appear
       let ourEvent;
       for (let attempt = 0; attempt < 5; attempt++) {
-        const liveStreamEvents = await wistia.webinars.getWebinars();
+        const liveStreamEvents = await wistia.webinars.getWebinars({ perPage: 100 });
         assert.ok(Array.isArray(liveStreamEvents), 'Should return array of live stream events');
         ourEvent = liveStreamEvents.find(event => event.id === liveStreamEvent.id);
         if (ourEvent) break;
-        log(`  Attempt ${attempt + 1}: event not in list yet, waiting 2s...`);
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        log(`  Attempt ${attempt + 1}: event ${liveStreamEvent.id} not in ${liveStreamEvents.length} results, waiting 3s...`);
+        await new Promise(resolve => setTimeout(resolve, 3000));
       }
 
       assert.ok(ourEvent, 'Should find our created live stream event');
