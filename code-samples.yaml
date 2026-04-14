@@ -16,7 +16,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.media.uploadForm({
+              const result = await wistia.uploadOrImportMedia.postForm({
                 url: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
                 lowPriority: true,
               });
@@ -36,7 +36,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.media.uploadMultipart({
+              const result = await wistia.uploadOrImportMedia.postMultipart({
                 file: await openAsBlob("example.file"),
               });
 
@@ -57,7 +57,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.account.get();
+              const result = await wistia.account.getAccountDetails();
 
               console.log(result);
             }
@@ -76,7 +76,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.allowedDomains.list({
+              const result = await wistia.allowedDomains.getAllowedDomains({
                 page: 1,
                 perPage: 100,
               });
@@ -98,7 +98,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.allowedDomains.create({
+              const result = await wistia.allowedDomains.postAllowedDomains({
                 domain: "example.com",
               });
 
@@ -119,7 +119,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.allowedDomains.delete({
+              const result = await wistia.allowedDomains.deleteAllowedDomainsDomain({
                 domain: "example.com",
               });
 
@@ -140,7 +140,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.allowedDomains.get({
+              const result = await wistia.allowedDomains.getAllowedDomainsDomain({
                 domain: "example.com",
               });
 
@@ -415,7 +415,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.backgroundJobStatus.get({
+              const result = await wistia.backgroundJobStatus.getBackgroundJobStatusBackgroundJobStatusId({
                 backgroundJobStatusId: 108030,
               });
 
@@ -455,7 +455,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.channelEpisodes.list();
+              const result = await wistia.channelEpisodes.getChannelEpisodes();
 
               console.log(result);
             }
@@ -558,7 +558,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.channels.list();
+              const result = await wistia.channels.getChannels();
 
               console.log(result);
             }
@@ -617,7 +617,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.channels.get({
+              const result = await wistia.channels.getChannelsChannelHashedId({
                 channelHashedId: "<id>",
               });
 
@@ -659,7 +659,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.channels.channelEpisodes.list({
+              const result = await wistia.channelEpisodes.getChannelsChannelHashedIdChannelEpisodes({
                 channelHashedId: "<id>",
               });
 
@@ -680,7 +680,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.channelEpisodes.create({
+              const result = await wistia.channelEpisodes.postChannelsChannelHashedIdChannelEpisodes({
                 channelHashedId: "<id>",
                 requestBody: {
                   title: "My New Episode",
@@ -707,7 +707,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.channelEpisodes.get({
+              const result = await wistia.channelEpisodes.getChannelsChannelHashedIdChannelEpisodesChannelEpisodeId({
                 channelHashedId: "<id>",
                 channelEpisodeId: "<id>",
               });
@@ -729,7 +729,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.expiringAccessTokens.create();
+              const result = await wistia.expiringAccessTokens.postExpiringToken();
 
               console.log(result);
             }
@@ -1246,7 +1246,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.media.list({});
+              const result = await wistia.media.getMedias({});
 
               console.log(result);
             }
@@ -1265,7 +1265,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.media.archive({
+              const result = await wistia.media.putMediasArchive({
                 hashedIds: [],
               });
 
@@ -1331,7 +1331,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.media.move({
+              const result = await wistia.media.putMediasMove({
                 hashedIds: [
                   "<value 1>",
                   "<value 2>",
@@ -1356,7 +1356,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.media.restore({
+              const result = await wistia.media.putMediasRestore({
                 hashedIds: [],
                 folderId: "<id>",
               });
@@ -1378,7 +1378,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.media.delete({
+              const result = await wistia.media.deleteMediasMediaHashedId({
                 mediaHashedId: "<id>",
               });
 
@@ -1399,7 +1399,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.media.get({
+              const result = await wistia.media.getMediasMediaHashedId({
                 mediaHashedId: "<id>",
               });
 
@@ -1420,7 +1420,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.media.update({
+              const result = await wistia.media.putMediasMediaHashedId({
                 mediaHashedId: "<id>",
               });
 
@@ -1441,7 +1441,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.captions.list({
+              const result = await wistia.captions.getMediasMediaHashedIdCaptions({
                 mediaHashedId: "<id>",
               });
 
@@ -1462,7 +1462,7 @@ actions:
             });
 
             async function run() {
-              await wistia.captions.create({
+              await wistia.captions.postMediasMediaHashedIdCaptions({
                 mediaHashedId: "<id>",
                 requestBody: {
                   captionFile: "" // Populate with string from file, for example example.file,
@@ -1484,7 +1484,7 @@ actions:
             });
 
             async function run() {
-              await wistia.captions.createMultipart({
+              await wistia.captions.postMediasMediaHashedIdCaptionsMultipart({
                 mediaHashedId: "<id>",
                 requestBody: {
                   captionFile: await openAsBlob("example.file"),
@@ -1508,7 +1508,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.captions.purchase({
+              const result = await wistia.captions.postMediasMediaHashedIdCaptionsPurchase({
                 mediaHashedId: "<id>",
                 requestBody: {},
               });
@@ -1530,7 +1530,7 @@ actions:
             });
 
             async function run() {
-              await wistia.captions.delete({
+              await wistia.captions.deleteMediasMediaHashedIdCaptionsLanguageCode({
                 mediaHashedId: "<id>",
                 languageCode: "<value>",
               });
@@ -1552,7 +1552,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.captions.get({
+              const result = await wistia.captions.getMediasMediaHashedIdCaptionsLanguageCode({
                 mediaHashedId: "<id>",
                 languageCode: "<value>",
               });
@@ -1574,7 +1574,7 @@ actions:
             });
 
             async function run() {
-              await wistia.captions.update({
+              await wistia.captions.putMediasMediaHashedIdCaptionsLanguageCode({
                 mediaHashedId: "<id>",
                 languageCode: "<value>",
                 requestBody: {
@@ -1597,7 +1597,7 @@ actions:
             });
 
             async function run() {
-              await wistia.captions.updateMultipart({
+              await wistia.captions.putMediasMediaHashedIdCaptionsLanguageCodeMultipart({
                 mediaHashedId: "<id>",
                 languageCode: "<value>",
                 requestBody: {
@@ -1622,7 +1622,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.media.copy({
+              const result = await wistia.media.postMediasMediaHashedIdCopy({
                 mediaHashedId: "<id>",
               });
 
@@ -1643,7 +1643,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.localizations.list({
+              const result = await wistia.localizations.getMediasMediaHashedIdLocalizations({
                 mediaHashedId: "<id>",
               });
 
@@ -1664,7 +1664,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.localizations.create({
+              const result = await wistia.localizations.postMediasMediaHashedIdLocalizations({
                 mediaHashedId: "<id>",
               });
 
@@ -1685,7 +1685,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.localizations.delete({
+              const result = await wistia.localizations.deleteMediasMediaHashedIdLocalizationsLocalizationHashedId({
                 mediaHashedId: "<id>",
                 localizationHashedId: "<id>",
               });
@@ -1707,7 +1707,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.localizations.get({
+              const result = await wistia.localizations.getMediasMediaHashedIdLocalizationsLocalizationHashedId({
                 mediaHashedId: "<id>",
                 localizationHashedId: "<id>",
               });
@@ -1729,7 +1729,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.media.getStats({
+              const result = await wistia.media.getMediasMediaHashedIdStats({
                 mediaHashedId: "<id>",
               });
 
@@ -1750,7 +1750,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.media.swap({
+              const result = await wistia.media.putMediasMediaHashedIdSwap({
                 mediaHashedId: "<id>",
               });
 
@@ -1771,7 +1771,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.media.translate({
+              const result = await wistia.media.postMediasMediaHashedIdTranslate({
                 mediaHashedId: "<id>",
               });
 
@@ -1792,7 +1792,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.trims.create({
+              const result = await wistia.trims.postMediasMediaHashedIdTrims({
                 mediaHashedId: "<id>",
                 requestBody: {
                   trims: [],
@@ -1816,7 +1816,7 @@ actions:
             });
 
             async function run() {
-              await wistia.customizations.delete({
+              await wistia.customizations.deleteMediasMediaIdCustomizations({
                 mediaId: "<id>",
               });
 
@@ -1837,7 +1837,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.customizations.get({
+              const result = await wistia.customizations.getMediasMediaIdCustomizations({
                 mediaId: "<id>",
               });
 
@@ -1858,7 +1858,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.customizations.create({
+              const result = await wistia.customizations.postMediasMediaIdCustomizations({
                 mediaId: "<id>",
                 requestBody: {
                   plugin: {
@@ -1890,7 +1890,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.customizations.update({
+              const result = await wistia.customizations.putMediasMediaIdCustomizations({
                 mediaId: "<id>",
                 requestBody: {
                   plugin: {
@@ -1922,7 +1922,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.search.search({
+              const result = await wistia.search.getSearch({
                 q: "screencast",
               });
 
@@ -1943,7 +1943,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.statsAccount.get();
+              const result = await wistia.statsAccount.getStatsAccount();
 
               console.log(result);
             }
@@ -1985,7 +1985,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.statsEvents.list();
+              const result = await wistia.statsEvents.getStatsEvents();
 
               console.log(result);
             }
@@ -2004,7 +2004,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.statsEvents.get({
+              const result = await wistia.statsEvents.getStatsEventsEventKey({
                 eventKey: "<value>",
               });
 
@@ -2025,7 +2025,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.statsMedia.get({
+              const result = await wistia.statsMedia.getStatsMediasMediaId({
                 mediaId: "<id>",
               });
 
@@ -2047,7 +2047,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.statsMedia.getByDate({
+              const result = await wistia.statsMedia.getStatsMediasMediaIdByDate({
                 mediaId: "<id>",
                 startDate: new RFCDate("2024-02-21"),
                 endDate: new RFCDate("2024-02-23"),
@@ -2070,7 +2070,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.statsMedia.getEngagement({
+              const result = await wistia.statsMedia.getStatsMediasMediaIdEngagement({
                 mediaId: "<id>",
               });
 
@@ -2091,7 +2091,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.statsProjects.get({
+              const result = await wistia.statsProjects.getStatsProjectsProjectId({
                 projectId: "<id>",
               });
 
@@ -2112,7 +2112,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.statsVisitors.list();
+              const result = await wistia.statsVisitors.getStatsVisitors();
 
               console.log(result);
             }
@@ -2131,7 +2131,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.statsVisitors.get({
+              const result = await wistia.statsVisitors.getStatsVisitorsVisitorKey({
                 visitorKey: "<value>",
               });
 
@@ -2180,7 +2180,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.tags.list();
+              const result = await wistia.tags.getTags();
 
               console.log(result);
             }
@@ -2199,7 +2199,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.tags.create({
+              const result = await wistia.tags.postTags({
                 name: "<value>",
               });
 
@@ -2220,7 +2220,7 @@ actions:
             });
 
             async function run() {
-              await wistia.tags.delete({
+              await wistia.tags.deleteTagsName({
                 name: "<value>",
               });
 

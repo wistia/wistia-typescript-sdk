@@ -37,6 +37,8 @@ import { Result } from "../types/fp.js";
  * If no folder_id is provided, a new folder called "Untitled Folder" will be
  * created and the imported media will be placed there.
  *
+ * The URL must be publicly accessible — Wistia's servers need to be able to fetch the file directly.
+ *
  * Note: imports from certain domains (e.g. vimeo.com, wistia.com) are not permitted.
  *
  * <!--- HIDE-MCP -->

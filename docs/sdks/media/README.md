@@ -4,185 +4,21 @@
 
 ### Available Operations
 
-* [uploadForm](#uploadform) - Upload or Import Media
-* [uploadMultipart](#uploadmultipart) - Upload or Import Media
-* [list](#list) - List Media
-* [get](#get) - Show Media
-* [update](#update) - Update Media
-* [delete](#delete) - Delete Media
-* [copy](#copy) - Copy Media
-* [swap](#swap) - Swap Media
-* [getStats](#getstats) - Show Media Aggregated Stats
-* [translate](#translate) - Translate Media
+* [getMedias](#getmedias) - List Media
+* [getMediasMediaHashedId](#getmediasmediahashedid) - Show Media
+* [putMediasMediaHashedId](#putmediasmediahashedid) - Update Media
+* [deleteMediasMediaHashedId](#deletemediasmediahashedid) - Delete Media
+* [postMediasMediaHashedIdCopy](#postmediasmediahashedidcopy) - Copy Media
+* [putMediasMediaHashedIdSwap](#putmediasmediahashedidswap) - Swap Media
+* [getMediasMediaHashedIdStats](#getmediasmediahashedidstats) - Show Media Aggregated Stats
+* [postMediasMediaHashedIdTranslate](#postmediasmediahashedidtranslate) - Translate Media
 * [postMediasImportUrl](#postmediasimporturl) - Import Media from URL
-* [archive](#archive) - Archive Media
-* [move](#move) - Move Media
-* [restore](#restore) - Restore Media
+* [putMediasArchive](#putmediasarchive) - Archive Media
+* [putMediasMove](#putmediasmove) - Move Media
+* [putMediasRestore](#putmediasrestore) - Restore Media
 * [putMediasCopy](#putmediascopy) - Bulk Copy Media
 
-## uploadForm
-
-Endpoint to upload media files from a local system or import from a web URL.
-
-- Use `multipart/form-data` with a `file` parameter to upload from local system
-- Use `application/x-www-form-urlencoded` with a `url` parameter to import from web URL
-
-
-### Example Usage
-
-<!-- UsageSnippet language="typescript" operationID="post_/_form" method="post" path="/" example="missing_credentials" -->
-```typescript
-import { Wistia } from "@wistia/wistia-api-client";
-
-const wistia = new Wistia({
-  bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
-});
-
-async function run() {
-  const result = await wistia.media.uploadForm({
-    url: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-    lowPriority: true,
-  });
-
-  console.log(result);
-}
-
-run();
-```
-
-### Standalone function
-
-The standalone function version of this method:
-
-```typescript
-import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { mediaUploadForm } from "@wistia/wistia-api-client/funcs/mediaUploadForm.js";
-
-// Use `WistiaCore` for best tree-shaking performance.
-// You can create one instance of it to use across an application.
-const wistia = new WistiaCore({
-  bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
-});
-
-async function run() {
-  const res = await mediaUploadForm(wistia, {
-    url: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-    lowPriority: true,
-  });
-  if (res.ok) {
-    const { value: result } = res;
-    console.log(result);
-  } else {
-    console.log("mediaUploadForm failed:", res.error);
-  }
-}
-
-run();
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.PostFormRequest](../../models/operations/postformrequest.md)                                                                                                       | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
-| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
-| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-| `options.serverURL`                                                                                                                                                            | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | An optional server URL to use.                                                                                                                                                 |
-
-### Response
-
-**Promise\<[operations.PostFormResponse](../../models/operations/postformresponse.md)\>**
-
-### Errors
-
-| Error Type                     | Status Code                    | Content Type                   |
-| ------------------------------ | ------------------------------ | ------------------------------ |
-| errors.PostFormBadRequestError | 400                            | application/json               |
-| errors.WistiaDefaultError      | 4XX, 5XX                       | \*/\*                          |
-
-## uploadMultipart
-
-Endpoint to upload media files from a local system or import from a web URL.
-
-- Use `multipart/form-data` with a `file` parameter to upload from local system
-- Use `application/x-www-form-urlencoded` with a `url` parameter to import from web URL
-
-
-### Example Usage
-
-<!-- UsageSnippet language="typescript" operationID="post_/_multipart" method="post" path="/" example="missing_credentials" -->
-```typescript
-import { Wistia } from "@wistia/wistia-api-client";
-import { openAsBlob } from "node:fs";
-
-const wistia = new Wistia({
-  bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
-});
-
-async function run() {
-  const result = await wistia.media.uploadMultipart({
-    file: await openAsBlob("example.file"),
-  });
-
-  console.log(result);
-}
-
-run();
-```
-
-### Standalone function
-
-The standalone function version of this method:
-
-```typescript
-import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { mediaUploadMultipart } from "@wistia/wistia-api-client/funcs/mediaUploadMultipart.js";
-import { openAsBlob } from "node:fs";
-
-// Use `WistiaCore` for best tree-shaking performance.
-// You can create one instance of it to use across an application.
-const wistia = new WistiaCore({
-  bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
-});
-
-async function run() {
-  const res = await mediaUploadMultipart(wistia, {
-    file: await openAsBlob("example.file"),
-  });
-  if (res.ok) {
-    const { value: result } = res;
-    console.log(result);
-  } else {
-    console.log("mediaUploadMultipart failed:", res.error);
-  }
-}
-
-run();
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.PostMultipartRequest](../../models/operations/postmultipartrequest.md)                                                                                             | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
-| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
-| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-| `options.serverURL`                                                                                                                                                            | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | An optional server URL to use.                                                                                                                                                 |
-
-### Response
-
-**Promise\<[operations.PostMultipartResponse](../../models/operations/postmultipartresponse.md)\>**
-
-### Errors
-
-| Error Type                          | Status Code                         | Content Type                        |
-| ----------------------------------- | ----------------------------------- | ----------------------------------- |
-| errors.PostMultipartBadRequestError | 400                                 | application/json                    |
-| errors.WistiaDefaultError           | 4XX, 5XX                            | \*/\*                               |
-
-## list
+## getMedias
 
 Lists the media belonging to the account. This endpoint can also be used to
 do a batch fetch based off of the hashed id.
@@ -204,7 +40,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.media.list({});
+  const result = await wistia.media.getMedias({});
 
   console.log(result);
 }
@@ -218,7 +54,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { mediaList } from "@wistia/wistia-api-client/funcs/mediaList.js";
+import { mediaGetMedias } from "@wistia/wistia-api-client/funcs/mediaGetMedias.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -227,12 +63,12 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await mediaList(wistia, {});
+  const res = await mediaGetMedias(wistia, {});
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("mediaList failed:", res.error);
+    console.log("mediaGetMedias failed:", res.error);
   }
 }
 
@@ -261,7 +97,7 @@ run();
 | errors.GetMediasInternalServerError | 500                                 | application/json                    |
 | errors.WistiaDefaultError           | 4XX, 5XX                            | \*/\*                               |
 
-## get
+## getMediasMediaHashedId
 
 Fetches a single media by its hashed id.
 
@@ -282,7 +118,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.media.get({
+  const result = await wistia.media.getMediasMediaHashedId({
     mediaHashedId: "<id>",
   });
 
@@ -298,7 +134,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { mediaGet } from "@wistia/wistia-api-client/funcs/mediaGet.js";
+import { mediaGetMediasMediaHashedId } from "@wistia/wistia-api-client/funcs/mediaGetMediasMediaHashedId.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -307,14 +143,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await mediaGet(wistia, {
+  const res = await mediaGetMediasMediaHashedId(wistia, {
     mediaHashedId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("mediaGet failed:", res.error);
+    console.log("mediaGetMediasMediaHashedId failed:", res.error);
   }
 }
 
@@ -343,7 +179,7 @@ run();
 | errors.GetMediasMediaHashedIdInternalServerError | 500                                              | application/json                                 |
 | errors.WistiaDefaultError                        | 4XX, 5XX                                         | \*/\*                                            |
 
-## update
+## putMediasMediaHashedId
 
 Updates the attributes on a media.
 
@@ -364,7 +200,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.media.update({
+  const result = await wistia.media.putMediasMediaHashedId({
     mediaHashedId: "<id>",
   });
 
@@ -380,7 +216,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { mediaUpdate } from "@wistia/wistia-api-client/funcs/mediaUpdate.js";
+import { mediaPutMediasMediaHashedId } from "@wistia/wistia-api-client/funcs/mediaPutMediasMediaHashedId.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -389,14 +225,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await mediaUpdate(wistia, {
+  const res = await mediaPutMediasMediaHashedId(wistia, {
     mediaHashedId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("mediaUpdate failed:", res.error);
+    console.log("mediaPutMediasMediaHashedId failed:", res.error);
   }
 }
 
@@ -427,7 +263,7 @@ run();
 | errors.PutMediasMediaHashedIdInternalServerError | 500                                              | application/json                                 |
 | errors.WistiaDefaultError                        | 4XX, 5XX                                         | \*/\*                                            |
 
-## delete
+## deleteMediasMediaHashedId
 
 Deletes a media.
 
@@ -448,7 +284,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.media.delete({
+  const result = await wistia.media.deleteMediasMediaHashedId({
     mediaHashedId: "<id>",
   });
 
@@ -464,7 +300,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { mediaDelete } from "@wistia/wistia-api-client/funcs/mediaDelete.js";
+import { mediaDeleteMediasMediaHashedId } from "@wistia/wistia-api-client/funcs/mediaDeleteMediasMediaHashedId.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -473,14 +309,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await mediaDelete(wistia, {
+  const res = await mediaDeleteMediasMediaHashedId(wistia, {
     mediaHashedId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("mediaDelete failed:", res.error);
+    console.log("mediaDeleteMediasMediaHashedId failed:", res.error);
   }
 }
 
@@ -510,7 +346,7 @@ run();
 | errors.DeleteMediasMediaHashedIdInternalServerError | 500                                                 | application/json                                    |
 | errors.WistiaDefaultError                           | 4XX, 5XX                                            | \*/\*                                               |
 
-## copy
+## postMediasMediaHashedIdCopy
 
 This endpoint copies a media and its assets to a destination folder (defaults to source media).
 
@@ -531,7 +367,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.media.copy({
+  const result = await wistia.media.postMediasMediaHashedIdCopy({
     mediaHashedId: "<id>",
   });
 
@@ -547,7 +383,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { mediaCopy } from "@wistia/wistia-api-client/funcs/mediaCopy.js";
+import { mediaPostMediasMediaHashedIdCopy } from "@wistia/wistia-api-client/funcs/mediaPostMediasMediaHashedIdCopy.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -556,14 +392,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await mediaCopy(wistia, {
+  const res = await mediaPostMediasMediaHashedIdCopy(wistia, {
     mediaHashedId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("mediaCopy failed:", res.error);
+    console.log("mediaPostMediasMediaHashedIdCopy failed:", res.error);
   }
 }
 
@@ -595,7 +431,7 @@ run();
 | errors.PostMediasMediaHashedIdCopyInternalServerError | 500                                                   | application/json                                      |
 | errors.WistiaDefaultError                             | 4XX, 5XX                                              | \*/\*                                                 |
 
-## swap
+## putMediasMediaHashedIdSwap
 
 Swap one media with another media. This operation queues a background job to replace the original media with the replacement media while preserving the original media's hashed ID and URLs.
 
@@ -616,7 +452,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.media.swap({
+  const result = await wistia.media.putMediasMediaHashedIdSwap({
     mediaHashedId: "<id>",
   });
 
@@ -632,7 +468,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { mediaSwap } from "@wistia/wistia-api-client/funcs/mediaSwap.js";
+import { mediaPutMediasMediaHashedIdSwap } from "@wistia/wistia-api-client/funcs/mediaPutMediasMediaHashedIdSwap.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -641,14 +477,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await mediaSwap(wistia, {
+  const res = await mediaPutMediasMediaHashedIdSwap(wistia, {
     mediaHashedId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("mediaSwap failed:", res.error);
+    console.log("mediaPutMediasMediaHashedIdSwap failed:", res.error);
   }
 }
 
@@ -679,7 +515,7 @@ run();
 | errors.PutMediasMediaHashedIdSwapInternalServerError | 500                                                  | application/json                                     |
 | errors.WistiaDefaultError                            | 4XX, 5XX                                             | \*/\*                                                |
 
-## getStats
+## getMediasMediaHashedIdStats
 
 Aggregated tracking statistics for a video embedded on your site.
 
@@ -700,7 +536,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.media.getStats({
+  const result = await wistia.media.getMediasMediaHashedIdStats({
     mediaHashedId: "<id>",
   });
 
@@ -716,7 +552,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { mediaGetStats } from "@wistia/wistia-api-client/funcs/mediaGetStats.js";
+import { mediaGetMediasMediaHashedIdStats } from "@wistia/wistia-api-client/funcs/mediaGetMediasMediaHashedIdStats.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -725,14 +561,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await mediaGetStats(wistia, {
+  const res = await mediaGetMediasMediaHashedIdStats(wistia, {
     mediaHashedId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("mediaGetStats failed:", res.error);
+    console.log("mediaGetMediasMediaHashedIdStats failed:", res.error);
   }
 }
 
@@ -763,7 +599,7 @@ run();
 | errors.GetMediasMediaHashedIdStatsInternalServerError | 500                                                   | application/json                                      |
 | errors.WistiaDefaultError                             | 4XX, 5XX                                              | \*/\*                                                 |
 
-## translate
+## postMediasMediaHashedIdTranslate
 
 Translates the transcript for a media.
 
@@ -784,7 +620,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.media.translate({
+  const result = await wistia.media.postMediasMediaHashedIdTranslate({
     mediaHashedId: "<id>",
   });
 
@@ -800,7 +636,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { mediaTranslate } from "@wistia/wistia-api-client/funcs/mediaTranslate.js";
+import { mediaPostMediasMediaHashedIdTranslate } from "@wistia/wistia-api-client/funcs/mediaPostMediasMediaHashedIdTranslate.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -809,14 +645,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await mediaTranslate(wistia, {
+  const res = await mediaPostMediasMediaHashedIdTranslate(wistia, {
     mediaHashedId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("mediaTranslate failed:", res.error);
+    console.log("mediaPostMediasMediaHashedIdTranslate failed:", res.error);
   }
 }
 
@@ -857,6 +693,8 @@ to check on the progress of the import.
 
 If no folder_id is provided, a new folder called "Untitled Folder" will be
 created and the imported media will be placed there.
+
+The URL must be publicly accessible — Wistia's servers need to be able to fetch the file directly.
 
 Note: imports from certain domains (e.g. vimeo.com, wistia.com) are not permitted.
 
@@ -943,7 +781,7 @@ run();
 | errors.PostMediasImportUrlInternalServerError      | 500                                                | application/json                                   |
 | errors.WistiaDefaultError                          | 4XX, 5XX                                           | \*/\*                                              |
 
-## archive
+## putMediasArchive
 
 This method accepts a list of up to 100 medias to archive per request. It processes requests asynchronously and will return a background_job_status object rather than the typical Media response object. Note that webinar medias and Soapbox videos imported to Wistia before September 1, 2023 cannot be archived.
 
@@ -964,7 +802,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.media.archive({
+  const result = await wistia.media.putMediasArchive({
     hashedIds: [],
   });
 
@@ -980,7 +818,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { mediaArchive } from "@wistia/wistia-api-client/funcs/mediaArchive.js";
+import { mediaPutMediasArchive } from "@wistia/wistia-api-client/funcs/mediaPutMediasArchive.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -989,14 +827,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await mediaArchive(wistia, {
+  const res = await mediaPutMediasArchive(wistia, {
     hashedIds: [],
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("mediaArchive failed:", res.error);
+    console.log("mediaPutMediasArchive failed:", res.error);
   }
 }
 
@@ -1026,7 +864,7 @@ run();
 | errors.PutMediasArchiveInternalServerError      | 500                                             | application/json                                |
 | errors.WistiaDefaultError                       | 4XX, 5XX                                        | \*/\*                                           |
 
-## move
+## putMediasMove
 
 Move one or many media to a different folder and optionally to a specific subfolder.
 Max 100 media per request, and max 10 requests in 5 minutes.
@@ -1054,7 +892,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.media.move({
+  const result = await wistia.media.putMediasMove({
     hashedIds: [
       "<value 1>",
       "<value 2>",
@@ -1074,7 +912,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { mediaMove } from "@wistia/wistia-api-client/funcs/mediaMove.js";
+import { mediaPutMediasMove } from "@wistia/wistia-api-client/funcs/mediaPutMediasMove.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -1083,7 +921,7 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await mediaMove(wistia, {
+  const res = await mediaPutMediasMove(wistia, {
     hashedIds: [
       "<value 1>",
       "<value 2>",
@@ -1094,7 +932,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("mediaMove failed:", res.error);
+    console.log("mediaPutMediasMove failed:", res.error);
   }
 }
 
@@ -1125,7 +963,7 @@ run();
 | errors.PutMediasMoveInternalServerError | 500                                     | application/json                        |
 | errors.WistiaDefaultError               | 4XX, 5XX                                | \*/\*                                   |
 
-## restore
+## putMediasRestore
 
 Restores archived medias to your account. This method accepts a list of up to 100 medias to restore per request. It processes requests asynchronously and will return a background_job_status object rather than the typical Media response object. Your account must have access to the Archiving feature to use this method.
 
@@ -1146,7 +984,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.media.restore({
+  const result = await wistia.media.putMediasRestore({
     hashedIds: [],
     folderId: "<id>",
   });
@@ -1163,7 +1001,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { mediaRestore } from "@wistia/wistia-api-client/funcs/mediaRestore.js";
+import { mediaPutMediasRestore } from "@wistia/wistia-api-client/funcs/mediaPutMediasRestore.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -1172,7 +1010,7 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await mediaRestore(wistia, {
+  const res = await mediaPutMediasRestore(wistia, {
     hashedIds: [],
     folderId: "<id>",
   });
@@ -1180,7 +1018,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("mediaRestore failed:", res.error);
+    console.log("mediaPutMediasRestore failed:", res.error);
   }
 }
 
