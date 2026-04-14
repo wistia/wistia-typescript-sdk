@@ -324,7 +324,7 @@ describe('Wistia SDK Integration Tests', () => {
       assert.ok(testResources.project, 'Project should exist');
       assert.ok(videoFile, 'Video file should be generated');
 
-      const media = await wistia.media.uploadMultipart({
+      const media = await wistia.uploadOrImportMedia.postMultipart({
         file: await openAsBlob(videoFile),
         name: `${testPrefix}-Media`,
         description: 'Test media for SDK integration',
@@ -376,7 +376,7 @@ describe('Wistia SDK Integration Tests', () => {
       assert.ok(testResources.media.hashedId, 'Media should have a hashedId');
       assert.ok(testResources.project, 'Project should exist');
 
-      const anotherMedia = await wistia.media.uploadMultipart({
+      const anotherMedia = await wistia.uploadOrImportMedia.postMultipart({
         file: await openAsBlob(videoFile),
         name: `${testPrefix}-Media`,
         description: 'Test media for SDK integration',
