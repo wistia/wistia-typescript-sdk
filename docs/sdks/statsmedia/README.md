@@ -4,11 +4,11 @@
 
 ### Available Operations
 
-* [get](#get) - Show Media Stats
-* [getByDate](#getbydate) - Show Media Stats by Date
-* [getEngagement](#getengagement) - Show Media Engagement
+* [getStatsMediasMediaId](#getstatsmediasmediaid) - Show Media Stats
+* [getStatsMediasMediaIdByDate](#getstatsmediasmediaidbydate) - Show Media Stats by Date
+* [getStatsMediasMediaIdEngagement](#getstatsmediasmediaidengagement) - Show Media Engagement
 
-## get
+## getStatsMediasMediaId
 
 Retrieve stats for a video. This endpoint provides statistics for a specific video identified by its media-id.
 
@@ -31,7 +31,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.statsMedia.get({
+  const result = await wistia.statsMedia.getStatsMediasMediaId({
     mediaId: "<id>",
   });
 
@@ -47,7 +47,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { statsMediaGet } from "@wistia/wistia-api-client/funcs/statsMediaGet.js";
+import { statsMediaGetStatsMediasMediaId } from "@wistia/wistia-api-client/funcs/statsMediaGetStatsMediasMediaId.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -56,14 +56,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await statsMediaGet(wistia, {
+  const res = await statsMediaGetStatsMediasMediaId(wistia, {
     mediaId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("statsMediaGet failed:", res.error);
+    console.log("statsMediaGetStatsMediasMediaId failed:", res.error);
   }
 }
 
@@ -92,7 +92,7 @@ run();
 | errors.GetStatsMediasMediaIdInternalServerError | 500                                             | application/json                                |
 | errors.WistiaDefaultError                       | 4XX, 5XX                                        | \*/\*                                           |
 
-## getByDate
+## getStatsMediasMediaIdByDate
 
 Retrieve stats for a media organized by day, between a start and end date paramater (inclusive). If start and end date are not provided, defaults to yesterday and today.
 
@@ -116,7 +116,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.statsMedia.getByDate({
+  const result = await wistia.statsMedia.getStatsMediasMediaIdByDate({
     mediaId: "<id>",
     startDate: new RFCDate("2024-02-21"),
     endDate: new RFCDate("2024-02-23"),
@@ -134,7 +134,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { statsMediaGetByDate } from "@wistia/wistia-api-client/funcs/statsMediaGetByDate.js";
+import { statsMediaGetStatsMediasMediaIdByDate } from "@wistia/wistia-api-client/funcs/statsMediaGetStatsMediasMediaIdByDate.js";
 import { RFCDate } from "@wistia/wistia-api-client/types";
 
 // Use `WistiaCore` for best tree-shaking performance.
@@ -144,7 +144,7 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await statsMediaGetByDate(wistia, {
+  const res = await statsMediaGetStatsMediasMediaIdByDate(wistia, {
     mediaId: "<id>",
     startDate: new RFCDate("2024-02-21"),
     endDate: new RFCDate("2024-02-23"),
@@ -153,7 +153,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("statsMediaGetByDate failed:", res.error);
+    console.log("statsMediaGetStatsMediasMediaIdByDate failed:", res.error);
   }
 }
 
@@ -182,7 +182,7 @@ run();
 | errors.GetStatsMediasMediaIdByDateInternalServerError | 500                                                   | application/json                                      |
 | errors.WistiaDefaultError                             | 4XX, 5XX                                              | \*/\*                                                 |
 
-## getEngagement
+## getStatsMediasMediaIdEngagement
 
 Retrieve engagement data for a video. This endpoint provides engagement data for a specific video identified by its media-id.
 
@@ -205,7 +205,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.statsMedia.getEngagement({
+  const result = await wistia.statsMedia.getStatsMediasMediaIdEngagement({
     mediaId: "<id>",
   });
 
@@ -221,7 +221,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { statsMediaGetEngagement } from "@wistia/wistia-api-client/funcs/statsMediaGetEngagement.js";
+import { statsMediaGetStatsMediasMediaIdEngagement } from "@wistia/wistia-api-client/funcs/statsMediaGetStatsMediasMediaIdEngagement.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -230,14 +230,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await statsMediaGetEngagement(wistia, {
+  const res = await statsMediaGetStatsMediasMediaIdEngagement(wistia, {
     mediaId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("statsMediaGetEngagement failed:", res.error);
+    console.log("statsMediaGetStatsMediasMediaIdEngagement failed:", res.error);
   }
 }
 

@@ -11,7 +11,7 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type PostMediasImportUrlRequest = {
   /**
-   * The URL of the media file to import.
+   * The publicly accessible URL of the media file to import.
    */
   url: string;
   /**

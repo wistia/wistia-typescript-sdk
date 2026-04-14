@@ -4,9 +4,9 @@
 
 ### Available Operations
 
-* [create](#create) - Create Expiring Access Token
+* [postExpiringToken](#postexpiringtoken) - Create Expiring Access Token
 
-## create
+## postExpiringToken
 
 ```
 🚫 Alert
@@ -32,7 +32,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.expiringAccessTokens.create();
+  const result = await wistia.expiringAccessTokens.postExpiringToken();
 
   console.log(result);
 }
@@ -46,7 +46,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { expiringAccessTokensCreate } from "@wistia/wistia-api-client/funcs/expiringAccessTokensCreate.js";
+import { expiringAccessTokensPostExpiringToken } from "@wistia/wistia-api-client/funcs/expiringAccessTokensPostExpiringToken.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -55,12 +55,12 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await expiringAccessTokensCreate(wistia);
+  const res = await expiringAccessTokensPostExpiringToken(wistia);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("expiringAccessTokensCreate failed:", res.error);
+    console.log("expiringAccessTokensPostExpiringToken failed:", res.error);
   }
 }
 
