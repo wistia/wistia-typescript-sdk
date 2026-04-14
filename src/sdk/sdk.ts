@@ -18,6 +18,7 @@ import { FolderSharings } from "./foldersharings.js";
 import { Localizations } from "./localizations.js";
 import { Media } from "./media.js";
 import { MediaExtendedAudioDescriptions } from "./mediaextendedaudiodescriptions.js";
+import { Remix } from "./remix.js";
 import { Search } from "./search.js";
 import { StatsAccount } from "./statsaccount.js";
 import { StatsEvents } from "./statsevents.js";
@@ -28,13 +29,16 @@ import { Subfolders } from "./subfolders.js";
 import { Taggings } from "./taggings.js";
 import { Tags } from "./tags.js";
 import { Trims } from "./trims.js";
+import { UploadOrImportMedia } from "./uploadorimportmedia.js";
 import { WebinarRegistrations } from "./webinarregistrations.js";
 import { Webinars } from "./webinars.js";
 
 export class Wistia extends ClientSDK {
-  private _media?: Media;
-  get media(): Media {
-    return (this._media ??= new Media(this._options));
+  private _uploadOrImportMedia?: UploadOrImportMedia;
+  get uploadOrImportMedia(): UploadOrImportMedia {
+    return (this._uploadOrImportMedia ??= new UploadOrImportMedia(
+      this._options,
+    ));
   }
 
   private _mediaExtendedAudioDescriptions?: MediaExtendedAudioDescriptions;
@@ -56,6 +60,11 @@ export class Wistia extends ClientSDK {
   private _folderSharings?: FolderSharings;
   get folderSharings(): FolderSharings {
     return (this._folderSharings ??= new FolderSharings(this._options));
+  }
+
+  private _media?: Media;
+  get media(): Media {
+    return (this._media ??= new Media(this._options));
   }
 
   private _taggings?: Taggings;
@@ -137,6 +146,11 @@ export class Wistia extends ClientSDK {
     return (this._webinarRegistrations ??= new WebinarRegistrations(
       this._options,
     ));
+  }
+
+  private _remix?: Remix;
+  get remix(): Remix {
+    return (this._remix ??= new Remix(this._options));
   }
 
   private _statsAccount?: StatsAccount;

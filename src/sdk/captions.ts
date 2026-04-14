@@ -6,8 +6,8 @@ import { captionsCreate } from "../funcs/captionsCreate.js";
 import { captionsCreateMultipart } from "../funcs/captionsCreateMultipart.js";
 import { captionsDelete } from "../funcs/captionsDelete.js";
 import { captionsGet, GetAcceptEnum } from "../funcs/captionsGet.js";
-import { captionsGetCaptions } from "../funcs/captionsGetCaptions.js";
 import { captionsList } from "../funcs/captionsList.js";
+import { captionsListAll } from "../funcs/captionsListAll.js";
 import { captionsPurchase } from "../funcs/captionsPurchase.js";
 import { captionsUpdate } from "../funcs/captionsUpdate.js";
 import { captionsUpdateMultipart } from "../funcs/captionsUpdateMultipart.js";
@@ -96,11 +96,11 @@ export class Captions extends ClientSDK {
    * Read all folder and media data
    * ```
    */
-  async getCaptions(
+  async listAll(
     request?: operations.GetCaptionsRequest | undefined,
     options?: RequestOptions,
   ): Promise<Array<operations.GetCaptionsResponse>> {
-    return unwrapAsync(captionsGetCaptions(
+    return unwrapAsync(captionsListAll(
       this,
       request,
       options,

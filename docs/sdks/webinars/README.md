@@ -4,13 +4,13 @@
 
 ### Available Operations
 
-* [getWebinars](#getwebinars) - List Webinars
-* [postWebinars](#postwebinars) - Create Webinar
-* [getWebinarsId](#getwebinarsid) - Show Webinar
-* [putWebinarsId](#putwebinarsid) - Update Webinar
-* [deleteWebinarsId](#deletewebinarsid) - Delete Webinar
+* [list](#list) - List Webinars
+* [create](#create) - Create Webinar
+* [get](#get) - Show Webinar
+* [update](#update) - Update Webinar
+* [delete](#delete) - Delete Webinar
 
-## getWebinars
+## list
 
 Lists webinars belonging to the account. This endpoint can also be used to
 do a batch fetch based off of the hashed id.
@@ -32,7 +32,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.webinars.getWebinars();
+  const result = await wistia.webinars.list();
 
   console.log(result);
 }
@@ -46,7 +46,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { webinarsGetWebinars } from "@wistia/wistia-api-client/funcs/webinarsGetWebinars.js";
+import { webinarsList } from "@wistia/wistia-api-client/funcs/webinarsList.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -55,12 +55,12 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await webinarsGetWebinars(wistia);
+  const res = await webinarsList(wistia);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("webinarsGetWebinars failed:", res.error);
+    console.log("webinarsList failed:", res.error);
   }
 }
 
@@ -89,7 +89,7 @@ run();
 | errors.GetWebinarsInternalServerError | 500                                   | application/json                      |
 | errors.WistiaDefaultError             | 4XX, 5XX                              | \*/\*                                 |
 
-## postWebinars
+## create
 
 Creates a new webinar.
 
@@ -110,7 +110,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.webinars.postWebinars({
+  const result = await wistia.webinars.create({
     title: "Wellness Session: Coping with Outie Memories",
     description: "A comprehensive session on managing work-life balance",
     scheduledFor: new Date("2024-03-20T15:30:00-05:00"),
@@ -129,7 +129,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { webinarsPostWebinars } from "@wistia/wistia-api-client/funcs/webinarsPostWebinars.js";
+import { webinarsCreate } from "@wistia/wistia-api-client/funcs/webinarsCreate.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -138,7 +138,7 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await webinarsPostWebinars(wistia, {
+  const res = await webinarsCreate(wistia, {
     title: "Wellness Session: Coping with Outie Memories",
     description: "A comprehensive session on managing work-life balance",
     scheduledFor: new Date("2024-03-20T15:30:00-05:00"),
@@ -148,7 +148,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("webinarsPostWebinars failed:", res.error);
+    console.log("webinarsCreate failed:", res.error);
   }
 }
 
@@ -178,7 +178,7 @@ run();
 | errors.PostWebinarsInternalServerError      | 500                                         | application/json                            |
 | errors.WistiaDefaultError                   | 4XX, 5XX                                    | \*/\*                                       |
 
-## getWebinarsId
+## get
 
 Returns the webinar associated with the hashed id.
 
@@ -199,7 +199,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.webinars.getWebinarsId({
+  const result = await wistia.webinars.get({
     id: "<id>",
   });
 
@@ -215,7 +215,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { webinarsGetWebinarsId } from "@wistia/wistia-api-client/funcs/webinarsGetWebinarsId.js";
+import { webinarsGet } from "@wistia/wistia-api-client/funcs/webinarsGet.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -224,14 +224,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await webinarsGetWebinarsId(wistia, {
+  const res = await webinarsGet(wistia, {
     id: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("webinarsGetWebinarsId failed:", res.error);
+    console.log("webinarsGet failed:", res.error);
   }
 }
 
@@ -260,7 +260,7 @@ run();
 | errors.GetWebinarsIdInternalServerError | 500                                     | application/json                        |
 | errors.WistiaDefaultError               | 4XX, 5XX                                | \*/\*                                   |
 
-## putWebinarsId
+## update
 
 Updates an existing webinar.
 
@@ -281,7 +281,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.webinars.putWebinarsId({
+  const result = await wistia.webinars.update({
     id: "<id>",
     requestBody: {
       webinar: {
@@ -305,7 +305,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { webinarsPutWebinarsId } from "@wistia/wistia-api-client/funcs/webinarsPutWebinarsId.js";
+import { webinarsUpdate } from "@wistia/wistia-api-client/funcs/webinarsUpdate.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -314,7 +314,7 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await webinarsPutWebinarsId(wistia, {
+  const res = await webinarsUpdate(wistia, {
     id: "<id>",
     requestBody: {
       webinar: {
@@ -329,7 +329,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("webinarsPutWebinarsId failed:", res.error);
+    console.log("webinarsUpdate failed:", res.error);
   }
 }
 
@@ -359,7 +359,7 @@ run();
 | errors.PutWebinarsIdInternalServerError      | 500                                          | application/json                             |
 | errors.WistiaDefaultError                    | 4XX, 5XX                                     | \*/\*                                        |
 
-## deleteWebinarsId
+## delete
 
 Deletes an existing webinar.
 
@@ -380,7 +380,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.webinars.deleteWebinarsId({
+  const result = await wistia.webinars.delete({
     id: "<id>",
   });
 
@@ -396,7 +396,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { webinarsDeleteWebinarsId } from "@wistia/wistia-api-client/funcs/webinarsDeleteWebinarsId.js";
+import { webinarsDelete } from "@wistia/wistia-api-client/funcs/webinarsDelete.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -405,14 +405,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await webinarsDeleteWebinarsId(wistia, {
+  const res = await webinarsDelete(wistia, {
     id: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("webinarsDeleteWebinarsId failed:", res.error);
+    console.log("webinarsDelete failed:", res.error);
   }
 }
 

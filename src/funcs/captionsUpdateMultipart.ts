@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { WistiaCore } from "../core.js";
-import { appendForm, encodeSimple } from "../lib/encodings.js";
+import { appendForm, encodeSimple, normalizeBlob } from "../lib/encodings.js";
 import {
   bytesToBlob,
   getContentTypeFromFileName,
@@ -109,8 +109,9 @@ async function $do(
   const body = new FormData();
 
   if (isBlobLike(payload.RequestBody.caption_file)) {
-    const blob = payload.RequestBody.caption_file;
-    const name = "name" in blob ? (blob.name as string) : undefined;
+    const file = payload.RequestBody.caption_file;
+    const blob = await normalizeBlob(file);
+    const name = "name" in file ? (file.name as string) : undefined;
     appendForm(body, "caption_file", blob, name);
   } else if (isReadableStream(payload.RequestBody.caption_file.content)) {
     const buffer = await readableStreamToArrayBuffer(

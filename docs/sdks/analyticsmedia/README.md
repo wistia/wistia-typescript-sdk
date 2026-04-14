@@ -4,14 +4,14 @@
 
 ### Available Operations
 
-* [getAnalyticsMediasMediaId](#getanalyticsmediasmediaid) - Show Media Analytics
-* [getAnalyticsMediasMediaIdTimeseries](#getanalyticsmediasmediaidtimeseries) - Show Media Analytics Timeseries
-* [getAnalyticsMediasMediaIdEmbedLocations](#getanalyticsmediasmediaidembedlocations) - Show Media Embed Locations
-* [getAnalyticsMediasMediaIdTraffic](#getanalyticsmediasmediaidtraffic) - Show Media Traffic Breakdown
-* [getAnalyticsMediasMediaIdConversions](#getanalyticsmediasmediaidconversions) - Show Media Form Conversions
-* [getAnalyticsMediasMediaIdLanguages](#getanalyticsmediasmediaidlanguages) - Show Media Languages
+* [get](#get) - Show Media Analytics
+* [getTimeseries](#gettimeseries) - Show Media Analytics Timeseries
+* [getEmbedLocations](#getembedlocations) - Show Media Embed Locations
+* [getTraffic](#gettraffic) - Show Media Traffic Breakdown
+* [getConversions](#getconversions) - Show Media Form Conversions
+* [getLanguages](#getlanguages) - Show Media Languages
 
-## getAnalyticsMediasMediaId
+## get
 
 Retrieve aggregate analytics for a video over a date range. This endpoint provides
 Bottler-powered analytics including plays, loads, engagement rate, play rate, and
@@ -39,7 +39,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.analyticsMedia.getAnalyticsMediasMediaId({
+  const result = await wistia.analyticsMedia.get({
     mediaId: "<id>",
     startDate: new RFCDate("2026-06-10"),
     endDate: new RFCDate("2026-12-01"),
@@ -57,7 +57,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { analyticsMediaGetAnalyticsMediasMediaId } from "@wistia/wistia-api-client/funcs/analyticsMediaGetAnalyticsMediasMediaId.js";
+import { analyticsMediaGet } from "@wistia/wistia-api-client/funcs/analyticsMediaGet.js";
 import { RFCDate } from "@wistia/wistia-api-client/types";
 
 // Use `WistiaCore` for best tree-shaking performance.
@@ -67,7 +67,7 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await analyticsMediaGetAnalyticsMediasMediaId(wistia, {
+  const res = await analyticsMediaGet(wistia, {
     mediaId: "<id>",
     startDate: new RFCDate("2026-06-10"),
     endDate: new RFCDate("2026-12-01"),
@@ -76,7 +76,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("analyticsMediaGetAnalyticsMediasMediaId failed:", res.error);
+    console.log("analyticsMediaGet failed:", res.error);
   }
 }
 
@@ -107,7 +107,7 @@ run();
 | errors.GetAnalyticsMediasMediaIdServiceUnavailableError | 503                                                     | application/json                                        |
 | errors.WistiaDefaultError                               | 4XX, 5XX                                                | \*/\*                                                   |
 
-## getAnalyticsMediasMediaIdTimeseries
+## getTimeseries
 
 Retrieve analytics timeseries data for a video over a date range with configurable
 granularity. Returns an array of timestamped metric buckets.
@@ -134,7 +134,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.analyticsMedia.getAnalyticsMediasMediaIdTimeseries({
+  const result = await wistia.analyticsMedia.getTimeseries({
     mediaId: "<id>",
     startDate: new RFCDate("2024-05-04"),
     endDate: new RFCDate("2025-12-15"),
@@ -153,7 +153,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { analyticsMediaGetAnalyticsMediasMediaIdTimeseries } from "@wistia/wistia-api-client/funcs/analyticsMediaGetAnalyticsMediasMediaIdTimeseries.js";
+import { analyticsMediaGetTimeseries } from "@wistia/wistia-api-client/funcs/analyticsMediaGetTimeseries.js";
 import { RFCDate } from "@wistia/wistia-api-client/types";
 
 // Use `WistiaCore` for best tree-shaking performance.
@@ -163,7 +163,7 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await analyticsMediaGetAnalyticsMediasMediaIdTimeseries(wistia, {
+  const res = await analyticsMediaGetTimeseries(wistia, {
     mediaId: "<id>",
     startDate: new RFCDate("2024-05-04"),
     endDate: new RFCDate("2025-12-15"),
@@ -173,7 +173,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("analyticsMediaGetAnalyticsMediasMediaIdTimeseries failed:", res.error);
+    console.log("analyticsMediaGetTimeseries failed:", res.error);
   }
 }
 
@@ -204,7 +204,7 @@ run();
 | errors.GetAnalyticsMediasMediaIdTimeseriesServiceUnavailableError | 503                                                               | application/json                                                  |
 | errors.WistiaDefaultError                                         | 4XX, 5XX                                                          | \*/\*                                                             |
 
-## getAnalyticsMediasMediaIdEmbedLocations
+## getEmbedLocations
 
 Retrieve embed location analytics for a video. Returns a list of pages where the
 video is embedded, ranked by the chosen metric.
@@ -231,7 +231,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.analyticsMedia.getAnalyticsMediasMediaIdEmbedLocations({
+  const result = await wistia.analyticsMedia.getEmbedLocations({
     mediaId: "<id>",
     startDate: new RFCDate("2025-01-17"),
     endDate: new RFCDate("2024-09-01"),
@@ -250,7 +250,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { analyticsMediaGetAnalyticsMediasMediaIdEmbedLocations } from "@wistia/wistia-api-client/funcs/analyticsMediaGetAnalyticsMediasMediaIdEmbedLocations.js";
+import { analyticsMediaGetEmbedLocations } from "@wistia/wistia-api-client/funcs/analyticsMediaGetEmbedLocations.js";
 import { RFCDate } from "@wistia/wistia-api-client/types";
 
 // Use `WistiaCore` for best tree-shaking performance.
@@ -260,7 +260,7 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await analyticsMediaGetAnalyticsMediasMediaIdEmbedLocations(wistia, {
+  const res = await analyticsMediaGetEmbedLocations(wistia, {
     mediaId: "<id>",
     startDate: new RFCDate("2025-01-17"),
     endDate: new RFCDate("2024-09-01"),
@@ -270,7 +270,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("analyticsMediaGetAnalyticsMediasMediaIdEmbedLocations failed:", res.error);
+    console.log("analyticsMediaGetEmbedLocations failed:", res.error);
   }
 }
 
@@ -301,7 +301,7 @@ run();
 | errors.GetAnalyticsMediasMediaIdEmbedLocationsServiceUnavailableError | 503                                                                   | application/json                                                      |
 | errors.WistiaDefaultError                                             | 4XX, 5XX                                                              | \*/\*                                                                 |
 
-## getAnalyticsMediasMediaIdTraffic
+## getTraffic
 
 Retrieve traffic breakdown analytics for a video, grouped by a specified dimension
 such as UTM campaign, UTM source, UTM medium, referrer domain, or viewer screen size.
@@ -328,7 +328,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.analyticsMedia.getAnalyticsMediasMediaIdTraffic({
+  const result = await wistia.analyticsMedia.getTraffic({
     mediaId: "<id>",
     startDate: new RFCDate("2026-11-05"),
     endDate: new RFCDate("2026-08-31"),
@@ -347,7 +347,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { analyticsMediaGetAnalyticsMediasMediaIdTraffic } from "@wistia/wistia-api-client/funcs/analyticsMediaGetAnalyticsMediasMediaIdTraffic.js";
+import { analyticsMediaGetTraffic } from "@wistia/wistia-api-client/funcs/analyticsMediaGetTraffic.js";
 import { RFCDate } from "@wistia/wistia-api-client/types";
 
 // Use `WistiaCore` for best tree-shaking performance.
@@ -357,7 +357,7 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await analyticsMediaGetAnalyticsMediasMediaIdTraffic(wistia, {
+  const res = await analyticsMediaGetTraffic(wistia, {
     mediaId: "<id>",
     startDate: new RFCDate("2026-11-05"),
     endDate: new RFCDate("2026-08-31"),
@@ -367,7 +367,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("analyticsMediaGetAnalyticsMediasMediaIdTraffic failed:", res.error);
+    console.log("analyticsMediaGetTraffic failed:", res.error);
   }
 }
 
@@ -398,7 +398,7 @@ run();
 | errors.GetAnalyticsMediasMediaIdTrafficServiceUnavailableError | 503                                                            | application/json                                               |
 | errors.WistiaDefaultError                                      | 4XX, 5XX                                                       | \*/\*                                                          |
 
-## getAnalyticsMediasMediaIdConversions
+## getConversions
 
 Retrieve form conversion data for a video. Returns a paginated list of form
 submissions with visitor details and timestamps.
@@ -425,7 +425,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.analyticsMedia.getAnalyticsMediasMediaIdConversions({
+  const result = await wistia.analyticsMedia.getConversions({
     mediaId: "<id>",
     startDate: new RFCDate("2024-02-20"),
     endDate: new RFCDate("2026-07-17"),
@@ -443,7 +443,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { analyticsMediaGetAnalyticsMediasMediaIdConversions } from "@wistia/wistia-api-client/funcs/analyticsMediaGetAnalyticsMediasMediaIdConversions.js";
+import { analyticsMediaGetConversions } from "@wistia/wistia-api-client/funcs/analyticsMediaGetConversions.js";
 import { RFCDate } from "@wistia/wistia-api-client/types";
 
 // Use `WistiaCore` for best tree-shaking performance.
@@ -453,7 +453,7 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await analyticsMediaGetAnalyticsMediasMediaIdConversions(wistia, {
+  const res = await analyticsMediaGetConversions(wistia, {
     mediaId: "<id>",
     startDate: new RFCDate("2024-02-20"),
     endDate: new RFCDate("2026-07-17"),
@@ -462,7 +462,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("analyticsMediaGetAnalyticsMediasMediaIdConversions failed:", res.error);
+    console.log("analyticsMediaGetConversions failed:", res.error);
   }
 }
 
@@ -493,7 +493,7 @@ run();
 | errors.GetAnalyticsMediasMediaIdConversionsServiceUnavailableError | 503                                                                | application/json                                                   |
 | errors.WistiaDefaultError                                          | 4XX, 5XX                                                           | \*/\*                                                              |
 
-## getAnalyticsMediasMediaIdLanguages
+## getLanguages
 
 Retrieve language analytics for a video. Returns a breakdown of plays by
 viewer browser language, sorted by number of plays in descending order.
@@ -520,7 +520,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.analyticsMedia.getAnalyticsMediasMediaIdLanguages({
+  const result = await wistia.analyticsMedia.getLanguages({
     mediaId: "<id>",
     startDate: new RFCDate("2026-07-01"),
     endDate: new RFCDate("2024-01-19"),
@@ -538,7 +538,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { analyticsMediaGetAnalyticsMediasMediaIdLanguages } from "@wistia/wistia-api-client/funcs/analyticsMediaGetAnalyticsMediasMediaIdLanguages.js";
+import { analyticsMediaGetLanguages } from "@wistia/wistia-api-client/funcs/analyticsMediaGetLanguages.js";
 import { RFCDate } from "@wistia/wistia-api-client/types";
 
 // Use `WistiaCore` for best tree-shaking performance.
@@ -548,7 +548,7 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await analyticsMediaGetAnalyticsMediasMediaIdLanguages(wistia, {
+  const res = await analyticsMediaGetLanguages(wistia, {
     mediaId: "<id>",
     startDate: new RFCDate("2026-07-01"),
     endDate: new RFCDate("2024-01-19"),
@@ -557,7 +557,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("analyticsMediaGetAnalyticsMediasMediaIdLanguages failed:", res.error);
+    console.log("analyticsMediaGetLanguages failed:", res.error);
   }
 }
 

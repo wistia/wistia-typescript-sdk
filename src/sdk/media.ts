@@ -3,65 +3,23 @@
  */
 
 import { mediaArchive } from "../funcs/mediaArchive.js";
+import { mediaBulkCopy } from "../funcs/mediaBulkCopy.js";
 import { mediaCopy } from "../funcs/mediaCopy.js";
 import { mediaDelete } from "../funcs/mediaDelete.js";
 import { mediaGet } from "../funcs/mediaGet.js";
 import { mediaGetStats } from "../funcs/mediaGetStats.js";
+import { mediaImportUrl } from "../funcs/mediaImportUrl.js";
 import { mediaList } from "../funcs/mediaList.js";
 import { mediaMove } from "../funcs/mediaMove.js";
-import { mediaPostMediasImportUrl } from "../funcs/mediaPostMediasImportUrl.js";
-import { mediaPutMediasCopy } from "../funcs/mediaPutMediasCopy.js";
 import { mediaRestore } from "../funcs/mediaRestore.js";
 import { mediaSwap } from "../funcs/mediaSwap.js";
 import { mediaTranslate } from "../funcs/mediaTranslate.js";
 import { mediaUpdate } from "../funcs/mediaUpdate.js";
-import { mediaUploadForm } from "../funcs/mediaUploadForm.js";
-import { mediaUploadMultipart } from "../funcs/mediaUploadMultipart.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
 export class Media extends ClientSDK {
-  /**
-   * Upload or Import Media
-   *
-   * @remarks
-   * Endpoint to upload media files from a local system or import from a web URL.
-   *
-   * - Use `multipart/form-data` with a `file` parameter to upload from local system
-   * - Use `application/x-www-form-urlencoded` with a `url` parameter to import from web URL
-   */
-  async uploadForm(
-    request?: operations.PostFormRequest | undefined,
-    options?: RequestOptions,
-  ): Promise<operations.PostFormResponse> {
-    return unwrapAsync(mediaUploadForm(
-      this,
-      request,
-      options,
-    ));
-  }
-
-  /**
-   * Upload or Import Media
-   *
-   * @remarks
-   * Endpoint to upload media files from a local system or import from a web URL.
-   *
-   * - Use `multipart/form-data` with a `file` parameter to upload from local system
-   * - Use `application/x-www-form-urlencoded` with a `url` parameter to import from web URL
-   */
-  async uploadMultipart(
-    request?: operations.PostMultipartRequest | undefined,
-    options?: RequestOptions,
-  ): Promise<operations.PostMultipartResponse> {
-    return unwrapAsync(mediaUploadMultipart(
-      this,
-      request,
-      options,
-    ));
-  }
-
   /**
    * List Media
    *
@@ -251,6 +209,8 @@ export class Media extends ClientSDK {
    * If no folder_id is provided, a new folder called "Untitled Folder" will be
    * created and the imported media will be placed there.
    *
+   * The URL must be publicly accessible — Wistia's servers need to be able to fetch the file directly.
+   *
    * Note: imports from certain domains (e.g. vimeo.com, wistia.com) are not permitted.
    *
    * <!--- HIDE-MCP -->
@@ -260,11 +220,11 @@ export class Media extends ClientSDK {
    * ```
    * <!--- /HIDE-MCP -->
    */
-  async postMediasImportUrl(
+  async importUrl(
     request?: operations.PostMediasImportUrlRequest | undefined,
     options?: RequestOptions,
   ): Promise<operations.PostMediasImportUrlResponse> {
-    return unwrapAsync(mediaPostMediasImportUrl(
+    return unwrapAsync(mediaImportUrl(
       this,
       request,
       options,
@@ -357,11 +317,11 @@ export class Media extends ClientSDK {
    * Read, update & delete anything
    * ```
    */
-  async putMediasCopy(
+  async bulkCopy(
     request: operations.PutMediasCopyRequest,
     options?: RequestOptions,
   ): Promise<operations.PutMediasCopyResponse> {
-    return unwrapAsync(mediaPutMediasCopy(
+    return unwrapAsync(mediaBulkCopy(
       this,
       request,
       options,

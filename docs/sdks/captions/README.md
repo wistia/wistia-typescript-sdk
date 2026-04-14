@@ -7,7 +7,7 @@
 * [list](#list) - List Captions by Media
 * [create](#create) - Create Captions
 * [createMultipart](#createmultipart) - Create Captions
-* [getCaptions](#getcaptions) - List Captions
+* [listAll](#listall) - List Captions
 * [purchase](#purchase) - Purchase Captions
 * [get](#get) - Show Captions
 * [update](#update) - Update Captions
@@ -273,7 +273,7 @@ run();
 | errors.PostMediasMediaHashedIdCaptionsMultipartInternalServerError | 500                                                                | application/json                                                   |
 | errors.WistiaDefaultError                                          | 4XX, 5XX                                                           | \*/\*                                                              |
 
-## getCaptions
+## listAll
 
 Lists captions belonging to the account. This endpoint can also narrow down results
 to those belonging to a specific media.
@@ -295,7 +295,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.captions.getCaptions({});
+  const result = await wistia.captions.listAll({});
 
   console.log(result);
 }
@@ -309,7 +309,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { captionsGetCaptions } from "@wistia/wistia-api-client/funcs/captionsGetCaptions.js";
+import { captionsListAll } from "@wistia/wistia-api-client/funcs/captionsListAll.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -318,12 +318,12 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await captionsGetCaptions(wistia, {});
+  const res = await captionsListAll(wistia, {});
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("captionsGetCaptions failed:", res.error);
+    console.log("captionsListAll failed:", res.error);
   }
 }
 

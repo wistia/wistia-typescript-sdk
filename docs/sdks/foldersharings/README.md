@@ -4,13 +4,13 @@
 
 ### Available Operations
 
-* [getFoldersFolderIdSharings](#getfoldersfolderidsharings) - List Folder Sharings
-* [postFoldersFolderIdSharings](#postfoldersfolderidsharings) - Create Folder Sharing
-* [getFoldersFolderIdSharingsSharingId](#getfoldersfolderidsharingssharingid) - Show Folder Sharing
-* [putFoldersFolderIdSharingsSharingId](#putfoldersfolderidsharingssharingid) - Update Folder Sharing
-* [deleteFoldersFolderIdSharingsSharingId](#deletefoldersfolderidsharingssharingid) - Delete Folder Sharing
+* [list](#list) - List Folder Sharings
+* [create](#create) - Create Folder Sharing
+* [get](#get) - Show Folder Sharing
+* [update](#update) - Update Folder Sharing
+* [delete](#delete) - Delete Folder Sharing
 
-## getFoldersFolderIdSharings
+## list
 
 Lists the sharings of contacts and contact groups on a folder.
 
@@ -31,7 +31,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.folderSharings.getFoldersFolderIdSharings({
+  const result = await wistia.folderSharings.list({
     folderId: "<id>",
   });
 
@@ -47,7 +47,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { folderSharingsGetFoldersFolderIdSharings } from "@wistia/wistia-api-client/funcs/folderSharingsGetFoldersFolderIdSharings.js";
+import { folderSharingsList } from "@wistia/wistia-api-client/funcs/folderSharingsList.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -56,14 +56,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await folderSharingsGetFoldersFolderIdSharings(wistia, {
+  const res = await folderSharingsList(wistia, {
     folderId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("folderSharingsGetFoldersFolderIdSharings failed:", res.error);
+    console.log("folderSharingsList failed:", res.error);
   }
 }
 
@@ -91,7 +91,7 @@ run();
 | errors.GetFoldersFolderIdSharingsInternalServerError | 500                                                  | application/json                                     |
 | errors.WistiaDefaultError                            | 4XX, 5XX                                             | \*/\*                                                |
 
-## postFoldersFolderIdSharings
+## create
 
 Creates a new sharing object for a folder by specifying the email of the person to share with and other optional parameters.
 
@@ -112,7 +112,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.folderSharings.postFoldersFolderIdSharings({
+  const result = await wistia.folderSharings.create({
     folderId: "<id>",
     requestBody: {
       sharing: {
@@ -137,7 +137,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { folderSharingsPostFoldersFolderIdSharings } from "@wistia/wistia-api-client/funcs/folderSharingsPostFoldersFolderIdSharings.js";
+import { folderSharingsCreate } from "@wistia/wistia-api-client/funcs/folderSharingsCreate.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -146,7 +146,7 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await folderSharingsPostFoldersFolderIdSharings(wistia, {
+  const res = await folderSharingsCreate(wistia, {
     folderId: "<id>",
     requestBody: {
       sharing: {
@@ -162,7 +162,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("folderSharingsPostFoldersFolderIdSharings failed:", res.error);
+    console.log("folderSharingsCreate failed:", res.error);
   }
 }
 
@@ -191,7 +191,7 @@ run();
 | errors.PostFoldersFolderIdSharingsInternalServerError | 500                                                   | application/json                                      |
 | errors.WistiaDefaultError                             | 4XX, 5XX                                              | \*/\*                                                 |
 
-## getFoldersFolderIdSharingsSharingId
+## get
 
 Retrieves the details of a specific sharing object for a given folder.
 
@@ -212,7 +212,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.folderSharings.getFoldersFolderIdSharingsSharingId({
+  const result = await wistia.folderSharings.get({
     folderId: "<id>",
     sharingId: 616202,
   });
@@ -229,7 +229,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { folderSharingsGetFoldersFolderIdSharingsSharingId } from "@wistia/wistia-api-client/funcs/folderSharingsGetFoldersFolderIdSharingsSharingId.js";
+import { folderSharingsGet } from "@wistia/wistia-api-client/funcs/folderSharingsGet.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -238,7 +238,7 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await folderSharingsGetFoldersFolderIdSharingsSharingId(wistia, {
+  const res = await folderSharingsGet(wistia, {
     folderId: "<id>",
     sharingId: 616202,
   });
@@ -246,7 +246,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("folderSharingsGetFoldersFolderIdSharingsSharingId failed:", res.error);
+    console.log("folderSharingsGet failed:", res.error);
   }
 }
 
@@ -275,7 +275,7 @@ run();
 | errors.GetFoldersFolderIdSharingsSharingIdInternalServerError | 500                                                           | application/json                                              |
 | errors.WistiaDefaultError                                     | 4XX, 5XX                                                      | \*/\*                                                         |
 
-## putFoldersFolderIdSharingsSharingId
+## update
 
 Updates a sharing on a folder.
 
@@ -296,7 +296,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.folderSharings.putFoldersFolderIdSharingsSharingId({
+  const result = await wistia.folderSharings.update({
     folderId: "<id>",
     sharingId: "<id>",
     requestBody: {},
@@ -314,7 +314,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { folderSharingsPutFoldersFolderIdSharingsSharingId } from "@wistia/wistia-api-client/funcs/folderSharingsPutFoldersFolderIdSharingsSharingId.js";
+import { folderSharingsUpdate } from "@wistia/wistia-api-client/funcs/folderSharingsUpdate.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -323,7 +323,7 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await folderSharingsPutFoldersFolderIdSharingsSharingId(wistia, {
+  const res = await folderSharingsUpdate(wistia, {
     folderId: "<id>",
     sharingId: "<id>",
     requestBody: {},
@@ -332,7 +332,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("folderSharingsPutFoldersFolderIdSharingsSharingId failed:", res.error);
+    console.log("folderSharingsUpdate failed:", res.error);
   }
 }
 
@@ -361,7 +361,7 @@ run();
 | errors.PutFoldersFolderIdSharingsSharingIdInternalServerError | 500                                                           | application/json                                              |
 | errors.WistiaDefaultError                                     | 4XX, 5XX                                                      | \*/\*                                                         |
 
-## deleteFoldersFolderIdSharingsSharingId
+## delete
 
 Deletes a sharing on a folder.
 
@@ -382,7 +382,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.folderSharings.deleteFoldersFolderIdSharingsSharingId({
+  const result = await wistia.folderSharings.delete({
     folderId: "<id>",
     sharingId: "<id>",
   });
@@ -399,7 +399,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { folderSharingsDeleteFoldersFolderIdSharingsSharingId } from "@wistia/wistia-api-client/funcs/folderSharingsDeleteFoldersFolderIdSharingsSharingId.js";
+import { folderSharingsDelete } from "@wistia/wistia-api-client/funcs/folderSharingsDelete.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -408,7 +408,7 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await folderSharingsDeleteFoldersFolderIdSharingsSharingId(wistia, {
+  const res = await folderSharingsDelete(wistia, {
     folderId: "<id>",
     sharingId: "<id>",
   });
@@ -416,7 +416,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("folderSharingsDeleteFoldersFolderIdSharingsSharingId failed:", res.error);
+    console.log("folderSharingsDelete failed:", res.error);
   }
 }
 

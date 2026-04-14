@@ -16,7 +16,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.media.uploadForm({
+              const result = await wistia.uploadOrImportMedia.postForm({
                 url: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
                 lowPriority: true,
               });
@@ -36,7 +36,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.media.uploadMultipart({
+              const result = await wistia.uploadOrImportMedia.postMultipart({
                 file: await openAsBlob("example.file"),
               });
 
@@ -162,7 +162,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.analyticsMedia.getAnalyticsMediasMediaId({
+              const result = await wistia.analyticsMedia.get({
                 mediaId: "<id>",
                 startDate: new RFCDate("2026-06-10"),
                 endDate: new RFCDate("2026-12-01"),
@@ -186,7 +186,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.analyticsMedia.getAnalyticsMediasMediaIdConversions({
+              const result = await wistia.analyticsMedia.getConversions({
                 mediaId: "<id>",
                 startDate: new RFCDate("2024-02-20"),
                 endDate: new RFCDate("2026-07-17"),
@@ -210,7 +210,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.analyticsMedia.getAnalyticsMediasMediaIdEmbedLocations({
+              const result = await wistia.analyticsMedia.getEmbedLocations({
                 mediaId: "<id>",
                 startDate: new RFCDate("2025-01-17"),
                 endDate: new RFCDate("2024-09-01"),
@@ -235,7 +235,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.analyticsMedia.getAnalyticsMediasMediaIdLanguages({
+              const result = await wistia.analyticsMedia.getLanguages({
                 mediaId: "<id>",
                 startDate: new RFCDate("2026-07-01"),
                 endDate: new RFCDate("2024-01-19"),
@@ -259,7 +259,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.analyticsMedia.getAnalyticsMediasMediaIdTimeseries({
+              const result = await wistia.analyticsMedia.getTimeseries({
                 mediaId: "<id>",
                 startDate: new RFCDate("2024-05-04"),
                 endDate: new RFCDate("2025-12-15"),
@@ -284,7 +284,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.analyticsMedia.getAnalyticsMediasMediaIdTraffic({
+              const result = await wistia.analyticsMedia.getTraffic({
                 mediaId: "<id>",
                 startDate: new RFCDate("2026-11-05"),
                 endDate: new RFCDate("2026-08-31"),
@@ -308,7 +308,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.analyticsWebinar.getAnalyticsWebinarsWebinarId({
+              const result = await wistia.analyticsWebinar.get({
                 webinarId: "<id>",
               });
 
@@ -329,7 +329,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.analyticsWebinar.getAnalyticsWebinarsWebinarIdAudience({
+              const result = await wistia.analyticsWebinar.getAudience({
                 webinarId: "<id>",
               });
 
@@ -350,7 +350,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.analyticsWebinar.getAnalyticsWebinarsWebinarIdHistograms({
+              const result = await wistia.analyticsWebinar.getHistograms({
                 webinarId: "<id>",
               });
 
@@ -371,7 +371,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.analyticsWebinar.getAnalyticsWebinarsWebinarIdRegistration({
+              const result = await wistia.analyticsWebinar.getRegistration({
                 webinarId: "<id>",
                 granularity: "monthly",
               });
@@ -393,7 +393,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.analyticsWebinar.getAnalyticsWebinarsWebinarIdTraffic({
+              const result = await wistia.analyticsWebinar.getTraffic({
                 webinarId: "<id>",
                 groupBy: "utm_campaign",
               });
@@ -436,7 +436,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.captions.getCaptions({});
+              const result = await wistia.captions.listAll({});
 
               console.log(result);
             }
@@ -474,7 +474,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.channelEpisodes.deleteChannelEpisodesChannelEpisodeHashedId({
+              const result = await wistia.channelEpisodes.delete({
                 channelEpisodeHashedId: "<id>",
               });
 
@@ -495,7 +495,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.channelEpisodes.putChannelEpisodesChannelEpisodeHashedId({
+              const result = await wistia.channelEpisodes.update({
                 channelEpisodeHashedId: "<id>",
               });
 
@@ -516,7 +516,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.channelEpisodes.putChannelEpisodesChannelEpisodeHashedIdPublish({
+              const result = await wistia.channelEpisodes.publish({
                 channelEpisodeHashedId: "<id>",
               });
 
@@ -537,7 +537,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.channelEpisodes.putChannelEpisodesChannelEpisodeHashedIdUnpublish({
+              const result = await wistia.channelEpisodes.unpublish({
                 channelEpisodeHashedId: "<id>",
               });
 
@@ -577,7 +577,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.channels.postChannels();
+              const result = await wistia.channels.create();
 
               console.log(result);
             }
@@ -596,7 +596,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.channels.deleteChannelsChannelHashedId({
+              const result = await wistia.channels.delete({
                 channelHashedId: "<id>",
               });
 
@@ -638,7 +638,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.channels.putChannelsChannelHashedId({
+              const result = await wistia.channels.update({
                 channelHashedId: "<id>",
               });
 
@@ -748,7 +748,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.folders.getFolders();
+              const result = await wistia.folders.list();
 
               console.log(result);
             }
@@ -767,7 +767,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.folders.postFolders({
+              const result = await wistia.folders.create({
                 name: "My New Folder",
                 adminEmail: "admin@example.com",
                 public: false,
@@ -790,7 +790,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.folderSharings.getFoldersFolderIdSharings({
+              const result = await wistia.folderSharings.list({
                 folderId: "<id>",
               });
 
@@ -811,7 +811,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.folderSharings.postFoldersFolderIdSharings({
+              const result = await wistia.folderSharings.create({
                 folderId: "<id>",
                 requestBody: {
                   sharing: {
@@ -841,7 +841,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.folderSharings.deleteFoldersFolderIdSharingsSharingId({
+              const result = await wistia.folderSharings.delete({
                 folderId: "<id>",
                 sharingId: "<id>",
               });
@@ -863,7 +863,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.folderSharings.getFoldersFolderIdSharingsSharingId({
+              const result = await wistia.folderSharings.get({
                 folderId: "<id>",
                 sharingId: 616202,
               });
@@ -885,7 +885,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.folderSharings.putFoldersFolderIdSharingsSharingId({
+              const result = await wistia.folderSharings.update({
                 folderId: "<id>",
                 sharingId: "<id>",
                 requestBody: {},
@@ -908,7 +908,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.subfolders.getFoldersFolderIdSubfolders({
+              const result = await wistia.subfolders.list({
                 folderId: "abc123def4",
               });
 
@@ -929,7 +929,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.subfolders.postFoldersFolderIdSubfolders({
+              const result = await wistia.subfolders.create({
                 folderId: "abc123def4",
                 requestBody: {
                   name: "Marketing Videos",
@@ -954,7 +954,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.subfolders.deleteFoldersFolderIdSubfoldersBulkDelete({
+              const result = await wistia.subfolders.bulkDelete({
                 folderId: "abc123def4",
                 requestBody: {
                   hashedIds: [
@@ -981,7 +981,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.subfolders.deleteFoldersFolderIdSubfoldersSubfolderId({
+              const result = await wistia.subfolders.delete({
                 folderId: "abc123def4",
                 subfolderId: "xyz789ghi0",
               });
@@ -1003,7 +1003,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.subfolders.getFoldersFolderIdSubfoldersSubfolderId({
+              const result = await wistia.subfolders.get({
                 folderId: "abc123def4",
                 subfolderId: "xyz789ghi0",
               });
@@ -1025,7 +1025,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.subfolders.putFoldersFolderIdSubfoldersSubfolderId({
+              const result = await wistia.subfolders.update({
                 folderId: "abc123def4",
                 subfolderId: "xyz789ghi0",
                 requestBody: {
@@ -1051,7 +1051,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.folders.deleteFoldersId({
+              const result = await wistia.folders.delete({
                 id: "<id>",
               });
 
@@ -1072,7 +1072,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.folders.getFoldersId({
+              const result = await wistia.folders.get({
                 id: "<id>",
               });
 
@@ -1093,7 +1093,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.folders.putFoldersId({
+              const result = await wistia.folders.update({
                 id: "<id>",
                 requestBody: {
                   name: "My New Folder Name",
@@ -1119,7 +1119,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.folders.postFoldersIdCopy({
+              const result = await wistia.folders.copy({
                 id: "<id>",
                 requestBody: {
                   adminEmail: "admin@example.com",
@@ -1286,7 +1286,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.media.putMediasCopy({
+              const result = await wistia.media.bulkCopy({
                 hashedIds: [
                   "<value 1>",
                 ],
@@ -1310,7 +1310,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.media.postMediasImportUrl({
+              const result = await wistia.media.importUrl({
                 url: "https://example.com/video.mp4",
               });
 
@@ -1909,6 +1909,116 @@ actions:
             }
 
             run();
+  - target: $["paths"]["/remix_account_status"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: Typescript (SDK)
+          source: |-
+            import { Wistia } from "@wistia/wistia-api-client";
+
+            const wistia = new Wistia({
+              bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
+            });
+
+            async function run() {
+              const result = await wistia.remix.getRemixAccountStatus();
+
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/remixes"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: Typescript (SDK)
+          source: |-
+            import { Wistia } from "@wistia/wistia-api-client";
+
+            const wistia = new Wistia({
+              bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
+            });
+
+            async function run() {
+              const result = await wistia.remix.postRemixes({
+                mediaHashedIds: [
+                  "abc123",
+                  "def456",
+                ],
+                instructions: "Create a 60-second highlight reel focusing on the product demo section",
+              });
+
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/remixes/{remixHashedId}"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: Typescript (SDK)
+          source: |-
+            import { Wistia } from "@wistia/wistia-api-client";
+
+            const wistia = new Wistia({
+              bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
+            });
+
+            async function run() {
+              const result = await wistia.remix.getRemixesRemixHashedId({
+                remixHashedId: "<id>",
+              });
+
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/remixes/{remixHashedId}/continue"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: Typescript (SDK)
+          source: |-
+            import { Wistia } from "@wistia/wistia-api-client";
+
+            const wistia = new Wistia({
+              bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
+            });
+
+            async function run() {
+              const result = await wistia.remix.postRemixesRemixHashedIdContinue({
+                remixHashedId: "<id>",
+                requestBody: {
+                  instructions: "Cut the intro and add background music",
+                },
+              });
+
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/remixes/{remixHashedId}/export"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: Typescript (SDK)
+          source: |-
+            import { Wistia } from "@wistia/wistia-api-client";
+
+            const wistia = new Wistia({
+              bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
+            });
+
+            async function run() {
+              const result = await wistia.remix.postRemixesRemixHashedIdExport({
+                remixHashedId: "<id>",
+              });
+
+              console.log(result);
+            }
+
+            run();
   - target: $["paths"]["/search"]["get"]
     update:
       x-codeSamples:
@@ -2152,7 +2262,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.taggings.postTaggingsBulkCreate({
+              const result = await wistia.taggings.bulkCreate({
                 hashedIds: [
                   "<value 1>",
                   "<value 2>",
@@ -2260,7 +2370,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.webinars.getWebinars();
+              const result = await wistia.webinars.list();
 
               console.log(result);
             }
@@ -2279,7 +2389,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.webinars.postWebinars({
+              const result = await wistia.webinars.create({
                 title: "Wellness Session: Coping with Outie Memories",
                 description: "A comprehensive session on managing work-life balance",
                 scheduledFor: new Date("2024-03-20T15:30:00-05:00"),
@@ -2303,7 +2413,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.webinars.deleteWebinarsId({
+              const result = await wistia.webinars.delete({
                 id: "<id>",
               });
 
@@ -2324,7 +2434,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.webinars.getWebinarsId({
+              const result = await wistia.webinars.get({
                 id: "<id>",
               });
 
@@ -2345,7 +2455,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.webinars.putWebinarsId({
+              const result = await wistia.webinars.update({
                 id: "<id>",
                 requestBody: {
                   webinar: {
@@ -2355,6 +2465,27 @@ actions:
                     eventDuration: 90,
                   },
                 },
+              });
+
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/webinars/{webinarId}/registrations"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: Typescript (SDK)
+          source: |-
+            import { Wistia } from "@wistia/wistia-api-client";
+
+            const wistia = new Wistia({
+              bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
+            });
+
+            async function run() {
+              const result = await wistia.webinarRegistrations.getWebinarsWebinarIdRegistrations({
+                webinarId: "<id>",
               });
 
               console.log(result);
@@ -2374,7 +2505,7 @@ actions:
             });
 
             async function run() {
-              const result = await wistia.webinarRegistrations.postWebinarsWebinarIdRegistrations({
+              const result = await wistia.webinarRegistrations.create({
                 webinarId: "<id>",
                 requestBody: {
                   email: "john.doe@example.com",

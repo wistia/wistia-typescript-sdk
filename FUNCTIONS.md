@@ -20,7 +20,7 @@ specific category of applications.
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { mediaUploadForm } from "@wistia/wistia-api-client/funcs/mediaUploadForm.js";
+import { uploadOrImportMediaPostForm } from "@wistia/wistia-api-client/funcs/uploadOrImportMediaPostForm.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -29,7 +29,7 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await mediaUploadForm(wistia, {
+  const res = await uploadOrImportMediaPostForm(wistia, {
     url: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
     lowPriority: true,
   });
@@ -37,7 +37,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("mediaUploadForm failed:", res.error);
+    console.log("uploadOrImportMediaPostForm failed:", res.error);
   }
 }
 
