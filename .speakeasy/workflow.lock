@@ -14,7 +14,7 @@ targets:
         sourceRevisionDigest: sha256:25f0130c5b99295ab50773e60183aea4a18a76aa1ba0813a3554fc338d3ffa0f
         sourceBlobDigest: sha256:a07d29efec88bb73b5839a2c10c7a223d30907f733c30208e9a6372cb350bfcf
         codeSamplesNamespace: data-api-typescript-code-samples
-        codeSamplesRevisionDigest: sha256:269e623e792a7a45d8f1dfab06c931b15e8ee2f86b611daf6be61280ddcd070f
+        codeSamplesRevisionDigest: sha256:05a435eacb4d0331e45ab30aa60fe614985ac0148abc04be13af3905c861f6c8
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest

@@ -2,7 +2,7 @@
 
 {
   "name": "@wistia/wistia-api-client",
-  "version": "2026.3.2",
+  "version": "2026.04.1-next2",
   "exports": {
     ".": "./src/index.ts",    
     "./models/errors": "./src/models/errors/index.ts",    
