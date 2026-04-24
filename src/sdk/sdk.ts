@@ -28,13 +28,16 @@ import { Subfolders } from "./subfolders.js";
 import { Taggings } from "./taggings.js";
 import { Tags } from "./tags.js";
 import { Trims } from "./trims.js";
+import { UploadOrImportMedia } from "./uploadorimportmedia.js";
 import { WebinarRegistrations } from "./webinarregistrations.js";
 import { Webinars } from "./webinars.js";
 
 export class Wistia extends ClientSDK {
-  private _media?: Media;
-  get media(): Media {
-    return (this._media ??= new Media(this._options));
+  private _uploadOrImportMedia?: UploadOrImportMedia;
+  get uploadOrImportMedia(): UploadOrImportMedia {
+    return (this._uploadOrImportMedia ??= new UploadOrImportMedia(
+      this._options,
+    ));
   }
 
   private _mediaExtendedAudioDescriptions?: MediaExtendedAudioDescriptions;
@@ -56,6 +59,11 @@ export class Wistia extends ClientSDK {
   private _folderSharings?: FolderSharings;
   get folderSharings(): FolderSharings {
     return (this._folderSharings ??= new FolderSharings(this._options));
+  }
+
+  private _media?: Media;
+  get media(): Media {
+    return (this._media ??= new Media(this._options));
   }
 
   private _taggings?: Taggings;

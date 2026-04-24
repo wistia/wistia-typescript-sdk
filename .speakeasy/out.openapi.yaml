@@ -23,7 +23,7 @@ paths:
                     - url
                   properties:
                     url:
-                      description: The web location of the media file to import.
+                      description: The publicly accessible web location of the media file to import.
                       type: string
                       format: uri
                       examples:
@@ -111,8 +111,6 @@ paths:
         - Upload or Import Media
       security:
         - BearerAuth: []
-      x-speakeasy-group: media
-      x-speakeasy-name-override: upload
     servers:
       - url: https://upload.wistia.com
   /media_extended_audio_descriptions:
@@ -766,6 +764,9 @@ paths:
                     examples:
                       - Internal server error
       x-wistia-mcp-tool-name: order-media-extended-audio-description
+      x-wistia-mcp-annotations:
+        open_world_hint: true
+        destructive_hint: true
       x-wistia-mcp-description: >
         Orders an extended audio description for a media. The request will charge the credit card on the account when the order is ready. Only accounts on paid plans with the order_audio_descriptions feature can use this endpoint.
 
@@ -4592,7 +4593,6 @@ paths:
 
         do a batch fetch based off of the hashed id.
 
-      x-speakeasy-name-override: list
   /medias/{mediaHashedId}:
     get:
       summary: Show Media
@@ -4875,7 +4875,6 @@ paths:
                     examples:
                       - Internal server error
       x-wistia-mcp-ignore: true
-      x-speakeasy-name-override: get
     put:
       summary: Update Media
       description: |
@@ -5075,7 +5074,6 @@ paths:
       x-wistia-mcp-tool-name: update-media
       x-wistia-mcp-description: |
         Updates the attributes on a media.
-      x-speakeasy-name-override: update
     delete:
       summary: Delete Media
       description: |
@@ -5229,7 +5227,6 @@ paths:
       x-wistia-mcp-tool-name: delete-media
       x-wistia-mcp-description: |
         Deletes a media.
-      x-speakeasy-name-override: delete
   /medias/{mediaHashedId}/copy:
     post:
       summary: Copy Media
@@ -5447,7 +5444,6 @@ paths:
       x-wistia-mcp-description: >
         This endpoint copies a media and its assets to a destination folder (defaults to source media).
 
-      x-speakeasy-name-override: copy
   /medias/{mediaHashedId}/swap:
     put:
       summary: Swap Media
@@ -5653,7 +5649,6 @@ paths:
       x-wistia-mcp-description: >
         Swap one media with another media. This operation queues a background job to replace the original media with the replacement media while preserving the original media's hashed ID and URLs.
 
-      x-speakeasy-name-override: swap
   /medias/{mediaHashedId}/stats:
     get:
       summary: Show Media Aggregated Stats
@@ -5771,7 +5766,6 @@ paths:
       x-wistia-mcp-tool-name: show-media-aggregated-stats
       x-wistia-mcp-description: |
         Aggregated tracking statistics for a video embedded on your site.
-      x-speakeasy-name-override: getStats
   /medias/{mediaHashedId}/translate:
     post:
       summary: Translate Media
@@ -5906,10 +5900,12 @@ paths:
                     type: string
                     examples:
                       - Internal server error
+      x-wistia-mcp-annotations:
+        open_world_hint: true
+        destructive_hint: true
       x-wistia-mcp-tool-name: translate-media
       x-wistia-mcp-description: |
         Translates the transcript for a media.
-      x-speakeasy-name-override: translate
   /medias/import_url:
     post:
       summary: Import Media from URL
@@ -5921,6 +5917,8 @@ paths:
 
         If no folder_id is provided, a new folder called "Untitled Folder" will be
         created and the imported media will be placed there.
+
+        The URL must be publicly accessible — Wistia's servers need to be able to fetch the file directly.
 
         Note: imports from certain domains (e.g. vimeo.com, wistia.com) are not permitted.
 
@@ -5945,7 +5943,7 @@ paths:
                   examples:
                     - https://example.com/video.mp4
                   format: uri
-                  description: The URL of the media file to import.
+                  description: The publicly accessible URL of the media file to import.
                 folder_id:
                   type: string
                   description: The hashed ID of the folder (project) to import the media into. If not provided, a new folder will be created.
@@ -6049,6 +6047,9 @@ paths:
                     type: string
                     examples:
                       - Internal server error
+      x-wistia-mcp-annotations:
+        open_world_hint: true
+        destructive_hint: true
   /medias/archive:
     put:
       summary: Archive Media
@@ -6152,7 +6153,6 @@ paths:
       x-wistia-mcp-description: >
         This method accepts a list of up to 100 medias to archive per request. It processes requests asynchronously and will return a background_job_status object rather than the typical Media response object. Note that webinar medias and Soapbox videos imported to Wistia before September 1, 2023 cannot be archived.
 
-      x-speakeasy-name-override: archive
   /medias/move:
     put:
       summary: Move Media
@@ -6334,7 +6334,6 @@ paths:
 
         Returns a Background Job as the move is async.
 
-      x-speakeasy-name-override: move
   /medias/restore:
     put:
       summary: Restore Media
@@ -6469,7 +6468,6 @@ paths:
       x-wistia-mcp-description: >
         Restores archived medias to your account. This method accepts a list of up to 100 medias to restore per request. It processes requests asynchronously and will return a background_job_status object rather than the typical Media response object. Your account must have access to the Archiving feature to use this method.
 
-      x-speakeasy-name-override: restore
   /medias/copy:
     put:
       summary: Bulk Copy Media
@@ -6791,11 +6789,11 @@ paths:
                     type: string
                     examples:
                       - Internal server error
+      x-wistia-openai-ignore: true
       x-wistia-mcp-tool-name: get-current-account
       x-wistia-mcp-description: >
         Retrieves a summary of the Wistia account including account name, description, URL and counts of records.
 
-      x-speakeasy-name-override: get
   /token:
     get:
       operationId: getTokenDetails
@@ -6885,6 +6883,7 @@ paths:
                     type: string
                     examples:
                       - Internal server error
+      x-wistia-openai-ignore: true
       x-wistia-mcp-tool-name: get-current-token
       x-wistia-mcp-description: >
         Retrieves a summary of the token used to make tool calls. This endpoint can primarily be used to
@@ -7037,7 +7036,6 @@ paths:
                     examples:
                       - Internal server error
       x-wistia-mcp-ignore: true
-      x-speakeasy-name-override: list
     post:
       summary: Create Allowed Domain
       description: |
@@ -7143,7 +7141,6 @@ paths:
                     examples:
                       - Internal server error
       x-wistia-mcp-ignore: true
-      x-speakeasy-name-override: create
   /allowed_domains/{domain}:
     get:
       summary: Show Allowed Domain
@@ -7233,7 +7230,6 @@ paths:
                     examples:
                       - Internal server error
       x-wistia-mcp-ignore: true
-      x-speakeasy-name-override: get
     delete:
       summary: Delete Allowed Domain
       description: |
@@ -7333,7 +7329,6 @@ paths:
                     examples:
                       - Internal server error
       x-wistia-mcp-ignore: true
-      x-speakeasy-name-override: delete
   /background_job_status/{backgroundJobStatusId}:
     get:
       summary: Show Background Job Status
@@ -7415,8 +7410,6 @@ paths:
 
         job succeeds or fails.
 
-      x-speakeasy-group: backgroundJobStatus
-      x-speakeasy-name-override: get
   /medias/{mediaId}/customizations:
     get:
       summary: Show Customizations
@@ -7673,7 +7666,6 @@ paths:
       x-wistia-mcp-tool-name: show-customizations
       x-wistia-mcp-description: |
         Fetches explicitly defined customizations for the video.
-      x-speakeasy-name-override: get
     post:
       summary: Create Customizations
       description: |
@@ -8171,7 +8163,6 @@ paths:
       x-wistia-mcp-description: >
         Set customizations for a video. Replaces the customizations explicitly set for this video.
 
-      x-speakeasy-name-override: create
     put:
       summary: Update Customizations
       description: |
@@ -8669,7 +8660,6 @@ paths:
       x-wistia-mcp-description: >
         Allows for partial updates on a video’s customizations. If a value is null, then that key will be deleted from the saved customizations. If it is not null, that value will be set.
 
-      x-speakeasy-name-override: update
     delete:
       summary: Delete Customizations
       description: |
@@ -8730,7 +8720,6 @@ paths:
       x-wistia-mcp-description: >
         Deletes all explicit customizations for a video, making it act as if it has never been customized.
 
-      x-speakeasy-name-override: delete
   /medias/{mediaHashedId}/captions:
     get:
       summary: List Captions by Media
@@ -8815,7 +8804,6 @@ paths:
                     examples:
                       - Internal server error
       x-wistia-mcp-ignore: true
-      x-speakeasy-name-override: list
     post:
       summary: Create Captions
       description: |
@@ -8908,7 +8896,6 @@ paths:
       x-wistia-mcp-description: >
         Adds captions to a specified media by providing an SRT file or its contents directly.
 
-      x-speakeasy-name-override: create
   /captions:
     get:
       summary: List Captions
@@ -9090,13 +9077,7 @@ paths:
   /medias/{mediaHashedId}/captions/purchase:
     post:
       summary: Purchase Captions
-      description: |
-        This method is for purchasing English captions for a media. The request will charge the credit card on the account if successful. A saved credit card is required to use this endpoint.
-
-        ## Requires api token with one of the following permissions
-        ```
-        Read, update & delete anything
-        ```
+      description: "This method is for purchasing English captions for a media. The request will charge the credit card on the account if successful. A saved credit card is required to use this endpoint.\n\n> \U0001F6AB Alert\n>\n> The `automated` parameter defaults to `false`, which orders **paid human-generated captions**. To order computer-generated captions, you must explicitly set `automated` to `true`.\n\n## Requires api token with one of the following permissions\n```\nRead, update & delete anything\n```\n"
       tags:
         - Captions
       security:
@@ -9116,12 +9097,12 @@ paths:
               properties:
                 automated:
                   type: boolean
-                  description: Order computer-generated captions (free) or human-generated captions ($2.50/minute).
+                  description: Order computer-generated captions or paid human-generated captions.
                   default: false
                 rush:
                   type: boolean
-                  description: Enable rush order for one business day turnaround ($4.00/minute) or standard four business day turnaround for human-generated captions ($2.50/minute). Rush can only be used for human-generated captions.
-                  default: true
+                  description: Enable rush order for one business day turnaround or standard four business day turnaround for human-generated captions. Rush can only be used for human-generated captions.
+                  default: false
                 automatically_enable:
                   type: boolean
                   description: Automatically enable captions for the video once the order is ready or hold the captions for review before manually enabling.
@@ -9189,14 +9170,19 @@ paths:
                     type: string
                     examples:
                       - Internal server error
+      x-wistia-mcp-annotations:
+        open_world_hint: true
+        destructive_hint: true
       x-wistia-mcp-tool-name: purchase-captions
       x-wistia-mcp-description: >
         This method is for purchasing English captions for a media. The request will charge the credit card on the account if successful. A saved credit card is required to use this endpoint.
 
 
+        IMPORTANT: The `automated` parameter defaults to `false`, which orders paid human-generated captions. To order computer-generated captions, set `automated` to `true`.
+
+
         You can do a follow up call to the `translate-media` tool to get this in another language.
 
-      x-speakeasy-name-override: purchase
   /medias/{mediaHashedId}/captions/{languageCode}:
     get:
       summary: Show Captions
@@ -9222,7 +9208,7 @@ paths:
             type: string
         - name: languageCode
           in: path
-          description: The language code of the captions to be retrieved.
+          description: The 3-character ISO 639-2 language code of the captions to be retrieved (e.g., `eng`, `fra`, `spa`). Some languages use extended IETF subtags (e.g., `zh-Hant`).
           required: true
           schema:
             type: string
@@ -9297,7 +9283,6 @@ paths:
       x-wistia-mcp-tool-name: show-captions-file
       x-wistia-mcp-description: |
         Returns a video's captions in the specified language as JSON.
-      x-speakeasy-name-override: get
     put:
       summary: Update Captions
       description: |
@@ -9378,7 +9363,6 @@ paths:
       x-wistia-mcp-description: >
         This method is for replacing the captions on a video for the specified language.
 
-      x-speakeasy-name-override: update
     delete:
       summary: Delete Captions
       description: |
@@ -9436,7 +9420,6 @@ paths:
       x-wistia-mcp-tool-name: delete-captions
       x-wistia-mcp-description: |
         Removes the captions file from a media for the specified language.
-      x-speakeasy-name-override: delete
   /medias/{mediaHashedId}/trims:
     post:
       summary: Create Media from Trims
@@ -9570,7 +9553,6 @@ paths:
 
         **NOTE:** currently this tool only supports trimming video files.
 
-      x-speakeasy-name-override: create
   /medias/{mediaHashedId}/localizations:
     get:
       summary: List Localizations
@@ -9757,7 +9739,6 @@ paths:
       x-wistia-mcp-tool-name: gets-localizations
       x-wistia-mcp-description: |
         Lists all the localizations for a media.
-      x-speakeasy-name-override: list
     post:
       summary: Create Localization
       description: |
@@ -10012,10 +9993,12 @@ paths:
                     type: string
                     examples:
                       - Internal server error
+      x-wistia-mcp-annotations:
+        open_world_hint: true
+        destructive_hint: true
       x-wistia-mcp-tool-name: create-localization
       x-wistia-mcp-description: |
         Creates a new localization.
-      x-speakeasy-name-override: create
   /medias/{mediaHashedId}/localizations/{localizationHashedId}:
     get:
       summary: Show Localization
@@ -10206,7 +10189,6 @@ paths:
       x-wistia-mcp-tool-name: show-localization
       x-wistia-mcp-description: |
         Obtain detailed information about a localization.
-      x-speakeasy-name-override: get
     delete:
       summary: Delete Localization
       description: |
@@ -10400,7 +10382,6 @@ paths:
       x-wistia-mcp-tool-name: delete-localization
       x-wistia-mcp-description: |
         Deletes a localization.
-      x-speakeasy-name-override: delete
   /tags:
     get:
       summary: List Tags
@@ -10568,7 +10549,6 @@ paths:
       x-wistia-mcp-tool-name: get-tags
       x-wistia-mcp-description: |
         Lists tags belonging to the account.
-      x-speakeasy-name-override: list
     post:
       summary: Create Tags
       description: |
@@ -10689,7 +10669,6 @@ paths:
       x-wistia-mcp-tool-name: create-tags
       x-wistia-mcp-description: |
         Creates a new tag.
-      x-speakeasy-name-override: create
   /tags/{name}:
     delete:
       summary: Delete Tag
@@ -10753,7 +10732,6 @@ paths:
       x-wistia-mcp-tool-name: delete-tag
       x-wistia-mcp-description: |
         Deletes a tag
-      x-speakeasy-name-override: delete
   /search:
     get:
       summary: Search
@@ -11409,7 +11387,6 @@ paths:
 
         so media results may include transcript matches with timestamps when the query matches spoken content.
 
-      x-speakeasy-name-override: search
   /channels:
     get:
       summary: List Channels
@@ -11597,7 +11574,6 @@ paths:
 
         do a batch fetch based off of the hashed id.
 
-      x-speakeasy-name-override: list
     post:
       summary: Create Channel
       description: |
@@ -12246,7 +12222,6 @@ paths:
                     examples:
                       - Internal server error
       x-wistia-mcp-ignore: true
-      x-speakeasy-name-override: get
     put:
       summary: Update Channel
       description: |
@@ -13015,8 +12990,6 @@ paths:
                     examples:
                       - Internal server error
       x-wistia-mcp-ignore: true
-      x-speakeasy-group: channelEpisodes
-      x-speakeasy-name-override: get
   /channels/{channelHashedId}/channel_episodes:
     get:
       summary: List Channel Episodes by Channel
@@ -13244,8 +13217,6 @@ paths:
                     examples:
                       - Internal server error
       x-wistia-mcp-ignore: true
-      x-speakeasy-group: channels.channelEpisodes
-      x-speakeasy-name-override: list
     post:
       summary: Create Channel Episode
       description: |
@@ -13433,8 +13404,6 @@ paths:
       x-wistia-mcp-tool-name: create-channel-episode
       x-wistia-mcp-description: |
         Creates a new channel episode in a channel.
-      x-speakeasy-group: channelEpisodes
-      x-speakeasy-name-override: create
   /channel_episodes:
     get:
       summary: List Channel Episodes
@@ -13667,8 +13636,6 @@ paths:
 
         do a batch fetch based off of the hashed id.
 
-      x-speakeasy-group: channelEpisodes
-      x-speakeasy-name-override: list
   /channel_episodes/{channelEpisodeHashedId}:
     put:
       summary: Update Channel Episode
@@ -14329,8 +14296,6 @@ paths:
                       - >-
                         Expiring tokens can only be created from non-expiring access tokens.
       x-wistia-mcp-ignore: true
-      x-speakeasy-group: expiringAccessTokens
-      x-speakeasy-name-override: create
   /webinars:
     get:
       summary: List Webinars
@@ -15484,8 +15449,7 @@ paths:
                     type: string
                     examples:
                       - Internal server error
-      x-speakeasy-group: statsAccount
-      x-speakeasy-name-override: get
+      x-wistia-openai-ignore: true
   /stats/account/by_date:
     get:
       summary: Show Account Stats by Date
@@ -15571,6 +15535,7 @@ paths:
                     type: string
                     examples:
                       - Internal server error
+      x-wistia-openai-ignore: true
   /stats/projects/{projectId}:
     get:
       summary: Show Project Stats
@@ -15653,8 +15618,7 @@ paths:
                     type: string
                     examples:
                       - Internal server error
-      x-speakeasy-group: statsProjects
-      x-speakeasy-name-override: get
+      x-wistia-openai-ignore: true
   /stats/medias/{mediaId}:
     get:
       summary: Show Media Stats
@@ -15762,8 +15726,7 @@ paths:
                     type: string
                     examples:
                       - Internal server error
-      x-speakeasy-group: statsMedia
-      x-speakeasy-name-override: get
+      x-wistia-openai-ignore: true
   /stats/medias/{mediaId}/by_date:
     get:
       summary: Show Media Stats by Date
@@ -15858,8 +15821,7 @@ paths:
                     type: string
                     examples:
                       - Internal server error
-      x-speakeasy-group: statsMedia
-      x-speakeasy-name-override: getByDate
+      x-wistia-openai-ignore: true
   /stats/medias/{mediaId}/engagement:
     get:
       summary: Show Media Engagement
@@ -15942,8 +15904,7 @@ paths:
                     type: string
                     examples:
                       - Internal server error
-      x-speakeasy-group: statsMedia
-      x-speakeasy-name-override: getEngagement
+      x-wistia-openai-ignore: true
   /stats/visitors:
     get:
       summary: List Visitors
@@ -16079,8 +16040,7 @@ paths:
                     type: string
                     examples:
                       - Internal server error
-      x-speakeasy-group: statsVisitors
-      x-speakeasy-name-override: list
+      x-wistia-openai-ignore: true
   /stats/visitors/{visitorKey}:
     get:
       summary: Show Visitor
@@ -16199,8 +16159,7 @@ paths:
                     type: string
                     examples:
                       - Internal server error
-      x-speakeasy-group: statsVisitors
-      x-speakeasy-name-override: get
+      x-wistia-openai-ignore: true
   /stats/events:
     get:
       summary: List Events
@@ -16405,8 +16364,7 @@ paths:
                     type: string
                     examples:
                       - Internal server error
-      x-speakeasy-group: statsEvents
-      x-speakeasy-name-override: list
+      x-wistia-openai-ignore: true
   /stats/events/{eventKey}:
     get:
       summary: Show Event
@@ -16576,8 +16534,7 @@ paths:
                     type: string
                     examples:
                       - Internal server error
-      x-speakeasy-group: statsEvents
-      x-speakeasy-name-override: get
+      x-wistia-openai-ignore: true
   /analytics/medias/{mediaId}:
     get:
       summary: Show Media Analytics
@@ -16608,14 +16565,14 @@ paths:
             description: The hashed ID of the media (e.g., "4d23503f70")
         - name: start_date
           in: query
-          description: Start date for the analytics period in ISO 8601 format (YYYY-MM-DD).
+          description: Start date for the analytics period in ISO 8601 format (YYYY-MM-DD). Inclusive — the range starts at the beginning of this date.
           required: true
           schema:
             type: string
             format: date
         - name: end_date
           in: query
-          description: End date for the analytics period in ISO 8601 format (YYYY-MM-DD).
+          description: End date for the analytics period in ISO 8601 format (YYYY-MM-DD). Exclusive — the range ends before the beginning of this date.
           required: true
           schema:
             type: string
@@ -16774,14 +16731,14 @@ paths:
             description: The hashed ID of the media (e.g., "4d23503f70")
         - name: start_date
           in: query
-          description: Start date for the analytics period in ISO 8601 format (YYYY-MM-DD).
+          description: Start date for the analytics period in ISO 8601 format (YYYY-MM-DD). Inclusive — the range starts at the beginning of this date.
           required: true
           schema:
             type: string
             format: date
         - name: end_date
           in: query
-          description: End date for the analytics period in ISO 8601 format (YYYY-MM-DD).
+          description: End date for the analytics period in ISO 8601 format (YYYY-MM-DD). Exclusive — the range ends before the beginning of this date.
           required: true
           schema:
             type: string
@@ -16959,14 +16916,14 @@ paths:
             description: The hashed ID of the media (e.g., "4d23503f70")
         - name: start_date
           in: query
-          description: Start date for the analytics period in ISO 8601 format (YYYY-MM-DD).
+          description: Start date for the analytics period in ISO 8601 format (YYYY-MM-DD). Inclusive — the range starts at the beginning of this date.
           required: true
           schema:
             type: string
             format: date
         - name: end_date
           in: query
-          description: End date for the analytics period in ISO 8601 format (YYYY-MM-DD).
+          description: End date for the analytics period in ISO 8601 format (YYYY-MM-DD). Exclusive — the range ends before the beginning of this date.
           required: true
           schema:
             type: string
@@ -17037,9 +16994,15 @@ paths:
                     loads:
                       type: integer
                       description: The number of video loads from this location.
+                    unique_loads:
+                      type: integer
+                      description: The number of unique video loads from this location (one per visitor session).
                     plays:
                       type: integer
                       description: The number of video plays from this location.
+                    unique_plays:
+                      type: integer
+                      description: The number of unique video plays from this location (one per visitor session).
                     play_rate:
                       type: number
                       format: float
@@ -17147,14 +17110,14 @@ paths:
             description: The hashed ID of the media (e.g., "4d23503f70")
         - name: start_date
           in: query
-          description: Start date for the analytics period in ISO 8601 format (YYYY-MM-DD).
+          description: Start date for the analytics period in ISO 8601 format (YYYY-MM-DD). Inclusive — the range starts at the beginning of this date.
           required: true
           schema:
             type: string
             format: date
         - name: end_date
           in: query
-          description: End date for the analytics period in ISO 8601 format (YYYY-MM-DD).
+          description: End date for the analytics period in ISO 8601 format (YYYY-MM-DD). Exclusive — the range ends before the beginning of this date.
           required: true
           schema:
             type: string
@@ -17325,14 +17288,14 @@ paths:
             description: The hashed ID of the media (e.g., "4d23503f70")
         - name: start_date
           in: query
-          description: Start date for the analytics period in ISO 8601 format (YYYY-MM-DD).
+          description: Start date for the analytics period in ISO 8601 format (YYYY-MM-DD). Inclusive — the range starts at the beginning of this date.
           required: true
           schema:
             type: string
             format: date
         - name: end_date
           in: query
-          description: End date for the analytics period in ISO 8601 format (YYYY-MM-DD).
+          description: End date for the analytics period in ISO 8601 format (YYYY-MM-DD). Exclusive — the range ends before the beginning of this date.
           required: true
           schema:
             type: string
@@ -17491,14 +17454,14 @@ paths:
             description: The hashed ID of the media (e.g., "4d23503f70")
         - name: start_date
           in: query
-          description: Start date for the analytics period in ISO 8601 format (YYYY-MM-DD).
+          description: Start date for the analytics period in ISO 8601 format (YYYY-MM-DD). Inclusive — the range starts at the beginning of this date.
           required: true
           schema:
             type: string
             format: date
         - name: end_date
           in: query
-          description: End date for the analytics period in ISO 8601 format (YYYY-MM-DD).
+          description: End date for the analytics period in ISO 8601 format (YYYY-MM-DD). Exclusive — the range ends before the beginning of this date.
           required: true
           schema:
             type: string
@@ -17629,14 +17592,14 @@ paths:
             default: false
         - name: post_event_start_date
           in: query
-          description: Start date for the post-event analytics period in ISO 8601 format (YYYY-MM-DD). Only used when include_post_event is true.
+          description: Start date for the post-event analytics period in ISO 8601 format (YYYY-MM-DD). Inclusive — the range starts at the beginning of this date. Only used when include_post_event is true.
           required: false
           schema:
             type: string
             format: date
         - name: post_event_end_date
           in: query
-          description: End date for the post-event analytics period in ISO 8601 format (YYYY-MM-DD). Only used when include_post_event is true.
+          description: End date for the post-event analytics period in ISO 8601 format (YYYY-MM-DD). Exclusive — the range ends before the beginning of this date. Only used when include_post_event is true.
           required: false
           schema:
             type: string
@@ -17897,14 +17860,14 @@ paths:
             default: false
         - name: post_event_start_date
           in: query
-          description: Start date for the post-event analytics period in ISO 8601 format (YYYY-MM-DD). Only used when include_post_event is true.
+          description: Start date for the post-event analytics period in ISO 8601 format (YYYY-MM-DD). Inclusive — the range starts at the beginning of this date. Only used when include_post_event is true.
           required: false
           schema:
             type: string
             format: date
         - name: post_event_end_date
           in: query
-          description: End date for the post-event analytics period in ISO 8601 format (YYYY-MM-DD). Only used when include_post_event is true.
+          description: End date for the post-event analytics period in ISO 8601 format (YYYY-MM-DD). Exclusive — the range ends before the beginning of this date. Only used when include_post_event is true.
           required: false
           schema:
             type: string

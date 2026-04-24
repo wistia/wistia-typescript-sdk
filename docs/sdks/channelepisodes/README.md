@@ -4,15 +4,16 @@
 
 ### Available Operations
 
-* [get](#get) - Show Channel Episode
-* [create](#create) - Create Channel Episode
-* [list](#list) - List Channel Episodes
+* [getChannelsChannelHashedIdChannelEpisodesChannelEpisodeId](#getchannelschannelhashedidchannelepisodeschannelepisodeid) - Show Channel Episode
+* [getChannelsChannelHashedIdChannelEpisodes](#getchannelschannelhashedidchannelepisodes) - List Channel Episodes by Channel
+* [postChannelsChannelHashedIdChannelEpisodes](#postchannelschannelhashedidchannelepisodes) - Create Channel Episode
+* [getChannelEpisodes](#getchannelepisodes) - List Channel Episodes
 * [putChannelEpisodesChannelEpisodeHashedId](#putchannelepisodeschannelepisodehashedid) - Update Channel Episode
 * [deleteChannelEpisodesChannelEpisodeHashedId](#deletechannelepisodeschannelepisodehashedid) - Delete Channel Episode
 * [putChannelEpisodesChannelEpisodeHashedIdPublish](#putchannelepisodeschannelepisodehashedidpublish) - Publish Channel Episode
 * [putChannelEpisodesChannelEpisodeHashedIdUnpublish](#putchannelepisodeschannelepisodehashedidunpublish) - Un-publish Channel Episode
 
-## get
+## getChannelsChannelHashedIdChannelEpisodesChannelEpisodeId
 
 Returns the Channel Episode associated with a channel hashed id
 and channel episode hashed id.
@@ -34,7 +35,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.channelEpisodes.get({
+  const result = await wistia.channelEpisodes.getChannelsChannelHashedIdChannelEpisodesChannelEpisodeId({
     channelHashedId: "<id>",
     channelEpisodeId: "<id>",
   });
@@ -51,7 +52,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { channelEpisodesGet } from "@wistia/wistia-api-client/funcs/channelEpisodesGet.js";
+import { channelEpisodesGetChannelsChannelHashedIdChannelEpisodesChannelEpisodeId } from "@wistia/wistia-api-client/funcs/channelEpisodesGetChannelsChannelHashedIdChannelEpisodesChannelEpisodeId.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -60,7 +61,7 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await channelEpisodesGet(wistia, {
+  const res = await channelEpisodesGetChannelsChannelHashedIdChannelEpisodesChannelEpisodeId(wistia, {
     channelHashedId: "<id>",
     channelEpisodeId: "<id>",
   });
@@ -68,7 +69,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("channelEpisodesGet failed:", res.error);
+    console.log("channelEpisodesGetChannelsChannelHashedIdChannelEpisodesChannelEpisodeId failed:", res.error);
   }
 }
 
@@ -96,7 +97,89 @@ run();
 | errors.GetChannelsChannelHashedIdChannelEpisodesChannelEpisodeIdInternalServerError | 500                                                                                 | application/json                                                                    |
 | errors.WistiaDefaultError                                                           | 4XX, 5XX                                                                            | \*/\*                                                                               |
 
-## create
+## getChannelsChannelHashedIdChannelEpisodes
+
+Lists Channel Episodes belonging to the channel passed in the path.
+
+## Requires api token with one of the following permissions
+```
+Read all folder and media data
+```
+
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="get_/channels/{channelHashedId}/channel_episodes" method="get" path="/channels/{channelHashedId}/channel_episodes" -->
+```typescript
+import { Wistia } from "@wistia/wistia-api-client";
+
+const wistia = new Wistia({
+  bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
+});
+
+async function run() {
+  const result = await wistia.channelEpisodes.getChannelsChannelHashedIdChannelEpisodes({
+    channelHashedId: "<id>",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { WistiaCore } from "@wistia/wistia-api-client/core.js";
+import { channelEpisodesGetChannelsChannelHashedIdChannelEpisodes } from "@wistia/wistia-api-client/funcs/channelEpisodesGetChannelsChannelHashedIdChannelEpisodes.js";
+
+// Use `WistiaCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const wistia = new WistiaCore({
+  bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
+});
+
+async function run() {
+  const res = await channelEpisodesGetChannelsChannelHashedIdChannelEpisodes(wistia, {
+    channelHashedId: "<id>",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("channelEpisodesGetChannelsChannelHashedIdChannelEpisodes failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.GetChannelsChannelHashedIdChannelEpisodesRequest](../../models/operations/getchannelschannelhashedidchannelepisodesrequest.md)                                     | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[operations.GetChannelsChannelHashedIdChannelEpisodesResponse[]](../../models/.md)\>**
+
+### Errors
+
+| Error Type                                                          | Status Code                                                         | Content Type                                                        |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| errors.GetChannelsChannelHashedIdChannelEpisodesBadRequestError     | 400                                                                 | application/json                                                    |
+| errors.GetChannelsChannelHashedIdChannelEpisodesUnauthorizedError   | 401                                                                 | application/json                                                    |
+| errors.GetChannelsChannelHashedIdChannelEpisodesInternalServerError | 500                                                                 | application/json                                                    |
+| errors.WistiaDefaultError                                           | 4XX, 5XX                                                            | \*/\*                                                               |
+
+## postChannelsChannelHashedIdChannelEpisodes
 
 Creates a new channel episode in a channel.
 
@@ -117,7 +200,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.channelEpisodes.create({
+  const result = await wistia.channelEpisodes.postChannelsChannelHashedIdChannelEpisodes({
     channelHashedId: "<id>",
     requestBody: {
       title: "My New Episode",
@@ -139,7 +222,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { channelEpisodesCreate } from "@wistia/wistia-api-client/funcs/channelEpisodesCreate.js";
+import { channelEpisodesPostChannelsChannelHashedIdChannelEpisodes } from "@wistia/wistia-api-client/funcs/channelEpisodesPostChannelsChannelHashedIdChannelEpisodes.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -148,7 +231,7 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await channelEpisodesCreate(wistia, {
+  const res = await channelEpisodesPostChannelsChannelHashedIdChannelEpisodes(wistia, {
     channelHashedId: "<id>",
     requestBody: {
       title: "My New Episode",
@@ -161,7 +244,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("channelEpisodesCreate failed:", res.error);
+    console.log("channelEpisodesPostChannelsChannelHashedIdChannelEpisodes failed:", res.error);
   }
 }
 
@@ -191,7 +274,7 @@ run();
 | errors.PostChannelsChannelHashedIdChannelEpisodesInternalServerError | 500                                                                  | application/json                                                     |
 | errors.WistiaDefaultError                                            | 4XX, 5XX                                                             | \*/\*                                                                |
 
-## list
+## getChannelEpisodes
 
 Lists Channel Episodes belonging to an account. This endpoint can also be used to
 do a batch fetch based off of the hashed id.
@@ -213,7 +296,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.channelEpisodes.list();
+  const result = await wistia.channelEpisodes.getChannelEpisodes();
 
   console.log(result);
 }
@@ -227,7 +310,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { channelEpisodesList } from "@wistia/wistia-api-client/funcs/channelEpisodesList.js";
+import { channelEpisodesGetChannelEpisodes } from "@wistia/wistia-api-client/funcs/channelEpisodesGetChannelEpisodes.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -236,12 +319,12 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await channelEpisodesList(wistia);
+  const res = await channelEpisodesGetChannelEpisodes(wistia);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("channelEpisodesList failed:", res.error);
+    console.log("channelEpisodesGetChannelEpisodes failed:", res.error);
   }
 }
 

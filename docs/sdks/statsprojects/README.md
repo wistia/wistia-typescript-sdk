@@ -4,9 +4,9 @@
 
 ### Available Operations
 
-* [get](#get) - Show Project Stats
+* [getStatsProjectsProjectId](#getstatsprojectsprojectid) - Show Project Stats
 
-## get
+## getStatsProjectsProjectId
 
 Retrieve stats for a project. This endpoint provides statistics for a specific project identified by its project-id.
 
@@ -29,7 +29,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.statsProjects.get({
+  const result = await wistia.statsProjects.getStatsProjectsProjectId({
     projectId: "<id>",
   });
 
@@ -45,7 +45,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { statsProjectsGet } from "@wistia/wistia-api-client/funcs/statsProjectsGet.js";
+import { statsProjectsGetStatsProjectsProjectId } from "@wistia/wistia-api-client/funcs/statsProjectsGetStatsProjectsProjectId.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -54,14 +54,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await statsProjectsGet(wistia, {
+  const res = await statsProjectsGetStatsProjectsProjectId(wistia, {
     projectId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("statsProjectsGet failed:", res.error);
+    console.log("statsProjectsGetStatsProjectsProjectId failed:", res.error);
   }
 }
 
