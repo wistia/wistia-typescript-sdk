@@ -147,19 +147,19 @@ export type PostMediasMediaHashedIdLocalizationsResponse = {
   /**
    * The expected number of minutes that will be billed for the dubbing.
    */
-  expectedBilledMinutes: number | null;
+  expectedBilledMinutes?: number | null | undefined;
   /**
    * The expected price per minute that will be billed for the dubbing.
    */
-  expectedBilledPricePerMinute: number | null;
+  expectedBilledPricePerMinute?: number | null | undefined;
   /**
    * The expected total price that will be billed for the dubbing.
    */
-  expectedBilledPrice: number | null;
+  expectedBilledPrice?: number | null | undefined;
   /**
    * The date when the dubbing was billed.
    */
-  billedAt: Date | null;
+  billedAt?: Date | null | undefined;
 };
 
 /** @internal */
@@ -348,12 +348,12 @@ export const PostMediasMediaHashedIdLocalizationsResponse$inboundSchema:
       ),
     ).optional(),
     auto_enable_dubbing: z.boolean(),
-    expected_billed_minutes: z.nullable(z.number()),
-    expected_billed_price_per_minute: z.nullable(z.number()),
-    expected_billed_price: z.nullable(z.number()),
+    expected_billed_minutes: z.nullable(z.number()).optional(),
+    expected_billed_price_per_minute: z.nullable(z.number()).optional(),
+    expected_billed_price: z.nullable(z.number()).optional(),
     billed_at: z.nullable(
       z.string().datetime({ offset: true }).transform(v => new Date(v)),
-    ),
+    ).optional(),
   }).transform((v) => {
     return remap$(v, {
       "hashed_id": "hashedId",
