@@ -14,10 +14,12 @@
 
 Lists the sharings of contacts and contact groups on a folder.
 
+<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read all data
 ```
+<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -95,10 +97,12 @@ run();
 
 Creates a new sharing object for a folder by specifying the email of the person to share with and other optional parameters.
 
+<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
+<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -187,7 +191,6 @@ run();
 | Error Type                                            | Status Code                                           | Content Type                                          |
 | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
 | errors.PostFoldersFolderIdSharingsUnauthorizedError   | 401                                                   | application/json                                      |
-| errors.PostFoldersFolderIdSharingsForbiddenError      | 403                                                   | application/json                                      |
 | errors.PostFoldersFolderIdSharingsInternalServerError | 500                                                   | application/json                                      |
 | errors.WistiaDefaultError                             | 4XX, 5XX                                              | \*/\*                                                 |
 
@@ -195,10 +198,12 @@ run();
 
 Retrieves the details of a specific sharing object for a given folder.
 
+<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read all data
 ```
+<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -279,10 +284,12 @@ run();
 
 Updates a sharing on a folder.
 
+<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
+<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -365,10 +372,12 @@ run();
 
 Deletes a sharing on a folder.
 
+<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
+<!--- /HIDE-MCP -->
 
 
 ### Example Usage

@@ -68,22 +68,16 @@ export class GetSearchUnauthorizedError extends WistiaError {
 }
 
 /**
- * Bad request
+ * Bad request - missing query parameter
  */
 export type GetSearchBadRequestErrorData = {
-  /**
-   * Error message detailing the reason for the bad request.
-   */
   error?: string | undefined;
 };
 
 /**
- * Bad request
+ * Bad request - missing query parameter
  */
 export class GetSearchBadRequestError extends WistiaError {
-  /**
-   * Error message detailing the reason for the bad request.
-   */
   error?: string | undefined;
 
   /** The original data that was passed to this error instance. */

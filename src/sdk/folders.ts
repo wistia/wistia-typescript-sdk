@@ -19,10 +19,12 @@ export class Folders extends ClientSDK {
    * @remarks
    * Lists folders (previously called projects) belonging to the account.
    *
+   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read all folder and media data
    * ```
+   * <!--- /HIDE-MCP -->
    */
   async getFolders(
     request?: operations.GetFoldersRequest | undefined,
@@ -41,10 +43,12 @@ export class Folders extends ClientSDK {
    * @remarks
    * Creates a new folder (previously called project). If the folder is created successfully the Location HTTP header will point to the new folder.
    *
+   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read, update & delete anything
    * ```
+   * <!--- /HIDE-MCP -->
    */
   async postFolders(
     request?: operations.PostFoldersRequest | undefined,
@@ -63,10 +67,12 @@ export class Folders extends ClientSDK {
    * @remarks
    * Retrieves a single folder (previously called project).
    *
+   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read all folder and media data
    * ```
+   * <!--- /HIDE-MCP -->
    */
   async getFoldersId(
     request: operations.GetFoldersIdRequest,
@@ -85,10 +91,12 @@ export class Folders extends ClientSDK {
    * @remarks
    * Updates a folder (previously called project)
    *
+   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read, update & delete anything
    * ```
+   * <!--- /HIDE-MCP -->
    */
   async putFoldersId(
     request: operations.PutFoldersIdRequest,
@@ -107,10 +115,12 @@ export class Folders extends ClientSDK {
    * @remarks
    * Deletes a folder (previously called project)
    *
+   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read, update & delete anything
    * ```
+   * <!--- /HIDE-MCP -->
    */
   async deleteFoldersId(
     request: operations.DeleteFoldersIdRequest,
@@ -135,10 +145,12 @@ export class Folders extends ClientSDK {
    *
    * The body of the response will contain an object representing the background job that was created.
    *
+   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read, update & delete anything
    * ```
+   * <!--- /HIDE-MCP -->
    */
   async postFoldersIdCopy(
     request: operations.PostFoldersIdCopyRequest,

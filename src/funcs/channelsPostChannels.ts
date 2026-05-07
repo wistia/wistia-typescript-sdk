@@ -4,6 +4,7 @@
 
 import { WistiaCore } from "../core.js";
 import { encodeJSON } from "../lib/encodings.js";
+import { matchStatusCode } from "../lib/http.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -29,7 +30,7 @@ import { Result } from "../types/fp.js";
  * Create Channel
  *
  * @remarks
- * Creates a channel.
+ * Create endpoint for a new channel.
  */
 export function channelsPostChannels(
   client: WistiaCore,
@@ -39,7 +40,6 @@ export function channelsPostChannels(
   Result<
     operations.PostChannelsResponse,
     | errors.PostChannelsUnauthorizedError
-    | errors.PostChannelsForbiddenError
     | errors.PostChannelsInternalServerError
     | WistiaError
     | ResponseValidationError
@@ -67,7 +67,6 @@ async function $do(
     Result<
       operations.PostChannelsResponse,
       | errors.PostChannelsUnauthorizedError
-      | errors.PostChannelsForbiddenError
       | errors.PostChannelsInternalServerError
       | WistiaError
       | ResponseValidationError
@@ -138,7 +137,8 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["401", "403", "4XX", "500", "5XX"],
+    isErrorStatusCode: (statusCode: number) =>
+      matchStatusCode({ status: statusCode } as Response, ["4XX", "5XX"]),
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -154,7 +154,6 @@ async function $do(
   const [result] = await M.match<
     operations.PostChannelsResponse,
     | errors.PostChannelsUnauthorizedError
-    | errors.PostChannelsForbiddenError
     | errors.PostChannelsInternalServerError
     | WistiaError
     | ResponseValidationError
@@ -167,7 +166,6 @@ async function $do(
   >(
     M.json(201, operations.PostChannelsResponse$inboundSchema),
     M.jsonErr(401, errors.PostChannelsUnauthorizedError$inboundSchema),
-    M.jsonErr(403, errors.PostChannelsForbiddenError$inboundSchema),
     M.jsonErr(500, errors.PostChannelsInternalServerError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),

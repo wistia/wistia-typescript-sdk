@@ -4,21 +4,23 @@
 
 ### Available Operations
 
-* [list](#list) - List Channels
+* [getChannels](#getchannels) - List Channels
 * [postChannels](#postchannels) - Create Channel
-* [get](#get) - Show Channel
+* [getChannelsChannelHashedId](#getchannelschannelhashedid) - Show Channel
 * [putChannelsChannelHashedId](#putchannelschannelhashedid) - Update Channel
 * [deleteChannelsChannelHashedId](#deletechannelschannelhashedid) - Delete Channel
 
-## list
+## getChannels
 
 Lists all Channels belonging to an account. This endpoint can also be used to
 do a batch fetch based off of the hashed id.
 
+<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read all folder and media data
 ```
+<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -32,7 +34,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.channels.list();
+  const result = await wistia.channels.getChannels();
 
   console.log(result);
 }
@@ -46,7 +48,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { channelsList } from "@wistia/wistia-api-client/funcs/channelsList.js";
+import { channelsGetChannels } from "@wistia/wistia-api-client/funcs/channelsGetChannels.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -55,12 +57,12 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await channelsList(wistia);
+  const res = await channelsGetChannels(wistia);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("channelsList failed:", res.error);
+    console.log("channelsGetChannels failed:", res.error);
   }
 }
 
@@ -91,7 +93,7 @@ run();
 
 ## postChannels
 
-Creates a channel.
+Create endpoint for a new channel.
 
 
 ### Example Usage
@@ -158,18 +160,19 @@ run();
 | Error Type                             | Status Code                            | Content Type                           |
 | -------------------------------------- | -------------------------------------- | -------------------------------------- |
 | errors.PostChannelsUnauthorizedError   | 401                                    | application/json                       |
-| errors.PostChannelsForbiddenError      | 403                                    | application/json                       |
 | errors.PostChannelsInternalServerError | 500                                    | application/json                       |
 | errors.WistiaDefaultError              | 4XX, 5XX                               | \*/\*                                  |
 
-## get
+## getChannelsChannelHashedId
 
 Returns the Channel associated with the hashedId.
 
+<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read all folder and media data
 ```
+<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -183,7 +186,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.channels.get({
+  const result = await wistia.channels.getChannelsChannelHashedId({
     channelHashedId: "<id>",
   });
 
@@ -199,7 +202,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { channelsGet } from "@wistia/wistia-api-client/funcs/channelsGet.js";
+import { channelsGetChannelsChannelHashedId } from "@wistia/wistia-api-client/funcs/channelsGetChannelsChannelHashedId.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -208,14 +211,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await channelsGet(wistia, {
+  const res = await channelsGetChannelsChannelHashedId(wistia, {
     channelHashedId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("channelsGet failed:", res.error);
+    console.log("channelsGetChannelsChannelHashedId failed:", res.error);
   }
 }
 
@@ -246,7 +249,7 @@ run();
 
 ## putChannelsChannelHashedId
 
-Updates a channel.
+Update endpoint for a channel.
 
 
 ### Example Usage
@@ -317,13 +320,12 @@ run();
 | Error Type                                           | Status Code                                          | Content Type                                         |
 | ---------------------------------------------------- | ---------------------------------------------------- | ---------------------------------------------------- |
 | errors.PutChannelsChannelHashedIdUnauthorizedError   | 401                                                  | application/json                                     |
-| errors.PutChannelsChannelHashedIdForbiddenError      | 403                                                  | application/json                                     |
 | errors.PutChannelsChannelHashedIdInternalServerError | 500                                                  | application/json                                     |
 | errors.WistiaDefaultError                            | 4XX, 5XX                                             | \*/\*                                                |
 
 ## deleteChannelsChannelHashedId
 
-Deletes a channel.
+Delete endpoint for a channel.
 
 
 ### Example Usage
@@ -394,6 +396,5 @@ run();
 | Error Type                                              | Status Code                                             | Content Type                                            |
 | ------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------- |
 | errors.DeleteChannelsChannelHashedIdUnauthorizedError   | 401                                                     | application/json                                        |
-| errors.DeleteChannelsChannelHashedIdForbiddenError      | 403                                                     | application/json                                        |
 | errors.DeleteChannelsChannelHashedIdInternalServerError | 500                                                     | application/json                                        |
 | errors.WistiaDefaultError                               | 4XX, 5XX                                                | \*/\*                                                   |

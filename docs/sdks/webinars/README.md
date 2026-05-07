@@ -15,10 +15,12 @@
 Lists webinars belonging to the account. This endpoint can also be used to
 do a batch fetch based off of the hashed id.
 
+<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read all data
 ```
+<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -93,10 +95,12 @@ run();
 
 Creates a new webinar.
 
+<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
+<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -182,10 +186,12 @@ run();
 
 Returns the webinar associated with the hashed id.
 
+<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read all data
 ```
+<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -264,10 +270,12 @@ run();
 
 Updates an existing webinar.
 
+<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
+<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -361,12 +369,14 @@ run();
 
 ## deleteWebinarsId
 
-Deletes an existing webinar.
+Deletes an existing webinar
 
+<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
+<!--- /HIDE-MCP -->
 
 
 ### Example Usage

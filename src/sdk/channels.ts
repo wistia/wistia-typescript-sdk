@@ -3,23 +3,15 @@
  */
 
 import { channelsDeleteChannelsChannelHashedId } from "../funcs/channelsDeleteChannelsChannelHashedId.js";
-import { channelsGet } from "../funcs/channelsGet.js";
-import { channelsList } from "../funcs/channelsList.js";
+import { channelsGetChannels } from "../funcs/channelsGetChannels.js";
+import { channelsGetChannelsChannelHashedId } from "../funcs/channelsGetChannelsChannelHashedId.js";
 import { channelsPostChannels } from "../funcs/channelsPostChannels.js";
 import { channelsPutChannelsChannelHashedId } from "../funcs/channelsPutChannelsChannelHashedId.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
-import { ChannelsChannelEpisodes } from "./channelschannelepisodes.js";
 
 export class Channels extends ClientSDK {
-  private _channelEpisodes?: ChannelsChannelEpisodes;
-  get channelEpisodes(): ChannelsChannelEpisodes {
-    return (this._channelEpisodes ??= new ChannelsChannelEpisodes(
-      this._options,
-    ));
-  }
-
   /**
    * List Channels
    *
@@ -27,16 +19,18 @@ export class Channels extends ClientSDK {
    * Lists all Channels belonging to an account. This endpoint can also be used to
    * do a batch fetch based off of the hashed id.
    *
+   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read all folder and media data
    * ```
+   * <!--- /HIDE-MCP -->
    */
-  async list(
+  async getChannels(
     request?: operations.GetChannelsRequest | undefined,
     options?: RequestOptions,
   ): Promise<Array<operations.GetChannelsResponse>> {
-    return unwrapAsync(channelsList(
+    return unwrapAsync(channelsGetChannels(
       this,
       request,
       options,
@@ -47,7 +41,7 @@ export class Channels extends ClientSDK {
    * Create Channel
    *
    * @remarks
-   * Creates a channel.
+   * Create endpoint for a new channel.
    */
   async postChannels(
     request?: operations.PostChannelsRequest | undefined,
@@ -66,16 +60,18 @@ export class Channels extends ClientSDK {
    * @remarks
    * Returns the Channel associated with the hashedId.
    *
+   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read all folder and media data
    * ```
+   * <!--- /HIDE-MCP -->
    */
-  async get(
+  async getChannelsChannelHashedId(
     request: operations.GetChannelsChannelHashedIdRequest,
     options?: RequestOptions,
   ): Promise<operations.GetChannelsChannelHashedIdResponse> {
-    return unwrapAsync(channelsGet(
+    return unwrapAsync(channelsGetChannelsChannelHashedId(
       this,
       request,
       options,
@@ -86,7 +82,7 @@ export class Channels extends ClientSDK {
    * Update Channel
    *
    * @remarks
-   * Updates a channel.
+   * Update endpoint for a channel.
    */
   async putChannelsChannelHashedId(
     request: operations.PutChannelsChannelHashedIdRequest,
@@ -103,7 +99,7 @@ export class Channels extends ClientSDK {
    * Delete Channel
    *
    * @remarks
-   * Deletes a channel.
+   * Delete endpoint for a channel.
    */
   async deleteChannelsChannelHashedId(
     request: operations.DeleteChannelsChannelHashedIdRequest,

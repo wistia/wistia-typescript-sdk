@@ -4,6 +4,7 @@
 
 import { WistiaCore } from "../core.js";
 import { encodeJSON, encodeSimple } from "../lib/encodings.js";
+import { matchStatusCode } from "../lib/http.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -26,7 +27,7 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Update Channel Episode
+ * Channel Episode Update
  *
  * @remarks
  * Updates an existing channel episode in a channel.
@@ -43,7 +44,6 @@ export function channelEpisodesPutChannelEpisodesChannelEpisodeHashedId(
   Result<
     operations.PutChannelEpisodesChannelEpisodeHashedIdResponse,
     | errors.PutChannelEpisodesChannelEpisodeHashedIdUnauthorizedError
-    | errors.PutChannelEpisodesChannelEpisodeHashedIdForbiddenError
     | errors.PutChannelEpisodesChannelEpisodeHashedIdInternalServerError
     | WistiaError
     | ResponseValidationError
@@ -71,7 +71,6 @@ async function $do(
     Result<
       operations.PutChannelEpisodesChannelEpisodeHashedIdResponse,
       | errors.PutChannelEpisodesChannelEpisodeHashedIdUnauthorizedError
-      | errors.PutChannelEpisodesChannelEpisodeHashedIdForbiddenError
       | errors.PutChannelEpisodesChannelEpisodeHashedIdInternalServerError
       | WistiaError
       | ResponseValidationError
@@ -150,7 +149,8 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["401", "403", "4XX", "500", "5XX"],
+    isErrorStatusCode: (statusCode: number) =>
+      matchStatusCode({ status: statusCode } as Response, ["4XX", "5XX"]),
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -166,7 +166,6 @@ async function $do(
   const [result] = await M.match<
     operations.PutChannelEpisodesChannelEpisodeHashedIdResponse,
     | errors.PutChannelEpisodesChannelEpisodeHashedIdUnauthorizedError
-    | errors.PutChannelEpisodesChannelEpisodeHashedIdForbiddenError
     | errors.PutChannelEpisodesChannelEpisodeHashedIdInternalServerError
     | WistiaError
     | ResponseValidationError
@@ -185,11 +184,6 @@ async function $do(
       401,
       errors
         .PutChannelEpisodesChannelEpisodeHashedIdUnauthorizedError$inboundSchema,
-    ),
-    M.jsonErr(
-      403,
-      errors
-        .PutChannelEpisodesChannelEpisodeHashedIdForbiddenError$inboundSchema,
     ),
     M.jsonErr(
       500,

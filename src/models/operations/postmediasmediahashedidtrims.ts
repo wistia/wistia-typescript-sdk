@@ -11,13 +11,9 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type PostMediasMediaHashedIdTrimsRequestBody = {
   /**
-   * An array of strings matching the format of HH:MM:SS.mmm-HH:MM:SS.mmm where HH is hours, MM is minutes, SS is seconds and mmm is milliseconds. When keep_trims is false (default), the ranges specify parts of the media to remove. When keep_trims is true, the ranges specify parts of the media to keep.
+   * An array of strings matching the format of HH:MM:SS.mmm-HH:MM:SS.mmm where HH is hours, MM is minutes, SS is seconds and mmm is milliseconds. The ranges should contain the earliest point of the trim first and the later point of the trim second.
    */
   trims: Array<string>;
-  /**
-   * When set to true, the trims parameter is treated as ranges to keep rather than ranges to remove. Defaults to false.
-   */
-  keepTrims?: boolean | undefined;
 };
 
 export type PostMediasMediaHashedIdTrimsRequest = {
@@ -79,7 +75,6 @@ export type PostMediasMediaHashedIdTrimsResponse = {
 /** @internal */
 export type PostMediasMediaHashedIdTrimsRequestBody$Outbound = {
   trims: Array<string>;
-  keep_trims: boolean;
 };
 
 /** @internal */
@@ -89,11 +84,6 @@ export const PostMediasMediaHashedIdTrimsRequestBody$outboundSchema: z.ZodType<
   PostMediasMediaHashedIdTrimsRequestBody
 > = z.object({
   trims: z.array(z.string()),
-  keepTrims: z.boolean().default(false),
-}).transform((v) => {
-  return remap$(v, {
-    keepTrims: "keep_trims",
-  });
 });
 
 export function postMediasMediaHashedIdTrimsRequestBodyToJSON(

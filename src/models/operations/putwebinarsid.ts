@@ -8,7 +8,7 @@ import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type PutWebinarsIdWebinar = {
+export type Webinar = {
   /**
    * The title of the webinar
    */
@@ -28,7 +28,7 @@ export type PutWebinarsIdWebinar = {
 };
 
 export type PutWebinarsIdRequestBody = {
-  webinar?: PutWebinarsIdWebinar | undefined;
+  webinar?: Webinar | undefined;
 };
 
 export type PutWebinarsIdRequest = {
@@ -98,7 +98,7 @@ export type PutWebinarsIdResponse = {
 };
 
 /** @internal */
-export type PutWebinarsIdWebinar$Outbound = {
+export type Webinar$Outbound = {
   title?: string | undefined;
   description?: string | undefined;
   scheduled_for?: string | undefined;
@@ -106,10 +106,10 @@ export type PutWebinarsIdWebinar$Outbound = {
 };
 
 /** @internal */
-export const PutWebinarsIdWebinar$outboundSchema: z.ZodType<
-  PutWebinarsIdWebinar$Outbound,
+export const Webinar$outboundSchema: z.ZodType<
+  Webinar$Outbound,
   z.ZodTypeDef,
-  PutWebinarsIdWebinar
+  Webinar
 > = z.object({
   title: z.string().optional(),
   description: z.string().optional(),
@@ -122,17 +122,13 @@ export const PutWebinarsIdWebinar$outboundSchema: z.ZodType<
   });
 });
 
-export function putWebinarsIdWebinarToJSON(
-  putWebinarsIdWebinar: PutWebinarsIdWebinar,
-): string {
-  return JSON.stringify(
-    PutWebinarsIdWebinar$outboundSchema.parse(putWebinarsIdWebinar),
-  );
+export function webinarToJSON(webinar: Webinar): string {
+  return JSON.stringify(Webinar$outboundSchema.parse(webinar));
 }
 
 /** @internal */
 export type PutWebinarsIdRequestBody$Outbound = {
-  webinar?: PutWebinarsIdWebinar$Outbound | undefined;
+  webinar?: Webinar$Outbound | undefined;
 };
 
 /** @internal */
@@ -141,7 +137,7 @@ export const PutWebinarsIdRequestBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PutWebinarsIdRequestBody
 > = z.object({
-  webinar: z.lazy(() => PutWebinarsIdWebinar$outboundSchema).optional(),
+  webinar: z.lazy(() => Webinar$outboundSchema).optional(),
 });
 
 export function putWebinarsIdRequestBodyToJSON(

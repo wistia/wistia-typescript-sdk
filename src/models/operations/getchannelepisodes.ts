@@ -110,10 +110,6 @@ export type GetChannelEpisodesCursor = {
 
 export type GetChannelEpisodesRequest = {
   /**
-   * The hashed ID of the channel to grab channel episodes from.
-   */
-  channelId?: string | undefined;
-  /**
    * Ordering. Default is ID ASC. When using cursor pagination (see cursor param),
    *
    * @remarks
@@ -265,7 +261,6 @@ export function getChannelEpisodesCursorToJSON(
 
 /** @internal */
 export type GetChannelEpisodesRequest$Outbound = {
-  channel_id?: string | undefined;
   sort_by?: string | undefined;
   sort_direction?: number | undefined;
   page?: number | undefined;
@@ -283,7 +278,6 @@ export const GetChannelEpisodesRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetChannelEpisodesRequest
 > = z.object({
-  channelId: z.string().optional(),
   sortBy: GetChannelEpisodesSortBy$outboundSchema.optional(),
   sortDirection: GetChannelEpisodesSortDirection$outboundSchema.optional(),
   page: z.number().int().optional(),
@@ -295,7 +289,6 @@ export const GetChannelEpisodesRequest$outboundSchema: z.ZodType<
   title: z.string().optional(),
 }).transform((v) => {
   return remap$(v, {
-    channelId: "channel_id",
     sortBy: "sort_by",
     sortDirection: "sort_direction",
     perPage: "per_page",

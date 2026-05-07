@@ -101,7 +101,7 @@ export type GetCaptionsSortDirection = ClosedEnum<
 
 export type GetCaptionsRequest = {
   /**
-   * Find captions for a particular media by providing the media hashed ID
+   * Find captions for a particular video by providing the media hashed ID
    */
   mediaId?: string | undefined;
   /**

@@ -19,10 +19,12 @@ export class Subfolders extends ClientSDK {
    * @remarks
    * Lists subfolders in a specific folder.
    *
+   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read all folder and media data
    * ```
+   * <!--- /HIDE-MCP -->
    */
   async getFoldersFolderIdSubfolders(
     request: operations.GetFoldersFolderIdSubfoldersRequest,
@@ -41,10 +43,12 @@ export class Subfolders extends ClientSDK {
    * @remarks
    * Creates a new subfolder within a folder. The subfolder will be created with the next available position.
    *
+   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read, update & delete anything
    * ```
+   * <!--- /HIDE-MCP -->
    */
   async postFoldersFolderIdSubfolders(
     request: operations.PostFoldersFolderIdSubfoldersRequest,
@@ -63,10 +67,12 @@ export class Subfolders extends ClientSDK {
    * @remarks
    * Retrieves detailed information about a specific subfolder, including all media contained within it.
    *
+   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read all folder and media data
    * ```
+   * <!--- /HIDE-MCP -->
    */
   async getFoldersFolderIdSubfoldersSubfolderId(
     request: operations.GetFoldersFolderIdSubfoldersSubfolderIdRequest,
@@ -85,10 +91,14 @@ export class Subfolders extends ClientSDK {
    * @remarks
    * Updates a subfolder's name and/or description.
    *
+   * Retrieves detailed information about a specific subfolder, including all media contained within it.
+   *
+   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read, update & delete anything
    * ```
+   * <!--- /HIDE-MCP -->
    */
   async putFoldersFolderIdSubfoldersSubfolderId(
     request: operations.PutFoldersFolderIdSubfoldersSubfolderIdRequest,
@@ -109,10 +119,12 @@ export class Subfolders extends ClientSDK {
    *
    * The subfolder is soft-deleted and may be recoverable through other means, but is no longer accessible via the API.
    *
+   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read, update & delete anything
    * ```
+   * <!--- /HIDE-MCP -->
    */
   async deleteFoldersFolderIdSubfoldersSubfolderId(
     request: operations.DeleteFoldersFolderIdSubfoldersSubfolderIdRequest,
@@ -131,10 +143,12 @@ export class Subfolders extends ClientSDK {
    * @remarks
    * This method accepts a list of subfolders to delete. It processes requests asynchronously and will return a background_job_status object. All media files in each deleted subfolder will be moved to the folder's root level.
    *
+   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read, update & delete anything
    * ```
+   * <!--- /HIDE-MCP -->
    */
   async deleteFoldersFolderIdSubfoldersBulkDelete(
     request: operations.DeleteFoldersFolderIdSubfoldersBulkDeleteRequest,

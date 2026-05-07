@@ -10,11 +10,11 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type PostMediasMediaHashedIdCaptionsPurchaseRequestBody = {
   /**
-   * Order computer-generated captions (free) or human-generated captions ($2.50/minute).
+   * Order computer-generated captions or paid human-generated captions.
    */
   automated?: boolean | undefined;
   /**
-   * Enable rush order for one business day turnaround ($4.00/minute) or standard four business day turnaround for human-generated captions ($2.50/minute). Rush can only be used for human-generated captions.
+   * Enable rush order for one business day turnaround or standard four business day turnaround for human-generated captions. Rush can only be used for human-generated captions.
    */
   rush?: boolean | undefined;
   /**
@@ -60,7 +60,7 @@ export const PostMediasMediaHashedIdCaptionsPurchaseRequestBody$outboundSchema:
     PostMediasMediaHashedIdCaptionsPurchaseRequestBody
   > = z.object({
     automated: z.boolean().default(false),
-    rush: z.boolean().default(true),
+    rush: z.boolean().default(false),
     automaticallyEnable: z.boolean().default(true),
   }).transform((v) => {
     return remap$(v, {

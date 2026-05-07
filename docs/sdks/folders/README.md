@@ -15,10 +15,12 @@
 
 Lists folders (previously called projects) belonging to the account.
 
+<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read all folder and media data
 ```
+<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -93,10 +95,12 @@ run();
 
 Creates a new folder (previously called project). If the folder is created successfully the Location HTTP header will point to the new folder.
 
+<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
+<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -178,10 +182,12 @@ run();
 
 Retrieves a single folder (previously called project).
 
+<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read all folder and media data
 ```
+<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -260,10 +266,12 @@ run();
 
 Updates a folder (previously called project)
 
+<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
+<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -344,7 +352,6 @@ run();
 | Error Type                             | Status Code                            | Content Type                           |
 | -------------------------------------- | -------------------------------------- | -------------------------------------- |
 | errors.PutFoldersIdUnauthorizedError   | 401                                    | application/json                       |
-| errors.PutFoldersIdForbiddenError      | 403                                    | application/json                       |
 | errors.PutFoldersIdNotFoundError       | 404                                    | application/json                       |
 | errors.PutFoldersIdInternalServerError | 500                                    | application/json                       |
 | errors.WistiaDefaultError              | 4XX, 5XX                               | \*/\*                                  |
@@ -353,10 +360,12 @@ run();
 
 Deletes a folder (previously called project)
 
+<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
+<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -427,7 +436,6 @@ run();
 | Error Type                                | Status Code                               | Content Type                              |
 | ----------------------------------------- | ----------------------------------------- | ----------------------------------------- |
 | errors.DeleteFoldersIdUnauthorizedError   | 401                                       | application/json                          |
-| errors.DeleteFoldersIdForbiddenError      | 403                                       | application/json                          |
 | errors.DeleteFoldersIdNotFoundError       | 404                                       | application/json                          |
 | errors.DeleteFoldersIdInternalServerError | 500                                       | application/json                          |
 | errors.WistiaDefaultError                 | 4XX, 5XX                                  | \*/\*                                     |
@@ -442,10 +450,12 @@ For the request you can specify the owner of a new folder by passing an optional
 
 The body of the response will contain an object representing the background job that was created.
 
+<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
+<!--- /HIDE-MCP -->
 
 
 ### Example Usage

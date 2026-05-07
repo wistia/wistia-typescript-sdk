@@ -4,20 +4,18 @@
 
 ### Available Operations
 
-* [create](#create) - Create Media from Trims
+* [postMediasMediaHashedIdTrims](#postmediasmediahashedidtrims) - Create Media from Trims
 
-## create
+## postMediasMediaHashedIdTrims
 
-Creates a new media that trims off parts of an existing media.
+Creates a new media that trims off parts of an existing media
 
-By default, the `trims` parameter specifies time ranges to **remove** from the media. When `keep_trims` is set to `true`, the `trims` parameter instead specifies time ranges to **keep** in the media.
-
-**NOTE:** currently this endpoint only supports trimming video files.
-
+<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
+<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -31,7 +29,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.trims.create({
+  const result = await wistia.trims.postMediasMediaHashedIdTrims({
     mediaHashedId: "<id>",
     requestBody: {
       trims: [],
@@ -50,7 +48,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { trimsCreate } from "@wistia/wistia-api-client/funcs/trimsCreate.js";
+import { trimsPostMediasMediaHashedIdTrims } from "@wistia/wistia-api-client/funcs/trimsPostMediasMediaHashedIdTrims.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -59,7 +57,7 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await trimsCreate(wistia, {
+  const res = await trimsPostMediasMediaHashedIdTrims(wistia, {
     mediaHashedId: "<id>",
     requestBody: {
       trims: [],
@@ -69,7 +67,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("trimsCreate failed:", res.error);
+    console.log("trimsPostMediasMediaHashedIdTrims failed:", res.error);
   }
 }
 
@@ -94,7 +92,6 @@ run();
 | Error Type                                                  | Status Code                                                 | Content Type                                                |
 | ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- |
 | errors.PostMediasMediaHashedIdTrimsUnauthorizedError        | 401                                                         | application/json                                            |
-| errors.PostMediasMediaHashedIdTrimsForbiddenError           | 403                                                         | application/json                                            |
 | errors.PostMediasMediaHashedIdTrimsUnprocessableEntityError | 422                                                         | application/json                                            |
 | errors.PostMediasMediaHashedIdTrimsInternalServerError      | 500                                                         | application/json                                            |
 | errors.WistiaDefaultError                                   | 4XX, 5XX                                                    | \*/\*                                                       |
