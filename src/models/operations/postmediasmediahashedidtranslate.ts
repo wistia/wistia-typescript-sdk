@@ -45,7 +45,10 @@ export type PostMediasMediaHashedIdTranslateStatus = ClosedEnum<
 >;
 
 /**
- * Status of the background job.
+ * A background job keeps track of the progress of an asynchronous task, e.g
+ *
+ * @remarks
+ * bulk archiving media, translating media, etc.
  */
 export type PostMediasMediaHashedIdTranslateBackgroundJobStatus = {
   /**
@@ -64,7 +67,10 @@ export type PostMediasMediaHashedIdTranslateBackgroundJobStatus = {
 export type PostMediasMediaHashedIdTranslateResponse = {
   message?: string | undefined;
   /**
-   * Status of the background job.
+   * A background job keeps track of the progress of an asynchronous task, e.g
+   *
+   * @remarks
+   * bulk archiving media, translating media, etc.
    */
   backgroundJobStatus?:
     | PostMediasMediaHashedIdTranslateBackgroundJobStatus

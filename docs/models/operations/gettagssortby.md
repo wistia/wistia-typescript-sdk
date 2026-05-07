@@ -1,6 +1,9 @@
 # GetTagsSortBy
 
-Ordering
+Ordering. When using cursor pagination (see cursor param),
+only `id`, `updated` and `created` are supported. All other sort_by options
+require offset pagination.
+
 
 ## Example Usage
 

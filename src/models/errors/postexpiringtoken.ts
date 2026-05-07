@@ -3,7 +3,6 @@
  */
 
 import * as z from "zod/v3";
-import * as operations from "../operations/index.js";
 import { WistiaError } from "./wistiaerror.js";
 
 /**
@@ -69,23 +68,23 @@ export class PostExpiringTokenInternalServerError extends WistiaError {
 }
 
 /**
- * Unprocessible entity, parameters provided were invalid.
+ * Unprocessable entity, the request parameters were invalid.
  */
 export type PostExpiringTokenUnprocessableEntityErrorData = {
   /**
-   * Contains a summary of what fields had errors and the errors they had.
+   * Array of error messages describing what went wrong.
    */
-  errors?: operations.PostExpiringTokenErrors | undefined;
+  errors?: Array<string> | undefined;
 };
 
 /**
- * Unprocessible entity, parameters provided were invalid.
+ * Unprocessable entity, the request parameters were invalid.
  */
 export class PostExpiringTokenUnprocessableEntityError extends WistiaError {
   /**
-   * Contains a summary of what fields had errors and the errors they had.
+   * Array of error messages describing what went wrong.
    */
-  errors?: operations.PostExpiringTokenErrors | undefined;
+  errors?: Array<string> | undefined;
 
   /** The original data that was passed to this error instance. */
   data$: PostExpiringTokenUnprocessableEntityErrorData;
@@ -180,8 +179,7 @@ export const PostExpiringTokenUnprocessableEntityError$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  errors: z.lazy(() => operations.PostExpiringTokenErrors$inboundSchema)
-    .optional(),
+  errors: z.array(z.string()).optional(),
   request$: z.instanceof(Request),
   response$: z.instanceof(Response),
   body$: z.string(),

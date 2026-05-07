@@ -33,7 +33,10 @@ export type GetBackgroundJobStatusBackgroundJobStatusIdStatus = ClosedEnum<
 >;
 
 /**
- * Status of the background job.
+ * A background job keeps track of the progress of an asynchronous task, e.g
+ *
+ * @remarks
+ * bulk archiving media, translating media, etc.
  */
 export type GetBackgroundJobStatusBackgroundJobStatusIdBackgroundJobStatus = {
   /**
@@ -51,7 +54,10 @@ export type GetBackgroundJobStatusBackgroundJobStatusIdBackgroundJobStatus = {
  */
 export type GetBackgroundJobStatusBackgroundJobStatusIdResponse = {
   /**
-   * Status of the background job.
+   * A background job keeps track of the progress of an asynchronous task, e.g
+   *
+   * @remarks
+   * bulk archiving media, translating media, etc.
    */
   backgroundJobStatus:
     GetBackgroundJobStatusBackgroundJobStatusIdBackgroundJobStatus;

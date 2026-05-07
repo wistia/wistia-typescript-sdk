@@ -4,19 +4,20 @@
 
 ### Available Operations
 
-* [list](#list) - Tags List
-* [create](#create) - Tags Create
-* [delete](#delete) - Tags Delete
+* [getTags](#gettags) - List Tags
+* [postTags](#posttags) - Create Tags
+* [deleteTagsName](#deletetagsname) - Delete Tags
 
-## list
+## getTags
 
-Use this endpoint to request a list of Tags in your Wistia account. This request supports paging and sorting.
+Lists tags belonging to the account.
 
+<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
-Read, update & delete anything
 Read all data
 ```
+<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -30,7 +31,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.tags.list();
+  const result = await wistia.tags.getTags();
 
   console.log(result);
 }
@@ -44,7 +45,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { tagsList } from "@wistia/wistia-api-client/funcs/tagsList.js";
+import { tagsGetTags } from "@wistia/wistia-api-client/funcs/tagsGetTags.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -53,12 +54,12 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await tagsList(wistia);
+  const res = await tagsGetTags(wistia);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("tagsList failed:", res.error);
+    console.log("tagsGetTags failed:", res.error);
   }
 }
 
@@ -82,18 +83,21 @@ run();
 
 | Error Type                        | Status Code                       | Content Type                      |
 | --------------------------------- | --------------------------------- | --------------------------------- |
+| errors.GetTagsBadRequestError     | 400                               | application/json                  |
 | errors.GetTagsUnauthorizedError   | 401                               | application/json                  |
 | errors.GetTagsInternalServerError | 500                               | application/json                  |
 | errors.WistiaDefaultError         | 4XX, 5XX                          | \*/\*                             |
 
-## create
+## postTags
 
-Create a new tag.
+Creates a new tag.
 
+<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
+<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -107,7 +111,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.tags.create({
+  const result = await wistia.tags.postTags({
     name: "<value>",
   });
 
@@ -123,7 +127,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { tagsCreate } from "@wistia/wistia-api-client/funcs/tagsCreate.js";
+import { tagsPostTags } from "@wistia/wistia-api-client/funcs/tagsPostTags.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -132,14 +136,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await tagsCreate(wistia, {
+  const res = await tagsPostTags(wistia, {
     name: "<value>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("tagsCreate failed:", res.error);
+    console.log("tagsPostTags failed:", res.error);
   }
 }
 
@@ -169,14 +173,16 @@ run();
 | errors.PostTagsInternalServerError      | 500                                     | application/json                        |
 | errors.WistiaDefaultError               | 4XX, 5XX                                | \*/\*                                   |
 
-## delete
+## deleteTagsName
 
-Delete a tag
+Deletes a tag
 
+<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
+<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -190,7 +196,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  await wistia.tags.delete({
+  await wistia.tags.deleteTagsName({
     name: "<value>",
   });
 
@@ -206,7 +212,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { tagsDelete } from "@wistia/wistia-api-client/funcs/tagsDelete.js";
+import { tagsDeleteTagsName } from "@wistia/wistia-api-client/funcs/tagsDeleteTagsName.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -215,14 +221,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await tagsDelete(wistia, {
+  const res = await tagsDeleteTagsName(wistia, {
     name: "<value>",
   });
   if (res.ok) {
     const { value: result } = res;
     
   } else {
-    console.log("tagsDelete failed:", res.error);
+    console.log("tagsDeleteTagsName failed:", res.error);
   }
 }
 

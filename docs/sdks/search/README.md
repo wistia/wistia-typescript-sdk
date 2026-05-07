@@ -4,16 +4,18 @@
 
 ### Available Operations
 
-* [search](#search) - Search
+* [getSearch](#getsearch) - Search
 
-## search
+## getSearch
 
-Search across projects, medias, channels, and channel episodes.
+Searches across folders, medias, channels, and channel episodes.
 
+<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
-Read, update & delete anything
+Read all data
 ```
+<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -27,7 +29,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.search.search({
+  const result = await wistia.search.getSearch({
     q: "screencast",
   });
 
@@ -43,7 +45,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { searchSearch } from "@wistia/wistia-api-client/funcs/searchSearch.js";
+import { searchGetSearch } from "@wistia/wistia-api-client/funcs/searchGetSearch.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -52,14 +54,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await searchSearch(wistia, {
+  const res = await searchGetSearch(wistia, {
     q: "screencast",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("searchSearch failed:", res.error);
+    console.log("searchGetSearch failed:", res.error);
   }
 }
 

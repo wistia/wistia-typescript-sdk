@@ -12,6 +12,6 @@ import { PutMediasRestoreNotFoundError } from "@wistia/wistia-api-client/models/
 
 ## Fields
 
-| Field                               | Type                                | Required                            | Description                         | Example                             |
-| ----------------------------------- | ----------------------------------- | ----------------------------------- | ----------------------------------- | ----------------------------------- |
-| `error`                             | *string*                            | :heavy_minus_sign:                  | N/A                                 | Project with ID 'fakeid' not found. |
+| Field                              | Type                               | Required                           | Description                        | Example                            |
+| ---------------------------------- | ---------------------------------- | ---------------------------------- | ---------------------------------- | ---------------------------------- |
+| `error`                            | *string*                           | :heavy_minus_sign:                 | N/A                                | Folder with ID 'fakeid' not found. |

@@ -14,7 +14,7 @@ export type GetMediasMediaHashedIdCaptionsLanguageCodeRequest = {
    */
   mediaHashedId: string;
   /**
-   * The language code of the captions to be retrieved.
+   * The 3-character ISO 639-2 language code of the captions to be retrieved (e.g., `eng`, `fra`, `spa`). Some languages use extended IETF subtags (e.g., `zh-Hant`).
    */
   languageCode: string;
 };
@@ -38,12 +38,16 @@ export type GetMediasMediaHashedIdCaptionsLanguageCodeResponseBody = {
   /**
    * The text of the captions for the specified language in SRT format.
    */
-  text?: string | undefined;
+  text?: string | null | undefined;
   isDraft: boolean;
   /**
    * The unique hashed identifier of the time-coded transcript.
    */
   id: string;
+  /**
+   * A cursor for stable pagination based on current `sort_by` order. You can pass this to `cursor[before]` or `cursor[after]` as a parameter to fetch the records before or after this record in the same sort order. This is only populated if records were fetched with `cursor[enabled]`, or `cursor[before]` or `cursor[after]`.
+   */
+  cursor?: string | null | undefined;
 };
 
 export type GetMediasMediaHashedIdCaptionsLanguageCodeResponse =
@@ -89,9 +93,10 @@ export const GetMediasMediaHashedIdCaptionsLanguageCodeResponseBody$inboundSchem
     english_name: z.string().optional(),
     native_name: z.string().optional(),
     language: z.string(),
-    text: z.string().optional(),
+    text: z.nullable(z.string()).optional(),
     is_draft: z.boolean(),
     id: z.string(),
+    cursor: z.nullable(z.string()).optional(),
   }).transform((v) => {
     return remap$(v, {
       "english_name": "englishName",
