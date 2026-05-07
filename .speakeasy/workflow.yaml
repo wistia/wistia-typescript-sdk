@@ -4,18 +4,21 @@ sources:
     Data API:
         inputs:
             - location: https://wistia.github.io/wistia/api/openapi-upload.yaml
-            - location: https://wistia.github.io/wistia/api/openapi-modern.yaml
+            - location: https://wistia.github.io/wistia/api/openapi-2026-01.yaml
         output: .speakeasy/out.openapi.yaml
         registry:
-            location: registry.speakeasyapi.dev/wistia/wistia/data-api
+            location: registry.speakeasyapi.dev/wistia/wistia/data-api-2026-01
 targets:
     wistia:
         target: typescript
         source: Data API
+        publish:
+            npm:
+                token: $npm_token
         codeSamples:
             output: code-samples.yaml
             registry:
-                location: registry.speakeasyapi.dev/wistia/wistia/data-api-typescript-code-samples
+                location: registry.speakeasyapi.dev/wistia/wistia/data-api-2026-01-typescript-code-samples
             style: readme
             langOverride: javascript
             labelOverride:

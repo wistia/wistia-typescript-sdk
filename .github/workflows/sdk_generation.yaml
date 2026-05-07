@@ -17,25 +17,24 @@ permissions:
         type: string
   repository_dispatch:
     types: [oas-updated]
-  schedule:
-    - cron: 0 0 * * *
-  pull_request:
-    types:
-      - labeled
-      - unlabeled
 jobs:
   prepare:
     runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.version.outputs.version }}
     steps:
+        - name: Checkout
+          uses: actions/checkout@v4
         - name: Generate version
           id: version
           run: |
             if [ -n "${{ github.event.inputs.set_version }}" ]; then
               echo "version=${{ github.event.inputs.set_version }}" >> $GITHUB_OUTPUT
             else
-              echo "version=$(date +'%Y.%-m.1')" >> $GITHUB_OUTPUT
+              # Increment patch version from current package.json
+              CURRENT=$(jq -r .version package.json)
+              IFS='.' read -r YEAR MONTH PATCH <<< "$CURRENT"
+              echo "version=${YEAR}.${MONTH}.$((PATCH + 1))" >> $GITHUB_OUTPUT
             fi
 
   generate:
