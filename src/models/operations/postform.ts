@@ -37,7 +37,7 @@ export type PostFormRequest = {
    */
   accessToken?: string | undefined;
   /**
-   * The web location of the media file to import.
+   * The publicly accessible web location of the media file to import.
    */
   url: string;
   /**

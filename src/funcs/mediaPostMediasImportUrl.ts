@@ -4,6 +4,7 @@
 
 import { WistiaCore } from "../core.js";
 import { encodeJSON } from "../lib/encodings.js";
+import { matchStatusCode } from "../lib/http.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -36,6 +37,8 @@ import { Result } from "../types/fp.js";
  *
  * If no folder_id is provided, a new folder called "Untitled Folder" will be
  * created and the imported media will be placed there.
+ *
+ * The URL must be publicly accessible — Wistia's servers need to be able to fetch the file directly.
  *
  * Note: imports from certain domains (e.g. vimeo.com, wistia.com) are not permitted.
  *
@@ -161,7 +164,8 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["400", "401", "403", "404", "422", "4XX", "500", "5XX"],
+    isErrorStatusCode: (statusCode: number) =>
+      matchStatusCode({ status: statusCode } as Response, ["4XX", "5XX"]),
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });

@@ -3,23 +3,15 @@
  */
 
 import { channelsDeleteChannelsChannelHashedId } from "../funcs/channelsDeleteChannelsChannelHashedId.js";
-import { channelsGet } from "../funcs/channelsGet.js";
-import { channelsList } from "../funcs/channelsList.js";
+import { channelsGetChannels } from "../funcs/channelsGetChannels.js";
+import { channelsGetChannelsChannelHashedId } from "../funcs/channelsGetChannelsChannelHashedId.js";
 import { channelsPostChannels } from "../funcs/channelsPostChannels.js";
 import { channelsPutChannelsChannelHashedId } from "../funcs/channelsPutChannelsChannelHashedId.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
-import { ChannelsChannelEpisodes } from "./channelschannelepisodes.js";
 
 export class Channels extends ClientSDK {
-  private _channelEpisodes?: ChannelsChannelEpisodes;
-  get channelEpisodes(): ChannelsChannelEpisodes {
-    return (this._channelEpisodes ??= new ChannelsChannelEpisodes(
-      this._options,
-    ));
-  }
-
   /**
    * List Channels
    *
@@ -32,11 +24,11 @@ export class Channels extends ClientSDK {
    * Read all folder and media data
    * ```
    */
-  async list(
+  async getChannels(
     request?: operations.GetChannelsRequest | undefined,
     options?: RequestOptions,
   ): Promise<Array<operations.GetChannelsResponse>> {
-    return unwrapAsync(channelsList(
+    return unwrapAsync(channelsGetChannels(
       this,
       request,
       options,
@@ -71,11 +63,11 @@ export class Channels extends ClientSDK {
    * Read all folder and media data
    * ```
    */
-  async get(
+  async getChannelsChannelHashedId(
     request: operations.GetChannelsChannelHashedIdRequest,
     options?: RequestOptions,
   ): Promise<operations.GetChannelsChannelHashedIdResponse> {
-    return unwrapAsync(channelsGet(
+    return unwrapAsync(channelsGetChannelsChannelHashedId(
       this,
       request,
       options,
