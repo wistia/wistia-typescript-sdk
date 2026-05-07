@@ -8,7 +8,7 @@ permissions:
 "on":
   push:
     branches:
-      - main
+      - 'v20[0-9][0-9]-[0-9][0-9]'
     paths:
       - .speakeasy/gen.lock
   workflow_dispatch: {}
