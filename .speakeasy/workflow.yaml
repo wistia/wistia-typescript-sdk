@@ -4,16 +4,10 @@ sources:
     Data API:
         inputs:
             - location: https://wistia.github.io/wistia/api/openapi-upload.yaml
-            - location: https://wistia.github.io/wistia/api/openapi-latest.yaml
-        overlays:
-            - location: .speakeasy/speakeasy-modifications-overlay.yaml
-            - location: .speakeasy/servers-overlay.yaml
+            - location: https://wistia.github.io/wistia/api/openapi-2026-01.yaml
         output: .speakeasy/out.openapi.yaml
         registry:
-            location: registry.speakeasyapi.dev/wistia/wistia/data-api
-    upload-api:
-        inputs:
-            - location: https://wistia.github.io/wistia/api/openapi-upload.yaml
+            location: registry.speakeasyapi.dev/wistia/wistia/data-api-2026-01
 targets:
     wistia:
         target: typescript
@@ -24,7 +18,9 @@ targets:
         codeSamples:
             output: code-samples.yaml
             registry:
-                location: registry.speakeasyapi.dev/wistia/wistia/data-api-typescript-code-samples
+                location: registry.speakeasyapi.dev/wistia/wistia/data-api-2026-01-typescript-code-samples
+            style: readme
+            langOverride: javascript
             labelOverride:
                 fixedValue: Typescript (SDK)
             blocking: false
