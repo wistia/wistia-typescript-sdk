@@ -4,16 +4,18 @@
 
 ### Available Operations
 
-* [create](#create) - Trims Create
+* [postMediasMediaHashedIdTrims](#postmediasmediahashedidtrims) - Create Media from Trims
 
-## create
+## postMediasMediaHashedIdTrims
 
 Creates a new media that trims off parts of an existing media
 
+<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
+<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -27,7 +29,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.trims.create({
+  const result = await wistia.trims.postMediasMediaHashedIdTrims({
     mediaHashedId: "<id>",
     requestBody: {
       trims: [],
@@ -46,7 +48,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { trimsCreate } from "@wistia/wistia-api-client/funcs/trimsCreate.js";
+import { trimsPostMediasMediaHashedIdTrims } from "@wistia/wistia-api-client/funcs/trimsPostMediasMediaHashedIdTrims.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -55,7 +57,7 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await trimsCreate(wistia, {
+  const res = await trimsPostMediasMediaHashedIdTrims(wistia, {
     mediaHashedId: "<id>",
     requestBody: {
       trims: [],
@@ -65,7 +67,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("trimsCreate failed:", res.error);
+    console.log("trimsPostMediasMediaHashedIdTrims failed:", res.error);
   }
 }
 

@@ -4,19 +4,21 @@
 
 ### Available Operations
 
-* [list](#list) - Allowed Domains List
-* [create](#create) - Allowed Domain Create
-* [get](#get) - Allowed Domain Show
-* [delete](#delete) - Allowed Domain Delete
+* [getAllowedDomains](#getalloweddomains) - List Allowed Domains
+* [postAllowedDomains](#postalloweddomains) - Create Allowed Domain
+* [getAllowedDomainsDomain](#getalloweddomainsdomain) - Show Allowed Domain
+* [deleteAllowedDomainsDomain](#deletealloweddomainsdomain) - Delete Allowed Domain
 
-## list
+## getAllowedDomains
 
-List all allowed domains for the account.
+Lists allowed domains belonging to the account.
 
+<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
-Read, update & delete anything
+Read all data
 ```
+<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -30,7 +32,10 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.allowedDomains.list({});
+  const result = await wistia.allowedDomains.getAllowedDomains({
+    page: 1,
+    perPage: 100,
+  });
 
   console.log(result);
 }
@@ -44,7 +49,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { allowedDomainsList } from "@wistia/wistia-api-client/funcs/allowedDomainsList.js";
+import { allowedDomainsGetAllowedDomains } from "@wistia/wistia-api-client/funcs/allowedDomainsGetAllowedDomains.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -53,12 +58,15 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await allowedDomainsList(wistia, {});
+  const res = await allowedDomainsGetAllowedDomains(wistia, {
+    page: 1,
+    perPage: 100,
+  });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("allowedDomainsList failed:", res.error);
+    console.log("allowedDomainsGetAllowedDomains failed:", res.error);
   }
 }
 
@@ -86,14 +94,16 @@ run();
 | errors.GetAllowedDomainsInternalServerError | 500                                         | application/json                            |
 | errors.WistiaDefaultError                   | 4XX, 5XX                                    | \*/\*                                       |
 
-## create
+## postAllowedDomains
 
-Create a new allowed domain for the account.
+Creates an allowed domain for the account.
 
+<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
+<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -107,7 +117,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.allowedDomains.create({
+  const result = await wistia.allowedDomains.postAllowedDomains({
     domain: "example.com",
   });
 
@@ -123,7 +133,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { allowedDomainsCreate } from "@wistia/wistia-api-client/funcs/allowedDomainsCreate.js";
+import { allowedDomainsPostAllowedDomains } from "@wistia/wistia-api-client/funcs/allowedDomainsPostAllowedDomains.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -132,14 +142,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await allowedDomainsCreate(wistia, {
+  const res = await allowedDomainsPostAllowedDomains(wistia, {
     domain: "example.com",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("allowedDomainsCreate failed:", res.error);
+    console.log("allowedDomainsPostAllowedDomains failed:", res.error);
   }
 }
 
@@ -168,14 +178,16 @@ run();
 | errors.PostAllowedDomainsInternalServerError | 500                                          | application/json                             |
 | errors.WistiaDefaultError                    | 4XX, 5XX                                     | \*/\*                                        |
 
-## get
+## getAllowedDomainsDomain
 
-Get details for a specific allowed domain.
+Returns the details of an allowed domain.
 
+<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
-Read, update & delete anything
+Read all data
 ```
+<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -189,7 +201,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.allowedDomains.get({
+  const result = await wistia.allowedDomains.getAllowedDomainsDomain({
     domain: "example.com",
   });
 
@@ -205,7 +217,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { allowedDomainsGet } from "@wistia/wistia-api-client/funcs/allowedDomainsGet.js";
+import { allowedDomainsGetAllowedDomainsDomain } from "@wistia/wistia-api-client/funcs/allowedDomainsGetAllowedDomainsDomain.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -214,14 +226,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await allowedDomainsGet(wistia, {
+  const res = await allowedDomainsGetAllowedDomainsDomain(wistia, {
     domain: "example.com",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("allowedDomainsGet failed:", res.error);
+    console.log("allowedDomainsGetAllowedDomainsDomain failed:", res.error);
   }
 }
 
@@ -250,14 +262,16 @@ run();
 | errors.GetAllowedDomainsDomainInternalServerError | 500                                               | application/json                                  |
 | errors.WistiaDefaultError                         | 4XX, 5XX                                          | \*/\*                                             |
 
-## delete
+## deleteAllowedDomainsDomain
 
-Delete an allowed domain from the account.
+Deletes an allowed domain from the account.
 
+<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
+<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -271,7 +285,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.allowedDomains.delete({
+  const result = await wistia.allowedDomains.deleteAllowedDomainsDomain({
     domain: "example.com",
   });
 
@@ -287,7 +301,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { allowedDomainsDelete } from "@wistia/wistia-api-client/funcs/allowedDomainsDelete.js";
+import { allowedDomainsDeleteAllowedDomainsDomain } from "@wistia/wistia-api-client/funcs/allowedDomainsDeleteAllowedDomainsDomain.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -296,14 +310,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await allowedDomainsDelete(wistia, {
+  const res = await allowedDomainsDeleteAllowedDomainsDomain(wistia, {
     domain: "example.com",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("allowedDomainsDelete failed:", res.error);
+    console.log("allowedDomainsDeleteAllowedDomainsDomain failed:", res.error);
   }
 }
 

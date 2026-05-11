@@ -10,7 +10,11 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
- * Ordering. Default is ID ASC.
+ * Ordering. Default is ID ASC. When using cursor pagination (see cursor param),
+ *
+ * @remarks
+ * only `id` and `created` are supported. All other sort_by options (`position`, `title`, `updated`)
+ * require offset pagination.
  */
 export const GetChannelEpisodesSortBy = {
   Position: "position",
@@ -20,7 +24,11 @@ export const GetChannelEpisodesSortBy = {
   Id: "id",
 } as const;
 /**
- * Ordering. Default is ID ASC.
+ * Ordering. Default is ID ASC. When using cursor pagination (see cursor param),
+ *
+ * @remarks
+ * only `id` and `created` are supported. All other sort_by options (`position`, `title`, `updated`)
+ * require offset pagination.
  */
 export type GetChannelEpisodesSortBy = ClosedEnum<
   typeof GetChannelEpisodesSortBy
@@ -40,13 +48,73 @@ export type GetChannelEpisodesSortDirection = ClosedEnum<
   typeof GetChannelEpisodesSortDirection
 >;
 
+/**
+ * If `cursor[enabled]` is set to 1, the first result set will be fetched with cursor pagination enabled. This
+ *
+ * @remarks
+ * values is ignored if `cursor[before]` or `cursor[after]` are set.
+ */
+export const GetChannelEpisodesEnabled = {
+  Zero: 0,
+  One: 1,
+} as const;
+/**
+ * If `cursor[enabled]` is set to 1, the first result set will be fetched with cursor pagination enabled. This
+ *
+ * @remarks
+ * values is ignored if `cursor[before]` or `cursor[after]` are set.
+ */
+export type GetChannelEpisodesEnabled = ClosedEnum<
+  typeof GetChannelEpisodesEnabled
+>;
+
+/**
+ * If `cursor[enabled]` is set to 1 than cursor pagination is enabled and the
+ *
+ * @remarks
+ * first set of records are fetched up to the `per_page`. Cursor
+ * pagination will also be turned on if `cursor[before]` or `cursor[after]`
+ * are set. Records returned will have a `cursor` property set which can be used to fetch more records in the same `sort_by` ordering.
+ * The cursor value of the last record can be used to fetch records after the current result set and
+ * the cursor of the first record can be used to fetch records before the result set.
+ *
+ * NOTE: a cursor value is only valid if the `sort_by` value hasn't changed from the
+ * last fetch. For example, you cannot fetch using `sort_by` id and than pass that
+ * cursor value to a `sort_by` name.
+ */
+export type GetChannelEpisodesCursor = {
+  /**
+   * If `cursor[enabled]` is set to 1, the first result set will be fetched with cursor pagination enabled. This
+   *
+   * @remarks
+   * values is ignored if `cursor[before]` or `cursor[after]` are set.
+   */
+  enabled?: GetChannelEpisodesEnabled | undefined;
+  /**
+   * If `cursor[before]` is set than cursor pagination is enabled and all records
+   *
+   * @remarks
+   * before the cursor up to the `per_page` are returned. This feature is useful for
+   * fetching "new records", for example, in a "pull to refersh" feature when showing records in a descending
+   * order.
+   */
+  before?: string | undefined;
+  /**
+   * If `cursor[after]` is set than cursor pagination is enabled and all records
+   *
+   * @remarks
+   * after the cursor up to the `per_page` are returned.
+   */
+  after?: string | undefined;
+};
+
 export type GetChannelEpisodesRequest = {
   /**
-   * Find episodes for a particular channel by providing the channel hashed ID
-   */
-  channelId?: string | undefined;
-  /**
-   * Ordering. Default is ID ASC.
+   * Ordering. Default is ID ASC. When using cursor pagination (see cursor param),
+   *
+   * @remarks
+   * only `id` and `created` are supported. All other sort_by options (`position`, `title`, `updated`)
+   * require offset pagination.
    */
   sortBy?: GetChannelEpisodesSortBy | undefined;
   /**
@@ -54,13 +122,31 @@ export type GetChannelEpisodesRequest = {
    */
   sortDirection?: GetChannelEpisodesSortDirection | undefined;
   /**
-   * Page number to retrieve
+   * The page number to retrieve. This cannot be combined with `cursor`,
+   *
+   * @remarks
+   * pagination.
    */
   page?: number | undefined;
   /**
-   * Number of channels per page
+   * The number of medias per page. Use this for both offset pagination and cursor pagination.
    */
   perPage?: number | undefined;
+  /**
+   * If `cursor[enabled]` is set to 1 than cursor pagination is enabled and the
+   *
+   * @remarks
+   * first set of records are fetched up to the `per_page`. Cursor
+   * pagination will also be turned on if `cursor[before]` or `cursor[after]`
+   * are set. Records returned will have a `cursor` property set which can be used to fetch more records in the same `sort_by` ordering.
+   * The cursor value of the last record can be used to fetch records after the current result set and
+   * the cursor of the first record can be used to fetch records before the result set.
+   *
+   * NOTE: a cursor value is only valid if the `sort_by` value hasn't changed from the
+   * last fetch. For example, you cannot fetch using `sort_by` id and than pass that
+   * cursor value to a `sort_by` name.
+   */
+  cursor?: GetChannelEpisodesCursor | undefined;
   /**
    * Filter by media id
    */
@@ -68,7 +154,7 @@ export type GetChannelEpisodesRequest = {
   /**
    * Filter by hashed id
    */
-  hashedId?: Array<string> | undefined;
+  hashedIds?: Array<string> | undefined;
   /**
    * Filter by published status.
    */
@@ -79,6 +165,12 @@ export type GetChannelEpisodesRequest = {
   title?: string | undefined;
 };
 
+/**
+ * A channel episode represents a media that has been added to a channel. Only published
+ *
+ * @remarks
+ * episodes are displayed in a channel.
+ */
 export type GetChannelEpisodesResponse = {
   /**
    * A unique alphanumeric identifier for the channel episode's channel.
@@ -88,6 +180,10 @@ export type GetChannelEpisodesResponse = {
    * The date when the channel episode was originally created.
    */
   created: Date;
+  /**
+   * A cursor for stable pagination based on current `sort_by` order. You can pass this to `cursor[before]` or `cursor[after]` as a parameter to fetch the records before or after this record in the same sort order. This is only populated if records were fetched with `cursor[enabled]`, or `cursor[before]` or `cursor[after]`.
+   */
+  cursor?: string | null | undefined;
   /**
    * The channel episode's description or episode notes.
    */
@@ -133,14 +229,45 @@ export const GetChannelEpisodesSortDirection$outboundSchema: z.ZodNativeEnum<
 > = z.nativeEnum(GetChannelEpisodesSortDirection);
 
 /** @internal */
+export const GetChannelEpisodesEnabled$outboundSchema: z.ZodNativeEnum<
+  typeof GetChannelEpisodesEnabled
+> = z.nativeEnum(GetChannelEpisodesEnabled);
+
+/** @internal */
+export type GetChannelEpisodesCursor$Outbound = {
+  enabled?: number | undefined;
+  before?: string | undefined;
+  after?: string | undefined;
+};
+
+/** @internal */
+export const GetChannelEpisodesCursor$outboundSchema: z.ZodType<
+  GetChannelEpisodesCursor$Outbound,
+  z.ZodTypeDef,
+  GetChannelEpisodesCursor
+> = z.object({
+  enabled: GetChannelEpisodesEnabled$outboundSchema.optional(),
+  before: z.string().optional(),
+  after: z.string().optional(),
+});
+
+export function getChannelEpisodesCursorToJSON(
+  getChannelEpisodesCursor: GetChannelEpisodesCursor,
+): string {
+  return JSON.stringify(
+    GetChannelEpisodesCursor$outboundSchema.parse(getChannelEpisodesCursor),
+  );
+}
+
+/** @internal */
 export type GetChannelEpisodesRequest$Outbound = {
-  channel_id?: string | undefined;
   sort_by?: string | undefined;
   sort_direction?: number | undefined;
   page?: number | undefined;
   per_page?: number | undefined;
+  cursor?: GetChannelEpisodesCursor$Outbound | undefined;
   "media_id[]"?: Array<string> | undefined;
-  "hashed_id[]"?: Array<string> | undefined;
+  "hashed_ids[]"?: Array<string> | undefined;
   published?: boolean | undefined;
   title?: string | undefined;
 };
@@ -151,23 +278,22 @@ export const GetChannelEpisodesRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetChannelEpisodesRequest
 > = z.object({
-  channelId: z.string().optional(),
   sortBy: GetChannelEpisodesSortBy$outboundSchema.optional(),
   sortDirection: GetChannelEpisodesSortDirection$outboundSchema.optional(),
   page: z.number().int().optional(),
   perPage: z.number().int().optional(),
+  cursor: z.lazy(() => GetChannelEpisodesCursor$outboundSchema).optional(),
   mediaId: z.array(z.string()).optional(),
-  hashedId: z.array(z.string()).optional(),
+  hashedIds: z.array(z.string()).optional(),
   published: z.boolean().optional(),
   title: z.string().optional(),
 }).transform((v) => {
   return remap$(v, {
-    channelId: "channel_id",
     sortBy: "sort_by",
     sortDirection: "sort_direction",
     perPage: "per_page",
     mediaId: "media_id[]",
-    hashedId: "hashed_id[]",
+    hashedIds: "hashed_ids[]",
   });
 });
 
@@ -185,12 +311,13 @@ export const GetChannelEpisodesResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  channelHashedId: z.string(),
+  channel_hashed_id: z.string(),
   created: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  cursor: z.nullable(z.string()).optional(),
   description: z.string(),
   summary: z.string(),
-  hashedId: z.string(),
-  mediaHashedId: z.string(),
+  hashed_id: z.string(),
+  media_hashed_id: z.string(),
   published: z.boolean(),
   publish_at: z.string().datetime({ offset: true }).transform(v => new Date(v))
     .optional(),
@@ -198,6 +325,9 @@ export const GetChannelEpisodesResponse$inboundSchema: z.ZodType<
   updated: z.string().datetime({ offset: true }).transform(v => new Date(v)),
 }).transform((v) => {
   return remap$(v, {
+    "channel_hashed_id": "channelHashedId",
+    "hashed_id": "hashedId",
+    "media_hashed_id": "mediaHashedId",
     "publish_at": "publishAt",
   });
 });

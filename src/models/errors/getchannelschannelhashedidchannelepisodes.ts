@@ -71,6 +71,45 @@ export class GetChannelsChannelHashedIdChannelEpisodesUnauthorizedError
   }
 }
 
+/**
+ * Bad request
+ */
+export type GetChannelsChannelHashedIdChannelEpisodesBadRequestErrorData = {
+  /**
+   * Error message detailing the reason for the bad request.
+   */
+  error?: string | undefined;
+};
+
+/**
+ * Bad request
+ */
+export class GetChannelsChannelHashedIdChannelEpisodesBadRequestError
+  extends WistiaError
+{
+  /**
+   * Error message detailing the reason for the bad request.
+   */
+  error?: string | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: GetChannelsChannelHashedIdChannelEpisodesBadRequestErrorData;
+
+  constructor(
+    err: GetChannelsChannelHashedIdChannelEpisodesBadRequestErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+
+    this.name = "GetChannelsChannelHashedIdChannelEpisodesBadRequestError";
+  }
+}
+
 /** @internal */
 export const GetChannelsChannelHashedIdChannelEpisodesInternalServerError$inboundSchema:
   z.ZodType<
@@ -104,6 +143,26 @@ export const GetChannelsChannelHashedIdChannelEpisodesUnauthorizedError$inboundS
   })
     .transform((v) => {
       return new GetChannelsChannelHashedIdChannelEpisodesUnauthorizedError(v, {
+        request: v.request$,
+        response: v.response$,
+        body: v.body$,
+      });
+    });
+
+/** @internal */
+export const GetChannelsChannelHashedIdChannelEpisodesBadRequestError$inboundSchema:
+  z.ZodType<
+    GetChannelsChannelHashedIdChannelEpisodesBadRequestError,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    error: z.string().optional(),
+    request$: z.instanceof(Request),
+    response$: z.instanceof(Response),
+    body$: z.string(),
+  })
+    .transform((v) => {
+      return new GetChannelsChannelHashedIdChannelEpisodesBadRequestError(v, {
         request: v.request$,
         response: v.response$,
         body: v.body$,

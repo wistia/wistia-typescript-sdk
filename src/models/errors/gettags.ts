@@ -67,6 +67,43 @@ export class GetTagsUnauthorizedError extends WistiaError {
   }
 }
 
+/**
+ * Bad request
+ */
+export type GetTagsBadRequestErrorData = {
+  /**
+   * Error message detailing the reason for the bad request.
+   */
+  error?: string | undefined;
+};
+
+/**
+ * Bad request
+ */
+export class GetTagsBadRequestError extends WistiaError {
+  /**
+   * Error message detailing the reason for the bad request.
+   */
+  error?: string | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: GetTagsBadRequestErrorData;
+
+  constructor(
+    err: GetTagsBadRequestErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+
+    this.name = "GetTagsBadRequestError";
+  }
+}
+
 /** @internal */
 export const GetTagsInternalServerError$inboundSchema: z.ZodType<
   GetTagsInternalServerError,
@@ -99,6 +136,25 @@ export const GetTagsUnauthorizedError$inboundSchema: z.ZodType<
 })
   .transform((v) => {
     return new GetTagsUnauthorizedError(v, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
+  });
+
+/** @internal */
+export const GetTagsBadRequestError$inboundSchema: z.ZodType<
+  GetTagsBadRequestError,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  error: z.string().optional(),
+  request$: z.instanceof(Request),
+  response$: z.instanceof(Response),
+  body$: z.string(),
+})
+  .transform((v) => {
+    return new GetTagsBadRequestError(v, {
       request: v.request$,
       response: v.response$,
       body: v.body$,

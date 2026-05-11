@@ -15,11 +15,11 @@ export type PutMediasMoveRequest = {
    */
   hashedIds: Array<string>;
   /**
-   * The hashed ID of the project where you want the media moved.
+   * The hashed ID of the folder where you want the media moved.
    */
-  projectId: string;
+  folderId: string;
   /**
-   * Optional. The hashed ID of the subfolder where you want the media moved. If not provided, media will be moved to the project's default subfolder. The subfolder must belong to the specified project.
+   * Optional. The hashed ID of the subfolder where you want the media moved. If not provided, media will be moved to the folder's default subfolder. The subfolder must belong to the specified folder.
    */
   subfolderId?: string | undefined;
 };
@@ -39,7 +39,10 @@ export const PutMediasMoveStatus2 = {
 export type PutMediasMoveStatus2 = ClosedEnum<typeof PutMediasMoveStatus2>;
 
 /**
- * Status of the background job.
+ * A background job keeps track of the progress of an asynchronous task, e.g
+ *
+ * @remarks
+ * bulk archiving media, translating media, etc.
  */
 export type PutMediasMoveBackgroundJobStatus2 = {
   /**
@@ -63,7 +66,10 @@ export type PartialError = {
 export type PutMediasMoveResponseBody2 = {
   message?: string | undefined;
   /**
-   * Status of the background job.
+   * A background job keeps track of the progress of an asynchronous task, e.g
+   *
+   * @remarks
+   * bulk archiving media, translating media, etc.
    */
   backgroundJobStatus?: PutMediasMoveBackgroundJobStatus2 | undefined;
   partialErrors?: Array<PartialError> | undefined;
@@ -84,7 +90,10 @@ export const PutMediasMoveStatus1 = {
 export type PutMediasMoveStatus1 = ClosedEnum<typeof PutMediasMoveStatus1>;
 
 /**
- * Status of the background job.
+ * A background job keeps track of the progress of an asynchronous task, e.g
+ *
+ * @remarks
+ * bulk archiving media, translating media, etc.
  */
 export type PutMediasMoveBackgroundJobStatus1 = {
   /**
@@ -103,7 +112,10 @@ export type PutMediasMoveBackgroundJobStatus1 = {
 export type PutMediasMoveResponseBody1 = {
   message?: string | undefined;
   /**
-   * Status of the background job.
+   * A background job keeps track of the progress of an asynchronous task, e.g
+   *
+   * @remarks
+   * bulk archiving media, translating media, etc.
    */
   backgroundJobStatus?: PutMediasMoveBackgroundJobStatus1 | undefined;
 };
@@ -115,7 +127,7 @@ export type PutMediasMoveResponse =
 /** @internal */
 export type PutMediasMoveRequest$Outbound = {
   hashed_ids: Array<string>;
-  project_id: string;
+  folder_id: string;
   subfolder_id?: string | undefined;
 };
 
@@ -126,12 +138,12 @@ export const PutMediasMoveRequest$outboundSchema: z.ZodType<
   PutMediasMoveRequest
 > = z.object({
   hashedIds: z.array(z.string()),
-  projectId: z.string(),
+  folderId: z.string(),
   subfolderId: z.string().optional(),
 }).transform((v) => {
   return remap$(v, {
     hashedIds: "hashed_ids",
-    projectId: "project_id",
+    folderId: "folder_id",
     subfolderId: "subfolder_id",
   });
 });

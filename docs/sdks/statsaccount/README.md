@@ -4,18 +4,18 @@
 
 ### Available Operations
 
-* [get](#get) - Stats:Account Show
+* [getStatsAccount](#getstatsaccount) - Show Current Account Stats
 
-## get
+## getStatsAccount
 
 Retrieve account-wide video stats. Get statistics like the number of video loads, plays, and hours watched for the entire account.
 
+<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
-Read, update & delete anything
-Read all data
-Read all folder and media data
+Read detailed stats
 ```
+<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -29,7 +29,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.statsAccount.get();
+  const result = await wistia.statsAccount.getStatsAccount();
 
   console.log(result);
 }
@@ -43,7 +43,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { statsAccountGet } from "@wistia/wistia-api-client/funcs/statsAccountGet.js";
+import { statsAccountGetStatsAccount } from "@wistia/wistia-api-client/funcs/statsAccountGetStatsAccount.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -52,12 +52,12 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await statsAccountGet(wistia);
+  const res = await statsAccountGetStatsAccount(wistia);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("statsAccountGet failed:", res.error);
+    console.log("statsAccountGetStatsAccount failed:", res.error);
   }
 }
 
