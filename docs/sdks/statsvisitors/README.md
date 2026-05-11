@@ -4,10 +4,10 @@
 
 ### Available Operations
 
-* [list](#list) - List Visitors
-* [get](#get) - Show Visitor
+* [getStatsVisitors](#getstatsvisitors) - List Visitors
+* [getStatsVisitorsVisitorKey](#getstatsvisitorsvisitorkey) - Show Visitor
 
-## list
+## getStatsVisitors
 
 This endpoint provides a list of visitors that have watched videos in your account.
 
@@ -30,7 +30,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.statsVisitors.list();
+  const result = await wistia.statsVisitors.getStatsVisitors();
 
   console.log(result);
 }
@@ -44,7 +44,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { statsVisitorsList } from "@wistia/wistia-api-client/funcs/statsVisitorsList.js";
+import { statsVisitorsGetStatsVisitors } from "@wistia/wistia-api-client/funcs/statsVisitorsGetStatsVisitors.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -53,12 +53,12 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await statsVisitorsList(wistia);
+  const res = await statsVisitorsGetStatsVisitors(wistia);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("statsVisitorsList failed:", res.error);
+    console.log("statsVisitorsGetStatsVisitors failed:", res.error);
   }
 }
 
@@ -87,7 +87,7 @@ run();
 | errors.GetStatsVisitorsInternalServerError | 500                                        | application/json                           |
 | errors.WistiaDefaultError                  | 4XX, 5XX                                   | \*/\*                                      |
 
-## get
+## getStatsVisitorsVisitorKey
 
 This endpoint provides detailed information about a specific visitor.
 
@@ -110,7 +110,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.statsVisitors.get({
+  const result = await wistia.statsVisitors.getStatsVisitorsVisitorKey({
     visitorKey: "<value>",
   });
 
@@ -126,7 +126,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { statsVisitorsGet } from "@wistia/wistia-api-client/funcs/statsVisitorsGet.js";
+import { statsVisitorsGetStatsVisitorsVisitorKey } from "@wistia/wistia-api-client/funcs/statsVisitorsGetStatsVisitorsVisitorKey.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -135,14 +135,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await statsVisitorsGet(wistia, {
+  const res = await statsVisitorsGetStatsVisitorsVisitorKey(wistia, {
     visitorKey: "<value>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("statsVisitorsGet failed:", res.error);
+    console.log("statsVisitorsGetStatsVisitorsVisitorKey failed:", res.error);
   }
 }
 

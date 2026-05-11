@@ -4,12 +4,12 @@
 
 ### Available Operations
 
-* [get](#get) - Show Customizations
-* [create](#create) - Create Customizations
-* [update](#update) - Update Customizations
-* [delete](#delete) - Delete Customizations
+* [getMediasMediaIdCustomizations](#getmediasmediaidcustomizations) - Show Customizations
+* [postMediasMediaIdCustomizations](#postmediasmediaidcustomizations) - Create Customizations
+* [putMediasMediaIdCustomizations](#putmediasmediaidcustomizations) - Update Customizations
+* [deleteMediasMediaIdCustomizations](#deletemediasmediaidcustomizations) - Delete Customizations
 
-## get
+## getMediasMediaIdCustomizations
 
 Fetches explicitly defined customizations for the video.
 
@@ -30,7 +30,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.customizations.get({
+  const result = await wistia.customizations.getMediasMediaIdCustomizations({
     mediaId: "<id>",
   });
 
@@ -46,7 +46,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { customizationsGet } from "@wistia/wistia-api-client/funcs/customizationsGet.js";
+import { customizationsGetMediasMediaIdCustomizations } from "@wistia/wistia-api-client/funcs/customizationsGetMediasMediaIdCustomizations.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -55,14 +55,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await customizationsGet(wistia, {
+  const res = await customizationsGetMediasMediaIdCustomizations(wistia, {
     mediaId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("customizationsGet failed:", res.error);
+    console.log("customizationsGetMediasMediaIdCustomizations failed:", res.error);
   }
 }
 
@@ -91,7 +91,7 @@ run();
 | errors.GetMediasMediaIdCustomizationsInternalServerError | 500                                                      | application/json                                         |
 | errors.WistiaDefaultError                                | 4XX, 5XX                                                 | \*/\*                                                    |
 
-## create
+## postMediasMediaIdCustomizations
 
 Set customizations for a video. Replaces the customizations explicitly set for this video.
 
@@ -112,7 +112,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.customizations.create({
+  const result = await wistia.customizations.postMediasMediaIdCustomizations({
     mediaId: "<id>",
     requestBody: {
       plugin: {
@@ -139,7 +139,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { customizationsCreate } from "@wistia/wistia-api-client/funcs/customizationsCreate.js";
+import { customizationsPostMediasMediaIdCustomizations } from "@wistia/wistia-api-client/funcs/customizationsPostMediasMediaIdCustomizations.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -148,7 +148,7 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await customizationsCreate(wistia, {
+  const res = await customizationsPostMediasMediaIdCustomizations(wistia, {
     mediaId: "<id>",
     requestBody: {
       plugin: {
@@ -166,7 +166,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("customizationsCreate failed:", res.error);
+    console.log("customizationsPostMediasMediaIdCustomizations failed:", res.error);
   }
 }
 
@@ -195,7 +195,7 @@ run();
 | errors.PostMediasMediaIdCustomizationsInternalServerError | 500                                                       | application/json                                          |
 | errors.WistiaDefaultError                                 | 4XX, 5XX                                                  | \*/\*                                                     |
 
-## update
+## putMediasMediaIdCustomizations
 
 Allows for partial updates on a video’s customizations. If a value is null, then that key will be deleted from the saved customizations. If it is not null, that value will be set.
 
@@ -216,7 +216,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.customizations.update({
+  const result = await wistia.customizations.putMediasMediaIdCustomizations({
     mediaId: "<id>",
     requestBody: {
       plugin: {
@@ -243,7 +243,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { customizationsUpdate } from "@wistia/wistia-api-client/funcs/customizationsUpdate.js";
+import { customizationsPutMediasMediaIdCustomizations } from "@wistia/wistia-api-client/funcs/customizationsPutMediasMediaIdCustomizations.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -252,7 +252,7 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await customizationsUpdate(wistia, {
+  const res = await customizationsPutMediasMediaIdCustomizations(wistia, {
     mediaId: "<id>",
     requestBody: {
       plugin: {
@@ -270,7 +270,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("customizationsUpdate failed:", res.error);
+    console.log("customizationsPutMediasMediaIdCustomizations failed:", res.error);
   }
 }
 
@@ -299,7 +299,7 @@ run();
 | errors.PutMediasMediaIdCustomizationsInternalServerError | 500                                                      | application/json                                         |
 | errors.WistiaDefaultError                                | 4XX, 5XX                                                 | \*/\*                                                    |
 
-## delete
+## deleteMediasMediaIdCustomizations
 
 Deletes all explicit customizations for a video, making it act as if it has never been customized.
 
@@ -320,7 +320,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  await wistia.customizations.delete({
+  await wistia.customizations.deleteMediasMediaIdCustomizations({
     mediaId: "<id>",
   });
 
@@ -336,7 +336,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { customizationsDelete } from "@wistia/wistia-api-client/funcs/customizationsDelete.js";
+import { customizationsDeleteMediasMediaIdCustomizations } from "@wistia/wistia-api-client/funcs/customizationsDeleteMediasMediaIdCustomizations.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -345,14 +345,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await customizationsDelete(wistia, {
+  const res = await customizationsDeleteMediasMediaIdCustomizations(wistia, {
     mediaId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     
   } else {
-    console.log("customizationsDelete failed:", res.error);
+    console.log("customizationsDeleteMediasMediaIdCustomizations failed:", res.error);
   }
 }
 
