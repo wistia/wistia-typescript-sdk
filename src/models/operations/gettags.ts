@@ -10,7 +10,69 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
- * Ordering
+ * If `cursor[enabled]` is set to 1, the first result set will be fetched with cursor pagination enabled. This
+ *
+ * @remarks
+ * values is ignored if `cursor[before]` or `cursor[after]` are set.
+ */
+export const GetTagsEnabled = {
+  Zero: 0,
+  One: 1,
+} as const;
+/**
+ * If `cursor[enabled]` is set to 1, the first result set will be fetched with cursor pagination enabled. This
+ *
+ * @remarks
+ * values is ignored if `cursor[before]` or `cursor[after]` are set.
+ */
+export type GetTagsEnabled = ClosedEnum<typeof GetTagsEnabled>;
+
+/**
+ * If `cursor[enabled]` is set to 1 than cursor pagination is enabled and the
+ *
+ * @remarks
+ * first set of records are fetched up to the `per_page`. Cursor
+ * pagination will also be turned on if `cursor[before]` or `cursor[after]`
+ * are set. Records returned will have a `cursor` property set which can be used to fetch more records in the same `sort_by` ordering.
+ * The cursor value of the last record can be used to fetch records after the current result set and
+ * the cursor of the first record can be used to fetch records before the result set.
+ *
+ * NOTE: a cursor value is only valid if the `sort_by` value hasn't changed from the
+ * last fetch. For example, you cannot fetch using `sort_by` id and than pass that
+ * cursor value to a `sort_by` name.
+ */
+export type GetTagsCursor = {
+  /**
+   * If `cursor[enabled]` is set to 1, the first result set will be fetched with cursor pagination enabled. This
+   *
+   * @remarks
+   * values is ignored if `cursor[before]` or `cursor[after]` are set.
+   */
+  enabled?: GetTagsEnabled | undefined;
+  /**
+   * If `cursor[before]` is set than cursor pagination is enabled and all records
+   *
+   * @remarks
+   * before the cursor up to the `per_page` are returned. This feature is useful for
+   * fetching "new records", for example, in a "pull to refersh" feature when showing records in a descending
+   * order.
+   */
+  before?: string | undefined;
+  /**
+   * If `cursor[after]` is set than cursor pagination is enabled and all records
+   *
+   * @remarks
+   * after the cursor up to the `per_page` are returned.
+   */
+  after?: string | undefined;
+};
+
+/**
+ * Ordering. When using cursor pagination (see cursor param),
+ *
+ * @remarks
+ * only `id`, `updated` and `created` are supported. All other sort_by options
+ * require offset pagination.
  */
 export const GetTagsSortBy = {
   Name: "name",
@@ -19,7 +81,11 @@ export const GetTagsSortBy = {
   TaggingsCount: "taggingsCount",
 } as const;
 /**
- * Ordering
+ * Ordering. When using cursor pagination (see cursor param),
+ *
+ * @remarks
+ * only `id`, `updated` and `created` are supported. All other sort_by options
+ * require offset pagination.
  */
 export type GetTagsSortBy = ClosedEnum<typeof GetTagsSortBy>;
 
@@ -37,15 +103,37 @@ export type GetTagsSortDirection = ClosedEnum<typeof GetTagsSortDirection>;
 
 export type GetTagsRequest = {
   /**
-   * Page number to retrieve
+   * The page number to retrieve. This cannot be combined with `cursor`,
+   *
+   * @remarks
+   * pagination.
    */
   page?: number | undefined;
   /**
-   * Number of tags per page
+   * The number of medias per page. Use this for both offset pagination and cursor pagination.
    */
   perPage?: number | undefined;
   /**
-   * Ordering
+   * If `cursor[enabled]` is set to 1 than cursor pagination is enabled and the
+   *
+   * @remarks
+   * first set of records are fetched up to the `per_page`. Cursor
+   * pagination will also be turned on if `cursor[before]` or `cursor[after]`
+   * are set. Records returned will have a `cursor` property set which can be used to fetch more records in the same `sort_by` ordering.
+   * The cursor value of the last record can be used to fetch records after the current result set and
+   * the cursor of the first record can be used to fetch records before the result set.
+   *
+   * NOTE: a cursor value is only valid if the `sort_by` value hasn't changed from the
+   * last fetch. For example, you cannot fetch using `sort_by` id and than pass that
+   * cursor value to a `sort_by` name.
+   */
+  cursor?: GetTagsCursor | undefined;
+  /**
+   * Ordering. When using cursor pagination (see cursor param),
+   *
+   * @remarks
+   * only `id`, `updated` and `created` are supported. All other sort_by options
+   * require offset pagination.
    */
   sortBy?: GetTagsSortBy | undefined;
   /**
@@ -54,9 +142,15 @@ export type GetTagsRequest = {
   sortDirection?: GetTagsSortDirection | undefined;
 };
 
+/**
+ * A tag is used to tag related media. You can then filter media
+ *
+ * @remarks
+ * by a specific tag.
+ */
 export type GetTagsResponse = {
   /**
-   * The tag’s display name.
+   * The tag's display name.
    */
   name?: string | undefined;
   /**
@@ -71,7 +165,38 @@ export type GetTagsResponse = {
    * The date that the tag was last updated.
    */
   updated?: Date | undefined;
+  /**
+   * A cursor for stable pagination based on current `sort_by` order. You can pass this to `cursor[before]` or `cursor[after]` as a parameter to fetch the records before or after this record in the same sort order. This is only populated if records were fetched with `cursor[enabled]`, or `cursor[before]` or `cursor[after]`.
+   */
+  cursor?: string | null | undefined;
 };
+
+/** @internal */
+export const GetTagsEnabled$outboundSchema: z.ZodNativeEnum<
+  typeof GetTagsEnabled
+> = z.nativeEnum(GetTagsEnabled);
+
+/** @internal */
+export type GetTagsCursor$Outbound = {
+  enabled?: number | undefined;
+  before?: string | undefined;
+  after?: string | undefined;
+};
+
+/** @internal */
+export const GetTagsCursor$outboundSchema: z.ZodType<
+  GetTagsCursor$Outbound,
+  z.ZodTypeDef,
+  GetTagsCursor
+> = z.object({
+  enabled: GetTagsEnabled$outboundSchema.optional(),
+  before: z.string().optional(),
+  after: z.string().optional(),
+});
+
+export function getTagsCursorToJSON(getTagsCursor: GetTagsCursor): string {
+  return JSON.stringify(GetTagsCursor$outboundSchema.parse(getTagsCursor));
+}
 
 /** @internal */
 export const GetTagsSortBy$outboundSchema: z.ZodNativeEnum<
@@ -87,6 +212,7 @@ export const GetTagsSortDirection$outboundSchema: z.ZodNativeEnum<
 export type GetTagsRequest$Outbound = {
   page?: number | undefined;
   per_page?: number | undefined;
+  cursor?: GetTagsCursor$Outbound | undefined;
   sort_by?: string | undefined;
   sort_direction?: number | undefined;
 };
@@ -99,6 +225,7 @@ export const GetTagsRequest$outboundSchema: z.ZodType<
 > = z.object({
   page: z.number().int().optional(),
   perPage: z.number().int().optional(),
+  cursor: z.lazy(() => GetTagsCursor$outboundSchema).optional(),
   sortBy: GetTagsSortBy$outboundSchema.optional(),
   sortDirection: GetTagsSortDirection$outboundSchema.optional(),
 }).transform((v) => {
@@ -125,6 +252,7 @@ export const GetTagsResponse$inboundSchema: z.ZodType<
     .optional(),
   updated: z.string().datetime({ offset: true }).transform(v => new Date(v))
     .optional(),
+  cursor: z.nullable(z.string()).optional(),
 });
 
 export function getTagsResponseFromJSON(

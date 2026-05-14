@@ -11,13 +11,13 @@ let value: PutMediasRestoreRequest = {
     "<value 2>",
     "<value 3>",
   ],
-  projectId: "<id>",
+  folderId: "<id>",
 };
 ```
 
 ## Fields
 
-| Field                                                  | Type                                                   | Required                                               | Description                                            |
-| ------------------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------ |
-| `hashedIds`                                            | *string*[]                                             | :heavy_check_mark:                                     | An array of the media hashed IDs to be restored.       |
-| `projectId`                                            | *string*                                               | :heavy_check_mark:                                     | The hashed ID of the project to restore the medias to. |
+| Field                                                 | Type                                                  | Required                                              | Description                                           |
+| ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
+| `hashedIds`                                           | *string*[]                                            | :heavy_check_mark:                                    | An array of the media hashed IDs to be restored.      |
+| `folderId`                                            | *string*                                              | :heavy_check_mark:                                    | The hashed ID of the folder to restore the medias to. |

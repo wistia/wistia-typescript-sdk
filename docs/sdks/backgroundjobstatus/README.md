@@ -4,16 +4,18 @@
 
 ### Available Operations
 
-* [get](#get) - Background Job Status Show
+* [get](#get) - Show Background Job Status
 
 ## get
 
-Retrieve the status of a background job.
+Retrieves the status of a background job.
+
+<!--- HIDE-MCP -->
 ## Requires api token with one of the following permissions
 ```
-Read, update & delete anything
 Read all data
 ```
+<!--- /HIDE-MCP -->
 
 
 ### Example Usage
@@ -84,6 +86,5 @@ run();
 | Error Type                                                            | Status Code                                                           | Content Type                                                          |
 | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | errors.GetBackgroundJobStatusBackgroundJobStatusIdUnauthorizedError   | 401                                                                   | application/json                                                      |
-| errors.GetBackgroundJobStatusBackgroundJobStatusIdForbiddenError      | 403                                                                   | application/json                                                      |
 | errors.GetBackgroundJobStatusBackgroundJobStatusIdInternalServerError | 500                                                                   | application/json                                                      |
 | errors.WistiaDefaultError                                             | 4XX, 5XX                                                              | \*/\*                                                                 |

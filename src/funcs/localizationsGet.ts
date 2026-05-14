@@ -4,6 +4,7 @@
 
 import { WistiaCore } from "../core.js";
 import { encodeFormQuery, encodeSimple } from "../lib/encodings.js";
+import { matchStatusCode } from "../lib/http.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -26,17 +27,17 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Localizations Show
+ * Show Localization
  *
  * @remarks
  * Obtain detailed information about a localization.
  *
+ * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
- * Read, update & delete anything
  * Read all data
- * Read all folder and media data
  * ```
+ * <!--- /HIDE-MCP -->
  */
 export function localizationsGet(
   client: WistiaCore,
@@ -115,7 +116,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc(
     "/medias/{mediaHashedId}/localizations/{localizationHashedId}",
   )(pathParams);
@@ -166,7 +166,8 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["401", "404", "4XX", "500", "5XX"],
+    isErrorStatusCode: (statusCode: number) =>
+      matchStatusCode({ status: statusCode } as Response, ["4XX", "5XX"]),
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });

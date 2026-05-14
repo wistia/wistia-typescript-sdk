@@ -4,7 +4,12 @@
 
 import * as z from "zod/v3";
 import { WistiaCore } from "../core.js";
-import { encodeFormQuery } from "../lib/encodings.js";
+import {
+  encodeDeepObjectQuery,
+  encodeFormQuery,
+  queryJoin,
+} from "../lib/encodings.js";
+import { matchStatusCode } from "../lib/http.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -27,16 +32,17 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Tags List
+ * List Tags
  *
  * @remarks
- * Use this endpoint to request a list of Tags in your Wistia account. This request supports paging and sorting.
+ * Lists tags belonging to the account.
  *
+ * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
- * Read, update & delete anything
  * Read all data
  * ```
+ * <!--- /HIDE-MCP -->
  */
 export function tagsList(
   client: WistiaCore,
@@ -45,6 +51,7 @@ export function tagsList(
 ): APIPromise<
   Result<
     Array<operations.GetTagsResponse>,
+    | errors.GetTagsBadRequestError
     | errors.GetTagsUnauthorizedError
     | errors.GetTagsInternalServerError
     | WistiaError
@@ -72,6 +79,7 @@ async function $do(
   [
     Result<
       Array<operations.GetTagsResponse>,
+      | errors.GetTagsBadRequestError
       | errors.GetTagsUnauthorizedError
       | errors.GetTagsInternalServerError
       | WistiaError
@@ -99,12 +107,17 @@ async function $do(
 
   const path = pathToFunc("/tags")();
 
-  const query = encodeFormQuery({
-    "page": payload?.page,
-    "per_page": payload?.per_page,
-    "sort_by": payload?.sort_by,
-    "sort_direction": payload?.sort_direction,
-  });
+  const query = queryJoin(
+    encodeDeepObjectQuery({
+      "cursor": payload?.cursor,
+    }),
+    encodeFormQuery({
+      "page": payload?.page,
+      "per_page": payload?.per_page,
+      "sort_by": payload?.sort_by,
+      "sort_direction": payload?.sort_direction,
+    }),
+  );
 
   const headers = new Headers(compactMap({
     Accept: "application/json",
@@ -147,7 +160,8 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["401", "4XX", "500", "5XX"],
+    isErrorStatusCode: (statusCode: number) =>
+      matchStatusCode({ status: statusCode } as Response, ["4XX", "5XX"]),
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -162,6 +176,7 @@ async function $do(
 
   const [result] = await M.match<
     Array<operations.GetTagsResponse>,
+    | errors.GetTagsBadRequestError
     | errors.GetTagsUnauthorizedError
     | errors.GetTagsInternalServerError
     | WistiaError
@@ -174,6 +189,7 @@ async function $do(
     | SDKValidationError
   >(
     M.json(200, z.array(operations.GetTagsResponse$inboundSchema)),
+    M.jsonErr(400, errors.GetTagsBadRequestError$inboundSchema),
     M.jsonErr(401, errors.GetTagsUnauthorizedError$inboundSchema),
     M.jsonErr(500, errors.GetTagsInternalServerError$inboundSchema),
     M.fail("4XX"),

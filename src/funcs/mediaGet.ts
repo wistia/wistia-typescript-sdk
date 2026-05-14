@@ -4,6 +4,7 @@
 
 import { WistiaCore } from "../core.js";
 import { encodeFormQuery, encodeSimple } from "../lib/encodings.js";
+import { matchStatusCode } from "../lib/http.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -26,20 +27,17 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Media Show
+ * Show Media
  *
  * @remarks
- * Fetch detailed information about a media you’ve uploaded to your account using its hashed_id.
+ * Fetches a single media by its hashed id.
  *
- * CDN-backed medias are accessible using this url structure: https://fast.wistia.com/embed/medias/{hashed_id}.m3u8.
- * For more information, see https://docs.wistia.com/docs/asset-urls#getting-hls-assets.
- *
+ * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
- * Read, update & delete anything
- * Read all data
  * Read all folder and media data
  * ```
+ * <!--- /HIDE-MCP -->
  */
 export function mediaGet(
   client: WistiaCore,
@@ -109,7 +107,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/medias/{mediaHashedId}")(pathParams);
 
   const query = encodeFormQuery({
@@ -157,7 +154,8 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["401", "404", "4XX", "500", "5XX"],
+    isErrorStatusCode: (statusCode: number) =>
+      matchStatusCode({ status: statusCode } as Response, ["4XX", "5XX"]),
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
