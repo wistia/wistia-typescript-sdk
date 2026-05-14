@@ -4,6 +4,7 @@
 
 import { WistiaCore } from "../core.js";
 import { encodeSimple } from "../lib/encodings.js";
+import { matchStatusCode } from "../lib/http.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -32,19 +33,19 @@ export enum GetAcceptEnum {
 }
 
 /**
- * Captions Show
+ * Show Captions
  *
  * @remarks
  * Returns a video's captions in the specified language.
  * Supports multiple formats: JSON (default), SRT, VTT, and TXT.
  * Use file extensions (.srt, .vtt, .txt) or Accept headers to specify format.
  *
+ * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
- * Read, update & delete anything
- * Read all data
  * Read all folder and media data
  * ```
+ * <!--- /HIDE-MCP -->
  */
 export function captionsGet(
   client: WistiaCore,
@@ -119,7 +120,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/medias/{mediaHashedId}/captions/{languageCode}")(
     pathParams,
   );
@@ -165,7 +165,8 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["401", "404", "4XX", "500", "5XX"],
+    isErrorStatusCode: (statusCode: number) =>
+      matchStatusCode({ status: statusCode } as Response, ["4XX", "5XX"]),
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });

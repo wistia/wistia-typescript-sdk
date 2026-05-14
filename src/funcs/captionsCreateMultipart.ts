@@ -4,11 +4,13 @@
 
 import * as z from "zod/v3";
 import { WistiaCore } from "../core.js";
-import { appendForm, encodeSimple } from "../lib/encodings.js";
+import { appendForm, encodeSimple, normalizeBlob } from "../lib/encodings.js";
 import {
+  bytesToBlob,
   getContentTypeFromFileName,
   readableStreamToArrayBuffer,
 } from "../lib/files.js";
+import { matchStatusCode } from "../lib/http.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -33,15 +35,17 @@ import { Result } from "../types/fp.js";
 import { isReadableStream } from "../types/streams.js";
 
 /**
- * Captions Create
+ * Create Captions
  *
  * @remarks
  * Adds captions to a specified video by providing an SRT file or its contents directly.
  *
+ * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read, update & delete anything
  * ```
+ * <!--- /HIDE-MCP -->
  */
 export function captionsCreateMultipart(
   client: WistiaCore,
@@ -105,7 +109,10 @@ async function $do(
   const body = new FormData();
 
   if (isBlobLike(payload.RequestBody.caption_file)) {
-    appendForm(body, "caption_file", payload.RequestBody.caption_file);
+    const file = payload.RequestBody.caption_file;
+    const blob = await normalizeBlob(file);
+    const name = "name" in file ? (file.name as string) : undefined;
+    appendForm(body, "caption_file", blob, name);
   } else if (isReadableStream(payload.RequestBody.caption_file.content)) {
     const buffer = await readableStreamToArrayBuffer(
       payload.RequestBody.caption_file.content,
@@ -113,11 +120,10 @@ async function $do(
     const contentType =
       getContentTypeFromFileName(payload.RequestBody.caption_file.fileName)
       || "application/octet-stream";
-    const blob = new Blob([buffer], { type: contentType });
     appendForm(
       body,
       "caption_file",
-      blob,
+      bytesToBlob(buffer, contentType),
       payload.RequestBody.caption_file.fileName,
     );
   } else {
@@ -127,9 +133,7 @@ async function $do(
     appendForm(
       body,
       "caption_file",
-      new Blob([payload.RequestBody.caption_file.content], {
-        type: contentType,
-      }),
+      bytesToBlob(payload.RequestBody.caption_file.content, contentType),
       payload.RequestBody.caption_file.fileName,
     );
   }
@@ -143,7 +147,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/medias/{mediaHashedId}/captions")(pathParams);
 
   const headers = new Headers(compactMap({
@@ -186,7 +189,8 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["400", "401", "404", "4XX", "500", "5XX"],
+    isErrorStatusCode: (statusCode: number) =>
+      matchStatusCode({ status: statusCode } as Response, ["4XX", "5XX"]),
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });

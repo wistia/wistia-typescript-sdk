@@ -16,51 +16,10 @@ export type GetSearchRequest = {
   q: string;
 };
 
-export type GetSearchProject = {
-  /**
-   * A unique numeric identifier for the project within the system.
-   */
-  id: number;
-  /**
-   * The project’s display name.
-   */
-  name: string;
-  /**
-   * The project’s description.
-   */
-  description?: string | null | undefined;
-  /**
-   * The number of different medias that have been uploaded to the project.
-   */
-  mediaCount: number;
-  /**
-   * The date that the project was originally created.
-   */
-  created: Date;
-  /**
-   * The date that the project was last updated.
-   */
-  updated: Date;
-  /**
-   * A private hashed id, uniquely identifying the project within the system.
-   */
-  hashedId: string;
-  /**
-   * A boolean indicating whether the project is available for public (anonymous) viewing.
-   */
-  public: boolean;
-  /**
-   * If the project is public, this field contains a string representing the ID used for referencing the project in public URLs.
-   */
-  publicId: string | null;
-  anonymousCanUpload?: boolean | undefined;
-  anonymousCanDownload?: boolean | undefined;
-};
-
 /**
  * A string representing what type of media this is.
  */
-export const GetSearchType = {
+export const FolderType = {
   Video: "Video",
   Audio: "Audio",
   Image: "Image",
@@ -72,14 +31,14 @@ export const GetSearchType = {
 /**
  * A string representing what type of media this is.
  */
-export type GetSearchType = ClosedEnum<typeof GetSearchType>;
+export type FolderType = ClosedEnum<typeof FolderType>;
 
 /**
  * Post upload processing status. - `queued`: the file is waiting in the queue to be processed. - `processing`: the file is actively being processed. - `ready`: the file has been fully processed and is ready for embedding and viewing. - `failed`: the file was unable to be processed (usually a format or size error).
  *
  * @remarks
  */
-export const GetSearchStatus = {
+export const FolderStatus = {
   Queued: "queued",
   Processing: "processing",
   Ready: "ready",
@@ -90,15 +49,18 @@ export const GetSearchStatus = {
  *
  * @remarks
  */
-export type GetSearchStatus = ClosedEnum<typeof GetSearchStatus>;
+export type FolderStatus = ClosedEnum<typeof FolderStatus>;
 
-export type GetSearchThumbnail = {
+export type FolderThumbnail = {
   url?: string | undefined;
   width?: number | undefined;
   height?: number | undefined;
 };
 
-export type GetSearchMedia = {
+/**
+ * A link to where you can fetch the medias for this folder.
+ */
+export type GetSearchMedias = {
   /**
    * A unique numeric identifier for the media within the system.
    */
@@ -110,7 +72,7 @@ export type GetSearchMedia = {
   /**
    * A string representing what type of media this is.
    */
-  type?: GetSearchType | undefined;
+  type?: FolderType | undefined;
   /**
    * Whether or not the media is archived, either true or false.
    */
@@ -152,16 +114,183 @@ export type GetSearchMedia = {
    *
    * @remarks
    */
-  status?: GetSearchStatus | undefined;
+  status?: FolderStatus | undefined;
   /**
    * The title of the section in which the media appears. This attribute is omitted if the media is not in a section (default).
    */
   section?: string | null | undefined;
-  thumbnail?: GetSearchThumbnail | undefined;
+  thumbnail?: FolderThumbnail | undefined;
+};
+
+/**
+ * A folder (previously called a project) is a container in which to organize media into. It can be
+ *
+ * @remarks
+ * used to set permissions that apply to all the media in the folder as well as
+ * organizing media into subfolders (previously called media groups).
+ */
+export type GetSearchFolder = {
   /**
-   * The hashed ID of the project this media belongs to
+   * A unique numeric identifier for the folder within the system.
    */
-  projectHashedId: string;
+  id: number;
+  /**
+   * The folder’s display name.
+   */
+  name: string;
+  /**
+   * The folder’s description.
+   */
+  description?: string | null | undefined;
+  /**
+   * The number of different medias that have been uploaded to the folder.
+   */
+  mediaCount: number;
+  /**
+   * A link to where you can fetch the medias for this folder.
+   */
+  medias: GetSearchMedias;
+  /**
+   * The date that the folder was originally created.
+   */
+  created: Date;
+  /**
+   * The date that the folder was last updated.
+   */
+  updated: Date;
+  /**
+   * A private hashed id, uniquely identifying the folder within the system.
+   */
+  hashedId: string;
+  /**
+   * A boolean indicating whether the folder is available for public (anonymous) viewing.
+   */
+  public: boolean;
+  /**
+   * If the folder is public, this field contains a string representing the ID used for referencing the folder in public URLs.
+   */
+  publicId: string | null;
+  anonymousCanUpload?: boolean | undefined;
+  anonymousCanDownload?: boolean | undefined;
+  /**
+   * A cursor for stable pagination based on current `sort_by` order. You can pass this to `cursor[before]` or `cursor[after]` as a parameter to fetch the records before or after this record in the same sort order. This is only populated if records were fetched with `cursor[enabled]`, or `cursor[before]` or `cursor[after]`.
+   */
+  cursor?: string | null | undefined;
+};
+
+/**
+ * A string representing what type of media this is.
+ */
+export const GetSearchMediaType = {
+  Video: "Video",
+  Audio: "Audio",
+  Image: "Image",
+  PdfDocument: "PdfDocument",
+  MicrosoftOfficeDocument: "MicrosoftOfficeDocument",
+  Swf: "Swf",
+  UnknownType: "UnknownType",
+} as const;
+/**
+ * A string representing what type of media this is.
+ */
+export type GetSearchMediaType = ClosedEnum<typeof GetSearchMediaType>;
+
+/**
+ * Post upload processing status. - `queued`: the file is waiting in the queue to be processed. - `processing`: the file is actively being processed. - `ready`: the file has been fully processed and is ready for embedding and viewing. - `failed`: the file was unable to be processed (usually a format or size error).
+ *
+ * @remarks
+ */
+export const GetSearchMediaStatus = {
+  Queued: "queued",
+  Processing: "processing",
+  Ready: "ready",
+  Failed: "failed",
+} as const;
+/**
+ * Post upload processing status. - `queued`: the file is waiting in the queue to be processed. - `processing`: the file is actively being processed. - `ready`: the file has been fully processed and is ready for embedding and viewing. - `failed`: the file was unable to be processed (usually a format or size error).
+ *
+ * @remarks
+ */
+export type GetSearchMediaStatus = ClosedEnum<typeof GetSearchMediaStatus>;
+
+export type GetSearchMediaThumbnail = {
+  url?: string | undefined;
+  width?: number | undefined;
+  height?: number | undefined;
+};
+
+/**
+ * A media generally represents a video or an audio which can be embedded into your website.
+ *
+ * @remarks
+ *
+ * CDN-backed medias are accessible using this url structure: https://fast.wistia.com/embed/medias/{hashed_id}.m3u8.
+ * For more information, see https://docs.wistia.com/docs/asset-urls#getting-hls-assets.
+ */
+export type GetSearchMedia = {
+  /**
+   * A unique numeric identifier for the media within the system.
+   */
+  id?: number | undefined;
+  /**
+   * The display name of the media.
+   */
+  name?: string | undefined;
+  /**
+   * A string representing what type of media this is.
+   */
+  type?: GetSearchMediaType | undefined;
+  /**
+   * Whether or not the media is archived, either true or false.
+   */
+  archived?: boolean | undefined;
+  /**
+   * The date when the media was originally uploaded.
+   */
+  created?: Date | undefined;
+  /**
+   * The date when the media was last changed.
+   */
+  updated?: Date | undefined;
+  /**
+   * Specifies the length (in seconds) for audio and video files. Specifies number of pages in the document. Omitted for other types of media.
+   */
+  duration?: number | null | undefined;
+  /**
+   * DEPRECATED: If you want to programmatically embed videos, follow the construct an embed code guide.
+   *
+   * @remarks
+   *
+   * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+   */
+  embedCode?: string | undefined;
+  /**
+   * A unique alphanumeric identifier for this media.
+   */
+  hashedId?: string | undefined;
+  /**
+   * A description for the media which usually appears near the top of the sidebar on the media's page.
+   */
+  description?: string | undefined;
+  /**
+   * A floating point value between 0 and 1 that indicates the progress of the processing for this file.
+   */
+  progress?: number | undefined;
+  /**
+   * Post upload processing status. - `queued`: the file is waiting in the queue to be processed. - `processing`: the file is actively being processed. - `ready`: the file has been fully processed and is ready for embedding and viewing. - `failed`: the file was unable to be processed (usually a format or size error).
+   *
+   * @remarks
+   */
+  status?: GetSearchMediaStatus | undefined;
+  /**
+   * The title of the section in which the media appears. This attribute is omitted if the media is not in a section (default).
+   */
+  section?: string | null | undefined;
+  thumbnail?: GetSearchMediaThumbnail | undefined;
+  /**
+   * The hashed ID of the folder this media belongs to
+   */
+  folderHashedId: string | null;
 };
 
 export type Channel = {
@@ -219,11 +348,11 @@ export type ChannelEpisode = {
   /**
    * The hashed ID of the channel this episode belongs to.
    */
-  channelHashedId: string;
+  channelHashedId: string | null;
   /**
    * The hashed ID of the media associated with this channel episode.
    */
-  mediaHashedId: string;
+  mediaHashedId: string | null;
   /**
    * Whether the channel episode is published.
    */
@@ -243,7 +372,7 @@ export type ChannelEpisode = {
 };
 
 export type Data = {
-  projects: Array<GetSearchProject>;
+  folders: Array<GetSearchFolder>;
   medias: Array<GetSearchMedia>;
   channels: Array<Channel>;
   channelEpisodes: Array<ChannelEpisode>;
@@ -279,47 +408,16 @@ export function getSearchRequestToJSON(
 }
 
 /** @internal */
-export const GetSearchProject$inboundSchema: z.ZodType<
-  GetSearchProject,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: z.number().int(),
-  name: z.string(),
-  description: z.nullable(z.string()).optional(),
-  mediaCount: z.number().int(),
-  created: z.string().datetime({ offset: true }).transform(v => new Date(v)),
-  updated: z.string().datetime({ offset: true }).transform(v => new Date(v)),
-  hashedId: z.string(),
-  public: z.boolean(),
-  publicId: z.nullable(z.string()),
-  anonymousCanUpload: z.boolean().optional(),
-  anonymousCanDownload: z.boolean().optional(),
-});
-
-export function getSearchProjectFromJSON(
-  jsonString: string,
-): SafeParseResult<GetSearchProject, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetSearchProject$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetSearchProject' from JSON`,
-  );
-}
+export const FolderType$inboundSchema: z.ZodNativeEnum<typeof FolderType> = z
+  .nativeEnum(FolderType);
 
 /** @internal */
-export const GetSearchType$inboundSchema: z.ZodNativeEnum<
-  typeof GetSearchType
-> = z.nativeEnum(GetSearchType);
+export const FolderStatus$inboundSchema: z.ZodNativeEnum<typeof FolderStatus> =
+  z.nativeEnum(FolderStatus);
 
 /** @internal */
-export const GetSearchStatus$inboundSchema: z.ZodNativeEnum<
-  typeof GetSearchStatus
-> = z.nativeEnum(GetSearchStatus);
-
-/** @internal */
-export const GetSearchThumbnail$inboundSchema: z.ZodType<
-  GetSearchThumbnail,
+export const FolderThumbnail$inboundSchema: z.ZodType<
+  FolderThumbnail,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -328,13 +426,121 @@ export const GetSearchThumbnail$inboundSchema: z.ZodType<
   height: z.number().int().optional(),
 });
 
-export function getSearchThumbnailFromJSON(
+export function folderThumbnailFromJSON(
   jsonString: string,
-): SafeParseResult<GetSearchThumbnail, SDKValidationError> {
+): SafeParseResult<FolderThumbnail, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => GetSearchThumbnail$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetSearchThumbnail' from JSON`,
+    (x) => FolderThumbnail$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'FolderThumbnail' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetSearchMedias$inboundSchema: z.ZodType<
+  GetSearchMedias,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: z.number().int().optional(),
+  name: z.string().optional(),
+  type: FolderType$inboundSchema.optional(),
+  archived: z.boolean().optional(),
+  created: z.string().datetime({ offset: true }).transform(v => new Date(v))
+    .optional(),
+  updated: z.string().datetime({ offset: true }).transform(v => new Date(v))
+    .optional(),
+  duration: z.nullable(z.number()).optional(),
+  embedCode: z.string().optional(),
+  hashed_id: z.string().optional(),
+  description: z.string().optional(),
+  progress: z.number().optional(),
+  status: FolderStatus$inboundSchema.optional(),
+  section: z.nullable(z.string()).optional(),
+  thumbnail: z.lazy(() => FolderThumbnail$inboundSchema).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "hashed_id": "hashedId",
+  });
+});
+
+export function getSearchMediasFromJSON(
+  jsonString: string,
+): SafeParseResult<GetSearchMedias, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetSearchMedias$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetSearchMedias' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetSearchFolder$inboundSchema: z.ZodType<
+  GetSearchFolder,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: z.number().int(),
+  name: z.string(),
+  description: z.nullable(z.string()).optional(),
+  media_count: z.number().int(),
+  medias: z.lazy(() => GetSearchMedias$inboundSchema),
+  created: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  updated: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  hashed_id: z.string(),
+  public: z.boolean(),
+  public_id: z.nullable(z.string()),
+  anonymous_can_upload: z.boolean().optional(),
+  anonymous_can_download: z.boolean().optional(),
+  cursor: z.nullable(z.string()).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "media_count": "mediaCount",
+    "hashed_id": "hashedId",
+    "public_id": "publicId",
+    "anonymous_can_upload": "anonymousCanUpload",
+    "anonymous_can_download": "anonymousCanDownload",
+  });
+});
+
+export function getSearchFolderFromJSON(
+  jsonString: string,
+): SafeParseResult<GetSearchFolder, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetSearchFolder$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetSearchFolder' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetSearchMediaType$inboundSchema: z.ZodNativeEnum<
+  typeof GetSearchMediaType
+> = z.nativeEnum(GetSearchMediaType);
+
+/** @internal */
+export const GetSearchMediaStatus$inboundSchema: z.ZodNativeEnum<
+  typeof GetSearchMediaStatus
+> = z.nativeEnum(GetSearchMediaStatus);
+
+/** @internal */
+export const GetSearchMediaThumbnail$inboundSchema: z.ZodType<
+  GetSearchMediaThumbnail,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  url: z.string().optional(),
+  width: z.number().int().optional(),
+  height: z.number().int().optional(),
+});
+
+export function getSearchMediaThumbnailFromJSON(
+  jsonString: string,
+): SafeParseResult<GetSearchMediaThumbnail, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetSearchMediaThumbnail$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetSearchMediaThumbnail' from JSON`,
   );
 }
 
@@ -346,7 +552,7 @@ export const GetSearchMedia$inboundSchema: z.ZodType<
 > = z.object({
   id: z.number().int().optional(),
   name: z.string().optional(),
-  type: GetSearchType$inboundSchema.optional(),
+  type: GetSearchMediaType$inboundSchema.optional(),
   archived: z.boolean().optional(),
   created: z.string().datetime({ offset: true }).transform(v => new Date(v))
     .optional(),
@@ -357,13 +563,14 @@ export const GetSearchMedia$inboundSchema: z.ZodType<
   hashed_id: z.string().optional(),
   description: z.string().optional(),
   progress: z.number().optional(),
-  status: GetSearchStatus$inboundSchema.optional(),
+  status: GetSearchMediaStatus$inboundSchema.optional(),
   section: z.nullable(z.string()).optional(),
-  thumbnail: z.lazy(() => GetSearchThumbnail$inboundSchema).optional(),
-  projectHashedId: z.string(),
+  thumbnail: z.lazy(() => GetSearchMediaThumbnail$inboundSchema).optional(),
+  folder_hashed_id: z.nullable(z.string()),
 }).transform((v) => {
   return remap$(v, {
     "hashed_id": "hashedId",
+    "folder_hashed_id": "folderHashedId",
   });
 });
 
@@ -381,12 +588,17 @@ export function getSearchMediaFromJSON(
 export const Channel$inboundSchema: z.ZodType<Channel, z.ZodTypeDef, unknown> =
   z.object({
     id: z.number().int(),
-    hashedId: z.string(),
+    hashed_id: z.string(),
     name: z.string(),
     description: z.string(),
-    mediaCount: z.number().int(),
+    media_count: z.number().int(),
     created: z.string().datetime({ offset: true }).transform(v => new Date(v)),
     updated: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  }).transform((v) => {
+    return remap$(v, {
+      "hashed_id": "hashedId",
+      "media_count": "mediaCount",
+    });
   });
 
 export function channelFromJSON(
@@ -406,12 +618,12 @@ export const ChannelEpisode$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.number().int(),
-  hashedId: z.string(),
+  hashed_id: z.string(),
   title: z.nullable(z.string()).optional(),
   description: z.string(),
   summary: z.string(),
-  channelHashedId: z.string(),
-  mediaHashedId: z.string(),
+  channel_hashed_id: z.nullable(z.string()),
+  media_hashed_id: z.nullable(z.string()),
   published: z.boolean(),
   created: z.string().datetime({ offset: true }).transform(v => new Date(v)),
   updated: z.string().datetime({ offset: true }).transform(v => new Date(v)),
@@ -420,6 +632,9 @@ export const ChannelEpisode$inboundSchema: z.ZodType<
   ).optional(),
 }).transform((v) => {
   return remap$(v, {
+    "hashed_id": "hashedId",
+    "channel_hashed_id": "channelHashedId",
+    "media_hashed_id": "mediaHashedId",
     "publish_at": "publishAt",
   });
 });
@@ -437,10 +652,14 @@ export function channelEpisodeFromJSON(
 /** @internal */
 export const Data$inboundSchema: z.ZodType<Data, z.ZodTypeDef, unknown> = z
   .object({
-    projects: z.array(z.lazy(() => GetSearchProject$inboundSchema)),
+    folders: z.array(z.lazy(() => GetSearchFolder$inboundSchema)),
     medias: z.array(z.lazy(() => GetSearchMedia$inboundSchema)),
     channels: z.array(z.lazy(() => Channel$inboundSchema)),
-    channelEpisodes: z.array(z.lazy(() => ChannelEpisode$inboundSchema)),
+    channel_episodes: z.array(z.lazy(() => ChannelEpisode$inboundSchema)),
+  }).transform((v) => {
+    return remap$(v, {
+      "channel_episodes": "channelEpisodes",
+    });
   });
 
 export function dataFromJSON(

@@ -33,9 +33,16 @@ export type GetMediasMediaIdCustomizationsSocialbarV1 = {
   height?: string | undefined;
 };
 
+export type GetMediasMediaIdCustomizationsChapterList = {
+  id?: string | undefined;
+  title?: string | undefined;
+  time?: string | undefined;
+  deleted?: string | undefined;
+};
+
 export type GetMediasMediaIdCustomizationsChapters = {
   visibleOnLoad?: string | undefined;
-  chapterList?: string | undefined;
+  chapterList?: Array<GetMediasMediaIdCustomizationsChapterList> | undefined;
   on?: string | undefined;
 };
 
@@ -297,13 +304,43 @@ export function getMediasMediaIdCustomizationsSocialbarV1FromJSON(
 }
 
 /** @internal */
+export const GetMediasMediaIdCustomizationsChapterList$inboundSchema: z.ZodType<
+  GetMediasMediaIdCustomizationsChapterList,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: z.string().optional(),
+  title: z.string().optional(),
+  time: z.string().optional(),
+  deleted: z.string().optional(),
+});
+
+export function getMediasMediaIdCustomizationsChapterListFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetMediasMediaIdCustomizationsChapterList,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetMediasMediaIdCustomizationsChapterList$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'GetMediasMediaIdCustomizationsChapterList' from JSON`,
+  );
+}
+
+/** @internal */
 export const GetMediasMediaIdCustomizationsChapters$inboundSchema: z.ZodType<
   GetMediasMediaIdCustomizationsChapters,
   z.ZodTypeDef,
   unknown
 > = z.object({
   visibleOnLoad: z.string().optional(),
-  chapterList: z.string().optional(),
+  chapterList: z.array(
+    z.lazy(() => GetMediasMediaIdCustomizationsChapterList$inboundSchema),
+  ).optional(),
   on: z.string().optional(),
 });
 

@@ -4,7 +4,13 @@
 
 import * as z from "zod/v3";
 import { WistiaCore } from "../core.js";
-import { encodeFormQuery, encodeSimple } from "../lib/encodings.js";
+import {
+  encodeDeepObjectQuery,
+  encodeFormQuery,
+  encodeSimple,
+  queryJoin,
+} from "../lib/encodings.js";
+import { matchStatusCode } from "../lib/http.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -27,17 +33,17 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Channel Episodes List filtered by channel
+ * List Channel Episodes by Channel
  *
  * @remarks
- * Returns all the Channel Episodes belonging the channel passed in the path.
+ * Lists Channel Episodes belonging to the channel passed in the path.
  *
+ * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
- * Read, update & delete anything
- * Read all data
  * Read all folder and media data
  * ```
+ * <!--- /HIDE-MCP -->
  */
 export function channelsChannelEpisodesList(
   client: WistiaCore,
@@ -46,6 +52,7 @@ export function channelsChannelEpisodesList(
 ): APIPromise<
   Result<
     Array<operations.GetChannelsChannelHashedIdChannelEpisodesResponse>,
+    | errors.GetChannelsChannelHashedIdChannelEpisodesBadRequestError
     | errors.GetChannelsChannelHashedIdChannelEpisodesUnauthorizedError
     | errors.GetChannelsChannelHashedIdChannelEpisodesInternalServerError
     | WistiaError
@@ -73,6 +80,7 @@ async function $do(
   [
     Result<
       Array<operations.GetChannelsChannelHashedIdChannelEpisodesResponse>,
+      | errors.GetChannelsChannelHashedIdChannelEpisodesBadRequestError
       | errors.GetChannelsChannelHashedIdChannelEpisodesUnauthorizedError
       | errors.GetChannelsChannelHashedIdChannelEpisodesInternalServerError
       | WistiaError
@@ -106,21 +114,25 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/channels/{channelHashedId}/channel_episodes")(
     pathParams,
   );
 
-  const query = encodeFormQuery({
-    "hashed_id[]": payload["hashed_id[]"],
-    "media_id[]": payload["media_id[]"],
-    "page": payload.page,
-    "per_page": payload.per_page,
-    "published": payload.published,
-    "sort_by": payload.sort_by,
-    "sort_direction": payload.sort_direction,
-    "title": payload.title,
-  });
+  const query = queryJoin(
+    encodeDeepObjectQuery({
+      "cursor": payload.cursor,
+    }),
+    encodeFormQuery({
+      "hashed_ids[]": payload["hashed_ids[]"],
+      "media_id[]": payload["media_id[]"],
+      "page": payload.page,
+      "per_page": payload.per_page,
+      "published": payload.published,
+      "sort_by": payload.sort_by,
+      "sort_direction": payload.sort_direction,
+      "title": payload.title,
+    }),
+  );
 
   const headers = new Headers(compactMap({
     Accept: "application/json",
@@ -163,7 +175,8 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["401", "4XX", "500", "5XX"],
+    isErrorStatusCode: (statusCode: number) =>
+      matchStatusCode({ status: statusCode } as Response, ["4XX", "5XX"]),
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -178,6 +191,7 @@ async function $do(
 
   const [result] = await M.match<
     Array<operations.GetChannelsChannelHashedIdChannelEpisodesResponse>,
+    | errors.GetChannelsChannelHashedIdChannelEpisodesBadRequestError
     | errors.GetChannelsChannelHashedIdChannelEpisodesUnauthorizedError
     | errors.GetChannelsChannelHashedIdChannelEpisodesInternalServerError
     | WistiaError
@@ -195,6 +209,11 @@ async function $do(
         operations
           .GetChannelsChannelHashedIdChannelEpisodesResponse$inboundSchema,
       ),
+    ),
+    M.jsonErr(
+      400,
+      errors
+        .GetChannelsChannelHashedIdChannelEpisodesBadRequestError$inboundSchema,
     ),
     M.jsonErr(
       401,

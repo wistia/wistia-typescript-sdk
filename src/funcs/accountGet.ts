@@ -3,6 +3,7 @@
  */
 
 import { WistiaCore } from "../core.js";
+import { matchStatusCode } from "../lib/http.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { RequestOptions } from "../lib/sdks.js";
@@ -24,15 +25,17 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Account Show
+ * Get Current Account
  *
  * @remarks
- * Retrieve account details.
+ * Retrieves a summary of the Wistia account including account name, description, URL and counts of records.
  *
+ * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * (any scope allowed)
  * ```
+ * <!--- /HIDE-MCP -->
  */
 export function accountGet(
   client: WistiaCore,
@@ -120,7 +123,8 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["401", "4XX", "500", "5XX"],
+    isErrorStatusCode: (statusCode: number) =>
+      matchStatusCode({ status: statusCode } as Response, ["4XX", "5XX"]),
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
