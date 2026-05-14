@@ -76,6 +76,10 @@ export type PostChannelsChannelHashedIdChannelEpisodesRequestBody = {
    */
   episodeNumber?: number | undefined;
   /**
+   * The season number for this episode in your podcast.  This parameter only takes effect if podcasting is enabled for the channel.
+   */
+  seasonNumber?: number | undefined;
+  /**
    * Whether this episode contains explicit content.  This parameter only takes effect if podcasting is enabled for the channel.
    */
   explicitContent?: boolean | undefined;
@@ -168,6 +172,7 @@ export type PostChannelsChannelHashedIdChannelEpisodesRequestBody$Outbound = {
   publish_at?: string | undefined;
   episode_type?: string | undefined;
   episode_number?: number | undefined;
+  season_number?: number | undefined;
   explicit_content?: boolean | undefined;
   hide_from_feed?: boolean | undefined;
 };
@@ -191,6 +196,7 @@ export const PostChannelsChannelHashedIdChannelEpisodesRequestBody$outboundSchem
       PostChannelsChannelHashedIdChannelEpisodesEpisodeType$outboundSchema
         .optional(),
     episodeNumber: z.number().int().optional(),
+    seasonNumber: z.number().int().optional(),
     explicitContent: z.boolean().optional(),
     hideFromFeed: z.boolean().optional(),
   }).transform((v) => {
@@ -200,6 +206,7 @@ export const PostChannelsChannelHashedIdChannelEpisodesRequestBody$outboundSchem
       publishAt: "publish_at",
       episodeType: "episode_type",
       episodeNumber: "episode_number",
+      seasonNumber: "season_number",
       explicitContent: "explicit_content",
       hideFromFeed: "hide_from_feed",
     });
