@@ -3,12 +3,13 @@
  */
 
 import { WistiaCore } from "../core.js";
-import { appendForm } from "../lib/encodings.js";
+import { appendForm, normalizeBlob } from "../lib/encodings.js";
 import {
   bytesToBlob,
   getContentTypeFromFileName,
   readableStreamToArrayBuffer,
 } from "../lib/files.js";
+import { matchStatusCode } from "../lib/http.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -101,8 +102,9 @@ async function $do(
   const body = new FormData();
   if (payload != null) {
     if (isBlobLike(payload?.file)) {
-      const blob = payload?.file;
-      const name = "name" in blob ? (blob.name as string) : undefined;
+      const file = payload?.file;
+      const blob = await normalizeBlob(file);
+      const name = "name" in file ? (file.name as string) : undefined;
       appendForm(body, "file", blob, name);
     } else if (isReadableStream(payload?.file.content)) {
       const buffer = await readableStreamToArrayBuffer(payload?.file.content);
@@ -186,7 +188,8 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["400", "401", "4XX", "5XX"],
+    isErrorStatusCode: (statusCode: number) =>
+      matchStatusCode({ status: statusCode } as Response, ["4XX", "5XX"]),
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });

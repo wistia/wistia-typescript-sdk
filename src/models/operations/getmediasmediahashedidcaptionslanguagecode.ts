@@ -14,7 +14,7 @@ export type GetMediasMediaHashedIdCaptionsLanguageCodeRequest = {
    */
   mediaHashedId: string;
   /**
-   * The language code of the captions to be retrieved.
+   * The 3-character ISO 639-2 language code of the captions to be retrieved (e.g., `eng`, `fra`, `spa`). Some languages use extended IETF subtags (e.g., `zh-Hant`).
    */
   languageCode: string;
 };
