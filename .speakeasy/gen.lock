@@ -3,17 +3,17 @@ id: 7b32ab6a-5908-41aa-b82f-7906605d30ce
 management:
   docChecksum: 353c073f2755f2a79bf7cee7e19311cc
   docVersion: 2026.03.0
-  speakeasyVersion: 1.763.1
-  generationVersion: 2.884.4
-  releaseVersion: 2026.3.2
-  configChecksum: 6645f7cf70f34cdb65f4252431749508
+  speakeasyVersion: 1.763.4
+  generationVersion: 2.884.11
+  releaseVersion: 2026.3.3
+  configChecksum: 7c474ab479a1c866dc57f88ccb8b0dd6
   repoURL: https://github.com/wistia/wistia-typescript-sdk.git
   installationURL: https://github.com/wistia/wistia-typescript-sdk
   published: true
 persistentEdits:
-  generation_id: c9950fd6-2b92-455d-a97b-bd587b6b6f24
-  pristine_commit_hash: 4b146a975d0a84e6e6c46f72ed137930a6d9731b
-  pristine_tree_hash: 195cc23094f254f4eb457d9a78aa5f1467a96b60
+  generation_id: 076286ea-dc7a-40a1-98d6-1b3d483cf944
+  pristine_commit_hash: 4d662a1ab16fa8a5f045108f4239b630babc5d7a
+  pristine_tree_hash: 9ed5c1e2577d3e721bb5f744c4f57c801452d192
 features:
   typescript:
     acceptHeaders: 2.81.2
@@ -3931,12 +3931,12 @@ trackedFiles:
     pristine_git_object: bc36efebb0ffd4bfa1e92d14c3dc8c7ab56a6616
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:90d90a6149f5138f3b22e4ddcb159b8f67c51d24
-    pristine_git_object: a34627c027a42b669b061d9491b6fdf23e04018b
+    last_write_checksum: sha1:bae9a1c0ef4786c86804a00971e4065499642797
+    pristine_git_object: 7c04fef91918a452826b8e93213146c37fcd6bb4
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:944725dffb9a11f9cba6dcf72b2dc4a42a40a2ad
-    pristine_git_object: 88301f9e41677dd73b5bf53493b89a790f518d50
+    last_write_checksum: sha1:cfd3b3c4cd7ed64df6423fadcea0c0076e632eea
+    pristine_git_object: a477e66eba5ea2894b6b3653b2e6ef6b2d8a67ff
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:f6665a30b197a691ac0a443a71c68331c6761a5c
@@ -4395,8 +4395,8 @@ trackedFiles:
     pristine_git_object: 0aebd8b0a4867e35cb3348fc52921c3c0b4725b7
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:46f3c89c338fec80290119fc9c037a452df8fa21
-    pristine_git_object: af6198f8835027c0efa2be9f5be41cb3b00f1cd5
+    last_write_checksum: sha1:77c96e0e6efd423388184aa9036b3b5eba3c4cd1
+    pristine_git_object: 8d8d16708d396ec8ccfff72e48e4f488bb9ba179
   src/lib/dlv.ts:
     id: b1988214835a
     last_write_checksum: sha1:1dd3e3fbb4550c4bf31f5ef997faff355d6f3250
@@ -8119,7 +8119,6 @@ examples:
         "503":
           application/json: {"error": "Analytics service is temporarily unavailable"}
 examplesVersion: 1.0.2
-releaseNotes: "## Typescript SDK Changes:\n* `wistia.mediaExtendedAudioDescriptions.get/mediaExtendedAudioDescriptions()`: **Added**\n* `wistia.mediaExtendedAudioDescriptions.get/mediaExtendedAudioDescriptions/{id}()`: **Added**\n* `wistia.mediaExtendedAudioDescriptions.delete/mediaExtendedAudioDescriptions/{id}()`: **Added**\n* `wistia.mediaExtendedAudioDescriptions.post/mediaExtendedAudioDescriptions/order()`: **Added**\n* `wistia.mediaExtendedAudioDescriptions.get/mediaExtendedAudioDescriptions/orderStatus/{id}()`: **Added**\n* `wistia.allowedDomains.list()`: **Added**\n* `wistia.allowedDomains.create()`: **Added**\n* `wistia.allowedDomains.get()`: **Added**\n* `wistia.allowedDomains.delete()`: **Added**\n* `wistia.mediaExtendedAudioDescriptions.get/mediaExtendedAudioDescriptions()`: **Removed** (Breaking ⚠️)\n* `wistia.mediaExtendedAudioDescriptions.get/mediaExtendedAudioDescriptions/{id}()`: **Removed** (Breaking ⚠️)\n* `wistia.mediaExtendedAudioDescriptions.delete/mediaExtendedAudioDescriptions/{id}()`: **Removed** (Breaking ⚠️)\n* `wistia.mediaExtendedAudioDescriptions.post/mediaExtendedAudioDescriptions/order()`: **Removed** (Breaking ⚠️)\n* `wistia.mediaExtendedAudioDescriptions.get/mediaExtendedAudioDescriptions/orderStatus/{id}()`: **Removed** (Breaking ⚠️)\n* `wistia.allowedDomains.list()`: **Removed** (Breaking ⚠️)\n* `wistia.allowedDomains.create()`: **Removed** (Breaking ⚠️)\n* `wistia.allowedDomains.get()`: **Removed** (Breaking ⚠️)\n* `wistia.allowedDomains.delete()`: **Removed** (Breaking ⚠️)\n* `wistia.localizations.create()`:  `response` **Changed**\n* `wistia.channelEpisodes.create()`: \n  *  `request.requestBody.seasonNumber` **Added**\n* `wistia.analytics:media.get/analytics/medias/{mediaId}/embedLocations()`:  `response.[]` **Changed**\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
