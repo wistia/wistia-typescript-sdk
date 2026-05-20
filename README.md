@@ -189,8 +189,8 @@ run();
 * [list](docs/sdks/channelepisodes/README.md#list) - List Channel Episodes
 * [putChannelEpisodesChannelEpisodeHashedId](docs/sdks/channelepisodes/README.md#putchannelepisodeschannelepisodehashedid) - Channel Episode Update
 * [deleteChannelEpisodesChannelEpisodeHashedId](docs/sdks/channelepisodes/README.md#deletechannelepisodeschannelepisodehashedid) - Channel Episode Delete
-* [putChannelEpisodesChannelEpisodeHashedIdPublish](docs/sdks/channelepisodes/README.md#putchannelepisodeschannelepisodehashedidpublish) - Channel Episode Update
-* [putChannelEpisodesChannelEpisodeHashedIdUnpublish](docs/sdks/channelepisodes/README.md#putchannelepisodeschannelepisodehashedidunpublish) - Channel Episode Update
+* [putChannelEpisodesChannelEpisodeHashedIdPublish](docs/sdks/channelepisodes/README.md#putchannelepisodeschannelepisodehashedidpublish) - Publish Channel Episode
+* [putChannelEpisodesChannelEpisodeHashedIdUnpublish](docs/sdks/channelepisodes/README.md#putchannelepisodeschannelepisodehashedidunpublish) - Un-publish Channel Episode
 
 ### [Channels](docs/sdks/channels/README.md)
 
@@ -357,8 +357,8 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`channelEpisodesGet`](docs/sdks/channelepisodes/README.md#get) - Show Channel Episode
 - [`channelEpisodesList`](docs/sdks/channelepisodes/README.md#list) - List Channel Episodes
 - [`channelEpisodesPutChannelEpisodesChannelEpisodeHashedId`](docs/sdks/channelepisodes/README.md#putchannelepisodeschannelepisodehashedid) - Channel Episode Update
-- [`channelEpisodesPutChannelEpisodesChannelEpisodeHashedIdPublish`](docs/sdks/channelepisodes/README.md#putchannelepisodeschannelepisodehashedidpublish) - Channel Episode Update
-- [`channelEpisodesPutChannelEpisodesChannelEpisodeHashedIdUnpublish`](docs/sdks/channelepisodes/README.md#putchannelepisodeschannelepisodehashedidunpublish) - Channel Episode Update
+- [`channelEpisodesPutChannelEpisodesChannelEpisodeHashedIdPublish`](docs/sdks/channelepisodes/README.md#putchannelepisodeschannelepisodehashedidpublish) - Publish Channel Episode
+- [`channelEpisodesPutChannelEpisodesChannelEpisodeHashedIdUnpublish`](docs/sdks/channelepisodes/README.md#putchannelepisodeschannelepisodehashedidunpublish) - Un-publish Channel Episode
 - [`channelsChannelEpisodesList`](docs/sdks/channelschannelepisodes/README.md#list) - List Channel Episodes by Channel
 - [`channelsDeleteChannelsChannelHashedId`](docs/sdks/channels/README.md#deletechannelschannelhashedid) - Delete Channel
 - [`channelsGet`](docs/sdks/channels/README.md#get) - Show Channel

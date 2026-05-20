@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: 7b32ab6a-5908-41aa-b82f-7906605d30ce
 management:
-  docChecksum: fc118fe9bd87b615f7806817c7496832
+  docChecksum: 5c9c063c152beb020d10229a1d267f52
   docVersion: 2026.01.0
-  speakeasyVersion: 1.763.1
-  generationVersion: 2.884.4
-  releaseVersion: 2026.1.2
-  configChecksum: 51787429fd2833175f4dd8aa279dffcf
+  speakeasyVersion: 1.763.4
+  generationVersion: 2.884.11
+  releaseVersion: 2026.1.3
+  configChecksum: 9937596acfa9d8261fb8e9e6300568d9
   repoURL: https://github.com/wistia/wistia-typescript-sdk.git
   installationURL: https://github.com/wistia/wistia-typescript-sdk
   published: true
 persistentEdits:
-  generation_id: 9685c6be-4302-4533-b67a-c20f7738a55b
-  pristine_commit_hash: 11df02e9ac721c1d2cd12105c8158a9749f26201
-  pristine_tree_hash: 5f06a23243332a2e16b68f0b8e9e145001c22d76
+  generation_id: 4a07eba5-b58b-451f-b6f9-27aea11038c6
+  pristine_commit_hash: 26ae071aba712cf4132a6a83ac28f84ef5054861
+  pristine_tree_hash: f046955a79d5e809737f0f13502459694155d155
 features:
   typescript:
     acceptHeaders: 2.81.2
@@ -2991,8 +2991,8 @@ trackedFiles:
     pristine_git_object: 0fa8b830f9446250f2faa1a102acc3216aad6b04
   docs/sdks/channelepisodes/README.md:
     id: cb4e8f60eb33
-    last_write_checksum: sha1:192ec8522051f8428ec0d712e135bccdb1c5d544
-    pristine_git_object: 5d09600c12979937ff2ca46538e57a7c91f00682
+    last_write_checksum: sha1:11f8bf18d3f77fef14b25fdabdbfbacdcede8885
+    pristine_git_object: a8cbd3c285c8d48a864c8bbdce90ea40bfc6ad42
   docs/sdks/channels/README.md:
     id: 721bbf4c03d7
     last_write_checksum: sha1:86f2f00d30a4b913a60f19e0e026aacdc8b19b96
@@ -3099,12 +3099,12 @@ trackedFiles:
     pristine_git_object: bc36efebb0ffd4bfa1e92d14c3dc8c7ab56a6616
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:bc91973674044e9d3b44549da3a091175f2430d7
-    pristine_git_object: 6073a19d24b50fd0bbf715807d62c06e1fb5ed79
+    last_write_checksum: sha1:36573f4aa5ce2a3508e8cfc843d8f5455218c781
+    pristine_git_object: b26b78dd4769bda56c3381764913a941455a6356
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:75dba6e0660c9f815d8a1cb0e1b6101adfaaeafa
-    pristine_git_object: 7a7ad26a9a245fa68577d5eb3675a953013a7cdb
+    last_write_checksum: sha1:37797ee17501ca195b8a91514013335109464413
+    pristine_git_object: e1f01242b1988d9b0bc47baf16139bbaa599fb07
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:f6665a30b197a691ac0a443a71c68331c6761a5c
@@ -3191,12 +3191,12 @@ trackedFiles:
     pristine_git_object: 72d249ec652502cbe4bcfe099a1b0cd2fc47eabd
   src/funcs/channelEpisodesPutChannelEpisodesChannelEpisodeHashedIdPublish.ts:
     id: 5ffe7a543817
-    last_write_checksum: sha1:3622f9131f88cb9fd87f93806cd42cf96e37bc73
-    pristine_git_object: 7220cf2173a425dcb967452bbd3afd6b6bda658a
+    last_write_checksum: sha1:07f88d1b4e165e11651382e8374ab96e98080078
+    pristine_git_object: ed65a47bb1fe8cc4d8e28f75527073ebd8f6a9cd
   src/funcs/channelEpisodesPutChannelEpisodesChannelEpisodeHashedIdUnpublish.ts:
     id: d8eaa7f506c1
-    last_write_checksum: sha1:133d326c59dbce78cc65ca928c0f983faf80fed5
-    pristine_git_object: dae0982ab4002b4dca0788f5ee2578c11f88fc55
+    last_write_checksum: sha1:ba8bd4b3e6115278fb738f70ed8f9bc8cafa0150
+    pristine_git_object: 9126cc8643ec80aae3c6523d5e134f263b51d892
   src/funcs/channelsChannelEpisodesList.ts:
     id: 5ee5d45484b8
     last_write_checksum: sha1:680a9e650509c8f9225546db569bc7267ab8529b
@@ -3487,8 +3487,8 @@ trackedFiles:
     pristine_git_object: 0aebd8b0a4867e35cb3348fc52921c3c0b4725b7
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:71ca9f137be238ed959f68c467c7315194af88bc
-    pristine_git_object: 1298e7608a5194ffe4efa65c650864ae7ee84d41
+    last_write_checksum: sha1:6e0e007b5e50d917fa9a814e79713500cf53f4a4
+    pristine_git_object: 30719374f5af2f05d73735f96642fe0b4e2190f6
   src/lib/dlv.ts:
     id: b1988214835a
     last_write_checksum: sha1:1dd3e3fbb4550c4bf31f5ef997faff355d6f3250
@@ -4315,8 +4315,8 @@ trackedFiles:
     pristine_git_object: 87f90c2806751a376231083a904a5adf189624f9
   src/sdk/channelepisodes.ts:
     id: 24708f81b719
-    last_write_checksum: sha1:441f8727f51364ceb7ca9b0c97e7514d8e210524
-    pristine_git_object: fa0d46b40065876d9b1ef976a331735caead6128
+    last_write_checksum: sha1:a619f9cceaffb17d65412109cd40d951d62fd6e4
+    pristine_git_object: be18c2add04be2f6730310f6ac83297f3eb7d735
   src/sdk/channels.ts:
     id: c1e0e9341a5b
     last_write_checksum: sha1:b6b5f356de4074015a115b03bf99362e56773643
@@ -6614,7 +6614,6 @@ examples:
         "500":
           application/json: {"error": "Internal server error"}
 examplesVersion: 1.0.2
-releaseNotes: "## Typescript SDK Changes:\n* `wistia.media.list()`: \n  *  `request` **Changed** (Breaking ⚠️)\n  *  `response.[]` **Changed** (Breaking ⚠️)\n* `wistia.expiringAccessTokens.create()`:  `errors` **Changed** (Breaking ⚠️)\n* `wistia.channelEpisodes.list()`: \n  *  `request` **Changed** (Breaking ⚠️)\n  *  `response.[]` **Changed** (Breaking ⚠️)\n  *  `error.status[400]` **Added**\n* `wistia.channelEpisodes.create()`: \n  *  `request.requestBody.seasonNumber` **Added**\n  *  `response` **Changed** (Breaking ⚠️)\n* `wistia.channelEpisodes.get()`:  `response` **Changed** (Breaking ⚠️)\n* `wistia.channels.channelEpisodes.list()`: \n  *  `request` **Changed** (Breaking ⚠️)\n  *  `response.[]` **Changed** (Breaking ⚠️)\n  *  `error.status[400]` **Added**\n* `wistia.channels.get()`:  `response` **Changed** (Breaking ⚠️)\n* `wistia.channels.list()`: \n  *  `request.cursor` **Added**\n  *  `response.[]` **Changed** (Breaking ⚠️)\n  *  `error.status[400]` **Added**\n* `wistia.search.search()`:  `response.data` **Changed** (Breaking ⚠️)\n* `wistia.trims.create()`:  `errors` **Changed** (Breaking ⚠️)\n* `wistia.captions.get()`:  `response` **Changed** (Breaking ⚠️)\n* `wistia.captions.list()`:  `response.[]` **Changed** (Breaking ⚠️)\n* `wistia.customizations.update()`: \n  *  `request.requestBody.plugin.chapters.chapterList[]` **Changed** (Breaking ⚠️)\n  *  `response.plugin.chapters.chapterList` **Changed** (Breaking ⚠️)\n* `wistia.customizations.create()`: \n  *  `request.requestBody.plugin.chapters.chapterList[]` **Changed** (Breaking ⚠️)\n  *  `response.plugin.chapters.chapterList` **Changed** (Breaking ⚠️)\n* `wistia.customizations.get()`:  `response.plugin.chapters.chapterList` **Changed** (Breaking ⚠️)\n* `wistia.backgroundJobStatus.get()`:  `error.status[403]` **Removed** (Breaking ⚠️)\n* `wistia.account.get()`:  `response` **Changed** (Breaking ⚠️)\n* `wistia.media.restore()`:  `request` **Changed** (Breaking ⚠️)\n* `wistia.media.move()`:  `request` **Changed** (Breaking ⚠️)\n* `wistia.media.copy()`: \n  *  `request.requestBody` **Changed** (Breaking ⚠️)\n  *  `response` **Changed** (Breaking ⚠️)\n* `wistia.media.get()`:  `response` **Changed** (Breaking ⚠️)\n* `wistia.channels.put/channels/{channelHashedId}()`: **Added**\n* `wistia.allowedDomains.create()`: **Removed** (Breaking ⚠️)\n* `wistia.channelEpisodes.put/channelEpisodes/{channelEpisodeHashedId}()`: **Added**\n* `wistia.channelEpisodes.delete/channelEpisodes/{channelEpisodeHashedId}()`: **Added**\n* `wistia.channelEpisodes.put/channelEpisodes/{channelEpisodeHashedId}/publish()`: **Added**\n* `wistia.channelEpisodes.put/channelEpisodes/{channelEpisodeHashedId}/unpublish()`: **Added**\n* `wistia.webinars.get/webinars()`: **Added**\n* `wistia.webinars.post/webinars()`: **Added**\n* `wistia.webinars.get/webinars/{id}()`: **Added**\n* `wistia.webinars.put/webinars/{id}()`: **Added**\n* `wistia.webinars.delete/webinars/{id}()`: **Added**\n* `wistia.webinarRegistrations.post/webinars/{webinarId}/registrations()`: **Added**\n* `wistia.allowedDomains.list()`: **Added**\n* `wistia.allowedDomains.create()`: **Added**\n* `wistia.allowedDomains.get()`: **Added**\n* `wistia.allowedDomains.delete()`: **Added**\n* `wistia.projects.list()`: **Removed** (Breaking ⚠️)\n* `wistia.projects.create()`: **Removed** (Breaking ⚠️)\n* `wistia.projects.get()`: **Removed** (Breaking ⚠️)\n* `wistia.projects.update()`: **Removed** (Breaking ⚠️)\n* `wistia.projects.delete()`: **Removed** (Breaking ⚠️)\n* `wistia.projects.copy()`: **Removed** (Breaking ⚠️)\n* `wistia.subfolders.list()`: **Removed** (Breaking ⚠️)\n* `wistia.subfolders.create()`: **Removed** (Breaking ⚠️)\n* `wistia.subfolders.get()`: **Removed** (Breaking ⚠️)\n* `wistia.subfolders.update()`: **Removed** (Breaking ⚠️)\n* `wistia.subfolders.deleteSubfolder()`: **Removed** (Breaking ⚠️)\n* `wistia.projectSharings.list()`: **Removed** (Breaking ⚠️)\n* `wistia.projectSharings.create()`: **Removed** (Breaking ⚠️)\n* `wistia.projectSharings.get()`: **Removed** (Breaking ⚠️)\n* `wistia.projectSharings.update()`: **Removed** (Breaking ⚠️)\n* `wistia.projectSharings.delete()`: **Removed** (Breaking ⚠️)\n* `wistia.allowedDomains.list()`: **Removed** (Breaking ⚠️)\n* `wistia.channels.delete/channels/{channelHashedId}()`: **Added**\n* `wistia.allowedDomains.get()`: **Removed** (Breaking ⚠️)\n* `wistia.allowedDomains.delete()`: **Removed** (Breaking ⚠️)\n* `wistia.liveStreamEvents.list()`: **Removed** (Breaking ⚠️)\n* `wistia.liveStreamEvents.create()`: **Removed** (Breaking ⚠️)\n* `wistia.liveStreamEvents.get()`: **Removed** (Breaking ⚠️)\n* `wistia.liveStreamEvents.update()`: **Removed** (Breaking ⚠️)\n* `wistia.liveStreamEvents.delete()`: **Removed** (Breaking ⚠️)\n* `wistia.media.put/medias/copy()`: **Added**\n* `wistia.channels.post/channels()`: **Added**\n* `wistia.subfolders.delete/folders/{folderId}/subfolders/bulkDelete()`: **Added**\n* `wistia.subfolders.delete/folders/{folderId}/subfolders/{subfolderId}()`: **Added**\n* `wistia.subfolders.put/folders/{folderId}/subfolders/{subfolderId}()`: **Added**\n* `wistia.subfolders.get/folders/{folderId}/subfolders/{subfolderId}()`: **Added**\n* `wistia.subfolders.post/folders/{folderId}/subfolders()`: **Added**\n* `wistia.subfolders.get/folders/{folderId}/subfolders()`: **Added**\n* `wistia.folderSharings.delete/folders/{folderId}/sharings/{sharingId}()`: **Added**\n* `wistia.folderSharings.put/folders/{folderId}/sharings/{sharingId}()`: **Added**\n* `wistia.folderSharings.get/folders/{folderId}/sharings/{sharingId}()`: **Added**\n* `wistia.folderSharings.post/folders/{folderId}/sharings()`: **Added**\n* `wistia.folderSharings.get/folders/{folderId}/sharings()`: **Added**\n* `wistia.localizations.create()`:  `response` **Changed**\n* `wistia.tags.list()`: \n  *  `request.cursor` **Added**\n  *  `response.[].cursor` **Added**\n  *  `error.status[400]` **Added**\n* `wistia.tags.create()`:  `response.cursor` **Added**\n* `wistia.folders.post/folders/{id}/copy()`: **Added**\n* `wistia.folders.delete/folders/{id}()`: **Added**\n* `wistia.folders.put/folders/{id}()`: **Added**\n* `wistia.folders.get/folders/{id}()`: **Added**\n* `wistia.folders.post/folders()`: **Added**\n* `wistia.folders.get/folders()`: **Added**\n* `wistia.taggings.post/taggings/bulkCreate()`: **Added**\n* `wistia.captions.get/captions()`: **Added**\n* `wistia.statsEvents.list()`:  `error.status[422]` **Added**\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json

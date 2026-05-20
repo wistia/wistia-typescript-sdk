@@ -27,7 +27,7 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Channel Episode Update
+ * Un-publish Channel Episode
  *
  * @remarks
  * Unpublishes an existing channel episode in a channel.

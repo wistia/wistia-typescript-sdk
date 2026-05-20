@@ -1,9 +1,9 @@
-speakeasyVersion: 1.763.1
+speakeasyVersion: 1.763.4
 sources:
     Data API:
         sourceNamespace: data-api-2026-01
-        sourceRevisionDigest: sha256:1691f9d6d3ef087acfe0f5fe98f3673d96f06a061b462b731c7dee38d05472fb
-        sourceBlobDigest: sha256:522581c3a7b06361c478ab9cd0e37b35242eae33125bae0d20c8df3601e38bf1
+        sourceRevisionDigest: sha256:747a78c595e48e47107afb85e9c68fd7bbcbf841d556f8f56def44cf2afc0737
+        sourceBlobDigest: sha256:512c39f1c69c086af239301bf18944979f998e825edc2b177e2e4f693d95a94a
         tags:
             - latest
             - 2026.01.0
@@ -11,10 +11,10 @@ targets:
     wistia:
         source: Data API
         sourceNamespace: data-api-2026-01
-        sourceRevisionDigest: sha256:1691f9d6d3ef087acfe0f5fe98f3673d96f06a061b462b731c7dee38d05472fb
-        sourceBlobDigest: sha256:522581c3a7b06361c478ab9cd0e37b35242eae33125bae0d20c8df3601e38bf1
+        sourceRevisionDigest: sha256:747a78c595e48e47107afb85e9c68fd7bbcbf841d556f8f56def44cf2afc0737
+        sourceBlobDigest: sha256:512c39f1c69c086af239301bf18944979f998e825edc2b177e2e4f693d95a94a
         codeSamplesNamespace: data-api-2026-01-typescript-code-samples
-        codeSamplesRevisionDigest: sha256:57dda42a0c39c205223d8915706e9086740da632b52b55a32ff9bed48a2fe4f8
+        codeSamplesRevisionDigest: sha256:f663cdfb66848fb872949aedce1d36aaca394835144998e4daad95083855b599
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
@@ -28,6 +28,16 @@ workflow:
             output: .speakeasy/out.openapi.yaml
             registry:
                 location: registry.speakeasyapi.dev/wistia/wistia/data-api-2026-01
+        docs:
+            inputs:
+                - location: https://wistia.github.io/wistia/api/openapi-upload.yaml
+                - location: https://wistia.github.io/wistia/api/openapi-2026-01.yaml
+            overlays:
+                - location: .speakeasy/speakeasy-modifications-overlay.yaml
+                - location: registry.speakeasyapi.dev/wistia/wistia/data-api-2026-01-typescript-code-samples
+            output: .speakeasy/openapi-with-code-samples.yaml
+            registry:
+                location: registry.speakeasyapi.dev/wistia/wistia/data-api-2026-01-docs
     targets:
         wistia:
             target: typescript
