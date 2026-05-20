@@ -14646,7 +14646,7 @@ paths:
                       - Internal server error
   /channel_episodes/{channelEpisodeHashedId}/publish:
     put:
-      summary: Channel Episode Update
+      summary: Publish Channel Episode
       description: |
         Publishes an existing channel episode in a channel.
         ## Requires api token with one of the following permissions
@@ -14788,9 +14788,10 @@ paths:
                     type: string
                     examples:
                       - Internal server error
+      x-wistia-mcp-tool-name: publish-channel-episode
   /channel_episodes/{channelEpisodeHashedId}/unpublish:
     put:
-      summary: Channel Episode Update
+      summary: Un-publish Channel Episode
       description: |
         Unpublishes an existing channel episode in a channel.
         ## Requires api token with one of the following permissions
@@ -15051,6 +15052,7 @@ paths:
                     type: string
                     examples:
                       - Internal server error
+      x-wistia-mcp-tool-name: un-publish-channel-episode
   /webinars:
     get:
       summary: List Webinars

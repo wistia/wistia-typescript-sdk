@@ -9,8 +9,8 @@
 * [list](#list) - List Channel Episodes
 * [putChannelEpisodesChannelEpisodeHashedId](#putchannelepisodeschannelepisodehashedid) - Channel Episode Update
 * [deleteChannelEpisodesChannelEpisodeHashedId](#deletechannelepisodeschannelepisodehashedid) - Channel Episode Delete
-* [putChannelEpisodesChannelEpisodeHashedIdPublish](#putchannelepisodeschannelepisodehashedidpublish) - Channel Episode Update
-* [putChannelEpisodesChannelEpisodeHashedIdUnpublish](#putchannelepisodeschannelepisodehashedidunpublish) - Channel Episode Update
+* [putChannelEpisodesChannelEpisodeHashedIdPublish](#putchannelepisodeschannelepisodehashedidpublish) - Publish Channel Episode
+* [putChannelEpisodesChannelEpisodeHashedIdUnpublish](#putchannelepisodeschannelepisodehashedidunpublish) - Un-publish Channel Episode
 
 ## get
 

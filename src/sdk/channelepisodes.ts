@@ -137,7 +137,7 @@ export class ChannelEpisodes extends ClientSDK {
   }
 
   /**
-   * Channel Episode Update
+   * Publish Channel Episode
    *
    * @remarks
    * Publishes an existing channel episode in a channel.
@@ -162,7 +162,7 @@ export class ChannelEpisodes extends ClientSDK {
   }
 
   /**
-   * Channel Episode Update
+   * Un-publish Channel Episode
    *
    * @remarks
    * Unpublishes an existing channel episode in a channel.
