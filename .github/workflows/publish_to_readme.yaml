@@ -1,0 +1,94 @@
+name: Publish to ReadMe
+permissions:
+  contents: read
+"on":
+  workflow_run:
+    workflows: ["Publish"]
+    types: [completed]
+    branches:
+      - 'v20[0-9][0-9]-[0-9][0-9]'
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: "Version branch to publish (e.g. v2026-03)"
+        required: true
+        type: string
+
+jobs:
+  publish-to-readme:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - name: Determine branch
+        id: branch
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "ref=${{ github.event.inputs.branch }}" >> $GITHUB_OUTPUT
+          else
+            echo "ref=${{ github.event.workflow_run.head_branch }}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Checkout version branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.branch.outputs.ref }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Speakeasy CLI
+        uses: speakeasy-api/speakeasy-client-sdk-action@v1
+        with:
+          speakeasy_version: latest
+
+      - name: Determine ReadMe branch name
+        id: readme
+        run: |
+          # Extract version from branch name (v2026-03 -> v2026.03)
+          BRANCH="${{ steps.branch.outputs.ref }}"
+          VERSION="${BRANCH#v}"
+          README_BRANCH="v${VERSION/-/.}"
+          echo "branch=$README_BRANCH" >> $GITHUB_OUTPUT
+
+      - name: Apply code samples overlay to spec
+        run: |
+          speakeasy overlay apply \
+            -s .speakeasy/out.openapi.yaml \
+            -o code-samples.yaml \
+            --out combined-spec.yaml
+
+      - name: Strip HIDE-MCP tags
+        run: |
+          sed -i 's/<!--- HIDE-MCP -->//g; s/<!--- \/HIDE-MCP -->//g' combined-spec.yaml
+
+      - name: Remove x-readme-hidden endpoints
+        run: |
+          # Remove paths where x-readme-hidden is true
+          python3 -c "
+          import yaml, sys
+
+          with open('combined-spec.yaml', 'r') as f:
+              spec = yaml.safe_load(f)
+
+          paths_to_remove = []
+          for path, methods in spec.get('paths', {}).items():
+              for method, details in methods.items():
+                  if isinstance(details, dict) and details.get('x-readme-hidden'):
+                      paths_to_remove.append(path)
+                      break
+
+          for path in paths_to_remove:
+              del spec['paths'][path]
+
+          with open('combined-spec.yaml', 'w') as f:
+              yaml.dump(spec, f, default_flow_style=False, sort_keys=False, allow_unicode=True)
+          "
+
+      - name: Upload to ReadMe
+        run: |
+          npx rdme@latest openapi upload \
+            --branch "${{ steps.readme.outputs.branch }}" \
+            combined-spec.yaml \
+            --key=${{ secrets.README_API_KEY }}

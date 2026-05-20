@@ -10,16 +10,6 @@ sources:
         output: .speakeasy/out.openapi.yaml
         registry:
             location: registry.speakeasyapi.dev/wistia/wistia/data-api-2026-03
-    docs:
-        inputs:
-            - location: https://wistia.github.io/wistia/api/openapi-upload.yaml
-            - location: https://wistia.github.io/wistia/api/openapi-2026-03.yaml
-        overlays:
-            - location: .speakeasy/speakeasy-modifications-overlay.yaml
-            - location: registry.speakeasy.com/wistia/wistia/data-api-2026-03-typescript-code-samples
-        output: .speakeasy/openapi-with-code-samples.yaml
-        registry:
-            location: registry.speakeasyapi.dev/wistia/wistia/data-api-2026-03-docs
 targets:
     wistia:
         target: typescript
