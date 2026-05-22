@@ -27,14 +27,3 @@ jobs:
       github_access_token: ${{ secrets.GITHUB_TOKEN }}
       npm_token: ${{ secrets.NPM_TOKEN }}
       speakeasy_api_key: ${{ secrets.SPEAKEASY_API_KEY }}
-
-  notify-wistia:
-    needs: publish
-    runs-on: ubuntu-latest
-    steps:
-      - name: Dispatch to wistia repo
-        run: |
-          gh api repos/wistia/wistia/dispatches \
-            -f event_type=code-samples-updated
-        env:
-          GH_TOKEN: ${{ secrets.WISTIA_REPO_PAT }}
