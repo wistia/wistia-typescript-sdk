@@ -29,12 +29,20 @@ jobs:
     outputs:
       version: ${{ steps.version.outputs.version }}
     steps:
+        - name: Checkout
+          uses: actions/checkout@v4
         - name: Generate version
           id: version
           run: |
             if [ -n "${{ github.event.inputs.set_version }}" ]; then
               echo "version=${{ github.event.inputs.set_version }}" >> $GITHUB_OUTPUT
+            elif [[ "$GITHUB_REF_NAME" == v20* ]]; then
+              # Version branch: increment patch from current package.json
+              CURRENT=$(jq -r .version package.json)
+              IFS='.' read -r YEAR MONTH PATCH <<< "$CURRENT"
+              echo "version=${YEAR}.${MONTH}.$((PATCH + 1))" >> $GITHUB_OUTPUT
             else
+              # Main: date-based version
               echo "version=$(date +'%Y.%-m.1')" >> $GITHUB_OUTPUT
             fi
 
