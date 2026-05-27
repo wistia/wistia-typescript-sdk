@@ -649,7 +649,10 @@ describe('Wistia SDK Integration Tests', () => {
     });
 
     it('should list live stream events', async () => {
-      const liveStreamEvents = await wistia.webinars.getWebinars();
+      const liveStreamEvents = await wistia.webinars.getWebinars({
+        sortBy: 'id',
+        sortDirection: 0,
+      });
 
       assert.ok(Array.isArray(liveStreamEvents), 'Should return array of live stream events');
       log(`✅ Listed ${liveStreamEvents.length} live stream events`);
