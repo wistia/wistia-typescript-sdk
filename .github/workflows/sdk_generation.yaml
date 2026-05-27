@@ -17,6 +17,12 @@ permissions:
         type: string
   repository_dispatch:
     types: [oas-updated]
+  schedule:
+    - cron: 0 0 * * *
+  pull_request:
+    types:
+      - labeled
+      - unlabeled
 jobs:
   prepare:
     runs-on: ubuntu-latest
@@ -30,11 +36,14 @@ jobs:
           run: |
             if [ -n "${{ github.event.inputs.set_version }}" ]; then
               echo "version=${{ github.event.inputs.set_version }}" >> $GITHUB_OUTPUT
-            else
-              # Increment patch version from current package.json
+            elif [[ "$GITHUB_REF_NAME" == v20* ]]; then
+              # Version branch: increment patch from current package.json
               CURRENT=$(jq -r .version package.json)
               IFS='.' read -r YEAR MONTH PATCH <<< "$CURRENT"
               echo "version=${YEAR}.${MONTH}.$((PATCH + 1))" >> $GITHUB_OUTPUT
+            else
+              # Main: date-based version
+              echo "version=$(date +'%Y.%-m.1')" >> $GITHUB_OUTPUT
             fi
 
   generate:
