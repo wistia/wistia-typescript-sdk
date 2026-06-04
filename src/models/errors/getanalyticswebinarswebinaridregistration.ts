@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import * as operations from "../operations/index.js";
 import { WistiaError } from "./wistiaerror.js";
 
 /**
@@ -110,6 +111,10 @@ export class GetAnalyticsWebinarsWebinarIdRegistrationForbiddenError
  * Unauthorized, invalid or missing token
  */
 export type GetAnalyticsWebinarsWebinarIdRegistrationUnauthorizedErrorData = {
+  /**
+   * A machine-readable identifier for the specific authorization failure.
+   */
+  code?: operations.GetAnalyticsWebinarsWebinarIdRegistrationCode | undefined;
   error?: string | undefined;
 };
 
@@ -119,6 +124,10 @@ export type GetAnalyticsWebinarsWebinarIdRegistrationUnauthorizedErrorData = {
 export class GetAnalyticsWebinarsWebinarIdRegistrationUnauthorizedError
   extends WistiaError
 {
+  /**
+   * A machine-readable identifier for the specific authorization failure.
+   */
+  code?: operations.GetAnalyticsWebinarsWebinarIdRegistrationCode | undefined;
   error?: string | undefined;
 
   /** The original data that was passed to this error instance. */
@@ -133,6 +142,7 @@ export class GetAnalyticsWebinarsWebinarIdRegistrationUnauthorizedError
       : `API error occurred: ${JSON.stringify(err)}`;
     super(message, httpMeta);
     this.data$ = err;
+    if (err.code != null) this.code = err.code;
     if (err.error != null) this.error = err.error;
 
     this.name = "GetAnalyticsWebinarsWebinarIdRegistrationUnauthorizedError";
@@ -147,6 +157,10 @@ export type GetAnalyticsWebinarsWebinarIdRegistrationBadRequestErrorData = {
    * Error message detailing the reason for the bad request.
    */
   error?: string | undefined;
+  /**
+   * Array of error messages detailing the reasons for the bad request.
+   */
+  errors?: Array<string> | undefined;
 };
 
 /**
@@ -159,6 +173,10 @@ export class GetAnalyticsWebinarsWebinarIdRegistrationBadRequestError
    * Error message detailing the reason for the bad request.
    */
   error?: string | undefined;
+  /**
+   * Array of error messages detailing the reasons for the bad request.
+   */
+  errors?: Array<string> | undefined;
 
   /** The original data that was passed to this error instance. */
   data$: GetAnalyticsWebinarsWebinarIdRegistrationBadRequestErrorData;
@@ -173,6 +191,7 @@ export class GetAnalyticsWebinarsWebinarIdRegistrationBadRequestError
     super(message, httpMeta);
     this.data$ = err;
     if (err.error != null) this.error = err.error;
+    if (err.errors != null) this.errors = err.errors;
 
     this.name = "GetAnalyticsWebinarsWebinarIdRegistrationBadRequestError";
   }
@@ -243,6 +262,8 @@ export const GetAnalyticsWebinarsWebinarIdRegistrationUnauthorizedError$inboundS
     z.ZodTypeDef,
     unknown
   > = z.object({
+    code: operations.GetAnalyticsWebinarsWebinarIdRegistrationCode$inboundSchema
+      .optional(),
     error: z.string().optional(),
     request$: z.instanceof(Request),
     response$: z.instanceof(Response),
@@ -264,6 +285,7 @@ export const GetAnalyticsWebinarsWebinarIdRegistrationBadRequestError$inboundSch
     unknown
   > = z.object({
     error: z.string().optional(),
+    errors: z.array(z.string()).optional(),
     request$: z.instanceof(Request),
     response$: z.instanceof(Response),
     body$: z.string(),

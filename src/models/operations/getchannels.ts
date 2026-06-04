@@ -28,7 +28,7 @@ export const GetChannelsEnabled = {
 export type GetChannelsEnabled = ClosedEnum<typeof GetChannelsEnabled>;
 
 /**
- * If `cursor[enabled]` is set to 1 than cursor pagination is enabled and the
+ * If `cursor[enabled]` is set to 1 then cursor pagination is enabled and the
  *
  * @remarks
  * first set of records are fetched up to the `per_page`. Cursor
@@ -38,7 +38,7 @@ export type GetChannelsEnabled = ClosedEnum<typeof GetChannelsEnabled>;
  * the cursor of the first record can be used to fetch records before the result set.
  *
  * NOTE: a cursor value is only valid if the `sort_by` value hasn't changed from the
- * last fetch. For example, you cannot fetch using `sort_by` id and than pass that
+ * last fetch. For example, you cannot fetch using `sort_by` id and then pass that
  * cursor value to a `sort_by` name.
  */
 export type GetChannelsCursor = {
@@ -50,7 +50,7 @@ export type GetChannelsCursor = {
    */
   enabled?: GetChannelsEnabled | undefined;
   /**
-   * If `cursor[before]` is set than cursor pagination is enabled and all records
+   * If `cursor[before]` is set then cursor pagination is enabled and all records
    *
    * @remarks
    * before the cursor up to the `per_page` are returned. This feature is useful for
@@ -59,7 +59,7 @@ export type GetChannelsCursor = {
    */
   before?: string | undefined;
   /**
-   * If `cursor[after]` is set than cursor pagination is enabled and all records
+   * If `cursor[after]` is set then cursor pagination is enabled and all records
    *
    * @remarks
    * after the cursor up to the `per_page` are returned.
@@ -103,7 +103,7 @@ export type GetChannelsSortDirection = ClosedEnum<
 
 export type GetChannelsRequest = {
   /**
-   * If `cursor[enabled]` is set to 1 than cursor pagination is enabled and the
+   * If `cursor[enabled]` is set to 1 then cursor pagination is enabled and the
    *
    * @remarks
    * first set of records are fetched up to the `per_page`. Cursor
@@ -113,7 +113,7 @@ export type GetChannelsRequest = {
    * the cursor of the first record can be used to fetch records before the result set.
    *
    * NOTE: a cursor value is only valid if the `sort_by` value hasn't changed from the
-   * last fetch. For example, you cannot fetch using `sort_by` id and than pass that
+   * last fetch. For example, you cannot fetch using `sort_by` id and then pass that
    * cursor value to a `sort_by` name.
    */
   cursor?: GetChannelsCursor | undefined;
@@ -140,6 +140,526 @@ export type GetChannelsRequest = {
    * Find all of the channels limited to these hashed_ids.
    */
   hashedIds?: Array<string> | undefined;
+};
+
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const GetChannelsCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type GetChannelsCode = ClosedEnum<typeof GetChannelsCode>;
+
+/**
+ * The format for episodes for the podcast channel.
+ */
+export const GetChannelsEpisodeFormat = {
+  Episodic: "episodic",
+  EpisodicWithSeasons: "episodic_with_seasons",
+  Serial: "serial",
+} as const;
+/**
+ * The format for episodes for the podcast channel.
+ */
+export type GetChannelsEpisodeFormat = ClosedEnum<
+  typeof GetChannelsEpisodeFormat
+>;
+
+/**
+ * The primary category for the channel.
+ */
+export const GetChannelsCategory1 = {
+  ArtsGreaterThanBooks: "arts > books",
+  ArtsGreaterThanDesign: "arts > design",
+  ArtsGreaterThanFashionAndBeauty: "arts > fashion_and_beauty",
+  ArtsGreaterThanFood: "arts > food",
+  ArtsGreaterThanPerformingArts: "arts > performing_arts",
+  ArtsGreaterThanVisualArts: "arts > visual_arts",
+  BusinessGreaterThanCareers: "business > careers",
+  BusinessGreaterThanEntrepreneurship: "business > entrepreneurship",
+  BusinessGreaterThanInvesting: "business > investing",
+  BusinessGreaterThanManagement: "business > management",
+  BusinessGreaterThanMarketing: "business > marketing",
+  BusinessGreaterThanNonProfit: "business > non_profit",
+  ComedyGreaterThanComedyInterviews: "comedy > comedy_interviews",
+  ComedyGreaterThanImprov: "comedy > improv",
+  ComedyGreaterThanStandUp: "comedy > stand_up",
+  EducationGreaterThanCourses: "education > courses",
+  EducationGreaterThanHowTo: "education > how_to",
+  EducationGreaterThanLanguageLearning: "education > language_learning",
+  EducationGreaterThanSelfImprovement: "education > self_improvement",
+  FictionGreaterThanComedyFiction: "fiction > comedy_fiction",
+  FictionGreaterThanDrama: "fiction > drama",
+  FictionGreaterThanScienceFiction: "fiction > science_fiction",
+  HealthAndFitnessGreaterThanAlternativeHealth:
+    "health_and_fitness > alternative_health",
+  HealthAndFitnessGreaterThanFitness: "health_and_fitness > fitness",
+  HealthAndFitnessGreaterThanMedicine: "health_and_fitness > medicine",
+  HealthAndFitnessGreaterThanMentalHealth: "health_and_fitness > mental_health",
+  HealthAndFitnessGreaterThanNutrition: "health_and_fitness > nutrition",
+  HealthAndFitnessGreaterThanSexuality: "health_and_fitness > sexuality",
+  KidsAndFamilyGreaterThanEducationForKids:
+    "kids_and_family > education_for_kids",
+  KidsAndFamilyGreaterThanParenting: "kids_and_family > parenting",
+  KidsAndFamilyGreaterThanPetsAndAnimals: "kids_and_family > pets_and_animals",
+  KidsAndFamilyGreaterThanStoriesForKids: "kids_and_family > stories_for_kids",
+  LeisureGreaterThanAnimationAndManga: "leisure > animation_and_manga",
+  LeisureGreaterThanAutomotive: "leisure > automotive",
+  LeisureGreaterThanAviation: "leisure > aviation",
+  LeisureGreaterThanCrafts: "leisure > crafts",
+  LeisureGreaterThanGames: "leisure > games",
+  LeisureGreaterThanHobbies: "leisure > hobbies",
+  LeisureGreaterThanHomeAndGarden: "leisure > home_and_garden",
+  LeisureGreaterThanVideoGames: "leisure > video_games",
+  MusicGreaterThanMusicCommentary: "music > music_commentary",
+  MusicGreaterThanMusicHistory: "music > music_history",
+  MusicGreaterThanMusicInterviews: "music > music_interviews",
+  NewsGreaterThanBusinessNews: "news > business_news",
+  NewsGreaterThanDailyNews: "news > daily_news",
+  NewsGreaterThanEntertainmentNews: "news > entertainment_news",
+  NewsGreaterThanNewsCommentary: "news > news_commentary",
+  NewsGreaterThanPolitics: "news > politics",
+  NewsGreaterThanSportsNews: "news > sports_news",
+  NewsGreaterThanTechNews: "news > tech_news",
+  ReligionAndSpiritualityGreaterThanBuddhism:
+    "religion_and_spirituality > buddhism",
+  ReligionAndSpiritualityGreaterThanChristianity:
+    "religion_and_spirituality > christianity",
+  ReligionAndSpiritualityGreaterThanHinduism:
+    "religion_and_spirituality > hinduism",
+  ReligionAndSpiritualityGreaterThanIslam: "religion_and_spirituality > islam",
+  ReligionAndSpiritualityGreaterThanJudaism:
+    "religion_and_spirituality > judaism",
+  ReligionAndSpiritualityGreaterThanReligion:
+    "religion_and_spirituality > religion",
+  ReligionAndSpiritualityGreaterThanSpirituality:
+    "religion_and_spirituality > spirituality",
+  ScienceGreaterThanAstronomy: "science > astronomy",
+  ScienceGreaterThanChemistry: "science > chemistry",
+  ScienceGreaterThanEarthSciences: "science > earth_sciences",
+  ScienceGreaterThanLifeSciences: "science > life_sciences",
+  ScienceGreaterThanMathematics: "science > mathematics",
+  ScienceGreaterThanNaturalSciences: "science > natural_sciences",
+  ScienceGreaterThanNature: "science > nature",
+  ScienceGreaterThanPhysics: "science > physics",
+  ScienceGreaterThanSocialSciences: "science > social_sciences",
+  SocietyAndCultureGreaterThanDocumentary: "society_and_culture > documentary",
+  SocietyAndCultureGreaterThanPersonalJournals:
+    "society_and_culture > personal_journals",
+  SocietyAndCultureGreaterThanPhilosophy: "society_and_culture > philosophy",
+  SocietyAndCultureGreaterThanPlacesAndTravel:
+    "society_and_culture > places_and_travel",
+  SocietyAndCultureGreaterThanRelationships:
+    "society_and_culture > relationships",
+  SportsGreaterThanBaseball: "sports > baseball",
+  SportsGreaterThanBasketball: "sports > basketball",
+  SportsGreaterThanCricket: "sports > cricket",
+  SportsGreaterThanFantasySports: "sports > fantasy_sports",
+  SportsGreaterThanFootball: "sports > football",
+  SportsGreaterThanGolf: "sports > golf",
+  SportsGreaterThanHockey: "sports > hockey",
+  SportsGreaterThanRugby: "sports > rugby",
+  SportsGreaterThanRunning: "sports > running",
+  SportsGreaterThanSoccer: "sports > soccer",
+  SportsGreaterThanSwimming: "sports > swimming",
+  SportsGreaterThanTennis: "sports > tennis",
+  SportsGreaterThanVolleyball: "sports > volleyball",
+  SportsGreaterThanWilderness: "sports > wilderness",
+  SportsGreaterThanWrestling: "sports > wrestling",
+  TvAndFilmGreaterThanAfterShows: "tv_and_film > after_shows",
+  TvAndFilmGreaterThanFilmHistory: "tv_and_film > film_history",
+  TvAndFilmGreaterThanFilmInterviews: "tv_and_film > film_interviews",
+  TvAndFilmGreaterThanFilmReviews: "tv_and_film > film_reviews",
+  TvAndFilmGreaterThanTvReviews: "tv_and_film > tv_reviews",
+} as const;
+/**
+ * The primary category for the channel.
+ */
+export type GetChannelsCategory1 = ClosedEnum<typeof GetChannelsCategory1>;
+
+/**
+ * The secondary category for the channel.
+ */
+export const GetChannelsCategory2 = {
+  ArtsGreaterThanBooks: "arts > books",
+  ArtsGreaterThanDesign: "arts > design",
+  ArtsGreaterThanFashionAndBeauty: "arts > fashion_and_beauty",
+  ArtsGreaterThanFood: "arts > food",
+  ArtsGreaterThanPerformingArts: "arts > performing_arts",
+  ArtsGreaterThanVisualArts: "arts > visual_arts",
+  BusinessGreaterThanCareers: "business > careers",
+  BusinessGreaterThanEntrepreneurship: "business > entrepreneurship",
+  BusinessGreaterThanInvesting: "business > investing",
+  BusinessGreaterThanManagement: "business > management",
+  BusinessGreaterThanMarketing: "business > marketing",
+  BusinessGreaterThanNonProfit: "business > non_profit",
+  ComedyGreaterThanComedyInterviews: "comedy > comedy_interviews",
+  ComedyGreaterThanImprov: "comedy > improv",
+  ComedyGreaterThanStandUp: "comedy > stand_up",
+  EducationGreaterThanCourses: "education > courses",
+  EducationGreaterThanHowTo: "education > how_to",
+  EducationGreaterThanLanguageLearning: "education > language_learning",
+  EducationGreaterThanSelfImprovement: "education > self_improvement",
+  FictionGreaterThanComedyFiction: "fiction > comedy_fiction",
+  FictionGreaterThanDrama: "fiction > drama",
+  FictionGreaterThanScienceFiction: "fiction > science_fiction",
+  HealthAndFitnessGreaterThanAlternativeHealth:
+    "health_and_fitness > alternative_health",
+  HealthAndFitnessGreaterThanFitness: "health_and_fitness > fitness",
+  HealthAndFitnessGreaterThanMedicine: "health_and_fitness > medicine",
+  HealthAndFitnessGreaterThanMentalHealth: "health_and_fitness > mental_health",
+  HealthAndFitnessGreaterThanNutrition: "health_and_fitness > nutrition",
+  HealthAndFitnessGreaterThanSexuality: "health_and_fitness > sexuality",
+  KidsAndFamilyGreaterThanEducationForKids:
+    "kids_and_family > education_for_kids",
+  KidsAndFamilyGreaterThanParenting: "kids_and_family > parenting",
+  KidsAndFamilyGreaterThanPetsAndAnimals: "kids_and_family > pets_and_animals",
+  KidsAndFamilyGreaterThanStoriesForKids: "kids_and_family > stories_for_kids",
+  LeisureGreaterThanAnimationAndManga: "leisure > animation_and_manga",
+  LeisureGreaterThanAutomotive: "leisure > automotive",
+  LeisureGreaterThanAviation: "leisure > aviation",
+  LeisureGreaterThanCrafts: "leisure > crafts",
+  LeisureGreaterThanGames: "leisure > games",
+  LeisureGreaterThanHobbies: "leisure > hobbies",
+  LeisureGreaterThanHomeAndGarden: "leisure > home_and_garden",
+  LeisureGreaterThanVideoGames: "leisure > video_games",
+  MusicGreaterThanMusicCommentary: "music > music_commentary",
+  MusicGreaterThanMusicHistory: "music > music_history",
+  MusicGreaterThanMusicInterviews: "music > music_interviews",
+  NewsGreaterThanBusinessNews: "news > business_news",
+  NewsGreaterThanDailyNews: "news > daily_news",
+  NewsGreaterThanEntertainmentNews: "news > entertainment_news",
+  NewsGreaterThanNewsCommentary: "news > news_commentary",
+  NewsGreaterThanPolitics: "news > politics",
+  NewsGreaterThanSportsNews: "news > sports_news",
+  NewsGreaterThanTechNews: "news > tech_news",
+  ReligionAndSpiritualityGreaterThanBuddhism:
+    "religion_and_spirituality > buddhism",
+  ReligionAndSpiritualityGreaterThanChristianity:
+    "religion_and_spirituality > christianity",
+  ReligionAndSpiritualityGreaterThanHinduism:
+    "religion_and_spirituality > hinduism",
+  ReligionAndSpiritualityGreaterThanIslam: "religion_and_spirituality > islam",
+  ReligionAndSpiritualityGreaterThanJudaism:
+    "religion_and_spirituality > judaism",
+  ReligionAndSpiritualityGreaterThanReligion:
+    "religion_and_spirituality > religion",
+  ReligionAndSpiritualityGreaterThanSpirituality:
+    "religion_and_spirituality > spirituality",
+  ScienceGreaterThanAstronomy: "science > astronomy",
+  ScienceGreaterThanChemistry: "science > chemistry",
+  ScienceGreaterThanEarthSciences: "science > earth_sciences",
+  ScienceGreaterThanLifeSciences: "science > life_sciences",
+  ScienceGreaterThanMathematics: "science > mathematics",
+  ScienceGreaterThanNaturalSciences: "science > natural_sciences",
+  ScienceGreaterThanNature: "science > nature",
+  ScienceGreaterThanPhysics: "science > physics",
+  ScienceGreaterThanSocialSciences: "science > social_sciences",
+  SocietyAndCultureGreaterThanDocumentary: "society_and_culture > documentary",
+  SocietyAndCultureGreaterThanPersonalJournals:
+    "society_and_culture > personal_journals",
+  SocietyAndCultureGreaterThanPhilosophy: "society_and_culture > philosophy",
+  SocietyAndCultureGreaterThanPlacesAndTravel:
+    "society_and_culture > places_and_travel",
+  SocietyAndCultureGreaterThanRelationships:
+    "society_and_culture > relationships",
+  SportsGreaterThanBaseball: "sports > baseball",
+  SportsGreaterThanBasketball: "sports > basketball",
+  SportsGreaterThanCricket: "sports > cricket",
+  SportsGreaterThanFantasySports: "sports > fantasy_sports",
+  SportsGreaterThanFootball: "sports > football",
+  SportsGreaterThanGolf: "sports > golf",
+  SportsGreaterThanHockey: "sports > hockey",
+  SportsGreaterThanRugby: "sports > rugby",
+  SportsGreaterThanRunning: "sports > running",
+  SportsGreaterThanSoccer: "sports > soccer",
+  SportsGreaterThanSwimming: "sports > swimming",
+  SportsGreaterThanTennis: "sports > tennis",
+  SportsGreaterThanVolleyball: "sports > volleyball",
+  SportsGreaterThanWilderness: "sports > wilderness",
+  SportsGreaterThanWrestling: "sports > wrestling",
+  TvAndFilmGreaterThanAfterShows: "tv_and_film > after_shows",
+  TvAndFilmGreaterThanFilmHistory: "tv_and_film > film_history",
+  TvAndFilmGreaterThanFilmInterviews: "tv_and_film > film_interviews",
+  TvAndFilmGreaterThanFilmReviews: "tv_and_film > film_reviews",
+  TvAndFilmGreaterThanTvReviews: "tv_and_film > tv_reviews",
+} as const;
+/**
+ * The secondary category for the channel.
+ */
+export type GetChannelsCategory2 = ClosedEnum<typeof GetChannelsCategory2>;
+
+/**
+ * The third category for the channel.
+ */
+export const GetChannelsCategory3 = {
+  ArtsGreaterThanBooks: "arts > books",
+  ArtsGreaterThanDesign: "arts > design",
+  ArtsGreaterThanFashionAndBeauty: "arts > fashion_and_beauty",
+  ArtsGreaterThanFood: "arts > food",
+  ArtsGreaterThanPerformingArts: "arts > performing_arts",
+  ArtsGreaterThanVisualArts: "arts > visual_arts",
+  BusinessGreaterThanCareers: "business > careers",
+  BusinessGreaterThanEntrepreneurship: "business > entrepreneurship",
+  BusinessGreaterThanInvesting: "business > investing",
+  BusinessGreaterThanManagement: "business > management",
+  BusinessGreaterThanMarketing: "business > marketing",
+  BusinessGreaterThanNonProfit: "business > non_profit",
+  ComedyGreaterThanComedyInterviews: "comedy > comedy_interviews",
+  ComedyGreaterThanImprov: "comedy > improv",
+  ComedyGreaterThanStandUp: "comedy > stand_up",
+  EducationGreaterThanCourses: "education > courses",
+  EducationGreaterThanHowTo: "education > how_to",
+  EducationGreaterThanLanguageLearning: "education > language_learning",
+  EducationGreaterThanSelfImprovement: "education > self_improvement",
+  FictionGreaterThanComedyFiction: "fiction > comedy_fiction",
+  FictionGreaterThanDrama: "fiction > drama",
+  FictionGreaterThanScienceFiction: "fiction > science_fiction",
+  HealthAndFitnessGreaterThanAlternativeHealth:
+    "health_and_fitness > alternative_health",
+  HealthAndFitnessGreaterThanFitness: "health_and_fitness > fitness",
+  HealthAndFitnessGreaterThanMedicine: "health_and_fitness > medicine",
+  HealthAndFitnessGreaterThanMentalHealth: "health_and_fitness > mental_health",
+  HealthAndFitnessGreaterThanNutrition: "health_and_fitness > nutrition",
+  HealthAndFitnessGreaterThanSexuality: "health_and_fitness > sexuality",
+  KidsAndFamilyGreaterThanEducationForKids:
+    "kids_and_family > education_for_kids",
+  KidsAndFamilyGreaterThanParenting: "kids_and_family > parenting",
+  KidsAndFamilyGreaterThanPetsAndAnimals: "kids_and_family > pets_and_animals",
+  KidsAndFamilyGreaterThanStoriesForKids: "kids_and_family > stories_for_kids",
+  LeisureGreaterThanAnimationAndManga: "leisure > animation_and_manga",
+  LeisureGreaterThanAutomotive: "leisure > automotive",
+  LeisureGreaterThanAviation: "leisure > aviation",
+  LeisureGreaterThanCrafts: "leisure > crafts",
+  LeisureGreaterThanGames: "leisure > games",
+  LeisureGreaterThanHobbies: "leisure > hobbies",
+  LeisureGreaterThanHomeAndGarden: "leisure > home_and_garden",
+  LeisureGreaterThanVideoGames: "leisure > video_games",
+  MusicGreaterThanMusicCommentary: "music > music_commentary",
+  MusicGreaterThanMusicHistory: "music > music_history",
+  MusicGreaterThanMusicInterviews: "music > music_interviews",
+  NewsGreaterThanBusinessNews: "news > business_news",
+  NewsGreaterThanDailyNews: "news > daily_news",
+  NewsGreaterThanEntertainmentNews: "news > entertainment_news",
+  NewsGreaterThanNewsCommentary: "news > news_commentary",
+  NewsGreaterThanPolitics: "news > politics",
+  NewsGreaterThanSportsNews: "news > sports_news",
+  NewsGreaterThanTechNews: "news > tech_news",
+  ReligionAndSpiritualityGreaterThanBuddhism:
+    "religion_and_spirituality > buddhism",
+  ReligionAndSpiritualityGreaterThanChristianity:
+    "religion_and_spirituality > christianity",
+  ReligionAndSpiritualityGreaterThanHinduism:
+    "religion_and_spirituality > hinduism",
+  ReligionAndSpiritualityGreaterThanIslam: "religion_and_spirituality > islam",
+  ReligionAndSpiritualityGreaterThanJudaism:
+    "religion_and_spirituality > judaism",
+  ReligionAndSpiritualityGreaterThanReligion:
+    "religion_and_spirituality > religion",
+  ReligionAndSpiritualityGreaterThanSpirituality:
+    "religion_and_spirituality > spirituality",
+  ScienceGreaterThanAstronomy: "science > astronomy",
+  ScienceGreaterThanChemistry: "science > chemistry",
+  ScienceGreaterThanEarthSciences: "science > earth_sciences",
+  ScienceGreaterThanLifeSciences: "science > life_sciences",
+  ScienceGreaterThanMathematics: "science > mathematics",
+  ScienceGreaterThanNaturalSciences: "science > natural_sciences",
+  ScienceGreaterThanNature: "science > nature",
+  ScienceGreaterThanPhysics: "science > physics",
+  ScienceGreaterThanSocialSciences: "science > social_sciences",
+  SocietyAndCultureGreaterThanDocumentary: "society_and_culture > documentary",
+  SocietyAndCultureGreaterThanPersonalJournals:
+    "society_and_culture > personal_journals",
+  SocietyAndCultureGreaterThanPhilosophy: "society_and_culture > philosophy",
+  SocietyAndCultureGreaterThanPlacesAndTravel:
+    "society_and_culture > places_and_travel",
+  SocietyAndCultureGreaterThanRelationships:
+    "society_and_culture > relationships",
+  SportsGreaterThanBaseball: "sports > baseball",
+  SportsGreaterThanBasketball: "sports > basketball",
+  SportsGreaterThanCricket: "sports > cricket",
+  SportsGreaterThanFantasySports: "sports > fantasy_sports",
+  SportsGreaterThanFootball: "sports > football",
+  SportsGreaterThanGolf: "sports > golf",
+  SportsGreaterThanHockey: "sports > hockey",
+  SportsGreaterThanRugby: "sports > rugby",
+  SportsGreaterThanRunning: "sports > running",
+  SportsGreaterThanSoccer: "sports > soccer",
+  SportsGreaterThanSwimming: "sports > swimming",
+  SportsGreaterThanTennis: "sports > tennis",
+  SportsGreaterThanVolleyball: "sports > volleyball",
+  SportsGreaterThanWilderness: "sports > wilderness",
+  SportsGreaterThanWrestling: "sports > wrestling",
+  TvAndFilmGreaterThanAfterShows: "tv_and_film > after_shows",
+  TvAndFilmGreaterThanFilmHistory: "tv_and_film > film_history",
+  TvAndFilmGreaterThanFilmInterviews: "tv_and_film > film_interviews",
+  TvAndFilmGreaterThanFilmReviews: "tv_and_film > film_reviews",
+  TvAndFilmGreaterThanTvReviews: "tv_and_film > tv_reviews",
+} as const;
+/**
+ * The third category for the channel.
+ */
+export type GetChannelsCategory3 = ClosedEnum<typeof GetChannelsCategory3>;
+
+/**
+ * The ISO 639-1 language code for the channel.
+ */
+export const GetChannelsLanguage = {
+  Af: "af",
+  Be: "be",
+  Bg: "bg",
+  Ca: "ca",
+  Cs: "cs",
+  Da: "da",
+  DeAt: "de-at",
+  DeCh: "de-ch",
+  DeDe: "de-de",
+  DeLi: "de-li",
+  DeLu: "de-lu",
+  De: "de",
+  El: "el",
+  EnAu: "en-au",
+  EnBz: "en-bz",
+  EnCa: "en-ca",
+  EnGb: "en-gb",
+  EnIe: "en-ie",
+  EnJm: "en-jm",
+  EnNz: "en-nz",
+  EnPh: "en-ph",
+  EnTt: "en-tt",
+  EnUs: "en-us",
+  EnZa: "en-za",
+  EnZw: "en-zw",
+  En: "en",
+  EsAr: "es-ar",
+  EsBo: "es-bo",
+  EsCl: "es-cl",
+  EsCo: "es-co",
+  EsCr: "es-cr",
+  EsDo: "es-do",
+  EsEc: "es-ec",
+  EsEs: "es-es",
+  EsGt: "es-gt",
+  EsHn: "es-hn",
+  EsMx: "es-mx",
+  EsNi: "es-ni",
+  EsPa: "es-pa",
+  EsPe: "es-pe",
+  EsPr: "es-pr",
+  EsPy: "es-py",
+  EsSv: "es-sv",
+  EsUy: "es-uy",
+  EsVe: "es-ve",
+  Es: "es",
+  Et: "et",
+  Eu: "eu",
+  Fi: "fi",
+  Fo: "fo",
+  FrBe: "fr-be",
+  FrCa: "fr-ca",
+  FrCh: "fr-ch",
+  FrFr: "fr-fr",
+  FrLu: "fr-lu",
+  FrMc: "fr-mc",
+  Fr: "fr",
+  Ga: "ga",
+  Gd: "gd",
+  Gl: "gl",
+  Haw: "haw",
+  Hr: "hr",
+  Hu: "hu",
+  In: "in",
+  Is: "is",
+  ItCh: "it-ch",
+  ItIt: "it-it",
+  It: "it",
+  Ja: "ja",
+  Ko: "ko",
+  Mk: "mk",
+  NlBe: "nl-be",
+  NlNl: "nl-nl",
+  Nl: "nl",
+  No: "no",
+  Pl: "pl",
+  PtBr: "pt-br",
+  PtPt: "pt-pt",
+  Pt: "pt",
+  RoMo: "ro-mo",
+  RoRo: "ro-ro",
+  Ro: "ro",
+  RuMo: "ru-mo",
+  RuRu: "ru-ru",
+  Ru: "ru",
+  Sk: "sk",
+  Sl: "sl",
+  Sq: "sq",
+  Sr: "sr",
+  SvFi: "sv-fi",
+  SvSe: "sv-se",
+  Sv: "sv",
+  Tr: "tr",
+  Uk: "uk",
+  ZhCn: "zh-cn",
+  ZhTw: "zh-tw",
+} as const;
+/**
+ * The ISO 639-1 language code for the channel.
+ */
+export type GetChannelsLanguage = ClosedEnum<typeof GetChannelsLanguage>;
+
+/**
+ * Podcast specific settings for the channel. Only present when podcasting
+ *
+ * @remarks
+ * is enabled for the channel.
+ */
+export type GetChannelsPodcastSettings = {
+  /**
+   * The channel's copyright information.
+   */
+  copyright?: string | null | undefined;
+  /**
+   * The format for episodes for the podcast channel.
+   */
+  episodeFormat?: GetChannelsEpisodeFormat | null | undefined;
+  /**
+   * The name of the author(s) for the channel.
+   */
+  authorName?: string | null | undefined;
+  /**
+   * Whether the channel contains explicit content.
+   */
+  explicit?: boolean | null | undefined;
+  /**
+   * The name of the owner for the channel.
+   */
+  ownerName?: string | null | undefined;
+  /**
+   * The email of the owner for the channel.
+   */
+  ownerEmail?: string | null | undefined;
+  /**
+   * The primary category for the channel.
+   */
+  category1?: GetChannelsCategory1 | null | undefined;
+  /**
+   * The secondary category for the channel.
+   */
+  category2?: GetChannelsCategory2 | null | undefined;
+  /**
+   * The third category for the channel.
+   */
+  category3?: GetChannelsCategory3 | null | undefined;
+  /**
+   * The ISO 639-1 language code for the channel.
+   */
+  language?: GetChannelsLanguage | null | undefined;
 };
 
 /**
@@ -170,6 +690,10 @@ export type GetChannelsResponse = {
    */
   mediaCount: number;
   /**
+   * The number of live stream events in the channel.
+   */
+  liveStreamEventCount?: number | undefined;
+  /**
    * The display name for the channel
    */
   name: string;
@@ -177,6 +701,25 @@ export type GetChannelsResponse = {
    * The date when the channel was last updated.
    */
   updated: Date;
+  /**
+   * Whether episodes are automatically published when added to the channel.
+   */
+  autoPublishEnabled?: boolean | null | undefined;
+  /**
+   * Whether podcasting is enabled for the channel.
+   */
+  podcastEnabled?: boolean | null | undefined;
+  /**
+   * The custom URL used when embedding the channel on your own site. Null if no custom URL is set.
+   */
+  customUrl?: string | null | undefined;
+  /**
+   * Podcast specific settings for the channel. Only present when podcasting
+   *
+   * @remarks
+   * is enabled for the channel.
+   */
+  podcastSettings?: GetChannelsPodcastSettings | undefined;
   /**
    * A cursor for stable pagination based on current `sort_by` order. You can pass this to `cursor[before]` or `cursor[after]` as a parameter to fetch the records before or after this record in the same sort order. This is only populated if records were fetched with `cursor[enabled]`, or `cursor[before]` or `cursor[after]`.
    */
@@ -264,6 +807,71 @@ export function getChannelsRequestToJSON(
 }
 
 /** @internal */
+export const GetChannelsCode$inboundSchema: z.ZodNativeEnum<
+  typeof GetChannelsCode
+> = z.nativeEnum(GetChannelsCode);
+
+/** @internal */
+export const GetChannelsEpisodeFormat$inboundSchema: z.ZodNativeEnum<
+  typeof GetChannelsEpisodeFormat
+> = z.nativeEnum(GetChannelsEpisodeFormat);
+
+/** @internal */
+export const GetChannelsCategory1$inboundSchema: z.ZodNativeEnum<
+  typeof GetChannelsCategory1
+> = z.nativeEnum(GetChannelsCategory1);
+
+/** @internal */
+export const GetChannelsCategory2$inboundSchema: z.ZodNativeEnum<
+  typeof GetChannelsCategory2
+> = z.nativeEnum(GetChannelsCategory2);
+
+/** @internal */
+export const GetChannelsCategory3$inboundSchema: z.ZodNativeEnum<
+  typeof GetChannelsCategory3
+> = z.nativeEnum(GetChannelsCategory3);
+
+/** @internal */
+export const GetChannelsLanguage$inboundSchema: z.ZodNativeEnum<
+  typeof GetChannelsLanguage
+> = z.nativeEnum(GetChannelsLanguage);
+
+/** @internal */
+export const GetChannelsPodcastSettings$inboundSchema: z.ZodType<
+  GetChannelsPodcastSettings,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  copyright: z.nullable(z.string()).optional(),
+  episode_format: z.nullable(GetChannelsEpisodeFormat$inboundSchema).optional(),
+  author_name: z.nullable(z.string()).optional(),
+  explicit: z.nullable(z.boolean()).optional(),
+  owner_name: z.nullable(z.string()).optional(),
+  owner_email: z.nullable(z.string()).optional(),
+  category1: z.nullable(GetChannelsCategory1$inboundSchema).optional(),
+  category2: z.nullable(GetChannelsCategory2$inboundSchema).optional(),
+  category3: z.nullable(GetChannelsCategory3$inboundSchema).optional(),
+  language: z.nullable(GetChannelsLanguage$inboundSchema).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "episode_format": "episodeFormat",
+    "author_name": "authorName",
+    "owner_name": "ownerName",
+    "owner_email": "ownerEmail",
+  });
+});
+
+export function getChannelsPodcastSettingsFromJSON(
+  jsonString: string,
+): SafeParseResult<GetChannelsPodcastSettings, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetChannelsPodcastSettings$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetChannelsPodcastSettings' from JSON`,
+  );
+}
+
+/** @internal */
 export const GetChannelsResponse$inboundSchema: z.ZodType<
   GetChannelsResponse,
   z.ZodTypeDef,
@@ -274,13 +882,24 @@ export const GetChannelsResponse$inboundSchema: z.ZodType<
   description: z.string(),
   hashed_id: z.string(),
   media_count: z.number().int(),
+  live_stream_event_count: z.number().int().optional(),
   name: z.string(),
   updated: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  auto_publish_enabled: z.nullable(z.boolean()).optional(),
+  podcast_enabled: z.nullable(z.boolean()).optional(),
+  custom_url: z.nullable(z.string()).optional(),
+  podcast_settings: z.lazy(() => GetChannelsPodcastSettings$inboundSchema)
+    .optional(),
   cursor: z.nullable(z.string()).optional(),
 }).transform((v) => {
   return remap$(v, {
     "hashed_id": "hashedId",
     "media_count": "mediaCount",
+    "live_stream_event_count": "liveStreamEventCount",
+    "auto_publish_enabled": "autoPublishEnabled",
+    "podcast_enabled": "podcastEnabled",
+    "custom_url": "customUrl",
+    "podcast_settings": "podcastSettings",
   });
 });
 

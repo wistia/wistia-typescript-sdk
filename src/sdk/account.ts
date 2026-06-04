@@ -4,6 +4,7 @@
 
 import { accountGet } from "../funcs/accountGet.js";
 import { accountGetTokenDetails } from "../funcs/accountGetTokenDetails.js";
+import { accountGetUsage } from "../funcs/accountGetUsage.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
@@ -24,6 +25,30 @@ export class Account extends ClientSDK {
     options?: RequestOptions,
   ): Promise<operations.GetAccountDetailsResponse> {
     return unwrapAsync(accountGet(
+      this,
+      options,
+    ));
+  }
+
+  /**
+   * Get Account Usage
+   *
+   * @remarks
+   * Retrieves plan, usage, and limit information for the current account.
+   *
+   * The response includes plan tier, upload eligibility, and links to billing pages.
+   * Usage and limit details (media counts, storage) are only visible to account owners
+   * and managers — other contacts receive `null` for the `limits` field.
+   *
+   * ## Requires api token with one of the following permissions
+   * ```
+   * (any scope allowed)
+   * ```
+   */
+  async getUsage(
+    options?: RequestOptions,
+  ): Promise<operations.GetAccountUsageResponse> {
+    return unwrapAsync(accountGetUsage(
       this,
       options,
     ));

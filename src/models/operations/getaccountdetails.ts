@@ -5,8 +5,23 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const GetAccountDetailsCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type GetAccountDetailsCode = ClosedEnum<typeof GetAccountDetailsCode>;
 
 /**
  * An account represents a customer at Wistia. Each account can own media, folders
@@ -44,6 +59,11 @@ export type GetAccountDetailsResponse = {
    */
   channelCount: number;
 };
+
+/** @internal */
+export const GetAccountDetailsCode$inboundSchema: z.ZodNativeEnum<
+  typeof GetAccountDetailsCode
+> = z.nativeEnum(GetAccountDetailsCode);
 
 /** @internal */
 export const GetAccountDetailsResponse$inboundSchema: z.ZodType<

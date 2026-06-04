@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { RFCDate } from "../../types/rfcdate.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -15,14 +16,30 @@ export type GetAnalyticsMediasMediaIdRequest = {
    */
   mediaId: string;
   /**
-   * Start date for the analytics period in ISO 8601 format (YYYY-MM-DD).
+   * Start date for the analytics period in ISO 8601 format (YYYY-MM-DD). Inclusive — the range starts at the beginning of this date.
    */
   startDate: RFCDate;
   /**
-   * End date for the analytics period in ISO 8601 format (YYYY-MM-DD).
+   * End date for the analytics period in ISO 8601 format (YYYY-MM-DD). Exclusive — the range ends before the beginning of this date.
    */
   endDate: RFCDate;
 };
+
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const GetAnalyticsMediasMediaIdCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type GetAnalyticsMediasMediaIdCode = ClosedEnum<
+  typeof GetAnalyticsMediasMediaIdCode
+>;
 
 /**
  * Success response with aggregate analytics for the video.
@@ -106,6 +123,11 @@ export function getAnalyticsMediasMediaIdRequestToJSON(
     ),
   );
 }
+
+/** @internal */
+export const GetAnalyticsMediasMediaIdCode$inboundSchema: z.ZodNativeEnum<
+  typeof GetAnalyticsMediasMediaIdCode
+> = z.nativeEnum(GetAnalyticsMediasMediaIdCode);
 
 /** @internal */
 export const GetAnalyticsMediasMediaIdResponse$inboundSchema: z.ZodType<

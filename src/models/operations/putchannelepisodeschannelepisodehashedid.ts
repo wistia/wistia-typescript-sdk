@@ -25,19 +25,49 @@ export type PutChannelEpisodesChannelEpisodeHashedIdPublishStatus = ClosedEnum<
 >;
 
 /**
- * The type of episode. This parameter only takes effect if podcasting is enabled for the channel.
+ * The type of episode.
  */
-export const PutChannelEpisodesChannelEpisodeHashedIdEpisodeType = {
+export const PutChannelEpisodesChannelEpisodeHashedIdEpisodeTypeRequest = {
   Full: "full",
   Trailer: "trailer",
   Bonus: "bonus",
 } as const;
 /**
- * The type of episode. This parameter only takes effect if podcasting is enabled for the channel.
+ * The type of episode.
  */
-export type PutChannelEpisodesChannelEpisodeHashedIdEpisodeType = ClosedEnum<
-  typeof PutChannelEpisodesChannelEpisodeHashedIdEpisodeType
->;
+export type PutChannelEpisodesChannelEpisodeHashedIdEpisodeTypeRequest =
+  ClosedEnum<typeof PutChannelEpisodesChannelEpisodeHashedIdEpisodeTypeRequest>;
+
+/**
+ * Podcast specific settings for a channel episode. These settings only take effect
+ *
+ * @remarks
+ * if podcasting is enabled for the channel.
+ */
+export type PutChannelEpisodesChannelEpisodeHashedIdPodcastSettingsRequest = {
+  /**
+   * The type of episode.
+   */
+  episodeType?:
+    | PutChannelEpisodesChannelEpisodeHashedIdEpisodeTypeRequest
+    | undefined;
+  /**
+   * The number of the episode.
+   */
+  episodeNumber?: number | undefined;
+  /**
+   * The season number of the episode.
+   */
+  seasonNumber?: number | undefined;
+  /**
+   * Whether the episode contains explicit content.
+   */
+  explicitContent?: boolean | undefined;
+  /**
+   * Whether to hide the episode from the podcast feed.
+   */
+  hideFromFeed?: boolean | undefined;
+};
 
 export type PutChannelEpisodesChannelEpisodeHashedIdRequestBody = {
   /**
@@ -75,25 +105,14 @@ export type PutChannelEpisodesChannelEpisodeHashedIdRequestBody = {
    */
   episodeNotes?: string | undefined;
   /**
-   * The type of episode. This parameter only takes effect if podcasting is enabled for the channel.
+   * Podcast specific settings for a channel episode. These settings only take effect
+   *
+   * @remarks
+   * if podcasting is enabled for the channel.
    */
-  episodeType?: PutChannelEpisodesChannelEpisodeHashedIdEpisodeType | undefined;
-  /**
-   * The number of the episode. This parameter only takes effect if podcasting is enabled for the channel.
-   */
-  episodeNumber?: number | undefined;
-  /**
-   * The season number of the episode. This parameter only takes effect if podcasting is enabled for the channel.
-   */
-  seasonNumber?: number | undefined;
-  /**
-   * Whether the episode contains explicit content. This parameter only takes effect if podcasting is enabled for the channel.
-   */
-  explicitContent?: boolean | undefined;
-  /**
-   * Whether to hide the episode from the podcast feed. This parameter only takes effect if podcasting is enabled for the channel.
-   */
-  hideFromFeed?: boolean | undefined;
+  podcastSettings?:
+    | PutChannelEpisodesChannelEpisodeHashedIdPodcastSettingsRequest
+    | undefined;
 };
 
 export type PutChannelEpisodesChannelEpisodeHashedIdRequest = {
@@ -105,12 +124,79 @@ export type PutChannelEpisodesChannelEpisodeHashedIdRequest = {
 };
 
 /**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const PutChannelEpisodesChannelEpisodeHashedIdCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type PutChannelEpisodesChannelEpisodeHashedIdCode = ClosedEnum<
+  typeof PutChannelEpisodesChannelEpisodeHashedIdCode
+>;
+
+/**
+ * The type of episode.
+ */
+export const PutChannelEpisodesChannelEpisodeHashedIdEpisodeTypeResponse = {
+  Full: "full",
+  Trailer: "trailer",
+  Bonus: "bonus",
+} as const;
+/**
+ * The type of episode.
+ */
+export type PutChannelEpisodesChannelEpisodeHashedIdEpisodeTypeResponse =
+  ClosedEnum<
+    typeof PutChannelEpisodesChannelEpisodeHashedIdEpisodeTypeResponse
+  >;
+
+/**
+ * Podcast specific settings for the episode. Only present when podcasting
+ *
+ * @remarks
+ * is enabled for the channel.
+ */
+export type PutChannelEpisodesChannelEpisodeHashedIdPodcastSettingsResponse = {
+  /**
+   * The type of episode.
+   */
+  episodeType?:
+    | PutChannelEpisodesChannelEpisodeHashedIdEpisodeTypeResponse
+    | undefined;
+  /**
+   * The number of the episode.
+   */
+  episodeNumber?: number | undefined;
+  /**
+   * The season number of the episode.
+   */
+  seasonNumber?: number | undefined;
+  /**
+   * Whether the episode contains explicit content.
+   */
+  explicitContent?: boolean | undefined;
+  /**
+   * Whether to hide the episode from the podcast feed.
+   */
+  hideFromFeed?: boolean | undefined;
+};
+
+/**
  * A channel episode represents a media that has been added to a channel. Only published
  *
  * @remarks
  * episodes are displayed in a channel.
  */
 export type PutChannelEpisodesChannelEpisodeHashedIdResponse = {
+  /**
+   * A unique numeric identifier for the channel episode.
+   */
+  id?: number | undefined;
   /**
    * A unique alphanumeric identifier for the channel episode's channel.
    */
@@ -140,6 +226,10 @@ export type PutChannelEpisodesChannelEpisodeHashedIdResponse = {
    */
   mediaHashedId: string;
   /**
+   * A unique alphanumeric identifier for the channel episode's live stream event, if any. Null when the episode is not linked to a live stream event.
+   */
+  liveStreamEventHashedId?: string | null | undefined;
+  /**
    * Whether the channel episode has been published or is still in draft form.
    */
   published: boolean;
@@ -155,6 +245,15 @@ export type PutChannelEpisodesChannelEpisodeHashedIdResponse = {
    * The date when the channel was last updated.
    */
   updated: Date;
+  /**
+   * Podcast specific settings for the episode. Only present when podcasting
+   *
+   * @remarks
+   * is enabled for the channel.
+   */
+  podcastSettings?:
+    | PutChannelEpisodesChannelEpisodeHashedIdPodcastSettingsResponse
+    | undefined;
 };
 
 /** @internal */
@@ -164,9 +263,54 @@ export const PutChannelEpisodesChannelEpisodeHashedIdPublishStatus$outboundSchem
   > = z.nativeEnum(PutChannelEpisodesChannelEpisodeHashedIdPublishStatus);
 
 /** @internal */
-export const PutChannelEpisodesChannelEpisodeHashedIdEpisodeType$outboundSchema:
-  z.ZodNativeEnum<typeof PutChannelEpisodesChannelEpisodeHashedIdEpisodeType> =
-    z.nativeEnum(PutChannelEpisodesChannelEpisodeHashedIdEpisodeType);
+export const PutChannelEpisodesChannelEpisodeHashedIdEpisodeTypeRequest$outboundSchema:
+  z.ZodNativeEnum<
+    typeof PutChannelEpisodesChannelEpisodeHashedIdEpisodeTypeRequest
+  > = z.nativeEnum(PutChannelEpisodesChannelEpisodeHashedIdEpisodeTypeRequest);
+
+/** @internal */
+export type PutChannelEpisodesChannelEpisodeHashedIdPodcastSettingsRequest$Outbound =
+  {
+    episode_type?: string | undefined;
+    episode_number?: number | undefined;
+    season_number?: number | undefined;
+    explicit_content?: boolean | undefined;
+    hide_from_feed?: boolean | undefined;
+  };
+
+/** @internal */
+export const PutChannelEpisodesChannelEpisodeHashedIdPodcastSettingsRequest$outboundSchema:
+  z.ZodType<
+    PutChannelEpisodesChannelEpisodeHashedIdPodcastSettingsRequest$Outbound,
+    z.ZodTypeDef,
+    PutChannelEpisodesChannelEpisodeHashedIdPodcastSettingsRequest
+  > = z.object({
+    episodeType:
+      PutChannelEpisodesChannelEpisodeHashedIdEpisodeTypeRequest$outboundSchema
+        .optional(),
+    episodeNumber: z.number().int().optional(),
+    seasonNumber: z.number().int().optional(),
+    explicitContent: z.boolean().optional(),
+    hideFromFeed: z.boolean().optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      episodeType: "episode_type",
+      episodeNumber: "episode_number",
+      seasonNumber: "season_number",
+      explicitContent: "explicit_content",
+      hideFromFeed: "hide_from_feed",
+    });
+  });
+
+export function putChannelEpisodesChannelEpisodeHashedIdPodcastSettingsRequestToJSON(
+  putChannelEpisodesChannelEpisodeHashedIdPodcastSettingsRequest:
+    PutChannelEpisodesChannelEpisodeHashedIdPodcastSettingsRequest,
+): string {
+  return JSON.stringify(
+    PutChannelEpisodesChannelEpisodeHashedIdPodcastSettingsRequest$outboundSchema
+      .parse(putChannelEpisodesChannelEpisodeHashedIdPodcastSettingsRequest),
+  );
+}
 
 /** @internal */
 export type PutChannelEpisodesChannelEpisodeHashedIdRequestBody$Outbound = {
@@ -178,11 +322,9 @@ export type PutChannelEpisodesChannelEpisodeHashedIdRequestBody$Outbound = {
   publish_status?: string | undefined;
   publish_at?: string | undefined;
   episode_notes?: string | undefined;
-  episode_type?: string | undefined;
-  episode_number?: number | undefined;
-  season_number?: number | undefined;
-  explicit_content?: boolean | undefined;
-  hide_from_feed?: boolean | undefined;
+  podcast_settings?:
+    | PutChannelEpisodesChannelEpisodeHashedIdPodcastSettingsRequest$Outbound
+    | undefined;
 };
 
 /** @internal */
@@ -202,13 +344,9 @@ export const PutChannelEpisodesChannelEpisodeHashedIdRequestBody$outboundSchema:
         .optional(),
     publishAt: z.date().transform(v => v.toISOString()).optional(),
     episodeNotes: z.string().optional(),
-    episodeType:
-      PutChannelEpisodesChannelEpisodeHashedIdEpisodeType$outboundSchema
-        .optional(),
-    episodeNumber: z.number().int().optional(),
-    seasonNumber: z.number().int().optional(),
-    explicitContent: z.boolean().optional(),
-    hideFromFeed: z.boolean().optional(),
+    podcastSettings: z.lazy(() =>
+      PutChannelEpisodesChannelEpisodeHashedIdPodcastSettingsRequest$outboundSchema
+    ).optional(),
   }).transform((v) => {
     return remap$(v, {
       mediaHashedId: "media_hashed_id",
@@ -216,11 +354,7 @@ export const PutChannelEpisodesChannelEpisodeHashedIdRequestBody$outboundSchema:
       publishStatus: "publish_status",
       publishAt: "publish_at",
       episodeNotes: "episode_notes",
-      episodeType: "episode_type",
-      episodeNumber: "episode_number",
-      seasonNumber: "season_number",
-      explicitContent: "explicit_content",
-      hideFromFeed: "hide_from_feed",
+      podcastSettings: "podcast_settings",
     });
   });
 
@@ -272,12 +406,63 @@ export function putChannelEpisodesChannelEpisodeHashedIdRequestToJSON(
 }
 
 /** @internal */
+export const PutChannelEpisodesChannelEpisodeHashedIdCode$inboundSchema:
+  z.ZodNativeEnum<typeof PutChannelEpisodesChannelEpisodeHashedIdCode> = z
+    .nativeEnum(PutChannelEpisodesChannelEpisodeHashedIdCode);
+
+/** @internal */
+export const PutChannelEpisodesChannelEpisodeHashedIdEpisodeTypeResponse$inboundSchema:
+  z.ZodNativeEnum<
+    typeof PutChannelEpisodesChannelEpisodeHashedIdEpisodeTypeResponse
+  > = z.nativeEnum(PutChannelEpisodesChannelEpisodeHashedIdEpisodeTypeResponse);
+
+/** @internal */
+export const PutChannelEpisodesChannelEpisodeHashedIdPodcastSettingsResponse$inboundSchema:
+  z.ZodType<
+    PutChannelEpisodesChannelEpisodeHashedIdPodcastSettingsResponse,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    episode_type:
+      PutChannelEpisodesChannelEpisodeHashedIdEpisodeTypeResponse$inboundSchema
+        .optional(),
+    episode_number: z.number().int().optional(),
+    season_number: z.number().int().optional(),
+    explicit_content: z.boolean().optional(),
+    hide_from_feed: z.boolean().optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "episode_type": "episodeType",
+      "episode_number": "episodeNumber",
+      "season_number": "seasonNumber",
+      "explicit_content": "explicitContent",
+      "hide_from_feed": "hideFromFeed",
+    });
+  });
+
+export function putChannelEpisodesChannelEpisodeHashedIdPodcastSettingsResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  PutChannelEpisodesChannelEpisodeHashedIdPodcastSettingsResponse,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      PutChannelEpisodesChannelEpisodeHashedIdPodcastSettingsResponse$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'PutChannelEpisodesChannelEpisodeHashedIdPodcastSettingsResponse' from JSON`,
+  );
+}
+
+/** @internal */
 export const PutChannelEpisodesChannelEpisodeHashedIdResponse$inboundSchema:
   z.ZodType<
     PutChannelEpisodesChannelEpisodeHashedIdResponse,
     z.ZodTypeDef,
     unknown
   > = z.object({
+    id: z.number().int().optional(),
     channel_hashed_id: z.string(),
     created: z.string().datetime({ offset: true }).transform(v => new Date(v)),
     cursor: z.nullable(z.string()).optional(),
@@ -285,18 +470,24 @@ export const PutChannelEpisodesChannelEpisodeHashedIdResponse$inboundSchema:
     summary: z.string(),
     hashed_id: z.string(),
     media_hashed_id: z.string(),
+    live_stream_event_hashed_id: z.nullable(z.string()).optional(),
     published: z.boolean(),
     publish_at: z.string().datetime({ offset: true }).transform(v =>
       new Date(v)
     ).optional(),
     title: z.nullable(z.string()),
     updated: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+    podcast_settings: z.lazy(() =>
+      PutChannelEpisodesChannelEpisodeHashedIdPodcastSettingsResponse$inboundSchema
+    ).optional(),
   }).transform((v) => {
     return remap$(v, {
       "channel_hashed_id": "channelHashedId",
       "hashed_id": "hashedId",
       "media_hashed_id": "mediaHashedId",
+      "live_stream_event_hashed_id": "liveStreamEventHashedId",
       "publish_at": "publishAt",
+      "podcast_settings": "podcastSettings",
     });
   });
 

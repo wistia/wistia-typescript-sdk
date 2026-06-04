@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
@@ -16,12 +17,79 @@ export type PutChannelEpisodesChannelEpisodeHashedIdUnpublishRequest = {
 };
 
 /**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const PutChannelEpisodesChannelEpisodeHashedIdUnpublishCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type PutChannelEpisodesChannelEpisodeHashedIdUnpublishCode = ClosedEnum<
+  typeof PutChannelEpisodesChannelEpisodeHashedIdUnpublishCode
+>;
+
+/**
+ * The type of episode.
+ */
+export const PutChannelEpisodesChannelEpisodeHashedIdUnpublishEpisodeType = {
+  Full: "full",
+  Trailer: "trailer",
+  Bonus: "bonus",
+} as const;
+/**
+ * The type of episode.
+ */
+export type PutChannelEpisodesChannelEpisodeHashedIdUnpublishEpisodeType =
+  ClosedEnum<
+    typeof PutChannelEpisodesChannelEpisodeHashedIdUnpublishEpisodeType
+  >;
+
+/**
+ * Podcast specific settings for the episode. Only present when podcasting
+ *
+ * @remarks
+ * is enabled for the channel.
+ */
+export type PutChannelEpisodesChannelEpisodeHashedIdUnpublishPodcastSettings = {
+  /**
+   * The type of episode.
+   */
+  episodeType?:
+    | PutChannelEpisodesChannelEpisodeHashedIdUnpublishEpisodeType
+    | undefined;
+  /**
+   * The number of the episode.
+   */
+  episodeNumber?: number | undefined;
+  /**
+   * The season number of the episode.
+   */
+  seasonNumber?: number | undefined;
+  /**
+   * Whether the episode contains explicit content.
+   */
+  explicitContent?: boolean | undefined;
+  /**
+   * Whether to hide the episode from the podcast feed.
+   */
+  hideFromFeed?: boolean | undefined;
+};
+
+/**
  * A channel episode represents a media that has been added to a channel. Only published
  *
  * @remarks
  * episodes are displayed in a channel.
  */
 export type PutChannelEpisodesChannelEpisodeHashedIdUnpublishResponse = {
+  /**
+   * A unique numeric identifier for the channel episode.
+   */
+  id?: number | undefined;
   /**
    * A unique alphanumeric identifier for the channel episode's channel.
    */
@@ -51,6 +119,10 @@ export type PutChannelEpisodesChannelEpisodeHashedIdUnpublishResponse = {
    */
   mediaHashedId: string;
   /**
+   * A unique alphanumeric identifier for the channel episode's live stream event, if any. Null when the episode is not linked to a live stream event.
+   */
+  liveStreamEventHashedId?: string | null | undefined;
+  /**
    * Whether the channel episode has been published or is still in draft form.
    */
   published: boolean;
@@ -66,6 +138,15 @@ export type PutChannelEpisodesChannelEpisodeHashedIdUnpublishResponse = {
    * The date when the channel was last updated.
    */
   updated: Date;
+  /**
+   * Podcast specific settings for the episode. Only present when podcasting
+   *
+   * @remarks
+   * is enabled for the channel.
+   */
+  podcastSettings?:
+    | PutChannelEpisodesChannelEpisodeHashedIdUnpublishPodcastSettings
+    | undefined;
 };
 
 /** @internal */
@@ -95,12 +176,66 @@ export function putChannelEpisodesChannelEpisodeHashedIdUnpublishRequestToJSON(
 }
 
 /** @internal */
+export const PutChannelEpisodesChannelEpisodeHashedIdUnpublishCode$inboundSchema:
+  z.ZodNativeEnum<
+    typeof PutChannelEpisodesChannelEpisodeHashedIdUnpublishCode
+  > = z.nativeEnum(PutChannelEpisodesChannelEpisodeHashedIdUnpublishCode);
+
+/** @internal */
+export const PutChannelEpisodesChannelEpisodeHashedIdUnpublishEpisodeType$inboundSchema:
+  z.ZodNativeEnum<
+    typeof PutChannelEpisodesChannelEpisodeHashedIdUnpublishEpisodeType
+  > = z.nativeEnum(
+    PutChannelEpisodesChannelEpisodeHashedIdUnpublishEpisodeType,
+  );
+
+/** @internal */
+export const PutChannelEpisodesChannelEpisodeHashedIdUnpublishPodcastSettings$inboundSchema:
+  z.ZodType<
+    PutChannelEpisodesChannelEpisodeHashedIdUnpublishPodcastSettings,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    episode_type:
+      PutChannelEpisodesChannelEpisodeHashedIdUnpublishEpisodeType$inboundSchema
+        .optional(),
+    episode_number: z.number().int().optional(),
+    season_number: z.number().int().optional(),
+    explicit_content: z.boolean().optional(),
+    hide_from_feed: z.boolean().optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "episode_type": "episodeType",
+      "episode_number": "episodeNumber",
+      "season_number": "seasonNumber",
+      "explicit_content": "explicitContent",
+      "hide_from_feed": "hideFromFeed",
+    });
+  });
+
+export function putChannelEpisodesChannelEpisodeHashedIdUnpublishPodcastSettingsFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  PutChannelEpisodesChannelEpisodeHashedIdUnpublishPodcastSettings,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      PutChannelEpisodesChannelEpisodeHashedIdUnpublishPodcastSettings$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'PutChannelEpisodesChannelEpisodeHashedIdUnpublishPodcastSettings' from JSON`,
+  );
+}
+
+/** @internal */
 export const PutChannelEpisodesChannelEpisodeHashedIdUnpublishResponse$inboundSchema:
   z.ZodType<
     PutChannelEpisodesChannelEpisodeHashedIdUnpublishResponse,
     z.ZodTypeDef,
     unknown
   > = z.object({
+    id: z.number().int().optional(),
     channel_hashed_id: z.string(),
     created: z.string().datetime({ offset: true }).transform(v => new Date(v)),
     cursor: z.nullable(z.string()).optional(),
@@ -108,18 +243,24 @@ export const PutChannelEpisodesChannelEpisodeHashedIdUnpublishResponse$inboundSc
     summary: z.string(),
     hashed_id: z.string(),
     media_hashed_id: z.string(),
+    live_stream_event_hashed_id: z.nullable(z.string()).optional(),
     published: z.boolean(),
     publish_at: z.string().datetime({ offset: true }).transform(v =>
       new Date(v)
     ).optional(),
     title: z.nullable(z.string()),
     updated: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+    podcast_settings: z.lazy(() =>
+      PutChannelEpisodesChannelEpisodeHashedIdUnpublishPodcastSettings$inboundSchema
+    ).optional(),
   }).transform((v) => {
     return remap$(v, {
       "channel_hashed_id": "channelHashedId",
       "hashed_id": "hashedId",
       "media_hashed_id": "mediaHashedId",
+      "live_stream_event_hashed_id": "liveStreamEventHashedId",
       "publish_at": "publishAt",
+      "podcast_settings": "podcastSettings",
     });
   });
 

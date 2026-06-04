@@ -7,10 +7,10 @@
 * [get](#get) - Show Channel Episode
 * [create](#create) - Create Channel Episode
 * [list](#list) - List Channel Episodes
-* [putChannelEpisodesChannelEpisodeHashedId](#putchannelepisodeschannelepisodehashedid) - Update Channel Episode
-* [deleteChannelEpisodesChannelEpisodeHashedId](#deletechannelepisodeschannelepisodehashedid) - Delete Channel Episode
-* [putChannelEpisodesChannelEpisodeHashedIdPublish](#putchannelepisodeschannelepisodehashedidpublish) - Publish Channel Episode
-* [putChannelEpisodesChannelEpisodeHashedIdUnpublish](#putchannelepisodeschannelepisodehashedidunpublish) - Un-publish Channel Episode
+* [update](#update) - Update Channel Episode
+* [delete](#delete) - Delete Channel Episode
+* [publish](#publish) - Publish Channel Episode
+* [unpublish](#unpublish) - Un-publish Channel Episode
 
 ## get
 
@@ -270,7 +270,7 @@ run();
 | errors.GetChannelEpisodesInternalServerError | 500                                          | application/json                             |
 | errors.WistiaDefaultError                    | 4XX, 5XX                                     | \*/\*                                        |
 
-## putChannelEpisodesChannelEpisodeHashedId
+## update
 
 Updates an existing channel episode in a channel.
 ## Requires api token with one of the following permissions
@@ -290,7 +290,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.channelEpisodes.putChannelEpisodesChannelEpisodeHashedId({
+  const result = await wistia.channelEpisodes.update({
     channelEpisodeHashedId: "<id>",
   });
 
@@ -306,7 +306,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { channelEpisodesPutChannelEpisodesChannelEpisodeHashedId } from "@wistia/wistia-api-client/funcs/channelEpisodesPutChannelEpisodesChannelEpisodeHashedId.js";
+import { channelEpisodesUpdate } from "@wistia/wistia-api-client/funcs/channelEpisodesUpdate.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -315,14 +315,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await channelEpisodesPutChannelEpisodesChannelEpisodeHashedId(wistia, {
+  const res = await channelEpisodesUpdate(wistia, {
     channelEpisodeHashedId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("channelEpisodesPutChannelEpisodesChannelEpisodeHashedId failed:", res.error);
+    console.log("channelEpisodesUpdate failed:", res.error);
   }
 }
 
@@ -351,7 +351,7 @@ run();
 | errors.PutChannelEpisodesChannelEpisodeHashedIdInternalServerError | 500                                                                | application/json                                                   |
 | errors.WistiaDefaultError                                          | 4XX, 5XX                                                           | \*/\*                                                              |
 
-## deleteChannelEpisodesChannelEpisodeHashedId
+## delete
 
 Deletes an existing channel episode in a channel.
 
@@ -372,7 +372,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.channelEpisodes.deleteChannelEpisodesChannelEpisodeHashedId({
+  const result = await wistia.channelEpisodes.delete({
     channelEpisodeHashedId: "<id>",
   });
 
@@ -388,7 +388,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { channelEpisodesDeleteChannelEpisodesChannelEpisodeHashedId } from "@wistia/wistia-api-client/funcs/channelEpisodesDeleteChannelEpisodesChannelEpisodeHashedId.js";
+import { channelEpisodesDelete } from "@wistia/wistia-api-client/funcs/channelEpisodesDelete.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -397,14 +397,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await channelEpisodesDeleteChannelEpisodesChannelEpisodeHashedId(wistia, {
+  const res = await channelEpisodesDelete(wistia, {
     channelEpisodeHashedId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("channelEpisodesDeleteChannelEpisodesChannelEpisodeHashedId failed:", res.error);
+    console.log("channelEpisodesDelete failed:", res.error);
   }
 }
 
@@ -433,7 +433,7 @@ run();
 | errors.DeleteChannelEpisodesChannelEpisodeHashedIdInternalServerError | 500                                                                   | application/json                                                      |
 | errors.WistiaDefaultError                                             | 4XX, 5XX                                                              | \*/\*                                                                 |
 
-## putChannelEpisodesChannelEpisodeHashedIdPublish
+## publish
 
 Publishes an existing channel episode in a channel.
 ## Requires api token with one of the following permissions
@@ -453,7 +453,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.channelEpisodes.putChannelEpisodesChannelEpisodeHashedIdPublish({
+  const result = await wistia.channelEpisodes.publish({
     channelEpisodeHashedId: "<id>",
   });
 
@@ -469,7 +469,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { channelEpisodesPutChannelEpisodesChannelEpisodeHashedIdPublish } from "@wistia/wistia-api-client/funcs/channelEpisodesPutChannelEpisodesChannelEpisodeHashedIdPublish.js";
+import { channelEpisodesPublish } from "@wistia/wistia-api-client/funcs/channelEpisodesPublish.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -478,14 +478,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await channelEpisodesPutChannelEpisodesChannelEpisodeHashedIdPublish(wistia, {
+  const res = await channelEpisodesPublish(wistia, {
     channelEpisodeHashedId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("channelEpisodesPutChannelEpisodesChannelEpisodeHashedIdPublish failed:", res.error);
+    console.log("channelEpisodesPublish failed:", res.error);
   }
 }
 
@@ -514,7 +514,7 @@ run();
 | errors.PutChannelEpisodesChannelEpisodeHashedIdPublishInternalServerError | 500                                                                       | application/json                                                          |
 | errors.WistiaDefaultError                                                 | 4XX, 5XX                                                                  | \*/\*                                                                     |
 
-## putChannelEpisodesChannelEpisodeHashedIdUnpublish
+## unpublish
 
 Un-publishes an existing channel episode in a channel.
 ## Requires api token with one of the following permissions
@@ -534,7 +534,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.channelEpisodes.putChannelEpisodesChannelEpisodeHashedIdUnpublish({
+  const result = await wistia.channelEpisodes.unpublish({
     channelEpisodeHashedId: "<id>",
   });
 
@@ -550,7 +550,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { channelEpisodesPutChannelEpisodesChannelEpisodeHashedIdUnpublish } from "@wistia/wistia-api-client/funcs/channelEpisodesPutChannelEpisodesChannelEpisodeHashedIdUnpublish.js";
+import { channelEpisodesUnpublish } from "@wistia/wistia-api-client/funcs/channelEpisodesUnpublish.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -559,14 +559,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await channelEpisodesPutChannelEpisodesChannelEpisodeHashedIdUnpublish(wistia, {
+  const res = await channelEpisodesUnpublish(wistia, {
     channelEpisodeHashedId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("channelEpisodesPutChannelEpisodesChannelEpisodeHashedIdUnpublish failed:", res.error);
+    console.log("channelEpisodesUnpublish failed:", res.error);
   }
 }
 

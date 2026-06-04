@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
@@ -14,10 +15,26 @@ export type GetMediasMediaHashedIdCaptionsLanguageCodeRequest = {
    */
   mediaHashedId: string;
   /**
-   * The language code of the captions to be retrieved.
+   * The 3-character ISO 639-2 language code of the captions to be retrieved (e.g., `eng`, `fra`, `spa`). Some languages use extended IETF subtags (e.g., `zh-Hant`).
    */
   languageCode: string;
 };
+
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const GetMediasMediaHashedIdCaptionsLanguageCodeCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type GetMediasMediaHashedIdCaptionsLanguageCodeCode = ClosedEnum<
+  typeof GetMediasMediaHashedIdCaptionsLanguageCodeCode
+>;
 
 /**
  * Successful response containing captions in the requested format
@@ -82,6 +99,11 @@ export function getMediasMediaHashedIdCaptionsLanguageCodeRequestToJSON(
     ),
   );
 }
+
+/** @internal */
+export const GetMediasMediaHashedIdCaptionsLanguageCodeCode$inboundSchema:
+  z.ZodNativeEnum<typeof GetMediasMediaHashedIdCaptionsLanguageCodeCode> = z
+    .nativeEnum(GetMediasMediaHashedIdCaptionsLanguageCodeCode);
 
 /** @internal */
 export const GetMediasMediaHashedIdCaptionsLanguageCodeResponseBody$inboundSchema:

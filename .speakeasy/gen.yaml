@@ -33,7 +33,7 @@ generation:
     generateNewTests: true
     skipResponseBodyAssertions: false
 typescript:
-  version: 2026.3.1
+  version: "2026.05"
   acceptHeaderEnum: true
   additionalDependencies:
     dependencies: {}
@@ -88,6 +88,7 @@ typescript:
   packageName: '@wistia/wistia-api-client'
   preApplyUnionDiscriminators: true
   preserveModelFieldNames: false
+  privateIdentifierPrefix: '#'
   responseFormat: flat
   sseFlatResponse: false
   templateVersion: v2

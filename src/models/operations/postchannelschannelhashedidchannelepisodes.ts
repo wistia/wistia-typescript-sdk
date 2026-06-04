@@ -24,19 +24,51 @@ export type PostChannelsChannelHashedIdChannelEpisodesPublishStatus =
   ClosedEnum<typeof PostChannelsChannelHashedIdChannelEpisodesPublishStatus>;
 
 /**
- * The episode type for your podcast.  This parameter only takes effect if podcasting is enabled for the channel.
+ * The type of episode.
  */
-export const PostChannelsChannelHashedIdChannelEpisodesEpisodeType = {
+export const PostChannelsChannelHashedIdChannelEpisodesEpisodeTypeRequest = {
   Full: "full",
   Trailer: "trailer",
   Bonus: "bonus",
 } as const;
 /**
- * The episode type for your podcast.  This parameter only takes effect if podcasting is enabled for the channel.
+ * The type of episode.
  */
-export type PostChannelsChannelHashedIdChannelEpisodesEpisodeType = ClosedEnum<
-  typeof PostChannelsChannelHashedIdChannelEpisodesEpisodeType
->;
+export type PostChannelsChannelHashedIdChannelEpisodesEpisodeTypeRequest =
+  ClosedEnum<
+    typeof PostChannelsChannelHashedIdChannelEpisodesEpisodeTypeRequest
+  >;
+
+/**
+ * Podcast specific settings for a channel episode. These settings only take effect
+ *
+ * @remarks
+ * if podcasting is enabled for the channel.
+ */
+export type PostChannelsChannelHashedIdChannelEpisodesPodcastSettingsRequest = {
+  /**
+   * The type of episode.
+   */
+  episodeType?:
+    | PostChannelsChannelHashedIdChannelEpisodesEpisodeTypeRequest
+    | undefined;
+  /**
+   * The number of the episode.
+   */
+  episodeNumber?: number | undefined;
+  /**
+   * The season number of the episode.
+   */
+  seasonNumber?: number | undefined;
+  /**
+   * Whether the episode contains explicit content.
+   */
+  explicitContent?: boolean | undefined;
+  /**
+   * Whether to hide the episode from the podcast feed.
+   */
+  hideFromFeed?: boolean | undefined;
+};
 
 export type PostChannelsChannelHashedIdChannelEpisodesRequestBody = {
   /**
@@ -66,23 +98,14 @@ export type PostChannelsChannelHashedIdChannelEpisodesRequestBody = {
    */
   publishAt?: Date | undefined;
   /**
-   * The episode type for your podcast.  This parameter only takes effect if podcasting is enabled for the channel.
+   * Podcast specific settings for a channel episode. These settings only take effect
+   *
+   * @remarks
+   * if podcasting is enabled for the channel.
    */
-  episodeType?:
-    | PostChannelsChannelHashedIdChannelEpisodesEpisodeType
+  podcastSettings?:
+    | PostChannelsChannelHashedIdChannelEpisodesPodcastSettingsRequest
     | undefined;
-  /**
-   * The episode number for this episode in your podcast.  This parameter only takes effect if podcasting is enabled for the channel.
-   */
-  episodeNumber?: number | undefined;
-  /**
-   * Whether this episode contains explicit content.  This parameter only takes effect if podcasting is enabled for the channel.
-   */
-  explicitContent?: boolean | undefined;
-  /**
-   * Whether or not to hide this episode from your podcast feed.  Set to true to hide the episode, false to show the episode.  This parameter only takes effect if podcasting is enabled for the channel.
-   */
-  hideFromFeed?: boolean | undefined;
 };
 
 export type PostChannelsChannelHashedIdChannelEpisodesRequest = {
@@ -94,12 +117,80 @@ export type PostChannelsChannelHashedIdChannelEpisodesRequest = {
 };
 
 /**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const PostChannelsChannelHashedIdChannelEpisodesCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type PostChannelsChannelHashedIdChannelEpisodesCode = ClosedEnum<
+  typeof PostChannelsChannelHashedIdChannelEpisodesCode
+>;
+
+/**
+ * The type of episode.
+ */
+export const PostChannelsChannelHashedIdChannelEpisodesEpisodeTypeResponse = {
+  Full: "full",
+  Trailer: "trailer",
+  Bonus: "bonus",
+} as const;
+/**
+ * The type of episode.
+ */
+export type PostChannelsChannelHashedIdChannelEpisodesEpisodeTypeResponse =
+  ClosedEnum<
+    typeof PostChannelsChannelHashedIdChannelEpisodesEpisodeTypeResponse
+  >;
+
+/**
+ * Podcast specific settings for the episode. Only present when podcasting
+ *
+ * @remarks
+ * is enabled for the channel.
+ */
+export type PostChannelsChannelHashedIdChannelEpisodesPodcastSettingsResponse =
+  {
+    /**
+     * The type of episode.
+     */
+    episodeType?:
+      | PostChannelsChannelHashedIdChannelEpisodesEpisodeTypeResponse
+      | undefined;
+    /**
+     * The number of the episode.
+     */
+    episodeNumber?: number | undefined;
+    /**
+     * The season number of the episode.
+     */
+    seasonNumber?: number | undefined;
+    /**
+     * Whether the episode contains explicit content.
+     */
+    explicitContent?: boolean | undefined;
+    /**
+     * Whether to hide the episode from the podcast feed.
+     */
+    hideFromFeed?: boolean | undefined;
+  };
+
+/**
  * A channel episode represents a media that has been added to a channel. Only published
  *
  * @remarks
  * episodes are displayed in a channel.
  */
 export type PostChannelsChannelHashedIdChannelEpisodesResponse = {
+  /**
+   * A unique numeric identifier for the channel episode.
+   */
+  id?: number | undefined;
   /**
    * A unique alphanumeric identifier for the channel episode's channel.
    */
@@ -129,6 +220,10 @@ export type PostChannelsChannelHashedIdChannelEpisodesResponse = {
    */
   mediaHashedId: string;
   /**
+   * A unique alphanumeric identifier for the channel episode's live stream event, if any. Null when the episode is not linked to a live stream event.
+   */
+  liveStreamEventHashedId?: string | null | undefined;
+  /**
    * Whether the channel episode has been published or is still in draft form.
    */
   published: boolean;
@@ -144,6 +239,15 @@ export type PostChannelsChannelHashedIdChannelEpisodesResponse = {
    * The date when the channel was last updated.
    */
   updated: Date;
+  /**
+   * Podcast specific settings for the episode. Only present when podcasting
+   *
+   * @remarks
+   * is enabled for the channel.
+   */
+  podcastSettings?:
+    | PostChannelsChannelHashedIdChannelEpisodesPodcastSettingsResponse
+    | undefined;
 };
 
 /** @internal */
@@ -153,10 +257,56 @@ export const PostChannelsChannelHashedIdChannelEpisodesPublishStatus$outboundSch
   > = z.nativeEnum(PostChannelsChannelHashedIdChannelEpisodesPublishStatus);
 
 /** @internal */
-export const PostChannelsChannelHashedIdChannelEpisodesEpisodeType$outboundSchema:
+export const PostChannelsChannelHashedIdChannelEpisodesEpisodeTypeRequest$outboundSchema:
   z.ZodNativeEnum<
-    typeof PostChannelsChannelHashedIdChannelEpisodesEpisodeType
-  > = z.nativeEnum(PostChannelsChannelHashedIdChannelEpisodesEpisodeType);
+    typeof PostChannelsChannelHashedIdChannelEpisodesEpisodeTypeRequest
+  > = z.nativeEnum(
+    PostChannelsChannelHashedIdChannelEpisodesEpisodeTypeRequest,
+  );
+
+/** @internal */
+export type PostChannelsChannelHashedIdChannelEpisodesPodcastSettingsRequest$Outbound =
+  {
+    episode_type?: string | undefined;
+    episode_number?: number | undefined;
+    season_number?: number | undefined;
+    explicit_content?: boolean | undefined;
+    hide_from_feed?: boolean | undefined;
+  };
+
+/** @internal */
+export const PostChannelsChannelHashedIdChannelEpisodesPodcastSettingsRequest$outboundSchema:
+  z.ZodType<
+    PostChannelsChannelHashedIdChannelEpisodesPodcastSettingsRequest$Outbound,
+    z.ZodTypeDef,
+    PostChannelsChannelHashedIdChannelEpisodesPodcastSettingsRequest
+  > = z.object({
+    episodeType:
+      PostChannelsChannelHashedIdChannelEpisodesEpisodeTypeRequest$outboundSchema
+        .optional(),
+    episodeNumber: z.number().int().optional(),
+    seasonNumber: z.number().int().optional(),
+    explicitContent: z.boolean().optional(),
+    hideFromFeed: z.boolean().optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      episodeType: "episode_type",
+      episodeNumber: "episode_number",
+      seasonNumber: "season_number",
+      explicitContent: "explicit_content",
+      hideFromFeed: "hide_from_feed",
+    });
+  });
+
+export function postChannelsChannelHashedIdChannelEpisodesPodcastSettingsRequestToJSON(
+  postChannelsChannelHashedIdChannelEpisodesPodcastSettingsRequest:
+    PostChannelsChannelHashedIdChannelEpisodesPodcastSettingsRequest,
+): string {
+  return JSON.stringify(
+    PostChannelsChannelHashedIdChannelEpisodesPodcastSettingsRequest$outboundSchema
+      .parse(postChannelsChannelHashedIdChannelEpisodesPodcastSettingsRequest),
+  );
+}
 
 /** @internal */
 export type PostChannelsChannelHashedIdChannelEpisodesRequestBody$Outbound = {
@@ -166,10 +316,9 @@ export type PostChannelsChannelHashedIdChannelEpisodesRequestBody$Outbound = {
   summary?: string | undefined;
   publish_status?: string | undefined;
   publish_at?: string | undefined;
-  episode_type?: string | undefined;
-  episode_number?: number | undefined;
-  explicit_content?: boolean | undefined;
-  hide_from_feed?: boolean | undefined;
+  podcast_settings?:
+    | PostChannelsChannelHashedIdChannelEpisodesPodcastSettingsRequest$Outbound
+    | undefined;
 };
 
 /** @internal */
@@ -187,21 +336,15 @@ export const PostChannelsChannelHashedIdChannelEpisodesRequestBody$outboundSchem
       PostChannelsChannelHashedIdChannelEpisodesPublishStatus$outboundSchema
         .optional(),
     publishAt: z.date().transform(v => v.toISOString()).optional(),
-    episodeType:
-      PostChannelsChannelHashedIdChannelEpisodesEpisodeType$outboundSchema
-        .optional(),
-    episodeNumber: z.number().int().optional(),
-    explicitContent: z.boolean().optional(),
-    hideFromFeed: z.boolean().optional(),
+    podcastSettings: z.lazy(() =>
+      PostChannelsChannelHashedIdChannelEpisodesPodcastSettingsRequest$outboundSchema
+    ).optional(),
   }).transform((v) => {
     return remap$(v, {
       mediaId: "media_id",
       publishStatus: "publish_status",
       publishAt: "publish_at",
-      episodeType: "episode_type",
-      episodeNumber: "episode_number",
-      explicitContent: "explicit_content",
-      hideFromFeed: "hide_from_feed",
+      podcastSettings: "podcast_settings",
     });
   });
 
@@ -251,12 +394,65 @@ export function postChannelsChannelHashedIdChannelEpisodesRequestToJSON(
 }
 
 /** @internal */
+export const PostChannelsChannelHashedIdChannelEpisodesCode$inboundSchema:
+  z.ZodNativeEnum<typeof PostChannelsChannelHashedIdChannelEpisodesCode> = z
+    .nativeEnum(PostChannelsChannelHashedIdChannelEpisodesCode);
+
+/** @internal */
+export const PostChannelsChannelHashedIdChannelEpisodesEpisodeTypeResponse$inboundSchema:
+  z.ZodNativeEnum<
+    typeof PostChannelsChannelHashedIdChannelEpisodesEpisodeTypeResponse
+  > = z.nativeEnum(
+    PostChannelsChannelHashedIdChannelEpisodesEpisodeTypeResponse,
+  );
+
+/** @internal */
+export const PostChannelsChannelHashedIdChannelEpisodesPodcastSettingsResponse$inboundSchema:
+  z.ZodType<
+    PostChannelsChannelHashedIdChannelEpisodesPodcastSettingsResponse,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    episode_type:
+      PostChannelsChannelHashedIdChannelEpisodesEpisodeTypeResponse$inboundSchema
+        .optional(),
+    episode_number: z.number().int().optional(),
+    season_number: z.number().int().optional(),
+    explicit_content: z.boolean().optional(),
+    hide_from_feed: z.boolean().optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "episode_type": "episodeType",
+      "episode_number": "episodeNumber",
+      "season_number": "seasonNumber",
+      "explicit_content": "explicitContent",
+      "hide_from_feed": "hideFromFeed",
+    });
+  });
+
+export function postChannelsChannelHashedIdChannelEpisodesPodcastSettingsResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  PostChannelsChannelHashedIdChannelEpisodesPodcastSettingsResponse,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      PostChannelsChannelHashedIdChannelEpisodesPodcastSettingsResponse$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'PostChannelsChannelHashedIdChannelEpisodesPodcastSettingsResponse' from JSON`,
+  );
+}
+
+/** @internal */
 export const PostChannelsChannelHashedIdChannelEpisodesResponse$inboundSchema:
   z.ZodType<
     PostChannelsChannelHashedIdChannelEpisodesResponse,
     z.ZodTypeDef,
     unknown
   > = z.object({
+    id: z.number().int().optional(),
     channel_hashed_id: z.string(),
     created: z.string().datetime({ offset: true }).transform(v => new Date(v)),
     cursor: z.nullable(z.string()).optional(),
@@ -264,18 +460,24 @@ export const PostChannelsChannelHashedIdChannelEpisodesResponse$inboundSchema:
     summary: z.string(),
     hashed_id: z.string(),
     media_hashed_id: z.string(),
+    live_stream_event_hashed_id: z.nullable(z.string()).optional(),
     published: z.boolean(),
     publish_at: z.string().datetime({ offset: true }).transform(v =>
       new Date(v)
     ).optional(),
     title: z.nullable(z.string()),
     updated: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+    podcast_settings: z.lazy(() =>
+      PostChannelsChannelHashedIdChannelEpisodesPodcastSettingsResponse$inboundSchema
+    ).optional(),
   }).transform((v) => {
     return remap$(v, {
       "channel_hashed_id": "channelHashedId",
       "hashed_id": "hashedId",
       "media_hashed_id": "mediaHashedId",
+      "live_stream_event_hashed_id": "liveStreamEventHashedId",
       "publish_at": "publishAt",
+      "podcast_settings": "podcastSettings",
     });
   });
 
