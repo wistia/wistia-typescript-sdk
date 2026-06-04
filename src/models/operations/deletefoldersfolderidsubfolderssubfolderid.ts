@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
@@ -18,6 +19,22 @@ export type DeleteFoldersFolderIdSubfoldersSubfolderIdRequest = {
    */
   subfolderId: string;
 };
+
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const DeleteFoldersFolderIdSubfoldersSubfolderIdCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type DeleteFoldersFolderIdSubfoldersSubfolderIdCode = ClosedEnum<
+  typeof DeleteFoldersFolderIdSubfoldersSubfolderIdCode
+>;
 
 /**
  * A subfolder within a folder that contains media.
@@ -80,6 +97,11 @@ export function deleteFoldersFolderIdSubfoldersSubfolderIdRequestToJSON(
     ),
   );
 }
+
+/** @internal */
+export const DeleteFoldersFolderIdSubfoldersSubfolderIdCode$inboundSchema:
+  z.ZodNativeEnum<typeof DeleteFoldersFolderIdSubfoldersSubfolderIdCode> = z
+    .nativeEnum(DeleteFoldersFolderIdSubfoldersSubfolderIdCode);
 
 /** @internal */
 export const DeleteFoldersFolderIdSubfoldersSubfolderIdResponse$inboundSchema:

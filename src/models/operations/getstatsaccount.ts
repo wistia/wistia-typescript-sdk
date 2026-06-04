@@ -5,8 +5,23 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const GetStatsAccountCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type GetStatsAccountCode = ClosedEnum<typeof GetStatsAccountCode>;
 
 /**
  * Successful operation. Account stats retrieved.
@@ -25,6 +40,11 @@ export type GetStatsAccountResponse = {
    */
   hoursWatched: number;
 };
+
+/** @internal */
+export const GetStatsAccountCode$inboundSchema: z.ZodNativeEnum<
+  typeof GetStatsAccountCode
+> = z.nativeEnum(GetStatsAccountCode);
 
 /** @internal */
 export const GetStatsAccountResponse$inboundSchema: z.ZodType<

@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import * as operations from "../operations/index.js";
 import { WistiaError } from "./wistiaerror.js";
 
 /**
@@ -40,6 +41,10 @@ export class GetCaptionsInternalServerError extends WistiaError {
  * Unauthorized, invalid or missing token
  */
 export type GetCaptionsUnauthorizedErrorData = {
+  /**
+   * A machine-readable identifier for the specific authorization failure.
+   */
+  code?: operations.GetCaptionsCode | undefined;
   error?: string | undefined;
 };
 
@@ -47,6 +52,10 @@ export type GetCaptionsUnauthorizedErrorData = {
  * Unauthorized, invalid or missing token
  */
 export class GetCaptionsUnauthorizedError extends WistiaError {
+  /**
+   * A machine-readable identifier for the specific authorization failure.
+   */
+  code?: operations.GetCaptionsCode | undefined;
   error?: string | undefined;
 
   /** The original data that was passed to this error instance. */
@@ -61,6 +70,7 @@ export class GetCaptionsUnauthorizedError extends WistiaError {
       : `API error occurred: ${JSON.stringify(err)}`;
     super(message, httpMeta);
     this.data$ = err;
+    if (err.code != null) this.code = err.code;
     if (err.error != null) this.error = err.error;
 
     this.name = "GetCaptionsUnauthorizedError";
@@ -75,6 +85,10 @@ export type GetCaptionsBadRequestErrorData = {
    * Error message detailing the reason for the bad request.
    */
   error?: string | undefined;
+  /**
+   * Array of error messages detailing the reasons for the bad request.
+   */
+  errors?: Array<string> | undefined;
 };
 
 /**
@@ -85,6 +99,10 @@ export class GetCaptionsBadRequestError extends WistiaError {
    * Error message detailing the reason for the bad request.
    */
   error?: string | undefined;
+  /**
+   * Array of error messages detailing the reasons for the bad request.
+   */
+  errors?: Array<string> | undefined;
 
   /** The original data that was passed to this error instance. */
   data$: GetCaptionsBadRequestErrorData;
@@ -99,6 +117,7 @@ export class GetCaptionsBadRequestError extends WistiaError {
     super(message, httpMeta);
     this.data$ = err;
     if (err.error != null) this.error = err.error;
+    if (err.errors != null) this.errors = err.errors;
 
     this.name = "GetCaptionsBadRequestError";
   }
@@ -129,6 +148,7 @@ export const GetCaptionsUnauthorizedError$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  code: operations.GetCaptionsCode$inboundSchema.optional(),
   error: z.string().optional(),
   request$: z.instanceof(Request),
   response$: z.instanceof(Response),
@@ -149,6 +169,7 @@ export const GetCaptionsBadRequestError$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   error: z.string().optional(),
+  errors: z.array(z.string()).optional(),
   request$: z.instanceof(Request),
   response$: z.instanceof(Response),
   body$: z.string(),

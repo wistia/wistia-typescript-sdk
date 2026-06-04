@@ -74,6 +74,22 @@ export type GetAnalyticsWebinarsWebinarIdTrafficRequest = {
 };
 
 /**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const GetAnalyticsWebinarsWebinarIdTrafficCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type GetAnalyticsWebinarsWebinarIdTrafficCode = ClosedEnum<
+  typeof GetAnalyticsWebinarsWebinarIdTrafficCode
+>;
+
+/**
  * Each item contains the group_by field and associated metrics.
  */
 export type GetAnalyticsWebinarsWebinarIdTrafficResponse = {
@@ -164,6 +180,11 @@ export function getAnalyticsWebinarsWebinarIdTrafficRequestToJSON(
     ),
   );
 }
+
+/** @internal */
+export const GetAnalyticsWebinarsWebinarIdTrafficCode$inboundSchema:
+  z.ZodNativeEnum<typeof GetAnalyticsWebinarsWebinarIdTrafficCode> = z
+    .nativeEnum(GetAnalyticsWebinarsWebinarIdTrafficCode);
 
 /** @internal */
 export const GetAnalyticsWebinarsWebinarIdTrafficResponse$inboundSchema:

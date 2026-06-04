@@ -17,6 +17,22 @@ export type GetBackgroundJobStatusBackgroundJobStatusIdRequest = {
 };
 
 /**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const GetBackgroundJobStatusBackgroundJobStatusIdCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type GetBackgroundJobStatusBackgroundJobStatusIdCode = ClosedEnum<
+  typeof GetBackgroundJobStatusBackgroundJobStatusIdCode
+>;
+
+/**
  * The status of the background job that's been queued for the request.
  */
 export const GetBackgroundJobStatusBackgroundJobStatusIdStatus = {
@@ -88,6 +104,11 @@ export function getBackgroundJobStatusBackgroundJobStatusIdRequestToJSON(
     ),
   );
 }
+
+/** @internal */
+export const GetBackgroundJobStatusBackgroundJobStatusIdCode$inboundSchema:
+  z.ZodNativeEnum<typeof GetBackgroundJobStatusBackgroundJobStatusIdCode> = z
+    .nativeEnum(GetBackgroundJobStatusBackgroundJobStatusIdCode);
 
 /** @internal */
 export const GetBackgroundJobStatusBackgroundJobStatusIdStatus$inboundSchema:

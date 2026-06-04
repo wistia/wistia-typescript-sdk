@@ -20,6 +20,20 @@ export type PutMediasCopyRequest = {
   folderId: string;
 };
 
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const PutMediasCopyCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type PutMediasCopyCode = ClosedEnum<typeof PutMediasCopyCode>;
+
 export type Destination = {
   /**
    * The type of the destination container.
@@ -112,6 +126,11 @@ export function putMediasCopyRequestToJSON(
     PutMediasCopyRequest$outboundSchema.parse(putMediasCopyRequest),
   );
 }
+
+/** @internal */
+export const PutMediasCopyCode$inboundSchema: z.ZodNativeEnum<
+  typeof PutMediasCopyCode
+> = z.nativeEnum(PutMediasCopyCode);
 
 /** @internal */
 export const Destination$inboundSchema: z.ZodType<
