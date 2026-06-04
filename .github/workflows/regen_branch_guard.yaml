@@ -1,0 +1,38 @@
+name: Regen Branch Guard
+
+# Speakeasy's generation action force-updates its regen branches and refuses to
+# touch any branch containing a non-automated commit ("external changes
+# detected") — silently blocking all future regenerations for that target until
+# the offending PR is merged or closed. A hard block via ruleset isn't possible
+# (the built-in github-actions identity can't be a ruleset bypass actor), so
+# this tripwire makes the mistake loud at push time instead of weeks later.
+#
+# Pushes made by the generation action itself use GITHUB_TOKEN, which never
+# triggers push workflows — so this only fires for human pushes.
+
+on:
+  push:
+    branches:
+      - 'speakeasy-sdk-regen-*'
+
+permissions:
+  pull-requests: write
+
+jobs:
+  warn:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Comment on the regen PR and fail
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          BODY="⚠️ @${GITHUB_ACTOR} pushed manual commits to \`${GITHUB_REF_NAME}\`, a branch owned by the Speakeasy generation action. The action refuses to update branches containing non-automated commits, so **every future regeneration for this target will fail** until this PR is merged or closed. Land fixes on the target branch as their own PR instead — see the \"Regeneration Pull Requests\" section of CONTRIBUTING.md."
+
+          PR=$(gh pr list --repo "$GITHUB_REPOSITORY" --head "$GITHUB_REF_NAME" --state open --json number --jq '.[0].number')
+          if [ -n "$PR" ]; then
+            gh pr comment "$PR" --repo "$GITHUB_REPOSITORY" --body "$BODY"
+          fi
+
+          echo "::error::Manual commit on a Speakeasy regen branch — see CONTRIBUTING.md (Regeneration Pull Requests)"
+          exit 1
