@@ -23,6 +23,7 @@ let value: GetSearchResponse = {
         publicId: "4bD",
         anonymousCanUpload: false,
         anonymousCanDownload: false,
+        kind: "shared",
       },
     ],
     subfolders: [

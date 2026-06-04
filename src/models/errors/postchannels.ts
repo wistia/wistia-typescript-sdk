@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import * as operations from "../operations/index.js";
 import { WistiaError } from "./wistiaerror.js";
 
 /**
@@ -71,6 +72,10 @@ export class PostChannelsForbiddenError extends WistiaError {
  * Unauthorized, invalid or missing token
  */
 export type PostChannelsUnauthorizedErrorData = {
+  /**
+   * A machine-readable identifier for the specific authorization failure.
+   */
+  code?: operations.PostChannelsCode | undefined;
   error?: string | undefined;
 };
 
@@ -78,6 +83,10 @@ export type PostChannelsUnauthorizedErrorData = {
  * Unauthorized, invalid or missing token
  */
 export class PostChannelsUnauthorizedError extends WistiaError {
+  /**
+   * A machine-readable identifier for the specific authorization failure.
+   */
+  code?: operations.PostChannelsCode | undefined;
   error?: string | undefined;
 
   /** The original data that was passed to this error instance. */
@@ -92,6 +101,7 @@ export class PostChannelsUnauthorizedError extends WistiaError {
       : `API error occurred: ${JSON.stringify(err)}`;
     super(message, httpMeta);
     this.data$ = err;
+    if (err.code != null) this.code = err.code;
     if (err.error != null) this.error = err.error;
 
     this.name = "PostChannelsUnauthorizedError";
@@ -142,6 +152,7 @@ export const PostChannelsUnauthorizedError$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  code: operations.PostChannelsCode$inboundSchema.optional(),
   error: z.string().optional(),
   request$: z.instanceof(Request),
   response$: z.instanceof(Response),

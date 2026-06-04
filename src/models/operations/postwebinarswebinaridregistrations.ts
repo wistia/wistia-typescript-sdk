@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
@@ -30,6 +31,22 @@ export type PostWebinarsWebinarIdRegistrationsRequest = {
   webinarId: string;
   requestBody: PostWebinarsWebinarIdRegistrationsRequestBody;
 };
+
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const PostWebinarsWebinarIdRegistrationsCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type PostWebinarsWebinarIdRegistrationsCode = ClosedEnum<
+  typeof PostWebinarsWebinarIdRegistrationsCode
+>;
 
 /**
  * Registration created successfully
@@ -113,6 +130,12 @@ export function postWebinarsWebinarIdRegistrationsRequestToJSON(
     ),
   );
 }
+
+/** @internal */
+export const PostWebinarsWebinarIdRegistrationsCode$inboundSchema:
+  z.ZodNativeEnum<typeof PostWebinarsWebinarIdRegistrationsCode> = z.nativeEnum(
+    PostWebinarsWebinarIdRegistrationsCode,
+  );
 
 /** @internal */
 export const PostWebinarsWebinarIdRegistrationsResponse$inboundSchema:

@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import * as operations from "../operations/index.js";
 import { WistiaError } from "./wistiaerror.js";
 
 /**
@@ -104,6 +105,10 @@ export class GetAnalyticsMediasMediaIdForbiddenError extends WistiaError {
  * Unauthorized, invalid or missing token
  */
 export type GetAnalyticsMediasMediaIdUnauthorizedErrorData = {
+  /**
+   * A machine-readable identifier for the specific authorization failure.
+   */
+  code?: operations.GetAnalyticsMediasMediaIdCode | undefined;
   error?: string | undefined;
 };
 
@@ -111,6 +116,10 @@ export type GetAnalyticsMediasMediaIdUnauthorizedErrorData = {
  * Unauthorized, invalid or missing token
  */
 export class GetAnalyticsMediasMediaIdUnauthorizedError extends WistiaError {
+  /**
+   * A machine-readable identifier for the specific authorization failure.
+   */
+  code?: operations.GetAnalyticsMediasMediaIdCode | undefined;
   error?: string | undefined;
 
   /** The original data that was passed to this error instance. */
@@ -125,6 +134,7 @@ export class GetAnalyticsMediasMediaIdUnauthorizedError extends WistiaError {
       : `API error occurred: ${JSON.stringify(err)}`;
     super(message, httpMeta);
     this.data$ = err;
+    if (err.code != null) this.code = err.code;
     if (err.error != null) this.error = err.error;
 
     this.name = "GetAnalyticsMediasMediaIdUnauthorizedError";
@@ -139,6 +149,10 @@ export type GetAnalyticsMediasMediaIdBadRequestErrorData = {
    * Error message detailing the reason for the bad request.
    */
   error?: string | undefined;
+  /**
+   * Array of error messages detailing the reasons for the bad request.
+   */
+  errors?: Array<string> | undefined;
 };
 
 /**
@@ -149,6 +163,10 @@ export class GetAnalyticsMediasMediaIdBadRequestError extends WistiaError {
    * Error message detailing the reason for the bad request.
    */
   error?: string | undefined;
+  /**
+   * Array of error messages detailing the reasons for the bad request.
+   */
+  errors?: Array<string> | undefined;
 
   /** The original data that was passed to this error instance. */
   data$: GetAnalyticsMediasMediaIdBadRequestErrorData;
@@ -163,6 +181,7 @@ export class GetAnalyticsMediasMediaIdBadRequestError extends WistiaError {
     super(message, httpMeta);
     this.data$ = err;
     if (err.error != null) this.error = err.error;
+    if (err.errors != null) this.errors = err.errors;
 
     this.name = "GetAnalyticsMediasMediaIdBadRequestError";
   }
@@ -231,6 +250,7 @@ export const GetAnalyticsMediasMediaIdForbiddenError$inboundSchema: z.ZodType<
 export const GetAnalyticsMediasMediaIdUnauthorizedError$inboundSchema:
   z.ZodType<GetAnalyticsMediasMediaIdUnauthorizedError, z.ZodTypeDef, unknown> =
     z.object({
+      code: operations.GetAnalyticsMediasMediaIdCode$inboundSchema.optional(),
       error: z.string().optional(),
       request$: z.instanceof(Request),
       response$: z.instanceof(Response),
@@ -251,6 +271,7 @@ export const GetAnalyticsMediasMediaIdBadRequestError$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   error: z.string().optional(),
+  errors: z.array(z.string()).optional(),
   request$: z.instanceof(Request),
   response$: z.instanceof(Response),
   body$: z.string(),

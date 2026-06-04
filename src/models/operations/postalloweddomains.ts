@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
@@ -14,6 +15,20 @@ export type PostAllowedDomainsRequest = {
    */
   domain: string;
 };
+
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const PostAllowedDomainsCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type PostAllowedDomainsCode = ClosedEnum<typeof PostAllowedDomainsCode>;
 
 /**
  * An allowed domain represents a domain where a Wistia video can be embedded. Account
@@ -59,6 +74,11 @@ export function postAllowedDomainsRequestToJSON(
     PostAllowedDomainsRequest$outboundSchema.parse(postAllowedDomainsRequest),
   );
 }
+
+/** @internal */
+export const PostAllowedDomainsCode$inboundSchema: z.ZodNativeEnum<
+  typeof PostAllowedDomainsCode
+> = z.nativeEnum(PostAllowedDomainsCode);
 
 /** @internal */
 export const PostAllowedDomainsResponse$inboundSchema: z.ZodType<

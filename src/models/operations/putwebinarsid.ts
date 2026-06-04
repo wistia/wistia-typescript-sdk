@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
@@ -18,13 +19,21 @@ export type PutWebinarsIdWebinar = {
    */
   description?: string | undefined;
   /**
-   * The scheduled start time in W3C format with timezone
+   * The scheduled start time as a UTC formatted ISO 8601 string (offset `Z` or `+00:00`).
    */
   scheduledFor?: Date | undefined;
   /**
    * Duration of the webinar in minutes (minimum 15)
    */
   eventDuration?: number | undefined;
+  /**
+   * The IANA time zone identifier the webinar is scheduled in.
+   */
+  timeZone?: string | undefined;
+  /**
+   * Hashed ID of the folder to move this webinar to. Can only be changed before the webinar has started.
+   */
+  folderId?: string | undefined;
 };
 
 export type PutWebinarsIdRequestBody = {
@@ -37,6 +46,38 @@ export type PutWebinarsIdRequest = {
    */
   id: string;
   requestBody: PutWebinarsIdRequestBody;
+};
+
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const PutWebinarsIdCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type PutWebinarsIdCode = ClosedEnum<typeof PutWebinarsIdCode>;
+
+export type PutWebinarsIdFolder = {
+  /**
+   * A unique alphanumeric identifier for the record.
+   */
+  id: string;
+  /**
+   * A URL for fetching all the records of the given record type. You can pass hashed_ids as a param with multiple values
+   *
+   * @remarks
+   * to do a batch fetch for this records type.
+   */
+  indexUrl: string;
+  /**
+   * A URL that can be used to fetch this record.
+   */
+  url: string;
 };
 
 /**
@@ -68,6 +109,10 @@ export type PutWebinarsIdResponse = {
    */
   eventDuration?: number | null | undefined;
   /**
+   * The IANA time zone identifier the webinar is scheduled in
+   */
+  timeZone: string;
+  /**
    * Current lifecycle status of the event
    */
   lifecycleStatus: string;
@@ -95,6 +140,14 @@ export type PutWebinarsIdResponse = {
    * Link for panelists to join the event
    */
   panelistLink: string;
+  /**
+   * The folder (project) this webinar belongs to
+   */
+  folder?: PutWebinarsIdFolder | null | undefined;
+  /**
+   * A cursor for stable pagination based on current `sort_by` order. You can pass this to `cursor[before]` or `cursor[after]` as a parameter to fetch the records before or after this record in the same sort order. This is only populated if records were fetched with `cursor[enabled]`, or `cursor[before]` or `cursor[after]`.
+   */
+  cursor?: string | null | undefined;
 };
 
 /** @internal */
@@ -103,6 +156,8 @@ export type PutWebinarsIdWebinar$Outbound = {
   description?: string | undefined;
   scheduled_for?: string | undefined;
   event_duration?: number | undefined;
+  time_zone?: string | undefined;
+  folder_id?: string | undefined;
 };
 
 /** @internal */
@@ -115,10 +170,14 @@ export const PutWebinarsIdWebinar$outboundSchema: z.ZodType<
   description: z.string().optional(),
   scheduledFor: z.date().transform(v => v.toISOString()).optional(),
   eventDuration: z.number().int().optional(),
+  timeZone: z.string().optional(),
+  folderId: z.string().optional(),
 }).transform((v) => {
   return remap$(v, {
     scheduledFor: "scheduled_for",
     eventDuration: "event_duration",
+    timeZone: "time_zone",
+    folderId: "folder_id",
   });
 });
 
@@ -181,6 +240,36 @@ export function putWebinarsIdRequestToJSON(
 }
 
 /** @internal */
+export const PutWebinarsIdCode$inboundSchema: z.ZodNativeEnum<
+  typeof PutWebinarsIdCode
+> = z.nativeEnum(PutWebinarsIdCode);
+
+/** @internal */
+export const PutWebinarsIdFolder$inboundSchema: z.ZodType<
+  PutWebinarsIdFolder,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: z.string(),
+  index_url: z.string(),
+  url: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    "index_url": "indexUrl",
+  });
+});
+
+export function putWebinarsIdFolderFromJSON(
+  jsonString: string,
+): SafeParseResult<PutWebinarsIdFolder, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PutWebinarsIdFolder$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PutWebinarsIdFolder' from JSON`,
+  );
+}
+
+/** @internal */
 export const PutWebinarsIdResponse$inboundSchema: z.ZodType<
   PutWebinarsIdResponse,
   z.ZodTypeDef,
@@ -193,6 +282,7 @@ export const PutWebinarsIdResponse$inboundSchema: z.ZodType<
     z.string().datetime({ offset: true }).transform(v => new Date(v)),
   ).optional(),
   event_duration: z.nullable(z.number().int()).optional(),
+  time_zone: z.string(),
   lifecycle_status: z.string(),
   registration_status: z.string(),
   created_at: z.string().datetime({ offset: true }).transform(v => new Date(v)),
@@ -200,10 +290,14 @@ export const PutWebinarsIdResponse$inboundSchema: z.ZodType<
   audience_link: z.string(),
   host_link: z.string(),
   panelist_link: z.string(),
+  folder: z.nullable(z.lazy(() => PutWebinarsIdFolder$inboundSchema))
+    .optional(),
+  cursor: z.nullable(z.string()).optional(),
 }).transform((v) => {
   return remap$(v, {
     "scheduled_for": "scheduledFor",
     "event_duration": "eventDuration",
+    "time_zone": "timeZone",
     "lifecycle_status": "lifecycleStatus",
     "registration_status": "registrationStatus",
     "created_at": "createdAt",

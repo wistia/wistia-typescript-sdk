@@ -25,6 +25,20 @@ export type PostFoldersIdCopyRequest = {
 };
 
 /**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const PostFoldersIdCopyCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type PostFoldersIdCopyCode = ClosedEnum<typeof PostFoldersIdCopyCode>;
+
+/**
  * The status of the background job that's been queued for the request.
  */
 export const PostFoldersIdCopyStatus = {
@@ -46,7 +60,7 @@ export type PostFoldersIdCopyStatus = ClosedEnum<
  * @remarks
  * bulk archiving media, translating media, etc.
  */
-export type PostFoldersIdCopyBackgroundJobStatus = {
+export type PostFoldersIdCopyResponse = {
   /**
    * The ID of the background job that's been queued for the request.
    */
@@ -55,19 +69,6 @@ export type PostFoldersIdCopyBackgroundJobStatus = {
    * The status of the background job that's been queued for the request.
    */
   status: PostFoldersIdCopyStatus;
-};
-
-/**
- * Folder queued to be copied
- */
-export type PostFoldersIdCopyResponse = {
-  /**
-   * A background job keeps track of the progress of an asynchronous task, e.g
-   *
-   * @remarks
-   * bulk archiving media, translating media, etc.
-   */
-  backgroundJobStatus?: PostFoldersIdCopyBackgroundJobStatus | undefined;
 };
 
 /** @internal */
@@ -124,30 +125,14 @@ export function postFoldersIdCopyRequestToJSON(
 }
 
 /** @internal */
+export const PostFoldersIdCopyCode$inboundSchema: z.ZodNativeEnum<
+  typeof PostFoldersIdCopyCode
+> = z.nativeEnum(PostFoldersIdCopyCode);
+
+/** @internal */
 export const PostFoldersIdCopyStatus$inboundSchema: z.ZodNativeEnum<
   typeof PostFoldersIdCopyStatus
 > = z.nativeEnum(PostFoldersIdCopyStatus);
-
-/** @internal */
-export const PostFoldersIdCopyBackgroundJobStatus$inboundSchema: z.ZodType<
-  PostFoldersIdCopyBackgroundJobStatus,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: z.number().int(),
-  status: PostFoldersIdCopyStatus$inboundSchema,
-});
-
-export function postFoldersIdCopyBackgroundJobStatusFromJSON(
-  jsonString: string,
-): SafeParseResult<PostFoldersIdCopyBackgroundJobStatus, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      PostFoldersIdCopyBackgroundJobStatus$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PostFoldersIdCopyBackgroundJobStatus' from JSON`,
-  );
-}
 
 /** @internal */
 export const PostFoldersIdCopyResponse$inboundSchema: z.ZodType<
@@ -155,13 +140,8 @@ export const PostFoldersIdCopyResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  background_job_status: z.lazy(() =>
-    PostFoldersIdCopyBackgroundJobStatus$inboundSchema
-  ).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "background_job_status": "backgroundJobStatus",
-  });
+  id: z.number().int(),
+  status: PostFoldersIdCopyStatus$inboundSchema,
 });
 
 export function postFoldersIdCopyResponseFromJSON(

@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
@@ -18,6 +19,22 @@ export type GetFoldersFolderIdSharingsSharingIdRequest = {
    */
   sharingId: number;
 };
+
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const GetFoldersFolderIdSharingsSharingIdCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type GetFoldersFolderIdSharingsSharingIdCode = ClosedEnum<
+  typeof GetFoldersFolderIdSharingsSharingIdCode
+>;
 
 export type GetFoldersFolderIdSharingsSharingIdShare = {
   id: number;
@@ -77,6 +94,11 @@ export function getFoldersFolderIdSharingsSharingIdRequestToJSON(
     ),
   );
 }
+
+/** @internal */
+export const GetFoldersFolderIdSharingsSharingIdCode$inboundSchema:
+  z.ZodNativeEnum<typeof GetFoldersFolderIdSharingsSharingIdCode> = z
+    .nativeEnum(GetFoldersFolderIdSharingsSharingIdCode);
 
 /** @internal */
 export const GetFoldersFolderIdSharingsSharingIdShare$inboundSchema: z.ZodType<

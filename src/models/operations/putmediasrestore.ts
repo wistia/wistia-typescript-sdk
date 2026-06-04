@@ -20,6 +20,20 @@ export type PutMediasRestoreRequest = {
   folderId: string;
 };
 
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const PutMediasRestoreCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type PutMediasRestoreCode = ClosedEnum<typeof PutMediasRestoreCode>;
+
 export type Container = {
   /**
    * The type of container the medias will be restored to.
@@ -112,6 +126,11 @@ export function putMediasRestoreRequestToJSON(
     PutMediasRestoreRequest$outboundSchema.parse(putMediasRestoreRequest),
   );
 }
+
+/** @internal */
+export const PutMediasRestoreCode$inboundSchema: z.ZodNativeEnum<
+  typeof PutMediasRestoreCode
+> = z.nativeEnum(PutMediasRestoreCode);
 
 /** @internal */
 export const Container$inboundSchema: z.ZodType<

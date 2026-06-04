@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
@@ -36,6 +37,22 @@ export type PutFoldersFolderIdSubfoldersSubfolderIdRequest = {
    */
   requestBody: PutFoldersFolderIdSubfoldersSubfolderIdRequestBody;
 };
+
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const PutFoldersFolderIdSubfoldersSubfolderIdCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type PutFoldersFolderIdSubfoldersSubfolderIdCode = ClosedEnum<
+  typeof PutFoldersFolderIdSubfoldersSubfolderIdCode
+>;
 
 /**
  * A subfolder within a folder that contains media.
@@ -134,6 +151,11 @@ export function putFoldersFolderIdSubfoldersSubfolderIdRequestToJSON(
     ),
   );
 }
+
+/** @internal */
+export const PutFoldersFolderIdSubfoldersSubfolderIdCode$inboundSchema:
+  z.ZodNativeEnum<typeof PutFoldersFolderIdSubfoldersSubfolderIdCode> = z
+    .nativeEnum(PutFoldersFolderIdSubfoldersSubfolderIdCode);
 
 /** @internal */
 export const PutFoldersFolderIdSubfoldersSubfolderIdResponse$inboundSchema:

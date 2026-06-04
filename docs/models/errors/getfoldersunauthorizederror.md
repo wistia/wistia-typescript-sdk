@@ -12,6 +12,7 @@ import { GetFoldersUnauthorizedError } from "@wistia/wistia-api-client/models/er
 
 ## Fields
 
-| Field                | Type                 | Required             | Description          | Example              |
-| -------------------- | -------------------- | -------------------- | -------------------- | -------------------- |
-| `error`              | *string*             | :heavy_minus_sign:   | N/A                  | Invalid credentials. |
+| Field                                                                  | Type                                                                   | Required                                                               | Description                                                            | Example                                                                |
+| ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| `code`                                                                 | [operations.GetFoldersCode](../../models/operations/getfolderscode.md) | :heavy_minus_sign:                                                     | A machine-readable identifier for the specific authorization failure.  |                                                                        |
+| `error`                                                                | *string*                                                               | :heavy_minus_sign:                                                     | N/A                                                                    | Invalid credentials.                                                   |
