@@ -12,6 +12,7 @@ import { PutMediasRestoreUnauthorizedError } from "@wistia/wistia-api-client/mod
 
 ## Fields
 
-| Field                | Type                 | Required             | Description          | Example              |
-| -------------------- | -------------------- | -------------------- | -------------------- | -------------------- |
-| `error`              | *string*             | :heavy_minus_sign:   | N/A                  | Invalid credentials. |
+| Field                                                                              | Type                                                                               | Required                                                                           | Description                                                                        | Example                                                                            |
+| ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| `code`                                                                             | [operations.PutMediasRestoreCode](../../models/operations/putmediasrestorecode.md) | :heavy_minus_sign:                                                                 | A machine-readable identifier for the specific authorization failure.              |                                                                                    |
+| `error`                                                                            | *string*                                                                           | :heavy_minus_sign:                                                                 | N/A                                                                                | Invalid credentials.                                                               |

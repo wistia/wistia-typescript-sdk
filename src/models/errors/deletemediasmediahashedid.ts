@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import * as operations from "../operations/index.js";
 import { WistiaError } from "./wistiaerror.js";
 
 /**
@@ -102,6 +103,10 @@ export class DeleteMediasMediaHashedIdForbiddenError extends WistiaError {
  * Unauthorized, invalid or missing token
  */
 export type DeleteMediasMediaHashedIdUnauthorizedErrorData = {
+  /**
+   * A machine-readable identifier for the specific authorization failure.
+   */
+  code?: operations.DeleteMediasMediaHashedIdCode | undefined;
   error?: string | undefined;
 };
 
@@ -109,6 +114,10 @@ export type DeleteMediasMediaHashedIdUnauthorizedErrorData = {
  * Unauthorized, invalid or missing token
  */
 export class DeleteMediasMediaHashedIdUnauthorizedError extends WistiaError {
+  /**
+   * A machine-readable identifier for the specific authorization failure.
+   */
+  code?: operations.DeleteMediasMediaHashedIdCode | undefined;
   error?: string | undefined;
 
   /** The original data that was passed to this error instance. */
@@ -123,6 +132,7 @@ export class DeleteMediasMediaHashedIdUnauthorizedError extends WistiaError {
       : `API error occurred: ${JSON.stringify(err)}`;
     super(message, httpMeta);
     this.data$ = err;
+    if (err.code != null) this.code = err.code;
     if (err.error != null) this.error = err.error;
 
     this.name = "DeleteMediasMediaHashedIdUnauthorizedError";
@@ -191,6 +201,7 @@ export const DeleteMediasMediaHashedIdForbiddenError$inboundSchema: z.ZodType<
 export const DeleteMediasMediaHashedIdUnauthorizedError$inboundSchema:
   z.ZodType<DeleteMediasMediaHashedIdUnauthorizedError, z.ZodTypeDef, unknown> =
     z.object({
+      code: operations.DeleteMediasMediaHashedIdCode$inboundSchema.optional(),
       error: z.string().optional(),
       request$: z.instanceof(Request),
       response$: z.instanceof(Response),

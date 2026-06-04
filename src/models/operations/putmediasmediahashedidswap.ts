@@ -25,6 +25,22 @@ export type PutMediasMediaHashedIdSwapRequest = {
 };
 
 /**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const PutMediasMediaHashedIdSwapCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type PutMediasMediaHashedIdSwapCode = ClosedEnum<
+  typeof PutMediasMediaHashedIdSwapCode
+>;
+
+/**
  * A string representing what type of media this is.
  */
 export const PutMediasMediaHashedIdSwapType = {
@@ -137,6 +153,10 @@ export type PutMediasMediaHashedIdSwapMedia = {
    */
   section?: string | null | undefined;
   thumbnail?: PutMediasMediaHashedIdSwapThumbnail | undefined;
+  /**
+   * Whether the media is protected (e.g. requires a password or other authentication to view). Null if the media is not protected.
+   */
+  protected?: boolean | null | undefined;
 };
 
 /**
@@ -177,14 +197,6 @@ export type PutMediasMediaHashedIdSwapBackgroundJobStatus = {
  */
 export type PutMediasMediaHashedIdSwapResponse = {
   message?: string | undefined;
-  /**
-   * A media generally represents a video or an audio which can be embedded into your website.
-   *
-   * @remarks
-   *
-   * CDN-backed medias are accessible using this url structure: https://fast.wistia.com/embed/medias/{hashed_id}.m3u8.
-   * For more information, see https://docs.wistia.com/docs/asset-urls#getting-hls-assets.
-   */
   media?: PutMediasMediaHashedIdSwapMedia | undefined;
   /**
    * A background job keeps track of the progress of an asynchronous task, e.g
@@ -258,6 +270,11 @@ export function putMediasMediaHashedIdSwapRequestToJSON(
 }
 
 /** @internal */
+export const PutMediasMediaHashedIdSwapCode$inboundSchema: z.ZodNativeEnum<
+  typeof PutMediasMediaHashedIdSwapCode
+> = z.nativeEnum(PutMediasMediaHashedIdSwapCode);
+
+/** @internal */
 export const PutMediasMediaHashedIdSwapType$inboundSchema: z.ZodNativeEnum<
   typeof PutMediasMediaHashedIdSwapType
 > = z.nativeEnum(PutMediasMediaHashedIdSwapType);
@@ -312,6 +329,7 @@ export const PutMediasMediaHashedIdSwapMedia$inboundSchema: z.ZodType<
   section: z.nullable(z.string()).optional(),
   thumbnail: z.lazy(() => PutMediasMediaHashedIdSwapThumbnail$inboundSchema)
     .optional(),
+  protected: z.nullable(z.boolean()).optional(),
 }).transform((v) => {
   return remap$(v, {
     "hashed_id": "hashedId",

@@ -88,6 +88,7 @@ run();
 
 | Error Type                                  | Status Code                                 | Content Type                                |
 | ------------------------------------------- | ------------------------------------------- | ------------------------------------------- |
+| errors.GetAllowedDomainsBadRequestError     | 400                                         | application/json                            |
 | errors.GetAllowedDomainsUnauthorizedError   | 401                                         | application/json                            |
 | errors.GetAllowedDomainsInternalServerError | 500                                         | application/json                            |
 | errors.WistiaDefaultError                   | 4XX, 5XX                                    | \*/\*                                       |

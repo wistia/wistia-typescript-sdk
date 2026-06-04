@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
@@ -14,6 +15,22 @@ export type GetStatsMediasMediaIdRequest = {
    */
   mediaId: string;
 };
+
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const GetStatsMediasMediaIdCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type GetStatsMediasMediaIdCode = ClosedEnum<
+  typeof GetStatsMediasMediaIdCode
+>;
 
 export type Action = {
   /**
@@ -32,6 +49,14 @@ export type Action = {
    * The rate of actions performed over impressions.
    */
   rate?: number | undefined;
+  /**
+   * For action types that link out (e.g., post-roll CTA), the URL the viewer was directed to.
+   */
+  url?: string | null | undefined;
+  /**
+   * For action types that include display text (e.g., post-roll CTA), the text shown to the viewer.
+   */
+  text?: string | null | undefined;
 };
 
 /**
@@ -90,12 +115,19 @@ export function getStatsMediasMediaIdRequestToJSON(
 }
 
 /** @internal */
+export const GetStatsMediasMediaIdCode$inboundSchema: z.ZodNativeEnum<
+  typeof GetStatsMediasMediaIdCode
+> = z.nativeEnum(GetStatsMediasMediaIdCode);
+
+/** @internal */
 export const Action$inboundSchema: z.ZodType<Action, z.ZodTypeDef, unknown> = z
   .object({
     type: z.string().optional(),
     action_count: z.number().int().optional(),
     impression_count: z.number().int().optional(),
     rate: z.number().optional(),
+    url: z.nullable(z.string()).optional(),
+    text: z.nullable(z.string()).optional(),
   }).transform((v) => {
     return remap$(v, {
       "action_count": "actionCount",

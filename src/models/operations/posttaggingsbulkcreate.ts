@@ -21,6 +21,22 @@ export type PostTaggingsBulkCreateRequest = {
 };
 
 /**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const PostTaggingsBulkCreateCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type PostTaggingsBulkCreateCode = ClosedEnum<
+  typeof PostTaggingsBulkCreateCode
+>;
+
+/**
  * The status of the background job that's been queued for the request.
  */
 export const PostTaggingsBulkCreateStatus = {
@@ -100,6 +116,11 @@ export function postTaggingsBulkCreateRequestToJSON(
     ),
   );
 }
+
+/** @internal */
+export const PostTaggingsBulkCreateCode$inboundSchema: z.ZodNativeEnum<
+  typeof PostTaggingsBulkCreateCode
+> = z.nativeEnum(PostTaggingsBulkCreateCode);
 
 /** @internal */
 export const PostTaggingsBulkCreateStatus$inboundSchema: z.ZodNativeEnum<

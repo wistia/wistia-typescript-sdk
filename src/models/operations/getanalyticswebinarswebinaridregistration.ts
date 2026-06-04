@@ -39,14 +39,30 @@ export type GetAnalyticsWebinarsWebinarIdRegistrationRequest = {
    */
   includePostEvent?: boolean | undefined;
   /**
-   * Start date for the post-event analytics period in ISO 8601 format (YYYY-MM-DD). Only used when include_post_event is true.
+   * Start date for the post-event analytics period in ISO 8601 format (YYYY-MM-DD). Inclusive — the range starts at the beginning of this date. Only used when include_post_event is true.
    */
   postEventStartDate?: RFCDate | undefined;
   /**
-   * End date for the post-event analytics period in ISO 8601 format (YYYY-MM-DD). Only used when include_post_event is true.
+   * End date for the post-event analytics period in ISO 8601 format (YYYY-MM-DD). Exclusive — the range ends before the beginning of this date. Only used when include_post_event is true.
    */
   postEventEndDate?: RFCDate | undefined;
 };
+
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const GetAnalyticsWebinarsWebinarIdRegistrationCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type GetAnalyticsWebinarsWebinarIdRegistrationCode = ClosedEnum<
+  typeof GetAnalyticsWebinarsWebinarIdRegistrationCode
+>;
 
 export type GetAnalyticsWebinarsWebinarIdRegistrationResponse = {
   /**
@@ -126,6 +142,11 @@ export function getAnalyticsWebinarsWebinarIdRegistrationRequestToJSON(
     ),
   );
 }
+
+/** @internal */
+export const GetAnalyticsWebinarsWebinarIdRegistrationCode$inboundSchema:
+  z.ZodNativeEnum<typeof GetAnalyticsWebinarsWebinarIdRegistrationCode> = z
+    .nativeEnum(GetAnalyticsWebinarsWebinarIdRegistrationCode);
 
 /** @internal */
 export const GetAnalyticsWebinarsWebinarIdRegistrationResponse$inboundSchema:

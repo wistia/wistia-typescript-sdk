@@ -1,6 +1,6 @@
 # GetMediasSubfolder
 
-A subfolder within a folder that contains media.
+The subfolder (media group) in which the media appears. Null if the media is not in a subfolder.
 
 ## Example Usage
 

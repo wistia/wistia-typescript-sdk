@@ -4,9 +4,9 @@
 
 ### Available Operations
 
-* [postTaggingsBulkCreate](#posttaggingsbulkcreate) - Bulk Tag Media
+* [bulkCreate](#bulkcreate) - Bulk Tag Media
 
-## postTaggingsBulkCreate
+## bulkCreate
 
 This method accepts a list of medias to tag. It processes requests asynchronously and will return a background_job_status object rather than the typical Media response object.
 
@@ -29,7 +29,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.taggings.postTaggingsBulkCreate({
+  const result = await wistia.taggings.bulkCreate({
     hashedIds: [
       "<value 1>",
       "<value 2>",
@@ -52,7 +52,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { taggingsPostTaggingsBulkCreate } from "@wistia/wistia-api-client/funcs/taggingsPostTaggingsBulkCreate.js";
+import { taggingsBulkCreate } from "@wistia/wistia-api-client/funcs/taggingsBulkCreate.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -61,7 +61,7 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await taggingsPostTaggingsBulkCreate(wistia, {
+  const res = await taggingsBulkCreate(wistia, {
     hashedIds: [
       "<value 1>",
       "<value 2>",
@@ -75,7 +75,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("taggingsPostTaggingsBulkCreate failed:", res.error);
+    console.log("taggingsBulkCreate failed:", res.error);
   }
 }
 

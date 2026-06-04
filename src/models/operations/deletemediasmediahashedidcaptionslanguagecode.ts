@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { ClosedEnum } from "../../types/enums.js";
 
 export type DeleteMediasMediaHashedIdCaptionsLanguageCodeRequest = {
   /**
@@ -14,6 +15,22 @@ export type DeleteMediasMediaHashedIdCaptionsLanguageCodeRequest = {
    */
   languageCode: string;
 };
+
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const DeleteMediasMediaHashedIdCaptionsLanguageCodeCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type DeleteMediasMediaHashedIdCaptionsLanguageCodeCode = ClosedEnum<
+  typeof DeleteMediasMediaHashedIdCaptionsLanguageCodeCode
+>;
 
 /** @internal */
 export type DeleteMediasMediaHashedIdCaptionsLanguageCodeRequest$Outbound = {
@@ -42,3 +59,8 @@ export function deleteMediasMediaHashedIdCaptionsLanguageCodeRequestToJSON(
     ),
   );
 }
+
+/** @internal */
+export const DeleteMediasMediaHashedIdCaptionsLanguageCodeCode$inboundSchema:
+  z.ZodNativeEnum<typeof DeleteMediasMediaHashedIdCaptionsLanguageCodeCode> = z
+    .nativeEnum(DeleteMediasMediaHashedIdCaptionsLanguageCodeCode);

@@ -17,6 +17,22 @@ export type DeleteMediasMediaHashedIdRequest = {
 };
 
 /**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const DeleteMediasMediaHashedIdCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type DeleteMediasMediaHashedIdCode = ClosedEnum<
+  typeof DeleteMediasMediaHashedIdCode
+>;
+
+/**
  * A string representing what type of media this is.
  */
 export const DeleteMediasMediaHashedIdType = {
@@ -129,6 +145,10 @@ export type DeleteMediasMediaHashedIdResponse = {
    */
   section?: string | null | undefined;
   thumbnail?: DeleteMediasMediaHashedIdThumbnail | undefined;
+  /**
+   * Whether the media is protected (e.g. requires a password or other authentication to view). Null if the media is not protected.
+   */
+  protected?: boolean | null | undefined;
 };
 
 /** @internal */
@@ -154,6 +174,11 @@ export function deleteMediasMediaHashedIdRequestToJSON(
     ),
   );
 }
+
+/** @internal */
+export const DeleteMediasMediaHashedIdCode$inboundSchema: z.ZodNativeEnum<
+  typeof DeleteMediasMediaHashedIdCode
+> = z.nativeEnum(DeleteMediasMediaHashedIdCode);
 
 /** @internal */
 export const DeleteMediasMediaHashedIdType$inboundSchema: z.ZodNativeEnum<
@@ -210,6 +235,7 @@ export const DeleteMediasMediaHashedIdResponse$inboundSchema: z.ZodType<
   section: z.nullable(z.string()).optional(),
   thumbnail: z.lazy(() => DeleteMediasMediaHashedIdThumbnail$inboundSchema)
     .optional(),
+  protected: z.nullable(z.boolean()).optional(),
 }).transform((v) => {
   return remap$(v, {
     "hashed_id": "hashedId",

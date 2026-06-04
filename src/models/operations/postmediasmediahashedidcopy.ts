@@ -29,6 +29,22 @@ export type PostMediasMediaHashedIdCopyRequest = {
 };
 
 /**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const PostMediasMediaHashedIdCopyCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type PostMediasMediaHashedIdCopyCode = ClosedEnum<
+  typeof PostMediasMediaHashedIdCopyCode
+>;
+
+/**
  * A string representing what type of media this is.
  */
 export const PostMediasMediaHashedIdCopyType = {
@@ -156,6 +172,10 @@ export type PostMediasMediaHashedIdCopyResponseBody = {
    */
   section?: string | null | undefined;
   thumbnail?: PostMediasMediaHashedIdCopyThumbnail | undefined;
+  /**
+   * Whether the media is protected (e.g. requires a password or other authentication to view). Null if the media is not protected.
+   */
+  protected?: boolean | null | undefined;
   folder: PostMediasMediaHashedIdCopyFolder | null;
 };
 
@@ -228,6 +248,11 @@ export function postMediasMediaHashedIdCopyRequestToJSON(
 }
 
 /** @internal */
+export const PostMediasMediaHashedIdCopyCode$inboundSchema: z.ZodNativeEnum<
+  typeof PostMediasMediaHashedIdCopyCode
+> = z.nativeEnum(PostMediasMediaHashedIdCopyCode);
+
+/** @internal */
 export const PostMediasMediaHashedIdCopyType$inboundSchema: z.ZodNativeEnum<
   typeof PostMediasMediaHashedIdCopyType
 > = z.nativeEnum(PostMediasMediaHashedIdCopyType);
@@ -267,7 +292,11 @@ export const PostMediasMediaHashedIdCopyFolder$inboundSchema: z.ZodType<
 > = z.object({
   id: z.number().int().optional(),
   name: z.string().optional(),
-  hashedId: z.string().optional(),
+  hashed_id: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "hashed_id": "hashedId",
+  });
 });
 
 export function postMediasMediaHashedIdCopyFolderFromJSON(
@@ -303,6 +332,7 @@ export const PostMediasMediaHashedIdCopyResponseBody$inboundSchema: z.ZodType<
   section: z.nullable(z.string()).optional(),
   thumbnail: z.lazy(() => PostMediasMediaHashedIdCopyThumbnail$inboundSchema)
     .optional(),
+  protected: z.nullable(z.boolean()).optional(),
   folder: z.nullable(
     z.lazy(() => PostMediasMediaHashedIdCopyFolder$inboundSchema),
   ),
