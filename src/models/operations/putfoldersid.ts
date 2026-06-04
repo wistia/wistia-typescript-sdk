@@ -9,20 +9,6 @@ import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-/**
- * A flag indicating whether or not the folder is enabled for public access. Set to “1” to enable and “0” to disable.
- */
-export const PutFoldersIdPublicEnum = {
-  Zero: "0",
-  One: "1",
-} as const;
-/**
- * A flag indicating whether or not the folder is enabled for public access. Set to “1” to enable and “0” to disable.
- */
-export type PutFoldersIdPublicEnum = ClosedEnum<typeof PutFoldersIdPublicEnum>;
-
-export type PutFoldersIdPublicUnion = PutFoldersIdPublicEnum | boolean;
-
 export type PutFoldersIdRequestBody = {
   /**
    * The folder’s new name.
@@ -40,7 +26,10 @@ export type PutFoldersIdRequestBody = {
    * Whether anonymous users can download media from the folder.
    */
   anonymousCanDownload?: boolean | undefined;
-  public?: PutFoldersIdPublicEnum | boolean | undefined;
+  /**
+   * A flag indicating whether or not the folder is enabled for public access.
+   */
+  public?: boolean | undefined;
 };
 
 export type PutFoldersIdRequest = {
@@ -52,110 +41,51 @@ export type PutFoldersIdRequest = {
 };
 
 /**
- * A string representing what type of media this is.
+ * A machine-readable identifier for the specific authorization failure.
  */
-export const PutFoldersIdType = {
-  Video: "Video",
-  Audio: "Audio",
-  Image: "Image",
-  PdfDocument: "PdfDocument",
-  MicrosoftOfficeDocument: "MicrosoftOfficeDocument",
-  Swf: "Swf",
-  UnknownType: "UnknownType",
+export const PutFoldersIdCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
 } as const;
 /**
- * A string representing what type of media this is.
+ * A machine-readable identifier for the specific authorization failure.
  */
-export type PutFoldersIdType = ClosedEnum<typeof PutFoldersIdType>;
-
-/**
- * Post upload processing status. - `queued`: the file is waiting in the queue to be processed. - `processing`: the file is actively being processed. - `ready`: the file has been fully processed and is ready for embedding and viewing. - `failed`: the file was unable to be processed (usually a format or size error).
- *
- * @remarks
- */
-export const PutFoldersIdStatus = {
-  Queued: "queued",
-  Processing: "processing",
-  Ready: "ready",
-  Failed: "failed",
-} as const;
-/**
- * Post upload processing status. - `queued`: the file is waiting in the queue to be processed. - `processing`: the file is actively being processed. - `ready`: the file has been fully processed and is ready for embedding and viewing. - `failed`: the file was unable to be processed (usually a format or size error).
- *
- * @remarks
- */
-export type PutFoldersIdStatus = ClosedEnum<typeof PutFoldersIdStatus>;
-
-export type PutFoldersIdThumbnail = {
-  url?: string | undefined;
-  width?: number | undefined;
-  height?: number | undefined;
-};
+export type PutFoldersIdCode = ClosedEnum<typeof PutFoldersIdCode>;
 
 /**
  * A link to where you can fetch the medias for this folder.
  */
 export type PutFoldersIdMedias = {
   /**
-   * A unique numeric identifier for the media within the system.
+   * A URL for fetching all child records of the parent record.
    */
-  id?: number | undefined;
-  /**
-   * The display name of the media.
-   */
-  name?: string | undefined;
-  /**
-   * A string representing what type of media this is.
-   */
-  type?: PutFoldersIdType | undefined;
-  /**
-   * Whether or not the media is archived, either true or false.
-   */
-  archived?: boolean | undefined;
-  /**
-   * The date when the media was originally uploaded.
-   */
-  created?: Date | undefined;
-  /**
-   * The date when the media was last changed.
-   */
-  updated?: Date | undefined;
-  /**
-   * Specifies the length (in seconds) for audio and video files. Specifies number of pages in the document. Omitted for other types of media.
-   */
-  duration?: number | null | undefined;
-  /**
-   * DEPRECATED: If you want to programmatically embed videos, follow the construct an embed code guide.
-   *
-   * @remarks
-   *
-   * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
-   */
-  embedCode?: string | undefined;
-  /**
-   * A unique alphanumeric identifier for this media.
-   */
-  hashedId?: string | undefined;
-  /**
-   * A description for the media which usually appears near the top of the sidebar on the media's page.
-   */
-  description?: string | undefined;
-  /**
-   * A floating point value between 0 and 1 that indicates the progress of the processing for this file.
-   */
-  progress?: number | undefined;
-  /**
-   * Post upload processing status. - `queued`: the file is waiting in the queue to be processed. - `processing`: the file is actively being processed. - `ready`: the file has been fully processed and is ready for embedding and viewing. - `failed`: the file was unable to be processed (usually a format or size error).
-   *
-   * @remarks
-   */
-  status?: PutFoldersIdStatus | undefined;
-  /**
-   * The title of the section in which the media appears. This attribute is omitted if the media is not in a section (default).
-   */
-  section?: string | null | undefined;
-  thumbnail?: PutFoldersIdThumbnail | undefined;
+  url?: string | undefined;
 };
+
+/**
+ * Indicates the folder's access scope, relative to the requesting user. One of:
+ *
+ * @remarks
+ * - `library`: a library the requester owns. Libraries can still be shared with specific contacts or contact groups; the only restriction is that they cannot be shared with the whole account.
+ * - `shared`: a folder the requester has access to via a Contact or ContactGroup sharing — this includes both shared folders and another contact's library that the requester has been granted access to.
+ * - `account`: a folder shared with the whole account (everyone in the company can see it).
+ */
+export const PutFoldersIdKind = {
+  Library: "library",
+  Shared: "shared",
+  Account: "account",
+} as const;
+/**
+ * Indicates the folder's access scope, relative to the requesting user. One of:
+ *
+ * @remarks
+ * - `library`: a library the requester owns. Libraries can still be shared with specific contacts or contact groups; the only restriction is that they cannot be shared with the whole account.
+ * - `shared`: a folder the requester has access to via a Contact or ContactGroup sharing — this includes both shared folders and another contact's library that the requester has been granted access to.
+ * - `account`: a folder shared with the whole account (everyone in the company can see it).
+ */
+export type PutFoldersIdKind = ClosedEnum<typeof PutFoldersIdKind>;
 
 /**
  * A folder (previously called a project) is a container in which to organize media into. It can be
@@ -208,33 +138,19 @@ export type PutFoldersIdResponse = {
   anonymousCanUpload?: boolean | undefined;
   anonymousCanDownload?: boolean | undefined;
   /**
+   * Indicates the folder's access scope, relative to the requesting user. One of:
+   *
+   * @remarks
+   * - `library`: a library the requester owns. Libraries can still be shared with specific contacts or contact groups; the only restriction is that they cannot be shared with the whole account.
+   * - `shared`: a folder the requester has access to via a Contact or ContactGroup sharing — this includes both shared folders and another contact's library that the requester has been granted access to.
+   * - `account`: a folder shared with the whole account (everyone in the company can see it).
+   */
+  kind: PutFoldersIdKind;
+  /**
    * A cursor for stable pagination based on current `sort_by` order. You can pass this to `cursor[before]` or `cursor[after]` as a parameter to fetch the records before or after this record in the same sort order. This is only populated if records were fetched with `cursor[enabled]`, or `cursor[before]` or `cursor[after]`.
    */
   cursor?: string | null | undefined;
 };
-
-/** @internal */
-export const PutFoldersIdPublicEnum$outboundSchema: z.ZodNativeEnum<
-  typeof PutFoldersIdPublicEnum
-> = z.nativeEnum(PutFoldersIdPublicEnum);
-
-/** @internal */
-export type PutFoldersIdPublicUnion$Outbound = string | boolean;
-
-/** @internal */
-export const PutFoldersIdPublicUnion$outboundSchema: z.ZodType<
-  PutFoldersIdPublicUnion$Outbound,
-  z.ZodTypeDef,
-  PutFoldersIdPublicUnion
-> = z.union([PutFoldersIdPublicEnum$outboundSchema, z.boolean()]);
-
-export function putFoldersIdPublicUnionToJSON(
-  putFoldersIdPublicUnion: PutFoldersIdPublicUnion,
-): string {
-  return JSON.stringify(
-    PutFoldersIdPublicUnion$outboundSchema.parse(putFoldersIdPublicUnion),
-  );
-}
 
 /** @internal */
 export type PutFoldersIdRequestBody$Outbound = {
@@ -242,7 +158,7 @@ export type PutFoldersIdRequestBody$Outbound = {
   description?: string | undefined;
   anonymousCanUpload?: boolean | undefined;
   anonymousCanDownload?: boolean | undefined;
-  public?: string | boolean | undefined;
+  public?: boolean | undefined;
 };
 
 /** @internal */
@@ -255,8 +171,7 @@ export const PutFoldersIdRequestBody$outboundSchema: z.ZodType<
   description: z.string().optional(),
   anonymousCanUpload: z.boolean().optional(),
   anonymousCanDownload: z.boolean().optional(),
-  public: z.union([PutFoldersIdPublicEnum$outboundSchema, z.boolean()])
-    .optional(),
+  public: z.boolean().optional(),
 });
 
 export function putFoldersIdRequestBodyToJSON(
@@ -296,35 +211,9 @@ export function putFoldersIdRequestToJSON(
 }
 
 /** @internal */
-export const PutFoldersIdType$inboundSchema: z.ZodNativeEnum<
-  typeof PutFoldersIdType
-> = z.nativeEnum(PutFoldersIdType);
-
-/** @internal */
-export const PutFoldersIdStatus$inboundSchema: z.ZodNativeEnum<
-  typeof PutFoldersIdStatus
-> = z.nativeEnum(PutFoldersIdStatus);
-
-/** @internal */
-export const PutFoldersIdThumbnail$inboundSchema: z.ZodType<
-  PutFoldersIdThumbnail,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  url: z.string().optional(),
-  width: z.number().int().optional(),
-  height: z.number().int().optional(),
-});
-
-export function putFoldersIdThumbnailFromJSON(
-  jsonString: string,
-): SafeParseResult<PutFoldersIdThumbnail, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PutFoldersIdThumbnail$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PutFoldersIdThumbnail' from JSON`,
-  );
-}
+export const PutFoldersIdCode$inboundSchema: z.ZodNativeEnum<
+  typeof PutFoldersIdCode
+> = z.nativeEnum(PutFoldersIdCode);
 
 /** @internal */
 export const PutFoldersIdMedias$inboundSchema: z.ZodType<
@@ -332,26 +221,7 @@ export const PutFoldersIdMedias$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.number().int().optional(),
-  name: z.string().optional(),
-  type: PutFoldersIdType$inboundSchema.optional(),
-  archived: z.boolean().optional(),
-  created: z.string().datetime({ offset: true }).transform(v => new Date(v))
-    .optional(),
-  updated: z.string().datetime({ offset: true }).transform(v => new Date(v))
-    .optional(),
-  duration: z.nullable(z.number()).optional(),
-  embedCode: z.string().optional(),
-  hashed_id: z.string().optional(),
-  description: z.string().optional(),
-  progress: z.number().optional(),
-  status: PutFoldersIdStatus$inboundSchema.optional(),
-  section: z.nullable(z.string()).optional(),
-  thumbnail: z.lazy(() => PutFoldersIdThumbnail$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "hashed_id": "hashedId",
-  });
+  url: z.string().optional(),
 });
 
 export function putFoldersIdMediasFromJSON(
@@ -363,6 +233,11 @@ export function putFoldersIdMediasFromJSON(
     `Failed to parse 'PutFoldersIdMedias' from JSON`,
   );
 }
+
+/** @internal */
+export const PutFoldersIdKind$inboundSchema: z.ZodNativeEnum<
+  typeof PutFoldersIdKind
+> = z.nativeEnum(PutFoldersIdKind);
 
 /** @internal */
 export const PutFoldersIdResponse$inboundSchema: z.ZodType<
@@ -382,6 +257,7 @@ export const PutFoldersIdResponse$inboundSchema: z.ZodType<
   public_id: z.nullable(z.string()),
   anonymous_can_upload: z.boolean().optional(),
   anonymous_can_download: z.boolean().optional(),
+  kind: PutFoldersIdKind$inboundSchema,
   cursor: z.nullable(z.string()).optional(),
 }).transform((v) => {
   return remap$(v, {

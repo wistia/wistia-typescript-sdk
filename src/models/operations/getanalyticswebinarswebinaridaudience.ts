@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
@@ -23,7 +24,23 @@ export type GetAnalyticsWebinarsWebinarIdAudienceRequest = {
   cursor?: string | undefined;
 };
 
-export type Chat = {
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const GetAnalyticsWebinarsWebinarIdAudienceCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type GetAnalyticsWebinarsWebinarIdAudienceCode = ClosedEnum<
+  typeof GetAnalyticsWebinarsWebinarIdAudienceCode
+>;
+
+export type GetAnalyticsWebinarsWebinarIdAudienceChat = {
   /**
    * The approximate position in the event when the chat was sent (in seconds).
    */
@@ -146,7 +163,7 @@ export type GetAnalyticsWebinarsWebinarIdAudienceData = {
   /**
    * Chat messages sent by this registrant with timestamps.
    */
-  chats?: Array<Chat> | undefined;
+  chats?: Array<GetAnalyticsWebinarsWebinarIdAudienceChat> | undefined;
 };
 
 export type GetAnalyticsWebinarsWebinarIdAudiencePageInfo = {
@@ -211,23 +228,37 @@ export function getAnalyticsWebinarsWebinarIdAudienceRequestToJSON(
 }
 
 /** @internal */
-export const Chat$inboundSchema: z.ZodType<Chat, z.ZodTypeDef, unknown> = z
-  .object({
-    rounded_player_position: z.number().int().optional(),
-    chats: z.array(z.string()).optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      "rounded_player_position": "roundedPlayerPosition",
-    });
-  });
+export const GetAnalyticsWebinarsWebinarIdAudienceCode$inboundSchema:
+  z.ZodNativeEnum<typeof GetAnalyticsWebinarsWebinarIdAudienceCode> = z
+    .nativeEnum(GetAnalyticsWebinarsWebinarIdAudienceCode);
 
-export function chatFromJSON(
+/** @internal */
+export const GetAnalyticsWebinarsWebinarIdAudienceChat$inboundSchema: z.ZodType<
+  GetAnalyticsWebinarsWebinarIdAudienceChat,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  rounded_player_position: z.number().int().optional(),
+  chats: z.array(z.string()).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "rounded_player_position": "roundedPlayerPosition",
+  });
+});
+
+export function getAnalyticsWebinarsWebinarIdAudienceChatFromJSON(
   jsonString: string,
-): SafeParseResult<Chat, SDKValidationError> {
+): SafeParseResult<
+  GetAnalyticsWebinarsWebinarIdAudienceChat,
+  SDKValidationError
+> {
   return safeParse(
     jsonString,
-    (x) => Chat$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Chat' from JSON`,
+    (x) =>
+      GetAnalyticsWebinarsWebinarIdAudienceChat$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'GetAnalyticsWebinarsWebinarIdAudienceChat' from JSON`,
   );
 }
 
@@ -270,7 +301,9 @@ export const GetAnalyticsWebinarsWebinarIdAudienceData$inboundSchema: z.ZodType<
     .optional(),
   focused_attendee_histogram: z.nullable(z.array(z.nullable(z.number().int())))
     .optional(),
-  chats: z.array(z.lazy(() => Chat$inboundSchema)).optional(),
+  chats: z.array(
+    z.lazy(() => GetAnalyticsWebinarsWebinarIdAudienceChat$inboundSchema),
+  ).optional(),
 }).transform((v) => {
   return remap$(v, {
     "first_name": "firstName",

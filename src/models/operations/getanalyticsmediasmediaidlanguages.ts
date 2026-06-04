@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { RFCDate } from "../../types/rfcdate.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -15,11 +16,11 @@ export type GetAnalyticsMediasMediaIdLanguagesRequest = {
    */
   mediaId: string;
   /**
-   * Start date for the analytics period in ISO 8601 format (YYYY-MM-DD).
+   * Start date for the analytics period in ISO 8601 format (YYYY-MM-DD). Inclusive — the range starts at the beginning of this date.
    */
   startDate: RFCDate;
   /**
-   * End date for the analytics period in ISO 8601 format (YYYY-MM-DD).
+   * End date for the analytics period in ISO 8601 format (YYYY-MM-DD). Exclusive — the range ends before the beginning of this date.
    */
   endDate: RFCDate;
   /**
@@ -27,6 +28,22 @@ export type GetAnalyticsMediasMediaIdLanguagesRequest = {
    */
   perPage?: number | undefined;
 };
+
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const GetAnalyticsMediasMediaIdLanguagesCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type GetAnalyticsMediasMediaIdLanguagesCode = ClosedEnum<
+  typeof GetAnalyticsMediasMediaIdLanguagesCode
+>;
 
 export type GetAnalyticsMediasMediaIdLanguagesResponse = {
   /**
@@ -84,6 +101,12 @@ export function getAnalyticsMediasMediaIdLanguagesRequestToJSON(
     ),
   );
 }
+
+/** @internal */
+export const GetAnalyticsMediasMediaIdLanguagesCode$inboundSchema:
+  z.ZodNativeEnum<typeof GetAnalyticsMediasMediaIdLanguagesCode> = z.nativeEnum(
+    GetAnalyticsMediasMediaIdLanguagesCode,
+  );
 
 /** @internal */
 export const GetAnalyticsMediasMediaIdLanguagesResponse$inboundSchema:

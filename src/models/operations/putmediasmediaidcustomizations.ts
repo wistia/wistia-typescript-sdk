@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
@@ -324,6 +325,22 @@ export type PutMediasMediaIdCustomizationsRequest = {
   requestBody: PutMediasMediaIdCustomizationsRequestBody;
 };
 
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const PutMediasMediaIdCustomizationsCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type PutMediasMediaIdCustomizationsCode = ClosedEnum<
+  typeof PutMediasMediaIdCustomizationsCode
+>;
+
 export type PutMediasMediaIdCustomizationsPasswordProtectedVideo = {
   on?: string | undefined;
   src?: string | undefined;
@@ -417,6 +434,13 @@ export type PutMediasMediaIdCustomizationsCaptionsV1Response = {
   onByDefault?: string | undefined;
 };
 
+/**
+ * Container for player plugin configurations. Plugin keys are extensible and
+ *
+ * @remarks
+ * not strictly validated; the documented sub-objects represent the most
+ * common plugins.
+ */
 export type PutMediasMediaIdCustomizationsPluginResponse = {
   passwordProtectedVideo?:
     | PutMediasMediaIdCustomizationsPasswordProtectedVideo
@@ -504,6 +528,13 @@ export type PutMediasMediaIdCustomizationsResponse = {
    * String representation of whether the key moments feature is enabled.
    */
   keyMoments?: string | undefined;
+  /**
+   * Container for player plugin configurations. Plugin keys are extensible and
+   *
+   * @remarks
+   * not strictly validated; the documented sub-objects represent the most
+   * common plugins.
+   */
   plugin?: PutMediasMediaIdCustomizationsPluginResponse | undefined;
   private?: PutMediasMediaIdCustomizationsPrivate | undefined;
   encrypted?: PutMediasMediaIdCustomizationsEncrypted | undefined;
@@ -1008,6 +1039,11 @@ export function putMediasMediaIdCustomizationsRequestToJSON(
     ),
   );
 }
+
+/** @internal */
+export const PutMediasMediaIdCustomizationsCode$inboundSchema: z.ZodNativeEnum<
+  typeof PutMediasMediaIdCustomizationsCode
+> = z.nativeEnum(PutMediasMediaIdCustomizationsCode);
 
 /** @internal */
 export const PutMediasMediaIdCustomizationsPasswordProtectedVideo$inboundSchema:

@@ -62,11 +62,11 @@ export type GetAnalyticsMediasMediaIdTrafficRequest = {
    */
   mediaId: string;
   /**
-   * Start date for the analytics period in ISO 8601 format (YYYY-MM-DD).
+   * Start date for the analytics period in ISO 8601 format (YYYY-MM-DD). Inclusive — the range starts at the beginning of this date.
    */
   startDate: RFCDate;
   /**
-   * End date for the analytics period in ISO 8601 format (YYYY-MM-DD).
+   * End date for the analytics period in ISO 8601 format (YYYY-MM-DD). Exclusive — the range ends before the beginning of this date.
    */
   endDate: RFCDate;
   /**
@@ -86,6 +86,22 @@ export type GetAnalyticsMediasMediaIdTrafficRequest = {
    */
   perPage?: number | undefined;
 };
+
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const GetAnalyticsMediasMediaIdTrafficCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type GetAnalyticsMediasMediaIdTrafficCode = ClosedEnum<
+  typeof GetAnalyticsMediasMediaIdTrafficCode
+>;
 
 /**
  * Each item contains the group_by field and associated metrics.
@@ -189,6 +205,12 @@ export function getAnalyticsMediasMediaIdTrafficRequestToJSON(
     ),
   );
 }
+
+/** @internal */
+export const GetAnalyticsMediasMediaIdTrafficCode$inboundSchema:
+  z.ZodNativeEnum<typeof GetAnalyticsMediasMediaIdTrafficCode> = z.nativeEnum(
+    GetAnalyticsMediasMediaIdTrafficCode,
+  );
 
 /** @internal */
 export const GetAnalyticsMediasMediaIdTrafficResponse$inboundSchema: z.ZodType<

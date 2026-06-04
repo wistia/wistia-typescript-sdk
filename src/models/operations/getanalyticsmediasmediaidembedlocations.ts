@@ -46,11 +46,11 @@ export type GetAnalyticsMediasMediaIdEmbedLocationsRequest = {
    */
   mediaId: string;
   /**
-   * Start date for the analytics period in ISO 8601 format (YYYY-MM-DD).
+   * Start date for the analytics period in ISO 8601 format (YYYY-MM-DD). Inclusive — the range starts at the beginning of this date.
    */
   startDate: RFCDate;
   /**
-   * End date for the analytics period in ISO 8601 format (YYYY-MM-DD).
+   * End date for the analytics period in ISO 8601 format (YYYY-MM-DD). Exclusive — the range ends before the beginning of this date.
    */
   endDate: RFCDate;
   /**
@@ -76,6 +76,22 @@ export type GetAnalyticsMediasMediaIdEmbedLocationsRequest = {
   perPage?: number | undefined;
 };
 
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const GetAnalyticsMediasMediaIdEmbedLocationsCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type GetAnalyticsMediasMediaIdEmbedLocationsCode = ClosedEnum<
+  typeof GetAnalyticsMediasMediaIdEmbedLocationsCode
+>;
+
 export type GetAnalyticsMediasMediaIdEmbedLocationsResponse = {
   /**
    * The domain where the video is embedded.
@@ -98,9 +114,17 @@ export type GetAnalyticsMediasMediaIdEmbedLocationsResponse = {
    */
   loads?: number | undefined;
   /**
+   * The number of unique video loads from this location (one per visitor session).
+   */
+  uniqueLoads?: number | undefined;
+  /**
    * The number of video plays from this location.
    */
   plays?: number | undefined;
+  /**
+   * The number of unique video plays from this location (one per visitor session).
+   */
+  uniquePlays?: number | undefined;
   /**
    * The play rate from this location (between 0 and 1).
    */
@@ -184,6 +208,11 @@ export function getAnalyticsMediasMediaIdEmbedLocationsRequestToJSON(
 }
 
 /** @internal */
+export const GetAnalyticsMediasMediaIdEmbedLocationsCode$inboundSchema:
+  z.ZodNativeEnum<typeof GetAnalyticsMediasMediaIdEmbedLocationsCode> = z
+    .nativeEnum(GetAnalyticsMediasMediaIdEmbedLocationsCode);
+
+/** @internal */
 export const GetAnalyticsMediasMediaIdEmbedLocationsResponse$inboundSchema:
   z.ZodType<
     GetAnalyticsMediasMediaIdEmbedLocationsResponse,
@@ -195,7 +224,9 @@ export const GetAnalyticsMediasMediaIdEmbedLocationsResponse$inboundSchema:
     embed_url: z.string().optional(),
     page_title: z.string().optional(),
     loads: z.number().int().optional(),
+    unique_loads: z.number().int().optional(),
     plays: z.number().int().optional(),
+    unique_plays: z.number().int().optional(),
     play_rate: z.number().optional(),
     played_time: z.number().optional(),
     engagement_rate: z.number().optional(),
@@ -207,6 +238,8 @@ export const GetAnalyticsMediasMediaIdEmbedLocationsResponse$inboundSchema:
       "embed_path": "embedPath",
       "embed_url": "embedUrl",
       "page_title": "pageTitle",
+      "unique_loads": "uniqueLoads",
+      "unique_plays": "uniquePlays",
       "play_rate": "playRate",
       "played_time": "playedTime",
       "engagement_rate": "engagementRate",

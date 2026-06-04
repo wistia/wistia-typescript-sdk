@@ -29,6 +29,22 @@ export type PostMediaExtendedAudioDescriptionsOrderRequest = {
 };
 
 /**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const PostMediaExtendedAudioDescriptionsOrderCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type PostMediaExtendedAudioDescriptionsOrderCode = ClosedEnum<
+  typeof PostMediaExtendedAudioDescriptionsOrderCode
+>;
+
+/**
  * The current status of the order.
  */
 export const PostMediaExtendedAudioDescriptionsOrderOrderStatus = {
@@ -150,6 +166,11 @@ export function postMediaExtendedAudioDescriptionsOrderRequestToJSON(
     ),
   );
 }
+
+/** @internal */
+export const PostMediaExtendedAudioDescriptionsOrderCode$inboundSchema:
+  z.ZodNativeEnum<typeof PostMediaExtendedAudioDescriptionsOrderCode> = z
+    .nativeEnum(PostMediaExtendedAudioDescriptionsOrderCode);
 
 /** @internal */
 export const PostMediaExtendedAudioDescriptionsOrderOrderStatus$inboundSchema:

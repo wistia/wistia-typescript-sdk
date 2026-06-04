@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import * as operations from "../operations/index.js";
 import { WistiaError } from "./wistiaerror.js";
 
 /**
@@ -43,6 +44,10 @@ export class GetMediasMediaHashedIdCaptionsLanguageCodeInternalServerError
  * Unauthorized, invalid or missing token
  */
 export type GetMediasMediaHashedIdCaptionsLanguageCodeUnauthorizedErrorData = {
+  /**
+   * A machine-readable identifier for the specific authorization failure.
+   */
+  code?: operations.GetMediasMediaHashedIdCaptionsLanguageCodeCode | undefined;
   error?: string | undefined;
 };
 
@@ -52,6 +57,10 @@ export type GetMediasMediaHashedIdCaptionsLanguageCodeUnauthorizedErrorData = {
 export class GetMediasMediaHashedIdCaptionsLanguageCodeUnauthorizedError
   extends WistiaError
 {
+  /**
+   * A machine-readable identifier for the specific authorization failure.
+   */
+  code?: operations.GetMediasMediaHashedIdCaptionsLanguageCodeCode | undefined;
   error?: string | undefined;
 
   /** The original data that was passed to this error instance. */
@@ -66,6 +75,7 @@ export class GetMediasMediaHashedIdCaptionsLanguageCodeUnauthorizedError
       : `API error occurred: ${JSON.stringify(err)}`;
     super(message, httpMeta);
     this.data$ = err;
+    if (err.code != null) this.code = err.code;
     if (err.error != null) this.error = err.error;
 
     this.name = "GetMediasMediaHashedIdCaptionsLanguageCodeUnauthorizedError";
@@ -98,6 +108,8 @@ export const GetMediasMediaHashedIdCaptionsLanguageCodeUnauthorizedError$inbound
     z.ZodTypeDef,
     unknown
   > = z.object({
+    code: operations
+      .GetMediasMediaHashedIdCaptionsLanguageCodeCode$inboundSchema.optional(),
     error: z.string().optional(),
     request$: z.instanceof(Request),
     response$: z.instanceof(Response),

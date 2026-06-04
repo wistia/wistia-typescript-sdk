@@ -25,6 +25,22 @@ export type DeleteFoldersFolderIdSubfoldersBulkDeleteRequest = {
 };
 
 /**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const DeleteFoldersFolderIdSubfoldersBulkDeleteCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type DeleteFoldersFolderIdSubfoldersBulkDeleteCode = ClosedEnum<
+  typeof DeleteFoldersFolderIdSubfoldersBulkDeleteCode
+>;
+
+/**
  * The status of the background job that's been queued for the request.
  */
 export const DeleteFoldersFolderIdSubfoldersBulkDeleteStatus = {
@@ -139,6 +155,11 @@ export function deleteFoldersFolderIdSubfoldersBulkDeleteRequestToJSON(
     ),
   );
 }
+
+/** @internal */
+export const DeleteFoldersFolderIdSubfoldersBulkDeleteCode$inboundSchema:
+  z.ZodNativeEnum<typeof DeleteFoldersFolderIdSubfoldersBulkDeleteCode> = z
+    .nativeEnum(DeleteFoldersFolderIdSubfoldersBulkDeleteCode);
 
 /** @internal */
 export const DeleteFoldersFolderIdSubfoldersBulkDeleteStatus$inboundSchema:
