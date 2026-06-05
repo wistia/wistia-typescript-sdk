@@ -39,6 +39,22 @@ export type PutMediasMediaHashedIdRequest = {
 };
 
 /**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const PutMediasMediaHashedIdCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type PutMediasMediaHashedIdCode = ClosedEnum<
+  typeof PutMediasMediaHashedIdCode
+>;
+
+/**
  * A string representing what type of media this is.
  */
 export const PutMediasMediaHashedIdType = {
@@ -159,6 +175,10 @@ export type PutMediasMediaHashedIdResponse = {
   section?: string | null | undefined;
   thumbnail?: PutMediasMediaHashedIdThumbnail | undefined;
   /**
+   * Whether the media is protected (e.g. requires a password or other authentication to view). Null if the media is not protected.
+   */
+  protected?: boolean | null | undefined;
+  /**
    * Tags associated with this media.
    */
   tags?: Array<PutMediasMediaHashedIdTag> | undefined;
@@ -228,6 +248,11 @@ export function putMediasMediaHashedIdRequestToJSON(
     ),
   );
 }
+
+/** @internal */
+export const PutMediasMediaHashedIdCode$inboundSchema: z.ZodNativeEnum<
+  typeof PutMediasMediaHashedIdCode
+> = z.nativeEnum(PutMediasMediaHashedIdCode);
 
 /** @internal */
 export const PutMediasMediaHashedIdType$inboundSchema: z.ZodNativeEnum<
@@ -302,6 +327,7 @@ export const PutMediasMediaHashedIdResponse$inboundSchema: z.ZodType<
   section: z.nullable(z.string()).optional(),
   thumbnail: z.lazy(() => PutMediasMediaHashedIdThumbnail$inboundSchema)
     .optional(),
+  protected: z.nullable(z.boolean()).optional(),
   tags: z.array(z.lazy(() => PutMediasMediaHashedIdTag$inboundSchema))
     .optional(),
 }).transform((v) => {

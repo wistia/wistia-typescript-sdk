@@ -1,0 +1,28 @@
+# PostChannelsPodcastSettingsRequest
+
+Podcast specific settings for a channel. These settings only take effect if
+podcasting is enabled for the channel.
+
+
+## Example Usage
+
+```typescript
+import { PostChannelsPodcastSettingsRequest } from "@wistia/wistia-api-client/models/operations";
+
+let value: PostChannelsPodcastSettingsRequest = {};
+```
+
+## Fields
+
+| Field                                                                                                      | Type                                                                                                       | Required                                                                                                   | Description                                                                                                |
+| ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `copyright`                                                                                                | *string*                                                                                                   | :heavy_minus_sign:                                                                                         | The channel's copyright information.                                                                       |
+| `episodeFormat`                                                                                            | [operations.PostChannelsEpisodeFormatRequest](../../models/operations/postchannelsepisodeformatrequest.md) | :heavy_minus_sign:                                                                                         | The format for episodes for the podcast channel.                                                           |
+| `authorName`                                                                                               | *string*                                                                                                   | :heavy_minus_sign:                                                                                         | The name of the author(s) for the channel.                                                                 |
+| `explicit`                                                                                                 | *boolean*                                                                                                  | :heavy_minus_sign:                                                                                         | Whether the channel contains explicit content.                                                             |
+| `ownerName`                                                                                                | *string*                                                                                                   | :heavy_minus_sign:                                                                                         | The name of the owner for the channel.                                                                     |
+| `ownerEmail`                                                                                               | *string*                                                                                                   | :heavy_minus_sign:                                                                                         | The email of the owner for the channel.                                                                    |
+| `category1`                                                                                                | [operations.PostChannelsCategory1Request](../../models/operations/postchannelscategory1request.md)         | :heavy_minus_sign:                                                                                         | The primary category for the channel.                                                                      |
+| `category2`                                                                                                | [operations.PostChannelsCategory2Request](../../models/operations/postchannelscategory2request.md)         | :heavy_minus_sign:                                                                                         | The secondary category for the channel.                                                                    |
+| `category3`                                                                                                | [operations.PostChannelsCategory3Request](../../models/operations/postchannelscategory3request.md)         | :heavy_minus_sign:                                                                                         | The third category for the channel.                                                                        |
+| `language`                                                                                                 | [operations.PostChannelsLanguageRequest](../../models/operations/postchannelslanguagerequest.md)           | :heavy_minus_sign:                                                                                         | The ISO 639-1 language code for the channel.                                                               |

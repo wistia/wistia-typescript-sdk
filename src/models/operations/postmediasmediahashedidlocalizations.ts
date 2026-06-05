@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
@@ -26,6 +27,22 @@ export type PostMediasMediaHashedIdLocalizationsRequest = {
   mediaHashedId: string;
   requestBody?: PostMediasMediaHashedIdLocalizationsRequestBody | undefined;
 };
+
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const PostMediasMediaHashedIdLocalizationsCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type PostMediasMediaHashedIdLocalizationsCode = ClosedEnum<
+  typeof PostMediasMediaHashedIdLocalizationsCode
+>;
 
 /**
  * The media that the localization is associated with.
@@ -230,6 +247,11 @@ export function postMediasMediaHashedIdLocalizationsRequestToJSON(
     ),
   );
 }
+
+/** @internal */
+export const PostMediasMediaHashedIdLocalizationsCode$inboundSchema:
+  z.ZodNativeEnum<typeof PostMediasMediaHashedIdLocalizationsCode> = z
+    .nativeEnum(PostMediasMediaHashedIdLocalizationsCode);
 
 /** @internal */
 export const PostMediasMediaHashedIdLocalizationsSourceMedia$inboundSchema:

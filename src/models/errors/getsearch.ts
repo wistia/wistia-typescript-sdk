@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import * as operations from "../operations/index.js";
 import { WistiaError } from "./wistiaerror.js";
 
 /**
@@ -40,6 +41,10 @@ export class GetSearchInternalServerError extends WistiaError {
  * Unauthorized, invalid or missing token
  */
 export type GetSearchUnauthorizedErrorData = {
+  /**
+   * A machine-readable identifier for the specific authorization failure.
+   */
+  code?: operations.GetSearchCode | undefined;
   error?: string | undefined;
 };
 
@@ -47,6 +52,10 @@ export type GetSearchUnauthorizedErrorData = {
  * Unauthorized, invalid or missing token
  */
 export class GetSearchUnauthorizedError extends WistiaError {
+  /**
+   * A machine-readable identifier for the specific authorization failure.
+   */
+  code?: operations.GetSearchCode | undefined;
   error?: string | undefined;
 
   /** The original data that was passed to this error instance. */
@@ -61,6 +70,7 @@ export class GetSearchUnauthorizedError extends WistiaError {
       : `API error occurred: ${JSON.stringify(err)}`;
     super(message, httpMeta);
     this.data$ = err;
+    if (err.code != null) this.code = err.code;
     if (err.error != null) this.error = err.error;
 
     this.name = "GetSearchUnauthorizedError";
@@ -75,6 +85,10 @@ export type GetSearchBadRequestErrorData = {
    * Error message detailing the reason for the bad request.
    */
   error?: string | undefined;
+  /**
+   * Array of error messages detailing the reasons for the bad request.
+   */
+  errors?: Array<string> | undefined;
 };
 
 /**
@@ -85,6 +99,10 @@ export class GetSearchBadRequestError extends WistiaError {
    * Error message detailing the reason for the bad request.
    */
   error?: string | undefined;
+  /**
+   * Array of error messages detailing the reasons for the bad request.
+   */
+  errors?: Array<string> | undefined;
 
   /** The original data that was passed to this error instance. */
   data$: GetSearchBadRequestErrorData;
@@ -99,6 +117,7 @@ export class GetSearchBadRequestError extends WistiaError {
     super(message, httpMeta);
     this.data$ = err;
     if (err.error != null) this.error = err.error;
+    if (err.errors != null) this.errors = err.errors;
 
     this.name = "GetSearchBadRequestError";
   }
@@ -129,6 +148,7 @@ export const GetSearchUnauthorizedError$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  code: operations.GetSearchCode$inboundSchema.optional(),
   error: z.string().optional(),
   request$: z.instanceof(Request),
   response$: z.instanceof(Response),
@@ -149,6 +169,7 @@ export const GetSearchBadRequestError$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   error: z.string().optional(),
+  errors: z.array(z.string()).optional(),
   request$: z.instanceof(Request),
   response$: z.instanceof(Response),
   body$: z.string(),

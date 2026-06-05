@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { RFCDate } from "../../types/rfcdate.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -35,6 +36,20 @@ export type GetStatsEventsRequest = {
    */
   endDate?: RFCDate | undefined;
 };
+
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const GetStatsEventsCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type GetStatsEventsCode = ClosedEnum<typeof GetStatsEventsCode>;
 
 export type GetStatsEventsThumbnail = {
   url?: string | undefined;
@@ -69,6 +84,11 @@ export type GetStatsEventsUserAgentDetails = {
   platform?: string | undefined;
   mobile?: boolean | undefined;
 };
+
+/**
+ * Raw event attributes returned by the underlying analytics store. The keys mirror the top-level event fields.
+ */
+export type GetStatsEventsAttributes = {};
 
 export type GetStatsEventsResponse = {
   /**
@@ -152,6 +172,10 @@ export type GetStatsEventsResponse = {
    * Details about the user agent of the viewer.
    */
   userAgentDetails?: GetStatsEventsUserAgentDetails | undefined;
+  /**
+   * Raw event attributes returned by the underlying analytics store. The keys mirror the top-level event fields.
+   */
+  attributes?: GetStatsEventsAttributes | undefined;
 };
 
 /** @internal */
@@ -193,6 +217,11 @@ export function getStatsEventsRequestToJSON(
     GetStatsEventsRequest$outboundSchema.parse(getStatsEventsRequest),
   );
 }
+
+/** @internal */
+export const GetStatsEventsCode$inboundSchema: z.ZodNativeEnum<
+  typeof GetStatsEventsCode
+> = z.nativeEnum(GetStatsEventsCode);
 
 /** @internal */
 export const GetStatsEventsThumbnail$inboundSchema: z.ZodType<
@@ -290,6 +319,23 @@ export function getStatsEventsUserAgentDetailsFromJSON(
 }
 
 /** @internal */
+export const GetStatsEventsAttributes$inboundSchema: z.ZodType<
+  GetStatsEventsAttributes,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+export function getStatsEventsAttributesFromJSON(
+  jsonString: string,
+): SafeParseResult<GetStatsEventsAttributes, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetStatsEventsAttributes$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetStatsEventsAttributes' from JSON`,
+  );
+}
+
+/** @internal */
 export const GetStatsEventsResponse$inboundSchema: z.ZodType<
   GetStatsEventsResponse,
   z.ZodTypeDef,
@@ -319,6 +365,7 @@ export const GetStatsEventsResponse$inboundSchema: z.ZodType<
     .optional(),
   user_agent_details: z.lazy(() => GetStatsEventsUserAgentDetails$inboundSchema)
     .optional(),
+  attributes: z.lazy(() => GetStatsEventsAttributes$inboundSchema).optional(),
 }).transform((v) => {
   return remap$(v, {
     "received_at": "receivedAt",

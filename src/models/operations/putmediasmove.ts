@@ -25,6 +25,20 @@ export type PutMediasMoveRequest = {
 };
 
 /**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const PutMediasMoveCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type PutMediasMoveCode = ClosedEnum<typeof PutMediasMoveCode>;
+
+/**
  * The status of the background job that's been queued for the request.
  */
 export const PutMediasMoveStatus2 = {
@@ -155,6 +169,11 @@ export function putMediasMoveRequestToJSON(
     PutMediasMoveRequest$outboundSchema.parse(putMediasMoveRequest),
   );
 }
+
+/** @internal */
+export const PutMediasMoveCode$inboundSchema: z.ZodNativeEnum<
+  typeof PutMediasMoveCode
+> = z.nativeEnum(PutMediasMoveCode);
 
 /** @internal */
 export const PutMediasMoveStatus2$inboundSchema: z.ZodNativeEnum<

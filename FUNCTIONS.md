@@ -1,11 +1,11 @@
 # Standalone Functions
 
 > [!NOTE]
-> This section is useful if you are using a bundler and targetting browsers and
+> This section is useful if you are using a bundler and targeting browsers and
 > runtimes where the size of an application affects performance and load times. 
 
 Every method in this SDK is also available as a standalone function. This
-alternative API is suitable when targetting the browser or serverless runtimes
+alternative API is suitable when targeting the browser or serverless runtimes
 and using a bundler to build your application since all unused functionality
 will be tree-shaken away. This includes code for unused methods, Zod schemas,
 encoding helpers and response handlers. The result is dramatically smaller
@@ -20,7 +20,7 @@ specific category of applications.
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { mediaUploadForm } from "@wistia/wistia-api-client/funcs/mediaUploadForm.js";
+import { uploadOrImportMediaPostForm } from "@wistia/wistia-api-client/funcs/uploadOrImportMediaPostForm.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -29,7 +29,7 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await mediaUploadForm(wistia, {
+  const res = await uploadOrImportMediaPostForm(wistia, {
     url: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
     lowPriority: true,
   });
@@ -37,7 +37,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("mediaUploadForm failed:", res.error);
+    console.log("uploadOrImportMediaPostForm failed:", res.error);
   }
 }
 

@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { ClosedEnum } from "../../types/enums.js";
 
 export type DeleteTagsNameRequest = {
   /**
@@ -10,6 +11,20 @@ export type DeleteTagsNameRequest = {
    */
   name: string;
 };
+
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const DeleteTagsNameCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type DeleteTagsNameCode = ClosedEnum<typeof DeleteTagsNameCode>;
 
 /** @internal */
 export type DeleteTagsNameRequest$Outbound = {
@@ -32,3 +47,8 @@ export function deleteTagsNameRequestToJSON(
     DeleteTagsNameRequest$outboundSchema.parse(deleteTagsNameRequest),
   );
 }
+
+/** @internal */
+export const DeleteTagsNameCode$inboundSchema: z.ZodNativeEnum<
+  typeof DeleteTagsNameCode
+> = z.nativeEnum(DeleteTagsNameCode);

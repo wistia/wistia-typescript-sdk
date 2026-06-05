@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
@@ -13,6 +14,38 @@ export type GetWebinarsIdRequest = {
    * The hashed ID of the webinar
    */
   id: string;
+};
+
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const GetWebinarsIdCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type GetWebinarsIdCode = ClosedEnum<typeof GetWebinarsIdCode>;
+
+export type GetWebinarsIdFolder = {
+  /**
+   * A unique alphanumeric identifier for the record.
+   */
+  id: string;
+  /**
+   * A URL for fetching all the records of the given record type. You can pass hashed_ids as a param with multiple values
+   *
+   * @remarks
+   * to do a batch fetch for this records type.
+   */
+  indexUrl: string;
+  /**
+   * A URL that can be used to fetch this record.
+   */
+  url: string;
 };
 
 /**
@@ -44,6 +77,10 @@ export type GetWebinarsIdResponse = {
    */
   eventDuration?: number | null | undefined;
   /**
+   * The IANA time zone identifier the webinar is scheduled in
+   */
+  timeZone: string;
+  /**
    * Current lifecycle status of the event
    */
   lifecycleStatus: string;
@@ -71,6 +108,14 @@ export type GetWebinarsIdResponse = {
    * Link for panelists to join the event
    */
   panelistLink: string;
+  /**
+   * The folder (project) this webinar belongs to
+   */
+  folder?: GetWebinarsIdFolder | null | undefined;
+  /**
+   * A cursor for stable pagination based on current `sort_by` order. You can pass this to `cursor[before]` or `cursor[after]` as a parameter to fetch the records before or after this record in the same sort order. This is only populated if records were fetched with `cursor[enabled]`, or `cursor[before]` or `cursor[after]`.
+   */
+  cursor?: string | null | undefined;
 };
 
 /** @internal */
@@ -96,6 +141,36 @@ export function getWebinarsIdRequestToJSON(
 }
 
 /** @internal */
+export const GetWebinarsIdCode$inboundSchema: z.ZodNativeEnum<
+  typeof GetWebinarsIdCode
+> = z.nativeEnum(GetWebinarsIdCode);
+
+/** @internal */
+export const GetWebinarsIdFolder$inboundSchema: z.ZodType<
+  GetWebinarsIdFolder,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: z.string(),
+  index_url: z.string(),
+  url: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    "index_url": "indexUrl",
+  });
+});
+
+export function getWebinarsIdFolderFromJSON(
+  jsonString: string,
+): SafeParseResult<GetWebinarsIdFolder, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetWebinarsIdFolder$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetWebinarsIdFolder' from JSON`,
+  );
+}
+
+/** @internal */
 export const GetWebinarsIdResponse$inboundSchema: z.ZodType<
   GetWebinarsIdResponse,
   z.ZodTypeDef,
@@ -108,6 +183,7 @@ export const GetWebinarsIdResponse$inboundSchema: z.ZodType<
     z.string().datetime({ offset: true }).transform(v => new Date(v)),
   ).optional(),
   event_duration: z.nullable(z.number().int()).optional(),
+  time_zone: z.string(),
   lifecycle_status: z.string(),
   registration_status: z.string(),
   created_at: z.string().datetime({ offset: true }).transform(v => new Date(v)),
@@ -115,10 +191,14 @@ export const GetWebinarsIdResponse$inboundSchema: z.ZodType<
   audience_link: z.string(),
   host_link: z.string(),
   panelist_link: z.string(),
+  folder: z.nullable(z.lazy(() => GetWebinarsIdFolder$inboundSchema))
+    .optional(),
+  cursor: z.nullable(z.string()).optional(),
 }).transform((v) => {
   return remap$(v, {
     "scheduled_for": "scheduledFor",
     "event_duration": "eventDuration",
+    "time_zone": "timeZone",
     "lifecycle_status": "lifecycleStatus",
     "registration_status": "registrationStatus",
     "created_at": "createdAt",

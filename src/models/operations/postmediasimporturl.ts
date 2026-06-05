@@ -11,7 +11,7 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type PostMediasImportUrlRequest = {
   /**
-   * The URL of the media file to import.
+   * The publicly accessible URL of the media file to import.
    */
   url: string;
   /**
@@ -19,6 +19,22 @@ export type PostMediasImportUrlRequest = {
    */
   folderId?: string | undefined;
 };
+
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const PostMediasImportUrlCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type PostMediasImportUrlCode = ClosedEnum<
+  typeof PostMediasImportUrlCode
+>;
 
 /**
  * The status of the background job that's been queued for the request.
@@ -94,6 +110,11 @@ export function postMediasImportUrlRequestToJSON(
     PostMediasImportUrlRequest$outboundSchema.parse(postMediasImportUrlRequest),
   );
 }
+
+/** @internal */
+export const PostMediasImportUrlCode$inboundSchema: z.ZodNativeEnum<
+  typeof PostMediasImportUrlCode
+> = z.nativeEnum(PostMediasImportUrlCode);
 
 /** @internal */
 export const PostMediasImportUrlStatus$inboundSchema: z.ZodNativeEnum<

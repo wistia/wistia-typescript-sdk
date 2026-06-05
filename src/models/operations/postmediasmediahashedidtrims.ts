@@ -29,6 +29,22 @@ export type PostMediasMediaHashedIdTrimsRequest = {
 };
 
 /**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const PostMediasMediaHashedIdTrimsCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type PostMediasMediaHashedIdTrimsCode = ClosedEnum<
+  typeof PostMediasMediaHashedIdTrimsCode
+>;
+
+/**
  * The status of the background job that's been queued for the request.
  */
 export const PostMediasMediaHashedIdTrimsStatus = {
@@ -138,6 +154,11 @@ export function postMediasMediaHashedIdTrimsRequestToJSON(
     ),
   );
 }
+
+/** @internal */
+export const PostMediasMediaHashedIdTrimsCode$inboundSchema: z.ZodNativeEnum<
+  typeof PostMediasMediaHashedIdTrimsCode
+> = z.nativeEnum(PostMediasMediaHashedIdTrimsCode);
 
 /** @internal */
 export const PostMediasMediaHashedIdTrimsStatus$inboundSchema: z.ZodNativeEnum<

@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import * as operations from "../operations/index.js";
 import { WistiaError } from "./wistiaerror.js";
 
 /**
@@ -102,6 +103,10 @@ export class PutMediasArchiveForbiddenError extends WistiaError {
  * Unauthorized, invalid or missing token
  */
 export type PutMediasArchiveUnauthorizedErrorData = {
+  /**
+   * A machine-readable identifier for the specific authorization failure.
+   */
+  code?: operations.PutMediasArchiveCode | undefined;
   error?: string | undefined;
 };
 
@@ -109,6 +114,10 @@ export type PutMediasArchiveUnauthorizedErrorData = {
  * Unauthorized, invalid or missing token
  */
 export class PutMediasArchiveUnauthorizedError extends WistiaError {
+  /**
+   * A machine-readable identifier for the specific authorization failure.
+   */
+  code?: operations.PutMediasArchiveCode | undefined;
   error?: string | undefined;
 
   /** The original data that was passed to this error instance. */
@@ -123,6 +132,7 @@ export class PutMediasArchiveUnauthorizedError extends WistiaError {
       : `API error occurred: ${JSON.stringify(err)}`;
     super(message, httpMeta);
     this.data$ = err;
+    if (err.code != null) this.code = err.code;
     if (err.error != null) this.error = err.error;
 
     this.name = "PutMediasArchiveUnauthorizedError";
@@ -192,6 +202,7 @@ export const PutMediasArchiveUnauthorizedError$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  code: operations.PutMediasArchiveCode$inboundSchema.optional(),
   error: z.string().optional(),
   request$: z.instanceof(Request),
   response$: z.instanceof(Response),

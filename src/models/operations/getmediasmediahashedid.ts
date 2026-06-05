@@ -21,6 +21,22 @@ export type GetMediasMediaHashedIdRequest = {
 };
 
 /**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const GetMediasMediaHashedIdCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type GetMediasMediaHashedIdCode = ClosedEnum<
+  typeof GetMediasMediaHashedIdCode
+>;
+
+/**
  * A string representing what type of media this is.
  */
 export const GetMediasMediaHashedIdType = {
@@ -110,7 +126,7 @@ export type GetMediasMediaHashedIdAsset = {
 };
 
 /**
- * A subfolder within a folder that contains media.
+ * The subfolder (media group) in which the media appears. Null if the media is not in a subfolder.
  */
 export type GetMediasMediaHashedIdSubfolder = {
   /**
@@ -218,6 +234,10 @@ export type GetMediasMediaHashedIdResponse = {
    */
   section?: string | null | undefined;
   thumbnail?: GetMediasMediaHashedIdThumbnail | undefined;
+  /**
+   * Whether the media is protected (e.g. requires a password or other authentication to view). Null if the media is not protected.
+   */
+  protected?: boolean | null | undefined;
   folder: GetMediasMediaHashedIdFolder | null;
   /**
    * An array of the assets available for this media.
@@ -264,6 +284,11 @@ export function getMediasMediaHashedIdRequestToJSON(
 }
 
 /** @internal */
+export const GetMediasMediaHashedIdCode$inboundSchema: z.ZodNativeEnum<
+  typeof GetMediasMediaHashedIdCode
+> = z.nativeEnum(GetMediasMediaHashedIdCode);
+
+/** @internal */
 export const GetMediasMediaHashedIdType$inboundSchema: z.ZodNativeEnum<
   typeof GetMediasMediaHashedIdType
 > = z.nativeEnum(GetMediasMediaHashedIdType);
@@ -302,7 +327,11 @@ export const GetMediasMediaHashedIdFolder$inboundSchema: z.ZodType<
 > = z.object({
   id: z.number().int().optional(),
   name: z.string().optional(),
-  hashedId: z.string().optional(),
+  hashed_id: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "hashed_id": "hashedId",
+  });
 });
 
 export function getMediasMediaHashedIdFolderFromJSON(
@@ -419,6 +448,7 @@ export const GetMediasMediaHashedIdResponse$inboundSchema: z.ZodType<
   section: z.nullable(z.string()).optional(),
   thumbnail: z.lazy(() => GetMediasMediaHashedIdThumbnail$inboundSchema)
     .optional(),
+  protected: z.nullable(z.boolean()).optional(),
   folder: z.nullable(z.lazy(() => GetMediasMediaHashedIdFolder$inboundSchema)),
   assets: z.array(z.lazy(() => GetMediasMediaHashedIdAsset$inboundSchema))
     .optional(),
