@@ -12,6 +12,9 @@ targets:
     wistia:
         target: typescript
         source: Data API
+        publish:
+            npm:
+                token: $npm_token
         codeSamples:
             output: code-samples.yaml
             registry:
