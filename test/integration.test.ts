@@ -83,7 +83,7 @@ const testResources = {
   media: null as PostMultipartResponse | null,
   tag: null as Tag | null,
   allowedDomain: null as AllowedDomain | null,
-  backgroundJobId: null as number | null,
+  backgroundJobId: null as string | null,
   liveStreamEvent: null as LiveStreamEvent | null,
   eventKey: null as string | null,
   hasCustomization: false,
@@ -129,7 +129,7 @@ async function cleanup() {
 
   await handleError(async () => {
     if (testResources.liveStreamEvent) {
-      await wistia.webinars.deleteWebinarsId({
+      await wistia.webinars.delete({
         id: testResources.liveStreamEvent.id,
       });
       log('✅ Deleted live stream event');
@@ -167,7 +167,7 @@ async function cleanup() {
 
   await handleError(async () => {
     if (testResources.subfolder && testResources.project && testResources.subfolder.hashedId) {
-      await wistia.subfolders.deleteFoldersFolderIdSubfoldersSubfolderId({
+      await wistia.subfolders.delete({
         folderId: testResources.project.hashedId,
         subfolderId: testResources.subfolder.hashedId,
       });
@@ -177,7 +177,7 @@ async function cleanup() {
 
   await handleError(async () => {
     if (testResources.project) {
-      await wistia.folders.deleteFoldersId({
+      await wistia.folders.delete({
         id: testResources.project.hashedId,
       });
       log('✅ Deleted project');
@@ -203,7 +203,7 @@ describe('Wistia SDK Integration Tests', () => {
 
   describe('Project Operations', () => {
     it('should create a project', async () => {
-      const project = await wistia.folders.postFolders({
+      const project = await wistia.folders.create({
         name: `${testPrefix}-Project`,
         adminEmail: 'test@example.com',
         public: false,
@@ -218,7 +218,7 @@ describe('Wistia SDK Integration Tests', () => {
     it('should get project info', async () => {
       assert.ok(testResources.project, 'Project should exist from previous test');
 
-      const project = await wistia.folders.getFoldersId({
+      const project = await wistia.folders.get({
         id: testResources.project.hashedId,
       });
 
@@ -230,7 +230,7 @@ describe('Wistia SDK Integration Tests', () => {
     it('should update project description', async () => {
       assert.ok(testResources.project, 'Project should exist');
 
-      const updatedProject = await wistia.folders.putFoldersId({
+      const updatedProject = await wistia.folders.update({
         id: testResources.project.hashedId,
         requestBody: {
           description: `${testPrefix} - Integration test project for SDK validation`,
@@ -245,7 +245,7 @@ describe('Wistia SDK Integration Tests', () => {
     it('should list projects and find our created project', async () => {
       assert.ok(testResources.project, 'Project should exist');
 
-      const projects = await wistia.folders.getFolders({
+      const projects = await wistia.folders.list({
         sortBy: 'created',
         sortDirection: 0, // desc - newest first
         perPage: 1,
@@ -267,7 +267,7 @@ describe('Wistia SDK Integration Tests', () => {
       assert.ok(testResources.project, 'Project should exist');
       log('Project for subfolder creation:', JSON.stringify(testResources.project, null, 2));
 
-      const subfolder = await wistia.subfolders.postFoldersFolderIdSubfolders({
+      const subfolder = await wistia.subfolders.create({
         folderId: testResources.project.hashedId,
         requestBody: {
           name: `${testPrefix}-Subfolder`,
@@ -284,7 +284,7 @@ describe('Wistia SDK Integration Tests', () => {
     it('should get subfolder info', async () => {
       assert.ok(testResources.project && testResources.subfolder, 'Project and subfolder should exist');
 
-      const subfolder = await wistia.subfolders.getFoldersFolderIdSubfoldersSubfolderId({
+      const subfolder = await wistia.subfolders.get({
         folderId: testResources.project.hashedId,
         subfolderId: testResources.subfolder.hashedId,
       });
@@ -298,7 +298,7 @@ describe('Wistia SDK Integration Tests', () => {
       assert.ok(testResources.project && testResources.subfolder, 'Project and subfolder should exist');
       const subfolder = testResources.subfolder;
 
-      const subfolders = await wistia.subfolders.getFoldersFolderIdSubfolders({
+      const subfolders = await wistia.subfolders.list({
         folderId: testResources.project.hashedId,
       });
 
@@ -324,7 +324,7 @@ describe('Wistia SDK Integration Tests', () => {
       assert.ok(testResources.project, 'Project should exist');
       assert.ok(videoFile, 'Video file should be generated');
 
-      const media = await wistia.media.uploadMultipart({
+      const media = await wistia.uploadOrImportMedia.postMultipart({
         file: await openAsBlob(videoFile),
         name: `${testPrefix}-Media`,
         description: 'Test media for SDK integration',
@@ -376,7 +376,7 @@ describe('Wistia SDK Integration Tests', () => {
       assert.ok(testResources.media.hashedId, 'Media should have a hashedId');
       assert.ok(testResources.project, 'Project should exist');
 
-      const anotherMedia = await wistia.media.uploadMultipart({
+      const anotherMedia = await wistia.uploadOrImportMedia.postMultipart({
         file: await openAsBlob(videoFile),
         name: `${testPrefix}-Media`,
         description: 'Test media for SDK integration',
@@ -414,11 +414,11 @@ describe('Wistia SDK Integration Tests', () => {
       const media = testResources.media;
       assert.ok(media, 'Media should exist');
 
-      const project = await wistia.folders.getFoldersId({
+      const project = await wistia.folders.get({
         id: testResources.project.hashedId,
       });
 
-      const subfolder = await wistia.subfolders.getFoldersFolderIdSubfoldersSubfolderId({
+      const subfolder = await wistia.subfolders.get({
         folderId: testResources.project.hashedId,
         subfolderId: testResources.subfolder.hashedId,
       });
@@ -635,11 +635,12 @@ describe('Wistia SDK Integration Tests', () => {
       const scheduledFor = new Date();
       scheduledFor.setDate(scheduledFor.getDate() + 7);
 
-      const liveStreamEvent = await wistia.webinars.postWebinars({
+      const liveStreamEvent = await wistia.webinars.create({
         title: `${testPrefix} - Live Stream Event`,
         description: 'Test live stream event for SDK integration testing',
         scheduledFor: scheduledFor,
         eventDuration: 60,
+        timeZone: 'UTC',
       });
 
       testResources.liveStreamEvent = liveStreamEvent;
@@ -649,7 +650,7 @@ describe('Wistia SDK Integration Tests', () => {
     });
 
     it('should list live stream events', async () => {
-      const liveStreamEvents = await wistia.webinars.getWebinars({
+      const liveStreamEvents = await wistia.webinars.list({
         sortBy: 'id',
         sortDirection: 0,
       });
@@ -661,7 +662,7 @@ describe('Wistia SDK Integration Tests', () => {
     it('should get live stream event info', async () => {
       assert.ok(testResources.liveStreamEvent, 'Live stream event should exist');
 
-      const liveStreamEvent = await wistia.webinars.getWebinarsId({
+      const liveStreamEvent = await wistia.webinars.get({
         id: testResources.liveStreamEvent.id,
       });
 
@@ -676,7 +677,7 @@ describe('Wistia SDK Integration Tests', () => {
       const newScheduledFor = new Date();
       newScheduledFor.setDate(newScheduledFor.getDate() + 14);
 
-      const updatedEvent = await wistia.webinars.putWebinarsId({
+      const updatedEvent = await wistia.webinars.update({
         id: testResources.liveStreamEvent.id,
         requestBody: {
           webinar: {
@@ -712,7 +713,7 @@ describe('Wistia SDK Integration Tests', () => {
       log('Trim result:', JSON.stringify(trimResult, null, 2));
 
       assert.ok(trimResult.backgroundJobStatus, 'Background job status should exist');
-      testResources.backgroundJobId = trimResult.backgroundJobStatus.id;
+      testResources.backgroundJobId = trimResult.backgroundJobStatus.hashedId;
       log(`✅ Created trim, background job ID: ${testResources.backgroundJobId}`);
     });
   });
