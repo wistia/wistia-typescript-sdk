@@ -1,0 +1,29 @@
+# ResponseBody1
+
+## Example Usage
+
+```typescript
+import { ResponseBody1 } from "@wistia/wistia-api-client/models/operations";
+
+let value: ResponseBody1 = {};
+```
+
+## Fields
+
+| Field                                                                            | Type                                                                             | Required                                                                         | Description                                                                      |
+| -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| `plays`                                                                          | *number*                                                                         | :heavy_minus_sign:                                                               | The total number of plays.                                                       |
+| `playRate`                                                                       | *number*                                                                         | :heavy_minus_sign:                                                               | The percentage of loads that resulted in a play (between 0 and 1).               |
+| `engagementRate`                                                                 | *number*                                                                         | :heavy_minus_sign:                                                               | The average percentage of the content watched (between 0 and 1).                 |
+| `uniqueVisitors`                                                                 | *number*                                                                         | :heavy_minus_sign:                                                               | The number of unique visitors.                                                   |
+| `playedTime`                                                                     | *number*                                                                         | :heavy_minus_sign:                                                               | Total time spent watching in seconds.                                            |
+| `mediaName`                                                                      | *string*                                                                         | :heavy_minus_sign:                                                               | The name of the media.                                                           |
+| `mediaHashedId`                                                                  | *string*                                                                         | :heavy_minus_sign:                                                               | The hashed ID of the media.                                                      |
+| `mediaType`                                                                      | *string*                                                                         | :heavy_minus_sign:                                                               | The type of the media (e.g., "Video", "Audio").                                  |
+| `mediaThumbnailUrl`                                                              | *string*                                                                         | :heavy_minus_sign:                                                               | URL of the media's thumbnail image.                                              |
+| `mediaDuration`                                                                  | *number*                                                                         | :heavy_minus_sign:                                                               | The duration of the media in seconds.                                            |
+| `mediaUploadedAt`                                                                | *string*                                                                         | :heavy_minus_sign:                                                               | When the media was uploaded, in ISO 8601 format.                                 |
+| `mediaDeletedAt`                                                                 | *string*                                                                         | :heavy_minus_sign:                                                               | When the media was deleted, in ISO 8601 format. Null for media that still exist. |
+| `uniqueLoads`                                                                    | *number*                                                                         | :heavy_minus_sign:                                                               | The number of unique video loads.                                                |
+| `uniquePlays`                                                                    | *number*                                                                         | :heavy_minus_sign:                                                               | The number of unique video plays.                                                |
+| `formConversions`                                                                | *number*                                                                         | :heavy_minus_sign:                                                               | The number of form submissions.                                                  |

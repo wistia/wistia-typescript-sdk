@@ -62,11 +62,11 @@ export type GetAnalyticsMediasMediaIdTrafficRequest = {
    */
   mediaId: string;
   /**
-   * Start date for the analytics period in ISO 8601 format (YYYY-MM-DD).
+   * Start date for the analytics period in ISO 8601 format (YYYY-MM-DD). Inclusive — the range starts at the beginning of this date.
    */
   startDate: RFCDate;
   /**
-   * End date for the analytics period in ISO 8601 format (YYYY-MM-DD).
+   * End date for the analytics period in ISO 8601 format (YYYY-MM-DD). Exclusive — the range ends before the beginning of this date.
    */
   endDate: RFCDate;
   /**
@@ -88,29 +88,45 @@ export type GetAnalyticsMediasMediaIdTrafficRequest = {
 };
 
 /**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const GetAnalyticsMediasMediaIdTrafficCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type GetAnalyticsMediasMediaIdTrafficCode = ClosedEnum<
+  typeof GetAnalyticsMediasMediaIdTrafficCode
+>;
+
+/**
  * Each item contains the group_by field and associated metrics.
  */
 export type GetAnalyticsMediasMediaIdTrafficResponse = {
   /**
    * The UTM campaign value (present when group_by is utm_campaign).
    */
-  utmCampaign?: string | undefined;
+  utmCampaign?: string | null | undefined;
   /**
    * The UTM source value (present when group_by is utm_source).
    */
-  utmSource?: string | undefined;
+  utmSource?: string | null | undefined;
   /**
    * The UTM medium value (present when group_by is utm_medium).
    */
-  utmMedium?: string | undefined;
+  utmMedium?: string | null | undefined;
   /**
    * The referrer domain (present when group_by is referrer_domain).
    */
-  referrerDomain?: string | undefined;
+  referrerDomain?: string | null | undefined;
   /**
    * The viewer screen size (present when group_by is viewer_screen_size).
    */
-  viewerScreenSize?: string | undefined;
+  viewerScreenSize?: string | null | undefined;
   /**
    * The number of video loads for this group.
    */
@@ -191,16 +207,22 @@ export function getAnalyticsMediasMediaIdTrafficRequestToJSON(
 }
 
 /** @internal */
+export const GetAnalyticsMediasMediaIdTrafficCode$inboundSchema:
+  z.ZodNativeEnum<typeof GetAnalyticsMediasMediaIdTrafficCode> = z.nativeEnum(
+    GetAnalyticsMediasMediaIdTrafficCode,
+  );
+
+/** @internal */
 export const GetAnalyticsMediasMediaIdTrafficResponse$inboundSchema: z.ZodType<
   GetAnalyticsMediasMediaIdTrafficResponse,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  utm_campaign: z.string().optional(),
-  utm_source: z.string().optional(),
-  utm_medium: z.string().optional(),
-  referrer_domain: z.string().optional(),
-  viewer_screen_size: z.string().optional(),
+  utm_campaign: z.nullable(z.string()).optional(),
+  utm_source: z.nullable(z.string()).optional(),
+  utm_medium: z.nullable(z.string()).optional(),
+  referrer_domain: z.nullable(z.string()).optional(),
+  viewer_screen_size: z.nullable(z.string()).optional(),
   loads: z.number().int().optional(),
   plays: z.number().int().optional(),
   engagement_rate: z.number().optional(),

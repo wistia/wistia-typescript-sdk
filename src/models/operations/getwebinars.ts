@@ -28,7 +28,7 @@ export const GetWebinarsEnabled = {
 export type GetWebinarsEnabled = ClosedEnum<typeof GetWebinarsEnabled>;
 
 /**
- * If `cursor[enabled]` is set to 1 than cursor pagination is enabled and the
+ * If `cursor[enabled]` is set to 1 then cursor pagination is enabled and the
  *
  * @remarks
  * first set of records are fetched up to the `per_page`. Cursor
@@ -38,7 +38,7 @@ export type GetWebinarsEnabled = ClosedEnum<typeof GetWebinarsEnabled>;
  * the cursor of the first record can be used to fetch records before the result set.
  *
  * NOTE: a cursor value is only valid if the `sort_by` value hasn't changed from the
- * last fetch. For example, you cannot fetch using `sort_by` id and than pass that
+ * last fetch. For example, you cannot fetch using `sort_by` id and then pass that
  * cursor value to a `sort_by` name.
  */
 export type GetWebinarsCursor = {
@@ -50,7 +50,7 @@ export type GetWebinarsCursor = {
    */
   enabled?: GetWebinarsEnabled | undefined;
   /**
-   * If `cursor[before]` is set than cursor pagination is enabled and all records
+   * If `cursor[before]` is set then cursor pagination is enabled and all records
    *
    * @remarks
    * before the cursor up to the `per_page` are returned. This feature is useful for
@@ -59,7 +59,7 @@ export type GetWebinarsCursor = {
    */
   before?: string | undefined;
   /**
-   * If `cursor[after]` is set than cursor pagination is enabled and all records
+   * If `cursor[after]` is set then cursor pagination is enabled and all records
    *
    * @remarks
    * after the cursor up to the `per_page` are returned.
@@ -124,7 +124,7 @@ export type GetWebinarsRequest = {
    */
   perPage?: number | undefined;
   /**
-   * If `cursor[enabled]` is set to 1 than cursor pagination is enabled and the
+   * If `cursor[enabled]` is set to 1 then cursor pagination is enabled and the
    *
    * @remarks
    * first set of records are fetched up to the `per_page`. Cursor
@@ -134,7 +134,7 @@ export type GetWebinarsRequest = {
    * the cursor of the first record can be used to fetch records before the result set.
    *
    * NOTE: a cursor value is only valid if the `sort_by` value hasn't changed from the
-   * last fetch. For example, you cannot fetch using `sort_by` id and than pass that
+   * last fetch. For example, you cannot fetch using `sort_by` id and then pass that
    * cursor value to a `sort_by` name.
    */
   cursor?: GetWebinarsCursor | undefined;
@@ -157,6 +157,57 @@ export type GetWebinarsRequest = {
    * Filter by whether the webinar has started. Use "true" for webinars that have started, "false" for webinars that have not started yet
    */
   started?: Started | undefined;
+};
+
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const GetWebinarsCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type GetWebinarsCode = ClosedEnum<typeof GetWebinarsCode>;
+
+/**
+ * The current lifecycle status of the webinar. This is a read-only, system-managed field that Wistia updates as the event moves through its lifecycle; it cannot be set or changed via the API.
+ */
+export const GetWebinarsLifecycleStatus = {
+  Pending: "pending",
+  Ready: "ready",
+  Starting: "starting",
+  Started: "started",
+  Ended: "ended",
+  VodReady: "vod_ready",
+  Failed: "failed",
+} as const;
+/**
+ * The current lifecycle status of the webinar. This is a read-only, system-managed field that Wistia updates as the event moves through its lifecycle; it cannot be set or changed via the API.
+ */
+export type GetWebinarsLifecycleStatus = ClosedEnum<
+  typeof GetWebinarsLifecycleStatus
+>;
+
+export type GetWebinarsFolder = {
+  /**
+   * A unique alphanumeric identifier for the record.
+   */
+  id: string;
+  /**
+   * A URL for fetching all the records of the given record type. You can pass hashed_ids as a param with multiple values
+   *
+   * @remarks
+   * to do a batch fetch for this records type.
+   */
+  indexUrl: string;
+  /**
+   * A URL that can be used to fetch this record.
+   */
+  url: string;
 };
 
 /**
@@ -188,9 +239,13 @@ export type GetWebinarsResponse = {
    */
   eventDuration?: number | null | undefined;
   /**
-   * Current lifecycle status of the event
+   * The IANA time zone identifier the webinar is scheduled in
    */
-  lifecycleStatus: string;
+  timeZone: string;
+  /**
+   * The current lifecycle status of the webinar. This is a read-only, system-managed field that Wistia updates as the event moves through its lifecycle; it cannot be set or changed via the API.
+   */
+  lifecycleStatus: GetWebinarsLifecycleStatus;
   /**
    * Registration status of the event
    */
@@ -215,6 +270,18 @@ export type GetWebinarsResponse = {
    * Link for panelists to join the event
    */
   panelistLink: string;
+  /**
+   * URL of the webinar's custom thumbnail image, or null if no custom thumbnail has been set
+   */
+  thumbnailUrl?: string | null | undefined;
+  /**
+   * The folder (project) this webinar belongs to
+   */
+  folder?: GetWebinarsFolder | null | undefined;
+  /**
+   * A cursor for stable pagination based on current `sort_by` order. You can pass this to `cursor[before]` or `cursor[after]` as a parameter to fetch the records before or after this record in the same sort order. This is only populated if records were fetched with `cursor[enabled]`, or `cursor[before]` or `cursor[after]`.
+   */
+  cursor?: string | null | undefined;
 };
 
 /** @internal */
@@ -304,6 +371,41 @@ export function getWebinarsRequestToJSON(
 }
 
 /** @internal */
+export const GetWebinarsCode$inboundSchema: z.ZodNativeEnum<
+  typeof GetWebinarsCode
+> = z.nativeEnum(GetWebinarsCode);
+
+/** @internal */
+export const GetWebinarsLifecycleStatus$inboundSchema: z.ZodNativeEnum<
+  typeof GetWebinarsLifecycleStatus
+> = z.nativeEnum(GetWebinarsLifecycleStatus);
+
+/** @internal */
+export const GetWebinarsFolder$inboundSchema: z.ZodType<
+  GetWebinarsFolder,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: z.string(),
+  index_url: z.string(),
+  url: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    "index_url": "indexUrl",
+  });
+});
+
+export function getWebinarsFolderFromJSON(
+  jsonString: string,
+): SafeParseResult<GetWebinarsFolder, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetWebinarsFolder$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetWebinarsFolder' from JSON`,
+  );
+}
+
+/** @internal */
 export const GetWebinarsResponse$inboundSchema: z.ZodType<
   GetWebinarsResponse,
   z.ZodTypeDef,
@@ -316,17 +418,22 @@ export const GetWebinarsResponse$inboundSchema: z.ZodType<
     z.string().datetime({ offset: true }).transform(v => new Date(v)),
   ).optional(),
   event_duration: z.nullable(z.number().int()).optional(),
-  lifecycle_status: z.string(),
+  time_zone: z.string(),
+  lifecycle_status: GetWebinarsLifecycleStatus$inboundSchema,
   registration_status: z.string(),
   created_at: z.string().datetime({ offset: true }).transform(v => new Date(v)),
   updated_at: z.string().datetime({ offset: true }).transform(v => new Date(v)),
   audience_link: z.string(),
   host_link: z.string(),
   panelist_link: z.string(),
+  thumbnail_url: z.nullable(z.string()).optional(),
+  folder: z.nullable(z.lazy(() => GetWebinarsFolder$inboundSchema)).optional(),
+  cursor: z.nullable(z.string()).optional(),
 }).transform((v) => {
   return remap$(v, {
     "scheduled_for": "scheduledFor",
     "event_duration": "eventDuration",
+    "time_zone": "timeZone",
     "lifecycle_status": "lifecycleStatus",
     "registration_status": "registrationStatus",
     "created_at": "createdAt",
@@ -334,6 +441,7 @@ export const GetWebinarsResponse$inboundSchema: z.ZodType<
     "audience_link": "audienceLink",
     "host_link": "hostLink",
     "panelist_link": "panelistLink",
+    "thumbnail_url": "thumbnailUrl",
   });
 });
 

@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
@@ -14,6 +15,22 @@ export type GetStatsMediasMediaIdEngagementRequest = {
    */
   mediaId: string;
 };
+
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const GetStatsMediasMediaIdEngagementCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type GetStatsMediasMediaIdEngagementCode = ClosedEnum<
+  typeof GetStatsMediasMediaIdEngagementCode
+>;
 
 /**
  * Success response with the engagement data of the video.
@@ -57,6 +74,11 @@ export function getStatsMediasMediaIdEngagementRequestToJSON(
     ),
   );
 }
+
+/** @internal */
+export const GetStatsMediasMediaIdEngagementCode$inboundSchema: z.ZodNativeEnum<
+  typeof GetStatsMediasMediaIdEngagementCode
+> = z.nativeEnum(GetStatsMediasMediaIdEngagementCode);
 
 /** @internal */
 export const GetStatsMediasMediaIdEngagementResponse$inboundSchema: z.ZodType<

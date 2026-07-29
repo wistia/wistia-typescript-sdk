@@ -11,6 +11,7 @@ import { PostMediasMediaHashedIdTrimsBackgroundJobStatus } from "@wistia/wistia-
 
 let value: PostMediasMediaHashedIdTrimsBackgroundJobStatus = {
   id: 980845,
+  hashedId: "<id>",
   status: "failed",
 };
 ```
@@ -20,4 +21,5 @@ let value: PostMediasMediaHashedIdTrimsBackgroundJobStatus = {
 | Field                                                                                                          | Type                                                                                                           | Required                                                                                                       | Description                                                                                                    |
 | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
 | `id`                                                                                                           | *number*                                                                                                       | :heavy_check_mark:                                                                                             | The ID of the background job that's been queued for the request.                                               |
+| `hashedId`                                                                                                     | *string*                                                                                                       | :heavy_check_mark:                                                                                             | The unguessable hashed ID of the background job. Prefer this over the numeric ID when polling for status.      |
 | `status`                                                                                                       | [operations.PostMediasMediaHashedIdTrimsStatus](../../models/operations/postmediasmediahashedidtrimsstatus.md) | :heavy_check_mark:                                                                                             | The status of the background job that's been queued for the request.                                           |

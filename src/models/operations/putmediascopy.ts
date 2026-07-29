@@ -20,20 +20,19 @@ export type PutMediasCopyRequest = {
   folderId: string;
 };
 
-export type Destination = {
-  /**
-   * The type of the destination container.
-   */
-  type?: string | undefined;
-  /**
-   * The name of the destination folder.
-   */
-  name?: string | undefined;
-  /**
-   * The hashed ID of the destination folder.
-   */
-  hashedId?: string | undefined;
-};
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const PutMediasCopyCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type PutMediasCopyCode = ClosedEnum<typeof PutMediasCopyCode>;
 
 /**
  * The status of the background job that's been queued for the request.
@@ -61,9 +60,28 @@ export type PutMediasCopyBackgroundJobStatus = {
    */
   id: number;
   /**
+   * The unguessable hashed ID of the background job. Prefer this over the numeric ID when polling for status.
+   */
+  hashedId: string;
+  /**
    * The status of the background job that's been queued for the request.
    */
   status: PutMediasCopyStatus;
+};
+
+export type Destination = {
+  /**
+   * The type of the destination container.
+   */
+  type?: string | undefined;
+  /**
+   * The name of the destination folder.
+   */
+  name?: string | undefined;
+  /**
+   * The hashed ID of the destination folder.
+   */
+  hashedId?: string | undefined;
 };
 
 /**
@@ -73,15 +91,9 @@ export type PutMediasCopyResponse = {
   /**
    * A confirmation message that the background job has been queued.
    */
-  message?: string | undefined;
+  message: string;
+  backgroundJobStatus: PutMediasCopyBackgroundJobStatus;
   destination?: Destination | undefined;
-  /**
-   * A background job keeps track of the progress of an asynchronous task, e.g
-   *
-   * @remarks
-   * bulk archiving media, translating media, etc.
-   */
-  backgroundJobStatus?: PutMediasCopyBackgroundJobStatus | undefined;
 };
 
 /** @internal */
@@ -114,6 +126,41 @@ export function putMediasCopyRequestToJSON(
 }
 
 /** @internal */
+export const PutMediasCopyCode$inboundSchema: z.ZodNativeEnum<
+  typeof PutMediasCopyCode
+> = z.nativeEnum(PutMediasCopyCode);
+
+/** @internal */
+export const PutMediasCopyStatus$inboundSchema: z.ZodNativeEnum<
+  typeof PutMediasCopyStatus
+> = z.nativeEnum(PutMediasCopyStatus);
+
+/** @internal */
+export const PutMediasCopyBackgroundJobStatus$inboundSchema: z.ZodType<
+  PutMediasCopyBackgroundJobStatus,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: z.number().int(),
+  hashed_id: z.string(),
+  status: PutMediasCopyStatus$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "hashed_id": "hashedId",
+  });
+});
+
+export function putMediasCopyBackgroundJobStatusFromJSON(
+  jsonString: string,
+): SafeParseResult<PutMediasCopyBackgroundJobStatus, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PutMediasCopyBackgroundJobStatus$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PutMediasCopyBackgroundJobStatus' from JSON`,
+  );
+}
+
+/** @internal */
 export const Destination$inboundSchema: z.ZodType<
   Destination,
   z.ZodTypeDef,
@@ -135,41 +182,16 @@ export function destinationFromJSON(
 }
 
 /** @internal */
-export const PutMediasCopyStatus$inboundSchema: z.ZodNativeEnum<
-  typeof PutMediasCopyStatus
-> = z.nativeEnum(PutMediasCopyStatus);
-
-/** @internal */
-export const PutMediasCopyBackgroundJobStatus$inboundSchema: z.ZodType<
-  PutMediasCopyBackgroundJobStatus,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: z.number().int(),
-  status: PutMediasCopyStatus$inboundSchema,
-});
-
-export function putMediasCopyBackgroundJobStatusFromJSON(
-  jsonString: string,
-): SafeParseResult<PutMediasCopyBackgroundJobStatus, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PutMediasCopyBackgroundJobStatus$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PutMediasCopyBackgroundJobStatus' from JSON`,
-  );
-}
-
-/** @internal */
 export const PutMediasCopyResponse$inboundSchema: z.ZodType<
   PutMediasCopyResponse,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  message: z.string().optional(),
-  destination: z.lazy(() => Destination$inboundSchema).optional(),
+  message: z.string(),
   background_job_status: z.lazy(() =>
     PutMediasCopyBackgroundJobStatus$inboundSchema
-  ).optional(),
+  ),
+  destination: z.lazy(() => Destination$inboundSchema).optional(),
 }).transform((v) => {
   return remap$(v, {
     "background_job_status": "backgroundJobStatus",

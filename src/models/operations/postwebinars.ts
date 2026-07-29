@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
@@ -18,13 +19,72 @@ export type PostWebinarsRequest = {
    */
   description?: string | undefined;
   /**
-   * The scheduled start time in W3C format with timezone
+   * The scheduled start time as a UTC formatted ISO 8601 string (offset `Z` or `+00:00`).
    */
   scheduledFor: Date;
   /**
    * Duration of the event in minutes (minimum 15)
    */
   eventDuration: number;
+  /**
+   * The IANA time zone identifier the webinar is scheduled in.
+   */
+  timeZone: string;
+  /**
+   * Hashed ID of the folder to place this webinar in. Defaults to the account's default webinar folder if not provided.
+   */
+  folderId?: string | undefined;
+};
+
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const PostWebinarsCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type PostWebinarsCode = ClosedEnum<typeof PostWebinarsCode>;
+
+/**
+ * The current lifecycle status of the webinar. This is a read-only, system-managed field that Wistia updates as the event moves through its lifecycle; it cannot be set or changed via the API.
+ */
+export const PostWebinarsLifecycleStatus = {
+  Pending: "pending",
+  Ready: "ready",
+  Starting: "starting",
+  Started: "started",
+  Ended: "ended",
+  VodReady: "vod_ready",
+  Failed: "failed",
+} as const;
+/**
+ * The current lifecycle status of the webinar. This is a read-only, system-managed field that Wistia updates as the event moves through its lifecycle; it cannot be set or changed via the API.
+ */
+export type PostWebinarsLifecycleStatus = ClosedEnum<
+  typeof PostWebinarsLifecycleStatus
+>;
+
+export type PostWebinarsFolder = {
+  /**
+   * A unique alphanumeric identifier for the record.
+   */
+  id: string;
+  /**
+   * A URL for fetching all the records of the given record type. You can pass hashed_ids as a param with multiple values
+   *
+   * @remarks
+   * to do a batch fetch for this records type.
+   */
+  indexUrl: string;
+  /**
+   * A URL that can be used to fetch this record.
+   */
+  url: string;
 };
 
 /**
@@ -56,9 +116,13 @@ export type PostWebinarsResponse = {
    */
   eventDuration?: number | null | undefined;
   /**
-   * Current lifecycle status of the event
+   * The IANA time zone identifier the webinar is scheduled in
    */
-  lifecycleStatus: string;
+  timeZone: string;
+  /**
+   * The current lifecycle status of the webinar. This is a read-only, system-managed field that Wistia updates as the event moves through its lifecycle; it cannot be set or changed via the API.
+   */
+  lifecycleStatus: PostWebinarsLifecycleStatus;
   /**
    * Registration status of the event
    */
@@ -83,6 +147,18 @@ export type PostWebinarsResponse = {
    * Link for panelists to join the event
    */
   panelistLink: string;
+  /**
+   * URL of the webinar's custom thumbnail image, or null if no custom thumbnail has been set
+   */
+  thumbnailUrl?: string | null | undefined;
+  /**
+   * The folder (project) this webinar belongs to
+   */
+  folder?: PostWebinarsFolder | null | undefined;
+  /**
+   * A cursor for stable pagination based on current `sort_by` order. You can pass this to `cursor[before]` or `cursor[after]` as a parameter to fetch the records before or after this record in the same sort order. This is only populated if records were fetched with `cursor[enabled]`, or `cursor[before]` or `cursor[after]`.
+   */
+  cursor?: string | null | undefined;
 };
 
 /** @internal */
@@ -91,6 +167,8 @@ export type PostWebinarsRequest$Outbound = {
   description?: string | undefined;
   scheduled_for: string;
   event_duration: number;
+  time_zone: string;
+  folder_id?: string | undefined;
 };
 
 /** @internal */
@@ -103,10 +181,14 @@ export const PostWebinarsRequest$outboundSchema: z.ZodType<
   description: z.string().optional(),
   scheduledFor: z.date().transform(v => v.toISOString()),
   eventDuration: z.number().int(),
+  timeZone: z.string(),
+  folderId: z.string().optional(),
 }).transform((v) => {
   return remap$(v, {
     scheduledFor: "scheduled_for",
     eventDuration: "event_duration",
+    timeZone: "time_zone",
+    folderId: "folder_id",
   });
 });
 
@@ -115,6 +197,41 @@ export function postWebinarsRequestToJSON(
 ): string {
   return JSON.stringify(
     PostWebinarsRequest$outboundSchema.parse(postWebinarsRequest),
+  );
+}
+
+/** @internal */
+export const PostWebinarsCode$inboundSchema: z.ZodNativeEnum<
+  typeof PostWebinarsCode
+> = z.nativeEnum(PostWebinarsCode);
+
+/** @internal */
+export const PostWebinarsLifecycleStatus$inboundSchema: z.ZodNativeEnum<
+  typeof PostWebinarsLifecycleStatus
+> = z.nativeEnum(PostWebinarsLifecycleStatus);
+
+/** @internal */
+export const PostWebinarsFolder$inboundSchema: z.ZodType<
+  PostWebinarsFolder,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: z.string(),
+  index_url: z.string(),
+  url: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    "index_url": "indexUrl",
+  });
+});
+
+export function postWebinarsFolderFromJSON(
+  jsonString: string,
+): SafeParseResult<PostWebinarsFolder, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PostWebinarsFolder$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostWebinarsFolder' from JSON`,
   );
 }
 
@@ -131,17 +248,22 @@ export const PostWebinarsResponse$inboundSchema: z.ZodType<
     z.string().datetime({ offset: true }).transform(v => new Date(v)),
   ).optional(),
   event_duration: z.nullable(z.number().int()).optional(),
-  lifecycle_status: z.string(),
+  time_zone: z.string(),
+  lifecycle_status: PostWebinarsLifecycleStatus$inboundSchema,
   registration_status: z.string(),
   created_at: z.string().datetime({ offset: true }).transform(v => new Date(v)),
   updated_at: z.string().datetime({ offset: true }).transform(v => new Date(v)),
   audience_link: z.string(),
   host_link: z.string(),
   panelist_link: z.string(),
+  thumbnail_url: z.nullable(z.string()).optional(),
+  folder: z.nullable(z.lazy(() => PostWebinarsFolder$inboundSchema)).optional(),
+  cursor: z.nullable(z.string()).optional(),
 }).transform((v) => {
   return remap$(v, {
     "scheduled_for": "scheduledFor",
     "event_duration": "eventDuration",
+    "time_zone": "timeZone",
     "lifecycle_status": "lifecycleStatus",
     "registration_status": "registrationStatus",
     "created_at": "createdAt",
@@ -149,6 +271,7 @@ export const PostWebinarsResponse$inboundSchema: z.ZodType<
     "audience_link": "audienceLink",
     "host_link": "hostLink",
     "panelist_link": "panelistLink",
+    "thumbnail_url": "thumbnailUrl",
   });
 });
 

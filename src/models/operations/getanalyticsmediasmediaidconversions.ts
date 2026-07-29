@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { RFCDate } from "../../types/rfcdate.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -15,11 +16,11 @@ export type GetAnalyticsMediasMediaIdConversionsRequest = {
    */
   mediaId: string;
   /**
-   * Start date for the analytics period in ISO 8601 format (YYYY-MM-DD).
+   * Start date for the analytics period in ISO 8601 format (YYYY-MM-DD). Inclusive — the range starts at the beginning of this date.
    */
   startDate: RFCDate;
   /**
-   * End date for the analytics period in ISO 8601 format (YYYY-MM-DD).
+   * End date for the analytics period in ISO 8601 format (YYYY-MM-DD). Exclusive — the range ends before the beginning of this date.
    */
   endDate: RFCDate;
   /**
@@ -31,6 +32,22 @@ export type GetAnalyticsMediasMediaIdConversionsRequest = {
    */
   cursor?: string | undefined;
 };
+
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const GetAnalyticsMediasMediaIdConversionsCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type GetAnalyticsMediasMediaIdConversionsCode = ClosedEnum<
+  typeof GetAnalyticsMediasMediaIdConversionsCode
+>;
 
 export type GetAnalyticsMediasMediaIdConversionsData = {
   /**
@@ -117,6 +134,11 @@ export function getAnalyticsMediasMediaIdConversionsRequestToJSON(
     ),
   );
 }
+
+/** @internal */
+export const GetAnalyticsMediasMediaIdConversionsCode$inboundSchema:
+  z.ZodNativeEnum<typeof GetAnalyticsMediasMediaIdConversionsCode> = z
+    .nativeEnum(GetAnalyticsMediasMediaIdConversionsCode);
 
 /** @internal */
 export const GetAnalyticsMediasMediaIdConversionsData$inboundSchema: z.ZodType<

@@ -30,7 +30,7 @@ export type GetFoldersFolderIdSubfoldersEnabled = ClosedEnum<
 >;
 
 /**
- * If `cursor[enabled]` is set to 1 than cursor pagination is enabled and the
+ * If `cursor[enabled]` is set to 1 then cursor pagination is enabled and the
  *
  * @remarks
  * first set of records are fetched up to the `per_page`. Cursor
@@ -40,7 +40,7 @@ export type GetFoldersFolderIdSubfoldersEnabled = ClosedEnum<
  * the cursor of the first record can be used to fetch records before the result set.
  *
  * NOTE: a cursor value is only valid if the `sort_by` value hasn't changed from the
- * last fetch. For example, you cannot fetch using `sort_by` id and than pass that
+ * last fetch. For example, you cannot fetch using `sort_by` id and then pass that
  * cursor value to a `sort_by` name.
  */
 export type GetFoldersFolderIdSubfoldersCursor = {
@@ -52,7 +52,7 @@ export type GetFoldersFolderIdSubfoldersCursor = {
    */
   enabled?: GetFoldersFolderIdSubfoldersEnabled | undefined;
   /**
-   * If `cursor[before]` is set than cursor pagination is enabled and all records
+   * If `cursor[before]` is set then cursor pagination is enabled and all records
    *
    * @remarks
    * before the cursor up to the `per_page` are returned. This feature is useful for
@@ -61,7 +61,7 @@ export type GetFoldersFolderIdSubfoldersCursor = {
    */
   before?: string | undefined;
   /**
-   * If `cursor[after]` is set than cursor pagination is enabled and all records
+   * If `cursor[after]` is set then cursor pagination is enabled and all records
    *
    * @remarks
    * after the cursor up to the `per_page` are returned.
@@ -123,7 +123,7 @@ export type GetFoldersFolderIdSubfoldersRequest = {
    */
   perPage?: number | undefined;
   /**
-   * If `cursor[enabled]` is set to 1 than cursor pagination is enabled and the
+   * If `cursor[enabled]` is set to 1 then cursor pagination is enabled and the
    *
    * @remarks
    * first set of records are fetched up to the `per_page`. Cursor
@@ -133,7 +133,7 @@ export type GetFoldersFolderIdSubfoldersRequest = {
    * the cursor of the first record can be used to fetch records before the result set.
    *
    * NOTE: a cursor value is only valid if the `sort_by` value hasn't changed from the
-   * last fetch. For example, you cannot fetch using `sort_by` id and than pass that
+   * last fetch. For example, you cannot fetch using `sort_by` id and then pass that
    * cursor value to a `sort_by` name.
    */
   cursor?: GetFoldersFolderIdSubfoldersCursor | undefined;
@@ -153,6 +153,22 @@ export type GetFoldersFolderIdSubfoldersRequest = {
    */
   hashedIds?: Array<string> | undefined;
 };
+
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const GetFoldersFolderIdSubfoldersCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type GetFoldersFolderIdSubfoldersCode = ClosedEnum<
+  typeof GetFoldersFolderIdSubfoldersCode
+>;
 
 /**
  * A subfolder within a folder that contains media.
@@ -276,6 +292,11 @@ export function getFoldersFolderIdSubfoldersRequestToJSON(
     ),
   );
 }
+
+/** @internal */
+export const GetFoldersFolderIdSubfoldersCode$inboundSchema: z.ZodNativeEnum<
+  typeof GetFoldersFolderIdSubfoldersCode
+> = z.nativeEnum(GetFoldersFolderIdSubfoldersCode);
 
 /** @internal */
 export const GetFoldersFolderIdSubfoldersResponse$inboundSchema: z.ZodType<

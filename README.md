@@ -101,7 +101,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.media.uploadForm({
+  const result = await wistia.uploadOrImportMedia.postForm({
     url:
       "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
     lowPriority: true,
@@ -135,7 +135,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.media.uploadForm({
+  const result = await wistia.uploadOrImportMedia.postForm({
     url:
       "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
     lowPriority: true,
@@ -158,6 +158,7 @@ run();
 ### [Account](docs/sdks/account/README.md)
 
 * [get](docs/sdks/account/README.md#get) - Get Current Account
+* [getUsage](docs/sdks/account/README.md#getusage) - Get Account Usage
 * [getTokenDetails](docs/sdks/account/README.md#gettokendetails) - Get Current Token
 
 ### [AllowedDomains](docs/sdks/alloweddomains/README.md)
@@ -167,58 +168,80 @@ run();
 * [get](docs/sdks/alloweddomains/README.md#get) - Show Allowed Domain
 * [delete](docs/sdks/alloweddomains/README.md#delete) - Delete Allowed Domain
 
+### [AnalyticsAccount](docs/sdks/analyticsaccount/README.md)
+
+* [get](docs/sdks/analyticsaccount/README.md#get) - Show Account Analytics
+* [getTimeseries](docs/sdks/analyticsaccount/README.md#gettimeseries) - Show Account Analytics Timeseries
+* [getTopContent](docs/sdks/analyticsaccount/README.md#gettopcontent) - Show Account Top Content
+* [getEmbedLocations](docs/sdks/analyticsaccount/README.md#getembedlocations) - Show Account Embed Locations
+
 ### [AnalyticsMedia](docs/sdks/analyticsmedia/README.md)
 
-* [getAnalyticsMediasMediaId](docs/sdks/analyticsmedia/README.md#getanalyticsmediasmediaid) - Show Media Analytics
-* [getAnalyticsMediasMediaIdTimeseries](docs/sdks/analyticsmedia/README.md#getanalyticsmediasmediaidtimeseries) - Show Media Analytics Timeseries
-* [getAnalyticsMediasMediaIdEmbedLocations](docs/sdks/analyticsmedia/README.md#getanalyticsmediasmediaidembedlocations) - Show Media Embed Locations
-* [getAnalyticsMediasMediaIdTraffic](docs/sdks/analyticsmedia/README.md#getanalyticsmediasmediaidtraffic) - Show Media Traffic Breakdown
-* [getAnalyticsMediasMediaIdConversions](docs/sdks/analyticsmedia/README.md#getanalyticsmediasmediaidconversions) - Show Media Form Conversions
-* [getAnalyticsMediasMediaIdLanguages](docs/sdks/analyticsmedia/README.md#getanalyticsmediasmediaidlanguages) - Show Media Languages
+* [get](docs/sdks/analyticsmedia/README.md#get) - Show Media Analytics
+* [getTimeseries](docs/sdks/analyticsmedia/README.md#gettimeseries) - Show Media Analytics Timeseries
+* [getEmbedLocations](docs/sdks/analyticsmedia/README.md#getembedlocations) - Show Media Embed Locations
+* [getEmbedLocationsTimeseries](docs/sdks/analyticsmedia/README.md#getembedlocationstimeseries) - Show Media Embed Locations Timeseries
+* [getTraffic](docs/sdks/analyticsmedia/README.md#gettraffic) - Show Media Traffic Breakdown
+* [getConversions](docs/sdks/analyticsmedia/README.md#getconversions) - Show Media Form Conversions
+* [getLanguages](docs/sdks/analyticsmedia/README.md#getlanguages) - Show Media Languages
 
 ### [AnalyticsWebinar](docs/sdks/analyticswebinar/README.md)
 
-* [getAnalyticsWebinarsWebinarId](docs/sdks/analyticswebinar/README.md#getanalyticswebinarswebinarid) - Show Webinar Analytics
-* [getAnalyticsWebinarsWebinarIdRegistration](docs/sdks/analyticswebinar/README.md#getanalyticswebinarswebinaridregistration) - Show Webinar Registration Timeseries
-* [getAnalyticsWebinarsWebinarIdTraffic](docs/sdks/analyticswebinar/README.md#getanalyticswebinarswebinaridtraffic) - Show Webinar Traffic Breakdown
-* [getAnalyticsWebinarsWebinarIdAudience](docs/sdks/analyticswebinar/README.md#getanalyticswebinarswebinaridaudience) - Show Webinar Audience
-* [getAnalyticsWebinarsWebinarIdHistograms](docs/sdks/analyticswebinar/README.md#getanalyticswebinarswebinaridhistograms) - Show Webinar Histograms
+* [get](docs/sdks/analyticswebinar/README.md#get) - Show Webinar Analytics
+* [getRegistration](docs/sdks/analyticswebinar/README.md#getregistration) - Show Webinar Registration Timeseries
+* [getTraffic](docs/sdks/analyticswebinar/README.md#gettraffic) - Show Webinar Traffic Breakdown
+* [getAudience](docs/sdks/analyticswebinar/README.md#getaudience) - Show Webinar Audience
+* [getHistograms](docs/sdks/analyticswebinar/README.md#gethistograms) - Show Webinar Histograms
 
 ### [BackgroundJobStatus](docs/sdks/backgroundjobstatus/README.md)
 
 * [get](docs/sdks/backgroundjobstatus/README.md#get) - Show Background Job Status
+
+### [Brands](docs/sdks/brands/README.md)
+
+* [list](docs/sdks/brands/README.md#list) - List Brands
+
+### [BulkActions](docs/sdks/bulkactions/README.md)
+
+* [postBulk](docs/sdks/bulkactions/README.md#postbulk) - Create Bulk Actions
 
 ### [Captions](docs/sdks/captions/README.md)
 
 * [list](docs/sdks/captions/README.md#list) - List Captions by Media
 * [create](docs/sdks/captions/README.md#create) - Create Captions
 * [createMultipart](docs/sdks/captions/README.md#createmultipart) - Create Captions
-* [getCaptions](docs/sdks/captions/README.md#getcaptions) - List Captions
+* [listAll](docs/sdks/captions/README.md#listall) - List Captions
 * [purchase](docs/sdks/captions/README.md#purchase) - Purchase Captions
 * [get](docs/sdks/captions/README.md#get) - Show Captions
 * [update](docs/sdks/captions/README.md#update) - Update Captions
 * [updateMultipart](docs/sdks/captions/README.md#updatemultipart) - Update Captions
 * [delete](docs/sdks/captions/README.md#delete) - Delete Captions
 
+### [ChannelCollaborators](docs/sdks/channelcollaborators/README.md)
+
+* [list](docs/sdks/channelcollaborators/README.md#list) - List Channel Collaborators
+* [create](docs/sdks/channelcollaborators/README.md#create) - Create Channel Collaborator
+* [delete](docs/sdks/channelcollaborators/README.md#delete) - Delete Channel Collaborator
+
 ### [ChannelEpisodes](docs/sdks/channelepisodes/README.md)
 
 * [get](docs/sdks/channelepisodes/README.md#get) - Show Channel Episode
 * [create](docs/sdks/channelepisodes/README.md#create) - Create Channel Episode
 * [list](docs/sdks/channelepisodes/README.md#list) - List Channel Episodes
-* [putChannelEpisodesChannelEpisodeHashedId](docs/sdks/channelepisodes/README.md#putchannelepisodeschannelepisodehashedid) - Update Channel Episode
-* [deleteChannelEpisodesChannelEpisodeHashedId](docs/sdks/channelepisodes/README.md#deletechannelepisodeschannelepisodehashedid) - Delete Channel Episode
-* [putChannelEpisodesChannelEpisodeHashedIdPublish](docs/sdks/channelepisodes/README.md#putchannelepisodeschannelepisodehashedidpublish) - Publish Channel Episode
-* [putChannelEpisodesChannelEpisodeHashedIdUnpublish](docs/sdks/channelepisodes/README.md#putchannelepisodeschannelepisodehashedidunpublish) - Un-publish Channel Episode
+* [update](docs/sdks/channelepisodes/README.md#update) - Update Channel Episode
+* [delete](docs/sdks/channelepisodes/README.md#delete) - Delete Channel Episode
+* [publish](docs/sdks/channelepisodes/README.md#publish) - Publish Channel Episode
+* [unpublish](docs/sdks/channelepisodes/README.md#unpublish) - Un-publish Channel Episode
 
 ### [Channels](docs/sdks/channels/README.md)
 
 * [list](docs/sdks/channels/README.md#list) - List Channels
-* [postChannels](docs/sdks/channels/README.md#postchannels) - Create Channel
+* [create](docs/sdks/channels/README.md#create) - Create Channel
 * [get](docs/sdks/channels/README.md#get) - Show Channel
-* [putChannelsChannelHashedId](docs/sdks/channels/README.md#putchannelschannelhashedid) - Update Channel
-* [deleteChannelsChannelHashedId](docs/sdks/channels/README.md#deletechannelschannelhashedid) - Delete Channel
+* [update](docs/sdks/channels/README.md#update) - Update Channel
+* [delete](docs/sdks/channels/README.md#delete) - Delete Channel
 
-### [Channels.ChannelEpisodes](docs/sdks/channelschannelepisodes/README.md)
+#### [Channels.ChannelEpisodes](docs/sdks/channelschannelepisodes/README.md)
 
 * [list](docs/sdks/channelschannelepisodes/README.md#list) - List Channel Episodes by Channel
 
@@ -228,27 +251,52 @@ run();
 * [create](docs/sdks/customizations/README.md#create) - Create Customizations
 * [update](docs/sdks/customizations/README.md#update) - Update Customizations
 * [delete](docs/sdks/customizations/README.md#delete) - Delete Customizations
+* [getAppearance](docs/sdks/customizations/README.md#getappearance) - Show Appearance Customizations
+* [updateAppearance](docs/sdks/customizations/README.md#updateappearance) - Update Appearance Customizations
+* [getPlayback](docs/sdks/customizations/README.md#getplayback) - Show Playback Customizations
+* [updatePlayback](docs/sdks/customizations/README.md#updateplayback) - Update Playback Customizations
+* [getThumbnail](docs/sdks/customizations/README.md#getthumbnail) - Show Thumbnail Customizations
+* [updateThumbnail](docs/sdks/customizations/README.md#updatethumbnail) - Update Thumbnail Customizations
+* [getAccessibility](docs/sdks/customizations/README.md#getaccessibility) - Show Accessibility Customizations
+* [updateAccessibility](docs/sdks/customizations/README.md#updateaccessibility) - Update Accessibility Customizations
+* [getChapters](docs/sdks/customizations/README.md#getchapters) - Show Chapters Customizations
+* [updateChapters](docs/sdks/customizations/README.md#updatechapters) - Update Chapters Customizations
+* [getEngagement](docs/sdks/customizations/README.md#getengagement) - Show Engagement Customizations
+* [updateEngagement](docs/sdks/customizations/README.md#updateengagement) - Update Engagement Customizations
+* [getRelatedMedia](docs/sdks/customizations/README.md#getrelatedmedia) - Show Related Media Customizations
+* [updateRelatedMedia](docs/sdks/customizations/README.md#updaterelatedmedia) - Update Related Media Customizations
+* [getSharing](docs/sdks/customizations/README.md#getsharing) - Show Sharing Customizations
+* [updateSharing](docs/sdks/customizations/README.md#updatesharing) - Update Sharing Customizations
+* [getLeadCapture](docs/sdks/customizations/README.md#getleadcapture) - Show Lead Capture Customizations
+* [updateLeadCapture](docs/sdks/customizations/README.md#updateleadcapture) - Update Lead Capture Customizations
+* [getAccess](docs/sdks/customizations/README.md#getaccess) - Show Access Customizations
+* [updateAccess](docs/sdks/customizations/README.md#updateaccess) - Update Access Customizations
+
+### [DeletedMedia](docs/sdks/deletedmedia/README.md)
+
+* [getDeletedMedia](docs/sdks/deletedmedia/README.md#getdeletedmedia) - List Deleted Media
+* [postDeletedMediaRestore](docs/sdks/deletedmedia/README.md#postdeletedmediarestore) - Restore Deleted Media
 
 ### [ExpiringAccessTokens](docs/sdks/expiringaccesstokens/README.md)
 
 * [create](docs/sdks/expiringaccesstokens/README.md#create) - Create Expiring Access Token
 
-### [FolderSharings](docs/sdks/foldersharings/README.md)
-
-* [getFoldersFolderIdSharings](docs/sdks/foldersharings/README.md#getfoldersfolderidsharings) - List Folder Sharings
-* [postFoldersFolderIdSharings](docs/sdks/foldersharings/README.md#postfoldersfolderidsharings) - Create Folder Sharing
-* [getFoldersFolderIdSharingsSharingId](docs/sdks/foldersharings/README.md#getfoldersfolderidsharingssharingid) - Show Folder Sharing
-* [putFoldersFolderIdSharingsSharingId](docs/sdks/foldersharings/README.md#putfoldersfolderidsharingssharingid) - Update Folder Sharing
-* [deleteFoldersFolderIdSharingsSharingId](docs/sdks/foldersharings/README.md#deletefoldersfolderidsharingssharingid) - Delete Folder Sharing
-
 ### [Folders](docs/sdks/folders/README.md)
 
-* [getFolders](docs/sdks/folders/README.md#getfolders) - List Folders
-* [postFolders](docs/sdks/folders/README.md#postfolders) - Create Folder
-* [getFoldersId](docs/sdks/folders/README.md#getfoldersid) - Show Folder
-* [putFoldersId](docs/sdks/folders/README.md#putfoldersid) - Update Folder
-* [deleteFoldersId](docs/sdks/folders/README.md#deletefoldersid) - Delete Folder
-* [postFoldersIdCopy](docs/sdks/folders/README.md#postfoldersidcopy) - Copy Folder
+* [list](docs/sdks/folders/README.md#list) - List Folders
+* [create](docs/sdks/folders/README.md#create) - Create Folder
+* [get](docs/sdks/folders/README.md#get) - Show Folder
+* [update](docs/sdks/folders/README.md#update) - Update Folder
+* [delete](docs/sdks/folders/README.md#delete) - Delete Folder
+* [copy](docs/sdks/folders/README.md#copy) - Copy Folder
+
+### [FolderSharings](docs/sdks/foldersharings/README.md)
+
+* [list](docs/sdks/foldersharings/README.md#list) - List Folder Sharings
+* [create](docs/sdks/foldersharings/README.md#create) - Create Folder Sharing
+* [get](docs/sdks/foldersharings/README.md#get) - Show Folder Sharing
+* [update](docs/sdks/foldersharings/README.md#update) - Update Folder Sharing
+* [delete](docs/sdks/foldersharings/README.md#delete) - Delete Folder Sharing
 
 ### [Localizations](docs/sdks/localizations/README.md)
 
@@ -259,8 +307,6 @@ run();
 
 ### [Media](docs/sdks/media/README.md)
 
-* [uploadForm](docs/sdks/media/README.md#uploadform) - Upload or Import Media
-* [uploadMultipart](docs/sdks/media/README.md#uploadmultipart) - Upload or Import Media
 * [list](docs/sdks/media/README.md#list) - List Media
 * [get](docs/sdks/media/README.md#get) - Show Media
 * [update](docs/sdks/media/README.md#update) - Update Media
@@ -269,11 +315,11 @@ run();
 * [swap](docs/sdks/media/README.md#swap) - Swap Media
 * [getStats](docs/sdks/media/README.md#getstats) - Show Media Aggregated Stats
 * [translate](docs/sdks/media/README.md#translate) - Translate Media
-* [postMediasImportUrl](docs/sdks/media/README.md#postmediasimporturl) - Import Media from URL
+* [importUrl](docs/sdks/media/README.md#importurl) - Import Media from URL
 * [archive](docs/sdks/media/README.md#archive) - Archive Media
 * [move](docs/sdks/media/README.md#move) - Move Media
 * [restore](docs/sdks/media/README.md#restore) - Restore Media
-* [putMediasCopy](docs/sdks/media/README.md#putmediascopy) - Bulk Copy Media
+* [bulkCopy](docs/sdks/media/README.md#bulkcopy) - Bulk Copy Media
 
 ### [MediaExtendedAudioDescriptions](docs/sdks/mediaextendedaudiodescriptions/README.md)
 
@@ -286,6 +332,12 @@ run();
 ### [Search](docs/sdks/search/README.md)
 
 * [search](docs/sdks/search/README.md#search) - Search
+
+### [ShareLinks](docs/sdks/sharelinks/README.md)
+
+* [get](docs/sdks/sharelinks/README.md#get) - Show share link
+* [update](docs/sdks/sharelinks/README.md#update) - Update share link
+* [delete](docs/sdks/sharelinks/README.md#delete) - Delete share link
 
 ### [StatsAccount](docs/sdks/statsaccount/README.md)
 
@@ -314,16 +366,16 @@ run();
 
 ### [Subfolders](docs/sdks/subfolders/README.md)
 
-* [getFoldersFolderIdSubfolders](docs/sdks/subfolders/README.md#getfoldersfolderidsubfolders) - List Subfolders
-* [postFoldersFolderIdSubfolders](docs/sdks/subfolders/README.md#postfoldersfolderidsubfolders) - Create Subfolder
-* [getFoldersFolderIdSubfoldersSubfolderId](docs/sdks/subfolders/README.md#getfoldersfolderidsubfolderssubfolderid) - Show Subfolder
-* [putFoldersFolderIdSubfoldersSubfolderId](docs/sdks/subfolders/README.md#putfoldersfolderidsubfolderssubfolderid) - Update Subfolder
-* [deleteFoldersFolderIdSubfoldersSubfolderId](docs/sdks/subfolders/README.md#deletefoldersfolderidsubfolderssubfolderid) - Delete Subfolder
-* [deleteFoldersFolderIdSubfoldersBulkDelete](docs/sdks/subfolders/README.md#deletefoldersfolderidsubfoldersbulkdelete) - Bulk Delete Subfolders
+* [list](docs/sdks/subfolders/README.md#list) - List Subfolders
+* [create](docs/sdks/subfolders/README.md#create) - Create Subfolder
+* [get](docs/sdks/subfolders/README.md#get) - Show Subfolder
+* [update](docs/sdks/subfolders/README.md#update) - Update Subfolder
+* [delete](docs/sdks/subfolders/README.md#delete) - Delete Subfolder
+* [bulkDelete](docs/sdks/subfolders/README.md#bulkdelete) - Bulk Delete Subfolders
 
 ### [Taggings](docs/sdks/taggings/README.md)
 
-* [postTaggingsBulkCreate](docs/sdks/taggings/README.md#posttaggingsbulkcreate) - Bulk Tag Media
+* [bulkCreate](docs/sdks/taggings/README.md#bulkcreate) - Bulk Tag Media
 
 ### [Tags](docs/sdks/tags/README.md)
 
@@ -335,17 +387,29 @@ run();
 
 * [create](docs/sdks/trims/README.md#create) - Create Media from Trims
 
+### [UploadOrImportMedia](docs/sdks/uploadorimportmedia/README.md)
+
+* [postForm](docs/sdks/uploadorimportmedia/README.md#postform) - Upload or Import Media
+* [postMultipart](docs/sdks/uploadorimportmedia/README.md#postmultipart) - Upload or Import Media
+
 ### [WebinarRegistrations](docs/sdks/webinarregistrations/README.md)
 
-* [postWebinarsWebinarIdRegistrations](docs/sdks/webinarregistrations/README.md#postwebinarswebinaridregistrations) - Create Webinar Registration
+* [getWebinarsWebinarIdRegistrations](docs/sdks/webinarregistrations/README.md#getwebinarswebinaridregistrations) - List Webinar Registrations
+* [create](docs/sdks/webinarregistrations/README.md#create) - Create Webinar Registration
+
+### [WebinarCollaborators](docs/sdks/webinarcollaborators/README.md)
+
+* [list](docs/sdks/webinarcollaborators/README.md#list) - List Webinar Collaborators
+* [create](docs/sdks/webinarcollaborators/README.md#create) - Create Webinar Collaborator
+* [delete](docs/sdks/webinarcollaborators/README.md#delete) - Delete Webinar Collaborator
 
 ### [Webinars](docs/sdks/webinars/README.md)
 
-* [getWebinars](docs/sdks/webinars/README.md#getwebinars) - List Webinars
-* [postWebinars](docs/sdks/webinars/README.md#postwebinars) - Create Webinar
-* [getWebinarsId](docs/sdks/webinars/README.md#getwebinarsid) - Show Webinar
-* [putWebinarsId](docs/sdks/webinars/README.md#putwebinarsid) - Update Webinar
-* [deleteWebinarsId](docs/sdks/webinars/README.md#deletewebinarsid) - Delete Webinar
+* [list](docs/sdks/webinars/README.md#list) - List Webinars
+* [create](docs/sdks/webinars/README.md#create) - Create Webinar
+* [get](docs/sdks/webinars/README.md#get) - Show Webinar
+* [update](docs/sdks/webinars/README.md#update) - Update Webinar
+* [delete](docs/sdks/webinars/README.md#delete) - Delete Webinar
 
 </details>
 <!-- End Available Resources and Operations [operations] -->
@@ -367,65 +431,99 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 
 - [`accountGet`](docs/sdks/account/README.md#get) - Get Current Account
 - [`accountGetTokenDetails`](docs/sdks/account/README.md#gettokendetails) - Get Current Token
+- [`accountGetUsage`](docs/sdks/account/README.md#getusage) - Get Account Usage
 - [`allowedDomainsCreate`](docs/sdks/alloweddomains/README.md#create) - Create Allowed Domain
 - [`allowedDomainsDelete`](docs/sdks/alloweddomains/README.md#delete) - Delete Allowed Domain
 - [`allowedDomainsGet`](docs/sdks/alloweddomains/README.md#get) - Show Allowed Domain
 - [`allowedDomainsList`](docs/sdks/alloweddomains/README.md#list) - List Allowed Domains
-- [`analyticsMediaGetAnalyticsMediasMediaId`](docs/sdks/analyticsmedia/README.md#getanalyticsmediasmediaid) - Show Media Analytics
-- [`analyticsMediaGetAnalyticsMediasMediaIdConversions`](docs/sdks/analyticsmedia/README.md#getanalyticsmediasmediaidconversions) - Show Media Form Conversions
-- [`analyticsMediaGetAnalyticsMediasMediaIdEmbedLocations`](docs/sdks/analyticsmedia/README.md#getanalyticsmediasmediaidembedlocations) - Show Media Embed Locations
-- [`analyticsMediaGetAnalyticsMediasMediaIdLanguages`](docs/sdks/analyticsmedia/README.md#getanalyticsmediasmediaidlanguages) - Show Media Languages
-- [`analyticsMediaGetAnalyticsMediasMediaIdTimeseries`](docs/sdks/analyticsmedia/README.md#getanalyticsmediasmediaidtimeseries) - Show Media Analytics Timeseries
-- [`analyticsMediaGetAnalyticsMediasMediaIdTraffic`](docs/sdks/analyticsmedia/README.md#getanalyticsmediasmediaidtraffic) - Show Media Traffic Breakdown
-- [`analyticsWebinarGetAnalyticsWebinarsWebinarId`](docs/sdks/analyticswebinar/README.md#getanalyticswebinarswebinarid) - Show Webinar Analytics
-- [`analyticsWebinarGetAnalyticsWebinarsWebinarIdAudience`](docs/sdks/analyticswebinar/README.md#getanalyticswebinarswebinaridaudience) - Show Webinar Audience
-- [`analyticsWebinarGetAnalyticsWebinarsWebinarIdHistograms`](docs/sdks/analyticswebinar/README.md#getanalyticswebinarswebinaridhistograms) - Show Webinar Histograms
-- [`analyticsWebinarGetAnalyticsWebinarsWebinarIdRegistration`](docs/sdks/analyticswebinar/README.md#getanalyticswebinarswebinaridregistration) - Show Webinar Registration Timeseries
-- [`analyticsWebinarGetAnalyticsWebinarsWebinarIdTraffic`](docs/sdks/analyticswebinar/README.md#getanalyticswebinarswebinaridtraffic) - Show Webinar Traffic Breakdown
+- [`analyticsAccountGet`](docs/sdks/analyticsaccount/README.md#get) - Show Account Analytics
+- [`analyticsAccountGetEmbedLocations`](docs/sdks/analyticsaccount/README.md#getembedlocations) - Show Account Embed Locations
+- [`analyticsAccountGetTimeseries`](docs/sdks/analyticsaccount/README.md#gettimeseries) - Show Account Analytics Timeseries
+- [`analyticsAccountGetTopContent`](docs/sdks/analyticsaccount/README.md#gettopcontent) - Show Account Top Content
+- [`analyticsMediaGet`](docs/sdks/analyticsmedia/README.md#get) - Show Media Analytics
+- [`analyticsMediaGetConversions`](docs/sdks/analyticsmedia/README.md#getconversions) - Show Media Form Conversions
+- [`analyticsMediaGetEmbedLocations`](docs/sdks/analyticsmedia/README.md#getembedlocations) - Show Media Embed Locations
+- [`analyticsMediaGetEmbedLocationsTimeseries`](docs/sdks/analyticsmedia/README.md#getembedlocationstimeseries) - Show Media Embed Locations Timeseries
+- [`analyticsMediaGetLanguages`](docs/sdks/analyticsmedia/README.md#getlanguages) - Show Media Languages
+- [`analyticsMediaGetTimeseries`](docs/sdks/analyticsmedia/README.md#gettimeseries) - Show Media Analytics Timeseries
+- [`analyticsMediaGetTraffic`](docs/sdks/analyticsmedia/README.md#gettraffic) - Show Media Traffic Breakdown
+- [`analyticsWebinarGet`](docs/sdks/analyticswebinar/README.md#get) - Show Webinar Analytics
+- [`analyticsWebinarGetAudience`](docs/sdks/analyticswebinar/README.md#getaudience) - Show Webinar Audience
+- [`analyticsWebinarGetHistograms`](docs/sdks/analyticswebinar/README.md#gethistograms) - Show Webinar Histograms
+- [`analyticsWebinarGetRegistration`](docs/sdks/analyticswebinar/README.md#getregistration) - Show Webinar Registration Timeseries
+- [`analyticsWebinarGetTraffic`](docs/sdks/analyticswebinar/README.md#gettraffic) - Show Webinar Traffic Breakdown
 - [`backgroundJobStatusGet`](docs/sdks/backgroundjobstatus/README.md#get) - Show Background Job Status
+- [`brandsList`](docs/sdks/brands/README.md#list) - List Brands
+- [`bulkActionsPostBulk`](docs/sdks/bulkactions/README.md#postbulk) - Create Bulk Actions
 - [`captionsCreate`](docs/sdks/captions/README.md#create) - Create Captions
 - [`captionsCreateMultipart`](docs/sdks/captions/README.md#createmultipart) - Create Captions
 - [`captionsDelete`](docs/sdks/captions/README.md#delete) - Delete Captions
 - [`captionsGet`](docs/sdks/captions/README.md#get) - Show Captions
-- [`captionsGetCaptions`](docs/sdks/captions/README.md#getcaptions) - List Captions
 - [`captionsList`](docs/sdks/captions/README.md#list) - List Captions by Media
+- [`captionsListAll`](docs/sdks/captions/README.md#listall) - List Captions
 - [`captionsPurchase`](docs/sdks/captions/README.md#purchase) - Purchase Captions
 - [`captionsUpdate`](docs/sdks/captions/README.md#update) - Update Captions
 - [`captionsUpdateMultipart`](docs/sdks/captions/README.md#updatemultipart) - Update Captions
+- [`channelCollaboratorsCreate`](docs/sdks/channelcollaborators/README.md#create) - Create Channel Collaborator
+- [`channelCollaboratorsDelete`](docs/sdks/channelcollaborators/README.md#delete) - Delete Channel Collaborator
+- [`channelCollaboratorsList`](docs/sdks/channelcollaborators/README.md#list) - List Channel Collaborators
 - [`channelEpisodesCreate`](docs/sdks/channelepisodes/README.md#create) - Create Channel Episode
-- [`channelEpisodesDeleteChannelEpisodesChannelEpisodeHashedId`](docs/sdks/channelepisodes/README.md#deletechannelepisodeschannelepisodehashedid) - Delete Channel Episode
+- [`channelEpisodesDelete`](docs/sdks/channelepisodes/README.md#delete) - Delete Channel Episode
 - [`channelEpisodesGet`](docs/sdks/channelepisodes/README.md#get) - Show Channel Episode
 - [`channelEpisodesList`](docs/sdks/channelepisodes/README.md#list) - List Channel Episodes
-- [`channelEpisodesPutChannelEpisodesChannelEpisodeHashedId`](docs/sdks/channelepisodes/README.md#putchannelepisodeschannelepisodehashedid) - Update Channel Episode
-- [`channelEpisodesPutChannelEpisodesChannelEpisodeHashedIdPublish`](docs/sdks/channelepisodes/README.md#putchannelepisodeschannelepisodehashedidpublish) - Publish Channel Episode
-- [`channelEpisodesPutChannelEpisodesChannelEpisodeHashedIdUnpublish`](docs/sdks/channelepisodes/README.md#putchannelepisodeschannelepisodehashedidunpublish) - Un-publish Channel Episode
+- [`channelEpisodesPublish`](docs/sdks/channelepisodes/README.md#publish) - Publish Channel Episode
+- [`channelEpisodesUnpublish`](docs/sdks/channelepisodes/README.md#unpublish) - Un-publish Channel Episode
+- [`channelEpisodesUpdate`](docs/sdks/channelepisodes/README.md#update) - Update Channel Episode
 - [`channelsChannelEpisodesList`](docs/sdks/channelschannelepisodes/README.md#list) - List Channel Episodes by Channel
-- [`channelsDeleteChannelsChannelHashedId`](docs/sdks/channels/README.md#deletechannelschannelhashedid) - Delete Channel
+- [`channelsCreate`](docs/sdks/channels/README.md#create) - Create Channel
+- [`channelsDelete`](docs/sdks/channels/README.md#delete) - Delete Channel
 - [`channelsGet`](docs/sdks/channels/README.md#get) - Show Channel
 - [`channelsList`](docs/sdks/channels/README.md#list) - List Channels
-- [`channelsPostChannels`](docs/sdks/channels/README.md#postchannels) - Create Channel
-- [`channelsPutChannelsChannelHashedId`](docs/sdks/channels/README.md#putchannelschannelhashedid) - Update Channel
+- [`channelsUpdate`](docs/sdks/channels/README.md#update) - Update Channel
 - [`customizationsCreate`](docs/sdks/customizations/README.md#create) - Create Customizations
 - [`customizationsDelete`](docs/sdks/customizations/README.md#delete) - Delete Customizations
 - [`customizationsGet`](docs/sdks/customizations/README.md#get) - Show Customizations
+- [`customizationsGetAccess`](docs/sdks/customizations/README.md#getaccess) - Show Access Customizations
+- [`customizationsGetAccessibility`](docs/sdks/customizations/README.md#getaccessibility) - Show Accessibility Customizations
+- [`customizationsGetAppearance`](docs/sdks/customizations/README.md#getappearance) - Show Appearance Customizations
+- [`customizationsGetChapters`](docs/sdks/customizations/README.md#getchapters) - Show Chapters Customizations
+- [`customizationsGetEngagement`](docs/sdks/customizations/README.md#getengagement) - Show Engagement Customizations
+- [`customizationsGetLeadCapture`](docs/sdks/customizations/README.md#getleadcapture) - Show Lead Capture Customizations
+- [`customizationsGetPlayback`](docs/sdks/customizations/README.md#getplayback) - Show Playback Customizations
+- [`customizationsGetRelatedMedia`](docs/sdks/customizations/README.md#getrelatedmedia) - Show Related Media Customizations
+- [`customizationsGetSharing`](docs/sdks/customizations/README.md#getsharing) - Show Sharing Customizations
+- [`customizationsGetThumbnail`](docs/sdks/customizations/README.md#getthumbnail) - Show Thumbnail Customizations
 - [`customizationsUpdate`](docs/sdks/customizations/README.md#update) - Update Customizations
+- [`customizationsUpdateAccess`](docs/sdks/customizations/README.md#updateaccess) - Update Access Customizations
+- [`customizationsUpdateAccessibility`](docs/sdks/customizations/README.md#updateaccessibility) - Update Accessibility Customizations
+- [`customizationsUpdateAppearance`](docs/sdks/customizations/README.md#updateappearance) - Update Appearance Customizations
+- [`customizationsUpdateChapters`](docs/sdks/customizations/README.md#updatechapters) - Update Chapters Customizations
+- [`customizationsUpdateEngagement`](docs/sdks/customizations/README.md#updateengagement) - Update Engagement Customizations
+- [`customizationsUpdateLeadCapture`](docs/sdks/customizations/README.md#updateleadcapture) - Update Lead Capture Customizations
+- [`customizationsUpdatePlayback`](docs/sdks/customizations/README.md#updateplayback) - Update Playback Customizations
+- [`customizationsUpdateRelatedMedia`](docs/sdks/customizations/README.md#updaterelatedmedia) - Update Related Media Customizations
+- [`customizationsUpdateSharing`](docs/sdks/customizations/README.md#updatesharing) - Update Sharing Customizations
+- [`customizationsUpdateThumbnail`](docs/sdks/customizations/README.md#updatethumbnail) - Update Thumbnail Customizations
+- [`deletedMediaGetDeletedMedia`](docs/sdks/deletedmedia/README.md#getdeletedmedia) - List Deleted Media
+- [`deletedMediaPostDeletedMediaRestore`](docs/sdks/deletedmedia/README.md#postdeletedmediarestore) - Restore Deleted Media
 - [`expiringAccessTokensCreate`](docs/sdks/expiringaccesstokens/README.md#create) - Create Expiring Access Token
-- [`foldersDeleteFoldersId`](docs/sdks/folders/README.md#deletefoldersid) - Delete Folder
-- [`foldersGetFolders`](docs/sdks/folders/README.md#getfolders) - List Folders
-- [`foldersGetFoldersId`](docs/sdks/folders/README.md#getfoldersid) - Show Folder
-- [`folderSharingsDeleteFoldersFolderIdSharingsSharingId`](docs/sdks/foldersharings/README.md#deletefoldersfolderidsharingssharingid) - Delete Folder Sharing
-- [`folderSharingsGetFoldersFolderIdSharings`](docs/sdks/foldersharings/README.md#getfoldersfolderidsharings) - List Folder Sharings
-- [`folderSharingsGetFoldersFolderIdSharingsSharingId`](docs/sdks/foldersharings/README.md#getfoldersfolderidsharingssharingid) - Show Folder Sharing
-- [`folderSharingsPostFoldersFolderIdSharings`](docs/sdks/foldersharings/README.md#postfoldersfolderidsharings) - Create Folder Sharing
-- [`folderSharingsPutFoldersFolderIdSharingsSharingId`](docs/sdks/foldersharings/README.md#putfoldersfolderidsharingssharingid) - Update Folder Sharing
-- [`foldersPostFolders`](docs/sdks/folders/README.md#postfolders) - Create Folder
-- [`foldersPostFoldersIdCopy`](docs/sdks/folders/README.md#postfoldersidcopy) - Copy Folder
-- [`foldersPutFoldersId`](docs/sdks/folders/README.md#putfoldersid) - Update Folder
+- [`foldersCopy`](docs/sdks/folders/README.md#copy) - Copy Folder
+- [`foldersCreate`](docs/sdks/folders/README.md#create) - Create Folder
+- [`foldersDelete`](docs/sdks/folders/README.md#delete) - Delete Folder
+- [`foldersGet`](docs/sdks/folders/README.md#get) - Show Folder
+- [`folderSharingsCreate`](docs/sdks/foldersharings/README.md#create) - Create Folder Sharing
+- [`folderSharingsDelete`](docs/sdks/foldersharings/README.md#delete) - Delete Folder Sharing
+- [`folderSharingsGet`](docs/sdks/foldersharings/README.md#get) - Show Folder Sharing
+- [`folderSharingsList`](docs/sdks/foldersharings/README.md#list) - List Folder Sharings
+- [`folderSharingsUpdate`](docs/sdks/foldersharings/README.md#update) - Update Folder Sharing
+- [`foldersList`](docs/sdks/folders/README.md#list) - List Folders
+- [`foldersUpdate`](docs/sdks/folders/README.md#update) - Update Folder
 - [`localizationsCreate`](docs/sdks/localizations/README.md#create) - Create Localization
 - [`localizationsDelete`](docs/sdks/localizations/README.md#delete) - Delete Localization
 - [`localizationsGet`](docs/sdks/localizations/README.md#get) - Show Localization
 - [`localizationsList`](docs/sdks/localizations/README.md#list) - List Localizations
 - [`mediaArchive`](docs/sdks/media/README.md#archive) - Archive Media
+- [`mediaBulkCopy`](docs/sdks/media/README.md#bulkcopy) - Bulk Copy Media
 - [`mediaCopy`](docs/sdks/media/README.md#copy) - Copy Media
 - [`mediaDelete`](docs/sdks/media/README.md#delete) - Delete Media
 - [`mediaExtendedAudioDescriptionsDeleteMediaExtendedAudioDescriptionsId`](docs/sdks/mediaextendedaudiodescriptions/README.md#deletemediaextendedaudiodescriptionsid) - Delete Media Extended Audio Description
@@ -435,17 +533,17 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`mediaExtendedAudioDescriptionsPostMediaExtendedAudioDescriptionsOrder`](docs/sdks/mediaextendedaudiodescriptions/README.md#postmediaextendedaudiodescriptionsorder) - Order Extended Audio Description
 - [`mediaGet`](docs/sdks/media/README.md#get) - Show Media
 - [`mediaGetStats`](docs/sdks/media/README.md#getstats) - Show Media Aggregated Stats
+- [`mediaImportUrl`](docs/sdks/media/README.md#importurl) - Import Media from URL
 - [`mediaList`](docs/sdks/media/README.md#list) - List Media
 - [`mediaMove`](docs/sdks/media/README.md#move) - Move Media
-- [`mediaPostMediasImportUrl`](docs/sdks/media/README.md#postmediasimporturl) - Import Media from URL
-- [`mediaPutMediasCopy`](docs/sdks/media/README.md#putmediascopy) - Bulk Copy Media
 - [`mediaRestore`](docs/sdks/media/README.md#restore) - Restore Media
 - [`mediaSwap`](docs/sdks/media/README.md#swap) - Swap Media
 - [`mediaTranslate`](docs/sdks/media/README.md#translate) - Translate Media
 - [`mediaUpdate`](docs/sdks/media/README.md#update) - Update Media
-- [`mediaUploadForm`](docs/sdks/media/README.md#uploadform) - Upload or Import Media
-- [`mediaUploadMultipart`](docs/sdks/media/README.md#uploadmultipart) - Upload or Import Media
 - [`searchSearch`](docs/sdks/search/README.md#search) - Search
+- [`shareLinksDelete`](docs/sdks/sharelinks/README.md#delete) - Delete share link
+- [`shareLinksGet`](docs/sdks/sharelinks/README.md#get) - Show share link
+- [`shareLinksUpdate`](docs/sdks/sharelinks/README.md#update) - Update share link
 - [`statsAccountGet`](docs/sdks/statsaccount/README.md#get) - Show Current Account Stats
 - [`statsAccountGetStatsAccountByDate`](docs/sdks/statsaccount/README.md#getstatsaccountbydate) - Show Account Stats by Date
 - [`statsEventsGet`](docs/sdks/statsevents/README.md#get) - Show Event
@@ -456,23 +554,29 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`statsProjectsGet`](docs/sdks/statsprojects/README.md#get) - Show Project Stats
 - [`statsVisitorsGet`](docs/sdks/statsvisitors/README.md#get) - Show Visitor
 - [`statsVisitorsList`](docs/sdks/statsvisitors/README.md#list) - List Visitors
-- [`subfoldersDeleteFoldersFolderIdSubfoldersBulkDelete`](docs/sdks/subfolders/README.md#deletefoldersfolderidsubfoldersbulkdelete) - Bulk Delete Subfolders
-- [`subfoldersDeleteFoldersFolderIdSubfoldersSubfolderId`](docs/sdks/subfolders/README.md#deletefoldersfolderidsubfolderssubfolderid) - Delete Subfolder
-- [`subfoldersGetFoldersFolderIdSubfolders`](docs/sdks/subfolders/README.md#getfoldersfolderidsubfolders) - List Subfolders
-- [`subfoldersGetFoldersFolderIdSubfoldersSubfolderId`](docs/sdks/subfolders/README.md#getfoldersfolderidsubfolderssubfolderid) - Show Subfolder
-- [`subfoldersPostFoldersFolderIdSubfolders`](docs/sdks/subfolders/README.md#postfoldersfolderidsubfolders) - Create Subfolder
-- [`subfoldersPutFoldersFolderIdSubfoldersSubfolderId`](docs/sdks/subfolders/README.md#putfoldersfolderidsubfolderssubfolderid) - Update Subfolder
-- [`taggingsPostTaggingsBulkCreate`](docs/sdks/taggings/README.md#posttaggingsbulkcreate) - Bulk Tag Media
+- [`subfoldersBulkDelete`](docs/sdks/subfolders/README.md#bulkdelete) - Bulk Delete Subfolders
+- [`subfoldersCreate`](docs/sdks/subfolders/README.md#create) - Create Subfolder
+- [`subfoldersDelete`](docs/sdks/subfolders/README.md#delete) - Delete Subfolder
+- [`subfoldersGet`](docs/sdks/subfolders/README.md#get) - Show Subfolder
+- [`subfoldersList`](docs/sdks/subfolders/README.md#list) - List Subfolders
+- [`subfoldersUpdate`](docs/sdks/subfolders/README.md#update) - Update Subfolder
+- [`taggingsBulkCreate`](docs/sdks/taggings/README.md#bulkcreate) - Bulk Tag Media
 - [`tagsCreate`](docs/sdks/tags/README.md#create) - Create Tags
 - [`tagsDelete`](docs/sdks/tags/README.md#delete) - Delete Tag
 - [`tagsList`](docs/sdks/tags/README.md#list) - List Tags
 - [`trimsCreate`](docs/sdks/trims/README.md#create) - Create Media from Trims
-- [`webinarRegistrationsPostWebinarsWebinarIdRegistrations`](docs/sdks/webinarregistrations/README.md#postwebinarswebinaridregistrations) - Create Webinar Registration
-- [`webinarsDeleteWebinarsId`](docs/sdks/webinars/README.md#deletewebinarsid) - Delete Webinar
-- [`webinarsGetWebinars`](docs/sdks/webinars/README.md#getwebinars) - List Webinars
-- [`webinarsGetWebinarsId`](docs/sdks/webinars/README.md#getwebinarsid) - Show Webinar
-- [`webinarsPostWebinars`](docs/sdks/webinars/README.md#postwebinars) - Create Webinar
-- [`webinarsPutWebinarsId`](docs/sdks/webinars/README.md#putwebinarsid) - Update Webinar
+- [`uploadOrImportMediaPostForm`](docs/sdks/uploadorimportmedia/README.md#postform) - Upload or Import Media
+- [`uploadOrImportMediaPostMultipart`](docs/sdks/uploadorimportmedia/README.md#postmultipart) - Upload or Import Media
+- [`webinarCollaboratorsCreate`](docs/sdks/webinarcollaborators/README.md#create) - Create Webinar Collaborator
+- [`webinarCollaboratorsDelete`](docs/sdks/webinarcollaborators/README.md#delete) - Delete Webinar Collaborator
+- [`webinarCollaboratorsList`](docs/sdks/webinarcollaborators/README.md#list) - List Webinar Collaborators
+- [`webinarRegistrationsCreate`](docs/sdks/webinarregistrations/README.md#create) - Create Webinar Registration
+- [`webinarRegistrationsGetWebinarsWebinarIdRegistrations`](docs/sdks/webinarregistrations/README.md#getwebinarswebinaridregistrations) - List Webinar Registrations
+- [`webinarsCreate`](docs/sdks/webinars/README.md#create) - Create Webinar
+- [`webinarsDelete`](docs/sdks/webinars/README.md#delete) - Delete Webinar
+- [`webinarsGet`](docs/sdks/webinars/README.md#get) - Show Webinar
+- [`webinarsList`](docs/sdks/webinars/README.md#list) - List Webinars
+- [`webinarsUpdate`](docs/sdks/webinars/README.md#update) - Update Webinar
 
 </details>
 <!-- End Standalone functions [standalone-funcs] -->
@@ -500,7 +604,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.media.uploadMultipart({
+  const result = await wistia.uploadOrImportMedia.postMultipart({
     file: await openAsBlob("example.file"),
   });
 
@@ -526,7 +630,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.media.uploadForm({
+  const result = await wistia.uploadOrImportMedia.postForm({
     url:
       "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
     lowPriority: true,
@@ -569,7 +673,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.media.uploadForm({
+  const result = await wistia.uploadOrImportMedia.postForm({
     url:
       "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
     lowPriority: true,
@@ -608,7 +712,7 @@ const wistia = new Wistia({
 
 async function run() {
   try {
-    const result = await wistia.media.uploadForm({
+    const result = await wistia.uploadOrImportMedia.postForm({
       url:
         "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
       lowPriority: true,
@@ -639,7 +743,7 @@ run();
 **Primary error:**
 * [`WistiaError`](./src/models/errors/wistiaerror.ts): The base class for HTTP error responses.
 
-<details><summary>Less common errors (383)</summary>
+<details><summary>Less common errors (549)</summary>
 
 <br />
 
@@ -652,383 +756,549 @@ run();
 
 
 **Inherit from [`WistiaError`](./src/models/errors/wistiaerror.ts)**:
-* [`PostFormBadRequestError`](./src/models/errors/postformbadrequesterror.ts): Error due to reaching the video limit of your account or other issues. Status code `400`. Applicable to 1 of 108 methods.*
-* [`PostMultipartBadRequestError`](./src/models/errors/postmultipartbadrequesterror.ts): Error due to reaching the video limit of your account or other issues. Status code `400`. Applicable to 1 of 108 methods.*
-* [`GetMediasBadRequestError`](./src/models/errors/getmediasbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 108 methods.*
-* [`PutMediasMediaHashedIdBadRequestError`](./src/models/errors/putmediasmediahashedidbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 108 methods.*
-* [`PostMediasMediaHashedIdCopyBadRequestError`](./src/models/errors/postmediasmediahashedidcopybadrequesterror.ts): Bad request, e.g. copy failure. Status code `400`. Applicable to 1 of 108 methods.*
-* [`PutMediasMediaHashedIdSwapBadRequestError`](./src/models/errors/putmediasmediahashedidswapbadrequesterror.ts): Bad request, e.g. missing replacement_media_id or media type mismatch. Status code `400`. Applicable to 1 of 108 methods.*
-* [`GetMediasMediaHashedIdStatsBadRequestError`](./src/models/errors/getmediasmediahashedidstatsbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 108 methods.*
-* [`PostMediasMediaHashedIdTranslateBadRequestError`](./src/models/errors/postmediasmediahashedidtranslatebadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 108 methods.*
-* [`PostMediasImportUrlBadRequestError`](./src/models/errors/postmediasimporturlbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 108 methods.*
-* [`PutMediasMoveBadRequestError`](./src/models/errors/putmediasmovebadrequesterror.ts): Invalid request. Status code `400`. Applicable to 1 of 108 methods.*
-* [`PostMediaExtendedAudioDescriptionsOrderBadRequestError`](./src/models/errors/postmediaextendedaudiodescriptionsorderbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 108 methods.*
-* [`GetFoldersBadRequestError`](./src/models/errors/getfoldersbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 108 methods.*
-* [`GetFoldersFolderIdSubfoldersBadRequestError`](./src/models/errors/getfoldersfolderidsubfoldersbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 108 methods.*
-* [`PostAllowedDomainsBadRequestError`](./src/models/errors/postalloweddomainsbadrequesterror.ts): Bad request - missing or invalid domain. Status code `400`. Applicable to 1 of 108 methods.*
-* [`GetCaptionsBadRequestError`](./src/models/errors/getcaptionsbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 108 methods.*
-* [`PostMediasMediaHashedIdLocalizationsBadRequestError`](./src/models/errors/postmediasmediahashedidlocalizationsbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 108 methods.*
-* [`GetTagsBadRequestError`](./src/models/errors/gettagsbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 108 methods.*
-* [`PostTagsBadRequestError`](./src/models/errors/posttagsbadrequesterror.ts): Bad request - missing or invalid parameters. Status code `400`. Applicable to 1 of 108 methods.*
-* [`GetSearchBadRequestError`](./src/models/errors/getsearchbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 108 methods.*
-* [`GetChannelsBadRequestError`](./src/models/errors/getchannelsbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 108 methods.*
-* [`PostChannelsChannelHashedIdChannelEpisodesBadRequestError`](./src/models/errors/postchannelschannelhashedidchannelepisodesbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 108 methods.*
-* [`GetChannelEpisodesBadRequestError`](./src/models/errors/getchannelepisodesbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 108 methods.*
-* [`GetAnalyticsMediasMediaIdBadRequestError`](./src/models/errors/getanalyticsmediasmediaidbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 108 methods.*
-* [`GetAnalyticsMediasMediaIdTimeseriesBadRequestError`](./src/models/errors/getanalyticsmediasmediaidtimeseriesbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 108 methods.*
-* [`GetAnalyticsMediasMediaIdEmbedLocationsBadRequestError`](./src/models/errors/getanalyticsmediasmediaidembedlocationsbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 108 methods.*
-* [`GetAnalyticsMediasMediaIdTrafficBadRequestError`](./src/models/errors/getanalyticsmediasmediaidtrafficbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 108 methods.*
-* [`GetAnalyticsMediasMediaIdConversionsBadRequestError`](./src/models/errors/getanalyticsmediasmediaidconversionsbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 108 methods.*
-* [`GetAnalyticsMediasMediaIdLanguagesBadRequestError`](./src/models/errors/getanalyticsmediasmediaidlanguagesbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 108 methods.*
-* [`GetAnalyticsWebinarsWebinarIdRegistrationBadRequestError`](./src/models/errors/getanalyticswebinarswebinaridregistrationbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 108 methods.*
-* [`GetAnalyticsWebinarsWebinarIdTrafficBadRequestError`](./src/models/errors/getanalyticswebinarswebinaridtrafficbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 108 methods.*
-* [`GetChannelsChannelHashedIdChannelEpisodesBadRequestError`](./src/models/errors/getchannelschannelhashedidchannelepisodesbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 108 methods.*
-* [`GetMediasUnauthorizedError`](./src/models/errors/getmediasunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`GetMediasMediaHashedIdUnauthorizedError`](./src/models/errors/getmediasmediahashedidunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`PutMediasMediaHashedIdUnauthorizedError`](./src/models/errors/putmediasmediahashedidunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`DeleteMediasMediaHashedIdUnauthorizedError`](./src/models/errors/deletemediasmediahashedidunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`PostMediasMediaHashedIdCopyUnauthorizedError`](./src/models/errors/postmediasmediahashedidcopyunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`PutMediasMediaHashedIdSwapUnauthorizedError`](./src/models/errors/putmediasmediahashedidswapunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`GetMediasMediaHashedIdStatsUnauthorizedError`](./src/models/errors/getmediasmediahashedidstatsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`PostMediasMediaHashedIdTranslateUnauthorizedError`](./src/models/errors/postmediasmediahashedidtranslateunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`PostMediasImportUrlUnauthorizedError`](./src/models/errors/postmediasimporturlunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`PutMediasArchiveUnauthorizedError`](./src/models/errors/putmediasarchiveunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`PutMediasMoveUnauthorizedError`](./src/models/errors/putmediasmoveunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`PutMediasRestoreUnauthorizedError`](./src/models/errors/putmediasrestoreunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`PutMediasCopyUnauthorizedError`](./src/models/errors/putmediascopyunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`GetMediaExtendedAudioDescriptionsUnauthorizedError`](./src/models/errors/getmediaextendedaudiodescriptionsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`GetMediaExtendedAudioDescriptionsIdUnauthorizedError`](./src/models/errors/getmediaextendedaudiodescriptionsidunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`DeleteMediaExtendedAudioDescriptionsIdUnauthorizedError`](./src/models/errors/deletemediaextendedaudiodescriptionsidunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`PostMediaExtendedAudioDescriptionsOrderUnauthorizedError`](./src/models/errors/postmediaextendedaudiodescriptionsorderunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`GetMediaExtendedAudioDescriptionsOrderStatusIdUnauthorizedError`](./src/models/errors/getmediaextendedaudiodescriptionsorderstatusidunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`GetFoldersUnauthorizedError`](./src/models/errors/getfoldersunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`PostFoldersUnauthorizedError`](./src/models/errors/postfoldersunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`GetFoldersIdUnauthorizedError`](./src/models/errors/getfoldersidunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`PutFoldersIdUnauthorizedError`](./src/models/errors/putfoldersidunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`DeleteFoldersIdUnauthorizedError`](./src/models/errors/deletefoldersidunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`PostFoldersIdCopyUnauthorizedError`](./src/models/errors/postfoldersidcopyunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`GetFoldersFolderIdSubfoldersUnauthorizedError`](./src/models/errors/getfoldersfolderidsubfoldersunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`PostFoldersFolderIdSubfoldersUnauthorizedError`](./src/models/errors/postfoldersfolderidsubfoldersunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`GetFoldersFolderIdSubfoldersSubfolderIdUnauthorizedError`](./src/models/errors/getfoldersfolderidsubfolderssubfolderidunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`PutFoldersFolderIdSubfoldersSubfolderIdUnauthorizedError`](./src/models/errors/putfoldersfolderidsubfolderssubfolderidunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`DeleteFoldersFolderIdSubfoldersSubfolderIdUnauthorizedError`](./src/models/errors/deletefoldersfolderidsubfolderssubfolderidunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`DeleteFoldersFolderIdSubfoldersBulkDeleteUnauthorizedError`](./src/models/errors/deletefoldersfolderidsubfoldersbulkdeleteunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`GetFoldersFolderIdSharingsUnauthorizedError`](./src/models/errors/getfoldersfolderidsharingsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`PostFoldersFolderIdSharingsUnauthorizedError`](./src/models/errors/postfoldersfolderidsharingsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`GetFoldersFolderIdSharingsSharingIdUnauthorizedError`](./src/models/errors/getfoldersfolderidsharingssharingidunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`PutFoldersFolderIdSharingsSharingIdUnauthorizedError`](./src/models/errors/putfoldersfolderidsharingssharingidunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`DeleteFoldersFolderIdSharingsSharingIdUnauthorizedError`](./src/models/errors/deletefoldersfolderidsharingssharingidunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`PostTaggingsBulkCreateUnauthorizedError`](./src/models/errors/posttaggingsbulkcreateunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`GetAccountDetailsUnauthorizedError`](./src/models/errors/getaccountdetailsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`GetTokenDetailsUnauthorizedError`](./src/models/errors/gettokendetailsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`GetAllowedDomainsUnauthorizedError`](./src/models/errors/getalloweddomainsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`PostAllowedDomainsUnauthorizedError`](./src/models/errors/postalloweddomainsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`GetAllowedDomainsDomainUnauthorizedError`](./src/models/errors/getalloweddomainsdomainunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`DeleteAllowedDomainsDomainUnauthorizedError`](./src/models/errors/deletealloweddomainsdomainunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`GetBackgroundJobStatusBackgroundJobStatusIdUnauthorizedError`](./src/models/errors/getbackgroundjobstatusbackgroundjobstatusidunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`GetMediasMediaIdCustomizationsUnauthorizedError`](./src/models/errors/getmediasmediaidcustomizationsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`PostMediasMediaIdCustomizationsUnauthorizedError`](./src/models/errors/postmediasmediaidcustomizationsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`PutMediasMediaIdCustomizationsUnauthorizedError`](./src/models/errors/putmediasmediaidcustomizationsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`DeleteMediasMediaIdCustomizationsUnauthorizedError`](./src/models/errors/deletemediasmediaidcustomizationsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`GetMediasMediaHashedIdCaptionsUnauthorizedError`](./src/models/errors/getmediasmediahashedidcaptionsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`PostMediasMediaHashedIdCaptionsUnauthorizedError`](./src/models/errors/postmediasmediahashedidcaptionsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`PostMediasMediaHashedIdCaptionsMultipartUnauthorizedError`](./src/models/errors/postmediasmediahashedidcaptionsmultipartunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`GetCaptionsUnauthorizedError`](./src/models/errors/getcaptionsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`PostMediasMediaHashedIdCaptionsPurchaseUnauthorizedError`](./src/models/errors/postmediasmediahashedidcaptionspurchaseunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`GetMediasMediaHashedIdCaptionsLanguageCodeUnauthorizedError`](./src/models/errors/getmediasmediahashedidcaptionslanguagecodeunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`PutMediasMediaHashedIdCaptionsLanguageCodeUnauthorizedError`](./src/models/errors/putmediasmediahashedidcaptionslanguagecodeunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`PutMediasMediaHashedIdCaptionsLanguageCodeMultipartUnauthorizedError`](./src/models/errors/putmediasmediahashedidcaptionslanguagecodemultipartunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`DeleteMediasMediaHashedIdCaptionsLanguageCodeUnauthorizedError`](./src/models/errors/deletemediasmediahashedidcaptionslanguagecodeunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`PostMediasMediaHashedIdTrimsUnauthorizedError`](./src/models/errors/postmediasmediahashedidtrimsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`GetMediasMediaHashedIdLocalizationsUnauthorizedError`](./src/models/errors/getmediasmediahashedidlocalizationsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`PostMediasMediaHashedIdLocalizationsUnauthorizedError`](./src/models/errors/postmediasmediahashedidlocalizationsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`GetMediasMediaHashedIdLocalizationsLocalizationHashedIdUnauthorizedError`](./src/models/errors/getmediasmediahashedidlocalizationslocalizationhashedidunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdUnauthorizedError`](./src/models/errors/deletemediasmediahashedidlocalizationslocalizationhashedidunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`GetTagsUnauthorizedError`](./src/models/errors/gettagsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`PostTagsUnauthorizedError`](./src/models/errors/posttagsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`DeleteTagsNameUnauthorizedError`](./src/models/errors/deletetagsnameunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`GetSearchUnauthorizedError`](./src/models/errors/getsearchunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`GetChannelsUnauthorizedError`](./src/models/errors/getchannelsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`PostChannelsUnauthorizedError`](./src/models/errors/postchannelsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`GetChannelsChannelHashedIdUnauthorizedError`](./src/models/errors/getchannelschannelhashedidunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`PutChannelsChannelHashedIdUnauthorizedError`](./src/models/errors/putchannelschannelhashedidunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`DeleteChannelsChannelHashedIdUnauthorizedError`](./src/models/errors/deletechannelschannelhashedidunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`GetChannelsChannelHashedIdChannelEpisodesChannelEpisodeIdUnauthorizedError`](./src/models/errors/getchannelschannelhashedidchannelepisodeschannelepisodeidunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`PostChannelsChannelHashedIdChannelEpisodesUnauthorizedError`](./src/models/errors/postchannelschannelhashedidchannelepisodesunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`GetChannelEpisodesUnauthorizedError`](./src/models/errors/getchannelepisodesunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`PutChannelEpisodesChannelEpisodeHashedIdUnauthorizedError`](./src/models/errors/putchannelepisodeschannelepisodehashedidunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`DeleteChannelEpisodesChannelEpisodeHashedIdUnauthorizedError`](./src/models/errors/deletechannelepisodeschannelepisodehashedidunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`PutChannelEpisodesChannelEpisodeHashedIdPublishUnauthorizedError`](./src/models/errors/putchannelepisodeschannelepisodehashedidpublishunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`PutChannelEpisodesChannelEpisodeHashedIdUnpublishUnauthorizedError`](./src/models/errors/putchannelepisodeschannelepisodehashedidunpublishunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`PostExpiringTokenUnauthorizedError`](./src/models/errors/postexpiringtokenunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`GetWebinarsUnauthorizedError`](./src/models/errors/getwebinarsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`PostWebinarsUnauthorizedError`](./src/models/errors/postwebinarsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`GetWebinarsIdUnauthorizedError`](./src/models/errors/getwebinarsidunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`PutWebinarsIdUnauthorizedError`](./src/models/errors/putwebinarsidunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`DeleteWebinarsIdUnauthorizedError`](./src/models/errors/deletewebinarsidunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`PostWebinarsWebinarIdRegistrationsUnauthorizedError`](./src/models/errors/postwebinarswebinaridregistrationsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`GetStatsAccountUnauthorizedError`](./src/models/errors/getstatsaccountunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`GetStatsAccountByDateUnauthorizedError`](./src/models/errors/getstatsaccountbydateunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`GetStatsProjectsProjectIdUnauthorizedError`](./src/models/errors/getstatsprojectsprojectidunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`GetStatsMediasMediaIdUnauthorizedError`](./src/models/errors/getstatsmediasmediaidunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`GetStatsMediasMediaIdByDateUnauthorizedError`](./src/models/errors/getstatsmediasmediaidbydateunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`GetStatsMediasMediaIdEngagementUnauthorizedError`](./src/models/errors/getstatsmediasmediaidengagementunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`GetStatsVisitorsUnauthorizedError`](./src/models/errors/getstatsvisitorsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`GetStatsVisitorsVisitorKeyUnauthorizedError`](./src/models/errors/getstatsvisitorsvisitorkeyunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`GetStatsEventsUnauthorizedError`](./src/models/errors/getstatseventsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`GetStatsEventsEventKeyUnauthorizedError`](./src/models/errors/getstatseventseventkeyunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`GetAnalyticsMediasMediaIdUnauthorizedError`](./src/models/errors/getanalyticsmediasmediaidunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`GetAnalyticsMediasMediaIdTimeseriesUnauthorizedError`](./src/models/errors/getanalyticsmediasmediaidtimeseriesunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`GetAnalyticsMediasMediaIdEmbedLocationsUnauthorizedError`](./src/models/errors/getanalyticsmediasmediaidembedlocationsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`GetAnalyticsMediasMediaIdTrafficUnauthorizedError`](./src/models/errors/getanalyticsmediasmediaidtrafficunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`GetAnalyticsMediasMediaIdConversionsUnauthorizedError`](./src/models/errors/getanalyticsmediasmediaidconversionsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`GetAnalyticsMediasMediaIdLanguagesUnauthorizedError`](./src/models/errors/getanalyticsmediasmediaidlanguagesunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`GetAnalyticsWebinarsWebinarIdUnauthorizedError`](./src/models/errors/getanalyticswebinarswebinaridunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`GetAnalyticsWebinarsWebinarIdRegistrationUnauthorizedError`](./src/models/errors/getanalyticswebinarswebinaridregistrationunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`GetAnalyticsWebinarsWebinarIdTrafficUnauthorizedError`](./src/models/errors/getanalyticswebinarswebinaridtrafficunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`GetAnalyticsWebinarsWebinarIdAudienceUnauthorizedError`](./src/models/errors/getanalyticswebinarswebinaridaudienceunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`GetAnalyticsWebinarsWebinarIdHistogramsUnauthorizedError`](./src/models/errors/getanalyticswebinarswebinaridhistogramsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`GetChannelsChannelHashedIdChannelEpisodesUnauthorizedError`](./src/models/errors/getchannelschannelhashedidchannelepisodesunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 108 methods.*
-* [`PutMediasMediaHashedIdForbiddenError`](./src/models/errors/putmediasmediahashedidforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 108 methods.*
-* [`DeleteMediasMediaHashedIdForbiddenError`](./src/models/errors/deletemediasmediahashedidforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 108 methods.*
-* [`PostMediasMediaHashedIdCopyForbiddenError`](./src/models/errors/postmediasmediahashedidcopyforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 108 methods.*
-* [`PutMediasMediaHashedIdSwapForbiddenError`](./src/models/errors/putmediasmediahashedidswapforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 108 methods.*
-* [`GetMediasMediaHashedIdStatsForbiddenError`](./src/models/errors/getmediasmediahashedidstatsforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 108 methods.*
-* [`PostMediasMediaHashedIdTranslateForbiddenError`](./src/models/errors/postmediasmediahashedidtranslateforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 108 methods.*
-* [`PostMediasImportUrlForbiddenError`](./src/models/errors/postmediasimporturlforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 108 methods.*
-* [`PutMediasArchiveForbiddenError`](./src/models/errors/putmediasarchiveforbiddenerror.ts): Forbidden, e.g. account does not have access to archiving. Status code `403`. Applicable to 1 of 108 methods.*
-* [`PutMediasMoveForbiddenError`](./src/models/errors/putmediasmoveforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 108 methods.*
-* [`PutMediasRestoreForbiddenError`](./src/models/errors/putmediasrestoreforbiddenerror.ts): Forbidden, e.g. account does not have access to archiving. Status code `403`. Applicable to 1 of 108 methods.*
-* [`PutMediasCopyForbiddenError`](./src/models/errors/putmediascopyforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 108 methods.*
-* [`DeleteMediaExtendedAudioDescriptionsIdForbiddenError`](./src/models/errors/deletemediaextendedaudiodescriptionsidforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 108 methods.*
-* [`PostMediaExtendedAudioDescriptionsOrderForbiddenError`](./src/models/errors/postmediaextendedaudiodescriptionsorderforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 108 methods.*
-* [`GetMediaExtendedAudioDescriptionsOrderStatusIdForbiddenError`](./src/models/errors/getmediaextendedaudiodescriptionsorderstatusidforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 108 methods.*
-* [`PutFoldersIdForbiddenError`](./src/models/errors/putfoldersidforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 108 methods.*
-* [`DeleteFoldersIdForbiddenError`](./src/models/errors/deletefoldersidforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 108 methods.*
-* [`PostFoldersFolderIdSubfoldersForbiddenError`](./src/models/errors/postfoldersfolderidsubfoldersforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 108 methods.*
-* [`PostFoldersFolderIdSharingsForbiddenError`](./src/models/errors/postfoldersfolderidsharingsforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 108 methods.*
-* [`PostTaggingsBulkCreateForbiddenError`](./src/models/errors/posttaggingsbulkcreateforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 108 methods.*
-* [`PostAllowedDomainsForbiddenError`](./src/models/errors/postalloweddomainsforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 108 methods.*
-* [`DeleteAllowedDomainsDomainForbiddenError`](./src/models/errors/deletealloweddomainsdomainforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 108 methods.*
-* [`PostMediasMediaIdCustomizationsForbiddenError`](./src/models/errors/postmediasmediaidcustomizationsforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 108 methods.*
-* [`PostMediasMediaHashedIdCaptionsForbiddenError`](./src/models/errors/postmediasmediahashedidcaptionsforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 108 methods.*
-* [`PostMediasMediaHashedIdCaptionsMultipartForbiddenError`](./src/models/errors/postmediasmediahashedidcaptionsmultipartforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 108 methods.*
-* [`PostMediasMediaHashedIdTrimsForbiddenError`](./src/models/errors/postmediasmediahashedidtrimsforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 108 methods.*
-* [`PostMediasMediaHashedIdLocalizationsForbiddenError`](./src/models/errors/postmediasmediahashedidlocalizationsforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 108 methods.*
-* [`DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdForbiddenError`](./src/models/errors/deletemediasmediahashedidlocalizationslocalizationhashedidforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 108 methods.*
-* [`PostTagsForbiddenError`](./src/models/errors/posttagsforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 108 methods.*
-* [`DeleteTagsNameForbiddenError`](./src/models/errors/deletetagsnameforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 108 methods.*
-* [`PostChannelsForbiddenError`](./src/models/errors/postchannelsforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 108 methods.*
-* [`PutChannelsChannelHashedIdForbiddenError`](./src/models/errors/putchannelschannelhashedidforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 108 methods.*
-* [`DeleteChannelsChannelHashedIdForbiddenError`](./src/models/errors/deletechannelschannelhashedidforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 108 methods.*
-* [`PostChannelsChannelHashedIdChannelEpisodesForbiddenError`](./src/models/errors/postchannelschannelhashedidchannelepisodesforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 108 methods.*
-* [`PutChannelEpisodesChannelEpisodeHashedIdForbiddenError`](./src/models/errors/putchannelepisodeschannelepisodehashedidforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 108 methods.*
-* [`DeleteChannelEpisodesChannelEpisodeHashedIdForbiddenError`](./src/models/errors/deletechannelepisodeschannelepisodehashedidforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 108 methods.*
-* [`PutChannelEpisodesChannelEpisodeHashedIdPublishForbiddenError`](./src/models/errors/putchannelepisodeschannelepisodehashedidpublishforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 108 methods.*
-* [`PutChannelEpisodesChannelEpisodeHashedIdUnpublishForbiddenError`](./src/models/errors/putchannelepisodeschannelepisodehashedidunpublishforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 108 methods.*
-* [`GetWebinarsForbiddenError`](./src/models/errors/getwebinarsforbiddenerror.ts): Webinar feature not available. Status code `403`. Applicable to 1 of 108 methods.*
-* [`PostWebinarsForbiddenError`](./src/models/errors/postwebinarsforbiddenerror.ts): Webinar feature not available. Status code `403`. Applicable to 1 of 108 methods.*
-* [`GetWebinarsIdForbiddenError`](./src/models/errors/getwebinarsidforbiddenerror.ts): Webinar feature not available. Status code `403`. Applicable to 1 of 108 methods.*
-* [`PutWebinarsIdForbiddenError`](./src/models/errors/putwebinarsidforbiddenerror.ts): Webinar feature not available. Status code `403`. Applicable to 1 of 108 methods.*
-* [`DeleteWebinarsIdForbiddenError`](./src/models/errors/deletewebinarsidforbiddenerror.ts): Webinar feature not available. Status code `403`. Applicable to 1 of 108 methods.*
-* [`PostWebinarsWebinarIdRegistrationsForbiddenError`](./src/models/errors/postwebinarswebinaridregistrationsforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 108 methods.*
-* [`GetStatsAccountForbiddenError`](./src/models/errors/getstatsaccountforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 108 methods.*
-* [`GetStatsAccountByDateForbiddenError`](./src/models/errors/getstatsaccountbydateforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 108 methods.*
-* [`GetStatsProjectsProjectIdForbiddenError`](./src/models/errors/getstatsprojectsprojectidforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 108 methods.*
-* [`GetStatsMediasMediaIdForbiddenError`](./src/models/errors/getstatsmediasmediaidforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 108 methods.*
-* [`GetStatsMediasMediaIdByDateForbiddenError`](./src/models/errors/getstatsmediasmediaidbydateforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 108 methods.*
-* [`GetStatsMediasMediaIdEngagementForbiddenError`](./src/models/errors/getstatsmediasmediaidengagementforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 108 methods.*
-* [`GetStatsVisitorsForbiddenError`](./src/models/errors/getstatsvisitorsforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 108 methods.*
-* [`GetStatsVisitorsVisitorKeyForbiddenError`](./src/models/errors/getstatsvisitorsvisitorkeyforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 108 methods.*
-* [`GetStatsEventsForbiddenError`](./src/models/errors/getstatseventsforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 108 methods.*
-* [`GetStatsEventsEventKeyForbiddenError`](./src/models/errors/getstatseventseventkeyforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 108 methods.*
-* [`GetAnalyticsMediasMediaIdForbiddenError`](./src/models/errors/getanalyticsmediasmediaidforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 108 methods.*
-* [`GetAnalyticsMediasMediaIdTimeseriesForbiddenError`](./src/models/errors/getanalyticsmediasmediaidtimeseriesforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 108 methods.*
-* [`GetAnalyticsMediasMediaIdEmbedLocationsForbiddenError`](./src/models/errors/getanalyticsmediasmediaidembedlocationsforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 108 methods.*
-* [`GetAnalyticsMediasMediaIdTrafficForbiddenError`](./src/models/errors/getanalyticsmediasmediaidtrafficforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 108 methods.*
-* [`GetAnalyticsMediasMediaIdConversionsForbiddenError`](./src/models/errors/getanalyticsmediasmediaidconversionsforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 108 methods.*
-* [`GetAnalyticsMediasMediaIdLanguagesForbiddenError`](./src/models/errors/getanalyticsmediasmediaidlanguagesforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 108 methods.*
-* [`GetAnalyticsWebinarsWebinarIdForbiddenError`](./src/models/errors/getanalyticswebinarswebinaridforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 108 methods.*
-* [`GetAnalyticsWebinarsWebinarIdRegistrationForbiddenError`](./src/models/errors/getanalyticswebinarswebinaridregistrationforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 108 methods.*
-* [`GetAnalyticsWebinarsWebinarIdTrafficForbiddenError`](./src/models/errors/getanalyticswebinarswebinaridtrafficforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 108 methods.*
-* [`GetAnalyticsWebinarsWebinarIdAudienceForbiddenError`](./src/models/errors/getanalyticswebinarswebinaridaudienceforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 108 methods.*
-* [`GetAnalyticsWebinarsWebinarIdHistogramsForbiddenError`](./src/models/errors/getanalyticswebinarswebinaridhistogramsforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 108 methods.*
-* [`GetMediasMediaHashedIdNotFoundError`](./src/models/errors/getmediasmediahashedidnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 108 methods.*
-* [`PutMediasMediaHashedIdNotFoundError`](./src/models/errors/putmediasmediahashedidnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 108 methods.*
-* [`DeleteMediasMediaHashedIdNotFoundError`](./src/models/errors/deletemediasmediahashedidnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 108 methods.*
-* [`PostMediasMediaHashedIdCopyNotFoundError`](./src/models/errors/postmediasmediahashedidcopynotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 108 methods.*
-* [`PutMediasMediaHashedIdSwapNotFoundError`](./src/models/errors/putmediasmediahashedidswapnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 108 methods.*
-* [`GetMediasMediaHashedIdStatsNotFoundError`](./src/models/errors/getmediasmediahashedidstatsnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 108 methods.*
-* [`PostMediasMediaHashedIdTranslateNotFoundError`](./src/models/errors/postmediasmediahashedidtranslatenotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 108 methods.*
-* [`PostMediasImportUrlNotFoundError`](./src/models/errors/postmediasimporturlnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 108 methods.*
-* [`PutMediasMoveNotFoundError`](./src/models/errors/putmediasmovenotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 108 methods.*
-* [`PutMediasRestoreNotFoundError`](./src/models/errors/putmediasrestorenotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 108 methods.*
-* [`GetMediaExtendedAudioDescriptionsIdNotFoundError`](./src/models/errors/getmediaextendedaudiodescriptionsidnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 108 methods.*
-* [`DeleteMediaExtendedAudioDescriptionsIdNotFoundError`](./src/models/errors/deletemediaextendedaudiodescriptionsidnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 108 methods.*
-* [`PostMediaExtendedAudioDescriptionsOrderNotFoundError`](./src/models/errors/postmediaextendedaudiodescriptionsordernotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 108 methods.*
-* [`GetMediaExtendedAudioDescriptionsOrderStatusIdNotFoundError`](./src/models/errors/getmediaextendedaudiodescriptionsorderstatusidnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 108 methods.*
-* [`GetFoldersIdNotFoundError`](./src/models/errors/getfoldersidnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 108 methods.*
-* [`PutFoldersIdNotFoundError`](./src/models/errors/putfoldersidnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 108 methods.*
-* [`DeleteFoldersIdNotFoundError`](./src/models/errors/deletefoldersidnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 108 methods.*
-* [`PostFoldersIdCopyNotFoundError`](./src/models/errors/postfoldersidcopynotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 108 methods.*
-* [`GetFoldersFolderIdSubfoldersNotFoundError`](./src/models/errors/getfoldersfolderidsubfoldersnotfounderror.ts): Folder not found. Status code `404`. Applicable to 1 of 108 methods.*
-* [`PostFoldersFolderIdSubfoldersNotFoundError`](./src/models/errors/postfoldersfolderidsubfoldersnotfounderror.ts): Folder not found. Status code `404`. Applicable to 1 of 108 methods.*
-* [`GetFoldersFolderIdSubfoldersSubfolderIdNotFoundError`](./src/models/errors/getfoldersfolderidsubfolderssubfolderidnotfounderror.ts): Folder or subfolder not found. Status code `404`. Applicable to 1 of 108 methods.*
-* [`PutFoldersFolderIdSubfoldersSubfolderIdNotFoundError`](./src/models/errors/putfoldersfolderidsubfolderssubfolderidnotfounderror.ts): Folder or subfolder not found. Status code `404`. Applicable to 1 of 108 methods.*
-* [`DeleteFoldersFolderIdSubfoldersSubfolderIdNotFoundError`](./src/models/errors/deletefoldersfolderidsubfolderssubfolderidnotfounderror.ts): Folder or subfolder not found. Status code `404`. Applicable to 1 of 108 methods.*
-* [`DeleteFoldersFolderIdSubfoldersBulkDeleteNotFoundError`](./src/models/errors/deletefoldersfolderidsubfoldersbulkdeletenotfounderror.ts): Folder not found. Status code `404`. Applicable to 1 of 108 methods.*
-* [`GetFoldersFolderIdSharingsSharingIdNotFoundError`](./src/models/errors/getfoldersfolderidsharingssharingidnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 108 methods.*
-* [`PutFoldersFolderIdSharingsSharingIdNotFoundError`](./src/models/errors/putfoldersfolderidsharingssharingidnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 108 methods.*
-* [`DeleteFoldersFolderIdSharingsSharingIdNotFoundError`](./src/models/errors/deletefoldersfolderidsharingssharingidnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 108 methods.*
-* [`GetAllowedDomainsDomainNotFoundError`](./src/models/errors/getalloweddomainsdomainnotfounderror.ts): Domain not found. Status code `404`. Applicable to 1 of 108 methods.*
-* [`DeleteAllowedDomainsDomainNotFoundError`](./src/models/errors/deletealloweddomainsdomainnotfounderror.ts): Domain not found. Status code `404`. Applicable to 1 of 108 methods.*
-* [`GetMediasMediaIdCustomizationsNotFoundError`](./src/models/errors/getmediasmediaidcustomizationsnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 108 methods.*
-* [`PutMediasMediaIdCustomizationsNotFoundError`](./src/models/errors/putmediasmediaidcustomizationsnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 108 methods.*
-* [`DeleteMediasMediaIdCustomizationsNotFoundError`](./src/models/errors/deletemediasmediaidcustomizationsnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 108 methods.*
-* [`GetMediasMediaHashedIdLocalizationsNotFoundError`](./src/models/errors/getmediasmediahashedidlocalizationsnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 108 methods.*
-* [`PostMediasMediaHashedIdLocalizationsNotFoundError`](./src/models/errors/postmediasmediahashedidlocalizationsnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 108 methods.*
-* [`GetMediasMediaHashedIdLocalizationsLocalizationHashedIdNotFoundError`](./src/models/errors/getmediasmediahashedidlocalizationslocalizationhashedidnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 108 methods.*
-* [`DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdNotFoundError`](./src/models/errors/deletemediasmediahashedidlocalizationslocalizationhashedidnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 108 methods.*
-* [`GetChannelsChannelHashedIdNotFoundError`](./src/models/errors/getchannelschannelhashedidnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 108 methods.*
-* [`PostWebinarsWebinarIdRegistrationsNotFoundError`](./src/models/errors/postwebinarswebinaridregistrationsnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 108 methods.*
-* [`MethodNotAllowedError`](./src/models/errors/methodnotallowederror.ts): Method not allowed, e.g. trying to copy archived media. Status code `405`. Applicable to 1 of 108 methods.*
-* [`GetAnalyticsWebinarsWebinarIdConflictError`](./src/models/errors/getanalyticswebinarswebinaridconflicterror.ts): The event has not yet reached a terminal state. Analytics are only available after the event has ended. Status code `409`. Applicable to 1 of 108 methods.*
-* [`GetAnalyticsWebinarsWebinarIdHistogramsConflictError`](./src/models/errors/getanalyticswebinarswebinaridhistogramsconflicterror.ts): The event has not yet reached a terminal state. Analytics are only available after the event has ended. Status code `409`. Applicable to 1 of 108 methods.*
-* [`PostMediasMediaHashedIdTranslateUnprocessableEntityError`](./src/models/errors/postmediasmediahashedidtranslateunprocessableentityerror.ts): Unprocessible entity, parameters provided were invalid. Status code `422`. Applicable to 1 of 108 methods.*
-* [`PostMediasImportUrlUnprocessableEntityError`](./src/models/errors/postmediasimporturlunprocessableentityerror.ts): Unprocessable entity, the URL domain is not permitted for import. Status code `422`. Applicable to 1 of 108 methods.*
-* [`PutMediasArchiveUnprocessableEntityError`](./src/models/errors/putmediasarchiveunprocessableentityerror.ts): Unprocessable entity, e.g. too many media requested. Status code `422`. Applicable to 1 of 108 methods.*
-* [`PutMediasRestoreUnprocessableEntityError`](./src/models/errors/putmediasrestoreunprocessableentityerror.ts): Missing arguments for restoration of media. Status code `422`. Applicable to 1 of 108 methods.*
-* [`PutMediasCopyUnprocessableEntityError`](./src/models/errors/putmediascopyunprocessableentityerror.ts): Unprocessable entity, e.g. missing required parameters. Status code `422`. Applicable to 1 of 108 methods.*
-* [`DeleteFoldersFolderIdSubfoldersBulkDeleteUnprocessableEntityError`](./src/models/errors/deletefoldersfolderidsubfoldersbulkdeleteunprocessableentityerror.ts): Unprocessable entity, e.g. missing required parameters. Status code `422`. Applicable to 1 of 108 methods.*
-* [`PostTaggingsBulkCreateUnprocessableEntityError`](./src/models/errors/posttaggingsbulkcreateunprocessableentityerror.ts): Unprocessable entity, e.g. missing required parameters. Status code `422`. Applicable to 1 of 108 methods.*
-* [`PostMediasMediaHashedIdCaptionsPurchaseUnprocessableEntityError`](./src/models/errors/postmediasmediahashedidcaptionspurchaseunprocessableentityerror.ts): Unprocessable entity. Account not eligible, captions already purchased, or other validation error. Status code `422`. Applicable to 1 of 108 methods.*
-* [`PostMediasMediaHashedIdTrimsUnprocessableEntityError`](./src/models/errors/postmediasmediahashedidtrimsunprocessableentityerror.ts): Unprocessable entity, the request parameters were invalid. Status code `422`. Applicable to 1 of 108 methods.*
-* [`PostMediasMediaHashedIdLocalizationsUnprocessableEntityError`](./src/models/errors/postmediasmediahashedidlocalizationsunprocessableentityerror.ts): Unprocessible entity, parameters provided were invalid. Status code `422`. Applicable to 1 of 108 methods.*
-* [`PostTagsUnprocessableEntityError`](./src/models/errors/posttagsunprocessableentityerror.ts): Validation error - tag already exists. Status code `422`. Applicable to 1 of 108 methods.*
-* [`PostExpiringTokenUnprocessableEntityError`](./src/models/errors/postexpiringtokenunprocessableentityerror.ts): Unprocessable entity, the request parameters were invalid. Status code `422`. Applicable to 1 of 108 methods.*
-* [`PostWebinarsUnprocessableEntityError`](./src/models/errors/postwebinarsunprocessableentityerror.ts): Validation errors. Status code `422`. Applicable to 1 of 108 methods.*
-* [`PutWebinarsIdUnprocessableEntityError`](./src/models/errors/putwebinarsidunprocessableentityerror.ts): Validation errors. Status code `422`. Applicable to 1 of 108 methods.*
-* [`PostWebinarsWebinarIdRegistrationsUnprocessableEntityError`](./src/models/errors/postwebinarswebinaridregistrationsunprocessableentityerror.ts): Unprocessable entity, the request parameters were invalid. Status code `422`. Applicable to 1 of 108 methods.*
-* [`GetStatsEventsUnprocessableEntityError`](./src/models/errors/getstatseventsunprocessableentityerror.ts): Unprocessable entity, the request parameters were invalid. Status code `422`. Applicable to 1 of 108 methods.*
-* [`GetAnalyticsWebinarsWebinarIdUnprocessableEntityError`](./src/models/errors/getanalyticswebinarswebinaridunprocessableentityerror.ts): Unprocessable entity. Status code `422`. Applicable to 1 of 108 methods.*
-* [`GetMediasInternalServerError`](./src/models/errors/getmediasinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`GetMediasMediaHashedIdInternalServerError`](./src/models/errors/getmediasmediahashedidinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`PutMediasMediaHashedIdInternalServerError`](./src/models/errors/putmediasmediahashedidinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`DeleteMediasMediaHashedIdInternalServerError`](./src/models/errors/deletemediasmediahashedidinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`PostMediasMediaHashedIdCopyInternalServerError`](./src/models/errors/postmediasmediahashedidcopyinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`PutMediasMediaHashedIdSwapInternalServerError`](./src/models/errors/putmediasmediahashedidswapinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`GetMediasMediaHashedIdStatsInternalServerError`](./src/models/errors/getmediasmediahashedidstatsinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`PostMediasMediaHashedIdTranslateInternalServerError`](./src/models/errors/postmediasmediahashedidtranslateinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`PostMediasImportUrlInternalServerError`](./src/models/errors/postmediasimporturlinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`PutMediasArchiveInternalServerError`](./src/models/errors/putmediasarchiveinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`PutMediasMoveInternalServerError`](./src/models/errors/putmediasmoveinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`PutMediasRestoreInternalServerError`](./src/models/errors/putmediasrestoreinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`PutMediasCopyInternalServerError`](./src/models/errors/putmediascopyinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`GetMediaExtendedAudioDescriptionsInternalServerError`](./src/models/errors/getmediaextendedaudiodescriptionsinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`GetMediaExtendedAudioDescriptionsIdInternalServerError`](./src/models/errors/getmediaextendedaudiodescriptionsidinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`DeleteMediaExtendedAudioDescriptionsIdInternalServerError`](./src/models/errors/deletemediaextendedaudiodescriptionsidinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`PostMediaExtendedAudioDescriptionsOrderInternalServerError`](./src/models/errors/postmediaextendedaudiodescriptionsorderinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`GetMediaExtendedAudioDescriptionsOrderStatusIdInternalServerError`](./src/models/errors/getmediaextendedaudiodescriptionsorderstatusidinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`GetFoldersInternalServerError`](./src/models/errors/getfoldersinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`PostFoldersInternalServerError`](./src/models/errors/postfoldersinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`GetFoldersIdInternalServerError`](./src/models/errors/getfoldersidinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`PutFoldersIdInternalServerError`](./src/models/errors/putfoldersidinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`DeleteFoldersIdInternalServerError`](./src/models/errors/deletefoldersidinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`PostFoldersIdCopyInternalServerError`](./src/models/errors/postfoldersidcopyinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`GetFoldersFolderIdSubfoldersInternalServerError`](./src/models/errors/getfoldersfolderidsubfoldersinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`PostFoldersFolderIdSubfoldersInternalServerError`](./src/models/errors/postfoldersfolderidsubfoldersinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`GetFoldersFolderIdSubfoldersSubfolderIdInternalServerError`](./src/models/errors/getfoldersfolderidsubfolderssubfolderidinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`PutFoldersFolderIdSubfoldersSubfolderIdInternalServerError`](./src/models/errors/putfoldersfolderidsubfolderssubfolderidinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`DeleteFoldersFolderIdSubfoldersSubfolderIdInternalServerError`](./src/models/errors/deletefoldersfolderidsubfolderssubfolderidinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`DeleteFoldersFolderIdSubfoldersBulkDeleteInternalServerError`](./src/models/errors/deletefoldersfolderidsubfoldersbulkdeleteinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`GetFoldersFolderIdSharingsInternalServerError`](./src/models/errors/getfoldersfolderidsharingsinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`PostFoldersFolderIdSharingsInternalServerError`](./src/models/errors/postfoldersfolderidsharingsinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`GetFoldersFolderIdSharingsSharingIdInternalServerError`](./src/models/errors/getfoldersfolderidsharingssharingidinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`PutFoldersFolderIdSharingsSharingIdInternalServerError`](./src/models/errors/putfoldersfolderidsharingssharingidinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`DeleteFoldersFolderIdSharingsSharingIdInternalServerError`](./src/models/errors/deletefoldersfolderidsharingssharingidinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`PostTaggingsBulkCreateInternalServerError`](./src/models/errors/posttaggingsbulkcreateinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`GetAccountDetailsInternalServerError`](./src/models/errors/getaccountdetailsinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`GetTokenDetailsInternalServerError`](./src/models/errors/gettokendetailsinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`GetAllowedDomainsInternalServerError`](./src/models/errors/getalloweddomainsinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`PostAllowedDomainsInternalServerError`](./src/models/errors/postalloweddomainsinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`GetAllowedDomainsDomainInternalServerError`](./src/models/errors/getalloweddomainsdomaininternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`DeleteAllowedDomainsDomainInternalServerError`](./src/models/errors/deletealloweddomainsdomaininternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`GetBackgroundJobStatusBackgroundJobStatusIdInternalServerError`](./src/models/errors/getbackgroundjobstatusbackgroundjobstatusidinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`GetMediasMediaIdCustomizationsInternalServerError`](./src/models/errors/getmediasmediaidcustomizationsinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`PostMediasMediaIdCustomizationsInternalServerError`](./src/models/errors/postmediasmediaidcustomizationsinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`PutMediasMediaIdCustomizationsInternalServerError`](./src/models/errors/putmediasmediaidcustomizationsinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`DeleteMediasMediaIdCustomizationsInternalServerError`](./src/models/errors/deletemediasmediaidcustomizationsinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`GetMediasMediaHashedIdCaptionsInternalServerError`](./src/models/errors/getmediasmediahashedidcaptionsinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`PostMediasMediaHashedIdCaptionsInternalServerError`](./src/models/errors/postmediasmediahashedidcaptionsinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`PostMediasMediaHashedIdCaptionsMultipartInternalServerError`](./src/models/errors/postmediasmediahashedidcaptionsmultipartinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`GetCaptionsInternalServerError`](./src/models/errors/getcaptionsinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`PostMediasMediaHashedIdCaptionsPurchaseInternalServerError`](./src/models/errors/postmediasmediahashedidcaptionspurchaseinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`GetMediasMediaHashedIdCaptionsLanguageCodeInternalServerError`](./src/models/errors/getmediasmediahashedidcaptionslanguagecodeinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`PutMediasMediaHashedIdCaptionsLanguageCodeInternalServerError`](./src/models/errors/putmediasmediahashedidcaptionslanguagecodeinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`PutMediasMediaHashedIdCaptionsLanguageCodeMultipartInternalServerError`](./src/models/errors/putmediasmediahashedidcaptionslanguagecodemultipartinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`DeleteMediasMediaHashedIdCaptionsLanguageCodeInternalServerError`](./src/models/errors/deletemediasmediahashedidcaptionslanguagecodeinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`PostMediasMediaHashedIdTrimsInternalServerError`](./src/models/errors/postmediasmediahashedidtrimsinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`GetMediasMediaHashedIdLocalizationsInternalServerError`](./src/models/errors/getmediasmediahashedidlocalizationsinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`PostMediasMediaHashedIdLocalizationsInternalServerError`](./src/models/errors/postmediasmediahashedidlocalizationsinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`GetMediasMediaHashedIdLocalizationsLocalizationHashedIdInternalServerError`](./src/models/errors/getmediasmediahashedidlocalizationslocalizationhashedidinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdInternalServerError`](./src/models/errors/deletemediasmediahashedidlocalizationslocalizationhashedidinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`GetTagsInternalServerError`](./src/models/errors/gettagsinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`PostTagsInternalServerError`](./src/models/errors/posttagsinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`DeleteTagsNameInternalServerError`](./src/models/errors/deletetagsnameinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`GetSearchInternalServerError`](./src/models/errors/getsearchinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`GetChannelsInternalServerError`](./src/models/errors/getchannelsinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`PostChannelsInternalServerError`](./src/models/errors/postchannelsinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`GetChannelsChannelHashedIdInternalServerError`](./src/models/errors/getchannelschannelhashedidinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`PutChannelsChannelHashedIdInternalServerError`](./src/models/errors/putchannelschannelhashedidinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`DeleteChannelsChannelHashedIdInternalServerError`](./src/models/errors/deletechannelschannelhashedidinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`GetChannelsChannelHashedIdChannelEpisodesChannelEpisodeIdInternalServerError`](./src/models/errors/getchannelschannelhashedidchannelepisodeschannelepisodeidinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`PostChannelsChannelHashedIdChannelEpisodesInternalServerError`](./src/models/errors/postchannelschannelhashedidchannelepisodesinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`GetChannelEpisodesInternalServerError`](./src/models/errors/getchannelepisodesinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`PutChannelEpisodesChannelEpisodeHashedIdInternalServerError`](./src/models/errors/putchannelepisodeschannelepisodehashedidinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`DeleteChannelEpisodesChannelEpisodeHashedIdInternalServerError`](./src/models/errors/deletechannelepisodeschannelepisodehashedidinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`PutChannelEpisodesChannelEpisodeHashedIdPublishInternalServerError`](./src/models/errors/putchannelepisodeschannelepisodehashedidpublishinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`PutChannelEpisodesChannelEpisodeHashedIdUnpublishInternalServerError`](./src/models/errors/putchannelepisodeschannelepisodehashedidunpublishinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`PostExpiringTokenInternalServerError`](./src/models/errors/postexpiringtokeninternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`GetWebinarsInternalServerError`](./src/models/errors/getwebinarsinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`PostWebinarsInternalServerError`](./src/models/errors/postwebinarsinternalservererror.ts): Internal server error during webinar creation. Status code `500`. Applicable to 1 of 108 methods.*
-* [`GetWebinarsIdInternalServerError`](./src/models/errors/getwebinarsidinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`PutWebinarsIdInternalServerError`](./src/models/errors/putwebinarsidinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`DeleteWebinarsIdInternalServerError`](./src/models/errors/deletewebinarsidinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`PostWebinarsWebinarIdRegistrationsInternalServerError`](./src/models/errors/postwebinarswebinaridregistrationsinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`GetStatsAccountInternalServerError`](./src/models/errors/getstatsaccountinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`GetStatsAccountByDateInternalServerError`](./src/models/errors/getstatsaccountbydateinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`GetStatsProjectsProjectIdInternalServerError`](./src/models/errors/getstatsprojectsprojectidinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`GetStatsMediasMediaIdInternalServerError`](./src/models/errors/getstatsmediasmediaidinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`GetStatsMediasMediaIdByDateInternalServerError`](./src/models/errors/getstatsmediasmediaidbydateinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`GetStatsMediasMediaIdEngagementInternalServerError`](./src/models/errors/getstatsmediasmediaidengagementinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`GetStatsVisitorsInternalServerError`](./src/models/errors/getstatsvisitorsinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`GetStatsVisitorsVisitorKeyInternalServerError`](./src/models/errors/getstatsvisitorsvisitorkeyinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`GetStatsEventsInternalServerError`](./src/models/errors/getstatseventsinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`GetStatsEventsEventKeyInternalServerError`](./src/models/errors/getstatseventseventkeyinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`GetAnalyticsMediasMediaIdInternalServerError`](./src/models/errors/getanalyticsmediasmediaidinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`GetAnalyticsMediasMediaIdTimeseriesInternalServerError`](./src/models/errors/getanalyticsmediasmediaidtimeseriesinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`GetAnalyticsMediasMediaIdEmbedLocationsInternalServerError`](./src/models/errors/getanalyticsmediasmediaidembedlocationsinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`GetAnalyticsMediasMediaIdTrafficInternalServerError`](./src/models/errors/getanalyticsmediasmediaidtrafficinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`GetAnalyticsMediasMediaIdConversionsInternalServerError`](./src/models/errors/getanalyticsmediasmediaidconversionsinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`GetAnalyticsMediasMediaIdLanguagesInternalServerError`](./src/models/errors/getanalyticsmediasmediaidlanguagesinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`GetAnalyticsWebinarsWebinarIdInternalServerError`](./src/models/errors/getanalyticswebinarswebinaridinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`GetAnalyticsWebinarsWebinarIdRegistrationInternalServerError`](./src/models/errors/getanalyticswebinarswebinaridregistrationinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`GetAnalyticsWebinarsWebinarIdTrafficInternalServerError`](./src/models/errors/getanalyticswebinarswebinaridtrafficinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`GetAnalyticsWebinarsWebinarIdAudienceInternalServerError`](./src/models/errors/getanalyticswebinarswebinaridaudienceinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`GetAnalyticsWebinarsWebinarIdHistogramsInternalServerError`](./src/models/errors/getanalyticswebinarswebinaridhistogramsinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`GetChannelsChannelHashedIdChannelEpisodesInternalServerError`](./src/models/errors/getchannelschannelhashedidchannelepisodesinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 108 methods.*
-* [`NotImplementedError`](./src/models/errors/notimplementederror.ts): Not implemented - expiring tokens cannot be created from other expiring tokens. Status code `501`. Applicable to 1 of 108 methods.*
-* [`GetAnalyticsMediasMediaIdServiceUnavailableError`](./src/models/errors/getanalyticsmediasmediaidserviceunavailableerror.ts): Analytics service is temporarily unavailable. Status code `503`. Applicable to 1 of 108 methods.*
-* [`GetAnalyticsMediasMediaIdTimeseriesServiceUnavailableError`](./src/models/errors/getanalyticsmediasmediaidtimeseriesserviceunavailableerror.ts): Analytics service is temporarily unavailable. Status code `503`. Applicable to 1 of 108 methods.*
-* [`GetAnalyticsMediasMediaIdEmbedLocationsServiceUnavailableError`](./src/models/errors/getanalyticsmediasmediaidembedlocationsserviceunavailableerror.ts): Analytics service is temporarily unavailable. Status code `503`. Applicable to 1 of 108 methods.*
-* [`GetAnalyticsMediasMediaIdTrafficServiceUnavailableError`](./src/models/errors/getanalyticsmediasmediaidtrafficserviceunavailableerror.ts): Analytics service is temporarily unavailable. Status code `503`. Applicable to 1 of 108 methods.*
-* [`GetAnalyticsMediasMediaIdConversionsServiceUnavailableError`](./src/models/errors/getanalyticsmediasmediaidconversionsserviceunavailableerror.ts): Analytics service is temporarily unavailable. Status code `503`. Applicable to 1 of 108 methods.*
-* [`GetAnalyticsMediasMediaIdLanguagesServiceUnavailableError`](./src/models/errors/getanalyticsmediasmediaidlanguagesserviceunavailableerror.ts): Analytics service is temporarily unavailable. Status code `503`. Applicable to 1 of 108 methods.*
-* [`GetAnalyticsWebinarsWebinarIdServiceUnavailableError`](./src/models/errors/getanalyticswebinarswebinaridserviceunavailableerror.ts): Analytics service is temporarily unavailable. Status code `503`. Applicable to 1 of 108 methods.*
-* [`GetAnalyticsWebinarsWebinarIdRegistrationServiceUnavailableError`](./src/models/errors/getanalyticswebinarswebinaridregistrationserviceunavailableerror.ts): Analytics service is temporarily unavailable. Status code `503`. Applicable to 1 of 108 methods.*
-* [`GetAnalyticsWebinarsWebinarIdTrafficServiceUnavailableError`](./src/models/errors/getanalyticswebinarswebinaridtrafficserviceunavailableerror.ts): Analytics service is temporarily unavailable. Status code `503`. Applicable to 1 of 108 methods.*
-* [`GetAnalyticsWebinarsWebinarIdAudienceServiceUnavailableError`](./src/models/errors/getanalyticswebinarswebinaridaudienceserviceunavailableerror.ts): Analytics service is temporarily unavailable. Status code `503`. Applicable to 1 of 108 methods.*
-* [`GetAnalyticsWebinarsWebinarIdHistogramsServiceUnavailableError`](./src/models/errors/getanalyticswebinarswebinaridhistogramsserviceunavailableerror.ts): Analytics service is temporarily unavailable. Status code `503`. Applicable to 1 of 108 methods.*
+* [`PostFormBadRequestError`](./src/models/errors/postformbadrequesterror.ts): Error due to reaching the video limit of your account or other issues. Status code `400`. Applicable to 1 of 148 methods.*
+* [`PostMultipartBadRequestError`](./src/models/errors/postmultipartbadrequesterror.ts): Error due to reaching the video limit of your account or other issues. Status code `400`. Applicable to 1 of 148 methods.*
+* [`GetDeletedMediaBadRequestError`](./src/models/errors/getdeletedmediabadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 148 methods.*
+* [`PostDeletedMediaRestoreBadRequestError`](./src/models/errors/postdeletedmediarestorebadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 148 methods.*
+* [`GetMediasBadRequestError`](./src/models/errors/getmediasbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaHashedIdBadRequestError`](./src/models/errors/putmediasmediahashedidbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 148 methods.*
+* [`PostMediasMediaHashedIdCopyBadRequestError`](./src/models/errors/postmediasmediahashedidcopybadrequesterror.ts): Bad request, e.g. copy failure. Status code `400`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaHashedIdSwapBadRequestError`](./src/models/errors/putmediasmediahashedidswapbadrequesterror.ts): Bad request, e.g. missing replacement_media_id or media type mismatch. Status code `400`. Applicable to 1 of 148 methods.*
+* [`GetMediasMediaHashedIdStatsBadRequestError`](./src/models/errors/getmediasmediahashedidstatsbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 148 methods.*
+* [`PostMediasMediaHashedIdTranslateBadRequestError`](./src/models/errors/postmediasmediahashedidtranslatebadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 148 methods.*
+* [`PostMediasImportUrlBadRequestError`](./src/models/errors/postmediasimporturlbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 148 methods.*
+* [`PutMediasMoveBadRequestError`](./src/models/errors/putmediasmovebadrequesterror.ts): Invalid request. Status code `400`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaIdCustomizationsAppearanceBadRequestError`](./src/models/errors/putmediasmediaidcustomizationsappearancebadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaIdCustomizationsPlaybackBadRequestError`](./src/models/errors/putmediasmediaidcustomizationsplaybackbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaIdCustomizationsThumbnailBadRequestError`](./src/models/errors/putmediasmediaidcustomizationsthumbnailbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaIdCustomizationsAccessibilityBadRequestError`](./src/models/errors/putmediasmediaidcustomizationsaccessibilitybadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaIdCustomizationsChaptersBadRequestError`](./src/models/errors/putmediasmediaidcustomizationschaptersbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaIdCustomizationsEngagementBadRequestError`](./src/models/errors/putmediasmediaidcustomizationsengagementbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaIdCustomizationsRelatedMediaBadRequestError`](./src/models/errors/putmediasmediaidcustomizationsrelatedmediabadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaIdCustomizationsSharingBadRequestError`](./src/models/errors/putmediasmediaidcustomizationssharingbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaIdCustomizationsLeadCaptureBadRequestError`](./src/models/errors/putmediasmediaidcustomizationsleadcapturebadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaIdCustomizationsAccessBadRequestError`](./src/models/errors/putmediasmediaidcustomizationsaccessbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaIdShareLinkBadRequestError`](./src/models/errors/putmediasmediaidsharelinkbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 148 methods.*
+* [`GetCaptionsBadRequestError`](./src/models/errors/getcaptionsbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 148 methods.*
+* [`PostMediasMediaHashedIdLocalizationsBadRequestError`](./src/models/errors/postmediasmediahashedidlocalizationsbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 148 methods.*
+* [`GetMediaExtendedAudioDescriptionsBadRequestError`](./src/models/errors/getmediaextendedaudiodescriptionsbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 148 methods.*
+* [`PostMediaExtendedAudioDescriptionsOrderBadRequestError`](./src/models/errors/postmediaextendedaudiodescriptionsorderbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 148 methods.*
+* [`GetBrandsBadRequestError`](./src/models/errors/getbrandsbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 148 methods.*
+* [`GetTagsBadRequestError`](./src/models/errors/gettagsbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 148 methods.*
+* [`PostTagsBadRequestError`](./src/models/errors/posttagsbadrequesterror.ts): Bad request - missing or invalid parameters. Status code `400`. Applicable to 1 of 148 methods.*
+* [`PostBulkBadRequestError`](./src/models/errors/postbulkbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 148 methods.*
+* [`GetFoldersBadRequestError`](./src/models/errors/getfoldersbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 148 methods.*
+* [`GetFoldersFolderIdSharingsBadRequestError`](./src/models/errors/getfoldersfolderidsharingsbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 148 methods.*
+* [`GetFoldersFolderIdSubfoldersBadRequestError`](./src/models/errors/getfoldersfolderidsubfoldersbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 148 methods.*
+* [`PostFoldersFolderIdSubfoldersBadRequestError`](./src/models/errors/postfoldersfolderidsubfoldersbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 148 methods.*
+* [`GetChannelsBadRequestError`](./src/models/errors/getchannelsbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 148 methods.*
+* [`PostChannelsChannelHashedIdChannelEpisodesBadRequestError`](./src/models/errors/postchannelschannelhashedidchannelepisodesbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 148 methods.*
+* [`GetChannelEpisodesBadRequestError`](./src/models/errors/getchannelepisodesbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 148 methods.*
+* [`GetChannelsChannelHashedIdCollaboratorsBadRequestError`](./src/models/errors/getchannelschannelhashedidcollaboratorsbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 148 methods.*
+* [`PostChannelsChannelHashedIdCollaboratorsBadRequestError`](./src/models/errors/postchannelschannelhashedidcollaboratorsbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 148 methods.*
+* [`GetWebinarsBadRequestError`](./src/models/errors/getwebinarsbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 148 methods.*
+* [`GetWebinarsWebinarIdCollaboratorsBadRequestError`](./src/models/errors/getwebinarswebinaridcollaboratorsbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 148 methods.*
+* [`PostWebinarsWebinarIdCollaboratorsBadRequestError`](./src/models/errors/postwebinarswebinaridcollaboratorsbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 148 methods.*
+* [`GetSearchBadRequestError`](./src/models/errors/getsearchbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 148 methods.*
+* [`GetAllowedDomainsBadRequestError`](./src/models/errors/getalloweddomainsbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 148 methods.*
+* [`PostAllowedDomainsBadRequestError`](./src/models/errors/postalloweddomainsbadrequesterror.ts): Bad request - missing or invalid domain. Status code `400`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsAccountBadRequestError`](./src/models/errors/getanalyticsaccountbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsAccountTimeseriesBadRequestError`](./src/models/errors/getanalyticsaccounttimeseriesbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsAccountTopContentBadRequestError`](./src/models/errors/getanalyticsaccounttopcontentbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsAccountEmbedLocationsBadRequestError`](./src/models/errors/getanalyticsaccountembedlocationsbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsMediasMediaIdBadRequestError`](./src/models/errors/getanalyticsmediasmediaidbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsMediasMediaIdTimeseriesBadRequestError`](./src/models/errors/getanalyticsmediasmediaidtimeseriesbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsMediasMediaIdEmbedLocationsBadRequestError`](./src/models/errors/getanalyticsmediasmediaidembedlocationsbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsMediasMediaIdEmbedLocationsTimeseriesBadRequestError`](./src/models/errors/getanalyticsmediasmediaidembedlocationstimeseriesbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsMediasMediaIdTrafficBadRequestError`](./src/models/errors/getanalyticsmediasmediaidtrafficbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsMediasMediaIdConversionsBadRequestError`](./src/models/errors/getanalyticsmediasmediaidconversionsbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsMediasMediaIdLanguagesBadRequestError`](./src/models/errors/getanalyticsmediasmediaidlanguagesbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsWebinarsWebinarIdRegistrationBadRequestError`](./src/models/errors/getanalyticswebinarswebinaridregistrationbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsWebinarsWebinarIdTrafficBadRequestError`](./src/models/errors/getanalyticswebinarswebinaridtrafficbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 148 methods.*
+* [`GetChannelsChannelHashedIdChannelEpisodesBadRequestError`](./src/models/errors/getchannelschannelhashedidchannelepisodesbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 148 methods.*
+* [`GetDeletedMediaUnauthorizedError`](./src/models/errors/getdeletedmediaunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`PostDeletedMediaRestoreUnauthorizedError`](./src/models/errors/postdeletedmediarestoreunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetMediasUnauthorizedError`](./src/models/errors/getmediasunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetMediasMediaHashedIdUnauthorizedError`](./src/models/errors/getmediasmediahashedidunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaHashedIdUnauthorizedError`](./src/models/errors/putmediasmediahashedidunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`DeleteMediasMediaHashedIdUnauthorizedError`](./src/models/errors/deletemediasmediahashedidunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`PostMediasMediaHashedIdCopyUnauthorizedError`](./src/models/errors/postmediasmediahashedidcopyunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaHashedIdSwapUnauthorizedError`](./src/models/errors/putmediasmediahashedidswapunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetMediasMediaHashedIdStatsUnauthorizedError`](./src/models/errors/getmediasmediahashedidstatsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`PostMediasMediaHashedIdTranslateUnauthorizedError`](./src/models/errors/postmediasmediahashedidtranslateunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`PostMediasImportUrlUnauthorizedError`](./src/models/errors/postmediasimporturlunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`PutMediasArchiveUnauthorizedError`](./src/models/errors/putmediasarchiveunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`PutMediasMoveUnauthorizedError`](./src/models/errors/putmediasmoveunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`PutMediasRestoreUnauthorizedError`](./src/models/errors/putmediasrestoreunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`PutMediasCopyUnauthorizedError`](./src/models/errors/putmediascopyunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetMediasMediaIdCustomizationsUnauthorizedError`](./src/models/errors/getmediasmediaidcustomizationsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`PostMediasMediaIdCustomizationsUnauthorizedError`](./src/models/errors/postmediasmediaidcustomizationsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaIdCustomizationsUnauthorizedError`](./src/models/errors/putmediasmediaidcustomizationsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`DeleteMediasMediaIdCustomizationsUnauthorizedError`](./src/models/errors/deletemediasmediaidcustomizationsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetMediasMediaIdCustomizationsAppearanceUnauthorizedError`](./src/models/errors/getmediasmediaidcustomizationsappearanceunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaIdCustomizationsAppearanceUnauthorizedError`](./src/models/errors/putmediasmediaidcustomizationsappearanceunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetMediasMediaIdCustomizationsPlaybackUnauthorizedError`](./src/models/errors/getmediasmediaidcustomizationsplaybackunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaIdCustomizationsPlaybackUnauthorizedError`](./src/models/errors/putmediasmediaidcustomizationsplaybackunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetMediasMediaIdCustomizationsThumbnailUnauthorizedError`](./src/models/errors/getmediasmediaidcustomizationsthumbnailunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaIdCustomizationsThumbnailUnauthorizedError`](./src/models/errors/putmediasmediaidcustomizationsthumbnailunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetMediasMediaIdCustomizationsAccessibilityUnauthorizedError`](./src/models/errors/getmediasmediaidcustomizationsaccessibilityunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaIdCustomizationsAccessibilityUnauthorizedError`](./src/models/errors/putmediasmediaidcustomizationsaccessibilityunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetMediasMediaIdCustomizationsChaptersUnauthorizedError`](./src/models/errors/getmediasmediaidcustomizationschaptersunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaIdCustomizationsChaptersUnauthorizedError`](./src/models/errors/putmediasmediaidcustomizationschaptersunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetMediasMediaIdCustomizationsEngagementUnauthorizedError`](./src/models/errors/getmediasmediaidcustomizationsengagementunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaIdCustomizationsEngagementUnauthorizedError`](./src/models/errors/putmediasmediaidcustomizationsengagementunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetMediasMediaIdCustomizationsRelatedMediaUnauthorizedError`](./src/models/errors/getmediasmediaidcustomizationsrelatedmediaunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaIdCustomizationsRelatedMediaUnauthorizedError`](./src/models/errors/putmediasmediaidcustomizationsrelatedmediaunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetMediasMediaIdCustomizationsSharingUnauthorizedError`](./src/models/errors/getmediasmediaidcustomizationssharingunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaIdCustomizationsSharingUnauthorizedError`](./src/models/errors/putmediasmediaidcustomizationssharingunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetMediasMediaIdCustomizationsLeadCaptureUnauthorizedError`](./src/models/errors/getmediasmediaidcustomizationsleadcaptureunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaIdCustomizationsLeadCaptureUnauthorizedError`](./src/models/errors/putmediasmediaidcustomizationsleadcaptureunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetMediasMediaIdCustomizationsAccessUnauthorizedError`](./src/models/errors/getmediasmediaidcustomizationsaccessunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaIdCustomizationsAccessUnauthorizedError`](./src/models/errors/putmediasmediaidcustomizationsaccessunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetMediasMediaIdShareLinkUnauthorizedError`](./src/models/errors/getmediasmediaidsharelinkunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaIdShareLinkUnauthorizedError`](./src/models/errors/putmediasmediaidsharelinkunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`DeleteMediasMediaIdShareLinkUnauthorizedError`](./src/models/errors/deletemediasmediaidsharelinkunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetMediasMediaHashedIdCaptionsUnauthorizedError`](./src/models/errors/getmediasmediahashedidcaptionsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`PostMediasMediaHashedIdCaptionsUnauthorizedError`](./src/models/errors/postmediasmediahashedidcaptionsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`PostMediasMediaHashedIdCaptionsMultipartUnauthorizedError`](./src/models/errors/postmediasmediahashedidcaptionsmultipartunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetCaptionsUnauthorizedError`](./src/models/errors/getcaptionsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`PostMediasMediaHashedIdCaptionsPurchaseUnauthorizedError`](./src/models/errors/postmediasmediahashedidcaptionspurchaseunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetMediasMediaHashedIdCaptionsLanguageCodeUnauthorizedError`](./src/models/errors/getmediasmediahashedidcaptionslanguagecodeunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaHashedIdCaptionsLanguageCodeUnauthorizedError`](./src/models/errors/putmediasmediahashedidcaptionslanguagecodeunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaHashedIdCaptionsLanguageCodeMultipartUnauthorizedError`](./src/models/errors/putmediasmediahashedidcaptionslanguagecodemultipartunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`DeleteMediasMediaHashedIdCaptionsLanguageCodeUnauthorizedError`](./src/models/errors/deletemediasmediahashedidcaptionslanguagecodeunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetMediasMediaHashedIdLocalizationsUnauthorizedError`](./src/models/errors/getmediasmediahashedidlocalizationsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`PostMediasMediaHashedIdLocalizationsUnauthorizedError`](./src/models/errors/postmediasmediahashedidlocalizationsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetMediasMediaHashedIdLocalizationsLocalizationHashedIdUnauthorizedError`](./src/models/errors/getmediasmediahashedidlocalizationslocalizationhashedidunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdUnauthorizedError`](./src/models/errors/deletemediasmediahashedidlocalizationslocalizationhashedidunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`PostMediasMediaHashedIdTrimsUnauthorizedError`](./src/models/errors/postmediasmediahashedidtrimsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetMediaExtendedAudioDescriptionsUnauthorizedError`](./src/models/errors/getmediaextendedaudiodescriptionsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetMediaExtendedAudioDescriptionsIdUnauthorizedError`](./src/models/errors/getmediaextendedaudiodescriptionsidunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`DeleteMediaExtendedAudioDescriptionsIdUnauthorizedError`](./src/models/errors/deletemediaextendedaudiodescriptionsidunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`PostMediaExtendedAudioDescriptionsOrderUnauthorizedError`](./src/models/errors/postmediaextendedaudiodescriptionsorderunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetMediaExtendedAudioDescriptionsOrderStatusIdUnauthorizedError`](./src/models/errors/getmediaextendedaudiodescriptionsorderstatusidunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetBrandsUnauthorizedError`](./src/models/errors/getbrandsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetTagsUnauthorizedError`](./src/models/errors/gettagsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`PostTagsUnauthorizedError`](./src/models/errors/posttagsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`DeleteTagsNameUnauthorizedError`](./src/models/errors/deletetagsnameunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`PostBulkUnauthorizedError`](./src/models/errors/postbulkunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`PostTaggingsBulkCreateUnauthorizedError`](./src/models/errors/posttaggingsbulkcreateunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetFoldersUnauthorizedError`](./src/models/errors/getfoldersunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`PostFoldersUnauthorizedError`](./src/models/errors/postfoldersunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetFoldersIdUnauthorizedError`](./src/models/errors/getfoldersidunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`PutFoldersIdUnauthorizedError`](./src/models/errors/putfoldersidunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`DeleteFoldersIdUnauthorizedError`](./src/models/errors/deletefoldersidunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`PostFoldersIdCopyUnauthorizedError`](./src/models/errors/postfoldersidcopyunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetFoldersFolderIdSharingsUnauthorizedError`](./src/models/errors/getfoldersfolderidsharingsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`PostFoldersFolderIdSharingsUnauthorizedError`](./src/models/errors/postfoldersfolderidsharingsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetFoldersFolderIdSharingsSharingIdUnauthorizedError`](./src/models/errors/getfoldersfolderidsharingssharingidunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`PutFoldersFolderIdSharingsSharingIdUnauthorizedError`](./src/models/errors/putfoldersfolderidsharingssharingidunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`DeleteFoldersFolderIdSharingsSharingIdUnauthorizedError`](./src/models/errors/deletefoldersfolderidsharingssharingidunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetFoldersFolderIdSubfoldersUnauthorizedError`](./src/models/errors/getfoldersfolderidsubfoldersunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`PostFoldersFolderIdSubfoldersUnauthorizedError`](./src/models/errors/postfoldersfolderidsubfoldersunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetFoldersFolderIdSubfoldersSubfolderIdUnauthorizedError`](./src/models/errors/getfoldersfolderidsubfolderssubfolderidunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`PutFoldersFolderIdSubfoldersSubfolderIdUnauthorizedError`](./src/models/errors/putfoldersfolderidsubfolderssubfolderidunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`DeleteFoldersFolderIdSubfoldersSubfolderIdUnauthorizedError`](./src/models/errors/deletefoldersfolderidsubfolderssubfolderidunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`DeleteFoldersFolderIdSubfoldersBulkDeleteUnauthorizedError`](./src/models/errors/deletefoldersfolderidsubfoldersbulkdeleteunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetChannelsUnauthorizedError`](./src/models/errors/getchannelsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`PostChannelsUnauthorizedError`](./src/models/errors/postchannelsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetChannelsChannelHashedIdUnauthorizedError`](./src/models/errors/getchannelschannelhashedidunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`PutChannelsChannelHashedIdUnauthorizedError`](./src/models/errors/putchannelschannelhashedidunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`DeleteChannelsChannelHashedIdUnauthorizedError`](./src/models/errors/deletechannelschannelhashedidunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetChannelsChannelHashedIdChannelEpisodesChannelEpisodeIdUnauthorizedError`](./src/models/errors/getchannelschannelhashedidchannelepisodeschannelepisodeidunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`PostChannelsChannelHashedIdChannelEpisodesUnauthorizedError`](./src/models/errors/postchannelschannelhashedidchannelepisodesunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetChannelEpisodesUnauthorizedError`](./src/models/errors/getchannelepisodesunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`PutChannelEpisodesChannelEpisodeHashedIdUnauthorizedError`](./src/models/errors/putchannelepisodeschannelepisodehashedidunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`DeleteChannelEpisodesChannelEpisodeHashedIdUnauthorizedError`](./src/models/errors/deletechannelepisodeschannelepisodehashedidunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`PutChannelEpisodesChannelEpisodeHashedIdPublishUnauthorizedError`](./src/models/errors/putchannelepisodeschannelepisodehashedidpublishunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`PutChannelEpisodesChannelEpisodeHashedIdUnpublishUnauthorizedError`](./src/models/errors/putchannelepisodeschannelepisodehashedidunpublishunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetChannelsChannelHashedIdCollaboratorsUnauthorizedError`](./src/models/errors/getchannelschannelhashedidcollaboratorsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`PostChannelsChannelHashedIdCollaboratorsUnauthorizedError`](./src/models/errors/postchannelschannelhashedidcollaboratorsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`DeleteChannelsChannelHashedIdCollaboratorsIdUnauthorizedError`](./src/models/errors/deletechannelschannelhashedidcollaboratorsidunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetWebinarsUnauthorizedError`](./src/models/errors/getwebinarsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`PostWebinarsUnauthorizedError`](./src/models/errors/postwebinarsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetWebinarsIdUnauthorizedError`](./src/models/errors/getwebinarsidunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`PutWebinarsIdUnauthorizedError`](./src/models/errors/putwebinarsidunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`DeleteWebinarsIdUnauthorizedError`](./src/models/errors/deletewebinarsidunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetWebinarsWebinarIdRegistrationsUnauthorizedError`](./src/models/errors/getwebinarswebinaridregistrationsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`PostWebinarsWebinarIdRegistrationsUnauthorizedError`](./src/models/errors/postwebinarswebinaridregistrationsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetWebinarsWebinarIdCollaboratorsUnauthorizedError`](./src/models/errors/getwebinarswebinaridcollaboratorsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`PostWebinarsWebinarIdCollaboratorsUnauthorizedError`](./src/models/errors/postwebinarswebinaridcollaboratorsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`DeleteWebinarsWebinarIdCollaboratorsIdUnauthorizedError`](./src/models/errors/deletewebinarswebinaridcollaboratorsidunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetAccountDetailsUnauthorizedError`](./src/models/errors/getaccountdetailsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetAccountUsageUnauthorizedError`](./src/models/errors/getaccountusageunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetTokenDetailsUnauthorizedError`](./src/models/errors/gettokendetailsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetSearchUnauthorizedError`](./src/models/errors/getsearchunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`PostExpiringTokenUnauthorizedError`](./src/models/errors/postexpiringtokenunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetBackgroundJobStatusBackgroundJobStatusIdUnauthorizedError`](./src/models/errors/getbackgroundjobstatusbackgroundjobstatusidunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetAllowedDomainsUnauthorizedError`](./src/models/errors/getalloweddomainsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`PostAllowedDomainsUnauthorizedError`](./src/models/errors/postalloweddomainsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetAllowedDomainsDomainUnauthorizedError`](./src/models/errors/getalloweddomainsdomainunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`DeleteAllowedDomainsDomainUnauthorizedError`](./src/models/errors/deletealloweddomainsdomainunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetStatsAccountUnauthorizedError`](./src/models/errors/getstatsaccountunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetStatsAccountByDateUnauthorizedError`](./src/models/errors/getstatsaccountbydateunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetStatsProjectsProjectIdUnauthorizedError`](./src/models/errors/getstatsprojectsprojectidunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetStatsMediasMediaIdUnauthorizedError`](./src/models/errors/getstatsmediasmediaidunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetStatsMediasMediaIdByDateUnauthorizedError`](./src/models/errors/getstatsmediasmediaidbydateunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetStatsMediasMediaIdEngagementUnauthorizedError`](./src/models/errors/getstatsmediasmediaidengagementunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetStatsVisitorsUnauthorizedError`](./src/models/errors/getstatsvisitorsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetStatsVisitorsVisitorKeyUnauthorizedError`](./src/models/errors/getstatsvisitorsvisitorkeyunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetStatsEventsUnauthorizedError`](./src/models/errors/getstatseventsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetStatsEventsEventKeyUnauthorizedError`](./src/models/errors/getstatseventseventkeyunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsAccountUnauthorizedError`](./src/models/errors/getanalyticsaccountunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsAccountTimeseriesUnauthorizedError`](./src/models/errors/getanalyticsaccounttimeseriesunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsAccountTopContentUnauthorizedError`](./src/models/errors/getanalyticsaccounttopcontentunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsAccountEmbedLocationsUnauthorizedError`](./src/models/errors/getanalyticsaccountembedlocationsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsMediasMediaIdUnauthorizedError`](./src/models/errors/getanalyticsmediasmediaidunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsMediasMediaIdTimeseriesUnauthorizedError`](./src/models/errors/getanalyticsmediasmediaidtimeseriesunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsMediasMediaIdEmbedLocationsUnauthorizedError`](./src/models/errors/getanalyticsmediasmediaidembedlocationsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsMediasMediaIdEmbedLocationsTimeseriesUnauthorizedError`](./src/models/errors/getanalyticsmediasmediaidembedlocationstimeseriesunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsMediasMediaIdTrafficUnauthorizedError`](./src/models/errors/getanalyticsmediasmediaidtrafficunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsMediasMediaIdConversionsUnauthorizedError`](./src/models/errors/getanalyticsmediasmediaidconversionsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsMediasMediaIdLanguagesUnauthorizedError`](./src/models/errors/getanalyticsmediasmediaidlanguagesunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsWebinarsWebinarIdUnauthorizedError`](./src/models/errors/getanalyticswebinarswebinaridunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsWebinarsWebinarIdRegistrationUnauthorizedError`](./src/models/errors/getanalyticswebinarswebinaridregistrationunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsWebinarsWebinarIdTrafficUnauthorizedError`](./src/models/errors/getanalyticswebinarswebinaridtrafficunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsWebinarsWebinarIdAudienceUnauthorizedError`](./src/models/errors/getanalyticswebinarswebinaridaudienceunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsWebinarsWebinarIdHistogramsUnauthorizedError`](./src/models/errors/getanalyticswebinarswebinaridhistogramsunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetChannelsChannelHashedIdChannelEpisodesUnauthorizedError`](./src/models/errors/getchannelschannelhashedidchannelepisodesunauthorizederror.ts): Unauthorized, invalid or missing token. Status code `401`. Applicable to 1 of 148 methods.*
+* [`GetDeletedMediaForbiddenError`](./src/models/errors/getdeletedmediaforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`PostDeletedMediaRestoreForbiddenError`](./src/models/errors/postdeletedmediarestoreforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaHashedIdForbiddenError`](./src/models/errors/putmediasmediahashedidforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`DeleteMediasMediaHashedIdForbiddenError`](./src/models/errors/deletemediasmediahashedidforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`PostMediasMediaHashedIdCopyForbiddenError`](./src/models/errors/postmediasmediahashedidcopyforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaHashedIdSwapForbiddenError`](./src/models/errors/putmediasmediahashedidswapforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`GetMediasMediaHashedIdStatsForbiddenError`](./src/models/errors/getmediasmediahashedidstatsforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`PostMediasMediaHashedIdTranslateForbiddenError`](./src/models/errors/postmediasmediahashedidtranslateforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`PostMediasImportUrlForbiddenError`](./src/models/errors/postmediasimporturlforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`PutMediasArchiveForbiddenError`](./src/models/errors/putmediasarchiveforbiddenerror.ts): Forbidden, e.g. account does not have access to archiving. Status code `403`. Applicable to 1 of 148 methods.*
+* [`PutMediasMoveForbiddenError`](./src/models/errors/putmediasmoveforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`PutMediasRestoreForbiddenError`](./src/models/errors/putmediasrestoreforbiddenerror.ts): Forbidden, e.g. account does not have access to archiving. Status code `403`. Applicable to 1 of 148 methods.*
+* [`PutMediasCopyForbiddenError`](./src/models/errors/putmediascopyforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`PostMediasMediaIdCustomizationsForbiddenError`](./src/models/errors/postmediasmediaidcustomizationsforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaIdCustomizationsAppearanceForbiddenError`](./src/models/errors/putmediasmediaidcustomizationsappearanceforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaIdCustomizationsPlaybackForbiddenError`](./src/models/errors/putmediasmediaidcustomizationsplaybackforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaIdCustomizationsThumbnailForbiddenError`](./src/models/errors/putmediasmediaidcustomizationsthumbnailforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaIdCustomizationsAccessibilityForbiddenError`](./src/models/errors/putmediasmediaidcustomizationsaccessibilityforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaIdCustomizationsChaptersForbiddenError`](./src/models/errors/putmediasmediaidcustomizationschaptersforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaIdCustomizationsEngagementForbiddenError`](./src/models/errors/putmediasmediaidcustomizationsengagementforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaIdCustomizationsRelatedMediaForbiddenError`](./src/models/errors/putmediasmediaidcustomizationsrelatedmediaforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaIdCustomizationsSharingForbiddenError`](./src/models/errors/putmediasmediaidcustomizationssharingforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaIdCustomizationsLeadCaptureForbiddenError`](./src/models/errors/putmediasmediaidcustomizationsleadcaptureforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaIdCustomizationsAccessForbiddenError`](./src/models/errors/putmediasmediaidcustomizationsaccessforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`GetMediasMediaIdShareLinkForbiddenError`](./src/models/errors/getmediasmediaidsharelinkforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaIdShareLinkForbiddenError`](./src/models/errors/putmediasmediaidsharelinkforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`DeleteMediasMediaIdShareLinkForbiddenError`](./src/models/errors/deletemediasmediaidsharelinkforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`PostMediasMediaHashedIdCaptionsForbiddenError`](./src/models/errors/postmediasmediahashedidcaptionsforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`PostMediasMediaHashedIdCaptionsMultipartForbiddenError`](./src/models/errors/postmediasmediahashedidcaptionsmultipartforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`PostMediasMediaHashedIdLocalizationsForbiddenError`](./src/models/errors/postmediasmediahashedidlocalizationsforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdForbiddenError`](./src/models/errors/deletemediasmediahashedidlocalizationslocalizationhashedidforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`PostMediasMediaHashedIdTrimsForbiddenError`](./src/models/errors/postmediasmediahashedidtrimsforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`DeleteMediaExtendedAudioDescriptionsIdForbiddenError`](./src/models/errors/deletemediaextendedaudiodescriptionsidforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`PostMediaExtendedAudioDescriptionsOrderForbiddenError`](./src/models/errors/postmediaextendedaudiodescriptionsorderforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`GetMediaExtendedAudioDescriptionsOrderStatusIdForbiddenError`](./src/models/errors/getmediaextendedaudiodescriptionsorderstatusidforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`PostTagsForbiddenError`](./src/models/errors/posttagsforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`DeleteTagsNameForbiddenError`](./src/models/errors/deletetagsnameforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`PostTaggingsBulkCreateForbiddenError`](./src/models/errors/posttaggingsbulkcreateforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`PostFoldersForbiddenError`](./src/models/errors/postfoldersforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`PutFoldersIdForbiddenError`](./src/models/errors/putfoldersidforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`DeleteFoldersIdForbiddenError`](./src/models/errors/deletefoldersidforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`PostFoldersFolderIdSharingsForbiddenError`](./src/models/errors/postfoldersfolderidsharingsforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`PostFoldersFolderIdSubfoldersForbiddenError`](./src/models/errors/postfoldersfolderidsubfoldersforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`PostChannelsForbiddenError`](./src/models/errors/postchannelsforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`PutChannelsChannelHashedIdForbiddenError`](./src/models/errors/putchannelschannelhashedidforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`DeleteChannelsChannelHashedIdForbiddenError`](./src/models/errors/deletechannelschannelhashedidforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`PostChannelsChannelHashedIdChannelEpisodesForbiddenError`](./src/models/errors/postchannelschannelhashedidchannelepisodesforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`PutChannelEpisodesChannelEpisodeHashedIdForbiddenError`](./src/models/errors/putchannelepisodeschannelepisodehashedidforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`DeleteChannelEpisodesChannelEpisodeHashedIdForbiddenError`](./src/models/errors/deletechannelepisodeschannelepisodehashedidforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`PutChannelEpisodesChannelEpisodeHashedIdPublishForbiddenError`](./src/models/errors/putchannelepisodeschannelepisodehashedidpublishforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`PutChannelEpisodesChannelEpisodeHashedIdUnpublishForbiddenError`](./src/models/errors/putchannelepisodeschannelepisodehashedidunpublishforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`GetWebinarsForbiddenError`](./src/models/errors/getwebinarsforbiddenerror.ts): Webinar feature not available. Status code `403`. Applicable to 1 of 148 methods.*
+* [`PostWebinarsForbiddenError`](./src/models/errors/postwebinarsforbiddenerror.ts): Webinar feature not available. Status code `403`. Applicable to 1 of 148 methods.*
+* [`GetWebinarsIdForbiddenError`](./src/models/errors/getwebinarsidforbiddenerror.ts): Webinar feature not available. Status code `403`. Applicable to 1 of 148 methods.*
+* [`PutWebinarsIdForbiddenError`](./src/models/errors/putwebinarsidforbiddenerror.ts): Webinar feature not available. Status code `403`. Applicable to 1 of 148 methods.*
+* [`DeleteWebinarsIdForbiddenError`](./src/models/errors/deletewebinarsidforbiddenerror.ts): Webinar feature not available. Status code `403`. Applicable to 1 of 148 methods.*
+* [`GetWebinarsWebinarIdRegistrationsForbiddenError`](./src/models/errors/getwebinarswebinaridregistrationsforbiddenerror.ts): Webinar feature not available. Status code `403`. Applicable to 1 of 148 methods.*
+* [`PostWebinarsWebinarIdRegistrationsForbiddenError`](./src/models/errors/postwebinarswebinaridregistrationsforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`PostAllowedDomainsForbiddenError`](./src/models/errors/postalloweddomainsforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`DeleteAllowedDomainsDomainForbiddenError`](./src/models/errors/deletealloweddomainsdomainforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`GetStatsAccountForbiddenError`](./src/models/errors/getstatsaccountforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`GetStatsAccountByDateForbiddenError`](./src/models/errors/getstatsaccountbydateforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`GetStatsProjectsProjectIdForbiddenError`](./src/models/errors/getstatsprojectsprojectidforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`GetStatsMediasMediaIdForbiddenError`](./src/models/errors/getstatsmediasmediaidforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`GetStatsMediasMediaIdByDateForbiddenError`](./src/models/errors/getstatsmediasmediaidbydateforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`GetStatsMediasMediaIdEngagementForbiddenError`](./src/models/errors/getstatsmediasmediaidengagementforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`GetStatsVisitorsForbiddenError`](./src/models/errors/getstatsvisitorsforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`GetStatsVisitorsVisitorKeyForbiddenError`](./src/models/errors/getstatsvisitorsvisitorkeyforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`GetStatsEventsForbiddenError`](./src/models/errors/getstatseventsforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`GetStatsEventsEventKeyForbiddenError`](./src/models/errors/getstatseventseventkeyforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsAccountForbiddenError`](./src/models/errors/getanalyticsaccountforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsAccountTimeseriesForbiddenError`](./src/models/errors/getanalyticsaccounttimeseriesforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsAccountTopContentForbiddenError`](./src/models/errors/getanalyticsaccounttopcontentforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsAccountEmbedLocationsForbiddenError`](./src/models/errors/getanalyticsaccountembedlocationsforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsMediasMediaIdForbiddenError`](./src/models/errors/getanalyticsmediasmediaidforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsMediasMediaIdTimeseriesForbiddenError`](./src/models/errors/getanalyticsmediasmediaidtimeseriesforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsMediasMediaIdEmbedLocationsForbiddenError`](./src/models/errors/getanalyticsmediasmediaidembedlocationsforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsMediasMediaIdEmbedLocationsTimeseriesForbiddenError`](./src/models/errors/getanalyticsmediasmediaidembedlocationstimeseriesforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsMediasMediaIdTrafficForbiddenError`](./src/models/errors/getanalyticsmediasmediaidtrafficforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsMediasMediaIdConversionsForbiddenError`](./src/models/errors/getanalyticsmediasmediaidconversionsforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsMediasMediaIdLanguagesForbiddenError`](./src/models/errors/getanalyticsmediasmediaidlanguagesforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsWebinarsWebinarIdForbiddenError`](./src/models/errors/getanalyticswebinarswebinaridforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsWebinarsWebinarIdRegistrationForbiddenError`](./src/models/errors/getanalyticswebinarswebinaridregistrationforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsWebinarsWebinarIdTrafficForbiddenError`](./src/models/errors/getanalyticswebinarswebinaridtrafficforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsWebinarsWebinarIdAudienceForbiddenError`](./src/models/errors/getanalyticswebinarswebinaridaudienceforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsWebinarsWebinarIdHistogramsForbiddenError`](./src/models/errors/getanalyticswebinarswebinaridhistogramsforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 148 methods.*
+* [`GetMediasMediaHashedIdNotFoundError`](./src/models/errors/getmediasmediahashedidnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaHashedIdNotFoundError`](./src/models/errors/putmediasmediahashedidnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`DeleteMediasMediaHashedIdNotFoundError`](./src/models/errors/deletemediasmediahashedidnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`PostMediasMediaHashedIdCopyNotFoundError`](./src/models/errors/postmediasmediahashedidcopynotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaHashedIdSwapNotFoundError`](./src/models/errors/putmediasmediahashedidswapnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`GetMediasMediaHashedIdStatsNotFoundError`](./src/models/errors/getmediasmediahashedidstatsnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`PostMediasMediaHashedIdTranslateNotFoundError`](./src/models/errors/postmediasmediahashedidtranslatenotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`PostMediasImportUrlNotFoundError`](./src/models/errors/postmediasimporturlnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`PutMediasMoveNotFoundError`](./src/models/errors/putmediasmovenotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`PutMediasRestoreNotFoundError`](./src/models/errors/putmediasrestorenotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`GetMediasMediaIdCustomizationsNotFoundError`](./src/models/errors/getmediasmediaidcustomizationsnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaIdCustomizationsNotFoundError`](./src/models/errors/putmediasmediaidcustomizationsnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`DeleteMediasMediaIdCustomizationsNotFoundError`](./src/models/errors/deletemediasmediaidcustomizationsnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`GetMediasMediaIdCustomizationsAppearanceNotFoundError`](./src/models/errors/getmediasmediaidcustomizationsappearancenotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaIdCustomizationsAppearanceNotFoundError`](./src/models/errors/putmediasmediaidcustomizationsappearancenotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`GetMediasMediaIdCustomizationsPlaybackNotFoundError`](./src/models/errors/getmediasmediaidcustomizationsplaybacknotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaIdCustomizationsPlaybackNotFoundError`](./src/models/errors/putmediasmediaidcustomizationsplaybacknotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`GetMediasMediaIdCustomizationsThumbnailNotFoundError`](./src/models/errors/getmediasmediaidcustomizationsthumbnailnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaIdCustomizationsThumbnailNotFoundError`](./src/models/errors/putmediasmediaidcustomizationsthumbnailnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`GetMediasMediaIdCustomizationsAccessibilityNotFoundError`](./src/models/errors/getmediasmediaidcustomizationsaccessibilitynotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaIdCustomizationsAccessibilityNotFoundError`](./src/models/errors/putmediasmediaidcustomizationsaccessibilitynotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`GetMediasMediaIdCustomizationsChaptersNotFoundError`](./src/models/errors/getmediasmediaidcustomizationschaptersnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaIdCustomizationsChaptersNotFoundError`](./src/models/errors/putmediasmediaidcustomizationschaptersnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`GetMediasMediaIdCustomizationsEngagementNotFoundError`](./src/models/errors/getmediasmediaidcustomizationsengagementnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaIdCustomizationsEngagementNotFoundError`](./src/models/errors/putmediasmediaidcustomizationsengagementnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`GetMediasMediaIdCustomizationsRelatedMediaNotFoundError`](./src/models/errors/getmediasmediaidcustomizationsrelatedmedianotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaIdCustomizationsRelatedMediaNotFoundError`](./src/models/errors/putmediasmediaidcustomizationsrelatedmedianotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`GetMediasMediaIdCustomizationsSharingNotFoundError`](./src/models/errors/getmediasmediaidcustomizationssharingnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaIdCustomizationsSharingNotFoundError`](./src/models/errors/putmediasmediaidcustomizationssharingnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`GetMediasMediaIdCustomizationsLeadCaptureNotFoundError`](./src/models/errors/getmediasmediaidcustomizationsleadcapturenotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaIdCustomizationsLeadCaptureNotFoundError`](./src/models/errors/putmediasmediaidcustomizationsleadcapturenotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`GetMediasMediaIdCustomizationsAccessNotFoundError`](./src/models/errors/getmediasmediaidcustomizationsaccessnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaIdCustomizationsAccessNotFoundError`](./src/models/errors/putmediasmediaidcustomizationsaccessnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`GetMediasMediaIdShareLinkNotFoundError`](./src/models/errors/getmediasmediaidsharelinknotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaIdShareLinkNotFoundError`](./src/models/errors/putmediasmediaidsharelinknotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`DeleteMediasMediaIdShareLinkNotFoundError`](./src/models/errors/deletemediasmediaidsharelinknotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`GetMediasMediaHashedIdLocalizationsNotFoundError`](./src/models/errors/getmediasmediahashedidlocalizationsnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`PostMediasMediaHashedIdLocalizationsNotFoundError`](./src/models/errors/postmediasmediahashedidlocalizationsnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`GetMediasMediaHashedIdLocalizationsLocalizationHashedIdNotFoundError`](./src/models/errors/getmediasmediahashedidlocalizationslocalizationhashedidnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdNotFoundError`](./src/models/errors/deletemediasmediahashedidlocalizationslocalizationhashedidnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`GetMediaExtendedAudioDescriptionsIdNotFoundError`](./src/models/errors/getmediaextendedaudiodescriptionsidnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`DeleteMediaExtendedAudioDescriptionsIdNotFoundError`](./src/models/errors/deletemediaextendedaudiodescriptionsidnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`PostMediaExtendedAudioDescriptionsOrderNotFoundError`](./src/models/errors/postmediaextendedaudiodescriptionsordernotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`GetMediaExtendedAudioDescriptionsOrderStatusIdNotFoundError`](./src/models/errors/getmediaextendedaudiodescriptionsorderstatusidnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`GetFoldersIdNotFoundError`](./src/models/errors/getfoldersidnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`PutFoldersIdNotFoundError`](./src/models/errors/putfoldersidnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`DeleteFoldersIdNotFoundError`](./src/models/errors/deletefoldersidnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`PostFoldersIdCopyNotFoundError`](./src/models/errors/postfoldersidcopynotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`GetFoldersFolderIdSharingsSharingIdNotFoundError`](./src/models/errors/getfoldersfolderidsharingssharingidnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`PutFoldersFolderIdSharingsSharingIdNotFoundError`](./src/models/errors/putfoldersfolderidsharingssharingidnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`DeleteFoldersFolderIdSharingsSharingIdNotFoundError`](./src/models/errors/deletefoldersfolderidsharingssharingidnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`GetFoldersFolderIdSubfoldersNotFoundError`](./src/models/errors/getfoldersfolderidsubfoldersnotfounderror.ts): Folder not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`PostFoldersFolderIdSubfoldersNotFoundError`](./src/models/errors/postfoldersfolderidsubfoldersnotfounderror.ts): Folder not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`GetFoldersFolderIdSubfoldersSubfolderIdNotFoundError`](./src/models/errors/getfoldersfolderidsubfolderssubfolderidnotfounderror.ts): Folder or subfolder not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`PutFoldersFolderIdSubfoldersSubfolderIdNotFoundError`](./src/models/errors/putfoldersfolderidsubfolderssubfolderidnotfounderror.ts): Folder or subfolder not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`DeleteFoldersFolderIdSubfoldersSubfolderIdNotFoundError`](./src/models/errors/deletefoldersfolderidsubfolderssubfolderidnotfounderror.ts): Folder or subfolder not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`DeleteFoldersFolderIdSubfoldersBulkDeleteNotFoundError`](./src/models/errors/deletefoldersfolderidsubfoldersbulkdeletenotfounderror.ts): Folder not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`GetChannelsChannelHashedIdNotFoundError`](./src/models/errors/getchannelschannelhashedidnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`GetChannelsChannelHashedIdCollaboratorsNotFoundError`](./src/models/errors/getchannelschannelhashedidcollaboratorsnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`PostChannelsChannelHashedIdCollaboratorsNotFoundError`](./src/models/errors/postchannelschannelhashedidcollaboratorsnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`DeleteChannelsChannelHashedIdCollaboratorsIdNotFoundError`](./src/models/errors/deletechannelschannelhashedidcollaboratorsidnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`GetWebinarsWebinarIdRegistrationsNotFoundError`](./src/models/errors/getwebinarswebinaridregistrationsnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`PostWebinarsWebinarIdRegistrationsNotFoundError`](./src/models/errors/postwebinarswebinaridregistrationsnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`GetWebinarsWebinarIdCollaboratorsNotFoundError`](./src/models/errors/getwebinarswebinaridcollaboratorsnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`PostWebinarsWebinarIdCollaboratorsNotFoundError`](./src/models/errors/postwebinarswebinaridcollaboratorsnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`DeleteWebinarsWebinarIdCollaboratorsIdNotFoundError`](./src/models/errors/deletewebinarswebinaridcollaboratorsidnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`GetAllowedDomainsDomainNotFoundError`](./src/models/errors/getalloweddomainsdomainnotfounderror.ts): Domain not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`DeleteAllowedDomainsDomainNotFoundError`](./src/models/errors/deletealloweddomainsdomainnotfounderror.ts): Domain not found. Status code `404`. Applicable to 1 of 148 methods.*
+* [`MethodNotAllowedError`](./src/models/errors/methodnotallowederror.ts): Method not allowed, e.g. trying to copy archived media. Status code `405`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsWebinarsWebinarIdConflictError`](./src/models/errors/getanalyticswebinarswebinaridconflicterror.ts): The event has not yet reached a terminal state. Analytics are only available after the event has ended. Status code `409`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsWebinarsWebinarIdHistogramsConflictError`](./src/models/errors/getanalyticswebinarswebinaridhistogramsconflicterror.ts): The event has not yet reached a terminal state. Analytics are only available after the event has ended. Status code `409`. Applicable to 1 of 148 methods.*
+* [`PostMediasMediaHashedIdTranslateUnprocessableEntityError`](./src/models/errors/postmediasmediahashedidtranslateunprocessableentityerror.ts): Unprocessible entity, parameters provided were invalid. Status code `422`. Applicable to 1 of 148 methods.*
+* [`PostMediasImportUrlUnprocessableEntityError`](./src/models/errors/postmediasimporturlunprocessableentityerror.ts): Unprocessable entity, the URL domain is not permitted for import. Status code `422`. Applicable to 1 of 148 methods.*
+* [`PutMediasArchiveUnprocessableEntityError`](./src/models/errors/putmediasarchiveunprocessableentityerror.ts): Unprocessable entity, e.g. too many media requested. Status code `422`. Applicable to 1 of 148 methods.*
+* [`PutMediasRestoreUnprocessableEntityError`](./src/models/errors/putmediasrestoreunprocessableentityerror.ts): Missing arguments for restoration of media. Status code `422`. Applicable to 1 of 148 methods.*
+* [`PutMediasCopyUnprocessableEntityError`](./src/models/errors/putmediascopyunprocessableentityerror.ts): Unprocessable entity, e.g. missing required parameters. Status code `422`. Applicable to 1 of 148 methods.*
+* [`PostMediasMediaHashedIdCaptionsPurchaseUnprocessableEntityError`](./src/models/errors/postmediasmediahashedidcaptionspurchaseunprocessableentityerror.ts): Unprocessable entity. Account not eligible, captions already purchased, or other validation error. Status code `422`. Applicable to 1 of 148 methods.*
+* [`PostMediasMediaHashedIdLocalizationsUnprocessableEntityError`](./src/models/errors/postmediasmediahashedidlocalizationsunprocessableentityerror.ts): Unprocessible entity, parameters provided were invalid. Status code `422`. Applicable to 1 of 148 methods.*
+* [`PostMediasMediaHashedIdTrimsUnprocessableEntityError`](./src/models/errors/postmediasmediahashedidtrimsunprocessableentityerror.ts): Unprocessable entity, the request parameters were invalid. Status code `422`. Applicable to 1 of 148 methods.*
+* [`PostTagsUnprocessableEntityError`](./src/models/errors/posttagsunprocessableentityerror.ts): Validation error - tag already exists. Status code `422`. Applicable to 1 of 148 methods.*
+* [`PostTaggingsBulkCreateUnprocessableEntityError`](./src/models/errors/posttaggingsbulkcreateunprocessableentityerror.ts): Unprocessable entity, e.g. missing required parameters. Status code `422`. Applicable to 1 of 148 methods.*
+* [`DeleteFoldersFolderIdSubfoldersBulkDeleteUnprocessableEntityError`](./src/models/errors/deletefoldersfolderidsubfoldersbulkdeleteunprocessableentityerror.ts): Unprocessable entity, e.g. missing required parameters. Status code `422`. Applicable to 1 of 148 methods.*
+* [`PostWebinarsUnprocessableEntityError`](./src/models/errors/postwebinarsunprocessableentityerror.ts): Validation errors. Status code `422`. Applicable to 1 of 148 methods.*
+* [`PutWebinarsIdUnprocessableEntityError`](./src/models/errors/putwebinarsidunprocessableentityerror.ts): Validation errors. Status code `422`. Applicable to 1 of 148 methods.*
+* [`PostWebinarsWebinarIdRegistrationsUnprocessableEntityError`](./src/models/errors/postwebinarswebinaridregistrationsunprocessableentityerror.ts): Unprocessable entity, the request parameters were invalid. Status code `422`. Applicable to 1 of 148 methods.*
+* [`PostExpiringTokenUnprocessableEntityError`](./src/models/errors/postexpiringtokenunprocessableentityerror.ts): Unprocessable entity, the request parameters were invalid. Status code `422`. Applicable to 1 of 148 methods.*
+* [`GetStatsEventsUnprocessableEntityError`](./src/models/errors/getstatseventsunprocessableentityerror.ts): Unprocessable entity, the request parameters were invalid. Status code `422`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsWebinarsWebinarIdUnprocessableEntityError`](./src/models/errors/getanalyticswebinarswebinaridunprocessableentityerror.ts): Unprocessable entity. Status code `422`. Applicable to 1 of 148 methods.*
+* [`GetDeletedMediaInternalServerError`](./src/models/errors/getdeletedmediainternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`PostDeletedMediaRestoreInternalServerError`](./src/models/errors/postdeletedmediarestoreinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetMediasInternalServerError`](./src/models/errors/getmediasinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetMediasMediaHashedIdInternalServerError`](./src/models/errors/getmediasmediahashedidinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaHashedIdInternalServerError`](./src/models/errors/putmediasmediahashedidinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`DeleteMediasMediaHashedIdInternalServerError`](./src/models/errors/deletemediasmediahashedidinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`PostMediasMediaHashedIdCopyInternalServerError`](./src/models/errors/postmediasmediahashedidcopyinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaHashedIdSwapInternalServerError`](./src/models/errors/putmediasmediahashedidswapinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetMediasMediaHashedIdStatsInternalServerError`](./src/models/errors/getmediasmediahashedidstatsinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`PostMediasMediaHashedIdTranslateInternalServerError`](./src/models/errors/postmediasmediahashedidtranslateinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`PostMediasImportUrlInternalServerError`](./src/models/errors/postmediasimporturlinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`PutMediasArchiveInternalServerError`](./src/models/errors/putmediasarchiveinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`PutMediasMoveInternalServerError`](./src/models/errors/putmediasmoveinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`PutMediasRestoreInternalServerError`](./src/models/errors/putmediasrestoreinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`PutMediasCopyInternalServerError`](./src/models/errors/putmediascopyinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetMediasMediaIdCustomizationsInternalServerError`](./src/models/errors/getmediasmediaidcustomizationsinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`PostMediasMediaIdCustomizationsInternalServerError`](./src/models/errors/postmediasmediaidcustomizationsinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaIdCustomizationsInternalServerError`](./src/models/errors/putmediasmediaidcustomizationsinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`DeleteMediasMediaIdCustomizationsInternalServerError`](./src/models/errors/deletemediasmediaidcustomizationsinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetMediasMediaIdCustomizationsAppearanceInternalServerError`](./src/models/errors/getmediasmediaidcustomizationsappearanceinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaIdCustomizationsAppearanceInternalServerError`](./src/models/errors/putmediasmediaidcustomizationsappearanceinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetMediasMediaIdCustomizationsPlaybackInternalServerError`](./src/models/errors/getmediasmediaidcustomizationsplaybackinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaIdCustomizationsPlaybackInternalServerError`](./src/models/errors/putmediasmediaidcustomizationsplaybackinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetMediasMediaIdCustomizationsThumbnailInternalServerError`](./src/models/errors/getmediasmediaidcustomizationsthumbnailinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaIdCustomizationsThumbnailInternalServerError`](./src/models/errors/putmediasmediaidcustomizationsthumbnailinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetMediasMediaIdCustomizationsAccessibilityInternalServerError`](./src/models/errors/getmediasmediaidcustomizationsaccessibilityinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaIdCustomizationsAccessibilityInternalServerError`](./src/models/errors/putmediasmediaidcustomizationsaccessibilityinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetMediasMediaIdCustomizationsChaptersInternalServerError`](./src/models/errors/getmediasmediaidcustomizationschaptersinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaIdCustomizationsChaptersInternalServerError`](./src/models/errors/putmediasmediaidcustomizationschaptersinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetMediasMediaIdCustomizationsEngagementInternalServerError`](./src/models/errors/getmediasmediaidcustomizationsengagementinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaIdCustomizationsEngagementInternalServerError`](./src/models/errors/putmediasmediaidcustomizationsengagementinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetMediasMediaIdCustomizationsRelatedMediaInternalServerError`](./src/models/errors/getmediasmediaidcustomizationsrelatedmediainternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaIdCustomizationsRelatedMediaInternalServerError`](./src/models/errors/putmediasmediaidcustomizationsrelatedmediainternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetMediasMediaIdCustomizationsSharingInternalServerError`](./src/models/errors/getmediasmediaidcustomizationssharinginternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaIdCustomizationsSharingInternalServerError`](./src/models/errors/putmediasmediaidcustomizationssharinginternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetMediasMediaIdCustomizationsLeadCaptureInternalServerError`](./src/models/errors/getmediasmediaidcustomizationsleadcaptureinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaIdCustomizationsLeadCaptureInternalServerError`](./src/models/errors/putmediasmediaidcustomizationsleadcaptureinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetMediasMediaIdCustomizationsAccessInternalServerError`](./src/models/errors/getmediasmediaidcustomizationsaccessinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaIdCustomizationsAccessInternalServerError`](./src/models/errors/putmediasmediaidcustomizationsaccessinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetMediasMediaIdShareLinkInternalServerError`](./src/models/errors/getmediasmediaidsharelinkinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaIdShareLinkInternalServerError`](./src/models/errors/putmediasmediaidsharelinkinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`DeleteMediasMediaIdShareLinkInternalServerError`](./src/models/errors/deletemediasmediaidsharelinkinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetMediasMediaHashedIdCaptionsInternalServerError`](./src/models/errors/getmediasmediahashedidcaptionsinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`PostMediasMediaHashedIdCaptionsInternalServerError`](./src/models/errors/postmediasmediahashedidcaptionsinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`PostMediasMediaHashedIdCaptionsMultipartInternalServerError`](./src/models/errors/postmediasmediahashedidcaptionsmultipartinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetCaptionsInternalServerError`](./src/models/errors/getcaptionsinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`PostMediasMediaHashedIdCaptionsPurchaseInternalServerError`](./src/models/errors/postmediasmediahashedidcaptionspurchaseinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetMediasMediaHashedIdCaptionsLanguageCodeInternalServerError`](./src/models/errors/getmediasmediahashedidcaptionslanguagecodeinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaHashedIdCaptionsLanguageCodeInternalServerError`](./src/models/errors/putmediasmediahashedidcaptionslanguagecodeinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`PutMediasMediaHashedIdCaptionsLanguageCodeMultipartInternalServerError`](./src/models/errors/putmediasmediahashedidcaptionslanguagecodemultipartinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`DeleteMediasMediaHashedIdCaptionsLanguageCodeInternalServerError`](./src/models/errors/deletemediasmediahashedidcaptionslanguagecodeinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetMediasMediaHashedIdLocalizationsInternalServerError`](./src/models/errors/getmediasmediahashedidlocalizationsinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`PostMediasMediaHashedIdLocalizationsInternalServerError`](./src/models/errors/postmediasmediahashedidlocalizationsinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetMediasMediaHashedIdLocalizationsLocalizationHashedIdInternalServerError`](./src/models/errors/getmediasmediahashedidlocalizationslocalizationhashedidinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdInternalServerError`](./src/models/errors/deletemediasmediahashedidlocalizationslocalizationhashedidinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`PostMediasMediaHashedIdTrimsInternalServerError`](./src/models/errors/postmediasmediahashedidtrimsinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetMediaExtendedAudioDescriptionsInternalServerError`](./src/models/errors/getmediaextendedaudiodescriptionsinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetMediaExtendedAudioDescriptionsIdInternalServerError`](./src/models/errors/getmediaextendedaudiodescriptionsidinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`DeleteMediaExtendedAudioDescriptionsIdInternalServerError`](./src/models/errors/deletemediaextendedaudiodescriptionsidinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`PostMediaExtendedAudioDescriptionsOrderInternalServerError`](./src/models/errors/postmediaextendedaudiodescriptionsorderinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetMediaExtendedAudioDescriptionsOrderStatusIdInternalServerError`](./src/models/errors/getmediaextendedaudiodescriptionsorderstatusidinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetBrandsInternalServerError`](./src/models/errors/getbrandsinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetTagsInternalServerError`](./src/models/errors/gettagsinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`PostTagsInternalServerError`](./src/models/errors/posttagsinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`DeleteTagsNameInternalServerError`](./src/models/errors/deletetagsnameinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`PostBulkInternalServerError`](./src/models/errors/postbulkinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`PostTaggingsBulkCreateInternalServerError`](./src/models/errors/posttaggingsbulkcreateinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetFoldersInternalServerError`](./src/models/errors/getfoldersinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`PostFoldersInternalServerError`](./src/models/errors/postfoldersinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetFoldersIdInternalServerError`](./src/models/errors/getfoldersidinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`PutFoldersIdInternalServerError`](./src/models/errors/putfoldersidinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`DeleteFoldersIdInternalServerError`](./src/models/errors/deletefoldersidinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`PostFoldersIdCopyInternalServerError`](./src/models/errors/postfoldersidcopyinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetFoldersFolderIdSharingsInternalServerError`](./src/models/errors/getfoldersfolderidsharingsinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`PostFoldersFolderIdSharingsInternalServerError`](./src/models/errors/postfoldersfolderidsharingsinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetFoldersFolderIdSharingsSharingIdInternalServerError`](./src/models/errors/getfoldersfolderidsharingssharingidinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`PutFoldersFolderIdSharingsSharingIdInternalServerError`](./src/models/errors/putfoldersfolderidsharingssharingidinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`DeleteFoldersFolderIdSharingsSharingIdInternalServerError`](./src/models/errors/deletefoldersfolderidsharingssharingidinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetFoldersFolderIdSubfoldersInternalServerError`](./src/models/errors/getfoldersfolderidsubfoldersinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`PostFoldersFolderIdSubfoldersInternalServerError`](./src/models/errors/postfoldersfolderidsubfoldersinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetFoldersFolderIdSubfoldersSubfolderIdInternalServerError`](./src/models/errors/getfoldersfolderidsubfolderssubfolderidinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`PutFoldersFolderIdSubfoldersSubfolderIdInternalServerError`](./src/models/errors/putfoldersfolderidsubfolderssubfolderidinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`DeleteFoldersFolderIdSubfoldersSubfolderIdInternalServerError`](./src/models/errors/deletefoldersfolderidsubfolderssubfolderidinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`DeleteFoldersFolderIdSubfoldersBulkDeleteInternalServerError`](./src/models/errors/deletefoldersfolderidsubfoldersbulkdeleteinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetChannelsInternalServerError`](./src/models/errors/getchannelsinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`PostChannelsInternalServerError`](./src/models/errors/postchannelsinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetChannelsChannelHashedIdInternalServerError`](./src/models/errors/getchannelschannelhashedidinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`PutChannelsChannelHashedIdInternalServerError`](./src/models/errors/putchannelschannelhashedidinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`DeleteChannelsChannelHashedIdInternalServerError`](./src/models/errors/deletechannelschannelhashedidinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetChannelsChannelHashedIdChannelEpisodesChannelEpisodeIdInternalServerError`](./src/models/errors/getchannelschannelhashedidchannelepisodeschannelepisodeidinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`PostChannelsChannelHashedIdChannelEpisodesInternalServerError`](./src/models/errors/postchannelschannelhashedidchannelepisodesinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetChannelEpisodesInternalServerError`](./src/models/errors/getchannelepisodesinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`PutChannelEpisodesChannelEpisodeHashedIdInternalServerError`](./src/models/errors/putchannelepisodeschannelepisodehashedidinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`DeleteChannelEpisodesChannelEpisodeHashedIdInternalServerError`](./src/models/errors/deletechannelepisodeschannelepisodehashedidinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`PutChannelEpisodesChannelEpisodeHashedIdPublishInternalServerError`](./src/models/errors/putchannelepisodeschannelepisodehashedidpublishinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`PutChannelEpisodesChannelEpisodeHashedIdUnpublishInternalServerError`](./src/models/errors/putchannelepisodeschannelepisodehashedidunpublishinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetChannelsChannelHashedIdCollaboratorsInternalServerError`](./src/models/errors/getchannelschannelhashedidcollaboratorsinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`PostChannelsChannelHashedIdCollaboratorsInternalServerError`](./src/models/errors/postchannelschannelhashedidcollaboratorsinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`DeleteChannelsChannelHashedIdCollaboratorsIdInternalServerError`](./src/models/errors/deletechannelschannelhashedidcollaboratorsidinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetWebinarsInternalServerError`](./src/models/errors/getwebinarsinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`PostWebinarsInternalServerError`](./src/models/errors/postwebinarsinternalservererror.ts): Internal server error during webinar creation. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetWebinarsIdInternalServerError`](./src/models/errors/getwebinarsidinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`PutWebinarsIdInternalServerError`](./src/models/errors/putwebinarsidinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`DeleteWebinarsIdInternalServerError`](./src/models/errors/deletewebinarsidinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetWebinarsWebinarIdRegistrationsInternalServerError`](./src/models/errors/getwebinarswebinaridregistrationsinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`PostWebinarsWebinarIdRegistrationsInternalServerError`](./src/models/errors/postwebinarswebinaridregistrationsinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetWebinarsWebinarIdCollaboratorsInternalServerError`](./src/models/errors/getwebinarswebinaridcollaboratorsinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`PostWebinarsWebinarIdCollaboratorsInternalServerError`](./src/models/errors/postwebinarswebinaridcollaboratorsinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`DeleteWebinarsWebinarIdCollaboratorsIdInternalServerError`](./src/models/errors/deletewebinarswebinaridcollaboratorsidinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetAccountDetailsInternalServerError`](./src/models/errors/getaccountdetailsinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetAccountUsageInternalServerError`](./src/models/errors/getaccountusageinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetTokenDetailsInternalServerError`](./src/models/errors/gettokendetailsinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetSearchInternalServerError`](./src/models/errors/getsearchinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`PostExpiringTokenInternalServerError`](./src/models/errors/postexpiringtokeninternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetBackgroundJobStatusBackgroundJobStatusIdInternalServerError`](./src/models/errors/getbackgroundjobstatusbackgroundjobstatusidinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetAllowedDomainsInternalServerError`](./src/models/errors/getalloweddomainsinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`PostAllowedDomainsInternalServerError`](./src/models/errors/postalloweddomainsinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetAllowedDomainsDomainInternalServerError`](./src/models/errors/getalloweddomainsdomaininternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`DeleteAllowedDomainsDomainInternalServerError`](./src/models/errors/deletealloweddomainsdomaininternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetStatsAccountInternalServerError`](./src/models/errors/getstatsaccountinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetStatsAccountByDateInternalServerError`](./src/models/errors/getstatsaccountbydateinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetStatsProjectsProjectIdInternalServerError`](./src/models/errors/getstatsprojectsprojectidinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetStatsMediasMediaIdInternalServerError`](./src/models/errors/getstatsmediasmediaidinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetStatsMediasMediaIdByDateInternalServerError`](./src/models/errors/getstatsmediasmediaidbydateinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetStatsMediasMediaIdEngagementInternalServerError`](./src/models/errors/getstatsmediasmediaidengagementinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetStatsVisitorsInternalServerError`](./src/models/errors/getstatsvisitorsinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetStatsVisitorsVisitorKeyInternalServerError`](./src/models/errors/getstatsvisitorsvisitorkeyinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetStatsEventsInternalServerError`](./src/models/errors/getstatseventsinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetStatsEventsEventKeyInternalServerError`](./src/models/errors/getstatseventseventkeyinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsAccountInternalServerError`](./src/models/errors/getanalyticsaccountinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsAccountTimeseriesInternalServerError`](./src/models/errors/getanalyticsaccounttimeseriesinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsAccountTopContentInternalServerError`](./src/models/errors/getanalyticsaccounttopcontentinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsAccountEmbedLocationsInternalServerError`](./src/models/errors/getanalyticsaccountembedlocationsinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsMediasMediaIdInternalServerError`](./src/models/errors/getanalyticsmediasmediaidinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsMediasMediaIdTimeseriesInternalServerError`](./src/models/errors/getanalyticsmediasmediaidtimeseriesinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsMediasMediaIdEmbedLocationsInternalServerError`](./src/models/errors/getanalyticsmediasmediaidembedlocationsinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsMediasMediaIdEmbedLocationsTimeseriesInternalServerError`](./src/models/errors/getanalyticsmediasmediaidembedlocationstimeseriesinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsMediasMediaIdTrafficInternalServerError`](./src/models/errors/getanalyticsmediasmediaidtrafficinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsMediasMediaIdConversionsInternalServerError`](./src/models/errors/getanalyticsmediasmediaidconversionsinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsMediasMediaIdLanguagesInternalServerError`](./src/models/errors/getanalyticsmediasmediaidlanguagesinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsWebinarsWebinarIdInternalServerError`](./src/models/errors/getanalyticswebinarswebinaridinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsWebinarsWebinarIdRegistrationInternalServerError`](./src/models/errors/getanalyticswebinarswebinaridregistrationinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsWebinarsWebinarIdTrafficInternalServerError`](./src/models/errors/getanalyticswebinarswebinaridtrafficinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsWebinarsWebinarIdAudienceInternalServerError`](./src/models/errors/getanalyticswebinarswebinaridaudienceinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsWebinarsWebinarIdHistogramsInternalServerError`](./src/models/errors/getanalyticswebinarswebinaridhistogramsinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`GetChannelsChannelHashedIdChannelEpisodesInternalServerError`](./src/models/errors/getchannelschannelhashedidchannelepisodesinternalservererror.ts): Internal server error. Status code `500`. Applicable to 1 of 148 methods.*
+* [`NotImplementedError`](./src/models/errors/notimplementederror.ts): Not implemented - expiring tokens cannot be created from other expiring tokens. Status code `501`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsAccountServiceUnavailableError`](./src/models/errors/getanalyticsaccountserviceunavailableerror.ts): Analytics service is temporarily unavailable. Status code `503`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsAccountTimeseriesServiceUnavailableError`](./src/models/errors/getanalyticsaccounttimeseriesserviceunavailableerror.ts): Analytics service is temporarily unavailable. Status code `503`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsAccountTopContentServiceUnavailableError`](./src/models/errors/getanalyticsaccounttopcontentserviceunavailableerror.ts): Analytics service is temporarily unavailable. Status code `503`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsAccountEmbedLocationsServiceUnavailableError`](./src/models/errors/getanalyticsaccountembedlocationsserviceunavailableerror.ts): Analytics service is temporarily unavailable. Status code `503`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsMediasMediaIdServiceUnavailableError`](./src/models/errors/getanalyticsmediasmediaidserviceunavailableerror.ts): Analytics service is temporarily unavailable. Status code `503`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsMediasMediaIdTimeseriesServiceUnavailableError`](./src/models/errors/getanalyticsmediasmediaidtimeseriesserviceunavailableerror.ts): Analytics service is temporarily unavailable. Status code `503`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsMediasMediaIdEmbedLocationsServiceUnavailableError`](./src/models/errors/getanalyticsmediasmediaidembedlocationsserviceunavailableerror.ts): Analytics service is temporarily unavailable. Status code `503`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsMediasMediaIdEmbedLocationsTimeseriesServiceUnavailableError`](./src/models/errors/getanalyticsmediasmediaidembedlocationstimeseriesserviceunavailableerror.ts): Analytics service is temporarily unavailable. Status code `503`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsMediasMediaIdTrafficServiceUnavailableError`](./src/models/errors/getanalyticsmediasmediaidtrafficserviceunavailableerror.ts): Analytics service is temporarily unavailable. Status code `503`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsMediasMediaIdConversionsServiceUnavailableError`](./src/models/errors/getanalyticsmediasmediaidconversionsserviceunavailableerror.ts): Analytics service is temporarily unavailable. Status code `503`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsMediasMediaIdLanguagesServiceUnavailableError`](./src/models/errors/getanalyticsmediasmediaidlanguagesserviceunavailableerror.ts): Analytics service is temporarily unavailable. Status code `503`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsWebinarsWebinarIdServiceUnavailableError`](./src/models/errors/getanalyticswebinarswebinaridserviceunavailableerror.ts): Analytics service is temporarily unavailable. Status code `503`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsWebinarsWebinarIdRegistrationServiceUnavailableError`](./src/models/errors/getanalyticswebinarswebinaridregistrationserviceunavailableerror.ts): Analytics service is temporarily unavailable. Status code `503`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsWebinarsWebinarIdTrafficServiceUnavailableError`](./src/models/errors/getanalyticswebinarswebinaridtrafficserviceunavailableerror.ts): Analytics service is temporarily unavailable. Status code `503`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsWebinarsWebinarIdAudienceServiceUnavailableError`](./src/models/errors/getanalyticswebinarswebinaridaudienceserviceunavailableerror.ts): Analytics service is temporarily unavailable. Status code `503`. Applicable to 1 of 148 methods.*
+* [`GetAnalyticsWebinarsWebinarIdHistogramsServiceUnavailableError`](./src/models/errors/getanalyticswebinarswebinaridhistogramsserviceunavailableerror.ts): Analytics service is temporarily unavailable. Status code `503`. Applicable to 1 of 148 methods.*
 * [`ResponseValidationError`](./src/models/errors/responsevalidationerror.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
 
 </details>
@@ -1051,7 +1321,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.media.list({});
+  const result = await wistia.deletedMedia.getDeletedMedia();
 
   console.log(result);
 }
@@ -1071,7 +1341,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.media.uploadForm({
+  const result = await wistia.uploadOrImportMedia.postForm({
     url:
       "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
     lowPriority: true,

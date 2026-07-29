@@ -1,0 +1,23 @@
+# DeleteChannelEpisodesChannelEpisodeHashedIdPodcastSettings
+
+Podcast specific settings for the episode. Only present when podcasting
+is enabled for the channel.
+
+
+## Example Usage
+
+```typescript
+import { DeleteChannelEpisodesChannelEpisodeHashedIdPodcastSettings } from "@wistia/wistia-api-client/models/operations";
+
+let value: DeleteChannelEpisodesChannelEpisodeHashedIdPodcastSettings = {};
+```
+
+## Fields
+
+| Field                                                                                                                                                  | Type                                                                                                                                                   | Required                                                                                                                                               | Description                                                                                                                                            |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `episodeType`                                                                                                                                          | [operations.DeleteChannelEpisodesChannelEpisodeHashedIdEpisodeType](../../models/operations/deletechannelepisodeschannelepisodehashedidepisodetype.md) | :heavy_minus_sign:                                                                                                                                     | The type of episode.                                                                                                                                   |
+| `episodeNumber`                                                                                                                                        | *number*                                                                                                                                               | :heavy_minus_sign:                                                                                                                                     | The number of the episode.                                                                                                                             |
+| `seasonNumber`                                                                                                                                         | *number*                                                                                                                                               | :heavy_minus_sign:                                                                                                                                     | The season number of the episode.                                                                                                                      |
+| `explicitContent`                                                                                                                                      | *boolean*                                                                                                                                              | :heavy_minus_sign:                                                                                                                                     | Whether the episode contains explicit content.                                                                                                         |
+| `hideFromFeed`                                                                                                                                         | *boolean*                                                                                                                                              | :heavy_minus_sign:                                                                                                                                     | Whether to hide the episode from the podcast feed.                                                                                                     |

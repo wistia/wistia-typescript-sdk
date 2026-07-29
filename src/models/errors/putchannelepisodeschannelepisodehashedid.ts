@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import * as operations from "../operations/index.js";
 import { WistiaError } from "./wistiaerror.js";
 
 /**
@@ -75,6 +76,10 @@ export class PutChannelEpisodesChannelEpisodeHashedIdForbiddenError
  * Unauthorized, invalid or missing token
  */
 export type PutChannelEpisodesChannelEpisodeHashedIdUnauthorizedErrorData = {
+  /**
+   * A machine-readable identifier for the specific authorization failure.
+   */
+  code?: operations.PutChannelEpisodesChannelEpisodeHashedIdCode | undefined;
   error?: string | undefined;
 };
 
@@ -84,6 +89,10 @@ export type PutChannelEpisodesChannelEpisodeHashedIdUnauthorizedErrorData = {
 export class PutChannelEpisodesChannelEpisodeHashedIdUnauthorizedError
   extends WistiaError
 {
+  /**
+   * A machine-readable identifier for the specific authorization failure.
+   */
+  code?: operations.PutChannelEpisodesChannelEpisodeHashedIdCode | undefined;
   error?: string | undefined;
 
   /** The original data that was passed to this error instance. */
@@ -98,6 +107,7 @@ export class PutChannelEpisodesChannelEpisodeHashedIdUnauthorizedError
       : `API error occurred: ${JSON.stringify(err)}`;
     super(message, httpMeta);
     this.data$ = err;
+    if (err.code != null) this.code = err.code;
     if (err.error != null) this.error = err.error;
 
     this.name = "PutChannelEpisodesChannelEpisodeHashedIdUnauthorizedError";
@@ -150,6 +160,8 @@ export const PutChannelEpisodesChannelEpisodeHashedIdUnauthorizedError$inboundSc
     z.ZodTypeDef,
     unknown
   > = z.object({
+    code: operations.PutChannelEpisodesChannelEpisodeHashedIdCode$inboundSchema
+      .optional(),
     error: z.string().optional(),
     request$: z.instanceof(Request),
     response$: z.instanceof(Response),

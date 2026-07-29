@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import * as operations from "../operations/index.js";
 import { WistiaError } from "./wistiaerror.js";
 
 /**
@@ -108,6 +109,10 @@ export class PostMediaExtendedAudioDescriptionsOrderForbiddenError
  * Unauthorized, invalid or missing token
  */
 export type PostMediaExtendedAudioDescriptionsOrderUnauthorizedErrorData = {
+  /**
+   * A machine-readable identifier for the specific authorization failure.
+   */
+  code?: operations.PostMediaExtendedAudioDescriptionsOrderCode | undefined;
   error?: string | undefined;
 };
 
@@ -117,6 +122,10 @@ export type PostMediaExtendedAudioDescriptionsOrderUnauthorizedErrorData = {
 export class PostMediaExtendedAudioDescriptionsOrderUnauthorizedError
   extends WistiaError
 {
+  /**
+   * A machine-readable identifier for the specific authorization failure.
+   */
+  code?: operations.PostMediaExtendedAudioDescriptionsOrderCode | undefined;
   error?: string | undefined;
 
   /** The original data that was passed to this error instance. */
@@ -131,6 +140,7 @@ export class PostMediaExtendedAudioDescriptionsOrderUnauthorizedError
       : `API error occurred: ${JSON.stringify(err)}`;
     super(message, httpMeta);
     this.data$ = err;
+    if (err.code != null) this.code = err.code;
     if (err.error != null) this.error = err.error;
 
     this.name = "PostMediaExtendedAudioDescriptionsOrderUnauthorizedError";
@@ -145,6 +155,10 @@ export type PostMediaExtendedAudioDescriptionsOrderBadRequestErrorData = {
    * Error message detailing the reason for the bad request.
    */
   error?: string | undefined;
+  /**
+   * Array of error messages detailing the reasons for the bad request.
+   */
+  errors?: Array<string> | undefined;
 };
 
 /**
@@ -157,6 +171,10 @@ export class PostMediaExtendedAudioDescriptionsOrderBadRequestError
    * Error message detailing the reason for the bad request.
    */
   error?: string | undefined;
+  /**
+   * Array of error messages detailing the reasons for the bad request.
+   */
+  errors?: Array<string> | undefined;
 
   /** The original data that was passed to this error instance. */
   data$: PostMediaExtendedAudioDescriptionsOrderBadRequestErrorData;
@@ -171,6 +189,7 @@ export class PostMediaExtendedAudioDescriptionsOrderBadRequestError
     super(message, httpMeta);
     this.data$ = err;
     if (err.error != null) this.error = err.error;
+    if (err.errors != null) this.errors = err.errors;
 
     this.name = "PostMediaExtendedAudioDescriptionsOrderBadRequestError";
   }
@@ -243,6 +262,8 @@ export const PostMediaExtendedAudioDescriptionsOrderUnauthorizedError$inboundSch
     z.ZodTypeDef,
     unknown
   > = z.object({
+    code: operations.PostMediaExtendedAudioDescriptionsOrderCode$inboundSchema
+      .optional(),
     error: z.string().optional(),
     request$: z.instanceof(Request),
     response$: z.instanceof(Response),
@@ -264,6 +285,7 @@ export const PostMediaExtendedAudioDescriptionsOrderBadRequestError$inboundSchem
     unknown
   > = z.object({
     error: z.string().optional(),
+    errors: z.array(z.string()).optional(),
     request$: z.instanceof(Request),
     response$: z.instanceof(Response),
     body$: z.string(),

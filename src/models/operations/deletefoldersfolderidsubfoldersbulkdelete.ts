@@ -25,6 +25,22 @@ export type DeleteFoldersFolderIdSubfoldersBulkDeleteRequest = {
 };
 
 /**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const DeleteFoldersFolderIdSubfoldersBulkDeleteCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type DeleteFoldersFolderIdSubfoldersBulkDeleteCode = ClosedEnum<
+  typeof DeleteFoldersFolderIdSubfoldersBulkDeleteCode
+>;
+
+/**
  * The status of the background job that's been queued for the request.
  */
 export const DeleteFoldersFolderIdSubfoldersBulkDeleteStatus = {
@@ -52,6 +68,10 @@ export type DeleteFoldersFolderIdSubfoldersBulkDeleteBackgroundJobStatus = {
    */
   id: number;
   /**
+   * The unguessable hashed ID of the background job. Prefer this over the numeric ID when polling for status.
+   */
+  hashedId: string;
+  /**
    * The status of the background job that's been queued for the request.
    */
   status: DeleteFoldersFolderIdSubfoldersBulkDeleteStatus;
@@ -64,16 +84,9 @@ export type DeleteFoldersFolderIdSubfoldersBulkDeleteResponse = {
   /**
    * A confirmation message that the background job has been queued.
    */
-  message?: string | undefined;
-  /**
-   * A background job keeps track of the progress of an asynchronous task, e.g
-   *
-   * @remarks
-   * bulk archiving media, translating media, etc.
-   */
-  backgroundJobStatus?:
-    | DeleteFoldersFolderIdSubfoldersBulkDeleteBackgroundJobStatus
-    | undefined;
+  message: string;
+  backgroundJobStatus:
+    DeleteFoldersFolderIdSubfoldersBulkDeleteBackgroundJobStatus;
 };
 
 /** @internal */
@@ -141,6 +154,11 @@ export function deleteFoldersFolderIdSubfoldersBulkDeleteRequestToJSON(
 }
 
 /** @internal */
+export const DeleteFoldersFolderIdSubfoldersBulkDeleteCode$inboundSchema:
+  z.ZodNativeEnum<typeof DeleteFoldersFolderIdSubfoldersBulkDeleteCode> = z
+    .nativeEnum(DeleteFoldersFolderIdSubfoldersBulkDeleteCode);
+
+/** @internal */
 export const DeleteFoldersFolderIdSubfoldersBulkDeleteStatus$inboundSchema:
   z.ZodNativeEnum<typeof DeleteFoldersFolderIdSubfoldersBulkDeleteStatus> = z
     .nativeEnum(DeleteFoldersFolderIdSubfoldersBulkDeleteStatus);
@@ -153,7 +171,12 @@ export const DeleteFoldersFolderIdSubfoldersBulkDeleteBackgroundJobStatus$inboun
     unknown
   > = z.object({
     id: z.number().int(),
+    hashed_id: z.string(),
     status: DeleteFoldersFolderIdSubfoldersBulkDeleteStatus$inboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      "hashed_id": "hashedId",
+    });
   });
 
 export function deleteFoldersFolderIdSubfoldersBulkDeleteBackgroundJobStatusFromJSON(
@@ -178,10 +201,10 @@ export const DeleteFoldersFolderIdSubfoldersBulkDeleteResponse$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    message: z.string().optional(),
+    message: z.string(),
     background_job_status: z.lazy(() =>
       DeleteFoldersFolderIdSubfoldersBulkDeleteBackgroundJobStatus$inboundSchema
-    ).optional(),
+    ),
   }).transform((v) => {
     return remap$(v, {
       "background_job_status": "backgroundJobStatus",

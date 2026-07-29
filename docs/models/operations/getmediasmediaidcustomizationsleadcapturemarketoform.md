@@ -1,0 +1,15 @@
+# GetMediasMediaIdCustomizationsLeadCaptureMarketoForm
+
+## Example Usage
+
+```typescript
+import { GetMediasMediaIdCustomizationsLeadCaptureMarketoForm } from "@wistia/wistia-api-client/models/operations";
+
+let value: GetMediasMediaIdCustomizationsLeadCaptureMarketoForm = {};
+```
+
+## Fields
+
+| Field              | Type               | Required           | Description        |
+| ------------------ | ------------------ | ------------------ | ------------------ |
+| `on`               | *string*           | :heavy_minus_sign: | N/A                |
