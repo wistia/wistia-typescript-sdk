@@ -39,6 +39,8 @@ export class Localizations extends ClientSDK {
    * @remarks
    * Creates a new localization.
    *
+   * Creating a localization incurs a charge on your account.
+   *
    * ## Requires api token with one of the following permissions
    * ```
    * Read, update & delete anything

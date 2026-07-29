@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
@@ -14,6 +15,22 @@ export type GetStatsVisitorsVisitorKeyRequest = {
    */
   visitorKey: string;
 };
+
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const GetStatsVisitorsVisitorKeyCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type GetStatsVisitorsVisitorKeyCode = ClosedEnum<
+  typeof GetStatsVisitorsVisitorKeyCode
+>;
 
 export type GetStatsVisitorsVisitorKeyOrg = {
   name?: string | null | undefined;
@@ -88,6 +105,11 @@ export function getStatsVisitorsVisitorKeyRequestToJSON(
     ),
   );
 }
+
+/** @internal */
+export const GetStatsVisitorsVisitorKeyCode$inboundSchema: z.ZodNativeEnum<
+  typeof GetStatsVisitorsVisitorKeyCode
+> = z.nativeEnum(GetStatsVisitorsVisitorKeyCode);
 
 /** @internal */
 export const GetStatsVisitorsVisitorKeyOrg$inboundSchema: z.ZodType<

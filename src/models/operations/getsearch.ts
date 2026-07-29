@@ -9,7 +9,7 @@ import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export const ResourceType = {
+export const GetSearchResourceType = {
   Media: "media",
   Folder: "folder",
   Subfolder: "subfolder",
@@ -17,7 +17,7 @@ export const ResourceType = {
   ChannelEpisode: "channel_episode",
   Webinar: "webinar",
 } as const;
-export type ResourceType = ClosedEnum<typeof ResourceType>;
+export type GetSearchResourceType = ClosedEnum<typeof GetSearchResourceType>;
 
 export type GetSearchRequest = {
   /**
@@ -31,7 +31,7 @@ export type GetSearchRequest = {
   /**
    * Filter results by one or more resource types.
    */
-  resourceType?: Array<ResourceType> | undefined;
+  resourceType?: Array<GetSearchResourceType> | undefined;
   /**
    * Filter results created on or after this datetime. Must be a valid ISO8601 timestamp in UTC (ending with 'Z').
    */
@@ -43,110 +43,51 @@ export type GetSearchRequest = {
 };
 
 /**
- * A string representing what type of media this is.
+ * A machine-readable identifier for the specific authorization failure.
  */
-export const FolderType = {
-  Video: "Video",
-  Audio: "Audio",
-  Image: "Image",
-  PdfDocument: "PdfDocument",
-  MicrosoftOfficeDocument: "MicrosoftOfficeDocument",
-  Swf: "Swf",
-  UnknownType: "UnknownType",
+export const GetSearchCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
 } as const;
 /**
- * A string representing what type of media this is.
+ * A machine-readable identifier for the specific authorization failure.
  */
-export type FolderType = ClosedEnum<typeof FolderType>;
-
-/**
- * Post upload processing status. - `queued`: the file is waiting in the queue to be processed. - `processing`: the file is actively being processed. - `ready`: the file has been fully processed and is ready for embedding and viewing. - `failed`: the file was unable to be processed (usually a format or size error).
- *
- * @remarks
- */
-export const FolderStatus = {
-  Queued: "queued",
-  Processing: "processing",
-  Ready: "ready",
-  Failed: "failed",
-} as const;
-/**
- * Post upload processing status. - `queued`: the file is waiting in the queue to be processed. - `processing`: the file is actively being processed. - `ready`: the file has been fully processed and is ready for embedding and viewing. - `failed`: the file was unable to be processed (usually a format or size error).
- *
- * @remarks
- */
-export type FolderStatus = ClosedEnum<typeof FolderStatus>;
-
-export type FolderThumbnail = {
-  url?: string | undefined;
-  width?: number | undefined;
-  height?: number | undefined;
-};
+export type GetSearchCode = ClosedEnum<typeof GetSearchCode>;
 
 /**
  * A link to where you can fetch the medias for this folder.
  */
 export type GetSearchMedias = {
   /**
-   * A unique numeric identifier for the media within the system.
+   * A URL for fetching all child records of the parent record.
    */
-  id?: number | undefined;
-  /**
-   * The display name of the media.
-   */
-  name?: string | undefined;
-  /**
-   * A string representing what type of media this is.
-   */
-  type?: FolderType | undefined;
-  /**
-   * Whether or not the media is archived, either true or false.
-   */
-  archived?: boolean | undefined;
-  /**
-   * The date when the media was originally uploaded.
-   */
-  created?: Date | undefined;
-  /**
-   * The date when the media was last changed.
-   */
-  updated?: Date | undefined;
-  /**
-   * Specifies the length (in seconds) for audio and video files. Specifies number of pages in the document. Omitted for other types of media.
-   */
-  duration?: number | null | undefined;
-  /**
-   * DEPRECATED: If you want to programmatically embed videos, follow the construct an embed code guide.
-   *
-   * @remarks
-   *
-   * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
-   */
-  embedCode?: string | undefined;
-  /**
-   * A unique alphanumeric identifier for this media.
-   */
-  hashedId?: string | undefined;
-  /**
-   * A description for the media which usually appears near the top of the sidebar on the media's page.
-   */
-  description?: string | undefined;
-  /**
-   * A floating point value between 0 and 1 that indicates the progress of the processing for this file.
-   */
-  progress?: number | undefined;
-  /**
-   * Post upload processing status. - `queued`: the file is waiting in the queue to be processed. - `processing`: the file is actively being processed. - `ready`: the file has been fully processed and is ready for embedding and viewing. - `failed`: the file was unable to be processed (usually a format or size error).
-   *
-   * @remarks
-   */
-  status?: FolderStatus | undefined;
-  /**
-   * The title of the section in which the media appears. This attribute is omitted if the media is not in a section (default).
-   */
-  section?: string | null | undefined;
-  thumbnail?: FolderThumbnail | undefined;
+  url?: string | undefined;
 };
+
+/**
+ * Indicates the folder's access scope, relative to the requesting user. One of:
+ *
+ * @remarks
+ * - `library`: a library the requester owns. Libraries can still be shared with specific contacts or contact groups; the only restriction is that they cannot be shared with the whole account.
+ * - `shared`: a folder the requester has access to via a Contact or ContactGroup sharing — this includes both shared folders and another contact's library that the requester has been granted access to.
+ * - `account`: a folder shared with the whole account (everyone in the company can see it).
+ */
+export const GetSearchKind = {
+  Library: "library",
+  Shared: "shared",
+  Account: "account",
+} as const;
+/**
+ * Indicates the folder's access scope, relative to the requesting user. One of:
+ *
+ * @remarks
+ * - `library`: a library the requester owns. Libraries can still be shared with specific contacts or contact groups; the only restriction is that they cannot be shared with the whole account.
+ * - `shared`: a folder the requester has access to via a Contact or ContactGroup sharing — this includes both shared folders and another contact's library that the requester has been granted access to.
+ * - `account`: a folder shared with the whole account (everyone in the company can see it).
+ */
+export type GetSearchKind = ClosedEnum<typeof GetSearchKind>;
 
 /**
  * A folder (previously called a project) is a container in which to organize media into. It can be
@@ -199,6 +140,21 @@ export type GetSearchFolder = {
   anonymousCanUpload?: boolean | undefined;
   anonymousCanDownload?: boolean | undefined;
   /**
+   * Indicates the folder's access scope, relative to the requesting user. One of:
+   *
+   * @remarks
+   * - `library`: a library the requester owns. Libraries can still be shared with specific contacts or contact groups; the only restriction is that they cannot be shared with the whole account.
+   * - `shared`: a folder the requester has access to via a Contact or ContactGroup sharing — this includes both shared folders and another contact's library that the requester has been granted access to.
+   * - `account`: a folder shared with the whole account (everyone in the company can see it).
+   */
+  kind: GetSearchKind;
+  /**
+   * Whether this folder is someone's personal library ("My Library"). Unlike `kind`, this is a property of the folder itself and does not depend on who is requesting — it is `true` for a personal library even when that library has been shared with you (where `kind` would read `shared`). Use this, not `kind`, to tell whether a folder is a personal library.
+   *
+   * @remarks
+   */
+  personalLibrary: boolean;
+  /**
    * A cursor for stable pagination based on current `sort_by` order. You can pass this to `cursor[before]` or `cursor[after]` as a parameter to fetch the records before or after this record in the same sort order. This is only populated if records were fetched with `cursor[enabled]`, or `cursor[before]` or `cursor[after]`.
    */
   cursor?: string | null | undefined;
@@ -241,7 +197,7 @@ export type GetSearchSubfolder = {
 /**
  * A string representing what type of media this is.
  */
-export const GetSearchMediaType = {
+export const GetSearchType = {
   Video: "Video",
   Audio: "Audio",
   Image: "Image",
@@ -253,14 +209,14 @@ export const GetSearchMediaType = {
 /**
  * A string representing what type of media this is.
  */
-export type GetSearchMediaType = ClosedEnum<typeof GetSearchMediaType>;
+export type GetSearchType = ClosedEnum<typeof GetSearchType>;
 
 /**
  * Post upload processing status. - `queued`: the file is waiting in the queue to be processed. - `processing`: the file is actively being processed. - `ready`: the file has been fully processed and is ready for embedding and viewing. - `failed`: the file was unable to be processed (usually a format or size error).
  *
  * @remarks
  */
-export const GetSearchMediaStatus = {
+export const GetSearchStatus = {
   Queued: "queued",
   Processing: "processing",
   Ready: "ready",
@@ -271,9 +227,9 @@ export const GetSearchMediaStatus = {
  *
  * @remarks
  */
-export type GetSearchMediaStatus = ClosedEnum<typeof GetSearchMediaStatus>;
+export type GetSearchStatus = ClosedEnum<typeof GetSearchStatus>;
 
-export type GetSearchMediaThumbnail = {
+export type GetSearchThumbnail = {
   url?: string | undefined;
   width?: number | undefined;
   height?: number | undefined;
@@ -318,7 +274,7 @@ export type GetSearchMedia = {
   /**
    * A string representing what type of media this is.
    */
-  type?: GetSearchMediaType | undefined;
+  type?: GetSearchType | undefined;
   /**
    * Whether or not the media is archived, either true or false.
    */
@@ -360,12 +316,16 @@ export type GetSearchMedia = {
    *
    * @remarks
    */
-  status?: GetSearchMediaStatus | undefined;
+  status?: GetSearchStatus | undefined;
   /**
    * The title of the section in which the media appears. This attribute is omitted if the media is not in a section (default).
    */
   section?: string | null | undefined;
-  thumbnail?: GetSearchMediaThumbnail | undefined;
+  thumbnail?: GetSearchThumbnail | undefined;
+  /**
+   * Whether the media is protected (e.g. requires a password or other authentication to view). Null if the media is not protected.
+   */
+  protected?: boolean | null | undefined;
   /**
    * The hashed ID of the folder this media belongs to
    */
@@ -376,7 +336,7 @@ export type GetSearchMedia = {
   transcriptMatches: Array<TranscriptMatch>;
 };
 
-export type Channel = {
+export type GetSearchChannel = {
   /**
    * A unique numeric identifier for the channel within the system.
    */
@@ -405,6 +365,22 @@ export type Channel = {
    * The date when the channel was last updated.
    */
   updated: Date;
+  /**
+   * The number of live stream events in the channel.
+   */
+  liveStreamEventCount?: number | undefined;
+  /**
+   * Whether episodes are automatically published when added to the channel.
+   */
+  autoPublishEnabled?: boolean | null | undefined;
+  /**
+   * Whether podcasting is enabled for the channel.
+   */
+  podcastEnabled?: boolean | null | undefined;
+  /**
+   * The custom URL used when embedding the channel on your own site. Null if no custom URL is set.
+   */
+  customUrl?: string | null | undefined;
 };
 
 export type ChannelEpisode = {
@@ -437,6 +413,10 @@ export type ChannelEpisode = {
    */
   mediaHashedId: string | null;
   /**
+   * The hashed ID of the live stream event associated with this channel episode, if any.
+   */
+  liveStreamEventHashedId?: string | null | undefined;
+  /**
    * Whether the channel episode is published.
    */
   published: boolean;
@@ -452,6 +432,43 @@ export type ChannelEpisode = {
    * The scheduled publish date (only present if scheduled).
    */
   publishAt?: Date | null | undefined;
+};
+
+/**
+ * The current lifecycle status of the webinar. This is a read-only, system-managed field that Wistia updates as the event moves through its lifecycle; it cannot be set or changed via the API.
+ */
+export const GetSearchLifecycleStatus = {
+  Pending: "pending",
+  Ready: "ready",
+  Starting: "starting",
+  Started: "started",
+  Ended: "ended",
+  VodReady: "vod_ready",
+  Failed: "failed",
+} as const;
+/**
+ * The current lifecycle status of the webinar. This is a read-only, system-managed field that Wistia updates as the event moves through its lifecycle; it cannot be set or changed via the API.
+ */
+export type GetSearchLifecycleStatus = ClosedEnum<
+  typeof GetSearchLifecycleStatus
+>;
+
+export type WebinarFolder = {
+  /**
+   * A unique alphanumeric identifier for the record.
+   */
+  id: string;
+  /**
+   * A URL for fetching all the records of the given record type. You can pass hashed_ids as a param with multiple values
+   *
+   * @remarks
+   * to do a batch fetch for this records type.
+   */
+  indexUrl: string;
+  /**
+   * A URL that can be used to fetch this record.
+   */
+  url: string;
 };
 
 /**
@@ -483,9 +500,13 @@ export type GetSearchWebinar = {
    */
   eventDuration?: number | null | undefined;
   /**
-   * Current lifecycle status of the event
+   * The IANA time zone identifier the webinar is scheduled in
    */
-  lifecycleStatus: string;
+  timeZone: string;
+  /**
+   * The current lifecycle status of the webinar. This is a read-only, system-managed field that Wistia updates as the event moves through its lifecycle; it cannot be set or changed via the API.
+   */
+  lifecycleStatus: GetSearchLifecycleStatus;
   /**
    * Registration status of the event
    */
@@ -510,13 +531,25 @@ export type GetSearchWebinar = {
    * Link for panelists to join the event
    */
   panelistLink: string;
+  /**
+   * URL of the webinar's custom thumbnail image, or null if no custom thumbnail has been set
+   */
+  thumbnailUrl?: string | null | undefined;
+  /**
+   * The folder (project) this webinar belongs to
+   */
+  folder?: WebinarFolder | null | undefined;
+  /**
+   * A cursor for stable pagination based on current `sort_by` order. You can pass this to `cursor[before]` or `cursor[after]` as a parameter to fetch the records before or after this record in the same sort order. This is only populated if records were fetched with `cursor[enabled]`, or `cursor[before]` or `cursor[after]`.
+   */
+  cursor?: string | null | undefined;
 };
 
 export type GetSearchData = {
   folders: Array<GetSearchFolder>;
   subfolders: Array<GetSearchSubfolder>;
   medias: Array<GetSearchMedia>;
-  channels: Array<Channel>;
+  channels: Array<GetSearchChannel>;
   channelEpisodes: Array<ChannelEpisode>;
   webinars: Array<GetSearchWebinar>;
 };
@@ -529,8 +562,9 @@ export type GetSearchResponse = {
 };
 
 /** @internal */
-export const ResourceType$outboundSchema: z.ZodNativeEnum<typeof ResourceType> =
-  z.nativeEnum(ResourceType);
+export const GetSearchResourceType$outboundSchema: z.ZodNativeEnum<
+  typeof GetSearchResourceType
+> = z.nativeEnum(GetSearchResourceType);
 
 /** @internal */
 export type GetSearchRequest$Outbound = {
@@ -549,7 +583,7 @@ export const GetSearchRequest$outboundSchema: z.ZodType<
 > = z.object({
   q: z.string(),
   tags: z.array(z.string()).optional(),
-  resourceType: z.array(ResourceType$outboundSchema).optional(),
+  resourceType: z.array(GetSearchResourceType$outboundSchema).optional(),
   createdAfter: z.date().transform(v => v.toISOString()).optional(),
   createdBefore: z.date().transform(v => v.toISOString()).optional(),
 }).transform((v) => {
@@ -570,33 +604,9 @@ export function getSearchRequestToJSON(
 }
 
 /** @internal */
-export const FolderType$inboundSchema: z.ZodNativeEnum<typeof FolderType> = z
-  .nativeEnum(FolderType);
-
-/** @internal */
-export const FolderStatus$inboundSchema: z.ZodNativeEnum<typeof FolderStatus> =
-  z.nativeEnum(FolderStatus);
-
-/** @internal */
-export const FolderThumbnail$inboundSchema: z.ZodType<
-  FolderThumbnail,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  url: z.string().optional(),
-  width: z.number().int().optional(),
-  height: z.number().int().optional(),
-});
-
-export function folderThumbnailFromJSON(
-  jsonString: string,
-): SafeParseResult<FolderThumbnail, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FolderThumbnail$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FolderThumbnail' from JSON`,
-  );
-}
+export const GetSearchCode$inboundSchema: z.ZodNativeEnum<
+  typeof GetSearchCode
+> = z.nativeEnum(GetSearchCode);
 
 /** @internal */
 export const GetSearchMedias$inboundSchema: z.ZodType<
@@ -604,26 +614,7 @@ export const GetSearchMedias$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.number().int().optional(),
-  name: z.string().optional(),
-  type: FolderType$inboundSchema.optional(),
-  archived: z.boolean().optional(),
-  created: z.string().datetime({ offset: true }).transform(v => new Date(v))
-    .optional(),
-  updated: z.string().datetime({ offset: true }).transform(v => new Date(v))
-    .optional(),
-  duration: z.nullable(z.number()).optional(),
-  embedCode: z.string().optional(),
-  hashed_id: z.string().optional(),
-  description: z.string().optional(),
-  progress: z.number().optional(),
-  status: FolderStatus$inboundSchema.optional(),
-  section: z.nullable(z.string()).optional(),
-  thumbnail: z.lazy(() => FolderThumbnail$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "hashed_id": "hashedId",
-  });
+  url: z.string().optional(),
 });
 
 export function getSearchMediasFromJSON(
@@ -635,6 +626,11 @@ export function getSearchMediasFromJSON(
     `Failed to parse 'GetSearchMedias' from JSON`,
   );
 }
+
+/** @internal */
+export const GetSearchKind$inboundSchema: z.ZodNativeEnum<
+  typeof GetSearchKind
+> = z.nativeEnum(GetSearchKind);
 
 /** @internal */
 export const GetSearchFolder$inboundSchema: z.ZodType<
@@ -654,6 +650,8 @@ export const GetSearchFolder$inboundSchema: z.ZodType<
   public_id: z.nullable(z.string()),
   anonymous_can_upload: z.boolean().optional(),
   anonymous_can_download: z.boolean().optional(),
+  kind: GetSearchKind$inboundSchema,
+  personal_library: z.boolean(),
   cursor: z.nullable(z.string()).optional(),
 }).transform((v) => {
   return remap$(v, {
@@ -662,6 +660,7 @@ export const GetSearchFolder$inboundSchema: z.ZodType<
     "public_id": "publicId",
     "anonymous_can_upload": "anonymousCanUpload",
     "anonymous_can_download": "anonymousCanDownload",
+    "personal_library": "personalLibrary",
   });
 });
 
@@ -709,18 +708,18 @@ export function getSearchSubfolderFromJSON(
 }
 
 /** @internal */
-export const GetSearchMediaType$inboundSchema: z.ZodNativeEnum<
-  typeof GetSearchMediaType
-> = z.nativeEnum(GetSearchMediaType);
+export const GetSearchType$inboundSchema: z.ZodNativeEnum<
+  typeof GetSearchType
+> = z.nativeEnum(GetSearchType);
 
 /** @internal */
-export const GetSearchMediaStatus$inboundSchema: z.ZodNativeEnum<
-  typeof GetSearchMediaStatus
-> = z.nativeEnum(GetSearchMediaStatus);
+export const GetSearchStatus$inboundSchema: z.ZodNativeEnum<
+  typeof GetSearchStatus
+> = z.nativeEnum(GetSearchStatus);
 
 /** @internal */
-export const GetSearchMediaThumbnail$inboundSchema: z.ZodType<
-  GetSearchMediaThumbnail,
+export const GetSearchThumbnail$inboundSchema: z.ZodType<
+  GetSearchThumbnail,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -729,13 +728,13 @@ export const GetSearchMediaThumbnail$inboundSchema: z.ZodType<
   height: z.number().int().optional(),
 });
 
-export function getSearchMediaThumbnailFromJSON(
+export function getSearchThumbnailFromJSON(
   jsonString: string,
-): SafeParseResult<GetSearchMediaThumbnail, SDKValidationError> {
+): SafeParseResult<GetSearchThumbnail, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => GetSearchMediaThumbnail$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetSearchMediaThumbnail' from JSON`,
+    (x) => GetSearchThumbnail$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetSearchThumbnail' from JSON`,
   );
 }
 
@@ -775,7 +774,7 @@ export const GetSearchMedia$inboundSchema: z.ZodType<
 > = z.object({
   id: z.number().int().optional(),
   name: z.string().optional(),
-  type: GetSearchMediaType$inboundSchema.optional(),
+  type: GetSearchType$inboundSchema.optional(),
   archived: z.boolean().optional(),
   created: z.string().datetime({ offset: true }).transform(v => new Date(v))
     .optional(),
@@ -786,9 +785,10 @@ export const GetSearchMedia$inboundSchema: z.ZodType<
   hashed_id: z.string().optional(),
   description: z.string().optional(),
   progress: z.number().optional(),
-  status: GetSearchMediaStatus$inboundSchema.optional(),
+  status: GetSearchStatus$inboundSchema.optional(),
   section: z.nullable(z.string()).optional(),
-  thumbnail: z.lazy(() => GetSearchMediaThumbnail$inboundSchema).optional(),
+  thumbnail: z.lazy(() => GetSearchThumbnail$inboundSchema).optional(),
+  protected: z.nullable(z.boolean()).optional(),
   folder_hashed_id: z.nullable(z.string()),
   transcript_matches: z.array(z.lazy(() => TranscriptMatch$inboundSchema)),
 }).transform((v) => {
@@ -810,29 +810,40 @@ export function getSearchMediaFromJSON(
 }
 
 /** @internal */
-export const Channel$inboundSchema: z.ZodType<Channel, z.ZodTypeDef, unknown> =
-  z.object({
-    id: z.number().int(),
-    hashed_id: z.string(),
-    name: z.string(),
-    description: z.string(),
-    media_count: z.number().int(),
-    created: z.string().datetime({ offset: true }).transform(v => new Date(v)),
-    updated: z.string().datetime({ offset: true }).transform(v => new Date(v)),
-  }).transform((v) => {
-    return remap$(v, {
-      "hashed_id": "hashedId",
-      "media_count": "mediaCount",
-    });
+export const GetSearchChannel$inboundSchema: z.ZodType<
+  GetSearchChannel,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: z.number().int(),
+  hashed_id: z.string(),
+  name: z.string(),
+  description: z.string(),
+  media_count: z.number().int(),
+  created: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  updated: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  live_stream_event_count: z.number().int().optional(),
+  auto_publish_enabled: z.nullable(z.boolean()).optional(),
+  podcast_enabled: z.nullable(z.boolean()).optional(),
+  custom_url: z.nullable(z.string()).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "hashed_id": "hashedId",
+    "media_count": "mediaCount",
+    "live_stream_event_count": "liveStreamEventCount",
+    "auto_publish_enabled": "autoPublishEnabled",
+    "podcast_enabled": "podcastEnabled",
+    "custom_url": "customUrl",
   });
+});
 
-export function channelFromJSON(
+export function getSearchChannelFromJSON(
   jsonString: string,
-): SafeParseResult<Channel, SDKValidationError> {
+): SafeParseResult<GetSearchChannel, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => Channel$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Channel' from JSON`,
+    (x) => GetSearchChannel$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetSearchChannel' from JSON`,
   );
 }
 
@@ -849,6 +860,7 @@ export const ChannelEpisode$inboundSchema: z.ZodType<
   summary: z.string(),
   channel_hashed_id: z.nullable(z.string()),
   media_hashed_id: z.nullable(z.string()),
+  live_stream_event_hashed_id: z.nullable(z.string()).optional(),
   published: z.boolean(),
   created: z.string().datetime({ offset: true }).transform(v => new Date(v)),
   updated: z.string().datetime({ offset: true }).transform(v => new Date(v)),
@@ -860,6 +872,7 @@ export const ChannelEpisode$inboundSchema: z.ZodType<
     "hashed_id": "hashedId",
     "channel_hashed_id": "channelHashedId",
     "media_hashed_id": "mediaHashedId",
+    "live_stream_event_hashed_id": "liveStreamEventHashedId",
     "publish_at": "publishAt",
   });
 });
@@ -871,6 +884,36 @@ export function channelEpisodeFromJSON(
     jsonString,
     (x) => ChannelEpisode$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'ChannelEpisode' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetSearchLifecycleStatus$inboundSchema: z.ZodNativeEnum<
+  typeof GetSearchLifecycleStatus
+> = z.nativeEnum(GetSearchLifecycleStatus);
+
+/** @internal */
+export const WebinarFolder$inboundSchema: z.ZodType<
+  WebinarFolder,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: z.string(),
+  index_url: z.string(),
+  url: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    "index_url": "indexUrl",
+  });
+});
+
+export function webinarFolderFromJSON(
+  jsonString: string,
+): SafeParseResult<WebinarFolder, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => WebinarFolder$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'WebinarFolder' from JSON`,
   );
 }
 
@@ -887,17 +930,22 @@ export const GetSearchWebinar$inboundSchema: z.ZodType<
     z.string().datetime({ offset: true }).transform(v => new Date(v)),
   ).optional(),
   event_duration: z.nullable(z.number().int()).optional(),
-  lifecycle_status: z.string(),
+  time_zone: z.string(),
+  lifecycle_status: GetSearchLifecycleStatus$inboundSchema,
   registration_status: z.string(),
   created_at: z.string().datetime({ offset: true }).transform(v => new Date(v)),
   updated_at: z.string().datetime({ offset: true }).transform(v => new Date(v)),
   audience_link: z.string(),
   host_link: z.string(),
   panelist_link: z.string(),
+  thumbnail_url: z.nullable(z.string()).optional(),
+  folder: z.nullable(z.lazy(() => WebinarFolder$inboundSchema)).optional(),
+  cursor: z.nullable(z.string()).optional(),
 }).transform((v) => {
   return remap$(v, {
     "scheduled_for": "scheduledFor",
     "event_duration": "eventDuration",
+    "time_zone": "timeZone",
     "lifecycle_status": "lifecycleStatus",
     "registration_status": "registrationStatus",
     "created_at": "createdAt",
@@ -905,6 +953,7 @@ export const GetSearchWebinar$inboundSchema: z.ZodType<
     "audience_link": "audienceLink",
     "host_link": "hostLink",
     "panelist_link": "panelistLink",
+    "thumbnail_url": "thumbnailUrl",
   });
 });
 
@@ -927,7 +976,7 @@ export const GetSearchData$inboundSchema: z.ZodType<
   folders: z.array(z.lazy(() => GetSearchFolder$inboundSchema)),
   subfolders: z.array(z.lazy(() => GetSearchSubfolder$inboundSchema)),
   medias: z.array(z.lazy(() => GetSearchMedia$inboundSchema)),
-  channels: z.array(z.lazy(() => Channel$inboundSchema)),
+  channels: z.array(z.lazy(() => GetSearchChannel$inboundSchema)),
   channel_episodes: z.array(z.lazy(() => ChannelEpisode$inboundSchema)),
   webinars: z.array(z.lazy(() => GetSearchWebinar$inboundSchema)),
 }).transform((v) => {

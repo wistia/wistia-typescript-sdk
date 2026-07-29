@@ -11,13 +11,15 @@ import { PostMediasImportUrlBackgroundJobStatus } from "@wistia/wistia-api-clien
 
 let value: PostMediasImportUrlBackgroundJobStatus = {
   id: 527696,
+  hashedId: "<id>",
   status: "finished",
 };
 ```
 
 ## Fields
 
-| Field                                                                                        | Type                                                                                         | Required                                                                                     | Description                                                                                  |
-| -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
-| `id`                                                                                         | *number*                                                                                     | :heavy_check_mark:                                                                           | The ID of the background job that's been queued for the request.                             |
-| `status`                                                                                     | [operations.PostMediasImportUrlStatus](../../models/operations/postmediasimporturlstatus.md) | :heavy_check_mark:                                                                           | The status of the background job that's been queued for the request.                         |
+| Field                                                                                                     | Type                                                                                                      | Required                                                                                                  | Description                                                                                               |
+| --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| `id`                                                                                                      | *number*                                                                                                  | :heavy_check_mark:                                                                                        | The ID of the background job that's been queued for the request.                                          |
+| `hashedId`                                                                                                | *string*                                                                                                  | :heavy_check_mark:                                                                                        | The unguessable hashed ID of the background job. Prefer this over the numeric ID when polling for status. |
+| `status`                                                                                                  | [operations.PostMediasImportUrlStatus](../../models/operations/postmediasimporturlstatus.md)              | :heavy_check_mark:                                                                                        | The status of the background job that's been queued for the request.                                      |

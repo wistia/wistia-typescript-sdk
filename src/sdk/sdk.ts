@@ -5,13 +5,18 @@
 import { ClientSDK } from "../lib/sdks.js";
 import { Account } from "./account.js";
 import { AllowedDomains } from "./alloweddomains.js";
+import { AnalyticsAccount } from "./analyticsaccount.js";
 import { AnalyticsMedia } from "./analyticsmedia.js";
 import { AnalyticsWebinar } from "./analyticswebinar.js";
 import { BackgroundJobStatus } from "./backgroundjobstatus.js";
+import { Brands } from "./brands.js";
+import { BulkActions } from "./bulkactions.js";
 import { Captions } from "./captions.js";
+import { ChannelCollaborators } from "./channelcollaborators.js";
 import { ChannelEpisodes } from "./channelepisodes.js";
 import { Channels } from "./channels.js";
 import { Customizations } from "./customizations.js";
+import { DeletedMedia } from "./deletedmedia.js";
 import { ExpiringAccessTokens } from "./expiringaccesstokens.js";
 import { Folders } from "./folders.js";
 import { FolderSharings } from "./foldersharings.js";
@@ -19,6 +24,7 @@ import { Localizations } from "./localizations.js";
 import { Media } from "./media.js";
 import { MediaExtendedAudioDescriptions } from "./mediaextendedaudiodescriptions.js";
 import { Search } from "./search.js";
+import { ShareLinks } from "./sharelinks.js";
 import { StatsAccount } from "./statsaccount.js";
 import { StatsEvents } from "./statsevents.js";
 import { StatsMedia } from "./statsmedia.js";
@@ -28,13 +34,52 @@ import { Subfolders } from "./subfolders.js";
 import { Taggings } from "./taggings.js";
 import { Tags } from "./tags.js";
 import { Trims } from "./trims.js";
+import { UploadOrImportMedia } from "./uploadorimportmedia.js";
+import { WebinarCollaborators } from "./webinarcollaborators.js";
 import { WebinarRegistrations } from "./webinarregistrations.js";
 import { Webinars } from "./webinars.js";
 
 export class Wistia extends ClientSDK {
+  private _uploadOrImportMedia?: UploadOrImportMedia;
+  get uploadOrImportMedia(): UploadOrImportMedia {
+    return (this._uploadOrImportMedia ??= new UploadOrImportMedia(
+      this._options,
+    ));
+  }
+
+  private _deletedMedia?: DeletedMedia;
+  get deletedMedia(): DeletedMedia {
+    return (this._deletedMedia ??= new DeletedMedia(this._options));
+  }
+
   private _media?: Media;
   get media(): Media {
     return (this._media ??= new Media(this._options));
+  }
+
+  private _customizations?: Customizations;
+  get customizations(): Customizations {
+    return (this._customizations ??= new Customizations(this._options));
+  }
+
+  private _shareLinks?: ShareLinks;
+  get shareLinks(): ShareLinks {
+    return (this._shareLinks ??= new ShareLinks(this._options));
+  }
+
+  private _captions?: Captions;
+  get captions(): Captions {
+    return (this._captions ??= new Captions(this._options));
+  }
+
+  private _localizations?: Localizations;
+  get localizations(): Localizations {
+    return (this._localizations ??= new Localizations(this._options));
+  }
+
+  private _trims?: Trims;
+  get trims(): Trims {
+    return (this._trims ??= new Trims(this._options));
   }
 
   private _mediaExtendedAudioDescriptions?: MediaExtendedAudioDescriptions;
@@ -43,61 +88,9 @@ export class Wistia extends ClientSDK {
       new MediaExtendedAudioDescriptions(this._options));
   }
 
-  private _folders?: Folders;
-  get folders(): Folders {
-    return (this._folders ??= new Folders(this._options));
-  }
-
-  private _subfolders?: Subfolders;
-  get subfolders(): Subfolders {
-    return (this._subfolders ??= new Subfolders(this._options));
-  }
-
-  private _folderSharings?: FolderSharings;
-  get folderSharings(): FolderSharings {
-    return (this._folderSharings ??= new FolderSharings(this._options));
-  }
-
-  private _taggings?: Taggings;
-  get taggings(): Taggings {
-    return (this._taggings ??= new Taggings(this._options));
-  }
-
-  private _account?: Account;
-  get account(): Account {
-    return (this._account ??= new Account(this._options));
-  }
-
-  private _allowedDomains?: AllowedDomains;
-  get allowedDomains(): AllowedDomains {
-    return (this._allowedDomains ??= new AllowedDomains(this._options));
-  }
-
-  private _backgroundJobStatus?: BackgroundJobStatus;
-  get backgroundJobStatus(): BackgroundJobStatus {
-    return (this._backgroundJobStatus ??= new BackgroundJobStatus(
-      this._options,
-    ));
-  }
-
-  private _customizations?: Customizations;
-  get customizations(): Customizations {
-    return (this._customizations ??= new Customizations(this._options));
-  }
-
-  private _captions?: Captions;
-  get captions(): Captions {
-    return (this._captions ??= new Captions(this._options));
-  }
-
-  private _trims?: Trims;
-  get trims(): Trims {
-    return (this._trims ??= new Trims(this._options));
-  }
-
-  private _localizations?: Localizations;
-  get localizations(): Localizations {
-    return (this._localizations ??= new Localizations(this._options));
+  private _brands?: Brands;
+  get brands(): Brands {
+    return (this._brands ??= new Brands(this._options));
   }
 
   private _tags?: Tags;
@@ -105,9 +98,29 @@ export class Wistia extends ClientSDK {
     return (this._tags ??= new Tags(this._options));
   }
 
-  private _search?: Search;
-  get search(): Search {
-    return (this._search ??= new Search(this._options));
+  private _bulkActions?: BulkActions;
+  get bulkActions(): BulkActions {
+    return (this._bulkActions ??= new BulkActions(this._options));
+  }
+
+  private _taggings?: Taggings;
+  get taggings(): Taggings {
+    return (this._taggings ??= new Taggings(this._options));
+  }
+
+  private _folders?: Folders;
+  get folders(): Folders {
+    return (this._folders ??= new Folders(this._options));
+  }
+
+  private _folderSharings?: FolderSharings;
+  get folderSharings(): FolderSharings {
+    return (this._folderSharings ??= new FolderSharings(this._options));
+  }
+
+  private _subfolders?: Subfolders;
+  get subfolders(): Subfolders {
+    return (this._subfolders ??= new Subfolders(this._options));
   }
 
   private _channels?: Channels;
@@ -120,9 +133,9 @@ export class Wistia extends ClientSDK {
     return (this._channelEpisodes ??= new ChannelEpisodes(this._options));
   }
 
-  private _expiringAccessTokens?: ExpiringAccessTokens;
-  get expiringAccessTokens(): ExpiringAccessTokens {
-    return (this._expiringAccessTokens ??= new ExpiringAccessTokens(
+  private _channelCollaborators?: ChannelCollaborators;
+  get channelCollaborators(): ChannelCollaborators {
+    return (this._channelCollaborators ??= new ChannelCollaborators(
       this._options,
     ));
   }
@@ -137,6 +150,42 @@ export class Wistia extends ClientSDK {
     return (this._webinarRegistrations ??= new WebinarRegistrations(
       this._options,
     ));
+  }
+
+  private _webinarCollaborators?: WebinarCollaborators;
+  get webinarCollaborators(): WebinarCollaborators {
+    return (this._webinarCollaborators ??= new WebinarCollaborators(
+      this._options,
+    ));
+  }
+
+  private _account?: Account;
+  get account(): Account {
+    return (this._account ??= new Account(this._options));
+  }
+
+  private _search?: Search;
+  get search(): Search {
+    return (this._search ??= new Search(this._options));
+  }
+
+  private _expiringAccessTokens?: ExpiringAccessTokens;
+  get expiringAccessTokens(): ExpiringAccessTokens {
+    return (this._expiringAccessTokens ??= new ExpiringAccessTokens(
+      this._options,
+    ));
+  }
+
+  private _backgroundJobStatus?: BackgroundJobStatus;
+  get backgroundJobStatus(): BackgroundJobStatus {
+    return (this._backgroundJobStatus ??= new BackgroundJobStatus(
+      this._options,
+    ));
+  }
+
+  private _allowedDomains?: AllowedDomains;
+  get allowedDomains(): AllowedDomains {
+    return (this._allowedDomains ??= new AllowedDomains(this._options));
   }
 
   private _statsAccount?: StatsAccount;
@@ -162,6 +211,11 @@ export class Wistia extends ClientSDK {
   private _statsEvents?: StatsEvents;
   get statsEvents(): StatsEvents {
     return (this._statsEvents ??= new StatsEvents(this._options));
+  }
+
+  private _analyticsAccount?: AnalyticsAccount;
+  get analyticsAccount(): AnalyticsAccount {
+    return (this._analyticsAccount ??= new AnalyticsAccount(this._options));
   }
 
   private _analyticsMedia?: AnalyticsMedia;

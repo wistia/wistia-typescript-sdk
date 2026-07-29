@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { blobLikeSchema } from "../../types/blobs.js";
+import { ClosedEnum } from "../../types/enums.js";
 
 export type PutMediasMediaHashedIdCaptionsLanguageCodeMultipartCaptionFile = {
   fileName: string;
@@ -31,6 +32,21 @@ export type PutMediasMediaHashedIdCaptionsLanguageCodeMultipartRequest = {
   languageCode: string;
   requestBody: PutMediasMediaHashedIdCaptionsLanguageCodeMultipartRequestBody;
 };
+
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const PutMediasMediaHashedIdCaptionsLanguageCodeMultipartCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type PutMediasMediaHashedIdCaptionsLanguageCodeMultipartCode =
+  ClosedEnum<typeof PutMediasMediaHashedIdCaptionsLanguageCodeMultipartCode>;
 
 /** @internal */
 export type PutMediasMediaHashedIdCaptionsLanguageCodeMultipartCaptionFile$Outbound =
@@ -135,3 +151,9 @@ export function putMediasMediaHashedIdCaptionsLanguageCodeMultipartRequestToJSON
       .parse(putMediasMediaHashedIdCaptionsLanguageCodeMultipartRequest),
   );
 }
+
+/** @internal */
+export const PutMediasMediaHashedIdCaptionsLanguageCodeMultipartCode$inboundSchema:
+  z.ZodNativeEnum<
+    typeof PutMediasMediaHashedIdCaptionsLanguageCodeMultipartCode
+  > = z.nativeEnum(PutMediasMediaHashedIdCaptionsLanguageCodeMultipartCode);

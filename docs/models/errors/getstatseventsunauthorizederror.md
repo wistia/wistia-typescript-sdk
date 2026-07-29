@@ -12,6 +12,7 @@ import { GetStatsEventsUnauthorizedError } from "@wistia/wistia-api-client/model
 
 ## Fields
 
-| Field                | Type                 | Required             | Description          | Example              |
-| -------------------- | -------------------- | -------------------- | -------------------- | -------------------- |
-| `error`              | *string*             | :heavy_minus_sign:   | N/A                  | Invalid credentials. |
+| Field                                                                          | Type                                                                           | Required                                                                       | Description                                                                    | Example                                                                        |
+| ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
+| `code`                                                                         | [operations.GetStatsEventsCode](../../models/operations/getstatseventscode.md) | :heavy_minus_sign:                                                             | A machine-readable identifier for the specific authorization failure.          |                                                                                |
+| `error`                                                                        | *string*                                                                       | :heavy_minus_sign:                                                             | N/A                                                                            | Invalid credentials.                                                           |

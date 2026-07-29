@@ -21,6 +21,22 @@ export type PostTaggingsBulkCreateRequest = {
 };
 
 /**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const PostTaggingsBulkCreateCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type PostTaggingsBulkCreateCode = ClosedEnum<
+  typeof PostTaggingsBulkCreateCode
+>;
+
+/**
  * The status of the background job that's been queued for the request.
  */
 export const PostTaggingsBulkCreateStatus = {
@@ -48,6 +64,10 @@ export type PostTaggingsBulkCreateBackgroundJobStatus = {
    */
   id: number;
   /**
+   * The unguessable hashed ID of the background job. Prefer this over the numeric ID when polling for status.
+   */
+  hashedId: string;
+  /**
    * The status of the background job that's been queued for the request.
    */
   status: PostTaggingsBulkCreateStatus;
@@ -60,14 +80,8 @@ export type PostTaggingsBulkCreateResponse = {
   /**
    * A confirmation message that the background job has been queued.
    */
-  message?: string | undefined;
-  /**
-   * A background job keeps track of the progress of an asynchronous task, e.g
-   *
-   * @remarks
-   * bulk archiving media, translating media, etc.
-   */
-  backgroundJobStatus?: PostTaggingsBulkCreateBackgroundJobStatus | undefined;
+  message: string;
+  backgroundJobStatus: PostTaggingsBulkCreateBackgroundJobStatus;
 };
 
 /** @internal */
@@ -102,6 +116,11 @@ export function postTaggingsBulkCreateRequestToJSON(
 }
 
 /** @internal */
+export const PostTaggingsBulkCreateCode$inboundSchema: z.ZodNativeEnum<
+  typeof PostTaggingsBulkCreateCode
+> = z.nativeEnum(PostTaggingsBulkCreateCode);
+
+/** @internal */
 export const PostTaggingsBulkCreateStatus$inboundSchema: z.ZodNativeEnum<
   typeof PostTaggingsBulkCreateStatus
 > = z.nativeEnum(PostTaggingsBulkCreateStatus);
@@ -113,7 +132,12 @@ export const PostTaggingsBulkCreateBackgroundJobStatus$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.number().int(),
+  hashed_id: z.string(),
   status: PostTaggingsBulkCreateStatus$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "hashed_id": "hashedId",
+  });
 });
 
 export function postTaggingsBulkCreateBackgroundJobStatusFromJSON(
@@ -138,10 +162,10 @@ export const PostTaggingsBulkCreateResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  message: z.string().optional(),
+  message: z.string(),
   background_job_status: z.lazy(() =>
     PostTaggingsBulkCreateBackgroundJobStatus$inboundSchema
-  ).optional(),
+  ),
 }).transform((v) => {
   return remap$(v, {
     "background_job_status": "backgroundJobStatus",

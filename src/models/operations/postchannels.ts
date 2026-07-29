@@ -10,24 +10,24 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
- * The format for episodes for the podcast channel. This parameter only takes effect if podcasting is enabled for the channel.
+ * The format for episodes for the podcast channel.
  */
-export const PostChannelsEpisodeFormat = {
+export const PostChannelsEpisodeFormatRequest = {
   Episodic: "episodic",
   EpisodicWithSeasons: "episodic_with_seasons",
   Serial: "serial",
 } as const;
 /**
- * The format for episodes for the podcast channel. This parameter only takes effect if podcasting is enabled for the channel.
+ * The format for episodes for the podcast channel.
  */
-export type PostChannelsEpisodeFormat = ClosedEnum<
-  typeof PostChannelsEpisodeFormat
+export type PostChannelsEpisodeFormatRequest = ClosedEnum<
+  typeof PostChannelsEpisodeFormatRequest
 >;
 
 /**
- * The primary category for the channel. This parameter only takes effect if podcasting is enabled for the channel.
+ * The primary category for the channel.
  */
-export const PostChannelsCategory1 = {
+export const PostChannelsCategory1Request = {
   ArtsGreaterThanBooks: "arts > books",
   ArtsGreaterThanDesign: "arts > design",
   ArtsGreaterThanFashionAndBeauty: "arts > fashion_and_beauty",
@@ -132,14 +132,16 @@ export const PostChannelsCategory1 = {
   TvAndFilmGreaterThanTvReviews: "tv_and_film > tv_reviews",
 } as const;
 /**
- * The primary category for the channel. This parameter only takes effect if podcasting is enabled for the channel.
+ * The primary category for the channel.
  */
-export type PostChannelsCategory1 = ClosedEnum<typeof PostChannelsCategory1>;
+export type PostChannelsCategory1Request = ClosedEnum<
+  typeof PostChannelsCategory1Request
+>;
 
 /**
- * The secondary category for the channel. This parameter only takes effect if podcasting is enabled for the channel.
+ * The secondary category for the channel.
  */
-export const PostChannelsCategory2 = {
+export const PostChannelsCategory2Request = {
   ArtsGreaterThanBooks: "arts > books",
   ArtsGreaterThanDesign: "arts > design",
   ArtsGreaterThanFashionAndBeauty: "arts > fashion_and_beauty",
@@ -244,14 +246,16 @@ export const PostChannelsCategory2 = {
   TvAndFilmGreaterThanTvReviews: "tv_and_film > tv_reviews",
 } as const;
 /**
- * The secondary category for the channel. This parameter only takes effect if podcasting is enabled for the channel.
+ * The secondary category for the channel.
  */
-export type PostChannelsCategory2 = ClosedEnum<typeof PostChannelsCategory2>;
+export type PostChannelsCategory2Request = ClosedEnum<
+  typeof PostChannelsCategory2Request
+>;
 
 /**
- * The third category for the channel. This parameter only takes effect if podcasting is enabled for the channel.
+ * The third category for the channel.
  */
-export const PostChannelsCategory3 = {
+export const PostChannelsCategory3Request = {
   ArtsGreaterThanBooks: "arts > books",
   ArtsGreaterThanDesign: "arts > design",
   ArtsGreaterThanFashionAndBeauty: "arts > fashion_and_beauty",
@@ -356,14 +360,16 @@ export const PostChannelsCategory3 = {
   TvAndFilmGreaterThanTvReviews: "tv_and_film > tv_reviews",
 } as const;
 /**
- * The third category for the channel. This parameter only takes effect if podcasting is enabled for the channel.
+ * The third category for the channel.
  */
-export type PostChannelsCategory3 = ClosedEnum<typeof PostChannelsCategory3>;
+export type PostChannelsCategory3Request = ClosedEnum<
+  typeof PostChannelsCategory3Request
+>;
 
 /**
- * The ISO 639-1 language code for the channel. This parameter only takes effect if podcasting is enabled for the channel.
+ * The ISO 639-1 language code for the channel.
  */
-export const PostChannelsLanguage = {
+export const PostChannelsLanguageRequest = {
   Af: "af",
   Be: "be",
   Bg: "bg",
@@ -462,9 +468,60 @@ export const PostChannelsLanguage = {
   ZhTw: "zh-tw",
 } as const;
 /**
- * The ISO 639-1 language code for the channel. This parameter only takes effect if podcasting is enabled for the channel.
+ * The ISO 639-1 language code for the channel.
  */
-export type PostChannelsLanguage = ClosedEnum<typeof PostChannelsLanguage>;
+export type PostChannelsLanguageRequest = ClosedEnum<
+  typeof PostChannelsLanguageRequest
+>;
+
+/**
+ * Podcast specific settings for a channel. These settings only take effect if
+ *
+ * @remarks
+ * podcasting is enabled for the channel.
+ */
+export type PostChannelsPodcastSettingsRequest = {
+  /**
+   * The channel's copyright information.
+   */
+  copyright?: string | null | undefined;
+  /**
+   * The format for episodes for the podcast channel.
+   */
+  episodeFormat?: PostChannelsEpisodeFormatRequest | null | undefined;
+  /**
+   * The name of the author(s) for the channel.
+   */
+  authorName?: string | null | undefined;
+  /**
+   * Whether the channel contains explicit content.
+   */
+  explicit?: boolean | null | undefined;
+  /**
+   * The name of the owner for the channel.
+   */
+  ownerName?: string | null | undefined;
+  /**
+   * The email of the owner for the channel.
+   */
+  ownerEmail?: string | null | undefined;
+  /**
+   * The primary category for the channel.
+   */
+  category1?: PostChannelsCategory1Request | null | undefined;
+  /**
+   * The secondary category for the channel.
+   */
+  category2?: PostChannelsCategory2Request | null | undefined;
+  /**
+   * The third category for the channel.
+   */
+  category3?: PostChannelsCategory3Request | null | undefined;
+  /**
+   * The ISO 639-1 language code for the channel.
+   */
+  language?: PostChannelsLanguageRequest | null | undefined;
+};
 
 export type PostChannelsRequest = {
   /**
@@ -488,45 +545,540 @@ export type PostChannelsRequest = {
    */
   customUrl?: string | null | undefined;
   /**
-   * The channel's copyright information. This parameter only takes effect if podcasting is enabled for the channel.
+   * Podcast specific settings for a channel. These settings only take effect if
+   *
+   * @remarks
+   * podcasting is enabled for the channel.
+   */
+  podcastSettings?: PostChannelsPodcastSettingsRequest | undefined;
+};
+
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const PostChannelsCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type PostChannelsCode = ClosedEnum<typeof PostChannelsCode>;
+
+/**
+ * The format for episodes for the podcast channel.
+ */
+export const PostChannelsEpisodeFormatResponse = {
+  Episodic: "episodic",
+  EpisodicWithSeasons: "episodic_with_seasons",
+  Serial: "serial",
+} as const;
+/**
+ * The format for episodes for the podcast channel.
+ */
+export type PostChannelsEpisodeFormatResponse = ClosedEnum<
+  typeof PostChannelsEpisodeFormatResponse
+>;
+
+/**
+ * The primary category for the channel.
+ */
+export const PostChannelsCategory1Response = {
+  ArtsGreaterThanBooks: "arts > books",
+  ArtsGreaterThanDesign: "arts > design",
+  ArtsGreaterThanFashionAndBeauty: "arts > fashion_and_beauty",
+  ArtsGreaterThanFood: "arts > food",
+  ArtsGreaterThanPerformingArts: "arts > performing_arts",
+  ArtsGreaterThanVisualArts: "arts > visual_arts",
+  BusinessGreaterThanCareers: "business > careers",
+  BusinessGreaterThanEntrepreneurship: "business > entrepreneurship",
+  BusinessGreaterThanInvesting: "business > investing",
+  BusinessGreaterThanManagement: "business > management",
+  BusinessGreaterThanMarketing: "business > marketing",
+  BusinessGreaterThanNonProfit: "business > non_profit",
+  ComedyGreaterThanComedyInterviews: "comedy > comedy_interviews",
+  ComedyGreaterThanImprov: "comedy > improv",
+  ComedyGreaterThanStandUp: "comedy > stand_up",
+  EducationGreaterThanCourses: "education > courses",
+  EducationGreaterThanHowTo: "education > how_to",
+  EducationGreaterThanLanguageLearning: "education > language_learning",
+  EducationGreaterThanSelfImprovement: "education > self_improvement",
+  FictionGreaterThanComedyFiction: "fiction > comedy_fiction",
+  FictionGreaterThanDrama: "fiction > drama",
+  FictionGreaterThanScienceFiction: "fiction > science_fiction",
+  HealthAndFitnessGreaterThanAlternativeHealth:
+    "health_and_fitness > alternative_health",
+  HealthAndFitnessGreaterThanFitness: "health_and_fitness > fitness",
+  HealthAndFitnessGreaterThanMedicine: "health_and_fitness > medicine",
+  HealthAndFitnessGreaterThanMentalHealth: "health_and_fitness > mental_health",
+  HealthAndFitnessGreaterThanNutrition: "health_and_fitness > nutrition",
+  HealthAndFitnessGreaterThanSexuality: "health_and_fitness > sexuality",
+  KidsAndFamilyGreaterThanEducationForKids:
+    "kids_and_family > education_for_kids",
+  KidsAndFamilyGreaterThanParenting: "kids_and_family > parenting",
+  KidsAndFamilyGreaterThanPetsAndAnimals: "kids_and_family > pets_and_animals",
+  KidsAndFamilyGreaterThanStoriesForKids: "kids_and_family > stories_for_kids",
+  LeisureGreaterThanAnimationAndManga: "leisure > animation_and_manga",
+  LeisureGreaterThanAutomotive: "leisure > automotive",
+  LeisureGreaterThanAviation: "leisure > aviation",
+  LeisureGreaterThanCrafts: "leisure > crafts",
+  LeisureGreaterThanGames: "leisure > games",
+  LeisureGreaterThanHobbies: "leisure > hobbies",
+  LeisureGreaterThanHomeAndGarden: "leisure > home_and_garden",
+  LeisureGreaterThanVideoGames: "leisure > video_games",
+  MusicGreaterThanMusicCommentary: "music > music_commentary",
+  MusicGreaterThanMusicHistory: "music > music_history",
+  MusicGreaterThanMusicInterviews: "music > music_interviews",
+  NewsGreaterThanBusinessNews: "news > business_news",
+  NewsGreaterThanDailyNews: "news > daily_news",
+  NewsGreaterThanEntertainmentNews: "news > entertainment_news",
+  NewsGreaterThanNewsCommentary: "news > news_commentary",
+  NewsGreaterThanPolitics: "news > politics",
+  NewsGreaterThanSportsNews: "news > sports_news",
+  NewsGreaterThanTechNews: "news > tech_news",
+  ReligionAndSpiritualityGreaterThanBuddhism:
+    "religion_and_spirituality > buddhism",
+  ReligionAndSpiritualityGreaterThanChristianity:
+    "religion_and_spirituality > christianity",
+  ReligionAndSpiritualityGreaterThanHinduism:
+    "religion_and_spirituality > hinduism",
+  ReligionAndSpiritualityGreaterThanIslam: "religion_and_spirituality > islam",
+  ReligionAndSpiritualityGreaterThanJudaism:
+    "religion_and_spirituality > judaism",
+  ReligionAndSpiritualityGreaterThanReligion:
+    "religion_and_spirituality > religion",
+  ReligionAndSpiritualityGreaterThanSpirituality:
+    "religion_and_spirituality > spirituality",
+  ScienceGreaterThanAstronomy: "science > astronomy",
+  ScienceGreaterThanChemistry: "science > chemistry",
+  ScienceGreaterThanEarthSciences: "science > earth_sciences",
+  ScienceGreaterThanLifeSciences: "science > life_sciences",
+  ScienceGreaterThanMathematics: "science > mathematics",
+  ScienceGreaterThanNaturalSciences: "science > natural_sciences",
+  ScienceGreaterThanNature: "science > nature",
+  ScienceGreaterThanPhysics: "science > physics",
+  ScienceGreaterThanSocialSciences: "science > social_sciences",
+  SocietyAndCultureGreaterThanDocumentary: "society_and_culture > documentary",
+  SocietyAndCultureGreaterThanPersonalJournals:
+    "society_and_culture > personal_journals",
+  SocietyAndCultureGreaterThanPhilosophy: "society_and_culture > philosophy",
+  SocietyAndCultureGreaterThanPlacesAndTravel:
+    "society_and_culture > places_and_travel",
+  SocietyAndCultureGreaterThanRelationships:
+    "society_and_culture > relationships",
+  SportsGreaterThanBaseball: "sports > baseball",
+  SportsGreaterThanBasketball: "sports > basketball",
+  SportsGreaterThanCricket: "sports > cricket",
+  SportsGreaterThanFantasySports: "sports > fantasy_sports",
+  SportsGreaterThanFootball: "sports > football",
+  SportsGreaterThanGolf: "sports > golf",
+  SportsGreaterThanHockey: "sports > hockey",
+  SportsGreaterThanRugby: "sports > rugby",
+  SportsGreaterThanRunning: "sports > running",
+  SportsGreaterThanSoccer: "sports > soccer",
+  SportsGreaterThanSwimming: "sports > swimming",
+  SportsGreaterThanTennis: "sports > tennis",
+  SportsGreaterThanVolleyball: "sports > volleyball",
+  SportsGreaterThanWilderness: "sports > wilderness",
+  SportsGreaterThanWrestling: "sports > wrestling",
+  TvAndFilmGreaterThanAfterShows: "tv_and_film > after_shows",
+  TvAndFilmGreaterThanFilmHistory: "tv_and_film > film_history",
+  TvAndFilmGreaterThanFilmInterviews: "tv_and_film > film_interviews",
+  TvAndFilmGreaterThanFilmReviews: "tv_and_film > film_reviews",
+  TvAndFilmGreaterThanTvReviews: "tv_and_film > tv_reviews",
+} as const;
+/**
+ * The primary category for the channel.
+ */
+export type PostChannelsCategory1Response = ClosedEnum<
+  typeof PostChannelsCategory1Response
+>;
+
+/**
+ * The secondary category for the channel.
+ */
+export const PostChannelsCategory2Response = {
+  ArtsGreaterThanBooks: "arts > books",
+  ArtsGreaterThanDesign: "arts > design",
+  ArtsGreaterThanFashionAndBeauty: "arts > fashion_and_beauty",
+  ArtsGreaterThanFood: "arts > food",
+  ArtsGreaterThanPerformingArts: "arts > performing_arts",
+  ArtsGreaterThanVisualArts: "arts > visual_arts",
+  BusinessGreaterThanCareers: "business > careers",
+  BusinessGreaterThanEntrepreneurship: "business > entrepreneurship",
+  BusinessGreaterThanInvesting: "business > investing",
+  BusinessGreaterThanManagement: "business > management",
+  BusinessGreaterThanMarketing: "business > marketing",
+  BusinessGreaterThanNonProfit: "business > non_profit",
+  ComedyGreaterThanComedyInterviews: "comedy > comedy_interviews",
+  ComedyGreaterThanImprov: "comedy > improv",
+  ComedyGreaterThanStandUp: "comedy > stand_up",
+  EducationGreaterThanCourses: "education > courses",
+  EducationGreaterThanHowTo: "education > how_to",
+  EducationGreaterThanLanguageLearning: "education > language_learning",
+  EducationGreaterThanSelfImprovement: "education > self_improvement",
+  FictionGreaterThanComedyFiction: "fiction > comedy_fiction",
+  FictionGreaterThanDrama: "fiction > drama",
+  FictionGreaterThanScienceFiction: "fiction > science_fiction",
+  HealthAndFitnessGreaterThanAlternativeHealth:
+    "health_and_fitness > alternative_health",
+  HealthAndFitnessGreaterThanFitness: "health_and_fitness > fitness",
+  HealthAndFitnessGreaterThanMedicine: "health_and_fitness > medicine",
+  HealthAndFitnessGreaterThanMentalHealth: "health_and_fitness > mental_health",
+  HealthAndFitnessGreaterThanNutrition: "health_and_fitness > nutrition",
+  HealthAndFitnessGreaterThanSexuality: "health_and_fitness > sexuality",
+  KidsAndFamilyGreaterThanEducationForKids:
+    "kids_and_family > education_for_kids",
+  KidsAndFamilyGreaterThanParenting: "kids_and_family > parenting",
+  KidsAndFamilyGreaterThanPetsAndAnimals: "kids_and_family > pets_and_animals",
+  KidsAndFamilyGreaterThanStoriesForKids: "kids_and_family > stories_for_kids",
+  LeisureGreaterThanAnimationAndManga: "leisure > animation_and_manga",
+  LeisureGreaterThanAutomotive: "leisure > automotive",
+  LeisureGreaterThanAviation: "leisure > aviation",
+  LeisureGreaterThanCrafts: "leisure > crafts",
+  LeisureGreaterThanGames: "leisure > games",
+  LeisureGreaterThanHobbies: "leisure > hobbies",
+  LeisureGreaterThanHomeAndGarden: "leisure > home_and_garden",
+  LeisureGreaterThanVideoGames: "leisure > video_games",
+  MusicGreaterThanMusicCommentary: "music > music_commentary",
+  MusicGreaterThanMusicHistory: "music > music_history",
+  MusicGreaterThanMusicInterviews: "music > music_interviews",
+  NewsGreaterThanBusinessNews: "news > business_news",
+  NewsGreaterThanDailyNews: "news > daily_news",
+  NewsGreaterThanEntertainmentNews: "news > entertainment_news",
+  NewsGreaterThanNewsCommentary: "news > news_commentary",
+  NewsGreaterThanPolitics: "news > politics",
+  NewsGreaterThanSportsNews: "news > sports_news",
+  NewsGreaterThanTechNews: "news > tech_news",
+  ReligionAndSpiritualityGreaterThanBuddhism:
+    "religion_and_spirituality > buddhism",
+  ReligionAndSpiritualityGreaterThanChristianity:
+    "religion_and_spirituality > christianity",
+  ReligionAndSpiritualityGreaterThanHinduism:
+    "religion_and_spirituality > hinduism",
+  ReligionAndSpiritualityGreaterThanIslam: "religion_and_spirituality > islam",
+  ReligionAndSpiritualityGreaterThanJudaism:
+    "religion_and_spirituality > judaism",
+  ReligionAndSpiritualityGreaterThanReligion:
+    "religion_and_spirituality > religion",
+  ReligionAndSpiritualityGreaterThanSpirituality:
+    "religion_and_spirituality > spirituality",
+  ScienceGreaterThanAstronomy: "science > astronomy",
+  ScienceGreaterThanChemistry: "science > chemistry",
+  ScienceGreaterThanEarthSciences: "science > earth_sciences",
+  ScienceGreaterThanLifeSciences: "science > life_sciences",
+  ScienceGreaterThanMathematics: "science > mathematics",
+  ScienceGreaterThanNaturalSciences: "science > natural_sciences",
+  ScienceGreaterThanNature: "science > nature",
+  ScienceGreaterThanPhysics: "science > physics",
+  ScienceGreaterThanSocialSciences: "science > social_sciences",
+  SocietyAndCultureGreaterThanDocumentary: "society_and_culture > documentary",
+  SocietyAndCultureGreaterThanPersonalJournals:
+    "society_and_culture > personal_journals",
+  SocietyAndCultureGreaterThanPhilosophy: "society_and_culture > philosophy",
+  SocietyAndCultureGreaterThanPlacesAndTravel:
+    "society_and_culture > places_and_travel",
+  SocietyAndCultureGreaterThanRelationships:
+    "society_and_culture > relationships",
+  SportsGreaterThanBaseball: "sports > baseball",
+  SportsGreaterThanBasketball: "sports > basketball",
+  SportsGreaterThanCricket: "sports > cricket",
+  SportsGreaterThanFantasySports: "sports > fantasy_sports",
+  SportsGreaterThanFootball: "sports > football",
+  SportsGreaterThanGolf: "sports > golf",
+  SportsGreaterThanHockey: "sports > hockey",
+  SportsGreaterThanRugby: "sports > rugby",
+  SportsGreaterThanRunning: "sports > running",
+  SportsGreaterThanSoccer: "sports > soccer",
+  SportsGreaterThanSwimming: "sports > swimming",
+  SportsGreaterThanTennis: "sports > tennis",
+  SportsGreaterThanVolleyball: "sports > volleyball",
+  SportsGreaterThanWilderness: "sports > wilderness",
+  SportsGreaterThanWrestling: "sports > wrestling",
+  TvAndFilmGreaterThanAfterShows: "tv_and_film > after_shows",
+  TvAndFilmGreaterThanFilmHistory: "tv_and_film > film_history",
+  TvAndFilmGreaterThanFilmInterviews: "tv_and_film > film_interviews",
+  TvAndFilmGreaterThanFilmReviews: "tv_and_film > film_reviews",
+  TvAndFilmGreaterThanTvReviews: "tv_and_film > tv_reviews",
+} as const;
+/**
+ * The secondary category for the channel.
+ */
+export type PostChannelsCategory2Response = ClosedEnum<
+  typeof PostChannelsCategory2Response
+>;
+
+/**
+ * The third category for the channel.
+ */
+export const PostChannelsCategory3Response = {
+  ArtsGreaterThanBooks: "arts > books",
+  ArtsGreaterThanDesign: "arts > design",
+  ArtsGreaterThanFashionAndBeauty: "arts > fashion_and_beauty",
+  ArtsGreaterThanFood: "arts > food",
+  ArtsGreaterThanPerformingArts: "arts > performing_arts",
+  ArtsGreaterThanVisualArts: "arts > visual_arts",
+  BusinessGreaterThanCareers: "business > careers",
+  BusinessGreaterThanEntrepreneurship: "business > entrepreneurship",
+  BusinessGreaterThanInvesting: "business > investing",
+  BusinessGreaterThanManagement: "business > management",
+  BusinessGreaterThanMarketing: "business > marketing",
+  BusinessGreaterThanNonProfit: "business > non_profit",
+  ComedyGreaterThanComedyInterviews: "comedy > comedy_interviews",
+  ComedyGreaterThanImprov: "comedy > improv",
+  ComedyGreaterThanStandUp: "comedy > stand_up",
+  EducationGreaterThanCourses: "education > courses",
+  EducationGreaterThanHowTo: "education > how_to",
+  EducationGreaterThanLanguageLearning: "education > language_learning",
+  EducationGreaterThanSelfImprovement: "education > self_improvement",
+  FictionGreaterThanComedyFiction: "fiction > comedy_fiction",
+  FictionGreaterThanDrama: "fiction > drama",
+  FictionGreaterThanScienceFiction: "fiction > science_fiction",
+  HealthAndFitnessGreaterThanAlternativeHealth:
+    "health_and_fitness > alternative_health",
+  HealthAndFitnessGreaterThanFitness: "health_and_fitness > fitness",
+  HealthAndFitnessGreaterThanMedicine: "health_and_fitness > medicine",
+  HealthAndFitnessGreaterThanMentalHealth: "health_and_fitness > mental_health",
+  HealthAndFitnessGreaterThanNutrition: "health_and_fitness > nutrition",
+  HealthAndFitnessGreaterThanSexuality: "health_and_fitness > sexuality",
+  KidsAndFamilyGreaterThanEducationForKids:
+    "kids_and_family > education_for_kids",
+  KidsAndFamilyGreaterThanParenting: "kids_and_family > parenting",
+  KidsAndFamilyGreaterThanPetsAndAnimals: "kids_and_family > pets_and_animals",
+  KidsAndFamilyGreaterThanStoriesForKids: "kids_and_family > stories_for_kids",
+  LeisureGreaterThanAnimationAndManga: "leisure > animation_and_manga",
+  LeisureGreaterThanAutomotive: "leisure > automotive",
+  LeisureGreaterThanAviation: "leisure > aviation",
+  LeisureGreaterThanCrafts: "leisure > crafts",
+  LeisureGreaterThanGames: "leisure > games",
+  LeisureGreaterThanHobbies: "leisure > hobbies",
+  LeisureGreaterThanHomeAndGarden: "leisure > home_and_garden",
+  LeisureGreaterThanVideoGames: "leisure > video_games",
+  MusicGreaterThanMusicCommentary: "music > music_commentary",
+  MusicGreaterThanMusicHistory: "music > music_history",
+  MusicGreaterThanMusicInterviews: "music > music_interviews",
+  NewsGreaterThanBusinessNews: "news > business_news",
+  NewsGreaterThanDailyNews: "news > daily_news",
+  NewsGreaterThanEntertainmentNews: "news > entertainment_news",
+  NewsGreaterThanNewsCommentary: "news > news_commentary",
+  NewsGreaterThanPolitics: "news > politics",
+  NewsGreaterThanSportsNews: "news > sports_news",
+  NewsGreaterThanTechNews: "news > tech_news",
+  ReligionAndSpiritualityGreaterThanBuddhism:
+    "religion_and_spirituality > buddhism",
+  ReligionAndSpiritualityGreaterThanChristianity:
+    "religion_and_spirituality > christianity",
+  ReligionAndSpiritualityGreaterThanHinduism:
+    "religion_and_spirituality > hinduism",
+  ReligionAndSpiritualityGreaterThanIslam: "religion_and_spirituality > islam",
+  ReligionAndSpiritualityGreaterThanJudaism:
+    "religion_and_spirituality > judaism",
+  ReligionAndSpiritualityGreaterThanReligion:
+    "religion_and_spirituality > religion",
+  ReligionAndSpiritualityGreaterThanSpirituality:
+    "religion_and_spirituality > spirituality",
+  ScienceGreaterThanAstronomy: "science > astronomy",
+  ScienceGreaterThanChemistry: "science > chemistry",
+  ScienceGreaterThanEarthSciences: "science > earth_sciences",
+  ScienceGreaterThanLifeSciences: "science > life_sciences",
+  ScienceGreaterThanMathematics: "science > mathematics",
+  ScienceGreaterThanNaturalSciences: "science > natural_sciences",
+  ScienceGreaterThanNature: "science > nature",
+  ScienceGreaterThanPhysics: "science > physics",
+  ScienceGreaterThanSocialSciences: "science > social_sciences",
+  SocietyAndCultureGreaterThanDocumentary: "society_and_culture > documentary",
+  SocietyAndCultureGreaterThanPersonalJournals:
+    "society_and_culture > personal_journals",
+  SocietyAndCultureGreaterThanPhilosophy: "society_and_culture > philosophy",
+  SocietyAndCultureGreaterThanPlacesAndTravel:
+    "society_and_culture > places_and_travel",
+  SocietyAndCultureGreaterThanRelationships:
+    "society_and_culture > relationships",
+  SportsGreaterThanBaseball: "sports > baseball",
+  SportsGreaterThanBasketball: "sports > basketball",
+  SportsGreaterThanCricket: "sports > cricket",
+  SportsGreaterThanFantasySports: "sports > fantasy_sports",
+  SportsGreaterThanFootball: "sports > football",
+  SportsGreaterThanGolf: "sports > golf",
+  SportsGreaterThanHockey: "sports > hockey",
+  SportsGreaterThanRugby: "sports > rugby",
+  SportsGreaterThanRunning: "sports > running",
+  SportsGreaterThanSoccer: "sports > soccer",
+  SportsGreaterThanSwimming: "sports > swimming",
+  SportsGreaterThanTennis: "sports > tennis",
+  SportsGreaterThanVolleyball: "sports > volleyball",
+  SportsGreaterThanWilderness: "sports > wilderness",
+  SportsGreaterThanWrestling: "sports > wrestling",
+  TvAndFilmGreaterThanAfterShows: "tv_and_film > after_shows",
+  TvAndFilmGreaterThanFilmHistory: "tv_and_film > film_history",
+  TvAndFilmGreaterThanFilmInterviews: "tv_and_film > film_interviews",
+  TvAndFilmGreaterThanFilmReviews: "tv_and_film > film_reviews",
+  TvAndFilmGreaterThanTvReviews: "tv_and_film > tv_reviews",
+} as const;
+/**
+ * The third category for the channel.
+ */
+export type PostChannelsCategory3Response = ClosedEnum<
+  typeof PostChannelsCategory3Response
+>;
+
+/**
+ * The ISO 639-1 language code for the channel.
+ */
+export const PostChannelsLanguageResponse = {
+  Af: "af",
+  Be: "be",
+  Bg: "bg",
+  Ca: "ca",
+  Cs: "cs",
+  Da: "da",
+  DeAt: "de-at",
+  DeCh: "de-ch",
+  DeDe: "de-de",
+  DeLi: "de-li",
+  DeLu: "de-lu",
+  De: "de",
+  El: "el",
+  EnAu: "en-au",
+  EnBz: "en-bz",
+  EnCa: "en-ca",
+  EnGb: "en-gb",
+  EnIe: "en-ie",
+  EnJm: "en-jm",
+  EnNz: "en-nz",
+  EnPh: "en-ph",
+  EnTt: "en-tt",
+  EnUs: "en-us",
+  EnZa: "en-za",
+  EnZw: "en-zw",
+  En: "en",
+  EsAr: "es-ar",
+  EsBo: "es-bo",
+  EsCl: "es-cl",
+  EsCo: "es-co",
+  EsCr: "es-cr",
+  EsDo: "es-do",
+  EsEc: "es-ec",
+  EsEs: "es-es",
+  EsGt: "es-gt",
+  EsHn: "es-hn",
+  EsMx: "es-mx",
+  EsNi: "es-ni",
+  EsPa: "es-pa",
+  EsPe: "es-pe",
+  EsPr: "es-pr",
+  EsPy: "es-py",
+  EsSv: "es-sv",
+  EsUy: "es-uy",
+  EsVe: "es-ve",
+  Es: "es",
+  Et: "et",
+  Eu: "eu",
+  Fi: "fi",
+  Fo: "fo",
+  FrBe: "fr-be",
+  FrCa: "fr-ca",
+  FrCh: "fr-ch",
+  FrFr: "fr-fr",
+  FrLu: "fr-lu",
+  FrMc: "fr-mc",
+  Fr: "fr",
+  Ga: "ga",
+  Gd: "gd",
+  Gl: "gl",
+  Haw: "haw",
+  Hr: "hr",
+  Hu: "hu",
+  In: "in",
+  Is: "is",
+  ItCh: "it-ch",
+  ItIt: "it-it",
+  It: "it",
+  Ja: "ja",
+  Ko: "ko",
+  Mk: "mk",
+  NlBe: "nl-be",
+  NlNl: "nl-nl",
+  Nl: "nl",
+  No: "no",
+  Pl: "pl",
+  PtBr: "pt-br",
+  PtPt: "pt-pt",
+  Pt: "pt",
+  RoMo: "ro-mo",
+  RoRo: "ro-ro",
+  Ro: "ro",
+  RuMo: "ru-mo",
+  RuRu: "ru-ru",
+  Ru: "ru",
+  Sk: "sk",
+  Sl: "sl",
+  Sq: "sq",
+  Sr: "sr",
+  SvFi: "sv-fi",
+  SvSe: "sv-se",
+  Sv: "sv",
+  Tr: "tr",
+  Uk: "uk",
+  ZhCn: "zh-cn",
+  ZhTw: "zh-tw",
+} as const;
+/**
+ * The ISO 639-1 language code for the channel.
+ */
+export type PostChannelsLanguageResponse = ClosedEnum<
+  typeof PostChannelsLanguageResponse
+>;
+
+/**
+ * Podcast specific settings for the channel. Only present when podcasting
+ *
+ * @remarks
+ * is enabled for the channel.
+ */
+export type PostChannelsPodcastSettingsResponse = {
+  /**
+   * The channel's copyright information.
    */
   copyright?: string | null | undefined;
   /**
-   * The format for episodes for the podcast channel. This parameter only takes effect if podcasting is enabled for the channel.
+   * The format for episodes for the podcast channel.
    */
-  episodeFormat?: PostChannelsEpisodeFormat | null | undefined;
+  episodeFormat?: PostChannelsEpisodeFormatResponse | null | undefined;
   /**
-   * The name of the author(s) for the channel. This parameter only takes effect if podcasting is enabled for the channel.
+   * The name of the author(s) for the channel.
    */
   authorName?: string | null | undefined;
   /**
-   * Whether the channel contains explicit content. This parameter only takes effect if podcasting is enabled for the channel.
+   * Whether the channel contains explicit content.
    */
   explicit?: boolean | null | undefined;
   /**
-   * The name of the owner for the channel. This parameter only takes effect if podcasting is enabled for the channel.
+   * The name of the owner for the channel.
    */
   ownerName?: string | null | undefined;
   /**
-   * The email of the owner for the channel. This parameter only takes effect if podcasting is enabled for the channel.
+   * The email of the owner for the channel.
    */
   ownerEmail?: string | null | undefined;
   /**
-   * The primary category for the channel. This parameter only takes effect if podcasting is enabled for the channel.
+   * The primary category for the channel.
    */
-  category1?: PostChannelsCategory1 | null | undefined;
+  category1?: PostChannelsCategory1Response | null | undefined;
   /**
-   * The secondary category for the channel. This parameter only takes effect if podcasting is enabled for the channel.
+   * The secondary category for the channel.
    */
-  category2?: PostChannelsCategory2 | null | undefined;
+  category2?: PostChannelsCategory2Response | null | undefined;
   /**
-   * The third category for the channel. This parameter only takes effect if podcasting is enabled for the channel.
+   * The third category for the channel.
    */
-  category3?: PostChannelsCategory3 | null | undefined;
+  category3?: PostChannelsCategory3Response | null | undefined;
   /**
-   * The ISO 639-1 language code for the channel. This parameter only takes effect if podcasting is enabled for the channel.
+   * The ISO 639-1 language code for the channel.
    */
-  language?: PostChannelsLanguage | null | undefined;
+  language?: PostChannelsLanguageResponse | null | undefined;
 };
 
 /**
@@ -557,6 +1109,10 @@ export type PostChannelsResponse = {
    */
   mediaCount: number;
   /**
+   * The number of live stream events in the channel.
+   */
+  liveStreamEventCount?: number | undefined;
+  /**
    * The display name for the channel
    */
   name: string;
@@ -565,43 +1121,57 @@ export type PostChannelsResponse = {
    */
   updated: Date;
   /**
+   * Whether episodes are automatically published when added to the channel.
+   */
+  autoPublishEnabled?: boolean | null | undefined;
+  /**
+   * Whether podcasting is enabled for the channel.
+   */
+  podcastEnabled?: boolean | null | undefined;
+  /**
+   * The custom URL used when embedding the channel on your own site. Null if no custom URL is set.
+   */
+  customUrl?: string | null | undefined;
+  /**
+   * Podcast specific settings for the channel. Only present when podcasting
+   *
+   * @remarks
+   * is enabled for the channel.
+   */
+  podcastSettings?: PostChannelsPodcastSettingsResponse | undefined;
+  /**
    * A cursor for stable pagination based on current `sort_by` order. You can pass this to `cursor[before]` or `cursor[after]` as a parameter to fetch the records before or after this record in the same sort order. This is only populated if records were fetched with `cursor[enabled]`, or `cursor[before]` or `cursor[after]`.
    */
   cursor?: string | null | undefined;
 };
 
 /** @internal */
-export const PostChannelsEpisodeFormat$outboundSchema: z.ZodNativeEnum<
-  typeof PostChannelsEpisodeFormat
-> = z.nativeEnum(PostChannelsEpisodeFormat);
+export const PostChannelsEpisodeFormatRequest$outboundSchema: z.ZodNativeEnum<
+  typeof PostChannelsEpisodeFormatRequest
+> = z.nativeEnum(PostChannelsEpisodeFormatRequest);
 
 /** @internal */
-export const PostChannelsCategory1$outboundSchema: z.ZodNativeEnum<
-  typeof PostChannelsCategory1
-> = z.nativeEnum(PostChannelsCategory1);
+export const PostChannelsCategory1Request$outboundSchema: z.ZodNativeEnum<
+  typeof PostChannelsCategory1Request
+> = z.nativeEnum(PostChannelsCategory1Request);
 
 /** @internal */
-export const PostChannelsCategory2$outboundSchema: z.ZodNativeEnum<
-  typeof PostChannelsCategory2
-> = z.nativeEnum(PostChannelsCategory2);
+export const PostChannelsCategory2Request$outboundSchema: z.ZodNativeEnum<
+  typeof PostChannelsCategory2Request
+> = z.nativeEnum(PostChannelsCategory2Request);
 
 /** @internal */
-export const PostChannelsCategory3$outboundSchema: z.ZodNativeEnum<
-  typeof PostChannelsCategory3
-> = z.nativeEnum(PostChannelsCategory3);
+export const PostChannelsCategory3Request$outboundSchema: z.ZodNativeEnum<
+  typeof PostChannelsCategory3Request
+> = z.nativeEnum(PostChannelsCategory3Request);
 
 /** @internal */
-export const PostChannelsLanguage$outboundSchema: z.ZodNativeEnum<
-  typeof PostChannelsLanguage
-> = z.nativeEnum(PostChannelsLanguage);
+export const PostChannelsLanguageRequest$outboundSchema: z.ZodNativeEnum<
+  typeof PostChannelsLanguageRequest
+> = z.nativeEnum(PostChannelsLanguageRequest);
 
 /** @internal */
-export type PostChannelsRequest$Outbound = {
-  name?: string | null | undefined;
-  description?: string | null | undefined;
-  auto_publish_enabled?: boolean | undefined;
-  podcast_enabled?: boolean | undefined;
-  custom_url?: string | null | undefined;
+export type PostChannelsPodcastSettingsRequest$Outbound = {
   copyright?: string | null | undefined;
   episode_format?: string | null | undefined;
   author_name?: string | null | undefined;
@@ -615,6 +1185,52 @@ export type PostChannelsRequest$Outbound = {
 };
 
 /** @internal */
+export const PostChannelsPodcastSettingsRequest$outboundSchema: z.ZodType<
+  PostChannelsPodcastSettingsRequest$Outbound,
+  z.ZodTypeDef,
+  PostChannelsPodcastSettingsRequest
+> = z.object({
+  copyright: z.nullable(z.string()).optional(),
+  episodeFormat: z.nullable(PostChannelsEpisodeFormatRequest$outboundSchema)
+    .optional(),
+  authorName: z.nullable(z.string()).optional(),
+  explicit: z.nullable(z.boolean()).optional(),
+  ownerName: z.nullable(z.string()).optional(),
+  ownerEmail: z.nullable(z.string()).optional(),
+  category1: z.nullable(PostChannelsCategory1Request$outboundSchema).optional(),
+  category2: z.nullable(PostChannelsCategory2Request$outboundSchema).optional(),
+  category3: z.nullable(PostChannelsCategory3Request$outboundSchema).optional(),
+  language: z.nullable(PostChannelsLanguageRequest$outboundSchema).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    episodeFormat: "episode_format",
+    authorName: "author_name",
+    ownerName: "owner_name",
+    ownerEmail: "owner_email",
+  });
+});
+
+export function postChannelsPodcastSettingsRequestToJSON(
+  postChannelsPodcastSettingsRequest: PostChannelsPodcastSettingsRequest,
+): string {
+  return JSON.stringify(
+    PostChannelsPodcastSettingsRequest$outboundSchema.parse(
+      postChannelsPodcastSettingsRequest,
+    ),
+  );
+}
+
+/** @internal */
+export type PostChannelsRequest$Outbound = {
+  name?: string | null | undefined;
+  description?: string | null | undefined;
+  auto_publish_enabled?: boolean | undefined;
+  podcast_enabled?: boolean | undefined;
+  custom_url?: string | null | undefined;
+  podcast_settings?: PostChannelsPodcastSettingsRequest$Outbound | undefined;
+};
+
+/** @internal */
 export const PostChannelsRequest$outboundSchema: z.ZodType<
   PostChannelsRequest$Outbound,
   z.ZodTypeDef,
@@ -625,26 +1241,15 @@ export const PostChannelsRequest$outboundSchema: z.ZodType<
   autoPublishEnabled: z.boolean().optional(),
   podcastEnabled: z.boolean().optional(),
   customUrl: z.nullable(z.string()).optional(),
-  copyright: z.nullable(z.string()).optional(),
-  episodeFormat: z.nullable(PostChannelsEpisodeFormat$outboundSchema)
-    .optional(),
-  authorName: z.nullable(z.string()).optional(),
-  explicit: z.nullable(z.boolean()).optional(),
-  ownerName: z.nullable(z.string()).optional(),
-  ownerEmail: z.nullable(z.string()).optional(),
-  category1: z.nullable(PostChannelsCategory1$outboundSchema).optional(),
-  category2: z.nullable(PostChannelsCategory2$outboundSchema).optional(),
-  category3: z.nullable(PostChannelsCategory3$outboundSchema).optional(),
-  language: z.nullable(PostChannelsLanguage$outboundSchema).optional(),
+  podcastSettings: z.lazy(() =>
+    PostChannelsPodcastSettingsRequest$outboundSchema
+  ).optional(),
 }).transform((v) => {
   return remap$(v, {
     autoPublishEnabled: "auto_publish_enabled",
     podcastEnabled: "podcast_enabled",
     customUrl: "custom_url",
-    episodeFormat: "episode_format",
-    authorName: "author_name",
-    ownerName: "owner_name",
-    ownerEmail: "owner_email",
+    podcastSettings: "podcast_settings",
   });
 });
 
@@ -653,6 +1258,73 @@ export function postChannelsRequestToJSON(
 ): string {
   return JSON.stringify(
     PostChannelsRequest$outboundSchema.parse(postChannelsRequest),
+  );
+}
+
+/** @internal */
+export const PostChannelsCode$inboundSchema: z.ZodNativeEnum<
+  typeof PostChannelsCode
+> = z.nativeEnum(PostChannelsCode);
+
+/** @internal */
+export const PostChannelsEpisodeFormatResponse$inboundSchema: z.ZodNativeEnum<
+  typeof PostChannelsEpisodeFormatResponse
+> = z.nativeEnum(PostChannelsEpisodeFormatResponse);
+
+/** @internal */
+export const PostChannelsCategory1Response$inboundSchema: z.ZodNativeEnum<
+  typeof PostChannelsCategory1Response
+> = z.nativeEnum(PostChannelsCategory1Response);
+
+/** @internal */
+export const PostChannelsCategory2Response$inboundSchema: z.ZodNativeEnum<
+  typeof PostChannelsCategory2Response
+> = z.nativeEnum(PostChannelsCategory2Response);
+
+/** @internal */
+export const PostChannelsCategory3Response$inboundSchema: z.ZodNativeEnum<
+  typeof PostChannelsCategory3Response
+> = z.nativeEnum(PostChannelsCategory3Response);
+
+/** @internal */
+export const PostChannelsLanguageResponse$inboundSchema: z.ZodNativeEnum<
+  typeof PostChannelsLanguageResponse
+> = z.nativeEnum(PostChannelsLanguageResponse);
+
+/** @internal */
+export const PostChannelsPodcastSettingsResponse$inboundSchema: z.ZodType<
+  PostChannelsPodcastSettingsResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  copyright: z.nullable(z.string()).optional(),
+  episode_format: z.nullable(PostChannelsEpisodeFormatResponse$inboundSchema)
+    .optional(),
+  author_name: z.nullable(z.string()).optional(),
+  explicit: z.nullable(z.boolean()).optional(),
+  owner_name: z.nullable(z.string()).optional(),
+  owner_email: z.nullable(z.string()).optional(),
+  category1: z.nullable(PostChannelsCategory1Response$inboundSchema).optional(),
+  category2: z.nullable(PostChannelsCategory2Response$inboundSchema).optional(),
+  category3: z.nullable(PostChannelsCategory3Response$inboundSchema).optional(),
+  language: z.nullable(PostChannelsLanguageResponse$inboundSchema).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "episode_format": "episodeFormat",
+    "author_name": "authorName",
+    "owner_name": "ownerName",
+    "owner_email": "ownerEmail",
+  });
+});
+
+export function postChannelsPodcastSettingsResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<PostChannelsPodcastSettingsResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      PostChannelsPodcastSettingsResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PostChannelsPodcastSettingsResponse' from JSON`,
   );
 }
 
@@ -667,13 +1339,25 @@ export const PostChannelsResponse$inboundSchema: z.ZodType<
   description: z.string(),
   hashed_id: z.string(),
   media_count: z.number().int(),
+  live_stream_event_count: z.number().int().optional(),
   name: z.string(),
   updated: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  auto_publish_enabled: z.nullable(z.boolean()).optional(),
+  podcast_enabled: z.nullable(z.boolean()).optional(),
+  custom_url: z.nullable(z.string()).optional(),
+  podcast_settings: z.lazy(() =>
+    PostChannelsPodcastSettingsResponse$inboundSchema
+  ).optional(),
   cursor: z.nullable(z.string()).optional(),
 }).transform((v) => {
   return remap$(v, {
     "hashed_id": "hashedId",
     "media_count": "mediaCount",
+    "live_stream_event_count": "liveStreamEventCount",
+    "auto_publish_enabled": "autoPublishEnabled",
+    "podcast_enabled": "podcastEnabled",
+    "custom_url": "customUrl",
+    "podcast_settings": "podcastSettings",
   });
 });
 

@@ -11,7 +11,7 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type PostMediasImportUrlRequest = {
   /**
-   * The URL of the media file to import.
+   * The publicly accessible URL of the media file to import.
    */
   url: string;
   /**
@@ -19,6 +19,22 @@ export type PostMediasImportUrlRequest = {
    */
   folderId?: string | undefined;
 };
+
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const PostMediasImportUrlCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type PostMediasImportUrlCode = ClosedEnum<
+  typeof PostMediasImportUrlCode
+>;
 
 /**
  * The status of the background job that's been queued for the request.
@@ -48,6 +64,10 @@ export type PostMediasImportUrlBackgroundJobStatus = {
    */
   id: number;
   /**
+   * The unguessable hashed ID of the background job. Prefer this over the numeric ID when polling for status.
+   */
+  hashedId: string;
+  /**
    * The status of the background job that's been queued for the request.
    */
   status: PostMediasImportUrlStatus;
@@ -57,14 +77,11 @@ export type PostMediasImportUrlBackgroundJobStatus = {
  * Successfully queued background job for URL import.
  */
 export type PostMediasImportUrlResponse = {
-  message?: string | undefined;
   /**
-   * A background job keeps track of the progress of an asynchronous task, e.g
-   *
-   * @remarks
-   * bulk archiving media, translating media, etc.
+   * A confirmation message that the background job has been queued.
    */
-  backgroundJobStatus?: PostMediasImportUrlBackgroundJobStatus | undefined;
+  message: string;
+  backgroundJobStatus: PostMediasImportUrlBackgroundJobStatus;
 };
 
 /** @internal */
@@ -96,6 +113,11 @@ export function postMediasImportUrlRequestToJSON(
 }
 
 /** @internal */
+export const PostMediasImportUrlCode$inboundSchema: z.ZodNativeEnum<
+  typeof PostMediasImportUrlCode
+> = z.nativeEnum(PostMediasImportUrlCode);
+
+/** @internal */
 export const PostMediasImportUrlStatus$inboundSchema: z.ZodNativeEnum<
   typeof PostMediasImportUrlStatus
 > = z.nativeEnum(PostMediasImportUrlStatus);
@@ -107,7 +129,12 @@ export const PostMediasImportUrlBackgroundJobStatus$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.number().int(),
+  hashed_id: z.string(),
   status: PostMediasImportUrlStatus$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "hashed_id": "hashedId",
+  });
 });
 
 export function postMediasImportUrlBackgroundJobStatusFromJSON(
@@ -127,10 +154,10 @@ export const PostMediasImportUrlResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  message: z.string().optional(),
+  message: z.string(),
   background_job_status: z.lazy(() =>
     PostMediasImportUrlBackgroundJobStatus$inboundSchema
-  ).optional(),
+  ),
 }).transform((v) => {
   return remap$(v, {
     "background_job_status": "backgroundJobStatus",

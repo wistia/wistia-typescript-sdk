@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
@@ -14,6 +15,22 @@ export type GetMediasMediaHashedIdCaptionsRequest = {
    */
   mediaHashedId: string;
 };
+
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const GetMediasMediaHashedIdCaptionsCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type GetMediasMediaHashedIdCaptionsCode = ClosedEnum<
+  typeof GetMediasMediaHashedIdCaptionsCode
+>;
 
 export type GetMediasMediaHashedIdCaptionsResponse = {
   /**
@@ -66,6 +83,11 @@ export function getMediasMediaHashedIdCaptionsRequestToJSON(
     ),
   );
 }
+
+/** @internal */
+export const GetMediasMediaHashedIdCaptionsCode$inboundSchema: z.ZodNativeEnum<
+  typeof GetMediasMediaHashedIdCaptionsCode
+> = z.nativeEnum(GetMediasMediaHashedIdCaptionsCode);
 
 /** @internal */
 export const GetMediasMediaHashedIdCaptionsResponse$inboundSchema: z.ZodType<

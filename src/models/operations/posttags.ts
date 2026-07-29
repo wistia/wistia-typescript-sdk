@@ -3,13 +3,29 @@
  */
 
 import * as z from "zod/v3";
+import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type PostTagsRequest = {
   name: string;
 };
+
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const PostTagsCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type PostTagsCode = ClosedEnum<typeof PostTagsCode>;
 
 /**
  * A tag is used to tag related media. You can then filter media
@@ -29,11 +45,11 @@ export type PostTagsResponse = {
   /**
    * The date that the tag was originally created.
    */
-  created?: Date | undefined;
+  createdAt?: Date | undefined;
   /**
    * The date that the tag was last updated.
    */
-  updated?: Date | undefined;
+  updatedAt?: Date | undefined;
   /**
    * A cursor for stable pagination based on current `sort_by` order. You can pass this to `cursor[before]` or `cursor[after]` as a parameter to fetch the records before or after this record in the same sort order. This is only populated if records were fetched with `cursor[enabled]`, or `cursor[before]` or `cursor[after]`.
    */
@@ -61,18 +77,28 @@ export function postTagsRequestToJSON(
 }
 
 /** @internal */
+export const PostTagsCode$inboundSchema: z.ZodNativeEnum<typeof PostTagsCode> =
+  z.nativeEnum(PostTagsCode);
+
+/** @internal */
 export const PostTagsResponse$inboundSchema: z.ZodType<
   PostTagsResponse,
   z.ZodTypeDef,
   unknown
 > = z.object({
   name: z.string().optional(),
-  taggingsCount: z.number().int().optional(),
-  created: z.string().datetime({ offset: true }).transform(v => new Date(v))
+  taggings_count: z.number().int().optional(),
+  created_at: z.string().datetime({ offset: true }).transform(v => new Date(v))
     .optional(),
-  updated: z.string().datetime({ offset: true }).transform(v => new Date(v))
+  updated_at: z.string().datetime({ offset: true }).transform(v => new Date(v))
     .optional(),
   cursor: z.nullable(z.string()).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "taggings_count": "taggingsCount",
+    "created_at": "createdAt",
+    "updated_at": "updatedAt",
+  });
 });
 
 export function postTagsResponseFromJSON(
