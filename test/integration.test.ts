@@ -931,7 +931,11 @@ describe('Wistia SDK Integration Tests', () => {
     });
 
     it('should list events stats', async () => {
+      assert.ok(testResources.media, 'Media should exist');
+      assert.ok(testResources.media.hashedId, 'Media should have a hashedId');
+
       const eventsStats = await wistia.statsEvents.list({
+        mediaId: testResources.media.hashedId,
         perPage: 10,
       });
 
@@ -952,7 +956,11 @@ describe('Wistia SDK Integration Tests', () => {
     });
 
     it('should get visitor stats by key', async () => {
+      assert.ok(testResources.media, 'Media should exist');
+      assert.ok(testResources.media.hashedId, 'Media should have a hashedId');
+
       const eventsStats = await wistia.statsEvents.list({
+        mediaId: testResources.media.hashedId,
         perPage: 1,
       });
       log('Events stats:', JSON.stringify(eventsStats, null, 2));
