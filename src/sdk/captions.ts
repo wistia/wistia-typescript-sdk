@@ -5,9 +5,10 @@
 import { captionsCreate } from "../funcs/captionsCreate.js";
 import { captionsCreateMultipart } from "../funcs/captionsCreateMultipart.js";
 import { captionsDelete } from "../funcs/captionsDelete.js";
+import { captionsEdit } from "../funcs/captionsEdit.js";
 import { captionsGet, GetAcceptEnum } from "../funcs/captionsGet.js";
-import { captionsGetCaptions } from "../funcs/captionsGetCaptions.js";
 import { captionsList } from "../funcs/captionsList.js";
+import { captionsListAll } from "../funcs/captionsListAll.js";
 import { captionsPurchase } from "../funcs/captionsPurchase.js";
 import { captionsUpdate } from "../funcs/captionsUpdate.js";
 import { captionsUpdateMultipart } from "../funcs/captionsUpdateMultipart.js";
@@ -96,11 +97,11 @@ export class Captions extends ClientSDK {
    * Read all folder and media data
    * ```
    */
-  async getCaptions(
+  async listAll(
     request?: operations.GetCaptionsRequest | undefined,
     options?: RequestOptions,
   ): Promise<Array<operations.GetCaptionsResponse>> {
-    return unwrapAsync(captionsGetCaptions(
+    return unwrapAsync(captionsListAll(
       this,
       request,
       options,
@@ -214,6 +215,32 @@ export class Captions extends ClientSDK {
     options?: RequestOptions,
   ): Promise<void> {
     return unwrapAsync(captionsDelete(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Edit Captions Text
+   *
+   * @remarks
+   * Applies targeted find-and-replace corrections to a media's transcript for
+   * the specified language, preserving the timings of unchanged words. The whole
+   * batch is applied atomically against a specific caption version, or nothing is.
+   *
+   * ## Requires api token with one of the following permissions
+   * ```
+   * Read, update & delete anything
+   * ```
+   */
+  async edit(
+    request: operations.PostMediasMediaHashedIdCaptionsLanguageCodeEditsRequest,
+    options?: RequestOptions,
+  ): Promise<
+    operations.PostMediasMediaHashedIdCaptionsLanguageCodeEditsResponse
+  > {
+    return unwrapAsync(captionsEdit(
       this,
       request,
       options,

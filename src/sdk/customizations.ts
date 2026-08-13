@@ -5,7 +5,27 @@
 import { customizationsCreate } from "../funcs/customizationsCreate.js";
 import { customizationsDelete } from "../funcs/customizationsDelete.js";
 import { customizationsGet } from "../funcs/customizationsGet.js";
+import { customizationsGetAccess } from "../funcs/customizationsGetAccess.js";
+import { customizationsGetAccessibility } from "../funcs/customizationsGetAccessibility.js";
+import { customizationsGetAppearance } from "../funcs/customizationsGetAppearance.js";
+import { customizationsGetChapters } from "../funcs/customizationsGetChapters.js";
+import { customizationsGetEngagement } from "../funcs/customizationsGetEngagement.js";
+import { customizationsGetLeadCapture } from "../funcs/customizationsGetLeadCapture.js";
+import { customizationsGetPlayback } from "../funcs/customizationsGetPlayback.js";
+import { customizationsGetRelatedMedia } from "../funcs/customizationsGetRelatedMedia.js";
+import { customizationsGetSharing } from "../funcs/customizationsGetSharing.js";
+import { customizationsGetThumbnail } from "../funcs/customizationsGetThumbnail.js";
 import { customizationsUpdate } from "../funcs/customizationsUpdate.js";
+import { customizationsUpdateAccess } from "../funcs/customizationsUpdateAccess.js";
+import { customizationsUpdateAccessibility } from "../funcs/customizationsUpdateAccessibility.js";
+import { customizationsUpdateAppearance } from "../funcs/customizationsUpdateAppearance.js";
+import { customizationsUpdateChapters } from "../funcs/customizationsUpdateChapters.js";
+import { customizationsUpdateEngagement } from "../funcs/customizationsUpdateEngagement.js";
+import { customizationsUpdateLeadCapture } from "../funcs/customizationsUpdateLeadCapture.js";
+import { customizationsUpdatePlayback } from "../funcs/customizationsUpdatePlayback.js";
+import { customizationsUpdateRelatedMedia } from "../funcs/customizationsUpdateRelatedMedia.js";
+import { customizationsUpdateSharing } from "../funcs/customizationsUpdateSharing.js";
+import { customizationsUpdateThumbnail } from "../funcs/customizationsUpdateThumbnail.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
@@ -93,6 +113,477 @@ export class Customizations extends ClientSDK {
     options?: RequestOptions,
   ): Promise<void> {
     return unwrapAsync(customizationsDelete(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Show Appearance Customizations
+   *
+   * @remarks
+   * Fetches the explicitly-set appearance customizations (player color, gradient,
+   * rounded corners, control contrast, and customer logo) for the video.
+   *
+   * ## Requires api token with one of the following permissions
+   * ```
+   * Read all folder and media data
+   * ```
+   */
+  async getAppearance(
+    request: operations.GetMediasMediaIdCustomizationsAppearanceRequest,
+    options?: RequestOptions,
+  ): Promise<operations.GetMediasMediaIdCustomizationsAppearanceResponse> {
+    return unwrapAsync(customizationsGetAppearance(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Update Appearance Customizations
+   *
+   * @remarks
+   * Applies a partial update to a video's appearance customizations. Only the
+   * fields supplied are changed; sending a field as null deletes it (reverting to
+   * the default).
+   *
+   * ## Requires api token with one of the following permissions
+   * ```
+   * Read, update & delete anything
+   * ```
+   */
+  async updateAppearance(
+    request: operations.PutMediasMediaIdCustomizationsAppearanceRequest,
+    options?: RequestOptions,
+  ): Promise<operations.PutMediasMediaIdCustomizationsAppearanceResponse> {
+    return unwrapAsync(customizationsUpdateAppearance(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Show Playback Customizations
+   *
+   * @remarks
+   * Fetches the explicitly-set playback customizations (autoplay, mute, controls
+   * visibility, player control buttons, end behavior, looping, quality bounds, and
+   * embed/runtime flags) for the video.
+   *
+   * ## Requires api token with one of the following permissions
+   * ```
+   * Read all folder and media data
+   * ```
+   */
+  async getPlayback(
+    request: operations.GetMediasMediaIdCustomizationsPlaybackRequest,
+    options?: RequestOptions,
+  ): Promise<operations.GetMediasMediaIdCustomizationsPlaybackResponse> {
+    return unwrapAsync(customizationsGetPlayback(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Update Playback Customizations
+   *
+   * @remarks
+   * Applies a partial update to a video's playback customizations. Only the
+   * fields supplied are changed; sending a field as null deletes it (reverting to
+   * the default).
+   *
+   * ## Requires api token with one of the following permissions
+   * ```
+   * Read, update & delete anything
+   * ```
+   */
+  async updatePlayback(
+    request: operations.PutMediasMediaIdCustomizationsPlaybackRequest,
+    options?: RequestOptions,
+  ): Promise<operations.PutMediasMediaIdCustomizationsPlaybackResponse> {
+    return unwrapAsync(customizationsUpdatePlayback(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Show Thumbnail Customizations
+   *
+   * @remarks
+   * Fetches the explicitly-set thumbnail customizations (still image URL, alt
+   * text, fit strategy, and the looping video thumbnail / text-overlay plugins)
+   * for the video.
+   *
+   * ## Requires api token with one of the following permissions
+   * ```
+   * Read all folder and media data
+   * ```
+   */
+  async getThumbnail(
+    request: operations.GetMediasMediaIdCustomizationsThumbnailRequest,
+    options?: RequestOptions,
+  ): Promise<operations.GetMediasMediaIdCustomizationsThumbnailResponse> {
+    return unwrapAsync(customizationsGetThumbnail(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Update Thumbnail Customizations
+   *
+   * @remarks
+   * Applies a partial update to a video's thumbnail customizations. Only the
+   * fields supplied are changed; sending a field as null deletes it (reverting to
+   * the default).
+   *
+   * ## Requires api token with one of the following permissions
+   * ```
+   * Read, update & delete anything
+   * ```
+   */
+  async updateThumbnail(
+    request: operations.PutMediasMediaIdCustomizationsThumbnailRequest,
+    options?: RequestOptions,
+  ): Promise<operations.PutMediasMediaIdCustomizationsThumbnailResponse> {
+    return unwrapAsync(customizationsUpdateThumbnail(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Show Accessibility Customizations
+   *
+   * @remarks
+   * Fetches the explicitly-set accessibility customizations (caption display and
+   * styling, transcript display, and audio description) for the video.
+   *
+   * ## Requires api token with one of the following permissions
+   * ```
+   * Read all folder and media data
+   * ```
+   */
+  async getAccessibility(
+    request: operations.GetMediasMediaIdCustomizationsAccessibilityRequest,
+    options?: RequestOptions,
+  ): Promise<operations.GetMediasMediaIdCustomizationsAccessibilityResponse> {
+    return unwrapAsync(customizationsGetAccessibility(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Update Accessibility Customizations
+   *
+   * @remarks
+   * Applies a partial update to a video's accessibility customizations. Only the
+   * fields supplied are changed; sending a field as null deletes it (reverting to
+   * the default).
+   *
+   * ## Requires api token with one of the following permissions
+   * ```
+   * Read, update & delete anything
+   * ```
+   */
+  async updateAccessibility(
+    request: operations.PutMediasMediaIdCustomizationsAccessibilityRequest,
+    options?: RequestOptions,
+  ): Promise<operations.PutMediasMediaIdCustomizationsAccessibilityResponse> {
+    return unwrapAsync(customizationsUpdateAccessibility(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Show Chapters Customizations
+   *
+   * @remarks
+   * Fetches the explicitly-set chapter customizations (the chapter list and its
+   * visibility) for the media.
+   *
+   * ## Requires api token with one of the following permissions
+   * ```
+   * Read all folder and media data
+   * ```
+   */
+  async getChapters(
+    request: operations.GetMediasMediaIdCustomizationsChaptersRequest,
+    options?: RequestOptions,
+  ): Promise<operations.GetMediasMediaIdCustomizationsChaptersResponse> {
+    return unwrapAsync(customizationsGetChapters(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Update Chapters Customizations
+   *
+   * @remarks
+   * Applies a partial update to a media's chapter customizations. Only the fields
+   * supplied are changed; sending a field as null deletes it.
+   *
+   * ## Requires api token with one of the following permissions
+   * ```
+   * Read, update & delete anything
+   * ```
+   */
+  async updateChapters(
+    request: operations.PutMediasMediaIdCustomizationsChaptersRequestRequest,
+    options?: RequestOptions,
+  ): Promise<operations.PutMediasMediaIdCustomizationsChaptersResponse> {
+    return unwrapAsync(customizationsUpdateChapters(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Show Engagement Customizations
+   *
+   * @remarks
+   * Fetches the explicitly-set engagement customizations (the end/pause Call To
+   * Action and timed annotation links) for the video.
+   *
+   * ## Requires api token with one of the following permissions
+   * ```
+   * Read all folder and media data
+   * ```
+   */
+  async getEngagement(
+    request: operations.GetMediasMediaIdCustomizationsEngagementRequest,
+    options?: RequestOptions,
+  ): Promise<operations.GetMediasMediaIdCustomizationsEngagementResponse> {
+    return unwrapAsync(customizationsGetEngagement(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Update Engagement Customizations
+   *
+   * @remarks
+   * Applies a partial update to a video's engagement customizations. Only the
+   * fields supplied are changed; sending a field as null deletes it (reverting to
+   * the default).
+   *
+   * ## Requires api token with one of the following permissions
+   * ```
+   * Read, update & delete anything
+   * ```
+   */
+  async updateEngagement(
+    request: operations.PutMediasMediaIdCustomizationsEngagementRequest,
+    options?: RequestOptions,
+  ): Promise<operations.PutMediasMediaIdCustomizationsEngagementResponse> {
+    return unwrapAsync(customizationsUpdateEngagement(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Show Related Media Customizations
+   *
+   * @remarks
+   * Fetches the explicitly-set related-media ("discover more") customizations
+   * (which videos to recommend, when to show them, label and button text) for
+   * the video.
+   *
+   * ## Requires api token with one of the following permissions
+   * ```
+   * Read all folder and media data
+   * ```
+   */
+  async getRelatedMedia(
+    request: operations.GetMediasMediaIdCustomizationsRelatedMediaRequest,
+    options?: RequestOptions,
+  ): Promise<operations.GetMediasMediaIdCustomizationsRelatedMediaResponse> {
+    return unwrapAsync(customizationsGetRelatedMedia(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Update Related Media Customizations
+   *
+   * @remarks
+   * Applies a partial update to a video's related-media customizations. Only the
+   * fields supplied are changed; sending a field as null deletes it (reverting to
+   * the default).
+   *
+   * ## Requires api token with one of the following permissions
+   * ```
+   * Read, update & delete anything
+   * ```
+   */
+  async updateRelatedMedia(
+    request: operations.PutMediasMediaIdCustomizationsRelatedMediaRequest,
+    options?: RequestOptions,
+  ): Promise<operations.PutMediasMediaIdCustomizationsRelatedMediaResponse> {
+    return unwrapAsync(customizationsUpdateRelatedMedia(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Show Sharing Customizations
+   *
+   * @remarks
+   * Fetches the explicitly-set sharing customizations (the social/embed/download
+   * share bar: enabled channels, tweet text, download type, and page URL/title)
+   * for the video.
+   *
+   * ## Requires api token with one of the following permissions
+   * ```
+   * Read all folder and media data
+   * ```
+   */
+  async getSharing(
+    request: operations.GetMediasMediaIdCustomizationsSharingRequest,
+    options?: RequestOptions,
+  ): Promise<operations.GetMediasMediaIdCustomizationsSharingResponse> {
+    return unwrapAsync(customizationsGetSharing(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Update Sharing Customizations
+   *
+   * @remarks
+   * Applies a partial update to a video's sharing customizations. Only the fields
+   * supplied are changed; sending a field as null deletes it (reverting to the
+   * default).
+   *
+   * ## Requires api token with one of the following permissions
+   * ```
+   * Read, update & delete anything
+   * ```
+   */
+  async updateSharing(
+    request: operations.PutMediasMediaIdCustomizationsSharingRequest,
+    options?: RequestOptions,
+  ): Promise<operations.PutMediasMediaIdCustomizationsSharingResponse> {
+    return unwrapAsync(customizationsUpdateSharing(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Show Lead Capture Customizations
+   *
+   * @remarks
+   * Fetches the explicitly-set lead-capture plugins (Turnstile, Wistia Form, and
+   * HubSpot/Marketo/Pardot form embeds) for the video.
+   *
+   * ## Requires api token with one of the following permissions
+   * ```
+   * Read all folder and media data
+   * ```
+   */
+  async getLeadCapture(
+    request: operations.GetMediasMediaIdCustomizationsLeadCaptureRequest,
+    options?: RequestOptions,
+  ): Promise<operations.GetMediasMediaIdCustomizationsLeadCaptureResponse> {
+    return unwrapAsync(customizationsGetLeadCapture(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Update Lead Capture Customizations
+   *
+   * @remarks
+   * Configures a single lead-capture provider for the video, mapping it to the
+   * appropriate underlying plugin. Only the selected provider is changed.
+   *
+   * ## Requires api token with one of the following permissions
+   * ```
+   * Read, update & delete anything
+   * ```
+   */
+  async updateLeadCapture(
+    request: operations.PutMediasMediaIdCustomizationsLeadCaptureRequest,
+    options?: RequestOptions,
+  ): Promise<operations.PutMediasMediaIdCustomizationsLeadCaptureResponse> {
+    return unwrapAsync(customizationsUpdateLeadCapture(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Show Access Customizations
+   *
+   * @remarks
+   * Fetches the explicitly-set password-protection settings for the video,
+   * including the stored password.
+   *
+   * ## Requires api token with one of the following permissions
+   * ```
+   * Read all folder and media data
+   * ```
+   */
+  async getAccess(
+    request: operations.GetMediasMediaIdCustomizationsAccessRequest,
+    options?: RequestOptions,
+  ): Promise<operations.GetMediasMediaIdCustomizationsAccessResponse> {
+    return unwrapAsync(customizationsGetAccess(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Update Access Customizations
+   *
+   * @remarks
+   * Applies a partial update to a video's password-protection settings. Only the
+   * fields supplied are changed; sending a field as null deletes it.
+   *
+   * ## Requires api token with one of the following permissions
+   * ```
+   * Read, update & delete anything
+   * ```
+   */
+  async updateAccess(
+    request: operations.PutMediasMediaIdCustomizationsAccessRequest,
+    options?: RequestOptions,
+  ): Promise<operations.PutMediasMediaIdCustomizationsAccessResponse> {
+    return unwrapAsync(customizationsUpdateAccess(
       this,
       request,
       options,

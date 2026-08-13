@@ -20,20 +20,19 @@ export type PutMediasRestoreRequest = {
   folderId: string;
 };
 
-export type Container = {
-  /**
-   * The type of container the medias will be restored to.
-   */
-  type?: string | undefined;
-  /**
-   * The display name of the container the medias will be restored to.
-   */
-  name?: string | undefined;
-  /**
-   * The hashed ID of the container the medias will be restored to.
-   */
-  hashedId?: string | undefined;
-};
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const PutMediasRestoreCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type PutMediasRestoreCode = ClosedEnum<typeof PutMediasRestoreCode>;
 
 /**
  * The status of the background job that's been queued for the request.
@@ -61,9 +60,28 @@ export type PutMediasRestoreBackgroundJobStatus = {
    */
   id: number;
   /**
+   * The unguessable hashed ID of the background job. Prefer this over the numeric ID when polling for status.
+   */
+  hashedId: string;
+  /**
    * The status of the background job that's been queued for the request.
    */
   status: PutMediasRestoreStatus;
+};
+
+export type Container = {
+  /**
+   * The type of container the medias will be restored to.
+   */
+  type?: string | undefined;
+  /**
+   * The display name of the container the medias will be restored to.
+   */
+  name?: string | undefined;
+  /**
+   * The hashed ID of the container the medias will be restored to.
+   */
+  hashedId?: string | undefined;
 };
 
 /**
@@ -73,15 +91,9 @@ export type PutMediasRestoreResponse = {
   /**
    * A confirmation message that the background job has been queued.
    */
-  message?: string | undefined;
+  message: string;
+  backgroundJobStatus: PutMediasRestoreBackgroundJobStatus;
   container?: Container | undefined;
-  /**
-   * A background job keeps track of the progress of an asynchronous task, e.g
-   *
-   * @remarks
-   * bulk archiving media, translating media, etc.
-   */
-  backgroundJobStatus?: PutMediasRestoreBackgroundJobStatus | undefined;
 };
 
 /** @internal */
@@ -114,6 +126,42 @@ export function putMediasRestoreRequestToJSON(
 }
 
 /** @internal */
+export const PutMediasRestoreCode$inboundSchema: z.ZodNativeEnum<
+  typeof PutMediasRestoreCode
+> = z.nativeEnum(PutMediasRestoreCode);
+
+/** @internal */
+export const PutMediasRestoreStatus$inboundSchema: z.ZodNativeEnum<
+  typeof PutMediasRestoreStatus
+> = z.nativeEnum(PutMediasRestoreStatus);
+
+/** @internal */
+export const PutMediasRestoreBackgroundJobStatus$inboundSchema: z.ZodType<
+  PutMediasRestoreBackgroundJobStatus,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: z.number().int(),
+  hashed_id: z.string(),
+  status: PutMediasRestoreStatus$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "hashed_id": "hashedId",
+  });
+});
+
+export function putMediasRestoreBackgroundJobStatusFromJSON(
+  jsonString: string,
+): SafeParseResult<PutMediasRestoreBackgroundJobStatus, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      PutMediasRestoreBackgroundJobStatus$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PutMediasRestoreBackgroundJobStatus' from JSON`,
+  );
+}
+
+/** @internal */
 export const Container$inboundSchema: z.ZodType<
   Container,
   z.ZodTypeDef,
@@ -135,42 +183,16 @@ export function containerFromJSON(
 }
 
 /** @internal */
-export const PutMediasRestoreStatus$inboundSchema: z.ZodNativeEnum<
-  typeof PutMediasRestoreStatus
-> = z.nativeEnum(PutMediasRestoreStatus);
-
-/** @internal */
-export const PutMediasRestoreBackgroundJobStatus$inboundSchema: z.ZodType<
-  PutMediasRestoreBackgroundJobStatus,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: z.number().int(),
-  status: PutMediasRestoreStatus$inboundSchema,
-});
-
-export function putMediasRestoreBackgroundJobStatusFromJSON(
-  jsonString: string,
-): SafeParseResult<PutMediasRestoreBackgroundJobStatus, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      PutMediasRestoreBackgroundJobStatus$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PutMediasRestoreBackgroundJobStatus' from JSON`,
-  );
-}
-
-/** @internal */
 export const PutMediasRestoreResponse$inboundSchema: z.ZodType<
   PutMediasRestoreResponse,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  message: z.string().optional(),
-  container: z.lazy(() => Container$inboundSchema).optional(),
+  message: z.string(),
   background_job_status: z.lazy(() =>
     PutMediasRestoreBackgroundJobStatus$inboundSchema
-  ).optional(),
+  ),
+  container: z.lazy(() => Container$inboundSchema).optional(),
 }).transform((v) => {
   return remap$(v, {
     "background_job_status": "backgroundJobStatus",

@@ -9,11 +9,11 @@ only `id` is supported.
 ```typescript
 import { GetCaptionsSortBy } from "@wistia/wistia-api-client/models/operations";
 
-let value: GetCaptionsSortBy = "created";
+let value: GetCaptionsSortBy = "updated";
 ```
 
 ## Values
 
 ```typescript
-"id" | "created"
+"id" | "created" | "updated" | "language"
 ```

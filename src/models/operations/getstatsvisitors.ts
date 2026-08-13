@@ -41,6 +41,20 @@ export type GetStatsVisitorsRequest = {
   search?: string | undefined;
 };
 
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const GetStatsVisitorsCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type GetStatsVisitorsCode = ClosedEnum<typeof GetStatsVisitorsCode>;
+
 export type GetStatsVisitorsOrg = {
   name?: string | null | undefined;
   title?: string | null | undefined;
@@ -123,6 +137,11 @@ export function getStatsVisitorsRequestToJSON(
     GetStatsVisitorsRequest$outboundSchema.parse(getStatsVisitorsRequest),
   );
 }
+
+/** @internal */
+export const GetStatsVisitorsCode$inboundSchema: z.ZodNativeEnum<
+  typeof GetStatsVisitorsCode
+> = z.nativeEnum(GetStatsVisitorsCode);
 
 /** @internal */
 export const GetStatsVisitorsOrg$inboundSchema: z.ZodType<

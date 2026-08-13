@@ -1,7 +1,7 @@
 # GetChannelEpisodesSortBy
 
 Ordering. Default is ID ASC. When using cursor pagination (see cursor param),
-only `id` and `created` are supported. All other sort_by options (`position`, `title`, `updated`)
+only `id` and `created` are supported. All other sort_by options (`position`, `title`, `updated`, `published_at`)
 require offset pagination.
 
 
@@ -16,5 +16,5 @@ let value: GetChannelEpisodesSortBy = "title";
 ## Values
 
 ```typescript
-"position" | "title" | "created" | "updated" | "id"
+"position" | "title" | "created" | "updated" | "published_at" | "id"
 ```

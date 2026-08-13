@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
@@ -13,6 +14,37 @@ export type GetMediasMediaHashedIdCaptionsRequest = {
    * The hashed ID of the media for which captions are to be retrieved.
    */
   mediaHashedId: string;
+};
+
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const GetMediasMediaHashedIdCaptionsCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type GetMediasMediaHashedIdCaptionsCode = ClosedEnum<
+  typeof GetMediasMediaHashedIdCaptionsCode
+>;
+
+export type GetMediasMediaHashedIdCaptionsSegment = {
+  /**
+   * The segment's start offset from the beginning of the media, in milliseconds.
+   */
+  startMs: number;
+  /**
+   * The segment's end offset from the beginning of the media, in milliseconds.
+   */
+  endMs: number;
+  /**
+   * The segment's transcript text.
+   */
+  text: string;
 };
 
 export type GetMediasMediaHashedIdCaptionsResponse = {
@@ -37,6 +69,14 @@ export type GetMediasMediaHashedIdCaptionsResponse = {
    * The unique hashed identifier of the time-coded transcript.
    */
   id: string;
+  /**
+   * The active caption payload version, or null when no payload is active.
+   */
+  version: number | null;
+  /**
+   * Time-coded caption cues when `include=segments`; null otherwise.
+   */
+  segments: Array<GetMediasMediaHashedIdCaptionsSegment> | null;
   /**
    * A cursor for stable pagination based on current `sort_by` order. You can pass this to `cursor[before]` or `cursor[after]` as a parameter to fetch the records before or after this record in the same sort order. This is only populated if records were fetched with `cursor[enabled]`, or `cursor[before]` or `cursor[after]`.
    */
@@ -68,6 +108,38 @@ export function getMediasMediaHashedIdCaptionsRequestToJSON(
 }
 
 /** @internal */
+export const GetMediasMediaHashedIdCaptionsCode$inboundSchema: z.ZodNativeEnum<
+  typeof GetMediasMediaHashedIdCaptionsCode
+> = z.nativeEnum(GetMediasMediaHashedIdCaptionsCode);
+
+/** @internal */
+export const GetMediasMediaHashedIdCaptionsSegment$inboundSchema: z.ZodType<
+  GetMediasMediaHashedIdCaptionsSegment,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  start_ms: z.number().int(),
+  end_ms: z.number().int(),
+  text: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    "start_ms": "startMs",
+    "end_ms": "endMs",
+  });
+});
+
+export function getMediasMediaHashedIdCaptionsSegmentFromJSON(
+  jsonString: string,
+): SafeParseResult<GetMediasMediaHashedIdCaptionsSegment, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetMediasMediaHashedIdCaptionsSegment$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetMediasMediaHashedIdCaptionsSegment' from JSON`,
+  );
+}
+
+/** @internal */
 export const GetMediasMediaHashedIdCaptionsResponse$inboundSchema: z.ZodType<
   GetMediasMediaHashedIdCaptionsResponse,
   z.ZodTypeDef,
@@ -79,6 +151,10 @@ export const GetMediasMediaHashedIdCaptionsResponse$inboundSchema: z.ZodType<
   text: z.nullable(z.string()).optional(),
   is_draft: z.boolean(),
   id: z.string(),
+  version: z.nullable(z.number().int()),
+  segments: z.nullable(
+    z.array(z.lazy(() => GetMediasMediaHashedIdCaptionsSegment$inboundSchema)),
+  ),
   cursor: z.nullable(z.string()).optional(),
 }).transform((v) => {
   return remap$(v, {

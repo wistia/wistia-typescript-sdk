@@ -1,0 +1,25 @@
+# PutCustomMetadataFieldDefinitionsKeyOptionRequest
+
+## Example Usage
+
+```typescript
+import { PutCustomMetadataFieldDefinitionsKeyOptionRequest } from "@wistia/wistia-api-client/models/operations";
+
+let value: PutCustomMetadataFieldDefinitionsKeyOptionRequest = {
+  key: "high",
+  label: "High",
+  position: 0,
+  destroy: false,
+  force: false,
+};
+```
+
+## Fields
+
+| Field                                                                                                                            | Type                                                                                                                             | Required                                                                                                                         | Description                                                                                                                      | Example                                                                                                                          |
+| -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `key`                                                                                                                            | *string*                                                                                                                         | :heavy_minus_sign:                                                                                                               | The option's immutable identifier. Required to edit or remove an existing option; defaults to a parameterized label when adding. | high                                                                                                                             |
+| `label`                                                                                                                          | *string*                                                                                                                         | :heavy_minus_sign:                                                                                                               | The option's display name. Required when adding a new option.                                                                    | High                                                                                                                             |
+| `position`                                                                                                                       | *number*                                                                                                                         | :heavy_minus_sign:                                                                                                               | The option's display order within the field, ascending from 0.                                                                   | 0                                                                                                                                |
+| `destroy`                                                                                                                        | *boolean*                                                                                                                        | :heavy_minus_sign:                                                                                                               | When true, removes the option identified by key instead of adding or editing it.                                                 | false                                                                                                                            |
+| `force`                                                                                                                          | *boolean*                                                                                                                        | :heavy_minus_sign:                                                                                                               | When true, allows removing an option that is still in use by media values.                                                       | false                                                                                                                            |

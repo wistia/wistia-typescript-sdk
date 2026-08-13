@@ -4,6 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { ClosedEnum } from "../../types/enums.js";
 
 export type PutMediasMediaHashedIdCaptionsLanguageCodeRequestBody = {
   /**
@@ -23,6 +24,22 @@ export type PutMediasMediaHashedIdCaptionsLanguageCodeRequest = {
   languageCode: string;
   requestBody: PutMediasMediaHashedIdCaptionsLanguageCodeRequestBody;
 };
+
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const PutMediasMediaHashedIdCaptionsLanguageCodeCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type PutMediasMediaHashedIdCaptionsLanguageCodeCode = ClosedEnum<
+  typeof PutMediasMediaHashedIdCaptionsLanguageCodeCode
+>;
 
 /** @internal */
 export type PutMediasMediaHashedIdCaptionsLanguageCodeRequestBody$Outbound = {
@@ -89,3 +106,8 @@ export function putMediasMediaHashedIdCaptionsLanguageCodeRequestToJSON(
     ),
   );
 }
+
+/** @internal */
+export const PutMediasMediaHashedIdCaptionsLanguageCodeCode$inboundSchema:
+  z.ZodNativeEnum<typeof PutMediasMediaHashedIdCaptionsLanguageCodeCode> = z
+    .nativeEnum(PutMediasMediaHashedIdCaptionsLanguageCodeCode);

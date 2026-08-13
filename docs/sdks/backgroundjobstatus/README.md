@@ -28,7 +28,7 @@ const wistia = new Wistia({
 
 async function run() {
   const result = await wistia.backgroundJobStatus.get({
-    backgroundJobStatusId: 108030,
+    backgroundJobStatusId: "108030",
   });
 
   console.log(result);
@@ -53,7 +53,7 @@ const wistia = new WistiaCore({
 
 async function run() {
   const res = await backgroundJobStatusGet(wistia, {
-    backgroundJobStatusId: 108030,
+    backgroundJobStatusId: "108030",
   });
   if (res.ok) {
     const { value: result } = res;

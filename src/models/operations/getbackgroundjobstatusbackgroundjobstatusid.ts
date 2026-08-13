@@ -11,10 +11,26 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GetBackgroundJobStatusBackgroundJobStatusIdRequest = {
   /**
-   * The numeric ID of the background job
+   * The hashed ID or numeric ID of the background job
    */
-  backgroundJobStatusId: number;
+  backgroundJobStatusId: string;
 };
+
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const GetBackgroundJobStatusBackgroundJobStatusIdCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type GetBackgroundJobStatusBackgroundJobStatusIdCode = ClosedEnum<
+  typeof GetBackgroundJobStatusBackgroundJobStatusIdCode
+>;
 
 /**
  * The status of the background job that's been queued for the request.
@@ -33,6 +49,134 @@ export type GetBackgroundJobStatusBackgroundJobStatusIdStatus = ClosedEnum<
 >;
 
 /**
+ * Discriminator identifying the wrapped resource type.
+ */
+export const GetBackgroundJobStatusBackgroundJobStatusIdType = {
+  BulkOperation: "bulk_operation",
+} as const;
+/**
+ * Discriminator identifying the wrapped resource type.
+ */
+export type GetBackgroundJobStatusBackgroundJobStatusIdType = ClosedEnum<
+  typeof GetBackgroundJobStatusBackgroundJobStatusIdType
+>;
+
+/**
+ * Aggregate counts for the bulk operation. While the operation is
+ *
+ * @remarks
+ * running, `succeeded` and `failed` reflect progress so far.
+ */
+export type Summary = {
+  /**
+   * The total number of actions in the operation.
+   */
+  total: number;
+  /**
+   * The number of actions that have completed successfully.
+   */
+  succeeded: number;
+  /**
+   * The number of actions that have failed.
+   */
+  failed: number;
+};
+
+/**
+ * The operation that was performed.
+ */
+export const GetBackgroundJobStatusBackgroundJobStatusIdOperation = {
+  Create: "create",
+  Update: "update",
+  Delete: "delete",
+  Move: "move",
+} as const;
+/**
+ * The operation that was performed.
+ */
+export type GetBackgroundJobStatusBackgroundJobStatusIdOperation = ClosedEnum<
+  typeof GetBackgroundJobStatusBackgroundJobStatusIdOperation
+>;
+
+/**
+ * The outcome of the action.
+ */
+export const ObjectStatus = {
+  Succeeded: "succeeded",
+  Failed: "failed",
+} as const;
+/**
+ * The outcome of the action.
+ */
+export type ObjectStatus = ClosedEnum<typeof ObjectStatus>;
+
+export type Result = {
+  /**
+   * The zero-based index of the action within the submitted batch.
+   */
+  position: number;
+  /**
+   * The operation that was performed.
+   */
+  operation?: GetBackgroundJobStatusBackgroundJobStatusIdOperation | undefined;
+  /**
+   * The type of resource the action operated on.
+   */
+  resourceType?: string | undefined;
+  /**
+   * The hashed ID of the affected record. For successful creates this
+   *
+   * @remarks
+   * is the newly created record's ID. Absent when a create fails
+   * before a record exists.
+   */
+  id?: string | undefined;
+  /**
+   * The outcome of the action.
+   */
+  status: ObjectStatus;
+  /**
+   * The failure reason. Only present for failed actions.
+   */
+  error?: string | undefined;
+};
+
+/**
+ * Wire view of a bulk operation as it appears inside a background job status
+ *
+ * @remarks
+ * poll response. Discriminated by `type`.
+ */
+export type ObjectBulkOperation = {
+  /**
+   * Discriminator identifying the wrapped resource type.
+   */
+  type: GetBackgroundJobStatusBackgroundJobStatusIdType;
+  /**
+   * Aggregate counts for the bulk operation. While the operation is
+   *
+   * @remarks
+   * running, `succeeded` and `failed` reflect progress so far.
+   */
+  summary: Summary;
+  /**
+   * Per-action results, in submission order. Empty until actions begin
+   *
+   * @remarks
+   * completing.
+   */
+  results: Array<Result>;
+};
+
+/**
+ * The wrapped resource, present only when the job type carries typed
+ *
+ * @remarks
+ * poll content. Use `type` to discriminate which shape this is.
+ */
+export type ObjectT = ObjectBulkOperation;
+
+/**
  * A background job keeps track of the progress of an asynchronous task, e.g
  *
  * @remarks
@@ -44,28 +188,33 @@ export type GetBackgroundJobStatusBackgroundJobStatusIdBackgroundJobStatus = {
    */
   id: number;
   /**
+   * The unguessable hashed ID of the background job. Prefer this over the numeric ID when polling for status.
+   */
+  hashedId: string;
+  /**
    * The status of the background job that's been queued for the request.
    */
   status: GetBackgroundJobStatusBackgroundJobStatusIdStatus;
+  /**
+   * The wrapped resource, present only when the job type carries typed
+   *
+   * @remarks
+   * poll content. Use `type` to discriminate which shape this is.
+   */
+  object?: ObjectBulkOperation | undefined;
 };
 
 /**
  * OK
  */
 export type GetBackgroundJobStatusBackgroundJobStatusIdResponse = {
-  /**
-   * A background job keeps track of the progress of an asynchronous task, e.g
-   *
-   * @remarks
-   * bulk archiving media, translating media, etc.
-   */
   backgroundJobStatus:
     GetBackgroundJobStatusBackgroundJobStatusIdBackgroundJobStatus;
 };
 
 /** @internal */
 export type GetBackgroundJobStatusBackgroundJobStatusIdRequest$Outbound = {
-  backgroundJobStatusId: number;
+  backgroundJobStatusId: string;
 };
 
 /** @internal */
@@ -75,7 +224,7 @@ export const GetBackgroundJobStatusBackgroundJobStatusIdRequest$outboundSchema:
     z.ZodTypeDef,
     GetBackgroundJobStatusBackgroundJobStatusIdRequest
   > = z.object({
-    backgroundJobStatusId: z.number().int(),
+    backgroundJobStatusId: z.string(),
   });
 
 export function getBackgroundJobStatusBackgroundJobStatusIdRequestToJSON(
@@ -90,9 +239,108 @@ export function getBackgroundJobStatusBackgroundJobStatusIdRequestToJSON(
 }
 
 /** @internal */
+export const GetBackgroundJobStatusBackgroundJobStatusIdCode$inboundSchema:
+  z.ZodNativeEnum<typeof GetBackgroundJobStatusBackgroundJobStatusIdCode> = z
+    .nativeEnum(GetBackgroundJobStatusBackgroundJobStatusIdCode);
+
+/** @internal */
 export const GetBackgroundJobStatusBackgroundJobStatusIdStatus$inboundSchema:
   z.ZodNativeEnum<typeof GetBackgroundJobStatusBackgroundJobStatusIdStatus> = z
     .nativeEnum(GetBackgroundJobStatusBackgroundJobStatusIdStatus);
+
+/** @internal */
+export const GetBackgroundJobStatusBackgroundJobStatusIdType$inboundSchema:
+  z.ZodNativeEnum<typeof GetBackgroundJobStatusBackgroundJobStatusIdType> = z
+    .nativeEnum(GetBackgroundJobStatusBackgroundJobStatusIdType);
+
+/** @internal */
+export const Summary$inboundSchema: z.ZodType<Summary, z.ZodTypeDef, unknown> =
+  z.object({
+    total: z.number().int(),
+    succeeded: z.number().int(),
+    failed: z.number().int(),
+  });
+
+export function summaryFromJSON(
+  jsonString: string,
+): SafeParseResult<Summary, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Summary$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Summary' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetBackgroundJobStatusBackgroundJobStatusIdOperation$inboundSchema:
+  z.ZodNativeEnum<typeof GetBackgroundJobStatusBackgroundJobStatusIdOperation> =
+    z.nativeEnum(GetBackgroundJobStatusBackgroundJobStatusIdOperation);
+
+/** @internal */
+export const ObjectStatus$inboundSchema: z.ZodNativeEnum<typeof ObjectStatus> =
+  z.nativeEnum(ObjectStatus);
+
+/** @internal */
+export const Result$inboundSchema: z.ZodType<Result, z.ZodTypeDef, unknown> = z
+  .object({
+    position: z.number().int(),
+    operation:
+      GetBackgroundJobStatusBackgroundJobStatusIdOperation$inboundSchema
+        .optional(),
+    resource_type: z.string().optional(),
+    id: z.string().optional(),
+    status: ObjectStatus$inboundSchema,
+    error: z.string().optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "resource_type": "resourceType",
+    });
+  });
+
+export function resultFromJSON(
+  jsonString: string,
+): SafeParseResult<Result, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Result$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Result' from JSON`,
+  );
+}
+
+/** @internal */
+export const ObjectBulkOperation$inboundSchema: z.ZodType<
+  ObjectBulkOperation,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  type: GetBackgroundJobStatusBackgroundJobStatusIdType$inboundSchema,
+  summary: z.lazy(() => Summary$inboundSchema),
+  results: z.array(z.lazy(() => Result$inboundSchema)),
+});
+
+export function objectBulkOperationFromJSON(
+  jsonString: string,
+): SafeParseResult<ObjectBulkOperation, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ObjectBulkOperation$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ObjectBulkOperation' from JSON`,
+  );
+}
+
+/** @internal */
+export const ObjectT$inboundSchema: z.ZodType<ObjectT, z.ZodTypeDef, unknown> =
+  z.lazy(() => ObjectBulkOperation$inboundSchema);
+
+export function objectFromJSON(
+  jsonString: string,
+): SafeParseResult<ObjectT, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ObjectT$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ObjectT' from JSON`,
+  );
+}
 
 /** @internal */
 export const GetBackgroundJobStatusBackgroundJobStatusIdBackgroundJobStatus$inboundSchema:
@@ -102,7 +350,13 @@ export const GetBackgroundJobStatusBackgroundJobStatusIdBackgroundJobStatus$inbo
     unknown
   > = z.object({
     id: z.number().int(),
+    hashed_id: z.string(),
     status: GetBackgroundJobStatusBackgroundJobStatusIdStatus$inboundSchema,
+    object: z.lazy(() => ObjectBulkOperation$inboundSchema).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "hashed_id": "hashedId",
+    });
   });
 
 export function getBackgroundJobStatusBackgroundJobStatusIdBackgroundJobStatusFromJSON(

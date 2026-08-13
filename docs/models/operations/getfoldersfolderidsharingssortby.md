@@ -9,11 +9,11 @@ only `id` is supported.
 ```typescript
 import { GetFoldersFolderIdSharingsSortBy } from "@wistia/wistia-api-client/models/operations";
 
-let value: GetFoldersFolderIdSharingsSortBy = "id";
+let value: GetFoldersFolderIdSharingsSortBy = "created";
 ```
 
 ## Values
 
 ```typescript
-"id"
+"created" | "updated" | "id"
 ```

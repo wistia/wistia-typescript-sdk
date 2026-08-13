@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
@@ -14,6 +15,22 @@ export type DeleteMediaExtendedAudioDescriptionsIdRequest = {
    */
   id: string;
 };
+
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const DeleteMediaExtendedAudioDescriptionsIdCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type DeleteMediaExtendedAudioDescriptionsIdCode = ClosedEnum<
+  typeof DeleteMediaExtendedAudioDescriptionsIdCode
+>;
 
 export type DeleteMediaExtendedAudioDescriptionsIdMedia = {
   /**
@@ -82,6 +99,10 @@ export type DeleteMediaExtendedAudioDescriptionsIdResponse = {
     | DeleteMediaExtendedAudioDescriptionsIdProvidedMediaFile
     | undefined;
   contact?: DeleteMediaExtendedAudioDescriptionsIdContact | undefined;
+  /**
+   * A cursor for stable pagination based on current `sort_by` order. You can pass this to `cursor[before]` or `cursor[after]` as a parameter to fetch the records before or after this record in the same sort order. This is only populated if records were fetched with `cursor[enabled]`, or `cursor[before]` or `cursor[after]`.
+   */
+  cursor?: string | null | undefined;
 };
 
 /** @internal */
@@ -109,6 +130,11 @@ export function deleteMediaExtendedAudioDescriptionsIdRequestToJSON(
     ),
   );
 }
+
+/** @internal */
+export const DeleteMediaExtendedAudioDescriptionsIdCode$inboundSchema:
+  z.ZodNativeEnum<typeof DeleteMediaExtendedAudioDescriptionsIdCode> = z
+    .nativeEnum(DeleteMediaExtendedAudioDescriptionsIdCode);
 
 /** @internal */
 export const DeleteMediaExtendedAudioDescriptionsIdMedia$inboundSchema:
@@ -229,6 +255,7 @@ export const DeleteMediaExtendedAudioDescriptionsIdResponse$inboundSchema:
     contact: z.lazy(() =>
       DeleteMediaExtendedAudioDescriptionsIdContact$inboundSchema
     ).optional(),
+    cursor: z.nullable(z.string()).optional(),
   }).transform((v) => {
     return remap$(v, {
       "ietf_language_tag": "ietfLanguageTag",

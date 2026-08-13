@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import * as operations from "../operations/index.js";
 import { WistiaError } from "./wistiaerror.js";
 
 /**
@@ -104,6 +105,10 @@ export class PostFoldersFolderIdSubfoldersForbiddenError extends WistiaError {
  * Unauthorized, invalid or missing token
  */
 export type PostFoldersFolderIdSubfoldersUnauthorizedErrorData = {
+  /**
+   * A machine-readable identifier for the specific authorization failure.
+   */
+  code?: operations.PostFoldersFolderIdSubfoldersCode | undefined;
   error?: string | undefined;
 };
 
@@ -113,6 +118,10 @@ export type PostFoldersFolderIdSubfoldersUnauthorizedErrorData = {
 export class PostFoldersFolderIdSubfoldersUnauthorizedError
   extends WistiaError
 {
+  /**
+   * A machine-readable identifier for the specific authorization failure.
+   */
+  code?: operations.PostFoldersFolderIdSubfoldersCode | undefined;
   error?: string | undefined;
 
   /** The original data that was passed to this error instance. */
@@ -127,9 +136,56 @@ export class PostFoldersFolderIdSubfoldersUnauthorizedError
       : `API error occurred: ${JSON.stringify(err)}`;
     super(message, httpMeta);
     this.data$ = err;
+    if (err.code != null) this.code = err.code;
     if (err.error != null) this.error = err.error;
 
     this.name = "PostFoldersFolderIdSubfoldersUnauthorizedError";
+  }
+}
+
+/**
+ * Bad request
+ */
+export type PostFoldersFolderIdSubfoldersBadRequestErrorData = {
+  /**
+   * Error message detailing the reason for the bad request.
+   */
+  error?: string | undefined;
+  /**
+   * Array of error messages detailing the reasons for the bad request.
+   */
+  errors?: Array<string> | undefined;
+};
+
+/**
+ * Bad request
+ */
+export class PostFoldersFolderIdSubfoldersBadRequestError extends WistiaError {
+  /**
+   * Error message detailing the reason for the bad request.
+   */
+  error?: string | undefined;
+  /**
+   * Array of error messages detailing the reasons for the bad request.
+   */
+  errors?: Array<string> | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: PostFoldersFolderIdSubfoldersBadRequestErrorData;
+
+  constructor(
+    err: PostFoldersFolderIdSubfoldersBadRequestErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+    if (err.errors != null) this.errors = err.errors;
+
+    this.name = "PostFoldersFolderIdSubfoldersBadRequestError";
   }
 }
 
@@ -197,6 +253,7 @@ export const PostFoldersFolderIdSubfoldersUnauthorizedError$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
+    code: operations.PostFoldersFolderIdSubfoldersCode$inboundSchema.optional(),
     error: z.string().optional(),
     request$: z.instanceof(Request),
     response$: z.instanceof(Response),
@@ -204,6 +261,27 @@ export const PostFoldersFolderIdSubfoldersUnauthorizedError$inboundSchema:
   })
     .transform((v) => {
       return new PostFoldersFolderIdSubfoldersUnauthorizedError(v, {
+        request: v.request$,
+        response: v.response$,
+        body: v.body$,
+      });
+    });
+
+/** @internal */
+export const PostFoldersFolderIdSubfoldersBadRequestError$inboundSchema:
+  z.ZodType<
+    PostFoldersFolderIdSubfoldersBadRequestError,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    error: z.string().optional(),
+    errors: z.array(z.string()).optional(),
+    request$: z.instanceof(Request),
+    response$: z.instanceof(Response),
+    body$: z.string(),
+  })
+    .transform((v) => {
+      return new PostFoldersFolderIdSubfoldersBadRequestError(v, {
         request: v.request$,
         response: v.response$,
         body: v.body$,

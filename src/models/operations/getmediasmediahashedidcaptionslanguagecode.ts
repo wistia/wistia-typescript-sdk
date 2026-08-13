@@ -5,8 +5,20 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+
+/**
+ * Set to `segments` to include time-coded cues in JSON responses.
+ */
+export const Include = {
+  Segments: "segments",
+} as const;
+/**
+ * Set to `segments` to include time-coded cues in JSON responses.
+ */
+export type Include = ClosedEnum<typeof Include>;
 
 export type GetMediasMediaHashedIdCaptionsLanguageCodeRequest = {
   /**
@@ -14,9 +26,44 @@ export type GetMediasMediaHashedIdCaptionsLanguageCodeRequest = {
    */
   mediaHashedId: string;
   /**
-   * The language code of the captions to be retrieved.
+   * The 3-character ISO 639-2 language code of the captions to be retrieved (e.g., `eng`, `fra`, `spa`). Some languages use extended IETF subtags (e.g., `zh-Hant`).
    */
   languageCode: string;
+  /**
+   * Set to `segments` to include time-coded cues in JSON responses.
+   */
+  include?: Include | undefined;
+};
+
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const GetMediasMediaHashedIdCaptionsLanguageCodeCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type GetMediasMediaHashedIdCaptionsLanguageCodeCode = ClosedEnum<
+  typeof GetMediasMediaHashedIdCaptionsLanguageCodeCode
+>;
+
+export type GetMediasMediaHashedIdCaptionsLanguageCodeSegment = {
+  /**
+   * The segment's start offset from the beginning of the media, in milliseconds.
+   */
+  startMs: number;
+  /**
+   * The segment's end offset from the beginning of the media, in milliseconds.
+   */
+  endMs: number;
+  /**
+   * The segment's transcript text.
+   */
+  text: string;
 };
 
 /**
@@ -45,6 +92,14 @@ export type GetMediasMediaHashedIdCaptionsLanguageCodeResponseBody = {
    */
   id: string;
   /**
+   * The active caption payload version, or null when no payload is active.
+   */
+  version: number | null;
+  /**
+   * Time-coded caption cues when `include=segments`; null otherwise.
+   */
+  segments: Array<GetMediasMediaHashedIdCaptionsLanguageCodeSegment> | null;
+  /**
    * A cursor for stable pagination based on current `sort_by` order. You can pass this to `cursor[before]` or `cursor[after]` as a parameter to fetch the records before or after this record in the same sort order. This is only populated if records were fetched with `cursor[enabled]`, or `cursor[before]` or `cursor[after]`.
    */
   cursor?: string | null | undefined;
@@ -56,9 +111,14 @@ export type GetMediasMediaHashedIdCaptionsLanguageCodeResponse =
   | string;
 
 /** @internal */
+export const Include$outboundSchema: z.ZodNativeEnum<typeof Include> = z
+  .nativeEnum(Include);
+
+/** @internal */
 export type GetMediasMediaHashedIdCaptionsLanguageCodeRequest$Outbound = {
   mediaHashedId: string;
   languageCode: string;
+  include?: string | undefined;
 };
 
 /** @internal */
@@ -70,6 +130,7 @@ export const GetMediasMediaHashedIdCaptionsLanguageCodeRequest$outboundSchema:
   > = z.object({
     mediaHashedId: z.string(),
     languageCode: z.string(),
+    include: Include$outboundSchema.optional(),
   });
 
 export function getMediasMediaHashedIdCaptionsLanguageCodeRequestToJSON(
@@ -80,6 +141,44 @@ export function getMediasMediaHashedIdCaptionsLanguageCodeRequestToJSON(
     GetMediasMediaHashedIdCaptionsLanguageCodeRequest$outboundSchema.parse(
       getMediasMediaHashedIdCaptionsLanguageCodeRequest,
     ),
+  );
+}
+
+/** @internal */
+export const GetMediasMediaHashedIdCaptionsLanguageCodeCode$inboundSchema:
+  z.ZodNativeEnum<typeof GetMediasMediaHashedIdCaptionsLanguageCodeCode> = z
+    .nativeEnum(GetMediasMediaHashedIdCaptionsLanguageCodeCode);
+
+/** @internal */
+export const GetMediasMediaHashedIdCaptionsLanguageCodeSegment$inboundSchema:
+  z.ZodType<
+    GetMediasMediaHashedIdCaptionsLanguageCodeSegment,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    start_ms: z.number().int(),
+    end_ms: z.number().int(),
+    text: z.string(),
+  }).transform((v) => {
+    return remap$(v, {
+      "start_ms": "startMs",
+      "end_ms": "endMs",
+    });
+  });
+
+export function getMediasMediaHashedIdCaptionsLanguageCodeSegmentFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetMediasMediaHashedIdCaptionsLanguageCodeSegment,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetMediasMediaHashedIdCaptionsLanguageCodeSegment$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'GetMediasMediaHashedIdCaptionsLanguageCodeSegment' from JSON`,
   );
 }
 
@@ -96,6 +195,12 @@ export const GetMediasMediaHashedIdCaptionsLanguageCodeResponseBody$inboundSchem
     text: z.nullable(z.string()).optional(),
     is_draft: z.boolean(),
     id: z.string(),
+    version: z.nullable(z.number().int()),
+    segments: z.nullable(
+      z.array(z.lazy(() =>
+        GetMediasMediaHashedIdCaptionsLanguageCodeSegment$inboundSchema
+      )),
+    ),
     cursor: z.nullable(z.string()).optional(),
   }).transform((v) => {
     return remap$(v, {

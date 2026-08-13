@@ -28,7 +28,7 @@ export const GetCaptionsEnabled = {
 export type GetCaptionsEnabled = ClosedEnum<typeof GetCaptionsEnabled>;
 
 /**
- * If `cursor[enabled]` is set to 1 than cursor pagination is enabled and the
+ * If `cursor[enabled]` is set to 1 then cursor pagination is enabled and the
  *
  * @remarks
  * first set of records are fetched up to the `per_page`. Cursor
@@ -38,7 +38,7 @@ export type GetCaptionsEnabled = ClosedEnum<typeof GetCaptionsEnabled>;
  * the cursor of the first record can be used to fetch records before the result set.
  *
  * NOTE: a cursor value is only valid if the `sort_by` value hasn't changed from the
- * last fetch. For example, you cannot fetch using `sort_by` id and than pass that
+ * last fetch. For example, you cannot fetch using `sort_by` id and then pass that
  * cursor value to a `sort_by` name.
  */
 export type GetCaptionsCursor = {
@@ -50,7 +50,7 @@ export type GetCaptionsCursor = {
    */
   enabled?: GetCaptionsEnabled | undefined;
   /**
-   * If `cursor[before]` is set than cursor pagination is enabled and all records
+   * If `cursor[before]` is set then cursor pagination is enabled and all records
    *
    * @remarks
    * before the cursor up to the `per_page` are returned. This feature is useful for
@@ -59,7 +59,7 @@ export type GetCaptionsCursor = {
    */
   before?: string | undefined;
   /**
-   * If `cursor[after]` is set than cursor pagination is enabled and all records
+   * If `cursor[after]` is set then cursor pagination is enabled and all records
    *
    * @remarks
    * after the cursor up to the `per_page` are returned.
@@ -76,6 +76,8 @@ export type GetCaptionsCursor = {
 export const GetCaptionsSortBy = {
   Id: "id",
   Created: "created",
+  Updated: "updated",
+  Language: "language",
 } as const;
 /**
  * Ordering. When using cursor pagination (see cursor param),
@@ -116,7 +118,7 @@ export type GetCaptionsRequest = {
    */
   perPage?: number | undefined;
   /**
-   * If `cursor[enabled]` is set to 1 than cursor pagination is enabled and the
+   * If `cursor[enabled]` is set to 1 then cursor pagination is enabled and the
    *
    * @remarks
    * first set of records are fetched up to the `per_page`. Cursor
@@ -126,7 +128,7 @@ export type GetCaptionsRequest = {
    * the cursor of the first record can be used to fetch records before the result set.
    *
    * NOTE: a cursor value is only valid if the `sort_by` value hasn't changed from the
-   * last fetch. For example, you cannot fetch using `sort_by` id and than pass that
+   * last fetch. For example, you cannot fetch using `sort_by` id and then pass that
    * cursor value to a `sort_by` name.
    */
   cursor?: GetCaptionsCursor | undefined;
@@ -141,6 +143,35 @@ export type GetCaptionsRequest = {
    * Ordering Sort Direction (0 = desc, 1 = asc; default is 1)
    */
   sortDirection?: GetCaptionsSortDirection | undefined;
+};
+
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const GetCaptionsCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type GetCaptionsCode = ClosedEnum<typeof GetCaptionsCode>;
+
+export type GetCaptionsSegment = {
+  /**
+   * The segment's start offset from the beginning of the media, in milliseconds.
+   */
+  startMs: number;
+  /**
+   * The segment's end offset from the beginning of the media, in milliseconds.
+   */
+  endMs: number;
+  /**
+   * The segment's transcript text.
+   */
+  text: string;
 };
 
 export type GetCaptionsResponse = {
@@ -165,6 +196,14 @@ export type GetCaptionsResponse = {
    * The unique hashed identifier of the time-coded transcript.
    */
   id: string;
+  /**
+   * The active caption payload version, or null when no payload is active.
+   */
+  version: number | null;
+  /**
+   * Time-coded caption cues when `include=segments`; null otherwise.
+   */
+  segments: Array<GetCaptionsSegment> | null;
   /**
    * A cursor for stable pagination based on current `sort_by` order. You can pass this to `cursor[before]` or `cursor[after]` as a parameter to fetch the records before or after this record in the same sort order. This is only populated if records were fetched with `cursor[enabled]`, or `cursor[before]` or `cursor[after]`.
    */
@@ -252,6 +291,37 @@ export function getCaptionsRequestToJSON(
 }
 
 /** @internal */
+export const GetCaptionsCode$inboundSchema: z.ZodNativeEnum<
+  typeof GetCaptionsCode
+> = z.nativeEnum(GetCaptionsCode);
+
+/** @internal */
+export const GetCaptionsSegment$inboundSchema: z.ZodType<
+  GetCaptionsSegment,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  start_ms: z.number().int(),
+  end_ms: z.number().int(),
+  text: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    "start_ms": "startMs",
+    "end_ms": "endMs",
+  });
+});
+
+export function getCaptionsSegmentFromJSON(
+  jsonString: string,
+): SafeParseResult<GetCaptionsSegment, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetCaptionsSegment$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetCaptionsSegment' from JSON`,
+  );
+}
+
+/** @internal */
 export const GetCaptionsResponse$inboundSchema: z.ZodType<
   GetCaptionsResponse,
   z.ZodTypeDef,
@@ -263,6 +333,8 @@ export const GetCaptionsResponse$inboundSchema: z.ZodType<
   text: z.nullable(z.string()).optional(),
   is_draft: z.boolean(),
   id: z.string(),
+  version: z.nullable(z.number().int()),
+  segments: z.nullable(z.array(z.lazy(() => GetCaptionsSegment$inboundSchema))),
   cursor: z.nullable(z.string()).optional(),
 }).transform((v) => {
   return remap$(v, {

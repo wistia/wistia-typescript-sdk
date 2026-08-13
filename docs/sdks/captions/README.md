@@ -7,12 +7,13 @@
 * [list](#list) - List Captions by Media
 * [create](#create) - Create Captions
 * [createMultipart](#createmultipart) - Create Captions
-* [getCaptions](#getcaptions) - List Captions
+* [listAll](#listall) - List Captions
 * [purchase](#purchase) - Purchase Captions
 * [get](#get) - Show Captions
 * [update](#update) - Update Captions
 * [updateMultipart](#updatemultipart) - Update Captions
 * [delete](#delete) - Delete Captions
+* [edit](#edit) - Edit Captions Text
 
 ## list
 
@@ -273,7 +274,7 @@ run();
 | errors.PostMediasMediaHashedIdCaptionsMultipartInternalServerError | 500                                                                | application/json                                                   |
 | errors.WistiaDefaultError                                          | 4XX, 5XX                                                           | \*/\*                                                              |
 
-## getCaptions
+## listAll
 
 Lists captions belonging to the account. This endpoint can also narrow down results
 to those belonging to a specific media.
@@ -295,7 +296,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.captions.getCaptions({});
+  const result = await wistia.captions.listAll({});
 
   console.log(result);
 }
@@ -309,7 +310,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { captionsGetCaptions } from "@wistia/wistia-api-client/funcs/captionsGetCaptions.js";
+import { captionsListAll } from "@wistia/wistia-api-client/funcs/captionsListAll.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -318,12 +319,12 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await captionsGetCaptions(wistia, {});
+  const res = await captionsListAll(wistia, {});
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("captionsGetCaptions failed:", res.error);
+    console.log("captionsListAll failed:", res.error);
   }
 }
 
@@ -783,3 +784,111 @@ run();
 | errors.DeleteMediasMediaHashedIdCaptionsLanguageCodeUnauthorizedError   | 401                                                                     | application/json                                                        |
 | errors.DeleteMediasMediaHashedIdCaptionsLanguageCodeInternalServerError | 500                                                                     | application/json                                                        |
 | errors.WistiaDefaultError                                               | 4XX, 5XX                                                                | \*/\*                                                                   |
+
+## edit
+
+Applies targeted find-and-replace corrections to a media's transcript for
+the specified language, preserving the timings of unchanged words. The whole
+batch is applied atomically against a specific caption version, or nothing is.
+
+## Requires api token with one of the following permissions
+```
+Read, update & delete anything
+```
+
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="post_/medias/{mediaHashedId}/captions/{languageCode}/edits" method="post" path="/medias/{mediaHashedId}/captions/{languageCode}/edits" -->
+```typescript
+import { Wistia } from "@wistia/wistia-api-client";
+
+const wistia = new Wistia({
+  bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
+});
+
+async function run() {
+  const result = await wistia.captions.edit({
+    mediaHashedId: "<id>",
+    languageCode: "<value>",
+    requestBody: {
+      edits: [
+        {
+          targetText: "<value>",
+          replacementText: "<value>",
+        },
+      ],
+      expectedVersion: 751935,
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { WistiaCore } from "@wistia/wistia-api-client/core.js";
+import { captionsEdit } from "@wistia/wistia-api-client/funcs/captionsEdit.js";
+
+// Use `WistiaCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const wistia = new WistiaCore({
+  bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
+});
+
+async function run() {
+  const res = await captionsEdit(wistia, {
+    mediaHashedId: "<id>",
+    languageCode: "<value>",
+    requestBody: {
+      edits: [
+        {
+          targetText: "<value>",
+          replacementText: "<value>",
+        },
+      ],
+      expectedVersion: 751935,
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("captionsEdit failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.PostMediasMediaHashedIdCaptionsLanguageCodeEditsRequest](../../models/operations/postmediasmediahashedidcaptionslanguagecodeeditsrequest.md)                       | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[operations.PostMediasMediaHashedIdCaptionsLanguageCodeEditsResponse](../../models/operations/postmediasmediahashedidcaptionslanguagecodeeditsresponse.md)\>**
+
+### Errors
+
+| Error Type                                                                      | Status Code                                                                     | Content Type                                                                    |
+| ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| errors.PostMediasMediaHashedIdCaptionsLanguageCodeEditsBadRequestError          | 400                                                                             | application/json                                                                |
+| errors.PostMediasMediaHashedIdCaptionsLanguageCodeEditsUnauthorizedError        | 401                                                                             | application/json                                                                |
+| errors.PostMediasMediaHashedIdCaptionsLanguageCodeEditsForbiddenError           | 403                                                                             | application/json                                                                |
+| errors.PostMediasMediaHashedIdCaptionsLanguageCodeEditsNotFoundError            | 404                                                                             | application/json                                                                |
+| errors.PostMediasMediaHashedIdCaptionsLanguageCodeEditsConflictError            | 409                                                                             | application/json                                                                |
+| errors.PostMediasMediaHashedIdCaptionsLanguageCodeEditsUnprocessableEntityError | 422                                                                             | application/json                                                                |
+| errors.PostMediasMediaHashedIdCaptionsLanguageCodeEditsInternalServerError      | 500                                                                             | application/json                                                                |
+| errors.WistiaDefaultError                                                       | 4XX, 5XX                                                                        | \*/\*                                                                           |

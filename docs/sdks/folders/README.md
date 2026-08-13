@@ -4,16 +4,24 @@
 
 ### Available Operations
 
-* [getFolders](#getfolders) - List Folders
-* [postFolders](#postfolders) - Create Folder
-* [getFoldersId](#getfoldersid) - Show Folder
-* [putFoldersId](#putfoldersid) - Update Folder
-* [deleteFoldersId](#deletefoldersid) - Delete Folder
-* [postFoldersIdCopy](#postfoldersidcopy) - Copy Folder
+* [list](#list) - List Folders
+* [create](#create) - Create Folder
+* [get](#get) - Show Folder
+* [update](#update) - Update Folder
+* [delete](#delete) - Delete Folder
+* [copy](#copy) - Copy Folder
 
-## getFolders
+## list
 
 Lists folders (previously called projects) belonging to the account.
+My Library folders are not included.
+
+For tokens scoped to a specific user (`all:delegate_to_contact_permissions`),
+results are limited to folders that user can see in their content library:
+folders shared with them directly, through a contact group, or with the
+whole account (owners and managers see every folder). Public (unlocked)
+folders the user has no sharing on remain viewable by link but are not
+listed.
 
 ## Requires api token with one of the following permissions
 ```
@@ -32,7 +40,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.folders.getFolders();
+  const result = await wistia.folders.list();
 
   console.log(result);
 }
@@ -46,7 +54,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { foldersGetFolders } from "@wistia/wistia-api-client/funcs/foldersGetFolders.js";
+import { foldersList } from "@wistia/wistia-api-client/funcs/foldersList.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -55,12 +63,12 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await foldersGetFolders(wistia);
+  const res = await foldersList(wistia);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("foldersGetFolders failed:", res.error);
+    console.log("foldersList failed:", res.error);
   }
 }
 
@@ -89,7 +97,7 @@ run();
 | errors.GetFoldersInternalServerError | 500                                  | application/json                     |
 | errors.WistiaDefaultError            | 4XX, 5XX                             | \*/\*                                |
 
-## postFolders
+## create
 
 Creates a new folder (previously called project). If the folder is created successfully the Location HTTP header will point to the new folder.
 
@@ -110,10 +118,11 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.folders.postFolders({
+  const result = await wistia.folders.create({
     name: "My New Folder",
     adminEmail: "admin@example.com",
     public: false,
+    personalLibrary: false,
   });
 
   console.log(result);
@@ -128,7 +137,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { foldersPostFolders } from "@wistia/wistia-api-client/funcs/foldersPostFolders.js";
+import { foldersCreate } from "@wistia/wistia-api-client/funcs/foldersCreate.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -137,16 +146,17 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await foldersPostFolders(wistia, {
+  const res = await foldersCreate(wistia, {
     name: "My New Folder",
     adminEmail: "admin@example.com",
     public: false,
+    personalLibrary: false,
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("foldersPostFolders failed:", res.error);
+    console.log("foldersCreate failed:", res.error);
   }
 }
 
@@ -171,10 +181,11 @@ run();
 | Error Type                            | Status Code                           | Content Type                          |
 | ------------------------------------- | ------------------------------------- | ------------------------------------- |
 | errors.PostFoldersUnauthorizedError   | 401                                   | application/json                      |
+| errors.PostFoldersForbiddenError      | 403                                   | application/json                      |
 | errors.PostFoldersInternalServerError | 500                                   | application/json                      |
 | errors.WistiaDefaultError             | 4XX, 5XX                              | \*/\*                                 |
 
-## getFoldersId
+## get
 
 Retrieves a single folder (previously called project).
 
@@ -195,7 +206,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.folders.getFoldersId({
+  const result = await wistia.folders.get({
     id: "<id>",
   });
 
@@ -211,7 +222,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { foldersGetFoldersId } from "@wistia/wistia-api-client/funcs/foldersGetFoldersId.js";
+import { foldersGet } from "@wistia/wistia-api-client/funcs/foldersGet.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -220,14 +231,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await foldersGetFoldersId(wistia, {
+  const res = await foldersGet(wistia, {
     id: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("foldersGetFoldersId failed:", res.error);
+    console.log("foldersGet failed:", res.error);
   }
 }
 
@@ -256,7 +267,7 @@ run();
 | errors.GetFoldersIdInternalServerError | 500                                    | application/json                       |
 | errors.WistiaDefaultError              | 4XX, 5XX                               | \*/\*                                  |
 
-## putFoldersId
+## update
 
 Updates a folder (previously called project)
 
@@ -277,7 +288,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.folders.putFoldersId({
+  const result = await wistia.folders.update({
     id: "<id>",
     requestBody: {
       name: "My New Folder Name",
@@ -298,7 +309,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { foldersPutFoldersId } from "@wistia/wistia-api-client/funcs/foldersPutFoldersId.js";
+import { foldersUpdate } from "@wistia/wistia-api-client/funcs/foldersUpdate.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -307,7 +318,7 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await foldersPutFoldersId(wistia, {
+  const res = await foldersUpdate(wistia, {
     id: "<id>",
     requestBody: {
       name: "My New Folder Name",
@@ -319,7 +330,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("foldersPutFoldersId failed:", res.error);
+    console.log("foldersUpdate failed:", res.error);
   }
 }
 
@@ -349,7 +360,7 @@ run();
 | errors.PutFoldersIdInternalServerError | 500                                    | application/json                       |
 | errors.WistiaDefaultError              | 4XX, 5XX                               | \*/\*                                  |
 
-## deleteFoldersId
+## delete
 
 Deletes a folder (previously called project)
 
@@ -370,7 +381,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.folders.deleteFoldersId({
+  const result = await wistia.folders.delete({
     id: "<id>",
   });
 
@@ -386,7 +397,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { foldersDeleteFoldersId } from "@wistia/wistia-api-client/funcs/foldersDeleteFoldersId.js";
+import { foldersDelete } from "@wistia/wistia-api-client/funcs/foldersDelete.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -395,14 +406,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await foldersDeleteFoldersId(wistia, {
+  const res = await foldersDelete(wistia, {
     id: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("foldersDeleteFoldersId failed:", res.error);
+    console.log("foldersDelete failed:", res.error);
   }
 }
 
@@ -432,7 +443,7 @@ run();
 | errors.DeleteFoldersIdInternalServerError | 500                                       | application/json                          |
 | errors.WistiaDefaultError                 | 4XX, 5XX                                  | \*/\*                                     |
 
-## postFoldersIdCopy
+## copy
 
 This copies a folder (previously called project) and all its media and subfolders asynchronously in a background job.
 
@@ -459,7 +470,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.folders.postFoldersIdCopy({
+  const result = await wistia.folders.copy({
     id: "<id>",
     requestBody: {
       adminEmail: "admin@example.com",
@@ -478,7 +489,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { foldersPostFoldersIdCopy } from "@wistia/wistia-api-client/funcs/foldersPostFoldersIdCopy.js";
+import { foldersCopy } from "@wistia/wistia-api-client/funcs/foldersCopy.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -487,7 +498,7 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await foldersPostFoldersIdCopy(wistia, {
+  const res = await foldersCopy(wistia, {
     id: "<id>",
     requestBody: {
       adminEmail: "admin@example.com",
@@ -497,7 +508,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("foldersPostFoldersIdCopy failed:", res.error);
+    console.log("foldersCopy failed:", res.error);
   }
 }
 

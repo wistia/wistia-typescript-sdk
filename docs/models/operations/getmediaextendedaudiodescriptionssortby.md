@@ -13,5 +13,5 @@ let value: GetMediaExtendedAudioDescriptionsSortBy = "id";
 ## Values
 
 ```typescript
-"id"
+"language" | "created" | "updated" | "id"
 ```

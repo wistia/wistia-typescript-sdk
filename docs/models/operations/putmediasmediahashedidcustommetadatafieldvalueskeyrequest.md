@@ -1,0 +1,23 @@
+# PutMediasMediaHashedIdCustomMetadataFieldValuesKeyRequest
+
+## Example Usage
+
+```typescript
+import { PutMediasMediaHashedIdCustomMetadataFieldValuesKeyRequest } from "@wistia/wistia-api-client/models/operations";
+
+let value: PutMediasMediaHashedIdCustomMetadataFieldValuesKeyRequest = {
+  mediaHashedId: "<id>",
+  key: "client",
+  requestBody: {
+    value: "high",
+  },
+};
+```
+
+## Fields
+
+| Field                                                                                                                                                                | Type                                                                                                                                                                 | Required                                                                                                                                                             | Description                                                                                                                                                          | Example                                                                                                                                                              |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `mediaHashedId`                                                                                                                                                      | *string*                                                                                                                                                             | :heavy_check_mark:                                                                                                                                                   | The hashed ID of the media whose custom metadata field value is to be set.                                                                                           |                                                                                                                                                                      |
+| `key`                                                                                                                                                                | *string*                                                                                                                                                             | :heavy_check_mark:                                                                                                                                                   | The field definition's immutable key.                                                                                                                                | client                                                                                                                                                               |
+| `requestBody`                                                                                                                                                        | [operations.PutMediasMediaHashedIdCustomMetadataFieldValuesKeyRequestBody](../../models/operations/putmediasmediahashedidcustommetadatafieldvalueskeyrequestbody.md) | :heavy_check_mark:                                                                                                                                                   | N/A                                                                                                                                                                  |                                                                                                                                                                      |

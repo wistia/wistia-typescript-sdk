@@ -17,6 +17,20 @@ export type PutMediasArchiveRequest = {
 };
 
 /**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const PutMediasArchiveCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type PutMediasArchiveCode = ClosedEnum<typeof PutMediasArchiveCode>;
+
+/**
  * The status of the background job that's been queued for the request.
  */
 export const PutMediasArchiveStatus = {
@@ -42,6 +56,10 @@ export type PutMediasArchiveBackgroundJobStatus = {
    */
   id: number;
   /**
+   * The unguessable hashed ID of the background job. Prefer this over the numeric ID when polling for status.
+   */
+  hashedId: string;
+  /**
    * The status of the background job that's been queued for the request.
    */
   status: PutMediasArchiveStatus;
@@ -54,14 +72,8 @@ export type PutMediasArchiveResponse = {
   /**
    * A confirmation message that the background job has been queued.
    */
-  message?: string | undefined;
-  /**
-   * A background job keeps track of the progress of an asynchronous task, e.g
-   *
-   * @remarks
-   * bulk archiving media, translating media, etc.
-   */
-  backgroundJobStatus?: PutMediasArchiveBackgroundJobStatus | undefined;
+  message: string;
+  backgroundJobStatus: PutMediasArchiveBackgroundJobStatus;
 };
 
 /** @internal */
@@ -91,6 +103,11 @@ export function putMediasArchiveRequestToJSON(
 }
 
 /** @internal */
+export const PutMediasArchiveCode$inboundSchema: z.ZodNativeEnum<
+  typeof PutMediasArchiveCode
+> = z.nativeEnum(PutMediasArchiveCode);
+
+/** @internal */
 export const PutMediasArchiveStatus$inboundSchema: z.ZodNativeEnum<
   typeof PutMediasArchiveStatus
 > = z.nativeEnum(PutMediasArchiveStatus);
@@ -102,7 +119,12 @@ export const PutMediasArchiveBackgroundJobStatus$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.number().int(),
+  hashed_id: z.string(),
   status: PutMediasArchiveStatus$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "hashed_id": "hashedId",
+  });
 });
 
 export function putMediasArchiveBackgroundJobStatusFromJSON(
@@ -122,10 +144,10 @@ export const PutMediasArchiveResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  message: z.string().optional(),
+  message: z.string(),
   background_job_status: z.lazy(() =>
     PutMediasArchiveBackgroundJobStatus$inboundSchema
-  ).optional(),
+  ),
 }).transform((v) => {
   return remap$(v, {
     "background_job_status": "backgroundJobStatus",

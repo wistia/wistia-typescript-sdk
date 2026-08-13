@@ -28,7 +28,7 @@ export const GetMediasEnabled = {
 export type GetMediasEnabled = ClosedEnum<typeof GetMediasEnabled>;
 
 /**
- * If `cursor[enabled]` is set to 1 than cursor pagination is enabled and the
+ * If `cursor[enabled]` is set to 1 then cursor pagination is enabled and the
  *
  * @remarks
  * first set of records are fetched up to the `per_page`. Cursor
@@ -38,7 +38,7 @@ export type GetMediasEnabled = ClosedEnum<typeof GetMediasEnabled>;
  * the cursor of the first record can be used to fetch records before the result set.
  *
  * NOTE: a cursor value is only valid if the `sort_by` value hasn't changed from the
- * last fetch. For example, you cannot fetch using `sort_by` id and than pass that
+ * last fetch. For example, you cannot fetch using `sort_by` id and then pass that
  * cursor value to a `sort_by` name.
  */
 export type GetMediasCursor = {
@@ -50,7 +50,7 @@ export type GetMediasCursor = {
    */
   enabled?: GetMediasEnabled | undefined;
   /**
-   * If `cursor[before]` is set than cursor pagination is enabled and all records
+   * If `cursor[before]` is set then cursor pagination is enabled and all records
    *
    * @remarks
    * before the cursor up to the `per_page` are returned. This feature is useful for
@@ -59,7 +59,7 @@ export type GetMediasCursor = {
    */
   before?: string | undefined;
   /**
-   * If `cursor[after]` is set than cursor pagination is enabled and all records
+   * If `cursor[after]` is set then cursor pagination is enabled and all records
    *
    * @remarks
    * after the cursor up to the `per_page` are returned.
@@ -104,7 +104,7 @@ export type GetMediasSortDirection = ClosedEnum<typeof GetMediasSortDirection>;
 /**
  * A string specifying which type of media you would like to get.
  */
-export const QueryParamType = {
+export const GetMediasQueryParamType = {
   Video: "Video",
   Audio: "Audio",
   Image: "Image",
@@ -116,7 +116,9 @@ export const QueryParamType = {
 /**
  * A string specifying which type of media you would like to get.
  */
-export type QueryParamType = ClosedEnum<typeof QueryParamType>;
+export type GetMediasQueryParamType = ClosedEnum<
+  typeof GetMediasQueryParamType
+>;
 
 export type GetMediasRequest = {
   /**
@@ -131,7 +133,7 @@ export type GetMediasRequest = {
    */
   perPage?: number | undefined;
   /**
-   * If `cursor[enabled]` is set to 1 than cursor pagination is enabled and the
+   * If `cursor[enabled]` is set to 1 then cursor pagination is enabled and the
    *
    * @remarks
    * first set of records are fetched up to the `per_page`. Cursor
@@ -141,7 +143,7 @@ export type GetMediasRequest = {
    * the cursor of the first record can be used to fetch records before the result set.
    *
    * NOTE: a cursor value is only valid if the `sort_by` value hasn't changed from the
-   * last fetch. For example, you cannot fetch using `sort_by` id and than pass that
+   * last fetch. For example, you cannot fetch using `sort_by` id and then pass that
    * cursor value to a `sort_by` name.
    */
   cursor?: GetMediasCursor | undefined;
@@ -172,7 +174,7 @@ export type GetMediasRequest = {
   /**
    * A string specifying which type of media you would like to get.
    */
-  type?: QueryParamType | undefined;
+  type?: GetMediasQueryParamType | undefined;
   /**
    * Find all of the medias by these hashed_ids.
    */
@@ -186,6 +188,20 @@ export type GetMediasRequest = {
    */
   archived?: boolean | undefined;
 };
+
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const GetMediasCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type GetMediasCode = ClosedEnum<typeof GetMediasCode>;
 
 /**
  * A string representing what type of media this is.
@@ -273,7 +289,7 @@ export type GetMediasAsset = {
 };
 
 /**
- * A subfolder within a folder that contains media.
+ * The subfolder (media group) in which the media appears. Null if the media is not in a subfolder.
  */
 export type GetMediasSubfolder = {
   /**
@@ -381,6 +397,10 @@ export type GetMediasResponse = {
    */
   section?: string | null | undefined;
   thumbnail?: GetMediasThumbnail | undefined;
+  /**
+   * Whether the media is protected (e.g. requires a password or other authentication to view). Null if the media is not protected.
+   */
+  protected?: boolean | null | undefined;
   folder: GetMediasFolder | null;
   /**
    * An array of the assets available for this media.
@@ -440,9 +460,9 @@ export const GetMediasSortDirection$outboundSchema: z.ZodNativeEnum<
 > = z.nativeEnum(GetMediasSortDirection);
 
 /** @internal */
-export const QueryParamType$outboundSchema: z.ZodNativeEnum<
-  typeof QueryParamType
-> = z.nativeEnum(QueryParamType);
+export const GetMediasQueryParamType$outboundSchema: z.ZodNativeEnum<
+  typeof GetMediasQueryParamType
+> = z.nativeEnum(GetMediasQueryParamType);
 
 /** @internal */
 export type GetMediasRequest$Outbound = {
@@ -474,7 +494,7 @@ export const GetMediasRequest$outboundSchema: z.ZodType<
   folderId: z.string().optional(),
   name: z.string().optional(),
   descriptionFormat: z.literal("markdown").optional(),
-  type: QueryParamType$outboundSchema.optional(),
+  type: GetMediasQueryParamType$outboundSchema.optional(),
   hashedIds: z.array(z.string()).optional(),
   tags: z.array(z.string()).optional(),
   archived: z.boolean().optional(),
@@ -497,6 +517,11 @@ export function getMediasRequestToJSON(
     GetMediasRequest$outboundSchema.parse(getMediasRequest),
   );
 }
+
+/** @internal */
+export const GetMediasCode$inboundSchema: z.ZodNativeEnum<
+  typeof GetMediasCode
+> = z.nativeEnum(GetMediasCode);
 
 /** @internal */
 export const GetMediasTypeResponse$inboundSchema: z.ZodNativeEnum<
@@ -537,7 +562,11 @@ export const GetMediasFolder$inboundSchema: z.ZodType<
 > = z.object({
   id: z.number().int().optional(),
   name: z.string().optional(),
-  hashedId: z.string().optional(),
+  hashed_id: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "hashed_id": "hashedId",
+  });
 });
 
 export function getMediasFolderFromJSON(
@@ -653,6 +682,7 @@ export const GetMediasResponse$inboundSchema: z.ZodType<
   status: GetMediasStatus$inboundSchema.optional(),
   section: z.nullable(z.string()).optional(),
   thumbnail: z.lazy(() => GetMediasThumbnail$inboundSchema).optional(),
+  protected: z.nullable(z.boolean()).optional(),
   folder: z.nullable(z.lazy(() => GetMediasFolder$inboundSchema)),
   assets: z.array(z.lazy(() => GetMediasAsset$inboundSchema)).optional(),
   subfolder: z.lazy(() => GetMediasSubfolder$inboundSchema).optional(),

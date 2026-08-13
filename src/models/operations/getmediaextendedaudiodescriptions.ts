@@ -30,7 +30,7 @@ export type GetMediaExtendedAudioDescriptionsEnabled = ClosedEnum<
 >;
 
 /**
- * If `cursor[enabled]` is set to 1 than cursor pagination is enabled and the
+ * If `cursor[enabled]` is set to 1 then cursor pagination is enabled and the
  *
  * @remarks
  * first set of records are fetched up to the `per_page`. Cursor
@@ -40,7 +40,7 @@ export type GetMediaExtendedAudioDescriptionsEnabled = ClosedEnum<
  * the cursor of the first record can be used to fetch records before the result set.
  *
  * NOTE: a cursor value is only valid if the `sort_by` value hasn't changed from the
- * last fetch. For example, you cannot fetch using `sort_by` id and than pass that
+ * last fetch. For example, you cannot fetch using `sort_by` id and then pass that
  * cursor value to a `sort_by` name.
  */
 export type GetMediaExtendedAudioDescriptionsCursor = {
@@ -52,7 +52,7 @@ export type GetMediaExtendedAudioDescriptionsCursor = {
    */
   enabled?: GetMediaExtendedAudioDescriptionsEnabled | undefined;
   /**
-   * If `cursor[before]` is set than cursor pagination is enabled and all records
+   * If `cursor[before]` is set then cursor pagination is enabled and all records
    *
    * @remarks
    * before the cursor up to the `per_page` are returned. This feature is useful for
@@ -61,7 +61,7 @@ export type GetMediaExtendedAudioDescriptionsCursor = {
    */
   before?: string | undefined;
   /**
-   * If `cursor[after]` is set than cursor pagination is enabled and all records
+   * If `cursor[after]` is set then cursor pagination is enabled and all records
    *
    * @remarks
    * after the cursor up to the `per_page` are returned.
@@ -73,6 +73,9 @@ export type GetMediaExtendedAudioDescriptionsCursor = {
  * Field to order by. The default is id.
  */
 export const GetMediaExtendedAudioDescriptionsSortBy = {
+  Language: "language",
+  Created: "created",
+  Updated: "updated",
   Id: "id",
 } as const;
 /**
@@ -109,7 +112,7 @@ export type GetMediaExtendedAudioDescriptionsRequest = {
    */
   perPage?: number | undefined;
   /**
-   * If `cursor[enabled]` is set to 1 than cursor pagination is enabled and the
+   * If `cursor[enabled]` is set to 1 then cursor pagination is enabled and the
    *
    * @remarks
    * first set of records are fetched up to the `per_page`. Cursor
@@ -119,7 +122,7 @@ export type GetMediaExtendedAudioDescriptionsRequest = {
    * the cursor of the first record can be used to fetch records before the result set.
    *
    * NOTE: a cursor value is only valid if the `sort_by` value hasn't changed from the
-   * last fetch. For example, you cannot fetch using `sort_by` id and than pass that
+   * last fetch. For example, you cannot fetch using `sort_by` id and then pass that
    * cursor value to a `sort_by` name.
    */
   cursor?: GetMediaExtendedAudioDescriptionsCursor | undefined;
@@ -136,6 +139,22 @@ export type GetMediaExtendedAudioDescriptionsRequest = {
    */
   sortDirection?: GetMediaExtendedAudioDescriptionsSortDirection | undefined;
 };
+
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const GetMediaExtendedAudioDescriptionsCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type GetMediaExtendedAudioDescriptionsCode = ClosedEnum<
+  typeof GetMediaExtendedAudioDescriptionsCode
+>;
 
 export type GetMediaExtendedAudioDescriptionsMedia = {
   /**
@@ -201,6 +220,10 @@ export type GetMediaExtendedAudioDescriptionsResponse = {
     | GetMediaExtendedAudioDescriptionsProvidedMediaFile
     | undefined;
   contact?: GetMediaExtendedAudioDescriptionsContact | undefined;
+  /**
+   * A cursor for stable pagination based on current `sort_by` order. You can pass this to `cursor[before]` or `cursor[after]` as a parameter to fetch the records before or after this record in the same sort order. This is only populated if records were fetched with `cursor[enabled]`, or `cursor[before]` or `cursor[after]`.
+   */
+  cursor?: string | null | undefined;
 };
 
 /** @internal */
@@ -290,6 +313,12 @@ export function getMediaExtendedAudioDescriptionsRequestToJSON(
     ),
   );
 }
+
+/** @internal */
+export const GetMediaExtendedAudioDescriptionsCode$inboundSchema:
+  z.ZodNativeEnum<typeof GetMediaExtendedAudioDescriptionsCode> = z.nativeEnum(
+    GetMediaExtendedAudioDescriptionsCode,
+  );
 
 /** @internal */
 export const GetMediaExtendedAudioDescriptionsMedia$inboundSchema: z.ZodType<
@@ -399,6 +428,7 @@ export const GetMediaExtendedAudioDescriptionsResponse$inboundSchema: z.ZodType<
   ).optional(),
   contact: z.lazy(() => GetMediaExtendedAudioDescriptionsContact$inboundSchema)
     .optional(),
+  cursor: z.nullable(z.string()).optional(),
 }).transform((v) => {
   return remap$(v, {
     "ietf_language_tag": "ietfLanguageTag",

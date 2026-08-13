@@ -13,7 +13,7 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
  * Ordering. Default is ID ASC. When using cursor pagination (see cursor param),
  *
  * @remarks
- * only `id` and `created` are supported. All other sort_by options (`position`, `title`, `updated`)
+ * only `id` and `created` are supported. All other sort_by options (`position`, `title`, `updated`, `published_at`)
  * require offset pagination.
  */
 export const GetChannelEpisodesSortBy = {
@@ -21,13 +21,14 @@ export const GetChannelEpisodesSortBy = {
   Title: "title",
   Created: "created",
   Updated: "updated",
+  PublishedAt: "published_at",
   Id: "id",
 } as const;
 /**
  * Ordering. Default is ID ASC. When using cursor pagination (see cursor param),
  *
  * @remarks
- * only `id` and `created` are supported. All other sort_by options (`position`, `title`, `updated`)
+ * only `id` and `created` are supported. All other sort_by options (`position`, `title`, `updated`, `published_at`)
  * require offset pagination.
  */
 export type GetChannelEpisodesSortBy = ClosedEnum<
@@ -69,7 +70,7 @@ export type GetChannelEpisodesEnabled = ClosedEnum<
 >;
 
 /**
- * If `cursor[enabled]` is set to 1 than cursor pagination is enabled and the
+ * If `cursor[enabled]` is set to 1 then cursor pagination is enabled and the
  *
  * @remarks
  * first set of records are fetched up to the `per_page`. Cursor
@@ -79,7 +80,7 @@ export type GetChannelEpisodesEnabled = ClosedEnum<
  * the cursor of the first record can be used to fetch records before the result set.
  *
  * NOTE: a cursor value is only valid if the `sort_by` value hasn't changed from the
- * last fetch. For example, you cannot fetch using `sort_by` id and than pass that
+ * last fetch. For example, you cannot fetch using `sort_by` id and then pass that
  * cursor value to a `sort_by` name.
  */
 export type GetChannelEpisodesCursor = {
@@ -91,7 +92,7 @@ export type GetChannelEpisodesCursor = {
    */
   enabled?: GetChannelEpisodesEnabled | undefined;
   /**
-   * If `cursor[before]` is set than cursor pagination is enabled and all records
+   * If `cursor[before]` is set then cursor pagination is enabled and all records
    *
    * @remarks
    * before the cursor up to the `per_page` are returned. This feature is useful for
@@ -100,7 +101,7 @@ export type GetChannelEpisodesCursor = {
    */
   before?: string | undefined;
   /**
-   * If `cursor[after]` is set than cursor pagination is enabled and all records
+   * If `cursor[after]` is set then cursor pagination is enabled and all records
    *
    * @remarks
    * after the cursor up to the `per_page` are returned.
@@ -117,7 +118,7 @@ export type GetChannelEpisodesRequest = {
    * Ordering. Default is ID ASC. When using cursor pagination (see cursor param),
    *
    * @remarks
-   * only `id` and `created` are supported. All other sort_by options (`position`, `title`, `updated`)
+   * only `id` and `created` are supported. All other sort_by options (`position`, `title`, `updated`, `published_at`)
    * require offset pagination.
    */
   sortBy?: GetChannelEpisodesSortBy | undefined;
@@ -137,7 +138,7 @@ export type GetChannelEpisodesRequest = {
    */
   perPage?: number | undefined;
   /**
-   * If `cursor[enabled]` is set to 1 than cursor pagination is enabled and the
+   * If `cursor[enabled]` is set to 1 then cursor pagination is enabled and the
    *
    * @remarks
    * first set of records are fetched up to the `per_page`. Cursor
@@ -147,12 +148,12 @@ export type GetChannelEpisodesRequest = {
    * the cursor of the first record can be used to fetch records before the result set.
    *
    * NOTE: a cursor value is only valid if the `sort_by` value hasn't changed from the
-   * last fetch. For example, you cannot fetch using `sort_by` id and than pass that
+   * last fetch. For example, you cannot fetch using `sort_by` id and then pass that
    * cursor value to a `sort_by` name.
    */
   cursor?: GetChannelEpisodesCursor | undefined;
   /**
-   * Filter by media id
+   * Filter by media id. Accepts either the numeric id or the hashed id of a media.
    */
   mediaId?: Array<string> | undefined;
   /**
@@ -170,12 +171,74 @@ export type GetChannelEpisodesRequest = {
 };
 
 /**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const GetChannelEpisodesCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type GetChannelEpisodesCode = ClosedEnum<typeof GetChannelEpisodesCode>;
+
+/**
+ * The type of episode.
+ */
+export const GetChannelEpisodesEpisodeType = {
+  Full: "full",
+  Trailer: "trailer",
+  Bonus: "bonus",
+} as const;
+/**
+ * The type of episode.
+ */
+export type GetChannelEpisodesEpisodeType = ClosedEnum<
+  typeof GetChannelEpisodesEpisodeType
+>;
+
+/**
+ * Podcast specific settings for the episode. Only present when podcasting
+ *
+ * @remarks
+ * is enabled for the channel.
+ */
+export type GetChannelEpisodesPodcastSettings = {
+  /**
+   * The type of episode.
+   */
+  episodeType?: GetChannelEpisodesEpisodeType | undefined;
+  /**
+   * The number of the episode.
+   */
+  episodeNumber?: number | undefined;
+  /**
+   * The season number of the episode.
+   */
+  seasonNumber?: number | undefined;
+  /**
+   * Whether the episode contains explicit content.
+   */
+  explicitContent?: boolean | undefined;
+  /**
+   * Whether to hide the episode from the podcast feed.
+   */
+  hideFromFeed?: boolean | undefined;
+};
+
+/**
  * A channel episode represents a media that has been added to a channel. Only published
  *
  * @remarks
  * episodes are displayed in a channel.
  */
 export type GetChannelEpisodesResponse = {
+  /**
+   * A unique numeric identifier for the channel episode.
+   */
+  id?: number | undefined;
   /**
    * A unique alphanumeric identifier for the channel episode's channel.
    */
@@ -205,6 +268,10 @@ export type GetChannelEpisodesResponse = {
    */
   mediaHashedId: string;
   /**
+   * A unique alphanumeric identifier for the channel episode's live stream event, if any. Null when the episode is not linked to a live stream event.
+   */
+  liveStreamEventHashedId?: string | null | undefined;
+  /**
    * Whether the channel episode has been published or is still in draft form.
    */
   published: boolean;
@@ -220,6 +287,13 @@ export type GetChannelEpisodesResponse = {
    * The date when the channel was last updated.
    */
   updated: Date;
+  /**
+   * Podcast specific settings for the episode. Only present when podcasting
+   *
+   * @remarks
+   * is enabled for the channel.
+   */
+  podcastSettings?: GetChannelEpisodesPodcastSettings | undefined;
 };
 
 /** @internal */
@@ -313,11 +387,53 @@ export function getChannelEpisodesRequestToJSON(
 }
 
 /** @internal */
+export const GetChannelEpisodesCode$inboundSchema: z.ZodNativeEnum<
+  typeof GetChannelEpisodesCode
+> = z.nativeEnum(GetChannelEpisodesCode);
+
+/** @internal */
+export const GetChannelEpisodesEpisodeType$inboundSchema: z.ZodNativeEnum<
+  typeof GetChannelEpisodesEpisodeType
+> = z.nativeEnum(GetChannelEpisodesEpisodeType);
+
+/** @internal */
+export const GetChannelEpisodesPodcastSettings$inboundSchema: z.ZodType<
+  GetChannelEpisodesPodcastSettings,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  episode_type: GetChannelEpisodesEpisodeType$inboundSchema.optional(),
+  episode_number: z.number().int().optional(),
+  season_number: z.number().int().optional(),
+  explicit_content: z.boolean().optional(),
+  hide_from_feed: z.boolean().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "episode_type": "episodeType",
+    "episode_number": "episodeNumber",
+    "season_number": "seasonNumber",
+    "explicit_content": "explicitContent",
+    "hide_from_feed": "hideFromFeed",
+  });
+});
+
+export function getChannelEpisodesPodcastSettingsFromJSON(
+  jsonString: string,
+): SafeParseResult<GetChannelEpisodesPodcastSettings, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetChannelEpisodesPodcastSettings$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetChannelEpisodesPodcastSettings' from JSON`,
+  );
+}
+
+/** @internal */
 export const GetChannelEpisodesResponse$inboundSchema: z.ZodType<
   GetChannelEpisodesResponse,
   z.ZodTypeDef,
   unknown
 > = z.object({
+  id: z.number().int().optional(),
   channel_hashed_id: z.string(),
   created: z.string().datetime({ offset: true }).transform(v => new Date(v)),
   cursor: z.nullable(z.string()).optional(),
@@ -325,17 +441,23 @@ export const GetChannelEpisodesResponse$inboundSchema: z.ZodType<
   summary: z.string(),
   hashed_id: z.string(),
   media_hashed_id: z.string(),
+  live_stream_event_hashed_id: z.nullable(z.string()).optional(),
   published: z.boolean(),
   publish_at: z.string().datetime({ offset: true }).transform(v => new Date(v))
     .optional(),
   title: z.nullable(z.string()),
   updated: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  podcast_settings: z.lazy(() =>
+    GetChannelEpisodesPodcastSettings$inboundSchema
+  ).optional(),
 }).transform((v) => {
   return remap$(v, {
     "channel_hashed_id": "channelHashedId",
     "hashed_id": "hashedId",
     "media_hashed_id": "mediaHashedId",
+    "live_stream_event_hashed_id": "liveStreamEventHashedId",
     "publish_at": "publishAt",
+    "podcast_settings": "podcastSettings",
   });
 });
 

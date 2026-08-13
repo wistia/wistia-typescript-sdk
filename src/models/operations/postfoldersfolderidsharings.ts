@@ -10,62 +10,6 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
- * Default is "1". Set to "0" to allow access without a password.
- */
-export const RequirePasswordEnum = {
-  Zero: "0",
-  One: "1",
-} as const;
-/**
- * Default is "1". Set to "0" to allow access without a password.
- */
-export type RequirePasswordEnum = ClosedEnum<typeof RequirePasswordEnum>;
-
-export type RequirePassword = RequirePasswordEnum | boolean;
-
-/**
- * Default is "0". Set to "1" to allow the user to share the folder with others.
- */
-export const CanShareEnum = {
-  Zero: "0",
-  One: "1",
-} as const;
-/**
- * Default is "0". Set to "1" to allow the user to share the folder with others.
- */
-export type CanShareEnum = ClosedEnum<typeof CanShareEnum>;
-
-export type CanShare = CanShareEnum | boolean;
-
-/**
- * Default is "0". Set to "1" to allow the user to download files from the folder.
- */
-export const CanDownloadEnum = {
-  Zero: "0",
-  One: "1",
-} as const;
-/**
- * Default is "0". Set to "1" to allow the user to download files from the folder.
- */
-export type CanDownloadEnum = ClosedEnum<typeof CanDownloadEnum>;
-
-export type CanDownload = CanDownloadEnum | boolean;
-
-/**
- * Default is "0". Set to "1" to allow the user to upload files to the folder.
- */
-export const CanUploadEnum = {
-  Zero: "0",
-  One: "1",
-} as const;
-/**
- * Default is "0". Set to "1" to allow the user to upload files to the folder.
- */
-export type CanUploadEnum = ClosedEnum<typeof CanUploadEnum>;
-
-export type CanUpload = CanUploadEnum | boolean;
-
-/**
  * Deprecated! Email notifications are always sent now.
  *
  * @deprecated enum: This will be removed in a future release, please migrate away from it as soon as possible.
@@ -86,10 +30,22 @@ export type PostFoldersFolderIdSharingsSharingRequest = {
    * The email address of the person with whom you want to share the folder.
    */
   with: string;
-  requirePassword?: RequirePasswordEnum | boolean | undefined;
-  canShare?: CanShareEnum | boolean | undefined;
-  canDownload?: CanDownloadEnum | boolean | undefined;
-  canUpload?: CanUploadEnum | boolean | undefined;
+  /**
+   * A flag indicating whether or not a password is required. Defaults to true.
+   */
+  requirePassword?: boolean | undefined;
+  /**
+   * Whether the user is allowed to share the folder with others. Defaults to false.
+   */
+  canShare?: boolean | undefined;
+  /**
+   * Whether the user is allowed to download files from the folder. Defaults to false.
+   */
+  canDownload?: boolean | undefined;
+  /**
+   * Whether the user is allowed to upload files to the folder. Defaults to false.
+   */
+  canUpload?: boolean | undefined;
   /**
    * Deprecated! Email notifications are always sent now.
    *
@@ -109,6 +65,22 @@ export type PostFoldersFolderIdSharingsRequest = {
   folderId: string;
   requestBody: PostFoldersFolderIdSharingsRequestBody;
 };
+
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const PostFoldersFolderIdSharingsCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type PostFoldersFolderIdSharingsCode = ClosedEnum<
+  typeof PostFoldersFolderIdSharingsCode
+>;
 
 export type PostFoldersFolderIdSharingsShare = {
   id: number;
@@ -145,7 +117,10 @@ export type SharingResponse = {
  * The response includes a link for the user to access the folder.
  */
 export type PostFoldersFolderIdSharingsResponseBody = {
-  folder?: string | undefined;
+  /**
+   * The URL of the folder that was shared.
+   */
+  project?: string | undefined;
   /**
    * A sharing is an object that links either a contact or a contact group to a folder, including information about the contacts' permissions to that folder.
    *
@@ -160,83 +135,6 @@ export type PostFoldersFolderIdSharingsResponse = {
 };
 
 /** @internal */
-export const RequirePasswordEnum$outboundSchema: z.ZodNativeEnum<
-  typeof RequirePasswordEnum
-> = z.nativeEnum(RequirePasswordEnum);
-
-/** @internal */
-export type RequirePassword$Outbound = string | boolean;
-
-/** @internal */
-export const RequirePassword$outboundSchema: z.ZodType<
-  RequirePassword$Outbound,
-  z.ZodTypeDef,
-  RequirePassword
-> = z.union([RequirePasswordEnum$outboundSchema, z.boolean()]);
-
-export function requirePasswordToJSON(
-  requirePassword: RequirePassword,
-): string {
-  return JSON.stringify(RequirePassword$outboundSchema.parse(requirePassword));
-}
-
-/** @internal */
-export const CanShareEnum$outboundSchema: z.ZodNativeEnum<typeof CanShareEnum> =
-  z.nativeEnum(CanShareEnum);
-
-/** @internal */
-export type CanShare$Outbound = string | boolean;
-
-/** @internal */
-export const CanShare$outboundSchema: z.ZodType<
-  CanShare$Outbound,
-  z.ZodTypeDef,
-  CanShare
-> = z.union([CanShareEnum$outboundSchema, z.boolean()]);
-
-export function canShareToJSON(canShare: CanShare): string {
-  return JSON.stringify(CanShare$outboundSchema.parse(canShare));
-}
-
-/** @internal */
-export const CanDownloadEnum$outboundSchema: z.ZodNativeEnum<
-  typeof CanDownloadEnum
-> = z.nativeEnum(CanDownloadEnum);
-
-/** @internal */
-export type CanDownload$Outbound = string | boolean;
-
-/** @internal */
-export const CanDownload$outboundSchema: z.ZodType<
-  CanDownload$Outbound,
-  z.ZodTypeDef,
-  CanDownload
-> = z.union([CanDownloadEnum$outboundSchema, z.boolean()]);
-
-export function canDownloadToJSON(canDownload: CanDownload): string {
-  return JSON.stringify(CanDownload$outboundSchema.parse(canDownload));
-}
-
-/** @internal */
-export const CanUploadEnum$outboundSchema: z.ZodNativeEnum<
-  typeof CanUploadEnum
-> = z.nativeEnum(CanUploadEnum);
-
-/** @internal */
-export type CanUpload$Outbound = string | boolean;
-
-/** @internal */
-export const CanUpload$outboundSchema: z.ZodType<
-  CanUpload$Outbound,
-  z.ZodTypeDef,
-  CanUpload
-> = z.union([CanUploadEnum$outboundSchema, z.boolean()]);
-
-export function canUploadToJSON(canUpload: CanUpload): string {
-  return JSON.stringify(CanUpload$outboundSchema.parse(canUpload));
-}
-
-/** @internal */
 export const SendEmailNotification$outboundSchema: z.ZodNativeEnum<
   typeof SendEmailNotification
 > = z.nativeEnum(SendEmailNotification);
@@ -244,10 +142,10 @@ export const SendEmailNotification$outboundSchema: z.ZodNativeEnum<
 /** @internal */
 export type PostFoldersFolderIdSharingsSharingRequest$Outbound = {
   with: string;
-  requirePassword?: string | boolean | undefined;
-  canShare?: string | boolean | undefined;
-  canDownload?: string | boolean | undefined;
-  canUpload?: string | boolean | undefined;
+  requirePassword?: boolean | undefined;
+  canShare?: boolean | undefined;
+  canDownload?: boolean | undefined;
+  canUpload?: boolean | undefined;
   sendEmailNotification?: string | undefined;
 };
 
@@ -259,12 +157,10 @@ export const PostFoldersFolderIdSharingsSharingRequest$outboundSchema:
     PostFoldersFolderIdSharingsSharingRequest
   > = z.object({
     with: z.string(),
-    requirePassword: z.union([RequirePasswordEnum$outboundSchema, z.boolean()])
-      .optional(),
-    canShare: z.union([CanShareEnum$outboundSchema, z.boolean()]).optional(),
-    canDownload: z.union([CanDownloadEnum$outboundSchema, z.boolean()])
-      .optional(),
-    canUpload: z.union([CanUploadEnum$outboundSchema, z.boolean()]).optional(),
+    requirePassword: z.boolean().optional(),
+    canShare: z.boolean().optional(),
+    canDownload: z.boolean().optional(),
+    canUpload: z.boolean().optional(),
     sendEmailNotification: SendEmailNotification$outboundSchema.optional(),
   });
 
@@ -337,6 +233,11 @@ export function postFoldersFolderIdSharingsRequestToJSON(
     ),
   );
 }
+
+/** @internal */
+export const PostFoldersFolderIdSharingsCode$inboundSchema: z.ZodNativeEnum<
+  typeof PostFoldersFolderIdSharingsCode
+> = z.nativeEnum(PostFoldersFolderIdSharingsCode);
 
 /** @internal */
 export const PostFoldersFolderIdSharingsShare$inboundSchema: z.ZodType<
@@ -419,7 +320,7 @@ export const PostFoldersFolderIdSharingsResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  folder: z.string().optional(),
+  project: z.string().optional(),
   sharing: z.lazy(() => SharingResponse$inboundSchema).optional(),
 });
 

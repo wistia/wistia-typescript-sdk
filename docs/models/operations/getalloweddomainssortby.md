@@ -15,5 +15,5 @@ let value: GetAllowedDomainsSortBy = "domain";
 ## Values
 
 ```typescript
-"id" | "domain"
+"id" | "domain" | "created"
 ```

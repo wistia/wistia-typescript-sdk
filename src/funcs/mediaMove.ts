@@ -4,6 +4,7 @@
 
 import { WistiaCore } from "../core.js";
 import { encodeJSON } from "../lib/encodings.js";
+import { matchStatusCode } from "../lib/http.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -29,14 +30,14 @@ import { Result } from "../types/fp.js";
  * Move Media
  *
  * @remarks
- * Move one or many media to a different folder and optionally to a specific subfolder.
- * Max 100 media per request, and max 10 requests in 5 minutes.
- * Note: this is a different rate limit than applies to the rest of the api!
+ * Moves up to 100 media to a folder and optional subfolder. The subfolder must
+ * belong to the specified folder.
  *
- * If a subfolder_id is provided, media will be moved to that subfolder. The subfolder
- * must belong to the specified folder.
+ * This endpoint allows 10 requests per 5 minutes, separate from the general
+ * API rate limit. Returns a Background Job because the move is asynchronous.
  *
- * Returns a Background Job as the move is async.
+ * For more than 100 media, multiple destinations, or mixed actions, use the
+ * Create Bulk Actions endpoint with `move` actions.
  *
  * ## Requires api token with one of the following permissions
  * ```
@@ -151,7 +152,8 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["400", "401", "403", "404", "4XX", "500", "5XX"],
+    isErrorStatusCode: (statusCode: number) =>
+      matchStatusCode({ status: statusCode } as Response, ["4XX", "5XX"]),
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
