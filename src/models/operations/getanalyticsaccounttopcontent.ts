@@ -131,7 +131,7 @@ export type ResponseBody3 = {
   /**
    * The hashed ID of the folder.
    */
-  projectHashedId?: string | null | undefined;
+  projectHashedId: string | null;
   /**
    * When the folder was created, in ISO 8601 format.
    */
@@ -174,7 +174,7 @@ export type ResponseBody2 = {
   /**
    * The hashed ID of the channel.
    */
-  channelHashedId?: string | null | undefined;
+  channelHashedId: string | null;
   /**
    * The number of episodes in the channel.
    */
@@ -217,7 +217,7 @@ export type ResponseBody1 = {
   /**
    * The hashed ID of the media.
    */
-  mediaHashedId?: string | null | undefined;
+  mediaHashedId: string | null;
   /**
    * The type of the media (e.g., "Video", "Audio").
    */
@@ -338,7 +338,7 @@ export const ResponseBody3$inboundSchema: z.ZodType<
   unique_visitors: z.nullable(z.number().int()).optional(),
   played_time: z.nullable(z.number()).optional(),
   project_name: z.nullable(z.string()).optional(),
-  project_hashed_id: z.nullable(z.string()).optional(),
+  project_hashed_id: z.nullable(z.string()),
   project_created_at: z.nullable(z.string()).optional(),
   project_url: z.nullable(z.string()).optional(),
   project_video_count: z.nullable(z.number().int()).optional(),
@@ -378,7 +378,7 @@ export const ResponseBody2$inboundSchema: z.ZodType<
   unique_visitors: z.nullable(z.number().int()).optional(),
   played_time: z.nullable(z.number()).optional(),
   channel_title: z.nullable(z.string()).optional(),
-  channel_hashed_id: z.nullable(z.string()).optional(),
+  channel_hashed_id: z.nullable(z.string()),
   channel_episode_count: z.nullable(z.number().int()).optional(),
   channel_created_at: z.nullable(z.string()).optional(),
   channel_url: z.nullable(z.string()).optional(),
@@ -418,7 +418,7 @@ export const ResponseBody1$inboundSchema: z.ZodType<
   unique_visitors: z.nullable(z.number().int()).optional(),
   played_time: z.nullable(z.number()).optional(),
   media_name: z.nullable(z.string()).optional(),
-  media_hashed_id: z.nullable(z.string()).optional(),
+  media_hashed_id: z.nullable(z.string()),
   media_type: z.nullable(z.string()).optional(),
   media_thumbnail_url: z.nullable(z.string()).optional(),
   media_duration: z.nullable(z.number()).optional(),

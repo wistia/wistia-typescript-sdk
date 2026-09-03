@@ -58,8 +58,8 @@ export function serverURLFromOptions(options: SDKOptions): URL | null {
 export const SDK_METADATA = {
   language: "typescript",
   openapiDocVersion: "2026.07.0",
-  sdkVersion: "2026.7.0",
-  genVersion: "2.924.0",
+  sdkVersion: "2026.7.1",
+  genVersion: "2.935.1",
   userAgent:
-    "speakeasy-sdk/typescript 2026.7.0 2.924.0 2026.07.0 @wistia/wistia-api-client",
+    "speakeasy-sdk/typescript 2026.7.1 2.935.1 2026.07.0 @wistia/wistia-api-client",
 } as const;

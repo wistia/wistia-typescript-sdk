@@ -96,55 +96,55 @@ export type GetAnalyticsMediasMediaIdEmbedLocationsResponse = {
   /**
    * The domain where the video is embedded.
    */
-  embedDomain?: string | undefined;
+  embedDomain?: string | null | undefined;
   /**
    * The path on the domain where the video is embedded.
    */
-  embedPath?: string | undefined;
+  embedPath?: string | null | undefined;
   /**
    * The full URL where the video is embedded.
    */
-  embedUrl?: string | undefined;
+  embedUrl?: string | null | undefined;
   /**
    * The title of the page where the video is embedded.
    */
-  pageTitle?: string | undefined;
+  pageTitle?: string | null | undefined;
   /**
    * The number of video loads from this location.
    */
-  loads?: number | undefined;
+  loads?: number | null | undefined;
   /**
    * The number of unique video loads from this location (one per visitor session).
    */
-  uniqueLoads?: number | undefined;
+  uniqueLoads?: number | null | undefined;
   /**
    * The number of video plays from this location.
    */
-  plays?: number | undefined;
+  plays?: number | null | undefined;
   /**
    * The number of unique video plays from this location (one per visitor session).
    */
-  uniquePlays?: number | undefined;
+  uniquePlays?: number | null | undefined;
   /**
    * The play rate from this location (between 0 and 1).
    */
-  playRate?: number | undefined;
+  playRate?: number | null | undefined;
   /**
    * Total time spent watching from this location in seconds.
    */
-  playedTime?: number | undefined;
+  playedTime?: number | null | undefined;
   /**
    * The average engagement rate from this location (between 0 and 1).
    */
-  engagementRate?: number | undefined;
+  engagementRate?: number | null | undefined;
   /**
    * The number of unique visitors from this location.
    */
-  uniqueVisitors?: number | undefined;
+  uniqueVisitors?: number | null | undefined;
   /**
    * The CTA conversion rate from this location (between 0 and 1).
    */
-  ctaConversionRate?: number | undefined;
+  ctaConversionRate?: number | null | undefined;
 };
 
 /** @internal */
@@ -219,19 +219,19 @@ export const GetAnalyticsMediasMediaIdEmbedLocationsResponse$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    embed_domain: z.string().optional(),
-    embed_path: z.string().optional(),
-    embed_url: z.string().optional(),
-    page_title: z.string().optional(),
-    loads: z.number().int().optional(),
-    unique_loads: z.number().int().optional(),
-    plays: z.number().int().optional(),
-    unique_plays: z.number().int().optional(),
-    play_rate: z.number().optional(),
-    played_time: z.number().optional(),
-    engagement_rate: z.number().optional(),
-    unique_visitors: z.number().int().optional(),
-    cta_conversion_rate: z.number().optional(),
+    embed_domain: z.nullable(z.string()).optional(),
+    embed_path: z.nullable(z.string()).optional(),
+    embed_url: z.nullable(z.string()).optional(),
+    page_title: z.nullable(z.string()).optional(),
+    loads: z.nullable(z.number().int()).optional(),
+    unique_loads: z.nullable(z.number().int()).optional(),
+    plays: z.nullable(z.number().int()).optional(),
+    unique_plays: z.nullable(z.number().int()).optional(),
+    play_rate: z.nullable(z.number()).optional(),
+    played_time: z.nullable(z.number()).optional(),
+    engagement_rate: z.nullable(z.number()).optional(),
+    unique_visitors: z.nullable(z.number().int()).optional(),
+    cta_conversion_rate: z.nullable(z.number()).optional(),
   }).transform((v) => {
     return remap$(v, {
       "embed_domain": "embedDomain",
