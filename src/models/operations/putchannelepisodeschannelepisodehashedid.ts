@@ -24,17 +24,11 @@ export type PutChannelEpisodesChannelEpisodeHashedIdPublishStatus = ClosedEnum<
   typeof PutChannelEpisodesChannelEpisodeHashedIdPublishStatus
 >;
 
-/**
- * The type of episode.
- */
 export const PutChannelEpisodesChannelEpisodeHashedIdEpisodeTypeRequest = {
   Full: "full",
   Trailer: "trailer",
   Bonus: "bonus",
 } as const;
-/**
- * The type of episode.
- */
 export type PutChannelEpisodesChannelEpisodeHashedIdEpisodeTypeRequest =
   ClosedEnum<typeof PutChannelEpisodesChannelEpisodeHashedIdEpisodeTypeRequest>;
 
@@ -50,15 +44,16 @@ export type PutChannelEpisodesChannelEpisodeHashedIdPodcastSettingsRequest = {
    */
   episodeType?:
     | PutChannelEpisodesChannelEpisodeHashedIdEpisodeTypeRequest
+    | null
     | undefined;
   /**
    * The number of the episode.
    */
-  episodeNumber?: number | undefined;
+  episodeNumber?: number | null | undefined;
   /**
    * The season number of the episode.
    */
-  seasonNumber?: number | undefined;
+  seasonNumber?: number | null | undefined;
   /**
    * Whether the episode contains explicit content.
    */
@@ -139,17 +134,11 @@ export type PutChannelEpisodesChannelEpisodeHashedIdCode = ClosedEnum<
   typeof PutChannelEpisodesChannelEpisodeHashedIdCode
 >;
 
-/**
- * The type of episode.
- */
 export const PutChannelEpisodesChannelEpisodeHashedIdEpisodeTypeResponse = {
   Full: "full",
   Trailer: "trailer",
   Bonus: "bonus",
 } as const;
-/**
- * The type of episode.
- */
 export type PutChannelEpisodesChannelEpisodeHashedIdEpisodeTypeResponse =
   ClosedEnum<
     typeof PutChannelEpisodesChannelEpisodeHashedIdEpisodeTypeResponse
@@ -167,15 +156,16 @@ export type PutChannelEpisodesChannelEpisodeHashedIdPodcastSettingsResponse = {
    */
   episodeType?:
     | PutChannelEpisodesChannelEpisodeHashedIdEpisodeTypeResponse
+    | null
     | undefined;
   /**
    * The number of the episode.
    */
-  episodeNumber?: number | undefined;
+  episodeNumber?: number | null | undefined;
   /**
    * The season number of the episode.
    */
-  seasonNumber?: number | undefined;
+  seasonNumber?: number | null | undefined;
   /**
    * Whether the episode contains explicit content.
    */
@@ -271,9 +261,9 @@ export const PutChannelEpisodesChannelEpisodeHashedIdEpisodeTypeRequest$outbound
 /** @internal */
 export type PutChannelEpisodesChannelEpisodeHashedIdPodcastSettingsRequest$Outbound =
   {
-    episode_type?: string | undefined;
-    episode_number?: number | undefined;
-    season_number?: number | undefined;
+    episode_type?: string | null | undefined;
+    episode_number?: number | null | undefined;
+    season_number?: number | null | undefined;
     explicit_content?: boolean | undefined;
     hide_from_feed?: boolean | undefined;
   };
@@ -285,11 +275,11 @@ export const PutChannelEpisodesChannelEpisodeHashedIdPodcastSettingsRequest$outb
     z.ZodTypeDef,
     PutChannelEpisodesChannelEpisodeHashedIdPodcastSettingsRequest
   > = z.object({
-    episodeType:
-      PutChannelEpisodesChannelEpisodeHashedIdEpisodeTypeRequest$outboundSchema
-        .optional(),
-    episodeNumber: z.number().int().optional(),
-    seasonNumber: z.number().int().optional(),
+    episodeType: z.nullable(
+      PutChannelEpisodesChannelEpisodeHashedIdEpisodeTypeRequest$outboundSchema,
+    ).optional(),
+    episodeNumber: z.nullable(z.number().int()).optional(),
+    seasonNumber: z.nullable(z.number().int()).optional(),
     explicitContent: z.boolean().optional(),
     hideFromFeed: z.boolean().optional(),
   }).transform((v) => {
@@ -423,11 +413,11 @@ export const PutChannelEpisodesChannelEpisodeHashedIdPodcastSettingsResponse$inb
     z.ZodTypeDef,
     unknown
   > = z.object({
-    episode_type:
-      PutChannelEpisodesChannelEpisodeHashedIdEpisodeTypeResponse$inboundSchema
-        .optional(),
-    episode_number: z.number().int().optional(),
-    season_number: z.number().int().optional(),
+    episode_type: z.nullable(
+      PutChannelEpisodesChannelEpisodeHashedIdEpisodeTypeResponse$inboundSchema,
+    ).optional(),
+    episode_number: z.nullable(z.number().int()).optional(),
+    season_number: z.nullable(z.number().int()).optional(),
     explicit_content: z.boolean().optional(),
     hide_from_feed: z.boolean().optional(),
   }).transform((v) => {

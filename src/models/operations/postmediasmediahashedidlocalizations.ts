@@ -101,6 +101,16 @@ export type PostMediasMediaHashedIdLocalizationsTranscript = {
 };
 
 /**
+ * The expected price per minute that will be billed for the dubbing. Decimal prices are returned as strings.
+ */
+export type ExpectedBilledPricePerMinute = number | string;
+
+/**
+ * The expected total price that will be billed for the dubbing. Decimal prices are returned as strings.
+ */
+export type ExpectedBilledPrice = number | string;
+
+/**
  * A localization is a translation of a media into another language.
  *
  * @remarks
@@ -166,13 +176,13 @@ export type PostMediasMediaHashedIdLocalizationsResponse = {
    */
   expectedBilledMinutes: number | null;
   /**
-   * The expected price per minute that will be billed for the dubbing.
+   * The expected price per minute that will be billed for the dubbing. Decimal prices are returned as strings.
    */
-  expectedBilledPricePerMinute: number | null;
+  expectedBilledPricePerMinute: number | string | null;
   /**
-   * The expected total price that will be billed for the dubbing.
+   * The expected total price that will be billed for the dubbing. Decimal prices are returned as strings.
    */
-  expectedBilledPrice: number | null;
+  expectedBilledPrice: number | string | null;
   /**
    * The date when the dubbing was billed.
    */
@@ -337,6 +347,40 @@ export function postMediasMediaHashedIdLocalizationsTranscriptFromJSON(
 }
 
 /** @internal */
+export const ExpectedBilledPricePerMinute$inboundSchema: z.ZodType<
+  ExpectedBilledPricePerMinute,
+  z.ZodTypeDef,
+  unknown
+> = z.union([z.number(), z.string()]);
+
+export function expectedBilledPricePerMinuteFromJSON(
+  jsonString: string,
+): SafeParseResult<ExpectedBilledPricePerMinute, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ExpectedBilledPricePerMinute$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ExpectedBilledPricePerMinute' from JSON`,
+  );
+}
+
+/** @internal */
+export const ExpectedBilledPrice$inboundSchema: z.ZodType<
+  ExpectedBilledPrice,
+  z.ZodTypeDef,
+  unknown
+> = z.union([z.number(), z.string()]);
+
+export function expectedBilledPriceFromJSON(
+  jsonString: string,
+): SafeParseResult<ExpectedBilledPrice, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ExpectedBilledPrice$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ExpectedBilledPrice' from JSON`,
+  );
+}
+
+/** @internal */
 export const PostMediasMediaHashedIdLocalizationsResponse$inboundSchema:
   z.ZodType<
     PostMediasMediaHashedIdLocalizationsResponse,
@@ -371,8 +415,10 @@ export const PostMediasMediaHashedIdLocalizationsResponse$inboundSchema:
     ).optional(),
     auto_enable_dubbing: z.boolean(),
     expected_billed_minutes: z.nullable(z.number()),
-    expected_billed_price_per_minute: z.nullable(z.number()),
-    expected_billed_price: z.nullable(z.number()),
+    expected_billed_price_per_minute: z.nullable(
+      z.union([z.number(), z.string()]),
+    ),
+    expected_billed_price: z.nullable(z.union([z.number(), z.string()])),
     billed_at: z.nullable(
       z.string().datetime({ offset: true }).transform(v => new Date(v)),
     ),
