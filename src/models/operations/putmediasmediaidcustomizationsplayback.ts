@@ -262,6 +262,12 @@ export type PutMediasMediaIdCustomizationsPlaybackVideoFoamResponseUnion =
   | string
   | PutMediasMediaIdCustomizationsPlaybackVideoFoamResponse;
 
+export type PutMediasMediaIdCustomizationsPlaybackClickForSound = {};
+
+export type PutMediasMediaIdCustomizationsPlaybackClickForSoundUnion =
+  | string
+  | PutMediasMediaIdCustomizationsPlaybackClickForSound;
+
 /**
  * Explicitly-set playback customizations for the video. Values are returned as
  *
@@ -311,7 +317,10 @@ export type PutMediasMediaIdCustomizationsPlaybackResponse = {
   wmode?: string | undefined;
   bpbTime?: string | undefined;
   spherical?: string | undefined;
-  clickForSound?: string | undefined;
+  clickForSound?:
+    | string
+    | PutMediasMediaIdCustomizationsPlaybackClickForSound
+    | undefined;
   seo?: string | undefined;
   doNotTrack?: string | undefined;
   copyLinkAndThumbnailEnabled?: string | undefined;
@@ -585,6 +594,58 @@ export function putMediasMediaIdCustomizationsPlaybackVideoFoamResponseUnionFrom
 }
 
 /** @internal */
+export const PutMediasMediaIdCustomizationsPlaybackClickForSound$inboundSchema:
+  z.ZodType<
+    PutMediasMediaIdCustomizationsPlaybackClickForSound,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({});
+
+export function putMediasMediaIdCustomizationsPlaybackClickForSoundFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  PutMediasMediaIdCustomizationsPlaybackClickForSound,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      PutMediasMediaIdCustomizationsPlaybackClickForSound$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'PutMediasMediaIdCustomizationsPlaybackClickForSound' from JSON`,
+  );
+}
+
+/** @internal */
+export const PutMediasMediaIdCustomizationsPlaybackClickForSoundUnion$inboundSchema:
+  z.ZodType<
+    PutMediasMediaIdCustomizationsPlaybackClickForSoundUnion,
+    z.ZodTypeDef,
+    unknown
+  > = z.union([
+    z.string(),
+    z.lazy(() =>
+      PutMediasMediaIdCustomizationsPlaybackClickForSound$inboundSchema
+    ),
+  ]);
+
+export function putMediasMediaIdCustomizationsPlaybackClickForSoundUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  PutMediasMediaIdCustomizationsPlaybackClickForSoundUnion,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      PutMediasMediaIdCustomizationsPlaybackClickForSoundUnion$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'PutMediasMediaIdCustomizationsPlaybackClickForSoundUnion' from JSON`,
+  );
+}
+
+/** @internal */
 export const PutMediasMediaIdCustomizationsPlaybackResponse$inboundSchema:
   z.ZodType<
     PutMediasMediaIdCustomizationsPlaybackResponse,
@@ -629,7 +690,12 @@ export const PutMediasMediaIdCustomizationsPlaybackResponse$inboundSchema:
     wmode: z.string().optional(),
     bpbTime: z.string().optional(),
     spherical: z.string().optional(),
-    clickForSound: z.string().optional(),
+    clickForSound: z.union([
+      z.string(),
+      z.lazy(() =>
+        PutMediasMediaIdCustomizationsPlaybackClickForSound$inboundSchema
+      ),
+    ]).optional(),
     seo: z.string().optional(),
     doNotTrack: z.string().optional(),
     copyLinkAndThumbnailEnabled: z.string().optional(),
