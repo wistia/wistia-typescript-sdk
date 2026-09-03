@@ -24,6 +24,7 @@ let value: GetSearchResponse = {
         anonymousCanUpload: false,
         anonymousCanDownload: false,
         kind: "shared",
+        personalLibrary: false,
       },
     ],
     subfolders: [

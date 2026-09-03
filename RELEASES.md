@@ -189,3 +189,13 @@ Based on:
 - Speakeasy CLI 1.770.0 (2.893.0) https://github.com/speakeasy-api/speakeasy
 ### Generated
 - [typescript v2026.5.0] .
+
+## 2026-09-03 20:57:22
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.796.4 (2.935.1) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [typescript v2026.5.1] .
+### Releases
+- [NPM v2026.5.1] https://www.npmjs.com/package/@wistia/wistia-api-client/v/2026.5.1 - .
