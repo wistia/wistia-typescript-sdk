@@ -1,9 +1,9 @@
-speakeasyVersion: 1.791.0
+speakeasyVersion: 1.798.0
 sources:
     Data API:
         sourceNamespace: data-api
-        sourceRevisionDigest: sha256:fc69c208c1d65247fe9f3cdee327504b528202b9d36ed0c413ca1b1de3643b9c
-        sourceBlobDigest: sha256:54654d712c1febebf1d402189a23f50db4372d84c40880eb21a4c0195a5a8049
+        sourceRevisionDigest: sha256:760ea0cab550cc9ec8771a894fb57eb819d65066b2f0cb4a2ba6b40b8151d691
+        sourceBlobDigest: sha256:798984edd52f40d357b169ff8874e1a463fbcd322ead1d5701ad9729511d7586
         tags:
             - latest
             - 2026.07.0
@@ -11,10 +11,10 @@ targets:
     wistia:
         source: Data API
         sourceNamespace: data-api
-        sourceRevisionDigest: sha256:fc69c208c1d65247fe9f3cdee327504b528202b9d36ed0c413ca1b1de3643b9c
-        sourceBlobDigest: sha256:54654d712c1febebf1d402189a23f50db4372d84c40880eb21a4c0195a5a8049
+        sourceRevisionDigest: sha256:760ea0cab550cc9ec8771a894fb57eb819d65066b2f0cb4a2ba6b40b8151d691
+        sourceBlobDigest: sha256:798984edd52f40d357b169ff8874e1a463fbcd322ead1d5701ad9729511d7586
         codeSamplesNamespace: data-api-typescript-code-samples
-        codeSamplesRevisionDigest: sha256:139ad5bbf35881d46d7bbfd8b286ddf5ff44ef96a643fe70d57bdd8f95f09bc7
+        codeSamplesRevisionDigest: sha256:3ea683e90c08ea9daff21c9c944b80063b81356531b9048957a34917658c35ad
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest

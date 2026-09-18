@@ -130,15 +130,15 @@ export type GetAnalyticsMediasMediaIdTrafficResponse = {
   /**
    * The number of video loads for this group.
    */
-  loads?: number | undefined;
+  loads?: number | null | undefined;
   /**
    * The number of video plays for this group.
    */
-  plays?: number | undefined;
+  plays?: number | null | undefined;
   /**
    * The average engagement rate for this group (between 0 and 1).
    */
-  engagementRate?: number | undefined;
+  engagementRate?: number | null | undefined;
 };
 
 /** @internal */
@@ -223,9 +223,9 @@ export const GetAnalyticsMediasMediaIdTrafficResponse$inboundSchema: z.ZodType<
   utm_medium: z.nullable(z.string()).optional(),
   referrer_domain: z.nullable(z.string()).optional(),
   viewer_screen_size: z.nullable(z.string()).optional(),
-  loads: z.number().int().optional(),
-  plays: z.number().int().optional(),
-  engagement_rate: z.number().optional(),
+  loads: z.nullable(z.number().int()).optional(),
+  plays: z.nullable(z.number().int()).optional(),
+  engagement_rate: z.nullable(z.number()).optional(),
 }).transform((v) => {
   return remap$(v, {
     "utm_campaign": "utmCampaign",
