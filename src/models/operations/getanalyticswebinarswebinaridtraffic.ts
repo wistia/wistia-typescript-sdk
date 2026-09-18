@@ -96,31 +96,31 @@ export type GetAnalyticsWebinarsWebinarIdTrafficResponse = {
   /**
    * The UTM campaign value (present when group_by is utm_campaign).
    */
-  utmCampaign?: string | undefined;
+  utmCampaign?: string | null | undefined;
   /**
    * The UTM source value (present when group_by is utm_source).
    */
-  utmSource?: string | undefined;
+  utmSource?: string | null | undefined;
   /**
    * The UTM medium value (present when group_by is utm_medium).
    */
-  utmMedium?: string | undefined;
+  utmMedium?: string | null | undefined;
   /**
    * The referrer domain (present when group_by is referrer_domain).
    */
-  referrerDomain?: string | undefined;
+  referrerDomain?: string | null | undefined;
   /**
    * The number of registrations from this traffic source.
    */
-  registrations?: number | undefined;
+  registrations?: number | null | undefined;
   /**
    * The number of attendees from this traffic source.
    */
-  attendees?: number | undefined;
+  attendees?: number | null | undefined;
   /**
    * The number of registration page impressions from this traffic source.
    */
-  impressions?: number | undefined;
+  impressions?: number | null | undefined;
 };
 
 /** @internal */
@@ -193,13 +193,13 @@ export const GetAnalyticsWebinarsWebinarIdTrafficResponse$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    utm_campaign: z.string().optional(),
-    utm_source: z.string().optional(),
-    utm_medium: z.string().optional(),
-    referrer_domain: z.string().optional(),
-    registrations: z.number().int().optional(),
-    attendees: z.number().int().optional(),
-    impressions: z.number().int().optional(),
+    utm_campaign: z.nullable(z.string()).optional(),
+    utm_source: z.nullable(z.string()).optional(),
+    utm_medium: z.nullable(z.string()).optional(),
+    referrer_domain: z.nullable(z.string()).optional(),
+    registrations: z.nullable(z.number().int()).optional(),
+    attendees: z.nullable(z.number().int()).optional(),
+    impressions: z.nullable(z.number().int()).optional(),
   }).transform((v) => {
     return remap$(v, {
       "utm_campaign": "utmCampaign",
