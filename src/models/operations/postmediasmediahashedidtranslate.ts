@@ -11,11 +11,11 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type PostMediasMediaHashedIdTranslateRequestBody = {
   /**
-   * The language to translate the transcript to as a 3-character IETF language code.
+   * The language to translate the transcript to. Use the bibliographic ISO 639-2 form or a supported regional or script IETF tag.
    */
   targetLanguage: string;
   /**
-   * The language of the source transcript to be translated as a 3-character IETF language code. If not provided, the media's default transcript language will be used.
+   * The language of the source transcript. Use the bibliographic ISO 639-2 form or a supported regional or script IETF tag. If not provided, the media's default transcript language will be used.
    */
   sourceLanguage?: string | undefined;
 };
