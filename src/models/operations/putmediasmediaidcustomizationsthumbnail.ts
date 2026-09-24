@@ -123,6 +123,13 @@ export type PutMediasMediaIdCustomizationsThumbnailCode = ClosedEnum<
   typeof PutMediasMediaIdCustomizationsThumbnailCode
 >;
 
+export type PutMediasMediaIdCustomizationsThumbnailUnalteredStillImageAsset =
+  {};
+
+export type PutMediasMediaIdCustomizationsThumbnailUnalteredStillImageAssetUnion =
+  | string
+  | PutMediasMediaIdCustomizationsThumbnailUnalteredStillImageAsset;
+
 export type PutMediasMediaIdCustomizationsThumbnailVideoThumbnailResponse = {
   clickToPlayButton?: string | undefined;
   clickForSound?: string | undefined;
@@ -157,7 +164,10 @@ export type PutMediasMediaIdCustomizationsThumbnailResponse = {
   stillUrl?: string | undefined;
   thumbnailAltText?: string | undefined;
   fitStrategy?: string | undefined;
-  unalteredStillImageAsset?: string | undefined;
+  unalteredStillImageAsset?:
+    | string
+    | PutMediasMediaIdCustomizationsThumbnailUnalteredStillImageAsset
+    | undefined;
   plugin?: PutMediasMediaIdCustomizationsThumbnailPluginResponse | undefined;
 };
 
@@ -341,6 +351,57 @@ export const PutMediasMediaIdCustomizationsThumbnailCode$inboundSchema:
     .nativeEnum(PutMediasMediaIdCustomizationsThumbnailCode);
 
 /** @internal */
+export const PutMediasMediaIdCustomizationsThumbnailUnalteredStillImageAsset$inboundSchema:
+  z.ZodType<
+    PutMediasMediaIdCustomizationsThumbnailUnalteredStillImageAsset,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({});
+
+export function putMediasMediaIdCustomizationsThumbnailUnalteredStillImageAssetFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  PutMediasMediaIdCustomizationsThumbnailUnalteredStillImageAsset,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      PutMediasMediaIdCustomizationsThumbnailUnalteredStillImageAsset$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'PutMediasMediaIdCustomizationsThumbnailUnalteredStillImageAsset' from JSON`,
+  );
+}
+
+/** @internal */
+export const PutMediasMediaIdCustomizationsThumbnailUnalteredStillImageAssetUnion$inboundSchema:
+  z.ZodType<
+    PutMediasMediaIdCustomizationsThumbnailUnalteredStillImageAssetUnion,
+    z.ZodTypeDef,
+    unknown
+  > = z.union([
+    z.string(),
+    z.lazy(() =>
+      PutMediasMediaIdCustomizationsThumbnailUnalteredStillImageAsset$inboundSchema
+    ),
+  ]);
+
+export function putMediasMediaIdCustomizationsThumbnailUnalteredStillImageAssetUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  PutMediasMediaIdCustomizationsThumbnailUnalteredStillImageAssetUnion,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      PutMediasMediaIdCustomizationsThumbnailUnalteredStillImageAssetUnion$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'PutMediasMediaIdCustomizationsThumbnailUnalteredStillImageAssetUnion' from JSON`,
+  );
+}
+
+/** @internal */
 export const PutMediasMediaIdCustomizationsThumbnailVideoThumbnailResponse$inboundSchema:
   z.ZodType<
     PutMediasMediaIdCustomizationsThumbnailVideoThumbnailResponse,
@@ -441,7 +502,12 @@ export const PutMediasMediaIdCustomizationsThumbnailResponse$inboundSchema:
     stillUrl: z.string().optional(),
     thumbnailAltText: z.string().optional(),
     fitStrategy: z.string().optional(),
-    unalteredStillImageAsset: z.string().optional(),
+    unalteredStillImageAsset: z.union([
+      z.string(),
+      z.lazy(() =>
+        PutMediasMediaIdCustomizationsThumbnailUnalteredStillImageAsset$inboundSchema
+      ),
+    ]).optional(),
     plugin: z.lazy(() =>
       PutMediasMediaIdCustomizationsThumbnailPluginResponse$inboundSchema
     ).optional(),

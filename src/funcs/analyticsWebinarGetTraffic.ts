@@ -34,12 +34,10 @@ import { Result } from "../types/fp.js";
  * Retrieve traffic breakdown analytics for a webinar, grouped by a specified dimension
  * such as UTM campaign, UTM source, UTM medium, or referrer domain.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read detailed stats
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function analyticsWebinarGetTraffic(
   client: WistiaCore,
