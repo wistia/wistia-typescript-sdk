@@ -5,7 +5,9 @@
 ```typescript
 import { ResponseBody3 } from "@wistia/wistia-api-client/models/operations";
 
-let value: ResponseBody3 = {};
+let value: ResponseBody3 = {
+  projectHashedId: "<id>",
+};
 ```
 
 ## Fields
@@ -18,7 +20,7 @@ let value: ResponseBody3 = {};
 | `uniqueVisitors`                                                   | *number*                                                           | :heavy_minus_sign:                                                 | The number of unique visitors.                                     |
 | `playedTime`                                                       | *number*                                                           | :heavy_minus_sign:                                                 | Total time spent watching in seconds.                              |
 | `projectName`                                                      | *string*                                                           | :heavy_minus_sign:                                                 | The name of the folder.                                            |
-| `projectHashedId`                                                  | *string*                                                           | :heavy_minus_sign:                                                 | The hashed ID of the folder.                                       |
+| `projectHashedId`                                                  | *string*                                                           | :heavy_check_mark:                                                 | The hashed ID of the folder.                                       |
 | `projectCreatedAt`                                                 | *string*                                                           | :heavy_minus_sign:                                                 | When the folder was created, in ISO 8601 format.                   |
 | `projectUrl`                                                       | *string*                                                           | :heavy_minus_sign:                                                 | The URL of the folder.                                             |
 | `projectVideoCount`                                                | *number*                                                           | :heavy_minus_sign:                                                 | The number of videos in the folder.                                |

@@ -28,12 +28,12 @@ failures (including authorization failures) are reported per action and do
 not prevent other actions from completing. Media creation is not supported
 -- uploads and URL imports have their own endpoints.
 
-<!--- HIDE-MCP -->
+
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
-<!--- /HIDE-MCP -->
+
 
 
 ### Example Usage

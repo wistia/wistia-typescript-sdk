@@ -32,12 +32,10 @@ export class BulkActions extends ClientSDK {
    * not prevent other actions from completing. Media creation is not supported
    * -- uploads and URL imports have their own endpoints.
    *
-   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read, update & delete anything
    * ```
-   * <!--- /HIDE-MCP -->
    */
   async postBulk(
     request: operations.PostBulkRequest,

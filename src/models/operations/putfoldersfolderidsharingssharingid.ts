@@ -64,7 +64,7 @@ export type PutFoldersFolderIdSharingsSharingIdShare = {
   id: number;
   name: string;
   type: string;
-  email: string;
+  email?: string | undefined;
 };
 
 export type PutFoldersFolderIdSharingsSharingIdFolder = {
@@ -201,7 +201,7 @@ export const PutFoldersFolderIdSharingsSharingIdShare$inboundSchema: z.ZodType<
   id: z.number().int(),
   name: z.string(),
   type: z.string(),
-  email: z.string(),
+  email: z.string().optional(),
 });
 
 export function putFoldersFolderIdSharingsSharingIdShareFromJSON(
