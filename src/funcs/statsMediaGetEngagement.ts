@@ -32,12 +32,10 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Retrieve engagement data for a video. This endpoint provides engagement data for a specific video identified by its media-id.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read detailed stats
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function statsMediaGetEngagement(
   client: WistiaCore,
