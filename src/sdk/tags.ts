@@ -20,6 +20,11 @@ export class Tags extends ClientSDK {
    * ```
    * Read all data
    * ```
+   *
+   * Tokens with the "Act with a team member's permissions" permission
+   * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
+   * made with such a token are authorized using the permissions of the
+   * contact assigned to the token.
    */
   async list(
     request?: operations.GetTagsRequest | undefined,
@@ -42,6 +47,11 @@ export class Tags extends ClientSDK {
    * ```
    * Read, update & delete anything
    * ```
+   *
+   * Tokens with the "Act with a team member's permissions" permission
+   * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
+   * made with such a token are authorized using the permissions of the
+   * contact assigned to the token.
    */
   async create(
     request: operations.PostTagsRequest,
@@ -64,6 +74,11 @@ export class Tags extends ClientSDK {
    * ```
    * Read, update & delete anything
    * ```
+   *
+   * Tokens with the "Act with a team member's permissions" permission
+   * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
+   * made with such a token are authorized using the permissions of the
+   * contact assigned to the token.
    */
   async delete(
     request: operations.DeleteTagsNameRequest,

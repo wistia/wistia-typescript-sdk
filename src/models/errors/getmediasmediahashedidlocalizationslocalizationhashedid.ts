@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import * as operations from "../operations/index.js";
 import { WistiaError } from "./wistiaerror.js";
 
 /**
@@ -84,6 +85,12 @@ export class GetMediasMediaHashedIdLocalizationsLocalizationHashedIdNotFoundErro
  */
 export type GetMediasMediaHashedIdLocalizationsLocalizationHashedIdUnauthorizedErrorData =
   {
+    /**
+     * A machine-readable identifier for the specific authorization failure.
+     */
+    code?:
+      | operations.GetMediasMediaHashedIdLocalizationsLocalizationHashedIdCode
+      | undefined;
     error?: string | undefined;
   };
 
@@ -93,6 +100,12 @@ export type GetMediasMediaHashedIdLocalizationsLocalizationHashedIdUnauthorizedE
 export class GetMediasMediaHashedIdLocalizationsLocalizationHashedIdUnauthorizedError
   extends WistiaError
 {
+  /**
+   * A machine-readable identifier for the specific authorization failure.
+   */
+  code?:
+    | operations.GetMediasMediaHashedIdLocalizationsLocalizationHashedIdCode
+    | undefined;
   error?: string | undefined;
 
   /** The original data that was passed to this error instance. */
@@ -109,6 +122,7 @@ export class GetMediasMediaHashedIdLocalizationsLocalizationHashedIdUnauthorized
       : `API error occurred: ${JSON.stringify(err)}`;
     super(message, httpMeta);
     this.data$ = err;
+    if (err.code != null) this.code = err.code;
     if (err.error != null) this.error = err.error;
 
     this.name =
@@ -161,6 +175,9 @@ export const GetMediasMediaHashedIdLocalizationsLocalizationHashedIdUnauthorized
     z.ZodTypeDef,
     unknown
   > = z.object({
+    code: operations
+      .GetMediasMediaHashedIdLocalizationsLocalizationHashedIdCode$inboundSchema
+      .optional(),
     error: z.string().optional(),
     request$: z.instanceof(Request),
     response$: z.instanceof(Response),

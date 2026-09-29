@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
@@ -14,6 +15,22 @@ export type DeleteAllowedDomainsDomainRequest = {
    */
   domain: string;
 };
+
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const DeleteAllowedDomainsDomainCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type DeleteAllowedDomainsDomainCode = ClosedEnum<
+  typeof DeleteAllowedDomainsDomainCode
+>;
 
 /**
  * An allowed domain represents a domain where a Wistia video can be embedded. Account
@@ -61,6 +78,11 @@ export function deleteAllowedDomainsDomainRequestToJSON(
     ),
   );
 }
+
+/** @internal */
+export const DeleteAllowedDomainsDomainCode$inboundSchema: z.ZodNativeEnum<
+  typeof DeleteAllowedDomainsDomainCode
+> = z.nativeEnum(DeleteAllowedDomainsDomainCode);
 
 /** @internal */
 export const DeleteAllowedDomainsDomainResponse$inboundSchema: z.ZodType<

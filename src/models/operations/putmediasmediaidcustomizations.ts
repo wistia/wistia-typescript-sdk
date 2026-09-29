@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
@@ -29,7 +30,7 @@ export type PutMediasMediaIdCustomizationsChapterListRequest = {
   deleted?: string | undefined;
 };
 
-export type PutMediasMediaIdCustomizationsChaptersRequest = {
+export type CustomizationsPutMediasMediaIdCustomizationsChaptersRequest = {
   visibleOnLoad?: boolean | undefined;
   chapterList?:
     | Array<PutMediasMediaIdCustomizationsChapterListRequest>
@@ -107,7 +108,9 @@ export type PutMediasMediaIdCustomizationsPluginRequest = {
     | PutMediasMediaIdCustomizationsVideoThumbnailRequest
     | undefined;
   socialbarV1?: PutMediasMediaIdCustomizationsSocialbarV1Request | undefined;
-  chapters?: PutMediasMediaIdCustomizationsChaptersRequest | undefined;
+  chapters?:
+    | CustomizationsPutMediasMediaIdCustomizationsChaptersRequest
+    | undefined;
   /**
    * Adds a Call To Action to your Video
    */
@@ -324,6 +327,22 @@ export type PutMediasMediaIdCustomizationsRequest = {
   requestBody: PutMediasMediaIdCustomizationsRequestBody;
 };
 
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const PutMediasMediaIdCustomizationsCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type PutMediasMediaIdCustomizationsCode = ClosedEnum<
+  typeof PutMediasMediaIdCustomizationsCode
+>;
+
 export type PutMediasMediaIdCustomizationsPasswordProtectedVideo = {
   on?: string | undefined;
   src?: string | undefined;
@@ -349,7 +368,7 @@ export type PutMediasMediaIdCustomizationsChapterListResponse = {
   deleted?: string | undefined;
 };
 
-export type PutMediasMediaIdCustomizationsChaptersResponse = {
+export type PutMediasMediaIdCustomizationsPluginChaptersResponse = {
   visibleOnLoad?: string | undefined;
   chapterList?:
     | Array<PutMediasMediaIdCustomizationsChapterListResponse>
@@ -417,6 +436,13 @@ export type PutMediasMediaIdCustomizationsCaptionsV1Response = {
   onByDefault?: string | undefined;
 };
 
+/**
+ * Container for player plugin configurations. Plugin keys are extensible and
+ *
+ * @remarks
+ * not strictly validated; the documented sub-objects represent the most
+ * common plugins.
+ */
 export type PutMediasMediaIdCustomizationsPluginResponse = {
   passwordProtectedVideo?:
     | PutMediasMediaIdCustomizationsPasswordProtectedVideo
@@ -425,7 +451,7 @@ export type PutMediasMediaIdCustomizationsPluginResponse = {
     | PutMediasMediaIdCustomizationsVideoThumbnailResponse
     | undefined;
   socialbarV1?: PutMediasMediaIdCustomizationsSocialbarV1Response | undefined;
-  chapters?: PutMediasMediaIdCustomizationsChaptersResponse | undefined;
+  chapters?: PutMediasMediaIdCustomizationsPluginChaptersResponse | undefined;
   /**
    * Adds a Call To Action to your Video (response format)
    */
@@ -504,6 +530,13 @@ export type PutMediasMediaIdCustomizationsResponse = {
    * String representation of whether the key moments feature is enabled.
    */
   keyMoments?: string | undefined;
+  /**
+   * Container for player plugin configurations. Plugin keys are extensible and
+   *
+   * @remarks
+   * not strictly validated; the documented sub-objects represent the most
+   * common plugins.
+   */
   plugin?: PutMediasMediaIdCustomizationsPluginResponse | undefined;
   private?: PutMediasMediaIdCustomizationsPrivate | undefined;
   encrypted?: PutMediasMediaIdCustomizationsEncrypted | undefined;
@@ -600,20 +633,21 @@ export function putMediasMediaIdCustomizationsChapterListRequestToJSON(
 }
 
 /** @internal */
-export type PutMediasMediaIdCustomizationsChaptersRequest$Outbound = {
-  visibleOnLoad?: boolean | undefined;
-  chapterList?:
-    | Array<PutMediasMediaIdCustomizationsChapterListRequest$Outbound>
-    | undefined;
-  on?: boolean | undefined;
-};
+export type CustomizationsPutMediasMediaIdCustomizationsChaptersRequest$Outbound =
+  {
+    visibleOnLoad?: boolean | undefined;
+    chapterList?:
+      | Array<PutMediasMediaIdCustomizationsChapterListRequest$Outbound>
+      | undefined;
+    on?: boolean | undefined;
+  };
 
 /** @internal */
-export const PutMediasMediaIdCustomizationsChaptersRequest$outboundSchema:
+export const CustomizationsPutMediasMediaIdCustomizationsChaptersRequest$outboundSchema:
   z.ZodType<
-    PutMediasMediaIdCustomizationsChaptersRequest$Outbound,
+    CustomizationsPutMediasMediaIdCustomizationsChaptersRequest$Outbound,
     z.ZodTypeDef,
-    PutMediasMediaIdCustomizationsChaptersRequest
+    CustomizationsPutMediasMediaIdCustomizationsChaptersRequest
   > = z.object({
     visibleOnLoad: z.boolean().optional(),
     chapterList: z.array(
@@ -624,14 +658,13 @@ export const PutMediasMediaIdCustomizationsChaptersRequest$outboundSchema:
     on: z.boolean().optional(),
   });
 
-export function putMediasMediaIdCustomizationsChaptersRequestToJSON(
-  putMediasMediaIdCustomizationsChaptersRequest:
-    PutMediasMediaIdCustomizationsChaptersRequest,
+export function customizationsPutMediasMediaIdCustomizationsChaptersRequestToJSON(
+  customizationsPutMediasMediaIdCustomizationsChaptersRequest:
+    CustomizationsPutMediasMediaIdCustomizationsChaptersRequest,
 ): string {
   return JSON.stringify(
-    PutMediasMediaIdCustomizationsChaptersRequest$outboundSchema.parse(
-      putMediasMediaIdCustomizationsChaptersRequest,
-    ),
+    CustomizationsPutMediasMediaIdCustomizationsChaptersRequest$outboundSchema
+      .parse(customizationsPutMediasMediaIdCustomizationsChaptersRequest),
   );
 }
 
@@ -761,7 +794,9 @@ export type PutMediasMediaIdCustomizationsPluginRequest$Outbound = {
   "socialbar-v1"?:
     | PutMediasMediaIdCustomizationsSocialbarV1Request$Outbound
     | undefined;
-  chapters?: PutMediasMediaIdCustomizationsChaptersRequest$Outbound | undefined;
+  chapters?:
+    | CustomizationsPutMediasMediaIdCustomizationsChaptersRequest$Outbound
+    | undefined;
   "postRoll-v1"?:
     | PutMediasMediaIdCustomizationsPostRollV1Request$Outbound
     | undefined;
@@ -784,7 +819,7 @@ export const PutMediasMediaIdCustomizationsPluginRequest$outboundSchema:
       PutMediasMediaIdCustomizationsSocialbarV1Request$outboundSchema
     ).optional(),
     chapters: z.lazy(() =>
-      PutMediasMediaIdCustomizationsChaptersRequest$outboundSchema
+      CustomizationsPutMediasMediaIdCustomizationsChaptersRequest$outboundSchema
     ).optional(),
     postRollV1: z.lazy(() =>
       PutMediasMediaIdCustomizationsPostRollV1Request$outboundSchema
@@ -1010,6 +1045,11 @@ export function putMediasMediaIdCustomizationsRequestToJSON(
 }
 
 /** @internal */
+export const PutMediasMediaIdCustomizationsCode$inboundSchema: z.ZodNativeEnum<
+  typeof PutMediasMediaIdCustomizationsCode
+> = z.nativeEnum(PutMediasMediaIdCustomizationsCode);
+
+/** @internal */
 export const PutMediasMediaIdCustomizationsPasswordProtectedVideo$inboundSchema:
   z.ZodType<
     PutMediasMediaIdCustomizationsPasswordProtectedVideo,
@@ -1123,9 +1163,9 @@ export function putMediasMediaIdCustomizationsChapterListResponseFromJSON(
 }
 
 /** @internal */
-export const PutMediasMediaIdCustomizationsChaptersResponse$inboundSchema:
+export const PutMediasMediaIdCustomizationsPluginChaptersResponse$inboundSchema:
   z.ZodType<
-    PutMediasMediaIdCustomizationsChaptersResponse,
+    PutMediasMediaIdCustomizationsPluginChaptersResponse,
     z.ZodTypeDef,
     unknown
   > = z.object({
@@ -1138,19 +1178,19 @@ export const PutMediasMediaIdCustomizationsChaptersResponse$inboundSchema:
     on: z.string().optional(),
   });
 
-export function putMediasMediaIdCustomizationsChaptersResponseFromJSON(
+export function putMediasMediaIdCustomizationsPluginChaptersResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<
-  PutMediasMediaIdCustomizationsChaptersResponse,
+  PutMediasMediaIdCustomizationsPluginChaptersResponse,
   SDKValidationError
 > {
   return safeParse(
     jsonString,
     (x) =>
-      PutMediasMediaIdCustomizationsChaptersResponse$inboundSchema.parse(
+      PutMediasMediaIdCustomizationsPluginChaptersResponse$inboundSchema.parse(
         JSON.parse(x),
       ),
-    `Failed to parse 'PutMediasMediaIdCustomizationsChaptersResponse' from JSON`,
+    `Failed to parse 'PutMediasMediaIdCustomizationsPluginChaptersResponse' from JSON`,
   );
 }
 
@@ -1260,7 +1300,7 @@ export const PutMediasMediaIdCustomizationsPluginResponse$inboundSchema:
       PutMediasMediaIdCustomizationsSocialbarV1Response$inboundSchema
     ).optional(),
     chapters: z.lazy(() =>
-      PutMediasMediaIdCustomizationsChaptersResponse$inboundSchema
+      PutMediasMediaIdCustomizationsPluginChaptersResponse$inboundSchema
     ).optional(),
     "postRoll-v1": z.lazy(() =>
       PutMediasMediaIdCustomizationsPostRollV1Response$inboundSchema

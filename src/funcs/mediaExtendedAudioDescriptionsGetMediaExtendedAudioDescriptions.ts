@@ -9,6 +9,7 @@ import {
   encodeFormQuery,
   queryJoin,
 } from "../lib/encodings.js";
+import { matchStatusCode } from "../lib/http.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -43,6 +44,7 @@ export function mediaExtendedAudioDescriptionsGetMediaExtendedAudioDescriptions(
 ): APIPromise<
   Result<
     Array<operations.GetMediaExtendedAudioDescriptionsResponse>,
+    | errors.GetMediaExtendedAudioDescriptionsBadRequestError
     | errors.GetMediaExtendedAudioDescriptionsUnauthorizedError
     | errors.GetMediaExtendedAudioDescriptionsInternalServerError
     | WistiaError
@@ -70,6 +72,7 @@ async function $do(
   [
     Result<
       Array<operations.GetMediaExtendedAudioDescriptionsResponse>,
+      | errors.GetMediaExtendedAudioDescriptionsBadRequestError
       | errors.GetMediaExtendedAudioDescriptionsUnauthorizedError
       | errors.GetMediaExtendedAudioDescriptionsInternalServerError
       | WistiaError
@@ -153,7 +156,8 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["401", "4XX", "500", "5XX"],
+    isErrorStatusCode: (statusCode: number) =>
+      matchStatusCode({ status: statusCode } as Response, ["4XX", "5XX"]),
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -168,6 +172,7 @@ async function $do(
 
   const [result] = await M.match<
     Array<operations.GetMediaExtendedAudioDescriptionsResponse>,
+    | errors.GetMediaExtendedAudioDescriptionsBadRequestError
     | errors.GetMediaExtendedAudioDescriptionsUnauthorizedError
     | errors.GetMediaExtendedAudioDescriptionsInternalServerError
     | WistiaError
@@ -184,6 +189,10 @@ async function $do(
       z.array(
         operations.GetMediaExtendedAudioDescriptionsResponse$inboundSchema,
       ),
+    ),
+    M.jsonErr(
+      400,
+      errors.GetMediaExtendedAudioDescriptionsBadRequestError$inboundSchema,
     ),
     M.jsonErr(
       401,

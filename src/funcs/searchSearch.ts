@@ -3,7 +3,12 @@
  */
 
 import { WistiaCore } from "../core.js";
-import { encodeFormQuery } from "../lib/encodings.js";
+import {
+  encodeDeepObjectQuery,
+  encodeFormQuery,
+  queryJoin,
+} from "../lib/encodings.js";
+import { matchStatusCode } from "../lib/http.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -37,6 +42,11 @@ import { Result } from "../types/fp.js";
  * ```
  * Read all data
  * ```
+ *
+ * Tokens with the "Act with a team member's permissions" permission
+ * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
+ * made with such a token are authorized using the permissions of the
+ * contact assigned to the token.
  */
 export function searchSearch(
   client: WistiaCore,
@@ -47,6 +57,7 @@ export function searchSearch(
     operations.GetSearchResponse,
     | errors.GetSearchBadRequestError
     | errors.GetSearchUnauthorizedError
+    | errors.GetSearchForbiddenError
     | errors.GetSearchInternalServerError
     | WistiaError
     | ResponseValidationError
@@ -75,6 +86,7 @@ async function $do(
       operations.GetSearchResponse,
       | errors.GetSearchBadRequestError
       | errors.GetSearchUnauthorizedError
+      | errors.GetSearchForbiddenError
       | errors.GetSearchInternalServerError
       | WistiaError
       | ResponseValidationError
@@ -101,13 +113,19 @@ async function $do(
 
   const path = pathToFunc("/search")();
 
-  const query = encodeFormQuery({
-    "created_after": payload.created_after,
-    "created_before": payload.created_before,
-    "q": payload.q,
-    "resource_type[]": payload["resource_type[]"],
-    "tags[]": payload["tags[]"],
-  });
+  const query = queryJoin(
+    encodeDeepObjectQuery({
+      "custom_metadata": payload.custom_metadata,
+    }),
+    encodeFormQuery({
+      "created_after": payload.created_after,
+      "created_before": payload.created_before,
+      "include": payload.include,
+      "q": payload.q,
+      "resource_type[]": payload["resource_type[]"],
+      "tags[]": payload["tags[]"],
+    }),
+  );
 
   const headers = new Headers(compactMap({
     Accept: "application/json",
@@ -150,7 +168,8 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["400", "401", "4XX", "500", "5XX"],
+    isErrorStatusCode: (statusCode: number) =>
+      matchStatusCode({ status: statusCode } as Response, ["4XX", "5XX"]),
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -167,6 +186,7 @@ async function $do(
     operations.GetSearchResponse,
     | errors.GetSearchBadRequestError
     | errors.GetSearchUnauthorizedError
+    | errors.GetSearchForbiddenError
     | errors.GetSearchInternalServerError
     | WistiaError
     | ResponseValidationError
@@ -180,6 +200,7 @@ async function $do(
     M.json(200, operations.GetSearchResponse$inboundSchema),
     M.jsonErr(400, errors.GetSearchBadRequestError$inboundSchema),
     M.jsonErr(401, errors.GetSearchUnauthorizedError$inboundSchema),
+    M.jsonErr(403, errors.GetSearchForbiddenError$inboundSchema),
     M.jsonErr(500, errors.GetSearchInternalServerError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),

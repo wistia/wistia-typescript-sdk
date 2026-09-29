@@ -1,0 +1,17 @@
+# GetMediasMediaIdCustomizationsChaptersChapters
+
+## Example Usage
+
+```typescript
+import { GetMediasMediaIdCustomizationsChaptersChapters } from "@wistia/wistia-api-client/models/operations";
+
+let value: GetMediasMediaIdCustomizationsChaptersChapters = {};
+```
+
+## Fields
+
+| Field                                                                                                                                                          | Type                                                                                                                                                           | Required                                                                                                                                                       | Description                                                                                                                                                    |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `on`                                                                                                                                                           | *string*                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                             | N/A                                                                                                                                                            |
+| `visibleOnLoad`                                                                                                                                                | *string*                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                             | N/A                                                                                                                                                            |
+| `chapterList`                                                                                                                                                  | [operations.GetMediasMediaIdCustomizationsChaptersChaptersChapterList](../../models/operations/getmediasmediaidcustomizationschapterschapterschapterlist.md)[] | :heavy_minus_sign:                                                                                                                                             | N/A                                                                                                                                                            |

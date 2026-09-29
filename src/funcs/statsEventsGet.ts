@@ -4,6 +4,7 @@
 
 import { WistiaCore } from "../core.js";
 import { encodeSimple } from "../lib/encodings.js";
+import { matchStatusCode } from "../lib/http.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -32,12 +33,15 @@ import { Result } from "../types/fp.js";
  * Retrieve information for a single event. Please note that due to our data retention policy,
  * only events from the last 2 years are available.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read detailed stats
  * ```
- * <!--- /HIDE-MCP -->
+ *
+ * Tokens with the "Act with a team member's permissions" permission
+ * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
+ * made with such a token are authorized using the permissions of the
+ * contact assigned to the token.
  */
 export function statsEventsGet(
   client: WistiaCore,
@@ -149,7 +153,8 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["401", "403", "404", "4XX", "500", "5XX"],
+    isErrorStatusCode: (statusCode: number) =>
+      matchStatusCode({ status: statusCode } as Response, ["4XX", "5XX"]),
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });

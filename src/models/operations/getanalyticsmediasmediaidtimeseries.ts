@@ -31,11 +31,11 @@ export type GetAnalyticsMediasMediaIdTimeseriesRequest = {
    */
   mediaId: string;
   /**
-   * Start date for the analytics period in ISO 8601 format (YYYY-MM-DD).
+   * Start date for the analytics period in ISO 8601 format (YYYY-MM-DD). Inclusive — the range starts at the beginning of this date.
    */
   startDate: RFCDate;
   /**
-   * End date for the analytics period in ISO 8601 format (YYYY-MM-DD).
+   * End date for the analytics period in ISO 8601 format (YYYY-MM-DD). Exclusive — the range ends before the beginning of this date.
    */
   endDate: RFCDate;
   /**
@@ -43,6 +43,22 @@ export type GetAnalyticsMediasMediaIdTimeseriesRequest = {
    */
   granularity: GetAnalyticsMediasMediaIdTimeseriesGranularity;
 };
+
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const GetAnalyticsMediasMediaIdTimeseriesCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type GetAnalyticsMediasMediaIdTimeseriesCode = ClosedEnum<
+  typeof GetAnalyticsMediasMediaIdTimeseriesCode
+>;
 
 export type GetAnalyticsMediasMediaIdTimeseriesResponse = {
   /**
@@ -136,6 +152,11 @@ export function getAnalyticsMediasMediaIdTimeseriesRequestToJSON(
     ),
   );
 }
+
+/** @internal */
+export const GetAnalyticsMediasMediaIdTimeseriesCode$inboundSchema:
+  z.ZodNativeEnum<typeof GetAnalyticsMediasMediaIdTimeseriesCode> = z
+    .nativeEnum(GetAnalyticsMediasMediaIdTimeseriesCode);
 
 /** @internal */
 export const GetAnalyticsMediasMediaIdTimeseriesResponse$inboundSchema:

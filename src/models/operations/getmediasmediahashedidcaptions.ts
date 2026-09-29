@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
@@ -14,6 +15,92 @@ export type GetMediasMediaHashedIdCaptionsRequest = {
    */
   mediaHashedId: string;
 };
+
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const GetMediasMediaHashedIdCaptionsCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type GetMediasMediaHashedIdCaptionsCode = ClosedEnum<
+  typeof GetMediasMediaHashedIdCaptionsCode
+>;
+
+export type GetMediasMediaHashedIdCaptionsSegment = {
+  /**
+   * The segment's start offset from the beginning of the media, in milliseconds.
+   */
+  startMs: number;
+  /**
+   * The segment's end offset from the beginning of the media, in milliseconds.
+   */
+  endMs: number;
+  /**
+   * The segment's transcript text.
+   */
+  text: string;
+};
+
+export type GetMediasMediaHashedIdCaptionsSpeaker = {
+  /**
+   * The media-specific speaker assignment identifier, or null for an unidentified turn.
+   */
+  mediaSpeakerId: string | null;
+  /**
+   * The reusable account speaker-profile identifier, or null for an unidentified turn.
+   */
+  speakerProfileId: string | null;
+  /**
+   * The anonymous detected-speaker identifier that can be assigned, or null once resolved or when unknown.
+   */
+  detectedSpeakerId: string | null;
+  /**
+   * The resolved name, a display-only generic label, or `Unknown speaker`. Speakers are numbered by when they first appear in the transcript. Assigning a name does not renumber the other speakers, so generic labels may start at `Speaker 2` or skip numbers. Use `detected_speaker_id` as the identifier.
+   */
+  displayLabel: string;
+  /**
+   * The assigned speaker profile's name, or null for an unidentified turn.
+   */
+  name: string | null;
+};
+
+export type GetMediasMediaHashedIdCaptionsDiarizedSegment = {
+  /**
+   * The speaker-turn segment's start offset from the beginning of the media, in milliseconds.
+   */
+  startMs: number;
+  /**
+   * The speaker-turn segment's end offset from the beginning of the media, in milliseconds.
+   */
+  endMs: number;
+  /**
+   * Transcript text attributed to this speaker turn.
+   */
+  text: string;
+  speaker: GetMediasMediaHashedIdCaptionsSpeaker;
+};
+
+/**
+ * Speaker-data availability when `include=diarized_segments`.
+ */
+export const GetMediasMediaHashedIdCaptionsDiarizationStatus = {
+  Ready: "ready",
+  Processing: "processing",
+  Unavailable: "unavailable",
+  Disabled: "disabled",
+} as const;
+/**
+ * Speaker-data availability when `include=diarized_segments`.
+ */
+export type GetMediasMediaHashedIdCaptionsDiarizationStatus = ClosedEnum<
+  typeof GetMediasMediaHashedIdCaptionsDiarizationStatus
+>;
 
 export type GetMediasMediaHashedIdCaptionsResponse = {
   /**
@@ -37,6 +124,38 @@ export type GetMediasMediaHashedIdCaptionsResponse = {
    * The unique hashed identifier of the time-coded transcript.
    */
   id: string;
+  /**
+   * The hashed ID of the media the captions belong to.
+   */
+  mediaId: string;
+  /**
+   * The active caption payload version, or null when no payload is active.
+   */
+  version: number | null;
+  /**
+   * Time-coded caption cues when `include=segments`; null otherwise.
+   */
+  segments: Array<GetMediasMediaHashedIdCaptionsSegment> | null;
+  /**
+   * Transcript text split at speaker-turn boundaries when `include=diarized_segments`. The media-level speaker timeline is shared across language tracks.
+   */
+  diarizedSegments?:
+    | Array<GetMediasMediaHashedIdCaptionsDiarizedSegment>
+    | undefined;
+  /**
+   * Speaker-data availability when `include=diarized_segments`.
+   */
+  diarizationStatus?:
+    | GetMediasMediaHashedIdCaptionsDiarizationStatus
+    | undefined;
+  /**
+   * Whether speaker data can be derived from the active default transcript when `include=diarized_segments`.
+   */
+  diarizationDerivable?: boolean | undefined;
+  /**
+   * The concurrency version for speaker assignments when `include=diarized_segments`, or null when speaker data is unavailable.
+   */
+  speakerDataVersion?: number | null | undefined;
   /**
    * A cursor for stable pagination based on current `sort_by` order. You can pass this to `cursor[before]` or `cursor[after]` as a parameter to fetch the records before or after this record in the same sort order. This is only populated if records were fetched with `cursor[enabled]`, or `cursor[before]` or `cursor[after]`.
    */
@@ -68,6 +187,108 @@ export function getMediasMediaHashedIdCaptionsRequestToJSON(
 }
 
 /** @internal */
+export const GetMediasMediaHashedIdCaptionsCode$inboundSchema: z.ZodNativeEnum<
+  typeof GetMediasMediaHashedIdCaptionsCode
+> = z.nativeEnum(GetMediasMediaHashedIdCaptionsCode);
+
+/** @internal */
+export const GetMediasMediaHashedIdCaptionsSegment$inboundSchema: z.ZodType<
+  GetMediasMediaHashedIdCaptionsSegment,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  start_ms: z.number().int(),
+  end_ms: z.number().int(),
+  text: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    "start_ms": "startMs",
+    "end_ms": "endMs",
+  });
+});
+
+export function getMediasMediaHashedIdCaptionsSegmentFromJSON(
+  jsonString: string,
+): SafeParseResult<GetMediasMediaHashedIdCaptionsSegment, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetMediasMediaHashedIdCaptionsSegment$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetMediasMediaHashedIdCaptionsSegment' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetMediasMediaHashedIdCaptionsSpeaker$inboundSchema: z.ZodType<
+  GetMediasMediaHashedIdCaptionsSpeaker,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  media_speaker_id: z.nullable(z.string()),
+  speaker_profile_id: z.nullable(z.string()),
+  detected_speaker_id: z.nullable(z.string()),
+  display_label: z.string(),
+  name: z.nullable(z.string()),
+}).transform((v) => {
+  return remap$(v, {
+    "media_speaker_id": "mediaSpeakerId",
+    "speaker_profile_id": "speakerProfileId",
+    "detected_speaker_id": "detectedSpeakerId",
+    "display_label": "displayLabel",
+  });
+});
+
+export function getMediasMediaHashedIdCaptionsSpeakerFromJSON(
+  jsonString: string,
+): SafeParseResult<GetMediasMediaHashedIdCaptionsSpeaker, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetMediasMediaHashedIdCaptionsSpeaker$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetMediasMediaHashedIdCaptionsSpeaker' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetMediasMediaHashedIdCaptionsDiarizedSegment$inboundSchema:
+  z.ZodType<
+    GetMediasMediaHashedIdCaptionsDiarizedSegment,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    start_ms: z.number().int(),
+    end_ms: z.number().int(),
+    text: z.string(),
+    speaker: z.lazy(() => GetMediasMediaHashedIdCaptionsSpeaker$inboundSchema),
+  }).transform((v) => {
+    return remap$(v, {
+      "start_ms": "startMs",
+      "end_ms": "endMs",
+    });
+  });
+
+export function getMediasMediaHashedIdCaptionsDiarizedSegmentFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetMediasMediaHashedIdCaptionsDiarizedSegment,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetMediasMediaHashedIdCaptionsDiarizedSegment$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'GetMediasMediaHashedIdCaptionsDiarizedSegment' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetMediasMediaHashedIdCaptionsDiarizationStatus$inboundSchema:
+  z.ZodNativeEnum<typeof GetMediasMediaHashedIdCaptionsDiarizationStatus> = z
+    .nativeEnum(GetMediasMediaHashedIdCaptionsDiarizationStatus);
+
+/** @internal */
 export const GetMediasMediaHashedIdCaptionsResponse$inboundSchema: z.ZodType<
   GetMediasMediaHashedIdCaptionsResponse,
   z.ZodTypeDef,
@@ -79,12 +300,29 @@ export const GetMediasMediaHashedIdCaptionsResponse$inboundSchema: z.ZodType<
   text: z.nullable(z.string()).optional(),
   is_draft: z.boolean(),
   id: z.string(),
+  media_id: z.string(),
+  version: z.nullable(z.number().int()),
+  segments: z.nullable(
+    z.array(z.lazy(() => GetMediasMediaHashedIdCaptionsSegment$inboundSchema)),
+  ),
+  diarized_segments: z.array(
+    z.lazy(() => GetMediasMediaHashedIdCaptionsDiarizedSegment$inboundSchema),
+  ).optional(),
+  diarization_status:
+    GetMediasMediaHashedIdCaptionsDiarizationStatus$inboundSchema.optional(),
+  diarization_derivable: z.boolean().optional(),
+  speaker_data_version: z.nullable(z.number().int()).optional(),
   cursor: z.nullable(z.string()).optional(),
 }).transform((v) => {
   return remap$(v, {
     "english_name": "englishName",
     "native_name": "nativeName",
     "is_draft": "isDraft",
+    "media_id": "mediaId",
+    "diarized_segments": "diarizedSegments",
+    "diarization_status": "diarizationStatus",
+    "diarization_derivable": "diarizationDerivable",
+    "speaker_data_version": "speakerDataVersion",
   });
 });
 

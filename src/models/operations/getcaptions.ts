@@ -10,6 +10,23 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
+ * Set to `metadata` to omit caption text and return only track metadata.
+ *
+ * @remarks
+ * Omitting this parameter preserves the existing response, including SRT text.
+ */
+export const GetCaptionsInclude = {
+  Metadata: "metadata",
+} as const;
+/**
+ * Set to `metadata` to omit caption text and return only track metadata.
+ *
+ * @remarks
+ * Omitting this parameter preserves the existing response, including SRT text.
+ */
+export type GetCaptionsInclude = ClosedEnum<typeof GetCaptionsInclude>;
+
+/**
  * If `cursor[enabled]` is set to 1, the first result set will be fetched with cursor pagination enabled. This
  *
  * @remarks
@@ -28,7 +45,7 @@ export const GetCaptionsEnabled = {
 export type GetCaptionsEnabled = ClosedEnum<typeof GetCaptionsEnabled>;
 
 /**
- * If `cursor[enabled]` is set to 1 than cursor pagination is enabled and the
+ * If `cursor[enabled]` is set to 1 then cursor pagination is enabled and the
  *
  * @remarks
  * first set of records are fetched up to the `per_page`. Cursor
@@ -38,7 +55,7 @@ export type GetCaptionsEnabled = ClosedEnum<typeof GetCaptionsEnabled>;
  * the cursor of the first record can be used to fetch records before the result set.
  *
  * NOTE: a cursor value is only valid if the `sort_by` value hasn't changed from the
- * last fetch. For example, you cannot fetch using `sort_by` id and than pass that
+ * last fetch. For example, you cannot fetch using `sort_by` id and then pass that
  * cursor value to a `sort_by` name.
  */
 export type GetCaptionsCursor = {
@@ -50,7 +67,7 @@ export type GetCaptionsCursor = {
    */
   enabled?: GetCaptionsEnabled | undefined;
   /**
-   * If `cursor[before]` is set than cursor pagination is enabled and all records
+   * If `cursor[before]` is set then cursor pagination is enabled and all records
    *
    * @remarks
    * before the cursor up to the `per_page` are returned. This feature is useful for
@@ -59,7 +76,7 @@ export type GetCaptionsCursor = {
    */
   before?: string | undefined;
   /**
-   * If `cursor[after]` is set than cursor pagination is enabled and all records
+   * If `cursor[after]` is set then cursor pagination is enabled and all records
    *
    * @remarks
    * after the cursor up to the `per_page` are returned.
@@ -76,6 +93,8 @@ export type GetCaptionsCursor = {
 export const GetCaptionsSortBy = {
   Id: "id",
   Created: "created",
+  Updated: "updated",
+  Language: "language",
 } as const;
 /**
  * Ordering. When using cursor pagination (see cursor param),
@@ -105,6 +124,28 @@ export type GetCaptionsRequest = {
    */
   mediaId?: string | undefined;
   /**
+   * Find captions belonging to any of these media hashed IDs. IDs that don't match
+   *
+   * @remarks
+   * a media the token can access are ignored rather than returning an error.
+   */
+  mediaIds?: Array<string> | undefined;
+  /**
+   * Find captions in any of these languages, using the codes returned in each
+   *
+   * @remarks
+   * caption's `language` field (for example `eng` or `spa`). When combined with
+   * `media_ids[]`, captions must match both.
+   */
+  languages?: Array<string> | undefined;
+  /**
+   * Set to `metadata` to omit caption text and return only track metadata.
+   *
+   * @remarks
+   * Omitting this parameter preserves the existing response, including SRT text.
+   */
+  include?: GetCaptionsInclude | undefined;
+  /**
    * The page number to retrieve. This cannot be combined with `cursor`,
    *
    * @remarks
@@ -116,7 +157,7 @@ export type GetCaptionsRequest = {
    */
   perPage?: number | undefined;
   /**
-   * If `cursor[enabled]` is set to 1 than cursor pagination is enabled and the
+   * If `cursor[enabled]` is set to 1 then cursor pagination is enabled and the
    *
    * @remarks
    * first set of records are fetched up to the `per_page`. Cursor
@@ -126,7 +167,7 @@ export type GetCaptionsRequest = {
    * the cursor of the first record can be used to fetch records before the result set.
    *
    * NOTE: a cursor value is only valid if the `sort_by` value hasn't changed from the
-   * last fetch. For example, you cannot fetch using `sort_by` id and than pass that
+   * last fetch. For example, you cannot fetch using `sort_by` id and then pass that
    * cursor value to a `sort_by` name.
    */
   cursor?: GetCaptionsCursor | undefined;
@@ -142,6 +183,90 @@ export type GetCaptionsRequest = {
    */
   sortDirection?: GetCaptionsSortDirection | undefined;
 };
+
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const GetCaptionsCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type GetCaptionsCode = ClosedEnum<typeof GetCaptionsCode>;
+
+export type GetCaptionsSegment = {
+  /**
+   * The segment's start offset from the beginning of the media, in milliseconds.
+   */
+  startMs: number;
+  /**
+   * The segment's end offset from the beginning of the media, in milliseconds.
+   */
+  endMs: number;
+  /**
+   * The segment's transcript text.
+   */
+  text: string;
+};
+
+export type GetCaptionsSpeaker = {
+  /**
+   * The media-specific speaker assignment identifier, or null for an unidentified turn.
+   */
+  mediaSpeakerId: string | null;
+  /**
+   * The reusable account speaker-profile identifier, or null for an unidentified turn.
+   */
+  speakerProfileId: string | null;
+  /**
+   * The anonymous detected-speaker identifier that can be assigned, or null once resolved or when unknown.
+   */
+  detectedSpeakerId: string | null;
+  /**
+   * The resolved name, a display-only generic label, or `Unknown speaker`. Speakers are numbered by when they first appear in the transcript. Assigning a name does not renumber the other speakers, so generic labels may start at `Speaker 2` or skip numbers. Use `detected_speaker_id` as the identifier.
+   */
+  displayLabel: string;
+  /**
+   * The assigned speaker profile's name, or null for an unidentified turn.
+   */
+  name: string | null;
+};
+
+export type GetCaptionsDiarizedSegment = {
+  /**
+   * The speaker-turn segment's start offset from the beginning of the media, in milliseconds.
+   */
+  startMs: number;
+  /**
+   * The speaker-turn segment's end offset from the beginning of the media, in milliseconds.
+   */
+  endMs: number;
+  /**
+   * Transcript text attributed to this speaker turn.
+   */
+  text: string;
+  speaker: GetCaptionsSpeaker;
+};
+
+/**
+ * Speaker-data availability when `include=diarized_segments`.
+ */
+export const GetCaptionsDiarizationStatus = {
+  Ready: "ready",
+  Processing: "processing",
+  Unavailable: "unavailable",
+  Disabled: "disabled",
+} as const;
+/**
+ * Speaker-data availability when `include=diarized_segments`.
+ */
+export type GetCaptionsDiarizationStatus = ClosedEnum<
+  typeof GetCaptionsDiarizationStatus
+>;
 
 export type GetCaptionsResponse = {
   /**
@@ -166,10 +291,43 @@ export type GetCaptionsResponse = {
    */
   id: string;
   /**
+   * The hashed ID of the media the captions belong to.
+   */
+  mediaId: string;
+  /**
+   * The active caption payload version, or null when no payload is active.
+   */
+  version: number | null;
+  /**
+   * Time-coded caption cues when `include=segments`; null otherwise.
+   */
+  segments: Array<GetCaptionsSegment> | null;
+  /**
+   * Transcript text split at speaker-turn boundaries when `include=diarized_segments`. The media-level speaker timeline is shared across language tracks.
+   */
+  diarizedSegments?: Array<GetCaptionsDiarizedSegment> | undefined;
+  /**
+   * Speaker-data availability when `include=diarized_segments`.
+   */
+  diarizationStatus?: GetCaptionsDiarizationStatus | undefined;
+  /**
+   * Whether speaker data can be derived from the active default transcript when `include=diarized_segments`.
+   */
+  diarizationDerivable?: boolean | undefined;
+  /**
+   * The concurrency version for speaker assignments when `include=diarized_segments`, or null when speaker data is unavailable.
+   */
+  speakerDataVersion?: number | null | undefined;
+  /**
    * A cursor for stable pagination based on current `sort_by` order. You can pass this to `cursor[before]` or `cursor[after]` as a parameter to fetch the records before or after this record in the same sort order. This is only populated if records were fetched with `cursor[enabled]`, or `cursor[before]` or `cursor[after]`.
    */
   cursor?: string | null | undefined;
 };
+
+/** @internal */
+export const GetCaptionsInclude$outboundSchema: z.ZodNativeEnum<
+  typeof GetCaptionsInclude
+> = z.nativeEnum(GetCaptionsInclude);
 
 /** @internal */
 export const GetCaptionsEnabled$outboundSchema: z.ZodNativeEnum<
@@ -215,6 +373,9 @@ export const GetCaptionsSortDirection$outboundSchema: z.ZodNativeEnum<
 /** @internal */
 export type GetCaptionsRequest$Outbound = {
   media_id?: string | undefined;
+  "media_ids[]"?: Array<string> | undefined;
+  "languages[]"?: Array<string> | undefined;
+  include?: string | undefined;
   page?: number | undefined;
   per_page?: number | undefined;
   cursor?: GetCaptionsCursor$Outbound | undefined;
@@ -229,6 +390,9 @@ export const GetCaptionsRequest$outboundSchema: z.ZodType<
   GetCaptionsRequest
 > = z.object({
   mediaId: z.string().optional(),
+  mediaIds: z.array(z.string()).optional(),
+  languages: z.array(z.string()).optional(),
+  include: GetCaptionsInclude$outboundSchema.optional(),
   page: z.number().int().optional(),
   perPage: z.number().int().optional(),
   cursor: z.lazy(() => GetCaptionsCursor$outboundSchema).optional(),
@@ -237,6 +401,8 @@ export const GetCaptionsRequest$outboundSchema: z.ZodType<
 }).transform((v) => {
   return remap$(v, {
     mediaId: "media_id",
+    mediaIds: "media_ids[]",
+    languages: "languages[]",
     perPage: "per_page",
     sortBy: "sort_by",
     sortDirection: "sort_direction",
@@ -252,6 +418,99 @@ export function getCaptionsRequestToJSON(
 }
 
 /** @internal */
+export const GetCaptionsCode$inboundSchema: z.ZodNativeEnum<
+  typeof GetCaptionsCode
+> = z.nativeEnum(GetCaptionsCode);
+
+/** @internal */
+export const GetCaptionsSegment$inboundSchema: z.ZodType<
+  GetCaptionsSegment,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  start_ms: z.number().int(),
+  end_ms: z.number().int(),
+  text: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    "start_ms": "startMs",
+    "end_ms": "endMs",
+  });
+});
+
+export function getCaptionsSegmentFromJSON(
+  jsonString: string,
+): SafeParseResult<GetCaptionsSegment, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetCaptionsSegment$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetCaptionsSegment' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetCaptionsSpeaker$inboundSchema: z.ZodType<
+  GetCaptionsSpeaker,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  media_speaker_id: z.nullable(z.string()),
+  speaker_profile_id: z.nullable(z.string()),
+  detected_speaker_id: z.nullable(z.string()),
+  display_label: z.string(),
+  name: z.nullable(z.string()),
+}).transform((v) => {
+  return remap$(v, {
+    "media_speaker_id": "mediaSpeakerId",
+    "speaker_profile_id": "speakerProfileId",
+    "detected_speaker_id": "detectedSpeakerId",
+    "display_label": "displayLabel",
+  });
+});
+
+export function getCaptionsSpeakerFromJSON(
+  jsonString: string,
+): SafeParseResult<GetCaptionsSpeaker, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetCaptionsSpeaker$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetCaptionsSpeaker' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetCaptionsDiarizedSegment$inboundSchema: z.ZodType<
+  GetCaptionsDiarizedSegment,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  start_ms: z.number().int(),
+  end_ms: z.number().int(),
+  text: z.string(),
+  speaker: z.lazy(() => GetCaptionsSpeaker$inboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    "start_ms": "startMs",
+    "end_ms": "endMs",
+  });
+});
+
+export function getCaptionsDiarizedSegmentFromJSON(
+  jsonString: string,
+): SafeParseResult<GetCaptionsDiarizedSegment, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetCaptionsDiarizedSegment$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetCaptionsDiarizedSegment' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetCaptionsDiarizationStatus$inboundSchema: z.ZodNativeEnum<
+  typeof GetCaptionsDiarizationStatus
+> = z.nativeEnum(GetCaptionsDiarizationStatus);
+
+/** @internal */
 export const GetCaptionsResponse$inboundSchema: z.ZodType<
   GetCaptionsResponse,
   z.ZodTypeDef,
@@ -263,12 +522,26 @@ export const GetCaptionsResponse$inboundSchema: z.ZodType<
   text: z.nullable(z.string()).optional(),
   is_draft: z.boolean(),
   id: z.string(),
+  media_id: z.string(),
+  version: z.nullable(z.number().int()),
+  segments: z.nullable(z.array(z.lazy(() => GetCaptionsSegment$inboundSchema))),
+  diarized_segments: z.array(
+    z.lazy(() => GetCaptionsDiarizedSegment$inboundSchema),
+  ).optional(),
+  diarization_status: GetCaptionsDiarizationStatus$inboundSchema.optional(),
+  diarization_derivable: z.boolean().optional(),
+  speaker_data_version: z.nullable(z.number().int()).optional(),
   cursor: z.nullable(z.string()).optional(),
 }).transform((v) => {
   return remap$(v, {
     "english_name": "englishName",
     "native_name": "nativeName",
     "is_draft": "isDraft",
+    "media_id": "mediaId",
+    "diarized_segments": "diarizedSegments",
+    "diarization_status": "diarizationStatus",
+    "diarization_derivable": "diarizationDerivable",
+    "speaker_data_version": "speakerDataVersion",
   });
 });
 

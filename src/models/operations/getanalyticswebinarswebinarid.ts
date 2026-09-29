@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { RFCDate } from "../../types/rfcdate.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -19,14 +20,30 @@ export type GetAnalyticsWebinarsWebinarIdRequest = {
    */
   includePostEvent?: boolean | undefined;
   /**
-   * Start date for the post-event analytics period in ISO 8601 format (YYYY-MM-DD). Only used when include_post_event is true.
+   * Start date for the post-event analytics period in ISO 8601 format (YYYY-MM-DD). Inclusive — the range starts at the beginning of this date. Only used when include_post_event is true.
    */
   postEventStartDate?: RFCDate | undefined;
   /**
-   * End date for the post-event analytics period in ISO 8601 format (YYYY-MM-DD). Only used when include_post_event is true.
+   * End date for the post-event analytics period in ISO 8601 format (YYYY-MM-DD). Exclusive — the range ends before the beginning of this date. Only used when include_post_event is true.
    */
   postEventEndDate?: RFCDate | undefined;
 };
+
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const GetAnalyticsWebinarsWebinarIdCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type GetAnalyticsWebinarsWebinarIdCode = ClosedEnum<
+  typeof GetAnalyticsWebinarsWebinarIdCode
+>;
 
 export type Option = {
   /**
@@ -189,6 +206,11 @@ export function getAnalyticsWebinarsWebinarIdRequestToJSON(
     ),
   );
 }
+
+/** @internal */
+export const GetAnalyticsWebinarsWebinarIdCode$inboundSchema: z.ZodNativeEnum<
+  typeof GetAnalyticsWebinarsWebinarIdCode
+> = z.nativeEnum(GetAnalyticsWebinarsWebinarIdCode);
 
 /** @internal */
 export const Option$inboundSchema: z.ZodType<Option, z.ZodTypeDef, unknown> = z

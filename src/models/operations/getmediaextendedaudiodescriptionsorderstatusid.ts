@@ -17,6 +17,22 @@ export type GetMediaExtendedAudioDescriptionsOrderStatusIdRequest = {
 };
 
 /**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const GetMediaExtendedAudioDescriptionsOrderStatusIdCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type GetMediaExtendedAudioDescriptionsOrderStatusIdCode = ClosedEnum<
+  typeof GetMediaExtendedAudioDescriptionsOrderStatusIdCode
+>;
+
+/**
  * The current status of the order.
  */
 export const GetMediaExtendedAudioDescriptionsOrderStatusIdOrderStatus = {
@@ -79,6 +95,10 @@ export type GetMediaExtendedAudioDescriptionsOrderStatusIdOrder = {
   orderStatus: GetMediaExtendedAudioDescriptionsOrderStatusIdOrderStatus;
   createdAt: Date;
   updatedAt: Date;
+  /**
+   * IETF language tag the audio description was ordered in (e.g. `eng`, `es-419`).
+   */
+  ietfLanguageTag: string;
   media: GetMediaExtendedAudioDescriptionsOrderStatusIdMedia;
   /**
    * Link to the resulting media extended audio description. Null while the order is in progress.
@@ -121,6 +141,11 @@ export function getMediaExtendedAudioDescriptionsOrderStatusIdRequestToJSON(
     ),
   );
 }
+
+/** @internal */
+export const GetMediaExtendedAudioDescriptionsOrderStatusIdCode$inboundSchema:
+  z.ZodNativeEnum<typeof GetMediaExtendedAudioDescriptionsOrderStatusIdCode> = z
+    .nativeEnum(GetMediaExtendedAudioDescriptionsOrderStatusIdCode);
 
 /** @internal */
 export const GetMediaExtendedAudioDescriptionsOrderStatusIdOrderStatus$inboundSchema:
@@ -207,6 +232,7 @@ export const GetMediaExtendedAudioDescriptionsOrderStatusIdOrder$inboundSchema:
     updated_at: z.string().datetime({ offset: true }).transform(v =>
       new Date(v)
     ),
+    ietf_language_tag: z.string(),
     media: z.lazy(() =>
       GetMediaExtendedAudioDescriptionsOrderStatusIdMedia$inboundSchema
     ),
@@ -220,6 +246,7 @@ export const GetMediaExtendedAudioDescriptionsOrderStatusIdOrder$inboundSchema:
       "order_status": "orderStatus",
       "created_at": "createdAt",
       "updated_at": "updatedAt",
+      "ietf_language_tag": "ietfLanguageTag",
       "media_extended_audio_description": "mediaExtendedAudioDescription",
     });
   });

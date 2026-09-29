@@ -4,6 +4,7 @@
 
 import { WistiaCore } from "../core.js";
 import { encodeFormQuery, encodeSimple } from "../lib/encodings.js";
+import { matchStatusCode } from "../lib/http.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -35,6 +36,16 @@ import { Result } from "../types/fp.js";
  * ```
  * Read all folder and media data
  * ```
+ *
+ * Tokens with the "Act with a team member's permissions" permission
+ * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
+ * made with such a token are authorized using the permissions of the
+ * contact assigned to the token.
+ *
+ * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+ * created with the `all:delegate_to_contact_permissions` scope and an
+ * authorization for this media can also be used; any permission granted on a
+ * media allows showing it.
  */
 export function mediaGet(
   client: WistiaCore,
@@ -108,6 +119,7 @@ async function $do(
 
   const query = encodeFormQuery({
     "description_format": payload.description_format,
+    "include": payload.include,
   });
 
   const headers = new Headers(compactMap({
@@ -151,7 +163,8 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["401", "404", "4XX", "500", "5XX"],
+    isErrorStatusCode: (statusCode: number) =>
+      matchStatusCode({ status: statusCode } as Response, ["4XX", "5XX"]),
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });

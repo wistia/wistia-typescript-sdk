@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import * as operations from "../operations/index.js";
 import { WistiaError } from "./wistiaerror.js";
 
 /**
@@ -107,9 +108,46 @@ export class DeleteFoldersFolderIdSubfoldersBulkDeleteNotFoundError
 }
 
 /**
+ * Forbidden, token is valid but account does not have access to feature
+ */
+export type DeleteFoldersFolderIdSubfoldersBulkDeleteForbiddenErrorData = {
+  error?: string | undefined;
+};
+
+/**
+ * Forbidden, token is valid but account does not have access to feature
+ */
+export class DeleteFoldersFolderIdSubfoldersBulkDeleteForbiddenError
+  extends WistiaError
+{
+  error?: string | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: DeleteFoldersFolderIdSubfoldersBulkDeleteForbiddenErrorData;
+
+  constructor(
+    err: DeleteFoldersFolderIdSubfoldersBulkDeleteForbiddenErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+
+    this.name = "DeleteFoldersFolderIdSubfoldersBulkDeleteForbiddenError";
+  }
+}
+
+/**
  * Unauthorized, invalid or missing token
  */
 export type DeleteFoldersFolderIdSubfoldersBulkDeleteUnauthorizedErrorData = {
+  /**
+   * A machine-readable identifier for the specific authorization failure.
+   */
+  code?: operations.DeleteFoldersFolderIdSubfoldersBulkDeleteCode | undefined;
   error?: string | undefined;
 };
 
@@ -119,6 +157,10 @@ export type DeleteFoldersFolderIdSubfoldersBulkDeleteUnauthorizedErrorData = {
 export class DeleteFoldersFolderIdSubfoldersBulkDeleteUnauthorizedError
   extends WistiaError
 {
+  /**
+   * A machine-readable identifier for the specific authorization failure.
+   */
+  code?: operations.DeleteFoldersFolderIdSubfoldersBulkDeleteCode | undefined;
   error?: string | undefined;
 
   /** The original data that was passed to this error instance. */
@@ -133,6 +175,7 @@ export class DeleteFoldersFolderIdSubfoldersBulkDeleteUnauthorizedError
       : `API error occurred: ${JSON.stringify(err)}`;
     super(message, httpMeta);
     this.data$ = err;
+    if (err.code != null) this.code = err.code;
     if (err.error != null) this.error = err.error;
 
     this.name = "DeleteFoldersFolderIdSubfoldersBulkDeleteUnauthorizedError";
@@ -198,12 +241,34 @@ export const DeleteFoldersFolderIdSubfoldersBulkDeleteNotFoundError$inboundSchem
     });
 
 /** @internal */
+export const DeleteFoldersFolderIdSubfoldersBulkDeleteForbiddenError$inboundSchema:
+  z.ZodType<
+    DeleteFoldersFolderIdSubfoldersBulkDeleteForbiddenError,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    error: z.string().optional(),
+    request$: z.instanceof(Request),
+    response$: z.instanceof(Response),
+    body$: z.string(),
+  })
+    .transform((v) => {
+      return new DeleteFoldersFolderIdSubfoldersBulkDeleteForbiddenError(v, {
+        request: v.request$,
+        response: v.response$,
+        body: v.body$,
+      });
+    });
+
+/** @internal */
 export const DeleteFoldersFolderIdSubfoldersBulkDeleteUnauthorizedError$inboundSchema:
   z.ZodType<
     DeleteFoldersFolderIdSubfoldersBulkDeleteUnauthorizedError,
     z.ZodTypeDef,
     unknown
   > = z.object({
+    code: operations.DeleteFoldersFolderIdSubfoldersBulkDeleteCode$inboundSchema
+      .optional(),
     error: z.string().optional(),
     request$: z.instanceof(Request),
     response$: z.instanceof(Response),

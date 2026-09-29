@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import * as operations from "../operations/index.js";
 import { WistiaError } from "./wistiaerror.js";
 
 /**
@@ -75,6 +76,10 @@ export class GetFoldersFolderIdSharingsSharingIdNotFoundError
  * Unauthorized, invalid or missing token
  */
 export type GetFoldersFolderIdSharingsSharingIdUnauthorizedErrorData = {
+  /**
+   * A machine-readable identifier for the specific authorization failure.
+   */
+  code?: operations.GetFoldersFolderIdSharingsSharingIdCode | undefined;
   error?: string | undefined;
 };
 
@@ -84,6 +89,10 @@ export type GetFoldersFolderIdSharingsSharingIdUnauthorizedErrorData = {
 export class GetFoldersFolderIdSharingsSharingIdUnauthorizedError
   extends WistiaError
 {
+  /**
+   * A machine-readable identifier for the specific authorization failure.
+   */
+  code?: operations.GetFoldersFolderIdSharingsSharingIdCode | undefined;
   error?: string | undefined;
 
   /** The original data that was passed to this error instance. */
@@ -98,6 +107,7 @@ export class GetFoldersFolderIdSharingsSharingIdUnauthorizedError
       : `API error occurred: ${JSON.stringify(err)}`;
     super(message, httpMeta);
     this.data$ = err;
+    if (err.code != null) this.code = err.code;
     if (err.error != null) this.error = err.error;
 
     this.name = "GetFoldersFolderIdSharingsSharingIdUnauthorizedError";
@@ -151,6 +161,8 @@ export const GetFoldersFolderIdSharingsSharingIdUnauthorizedError$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
+    code: operations.GetFoldersFolderIdSharingsSharingIdCode$inboundSchema
+      .optional(),
     error: z.string().optional(),
     request$: z.instanceof(Request),
     response$: z.instanceof(Response),

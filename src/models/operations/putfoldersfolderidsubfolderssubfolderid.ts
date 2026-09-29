@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
@@ -38,13 +39,29 @@ export type PutFoldersFolderIdSubfoldersSubfolderIdRequest = {
 };
 
 /**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const PutFoldersFolderIdSubfoldersSubfolderIdCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type PutFoldersFolderIdSubfoldersSubfolderIdCode = ClosedEnum<
+  typeof PutFoldersFolderIdSubfoldersSubfolderIdCode
+>;
+
+/**
  * A subfolder within a folder that contains media.
  */
 export type PutFoldersFolderIdSubfoldersSubfolderIdResponse = {
   /**
    * A unique alphanumeric identifier for this subfolder.
    */
-  hashedId: string;
+  hashedId: string | null;
   /**
    * The display name of the subfolder.
    */
@@ -136,13 +153,18 @@ export function putFoldersFolderIdSubfoldersSubfolderIdRequestToJSON(
 }
 
 /** @internal */
+export const PutFoldersFolderIdSubfoldersSubfolderIdCode$inboundSchema:
+  z.ZodNativeEnum<typeof PutFoldersFolderIdSubfoldersSubfolderIdCode> = z
+    .nativeEnum(PutFoldersFolderIdSubfoldersSubfolderIdCode);
+
+/** @internal */
 export const PutFoldersFolderIdSubfoldersSubfolderIdResponse$inboundSchema:
   z.ZodType<
     PutFoldersFolderIdSubfoldersSubfolderIdResponse,
     z.ZodTypeDef,
     unknown
   > = z.object({
-    hashed_id: z.string(),
+    hashed_id: z.nullable(z.string()),
     name: z.nullable(z.string()).optional(),
     description: z.nullable(z.string()).optional(),
     position: z.nullable(z.number().int()),

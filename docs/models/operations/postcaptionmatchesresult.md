@@ -1,0 +1,30 @@
+# PostCaptionMatchesResult
+
+## Example Usage
+
+```typescript
+import { PostCaptionMatchesResult } from "@wistia/wistia-api-client/models/operations";
+
+let value: PostCaptionMatchesResult = {
+  mediaHashedId: "<id>",
+  status: "language_required",
+};
+```
+
+## Fields
+
+| Field                                                                                      | Type                                                                                       | Required                                                                                   | Description                                                                                |
+| ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ |
+| `mediaHashedId`                                                                            | *string*                                                                                   | :heavy_check_mark:                                                                         | N/A                                                                                        |
+| `status`                                                                                   | [operations.PostCaptionMatchesStatus](../../models/operations/postcaptionmatchesstatus.md) | :heavy_check_mark:                                                                         | N/A                                                                                        |
+| `tracks`                                                                                   | [operations.Track](../../models/operations/track.md)[]                                     | :heavy_minus_sign:                                                                         | N/A                                                                                        |
+| `track`                                                                                    | [operations.Track](../../models/operations/track.md)                                       | :heavy_minus_sign:                                                                         | N/A                                                                                        |
+| `matchStatus`                                                                              | [operations.MatchStatus](../../models/operations/matchstatus.md)                           | :heavy_minus_sign:                                                                         | N/A                                                                                        |
+| `matchCount`                                                                               | *number*                                                                                   | :heavy_minus_sign:                                                                         | Total number of exact matches, including matches not present in this response page.        |
+| `matches`                                                                                  | [operations.Match](../../models/operations/match.md)[]                                     | :heavy_minus_sign:                                                                         | Exact matches only.                                                                        |
+| `matchesTruncated`                                                                         | *boolean*                                                                                  | :heavy_minus_sign:                                                                         | N/A                                                                                        |
+| `nextOccurrence`                                                                           | *number*                                                                                   | :heavy_minus_sign:                                                                         | The next one-based occurrence that can be requested when exact matches are truncated.      |
+| `suggestions`                                                                              | [operations.Suggestion](../../models/operations/suggestion.md)[]                           | :heavy_minus_sign:                                                                         | Fuzzy alternatives when no exact match exists. These are not exact matches.                |
+| `suggestionsTruncated`                                                                     | *boolean*                                                                                  | :heavy_minus_sign:                                                                         | N/A                                                                                        |
+| `hint`                                                                                     | *string*                                                                                   | :heavy_minus_sign:                                                                         | N/A                                                                                        |
+| `recovery`                                                                                 | *string*                                                                                   | :heavy_minus_sign:                                                                         | N/A                                                                                        |
