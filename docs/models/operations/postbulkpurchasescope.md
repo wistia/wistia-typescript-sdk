@@ -1,0 +1,23 @@
+# PostBulkPurchaseScope
+
+The parent whose media the order applies to. An order always addresses the
+media, so the valid parent types are the same for every resource type here.
+
+
+## Example Usage
+
+```typescript
+import { PostBulkPurchaseScope } from "@wistia/wistia-api-client/models/operations";
+
+let value: PostBulkPurchaseScope = {
+  type: "account",
+  id: "abc123",
+};
+```
+
+## Fields
+
+| Field                                                                                                                                                                                                    | Type                                                                                                                                                                                                     | Required                                                                                                                                                                                                 | Description                                                                                                                                                                                              | Example                                                                                                                                                                                                  |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `type`                                                                                                                                                                                                   | [operations.PostBulkPurchaseType](../../models/operations/postbulkpurchasetype.md)                                                                                                                       | :heavy_check_mark:                                                                                                                                                                                       | The kind of parent `id` names. Required, because a hashed ID does not say<br/>what it belongs to -- the same value could name a folder or a channel.<br/>Use `account` to order for every media in the account.<br/> |                                                                                                                                                                                                          |
+| `id`                                                                                                                                                                                                     | *string*                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                       | The parent's hashed ID. Required for every scope type except `account`.<br/>                                                                                                                             | abc123                                                                                                                                                                                                   |

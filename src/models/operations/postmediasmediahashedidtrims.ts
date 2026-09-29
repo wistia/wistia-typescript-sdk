@@ -29,6 +29,22 @@ export type PostMediasMediaHashedIdTrimsRequest = {
 };
 
 /**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const PostMediasMediaHashedIdTrimsCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type PostMediasMediaHashedIdTrimsCode = ClosedEnum<
+  typeof PostMediasMediaHashedIdTrimsCode
+>;
+
+/**
  * The status of the background job that's been queued for the request.
  */
 export const PostMediasMediaHashedIdTrimsStatus = {
@@ -56,6 +72,10 @@ export type PostMediasMediaHashedIdTrimsBackgroundJobStatus = {
    */
   id: number;
   /**
+   * The unguessable hashed ID of the background job. Prefer this over the numeric ID when polling for status.
+   */
+  hashedId: string;
+  /**
    * The status of the background job that's been queued for the request.
    */
   status: PostMediasMediaHashedIdTrimsStatus;
@@ -65,12 +85,6 @@ export type PostMediasMediaHashedIdTrimsBackgroundJobStatus = {
  * Successful queueing of trims worker.
  */
 export type PostMediasMediaHashedIdTrimsResponse = {
-  /**
-   * A background job keeps track of the progress of an asynchronous task, e.g
-   *
-   * @remarks
-   * bulk archiving media, translating media, etc.
-   */
   backgroundJobStatus?:
     | PostMediasMediaHashedIdTrimsBackgroundJobStatus
     | undefined;
@@ -140,6 +154,11 @@ export function postMediasMediaHashedIdTrimsRequestToJSON(
 }
 
 /** @internal */
+export const PostMediasMediaHashedIdTrimsCode$inboundSchema: z.ZodNativeEnum<
+  typeof PostMediasMediaHashedIdTrimsCode
+> = z.nativeEnum(PostMediasMediaHashedIdTrimsCode);
+
+/** @internal */
 export const PostMediasMediaHashedIdTrimsStatus$inboundSchema: z.ZodNativeEnum<
   typeof PostMediasMediaHashedIdTrimsStatus
 > = z.nativeEnum(PostMediasMediaHashedIdTrimsStatus);
@@ -152,7 +171,12 @@ export const PostMediasMediaHashedIdTrimsBackgroundJobStatus$inboundSchema:
     unknown
   > = z.object({
     id: z.number().int(),
+    hashed_id: z.string(),
     status: PostMediasMediaHashedIdTrimsStatus$inboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      "hashed_id": "hashedId",
+    });
   });
 
 export function postMediasMediaHashedIdTrimsBackgroundJobStatusFromJSON(

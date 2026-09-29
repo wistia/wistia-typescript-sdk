@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import * as operations from "../operations/index.js";
 import { WistiaError } from "./wistiaerror.js";
 
 /**
@@ -71,6 +72,10 @@ export class GetStatsVisitorsVisitorKeyForbiddenError extends WistiaError {
  * Unauthorized, invalid or missing token
  */
 export type GetStatsVisitorsVisitorKeyUnauthorizedErrorData = {
+  /**
+   * A machine-readable identifier for the specific authorization failure.
+   */
+  code?: operations.GetStatsVisitorsVisitorKeyCode | undefined;
   error?: string | undefined;
 };
 
@@ -78,6 +83,10 @@ export type GetStatsVisitorsVisitorKeyUnauthorizedErrorData = {
  * Unauthorized, invalid or missing token
  */
 export class GetStatsVisitorsVisitorKeyUnauthorizedError extends WistiaError {
+  /**
+   * A machine-readable identifier for the specific authorization failure.
+   */
+  code?: operations.GetStatsVisitorsVisitorKeyCode | undefined;
   error?: string | undefined;
 
   /** The original data that was passed to this error instance. */
@@ -92,6 +101,7 @@ export class GetStatsVisitorsVisitorKeyUnauthorizedError extends WistiaError {
       : `API error occurred: ${JSON.stringify(err)}`;
     super(message, httpMeta);
     this.data$ = err;
+    if (err.code != null) this.code = err.code;
     if (err.error != null) this.error = err.error;
 
     this.name = "GetStatsVisitorsVisitorKeyUnauthorizedError";
@@ -144,6 +154,7 @@ export const GetStatsVisitorsVisitorKeyUnauthorizedError$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
+    code: operations.GetStatsVisitorsVisitorKeyCode$inboundSchema.optional(),
     error: z.string().optional(),
     request$: z.instanceof(Request),
     response$: z.instanceof(Response),

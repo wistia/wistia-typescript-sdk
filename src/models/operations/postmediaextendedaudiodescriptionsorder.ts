@@ -9,6 +9,36 @@ import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
+/**
+ * IETF language tag for the audio description. Defaults to `eng` (English).
+ *
+ * @remarks
+ * Non-English orders must set `ai_enabled: false` — AI-generated audio
+ * descriptions are only available in English.
+ *
+ * Spanish (`es-419`) orders are only accepted when the source media is
+ * tagged as a Spanish-language variant or has no detected language
+ * (e.g. silent videos). Spanish orders against a media in another
+ * language return `400`.
+ */
+export const IetfLanguageTag = {
+  Eng: "eng",
+  Es419: "es-419",
+} as const;
+/**
+ * IETF language tag for the audio description. Defaults to `eng` (English).
+ *
+ * @remarks
+ * Non-English orders must set `ai_enabled: false` — AI-generated audio
+ * descriptions are only available in English.
+ *
+ * Spanish (`es-419`) orders are only accepted when the source media is
+ * tagged as a Spanish-language variant or has no detected language
+ * (e.g. silent videos). Spanish orders against a media in another
+ * language return `400`.
+ */
+export type IetfLanguageTag = ClosedEnum<typeof IetfLanguageTag>;
+
 export type PostMediaExtendedAudioDescriptionsOrderRequest = {
   /**
    * The hashed id of the media to order the extended audio description for.
@@ -19,14 +49,43 @@ export type PostMediaExtendedAudioDescriptionsOrderRequest = {
    */
   enabled?: boolean | undefined;
   /**
-   * Whether to use AI-generated audio descriptions (cheaper) or human-generated (higher quality).
+   * Whether to use AI-generated audio descriptions (cheaper) or human-generated (higher quality). AI is only available for English orders.
    */
   aiEnabled?: boolean | undefined;
   /**
    * Optional instructions for the audio description provider.
    */
   orderInstructions?: string | undefined;
+  /**
+   * IETF language tag for the audio description. Defaults to `eng` (English).
+   *
+   * @remarks
+   * Non-English orders must set `ai_enabled: false` — AI-generated audio
+   * descriptions are only available in English.
+   *
+   * Spanish (`es-419`) orders are only accepted when the source media is
+   * tagged as a Spanish-language variant or has no detected language
+   * (e.g. silent videos). Spanish orders against a media in another
+   * language return `400`.
+   */
+  ietfLanguageTag?: IetfLanguageTag | undefined;
 };
+
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const PostMediaExtendedAudioDescriptionsOrderCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type PostMediaExtendedAudioDescriptionsOrderCode = ClosedEnum<
+  typeof PostMediaExtendedAudioDescriptionsOrderCode
+>;
 
 /**
  * The current status of the order.
@@ -92,6 +151,10 @@ export type PostMediaExtendedAudioDescriptionsOrderOrder = {
   orderStatus: PostMediaExtendedAudioDescriptionsOrderOrderStatus;
   createdAt: Date;
   updatedAt: Date;
+  /**
+   * IETF language tag the audio description was ordered in (e.g. `eng`, `es-419`).
+   */
+  ietfLanguageTag: string;
   media: PostMediaExtendedAudioDescriptionsOrderMedia;
   /**
    * Link to the resulting media extended audio description. Null while the order is in progress.
@@ -111,7 +174,16 @@ export type PostMediaExtendedAudioDescriptionsOrderResponse = {
    */
   message: string;
   order: PostMediaExtendedAudioDescriptionsOrderOrder;
+  /**
+   * The credits held for the audio description, deducted when it completes. Null when the audio description is not paid for with credits. Decimal amounts are returned as strings.
+   */
+  expectedBilledCredits: string | null;
 };
+
+/** @internal */
+export const IetfLanguageTag$outboundSchema: z.ZodNativeEnum<
+  typeof IetfLanguageTag
+> = z.nativeEnum(IetfLanguageTag);
 
 /** @internal */
 export type PostMediaExtendedAudioDescriptionsOrderRequest$Outbound = {
@@ -119,6 +191,7 @@ export type PostMediaExtendedAudioDescriptionsOrderRequest$Outbound = {
   enabled: boolean;
   ai_enabled: boolean;
   order_instructions?: string | undefined;
+  ietf_language_tag: string;
 };
 
 /** @internal */
@@ -132,11 +205,13 @@ export const PostMediaExtendedAudioDescriptionsOrderRequest$outboundSchema:
     enabled: z.boolean().default(true),
     aiEnabled: z.boolean().default(true),
     orderInstructions: z.string().optional(),
+    ietfLanguageTag: IetfLanguageTag$outboundSchema.default("eng"),
   }).transform((v) => {
     return remap$(v, {
       mediaId: "media_id",
       aiEnabled: "ai_enabled",
       orderInstructions: "order_instructions",
+      ietfLanguageTag: "ietf_language_tag",
     });
   });
 
@@ -150,6 +225,11 @@ export function postMediaExtendedAudioDescriptionsOrderRequestToJSON(
     ),
   );
 }
+
+/** @internal */
+export const PostMediaExtendedAudioDescriptionsOrderCode$inboundSchema:
+  z.ZodNativeEnum<typeof PostMediaExtendedAudioDescriptionsOrderCode> = z
+    .nativeEnum(PostMediaExtendedAudioDescriptionsOrderCode);
 
 /** @internal */
 export const PostMediaExtendedAudioDescriptionsOrderOrderStatus$inboundSchema:
@@ -235,6 +315,7 @@ export const PostMediaExtendedAudioDescriptionsOrderOrder$inboundSchema:
     updated_at: z.string().datetime({ offset: true }).transform(v =>
       new Date(v)
     ),
+    ietf_language_tag: z.string(),
     media: z.lazy(() =>
       PostMediaExtendedAudioDescriptionsOrderMedia$inboundSchema
     ),
@@ -248,6 +329,7 @@ export const PostMediaExtendedAudioDescriptionsOrderOrder$inboundSchema:
       "order_status": "orderStatus",
       "created_at": "createdAt",
       "updated_at": "updatedAt",
+      "ietf_language_tag": "ietfLanguageTag",
       "media_extended_audio_description": "mediaExtendedAudioDescription",
     });
   });
@@ -279,6 +361,11 @@ export const PostMediaExtendedAudioDescriptionsOrderResponse$inboundSchema:
     order: z.lazy(() =>
       PostMediaExtendedAudioDescriptionsOrderOrder$inboundSchema
     ),
+    expected_billed_credits: z.nullable(z.string()),
+  }).transform((v) => {
+    return remap$(v, {
+      "expected_billed_credits": "expectedBilledCredits",
+    });
   });
 
 export function postMediaExtendedAudioDescriptionsOrderResponseFromJSON(

@@ -3,12 +3,12 @@
  */
 
 import { channelEpisodesCreate } from "../funcs/channelEpisodesCreate.js";
-import { channelEpisodesDeleteChannelEpisodesChannelEpisodeHashedId } from "../funcs/channelEpisodesDeleteChannelEpisodesChannelEpisodeHashedId.js";
+import { channelEpisodesDelete } from "../funcs/channelEpisodesDelete.js";
 import { channelEpisodesGet } from "../funcs/channelEpisodesGet.js";
 import { channelEpisodesList } from "../funcs/channelEpisodesList.js";
-import { channelEpisodesPutChannelEpisodesChannelEpisodeHashedId } from "../funcs/channelEpisodesPutChannelEpisodesChannelEpisodeHashedId.js";
-import { channelEpisodesPutChannelEpisodesChannelEpisodeHashedIdPublish } from "../funcs/channelEpisodesPutChannelEpisodesChannelEpisodeHashedIdPublish.js";
-import { channelEpisodesPutChannelEpisodesChannelEpisodeHashedIdUnpublish } from "../funcs/channelEpisodesPutChannelEpisodesChannelEpisodeHashedIdUnpublish.js";
+import { channelEpisodesPublish } from "../funcs/channelEpisodesPublish.js";
+import { channelEpisodesUnpublish } from "../funcs/channelEpisodesUnpublish.js";
+import { channelEpisodesUpdate } from "../funcs/channelEpisodesUpdate.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
@@ -25,6 +25,11 @@ export class ChannelEpisodes extends ClientSDK {
    * ```
    * Read all folder and media data
    * ```
+   *
+   * Tokens with the "Act with a team member's permissions" permission
+   * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
+   * made with such a token are authorized using the permissions of the
+   * contact assigned to the token.
    */
   async get(
     request:
@@ -50,6 +55,11 @@ export class ChannelEpisodes extends ClientSDK {
    * ```
    * Read, update & delete anything
    * ```
+   *
+   * Tokens with the "Act with a team member's permissions" permission
+   * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
+   * made with such a token are authorized using the permissions of the
+   * contact assigned to the token.
    */
   async create(
     request: operations.PostChannelsChannelHashedIdChannelEpisodesRequest,
@@ -73,6 +83,11 @@ export class ChannelEpisodes extends ClientSDK {
    * ```
    * Read all folder and media data
    * ```
+   *
+   * Tokens with the "Act with a team member's permissions" permission
+   * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
+   * made with such a token are authorized using the permissions of the
+   * contact assigned to the token.
    */
   async list(
     request?: operations.GetChannelEpisodesRequest | undefined,
@@ -94,12 +109,17 @@ export class ChannelEpisodes extends ClientSDK {
    * ```
    * Read, update & delete anything
    * ```
+   *
+   * Tokens with the "Act with a team member's permissions" permission
+   * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
+   * made with such a token are authorized using the permissions of the
+   * contact assigned to the token.
    */
-  async putChannelEpisodesChannelEpisodeHashedId(
+  async update(
     request: operations.PutChannelEpisodesChannelEpisodeHashedIdRequest,
     options?: RequestOptions,
   ): Promise<operations.PutChannelEpisodesChannelEpisodeHashedIdResponse> {
-    return unwrapAsync(channelEpisodesPutChannelEpisodesChannelEpisodeHashedId(
+    return unwrapAsync(channelEpisodesUpdate(
       this,
       request,
       options,
@@ -116,18 +136,21 @@ export class ChannelEpisodes extends ClientSDK {
    * ```
    * Read, update & delete anything
    * ```
+   *
+   * Tokens with the "Act with a team member's permissions" permission
+   * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
+   * made with such a token are authorized using the permissions of the
+   * contact assigned to the token.
    */
-  async deleteChannelEpisodesChannelEpisodeHashedId(
+  async delete(
     request: operations.DeleteChannelEpisodesChannelEpisodeHashedIdRequest,
     options?: RequestOptions,
   ): Promise<operations.DeleteChannelEpisodesChannelEpisodeHashedIdResponse> {
-    return unwrapAsync(
-      channelEpisodesDeleteChannelEpisodesChannelEpisodeHashedId(
-        this,
-        request,
-        options,
-      ),
-    );
+    return unwrapAsync(channelEpisodesDelete(
+      this,
+      request,
+      options,
+    ));
   }
 
   /**
@@ -139,20 +162,23 @@ export class ChannelEpisodes extends ClientSDK {
    * ```
    * Read, update & delete anything
    * ```
+   *
+   * Tokens with the "Act with a team member's permissions" permission
+   * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
+   * made with such a token are authorized using the permissions of the
+   * contact assigned to the token.
    */
-  async putChannelEpisodesChannelEpisodeHashedIdPublish(
+  async publish(
     request: operations.PutChannelEpisodesChannelEpisodeHashedIdPublishRequest,
     options?: RequestOptions,
   ): Promise<
     operations.PutChannelEpisodesChannelEpisodeHashedIdPublishResponse
   > {
-    return unwrapAsync(
-      channelEpisodesPutChannelEpisodesChannelEpisodeHashedIdPublish(
-        this,
-        request,
-        options,
-      ),
-    );
+    return unwrapAsync(channelEpisodesPublish(
+      this,
+      request,
+      options,
+    ));
   }
 
   /**
@@ -164,20 +190,23 @@ export class ChannelEpisodes extends ClientSDK {
    * ```
    * Read, update & delete anything
    * ```
+   *
+   * Tokens with the "Act with a team member's permissions" permission
+   * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
+   * made with such a token are authorized using the permissions of the
+   * contact assigned to the token.
    */
-  async putChannelEpisodesChannelEpisodeHashedIdUnpublish(
+  async unpublish(
     request:
       operations.PutChannelEpisodesChannelEpisodeHashedIdUnpublishRequest,
     options?: RequestOptions,
   ): Promise<
     operations.PutChannelEpisodesChannelEpisodeHashedIdUnpublishResponse
   > {
-    return unwrapAsync(
-      channelEpisodesPutChannelEpisodesChannelEpisodeHashedIdUnpublish(
-        this,
-        request,
-        options,
-      ),
-    );
+    return unwrapAsync(channelEpisodesUnpublish(
+      this,
+      request,
+      options,
+    ));
   }
 }

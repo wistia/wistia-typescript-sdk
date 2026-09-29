@@ -23,6 +23,8 @@ let value: GetSearchResponse = {
         publicId: "4bD",
         anonymousCanUpload: false,
         anonymousCanDownload: false,
+        kind: "shared",
+        personalLibrary: false,
       },
     ],
     subfolders: [
@@ -39,6 +41,23 @@ let value: GetSearchResponse = {
       {
         folderHashedId: "4d23503f70",
         transcriptMatches: [],
+        customMetadataFieldValues: [
+          {
+            key: "client",
+            fieldType: "single_select",
+            value: "high",
+            updatedAt: new Date("2026-07-17T21:47:00Z"),
+            lastWrite: {
+              at: new Date("2026-08-25T17:55:00Z"),
+              source: "api",
+              actor: {
+                type: "contact",
+                id: "abc123de",
+                name: "Jane Doe",
+              },
+            },
+          },
+        ],
       },
     ],
     channels: [],

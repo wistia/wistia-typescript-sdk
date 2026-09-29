@@ -17,6 +17,11 @@ Lists tags belonging to the account.
 Read all data
 ```
 
+Tokens with the "Act with a team member's permissions" permission
+(`all:delegate_to_contact_permissions` scope) can also be used. Requests
+made with such a token are authorized using the permissions of the
+contact assigned to the token.
+
 
 ### Example Usage
 
@@ -94,6 +99,11 @@ Creates a new tag.
 ```
 Read, update & delete anything
 ```
+
+Tokens with the "Act with a team member's permissions" permission
+(`all:delegate_to_contact_permissions` scope) can also be used. Requests
+made with such a token are authorized using the permissions of the
+contact assigned to the token.
 
 
 ### Example Usage
@@ -178,6 +188,11 @@ Deletes a tag
 ```
 Read, update & delete anything
 ```
+
+Tokens with the "Act with a team member's permissions" permission
+(`all:delegate_to_contact_permissions` scope) can also be used. Requests
+made with such a token are authorized using the permissions of the
+contact assigned to the token.
 
 
 ### Example Usage

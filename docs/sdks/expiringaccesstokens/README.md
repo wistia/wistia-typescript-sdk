@@ -13,12 +13,19 @@
 This API is still under development and can change at any time.
 ```
 
-This endpoint is for creating expiring access tokens which can be used for some iframe embeds.
+This endpoint is for creating expiring access tokens which can be used for some iframe embeds
+and, when granted the `all:delegate_to_contact_permissions` scope, for REST API requests
+authorized by the token's authorizations.
 
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
+
+Tokens with the "Act with a team member's permissions" permission
+(`all:delegate_to_contact_permissions` scope) can also be used. Requests
+made with such a token are authorized using the permissions of the
+contact assigned to the token.
 
 
 ### Example Usage
@@ -32,7 +39,27 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.expiringAccessTokens.create();
+  const result = await wistia.expiringAccessTokens.create({
+    expiringAccessToken: {
+      scopes: [
+        "graphql:all",
+        "all:delegate_to_contact_permissions",
+      ],
+      authorizations: [
+        {
+          type: "account",
+          id: "<id>",
+          permissions: [
+            "show",
+            "update",
+            "destroy",
+            "edit-transcripts",
+            "create-folders",
+          ],
+        },
+      ],
+    },
+  });
 
   console.log(result);
 }
@@ -55,7 +82,27 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await expiringAccessTokensCreate(wistia);
+  const res = await expiringAccessTokensCreate(wistia, {
+    expiringAccessToken: {
+      scopes: [
+        "graphql:all",
+        "all:delegate_to_contact_permissions",
+      ],
+      authorizations: [
+        {
+          type: "account",
+          id: "<id>",
+          permissions: [
+            "show",
+            "update",
+            "destroy",
+            "edit-transcripts",
+            "create-folders",
+          ],
+        },
+      ],
+    },
+  });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
