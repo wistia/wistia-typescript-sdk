@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
@@ -14,6 +15,22 @@ export type GetMediaExtendedAudioDescriptionsIdRequest = {
    */
   id: string;
 };
+
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const GetMediaExtendedAudioDescriptionsIdCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type GetMediaExtendedAudioDescriptionsIdCode = ClosedEnum<
+  typeof GetMediaExtendedAudioDescriptionsIdCode
+>;
 
 export type GetMediaExtendedAudioDescriptionsIdMedia = {
   /**
@@ -108,6 +125,10 @@ export type GetMediaExtendedAudioDescriptionsIdResponse = {
     | undefined;
   contact?: GetMediaExtendedAudioDescriptionsIdContact | undefined;
   /**
+   * A cursor for stable pagination based on current `sort_by` order. You can pass this to `cursor[before]` or `cursor[after]` as a parameter to fetch the records before or after this record in the same sort order. This is only populated if records were fetched with `cursor[enabled]`, or `cursor[before]` or `cursor[after]`.
+   */
+  cursor?: string | null | undefined;
+  /**
    * Download links for the audio description files.
    */
   assets?: Assets | undefined;
@@ -138,6 +159,11 @@ export function getMediaExtendedAudioDescriptionsIdRequestToJSON(
     ),
   );
 }
+
+/** @internal */
+export const GetMediaExtendedAudioDescriptionsIdCode$inboundSchema:
+  z.ZodNativeEnum<typeof GetMediaExtendedAudioDescriptionsIdCode> = z
+    .nativeEnum(GetMediaExtendedAudioDescriptionsIdCode);
 
 /** @internal */
 export const GetMediaExtendedAudioDescriptionsIdMedia$inboundSchema: z.ZodType<
@@ -277,6 +303,7 @@ export const GetMediaExtendedAudioDescriptionsIdResponse$inboundSchema:
     contact: z.lazy(() =>
       GetMediaExtendedAudioDescriptionsIdContact$inboundSchema
     ).optional(),
+    cursor: z.nullable(z.string()).optional(),
     assets: z.lazy(() => Assets$inboundSchema).optional(),
   }).transform((v) => {
     return remap$(v, {

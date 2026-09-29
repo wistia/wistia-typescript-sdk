@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { ClosedEnum } from "../../types/enums.js";
 
 export type DeleteMediasMediaIdCustomizationsRequest = {
   /**
@@ -10,6 +11,22 @@ export type DeleteMediasMediaIdCustomizationsRequest = {
    */
   mediaId: string;
 };
+
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const DeleteMediasMediaIdCustomizationsCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type DeleteMediasMediaIdCustomizationsCode = ClosedEnum<
+  typeof DeleteMediasMediaIdCustomizationsCode
+>;
 
 /** @internal */
 export type DeleteMediasMediaIdCustomizationsRequest$Outbound = {
@@ -35,3 +52,9 @@ export function deleteMediasMediaIdCustomizationsRequestToJSON(
     ),
   );
 }
+
+/** @internal */
+export const DeleteMediasMediaIdCustomizationsCode$inboundSchema:
+  z.ZodNativeEnum<typeof DeleteMediasMediaIdCustomizationsCode> = z.nativeEnum(
+    DeleteMediasMediaIdCustomizationsCode,
+  );

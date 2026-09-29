@@ -5,10 +5,10 @@
 ### Available Operations
 
 * [list](#list) - List Channels
-* [postChannels](#postchannels) - Create Channel
+* [create](#create) - Create Channel
 * [get](#get) - Show Channel
-* [putChannelsChannelHashedId](#putchannelschannelhashedid) - Update Channel
-* [deleteChannelsChannelHashedId](#deletechannelschannelhashedid) - Delete Channel
+* [update](#update) - Update Channel
+* [delete](#delete) - Delete Channel
 
 ## list
 
@@ -19,6 +19,11 @@ do a batch fetch based off of the hashed id.
 ```
 Read all folder and media data
 ```
+
+Tokens with the "Act with a team member's permissions" permission
+(`all:delegate_to_contact_permissions` scope) can also be used. Requests
+made with such a token are authorized using the permissions of the
+contact assigned to the token.
 
 
 ### Example Usage
@@ -89,7 +94,7 @@ run();
 | errors.GetChannelsInternalServerError | 500                                   | application/json                      |
 | errors.WistiaDefaultError             | 4XX, 5XX                              | \*/\*                                 |
 
-## postChannels
+## create
 
 Creates a channel.
 
@@ -105,7 +110,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.channels.postChannels();
+  const result = await wistia.channels.create();
 
   console.log(result);
 }
@@ -119,7 +124,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { channelsPostChannels } from "@wistia/wistia-api-client/funcs/channelsPostChannels.js";
+import { channelsCreate } from "@wistia/wistia-api-client/funcs/channelsCreate.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -128,12 +133,12 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await channelsPostChannels(wistia);
+  const res = await channelsCreate(wistia);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("channelsPostChannels failed:", res.error);
+    console.log("channelsCreate failed:", res.error);
   }
 }
 
@@ -170,6 +175,11 @@ Returns the Channel associated with the hashedId.
 ```
 Read all folder and media data
 ```
+
+Tokens with the "Act with a team member's permissions" permission
+(`all:delegate_to_contact_permissions` scope) can also be used. Requests
+made with such a token are authorized using the permissions of the
+contact assigned to the token.
 
 
 ### Example Usage
@@ -244,7 +254,7 @@ run();
 | errors.GetChannelsChannelHashedIdInternalServerError | 500                                                  | application/json                                     |
 | errors.WistiaDefaultError                            | 4XX, 5XX                                             | \*/\*                                                |
 
-## putChannelsChannelHashedId
+## update
 
 Updates a channel.
 
@@ -260,7 +270,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.channels.putChannelsChannelHashedId({
+  const result = await wistia.channels.update({
     channelHashedId: "<id>",
   });
 
@@ -276,7 +286,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { channelsPutChannelsChannelHashedId } from "@wistia/wistia-api-client/funcs/channelsPutChannelsChannelHashedId.js";
+import { channelsUpdate } from "@wistia/wistia-api-client/funcs/channelsUpdate.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -285,14 +295,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await channelsPutChannelsChannelHashedId(wistia, {
+  const res = await channelsUpdate(wistia, {
     channelHashedId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("channelsPutChannelsChannelHashedId failed:", res.error);
+    console.log("channelsUpdate failed:", res.error);
   }
 }
 
@@ -321,7 +331,7 @@ run();
 | errors.PutChannelsChannelHashedIdInternalServerError | 500                                                  | application/json                                     |
 | errors.WistiaDefaultError                            | 4XX, 5XX                                             | \*/\*                                                |
 
-## deleteChannelsChannelHashedId
+## delete
 
 Deletes a channel.
 
@@ -337,7 +347,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.channels.deleteChannelsChannelHashedId({
+  const result = await wistia.channels.delete({
     channelHashedId: "<id>",
   });
 
@@ -353,7 +363,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { channelsDeleteChannelsChannelHashedId } from "@wistia/wistia-api-client/funcs/channelsDeleteChannelsChannelHashedId.js";
+import { channelsDelete } from "@wistia/wistia-api-client/funcs/channelsDelete.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -362,14 +372,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await channelsDeleteChannelsChannelHashedId(wistia, {
+  const res = await channelsDelete(wistia, {
     channelHashedId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("channelsDeleteChannelsChannelHashedId failed:", res.error);
+    console.log("channelsDelete failed:", res.error);
   }
 }
 

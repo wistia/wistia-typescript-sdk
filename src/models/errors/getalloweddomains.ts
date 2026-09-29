@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import * as operations from "../operations/index.js";
 import { WistiaError } from "./wistiaerror.js";
 
 /**
@@ -40,6 +41,10 @@ export class GetAllowedDomainsInternalServerError extends WistiaError {
  * Unauthorized, invalid or missing token
  */
 export type GetAllowedDomainsUnauthorizedErrorData = {
+  /**
+   * A machine-readable identifier for the specific authorization failure.
+   */
+  code?: operations.GetAllowedDomainsCode | undefined;
   error?: string | undefined;
 };
 
@@ -47,6 +52,10 @@ export type GetAllowedDomainsUnauthorizedErrorData = {
  * Unauthorized, invalid or missing token
  */
 export class GetAllowedDomainsUnauthorizedError extends WistiaError {
+  /**
+   * A machine-readable identifier for the specific authorization failure.
+   */
+  code?: operations.GetAllowedDomainsCode | undefined;
   error?: string | undefined;
 
   /** The original data that was passed to this error instance. */
@@ -61,9 +70,56 @@ export class GetAllowedDomainsUnauthorizedError extends WistiaError {
       : `API error occurred: ${JSON.stringify(err)}`;
     super(message, httpMeta);
     this.data$ = err;
+    if (err.code != null) this.code = err.code;
     if (err.error != null) this.error = err.error;
 
     this.name = "GetAllowedDomainsUnauthorizedError";
+  }
+}
+
+/**
+ * Bad request
+ */
+export type GetAllowedDomainsBadRequestErrorData = {
+  /**
+   * Error message detailing the reason for the bad request.
+   */
+  error?: string | undefined;
+  /**
+   * Array of error messages detailing the reasons for the bad request.
+   */
+  errors?: Array<string> | undefined;
+};
+
+/**
+ * Bad request
+ */
+export class GetAllowedDomainsBadRequestError extends WistiaError {
+  /**
+   * Error message detailing the reason for the bad request.
+   */
+  error?: string | undefined;
+  /**
+   * Array of error messages detailing the reasons for the bad request.
+   */
+  errors?: Array<string> | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: GetAllowedDomainsBadRequestErrorData;
+
+  constructor(
+    err: GetAllowedDomainsBadRequestErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+    if (err.errors != null) this.errors = err.errors;
+
+    this.name = "GetAllowedDomainsBadRequestError";
   }
 }
 
@@ -92,6 +148,7 @@ export const GetAllowedDomainsUnauthorizedError$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  code: operations.GetAllowedDomainsCode$inboundSchema.optional(),
   error: z.string().optional(),
   request$: z.instanceof(Request),
   response$: z.instanceof(Response),
@@ -99,6 +156,26 @@ export const GetAllowedDomainsUnauthorizedError$inboundSchema: z.ZodType<
 })
   .transform((v) => {
     return new GetAllowedDomainsUnauthorizedError(v, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
+  });
+
+/** @internal */
+export const GetAllowedDomainsBadRequestError$inboundSchema: z.ZodType<
+  GetAllowedDomainsBadRequestError,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  error: z.string().optional(),
+  errors: z.array(z.string()).optional(),
+  request$: z.instanceof(Request),
+  response$: z.instanceof(Response),
+  body$: z.string(),
+})
+  .transform((v) => {
+    return new GetAllowedDomainsBadRequestError(v, {
       request: v.request$,
       response: v.response$,
       body: v.body$,

@@ -1,0 +1,24 @@
+# GetRemixAccountStatusResponse
+
+Remix account status.
+
+## Example Usage
+
+```typescript
+import { GetRemixAccountStatusResponse } from "@wistia/wistia-api-client/models/operations";
+
+let value: GetRemixAccountStatusResponse = {};
+```
+
+## Fields
+
+| Field                                                                                                      | Type                                                                                                       | Required                                                                                                   | Description                                                                                                |
+| ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `billingMode`                                                                                              | [operations.GetRemixAccountStatusBillingMode](../../models/operations/getremixaccountstatusbillingmode.md) | :heavy_minus_sign:                                                                                         | Whether Remix uses Credits or the legacy monthly allowance.                                                |
+| `monthlyLimit`                                                                                             | *number*                                                                                                   | :heavy_minus_sign:                                                                                         | Legacy monthly Remix allowance. Does not determine affordability in Credits mode.                          |
+| `monthlyUsage`                                                                                             | *number*                                                                                                   | :heavy_minus_sign:                                                                                         | Number of Remixes counted toward the legacy monthly allowance.                                             |
+| `remaining`                                                                                                | *number*                                                                                                   | :heavy_minus_sign:                                                                                         | Remaining legacy monthly allowance. Does not determine affordability in Credits mode.                      |
+| `canCreateRemix`                                                                                           | *boolean*                                                                                                  | :heavy_minus_sign:                                                                                         | Whether the account has enough Credits or legacy monthly allowance to create or continue a Remix.          |
+| `creditBalance`                                                                                            | *number*                                                                                                   | :heavy_minus_sign:                                                                                         | Available Credit balance, present in Credits mode.                                                         |
+| `remixCreditCost`                                                                                          | *number*                                                                                                   | :heavy_minus_sign:                                                                                         | Account-specific Credit cost of one Remix creation or iteration, present in Credits mode.                  |
+| `creditsRenewAt`                                                                                           | [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date)              | :heavy_minus_sign:                                                                                         | Next scheduled plan Credit grant (ISO 8601), when available in Credits mode.                               |

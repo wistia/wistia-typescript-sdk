@@ -4,6 +4,7 @@
 
 import { WistiaCore } from "../core.js";
 import { encodeJSON } from "../lib/encodings.js";
+import { matchStatusCode } from "../lib/http.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -34,12 +35,19 @@ import { Result } from "../types/fp.js";
  * This API is still under development and can change at any time.
  * ```
  *
- * This endpoint is for creating expiring access tokens which can be used for some iframe embeds.
+ * This endpoint is for creating expiring access tokens which can be used for some iframe embeds
+ * and, when granted the `all:delegate_to_contact_permissions` scope, for REST API requests
+ * authorized by the token's authorizations.
  *
  * ## Requires api token with one of the following permissions
  * ```
  * Read, update & delete anything
  * ```
+ *
+ * Tokens with the "Act with a team member's permissions" permission
+ * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
+ * made with such a token are authorized using the permissions of the
+ * contact assigned to the token.
  */
 export function expiringAccessTokensCreate(
   client: WistiaCore,
@@ -152,7 +160,8 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["401", "422", "4XX", "500", "501", "5XX"],
+    isErrorStatusCode: (statusCode: number) =>
+      matchStatusCode({ status: statusCode } as Response, ["4XX", "5XX"]),
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });

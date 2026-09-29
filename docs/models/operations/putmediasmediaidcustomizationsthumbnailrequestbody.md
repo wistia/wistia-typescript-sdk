@@ -1,0 +1,24 @@
+# PutMediasMediaIdCustomizationsThumbnailRequestBody
+
+Pre-play poster image and looping video thumbnail / text-overlay plugins for
+a video. Every field is optional; only the fields you send are changed
+(partial update). Send a field as null to reset it to its default.
+
+
+## Example Usage
+
+```typescript
+import { PutMediasMediaIdCustomizationsThumbnailRequestBody } from "@wistia/wistia-api-client/models/operations";
+
+let value: PutMediasMediaIdCustomizationsThumbnailRequestBody = {};
+```
+
+## Fields
+
+| Field                                                                                                                                                   | Type                                                                                                                                                    | Required                                                                                                                                                | Description                                                                                                                                             |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `stillUrl`                                                                                                                                              | *string*                                                                                                                                                | :heavy_minus_sign:                                                                                                                                      | Overrides the thumbnail image that appears before the video plays.                                                                                      |
+| `thumbnailAltText`                                                                                                                                      | *string*                                                                                                                                                | :heavy_minus_sign:                                                                                                                                      | Alt text for the thumbnail image, used for accessibility.                                                                                               |
+| `fitStrategy`                                                                                                                                           | *string*                                                                                                                                                | :heavy_minus_sign:                                                                                                                                      | Resizes the thumbnail when there's a discrepancy between its aspect ratio and that of its parent container. Options are contain, cover, fill, and none. |
+| `unalteredStillImageAsset`                                                                                                                              | *string*                                                                                                                                                | :heavy_minus_sign:                                                                                                                                      | Reference to the original, unaltered still image asset.                                                                                                 |
+| `plugin`                                                                                                                                                | [operations.PutMediasMediaIdCustomizationsThumbnailPluginRequest](../../models/operations/putmediasmediaidcustomizationsthumbnailpluginrequest.md)      | :heavy_minus_sign:                                                                                                                                      | Container for thumbnail-related player plugin configurations.                                                                                           |

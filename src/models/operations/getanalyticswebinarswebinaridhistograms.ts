@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
@@ -14,6 +15,22 @@ export type GetAnalyticsWebinarsWebinarIdHistogramsRequest = {
    */
   webinarId: string;
 };
+
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const GetAnalyticsWebinarsWebinarIdHistogramsCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type GetAnalyticsWebinarsWebinarIdHistogramsCode = ClosedEnum<
+  typeof GetAnalyticsWebinarsWebinarIdHistogramsCode
+>;
 
 /**
  * Success response with webinar histogram data.
@@ -58,6 +75,11 @@ export function getAnalyticsWebinarsWebinarIdHistogramsRequestToJSON(
     ),
   );
 }
+
+/** @internal */
+export const GetAnalyticsWebinarsWebinarIdHistogramsCode$inboundSchema:
+  z.ZodNativeEnum<typeof GetAnalyticsWebinarsWebinarIdHistogramsCode> = z
+    .nativeEnum(GetAnalyticsWebinarsWebinarIdHistogramsCode);
 
 /** @internal */
 export const GetAnalyticsWebinarsWebinarIdHistogramsResponse$inboundSchema:

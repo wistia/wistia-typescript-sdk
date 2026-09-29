@@ -4,14 +4,14 @@
 
 ### Available Operations
 
-* [getFoldersFolderIdSubfolders](#getfoldersfolderidsubfolders) - List Subfolders
-* [postFoldersFolderIdSubfolders](#postfoldersfolderidsubfolders) - Create Subfolder
-* [getFoldersFolderIdSubfoldersSubfolderId](#getfoldersfolderidsubfolderssubfolderid) - Show Subfolder
-* [putFoldersFolderIdSubfoldersSubfolderId](#putfoldersfolderidsubfolderssubfolderid) - Update Subfolder
-* [deleteFoldersFolderIdSubfoldersSubfolderId](#deletefoldersfolderidsubfolderssubfolderid) - Delete Subfolder
-* [deleteFoldersFolderIdSubfoldersBulkDelete](#deletefoldersfolderidsubfoldersbulkdelete) - Bulk Delete Subfolders
+* [list](#list) - List Subfolders
+* [create](#create) - Create Subfolder
+* [get](#get) - Show Subfolder
+* [update](#update) - Update Subfolder
+* [delete](#delete) - Delete Subfolder
+* [bulkDelete](#bulkdelete) - Bulk Delete Subfolders
 
-## getFoldersFolderIdSubfolders
+## list
 
 Lists subfolders in a specific folder.
 
@@ -19,6 +19,11 @@ Lists subfolders in a specific folder.
 ```
 Read all folder and media data
 ```
+
+Tokens with the "Act with a team member's permissions" permission
+(`all:delegate_to_contact_permissions` scope) can also be used. Requests
+made with such a token are authorized using the permissions of the
+contact assigned to the token.
 
 
 ### Example Usage
@@ -32,7 +37,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.subfolders.getFoldersFolderIdSubfolders({
+  const result = await wistia.subfolders.list({
     folderId: "abc123def4",
   });
 
@@ -48,7 +53,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { subfoldersGetFoldersFolderIdSubfolders } from "@wistia/wistia-api-client/funcs/subfoldersGetFoldersFolderIdSubfolders.js";
+import { subfoldersList } from "@wistia/wistia-api-client/funcs/subfoldersList.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -57,14 +62,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await subfoldersGetFoldersFolderIdSubfolders(wistia, {
+  const res = await subfoldersList(wistia, {
     folderId: "abc123def4",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("subfoldersGetFoldersFolderIdSubfolders failed:", res.error);
+    console.log("subfoldersList failed:", res.error);
   }
 }
 
@@ -94,7 +99,7 @@ run();
 | errors.GetFoldersFolderIdSubfoldersInternalServerError | 500                                                    | application/json                                       |
 | errors.WistiaDefaultError                              | 4XX, 5XX                                               | \*/\*                                                  |
 
-## postFoldersFolderIdSubfolders
+## create
 
 Creates a new subfolder within a folder. The subfolder will be created with the next available position.
 
@@ -102,6 +107,11 @@ Creates a new subfolder within a folder. The subfolder will be created with the 
 ```
 Read, update & delete anything
 ```
+
+Tokens with the "Act with a team member's permissions" permission
+(`all:delegate_to_contact_permissions` scope) can also be used. Requests
+made with such a token are authorized using the permissions of the
+contact assigned to the token.
 
 
 ### Example Usage
@@ -115,7 +125,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.subfolders.postFoldersFolderIdSubfolders({
+  const result = await wistia.subfolders.create({
     folderId: "abc123def4",
     requestBody: {
       name: "Marketing Videos",
@@ -135,7 +145,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { subfoldersPostFoldersFolderIdSubfolders } from "@wistia/wistia-api-client/funcs/subfoldersPostFoldersFolderIdSubfolders.js";
+import { subfoldersCreate } from "@wistia/wistia-api-client/funcs/subfoldersCreate.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -144,7 +154,7 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await subfoldersPostFoldersFolderIdSubfolders(wistia, {
+  const res = await subfoldersCreate(wistia, {
     folderId: "abc123def4",
     requestBody: {
       name: "Marketing Videos",
@@ -155,7 +165,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("subfoldersPostFoldersFolderIdSubfolders failed:", res.error);
+    console.log("subfoldersCreate failed:", res.error);
   }
 }
 
@@ -179,13 +189,14 @@ run();
 
 | Error Type                                              | Status Code                                             | Content Type                                            |
 | ------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------- |
+| errors.PostFoldersFolderIdSubfoldersBadRequestError     | 400                                                     | application/json                                        |
 | errors.PostFoldersFolderIdSubfoldersUnauthorizedError   | 401                                                     | application/json                                        |
 | errors.PostFoldersFolderIdSubfoldersForbiddenError      | 403                                                     | application/json                                        |
 | errors.PostFoldersFolderIdSubfoldersNotFoundError       | 404                                                     | application/json                                        |
 | errors.PostFoldersFolderIdSubfoldersInternalServerError | 500                                                     | application/json                                        |
 | errors.WistiaDefaultError                               | 4XX, 5XX                                                | \*/\*                                                   |
 
-## getFoldersFolderIdSubfoldersSubfolderId
+## get
 
 Retrieves detailed information about a specific subfolder, including all media contained within it.
 
@@ -193,6 +204,11 @@ Retrieves detailed information about a specific subfolder, including all media c
 ```
 Read all folder and media data
 ```
+
+Tokens with the "Act with a team member's permissions" permission
+(`all:delegate_to_contact_permissions` scope) can also be used. Requests
+made with such a token are authorized using the permissions of the
+contact assigned to the token.
 
 
 ### Example Usage
@@ -206,7 +222,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.subfolders.getFoldersFolderIdSubfoldersSubfolderId({
+  const result = await wistia.subfolders.get({
     folderId: "abc123def4",
     subfolderId: "xyz789ghi0",
   });
@@ -223,7 +239,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { subfoldersGetFoldersFolderIdSubfoldersSubfolderId } from "@wistia/wistia-api-client/funcs/subfoldersGetFoldersFolderIdSubfoldersSubfolderId.js";
+import { subfoldersGet } from "@wistia/wistia-api-client/funcs/subfoldersGet.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -232,7 +248,7 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await subfoldersGetFoldersFolderIdSubfoldersSubfolderId(wistia, {
+  const res = await subfoldersGet(wistia, {
     folderId: "abc123def4",
     subfolderId: "xyz789ghi0",
   });
@@ -240,7 +256,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("subfoldersGetFoldersFolderIdSubfoldersSubfolderId failed:", res.error);
+    console.log("subfoldersGet failed:", res.error);
   }
 }
 
@@ -269,7 +285,7 @@ run();
 | errors.GetFoldersFolderIdSubfoldersSubfolderIdInternalServerError | 500                                                               | application/json                                                  |
 | errors.WistiaDefaultError                                         | 4XX, 5XX                                                          | \*/\*                                                             |
 
-## putFoldersFolderIdSubfoldersSubfolderId
+## update
 
 Updates a subfolder's name and/or description.
 
@@ -277,6 +293,11 @@ Updates a subfolder's name and/or description.
 ```
 Read, update & delete anything
 ```
+
+Tokens with the "Act with a team member's permissions" permission
+(`all:delegate_to_contact_permissions` scope) can also be used. Requests
+made with such a token are authorized using the permissions of the
+contact assigned to the token.
 
 
 ### Example Usage
@@ -290,7 +311,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.subfolders.putFoldersFolderIdSubfoldersSubfolderId({
+  const result = await wistia.subfolders.update({
     folderId: "abc123def4",
     subfolderId: "xyz789ghi0",
     requestBody: {
@@ -311,7 +332,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { subfoldersPutFoldersFolderIdSubfoldersSubfolderId } from "@wistia/wistia-api-client/funcs/subfoldersPutFoldersFolderIdSubfoldersSubfolderId.js";
+import { subfoldersUpdate } from "@wistia/wistia-api-client/funcs/subfoldersUpdate.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -320,7 +341,7 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await subfoldersPutFoldersFolderIdSubfoldersSubfolderId(wistia, {
+  const res = await subfoldersUpdate(wistia, {
     folderId: "abc123def4",
     subfolderId: "xyz789ghi0",
     requestBody: {
@@ -332,7 +353,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("subfoldersPutFoldersFolderIdSubfoldersSubfolderId failed:", res.error);
+    console.log("subfoldersUpdate failed:", res.error);
   }
 }
 
@@ -361,16 +382,19 @@ run();
 | errors.PutFoldersFolderIdSubfoldersSubfolderIdInternalServerError | 500                                                               | application/json                                                  |
 | errors.WistiaDefaultError                                         | 4XX, 5XX                                                          | \*/\*                                                             |
 
-## deleteFoldersFolderIdSubfoldersSubfolderId
+## delete
 
-Deletes a subfolder from a folder. All media files in the subfolder will be moved to the folder's root level.
-
-The subfolder is soft-deleted and may be recoverable through other means, but is no longer accessible via the API.
+Deletes one subfolder and moves its media to the folder's root level. The subfolder is soft-deleted and is no longer accessible via the API. To delete multiple subfolders and their media, use the Bulk Delete Subfolders endpoint.
 
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
+
+Tokens with the "Act with a team member's permissions" permission
+(`all:delegate_to_contact_permissions` scope) can also be used. Requests
+made with such a token are authorized using the permissions of the
+contact assigned to the token.
 
 
 ### Example Usage
@@ -384,7 +408,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.subfolders.deleteFoldersFolderIdSubfoldersSubfolderId({
+  const result = await wistia.subfolders.delete({
     folderId: "abc123def4",
     subfolderId: "xyz789ghi0",
   });
@@ -401,7 +425,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { subfoldersDeleteFoldersFolderIdSubfoldersSubfolderId } from "@wistia/wistia-api-client/funcs/subfoldersDeleteFoldersFolderIdSubfoldersSubfolderId.js";
+import { subfoldersDelete } from "@wistia/wistia-api-client/funcs/subfoldersDelete.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -410,7 +434,7 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await subfoldersDeleteFoldersFolderIdSubfoldersSubfolderId(wistia, {
+  const res = await subfoldersDelete(wistia, {
     folderId: "abc123def4",
     subfolderId: "xyz789ghi0",
   });
@@ -418,7 +442,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("subfoldersDeleteFoldersFolderIdSubfoldersSubfolderId failed:", res.error);
+    console.log("subfoldersDelete failed:", res.error);
   }
 }
 
@@ -447,14 +471,24 @@ run();
 | errors.DeleteFoldersFolderIdSubfoldersSubfolderIdInternalServerError | 500                                                                  | application/json                                                     |
 | errors.WistiaDefaultError                                            | 4XX, 5XX                                                             | \*/\*                                                                |
 
-## deleteFoldersFolderIdSubfoldersBulkDelete
+## bulkDelete
 
-This method accepts a list of subfolders to delete. It processes requests asynchronously and will return a background_job_status object. All media files in each deleted subfolder will be moved to the folder's root level.
+Deletes multiple subfolders asynchronously. Their media is also soft-deleted and can be restored from the trash by an account owner or manager until it is purged. To keep the media, use the Delete Subfolder endpoint, which moves it to the folder's root level.
 
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
+
+Tokens with the "Act with a team member's permissions" permission
+(`all:delegate_to_contact_permissions` scope) can also be used. Requests
+made with such a token are authorized using the permissions of the
+contact assigned to the token.
+
+An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+created with the `all:delegate_to_contact_permissions` scope and an
+authorization granting the `update` permission on the folder can also be
+used.
 
 
 ### Example Usage
@@ -468,7 +502,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.subfolders.deleteFoldersFolderIdSubfoldersBulkDelete({
+  const result = await wistia.subfolders.bulkDelete({
     folderId: "abc123def4",
     requestBody: {
       hashedIds: [
@@ -490,7 +524,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { subfoldersDeleteFoldersFolderIdSubfoldersBulkDelete } from "@wistia/wistia-api-client/funcs/subfoldersDeleteFoldersFolderIdSubfoldersBulkDelete.js";
+import { subfoldersBulkDelete } from "@wistia/wistia-api-client/funcs/subfoldersBulkDelete.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -499,7 +533,7 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await subfoldersDeleteFoldersFolderIdSubfoldersBulkDelete(wistia, {
+  const res = await subfoldersBulkDelete(wistia, {
     folderId: "abc123def4",
     requestBody: {
       hashedIds: [
@@ -512,7 +546,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("subfoldersDeleteFoldersFolderIdSubfoldersBulkDelete failed:", res.error);
+    console.log("subfoldersBulkDelete failed:", res.error);
   }
 }
 
@@ -537,6 +571,7 @@ run();
 | Error Type                                                               | Status Code                                                              | Content Type                                                             |
 | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ |
 | errors.DeleteFoldersFolderIdSubfoldersBulkDeleteUnauthorizedError        | 401                                                                      | application/json                                                         |
+| errors.DeleteFoldersFolderIdSubfoldersBulkDeleteForbiddenError           | 403                                                                      | application/json                                                         |
 | errors.DeleteFoldersFolderIdSubfoldersBulkDeleteNotFoundError            | 404                                                                      | application/json                                                         |
 | errors.DeleteFoldersFolderIdSubfoldersBulkDeleteUnprocessableEntityError | 422                                                                      | application/json                                                         |
 | errors.DeleteFoldersFolderIdSubfoldersBulkDeleteInternalServerError      | 500                                                                      | application/json                                                         |

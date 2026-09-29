@@ -3,65 +3,23 @@
  */
 
 import { mediaArchive } from "../funcs/mediaArchive.js";
+import { mediaBulkCopy } from "../funcs/mediaBulkCopy.js";
 import { mediaCopy } from "../funcs/mediaCopy.js";
 import { mediaDelete } from "../funcs/mediaDelete.js";
 import { mediaGet } from "../funcs/mediaGet.js";
 import { mediaGetStats } from "../funcs/mediaGetStats.js";
+import { mediaImportUrl } from "../funcs/mediaImportUrl.js";
 import { mediaList } from "../funcs/mediaList.js";
 import { mediaMove } from "../funcs/mediaMove.js";
-import { mediaPostMediasImportUrl } from "../funcs/mediaPostMediasImportUrl.js";
-import { mediaPutMediasCopy } from "../funcs/mediaPutMediasCopy.js";
 import { mediaRestore } from "../funcs/mediaRestore.js";
 import { mediaSwap } from "../funcs/mediaSwap.js";
 import { mediaTranslate } from "../funcs/mediaTranslate.js";
 import { mediaUpdate } from "../funcs/mediaUpdate.js";
-import { mediaUploadForm } from "../funcs/mediaUploadForm.js";
-import { mediaUploadMultipart } from "../funcs/mediaUploadMultipart.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
 export class Media extends ClientSDK {
-  /**
-   * Upload or Import Media
-   *
-   * @remarks
-   * Endpoint to upload media files from a local system or import from a web URL.
-   *
-   * - Use `multipart/form-data` with a `file` parameter to upload from local system
-   * - Use `application/x-www-form-urlencoded` with a `url` parameter to import from web URL
-   */
-  async uploadForm(
-    request?: operations.PostFormRequest | undefined,
-    options?: RequestOptions,
-  ): Promise<operations.PostFormResponse> {
-    return unwrapAsync(mediaUploadForm(
-      this,
-      request,
-      options,
-    ));
-  }
-
-  /**
-   * Upload or Import Media
-   *
-   * @remarks
-   * Endpoint to upload media files from a local system or import from a web URL.
-   *
-   * - Use `multipart/form-data` with a `file` parameter to upload from local system
-   * - Use `application/x-www-form-urlencoded` with a `url` parameter to import from web URL
-   */
-  async uploadMultipart(
-    request?: operations.PostMultipartRequest | undefined,
-    options?: RequestOptions,
-  ): Promise<operations.PostMultipartResponse> {
-    return unwrapAsync(mediaUploadMultipart(
-      this,
-      request,
-      options,
-    ));
-  }
-
   /**
    * List Media
    *
@@ -73,6 +31,11 @@ export class Media extends ClientSDK {
    * ```
    * Read all folder and media data
    * ```
+   *
+   * Tokens with the "Act with a team member's permissions" permission
+   * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
+   * made with such a token are authorized using the permissions of the
+   * contact assigned to the token.
    */
   async list(
     request?: operations.GetMediasRequest | undefined,
@@ -95,6 +58,16 @@ export class Media extends ClientSDK {
    * ```
    * Read all folder and media data
    * ```
+   *
+   * Tokens with the "Act with a team member's permissions" permission
+   * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
+   * made with such a token are authorized using the permissions of the
+   * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * authorization for this media can also be used; any permission granted on a
+   * media allows showing it.
    */
   async get(
     request: operations.GetMediasMediaHashedIdRequest,
@@ -117,6 +90,16 @@ export class Media extends ClientSDK {
    * ```
    * Read, update & delete anything
    * ```
+   *
+   * Tokens with the "Act with a team member's permissions" permission
+   * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
+   * made with such a token are authorized using the permissions of the
+   * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * authorization granting the `update` permission on this media can also be
+   * used.
    */
   async update(
     request: operations.PutMediasMediaHashedIdRequest,
@@ -133,12 +116,24 @@ export class Media extends ClientSDK {
    * Delete Media
    *
    * @remarks
-   * Deletes a media.
+   * Deletes a media. Deleted media moves to the account's Recently Deleted area,
+   * where it can be restored until the account's restore window ends, after which
+   * it is permanently purged.
    *
    * ## Requires api token with one of the following permissions
    * ```
    * Read, update & delete anything
    * ```
+   *
+   * Tokens with the "Act with a team member's permissions" permission
+   * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
+   * made with such a token are authorized using the permissions of the
+   * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * authorization granting the `destroy` permission on this media can also be
+   * used.
    */
   async delete(
     request: operations.DeleteMediasMediaHashedIdRequest,
@@ -161,6 +156,11 @@ export class Media extends ClientSDK {
    * ```
    * Read, update & delete anything
    * ```
+   *
+   * Tokens with the "Act with a team member's permissions" permission
+   * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
+   * made with such a token are authorized using the permissions of the
+   * contact assigned to the token.
    */
   async copy(
     request: operations.PostMediasMediaHashedIdCopyRequest,
@@ -183,6 +183,17 @@ export class Media extends ClientSDK {
    * ```
    * Read, update & delete anything
    * ```
+   *
+   * Tokens with the "Act with a team member's permissions" permission
+   * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
+   * made with such a token are authorized using the permissions of the
+   * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope can also be
+   * used when its authorizations grant the `update` permission on both the
+   * media being replaced and the replacement media. A replacement media the
+   * token does not name is treated as not found.
    */
   async swap(
     request: operations.PutMediasMediaHashedIdSwapRequest,
@@ -205,6 +216,11 @@ export class Media extends ClientSDK {
    * ```
    * Read all folder and media data
    * ```
+   *
+   * Tokens with the "Act with a team member's permissions" permission
+   * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
+   * made with such a token are authorized using the permissions of the
+   * contact assigned to the token.
    */
   async getStats(
     request: operations.GetMediasMediaHashedIdStatsRequest,
@@ -227,6 +243,11 @@ export class Media extends ClientSDK {
    * ```
    * Read, update & delete anything
    * ```
+   *
+   * Tokens with the "Act with a team member's permissions" permission
+   * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
+   * made with such a token are authorized using the permissions of the
+   * contact assigned to the token.
    */
   async translate(
     request: operations.PostMediasMediaHashedIdTranslateRequest,
@@ -251,20 +272,25 @@ export class Media extends ClientSDK {
    * If no folder_id is provided, a new folder called "Untitled Folder" will be
    * created and the imported media will be placed there.
    *
+   * The URL must be publicly accessible — Wistia's servers need to be able to fetch the file directly.
+   *
    * Note: imports from certain domains (e.g. vimeo.com, wistia.com) are not permitted.
    *
-   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read, update & delete anything
    * ```
-   * <!--- /HIDE-MCP -->
+   *
+   * Tokens with the "Act with a team member's permissions" permission
+   * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
+   * made with such a token are authorized using the permissions of the
+   * contact assigned to the token.
    */
-  async postMediasImportUrl(
+  async importUrl(
     request?: operations.PostMediasImportUrlRequest | undefined,
     options?: RequestOptions,
   ): Promise<operations.PostMediasImportUrlResponse> {
-    return unwrapAsync(mediaPostMediasImportUrl(
+    return unwrapAsync(mediaImportUrl(
       this,
       request,
       options,
@@ -281,6 +307,11 @@ export class Media extends ClientSDK {
    * ```
    * Read, update & delete anything
    * ```
+   *
+   * Tokens with the "Act with a team member's permissions" permission
+   * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
+   * made with such a token are authorized using the permissions of the
+   * contact assigned to the token.
    */
   async archive(
     request: operations.PutMediasArchiveRequest,
@@ -297,19 +328,30 @@ export class Media extends ClientSDK {
    * Move Media
    *
    * @remarks
-   * Move one or many media to a different folder and optionally to a specific subfolder.
-   * Max 100 media per request, and max 10 requests in 5 minutes.
-   * Note: this is a different rate limit than applies to the rest of the api!
+   * Moves up to 100 media to a folder and optional subfolder. The subfolder must
+   * belong to the specified folder.
    *
-   * If a subfolder_id is provided, media will be moved to that subfolder. The subfolder
-   * must belong to the specified folder.
+   * This endpoint allows 10 requests per 5 minutes, separate from the general
+   * API rate limit. Returns a Background Job because the move is asynchronous.
    *
-   * Returns a Background Job as the move is async.
+   * For more than 100 media, multiple destinations, or mixed actions, use the
+   * Create Bulk Actions endpoint with `move` actions.
    *
    * ## Requires api token with one of the following permissions
    * ```
    * Read, update & delete anything
    * ```
+   *
+   * Tokens with the "Act with a team member's permissions" permission
+   * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
+   * made with such a token are authorized using the permissions of the
+   * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and
+   * authorizations granting the `update` permission on every media being moved
+   * and on the destination folder can also be used. `subfolder_id` is not
+   * available to expiring access tokens.
    */
   async move(
     request: operations.PutMediasMoveRequest,
@@ -332,6 +374,11 @@ export class Media extends ClientSDK {
    * ```
    * Read, update & delete anything
    * ```
+   *
+   * Tokens with the "Act with a team member's permissions" permission
+   * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
+   * made with such a token are authorized using the permissions of the
+   * contact assigned to the token.
    */
   async restore(
     request: operations.PutMediasRestoreRequest,
@@ -356,12 +403,23 @@ export class Media extends ClientSDK {
    * ```
    * Read, update & delete anything
    * ```
+   *
+   * Tokens with the "Act with a team member's permissions" permission
+   * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
+   * made with such a token are authorized using the permissions of the
+   * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * authorization granting the `update` permission on the destination folder
+   * can also be used; only the media the token's authorizations name are
+   * copied.
    */
-  async putMediasCopy(
+  async bulkCopy(
     request: operations.PutMediasCopyRequest,
     options?: RequestOptions,
   ): Promise<operations.PutMediasCopyResponse> {
-    return unwrapAsync(mediaPutMediasCopy(
+    return unwrapAsync(mediaBulkCopy(
       this,
       request,
       options,

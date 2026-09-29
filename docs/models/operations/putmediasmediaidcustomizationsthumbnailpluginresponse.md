@@ -1,0 +1,16 @@
+# PutMediasMediaIdCustomizationsThumbnailPluginResponse
+
+## Example Usage
+
+```typescript
+import { PutMediasMediaIdCustomizationsThumbnailPluginResponse } from "@wistia/wistia-api-client/models/operations";
+
+let value: PutMediasMediaIdCustomizationsThumbnailPluginResponse = {};
+```
+
+## Fields
+
+| Field                                                                                                                                                                                | Type                                                                                                                                                                                 | Required                                                                                                                                                                             | Description                                                                                                                                                                          |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `videoThumbnail`                                                                                                                                                                     | [operations.PutMediasMediaIdCustomizationsThumbnailVideoThumbnailResponse](../../models/operations/putmediasmediaidcustomizationsthumbnailvideothumbnailresponse.md)                 | :heavy_minus_sign:                                                                                                                                                                   | N/A                                                                                                                                                                                  |
+| `thumbnailTextOverlayV2`                                                                                                                                                             | [operations.PutMediasMediaIdCustomizationsThumbnailThumbnailTextOverlayV2Response](../../models/operations/putmediasmediaidcustomizationsthumbnailthumbnailtextoverlayv2response.md) | :heavy_minus_sign:                                                                                                                                                                   | N/A                                                                                                                                                                                  |

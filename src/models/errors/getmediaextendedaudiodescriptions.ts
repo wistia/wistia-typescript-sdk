@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import * as operations from "../operations/index.js";
 import { WistiaError } from "./wistiaerror.js";
 
 /**
@@ -42,6 +43,10 @@ export class GetMediaExtendedAudioDescriptionsInternalServerError
  * Unauthorized, invalid or missing token
  */
 export type GetMediaExtendedAudioDescriptionsUnauthorizedErrorData = {
+  /**
+   * A machine-readable identifier for the specific authorization failure.
+   */
+  code?: operations.GetMediaExtendedAudioDescriptionsCode | undefined;
   error?: string | undefined;
 };
 
@@ -51,6 +56,10 @@ export type GetMediaExtendedAudioDescriptionsUnauthorizedErrorData = {
 export class GetMediaExtendedAudioDescriptionsUnauthorizedError
   extends WistiaError
 {
+  /**
+   * A machine-readable identifier for the specific authorization failure.
+   */
+  code?: operations.GetMediaExtendedAudioDescriptionsCode | undefined;
   error?: string | undefined;
 
   /** The original data that was passed to this error instance. */
@@ -65,9 +74,58 @@ export class GetMediaExtendedAudioDescriptionsUnauthorizedError
       : `API error occurred: ${JSON.stringify(err)}`;
     super(message, httpMeta);
     this.data$ = err;
+    if (err.code != null) this.code = err.code;
     if (err.error != null) this.error = err.error;
 
     this.name = "GetMediaExtendedAudioDescriptionsUnauthorizedError";
+  }
+}
+
+/**
+ * Bad request
+ */
+export type GetMediaExtendedAudioDescriptionsBadRequestErrorData = {
+  /**
+   * Error message detailing the reason for the bad request.
+   */
+  error?: string | undefined;
+  /**
+   * Array of error messages detailing the reasons for the bad request.
+   */
+  errors?: Array<string> | undefined;
+};
+
+/**
+ * Bad request
+ */
+export class GetMediaExtendedAudioDescriptionsBadRequestError
+  extends WistiaError
+{
+  /**
+   * Error message detailing the reason for the bad request.
+   */
+  error?: string | undefined;
+  /**
+   * Array of error messages detailing the reasons for the bad request.
+   */
+  errors?: Array<string> | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: GetMediaExtendedAudioDescriptionsBadRequestErrorData;
+
+  constructor(
+    err: GetMediaExtendedAudioDescriptionsBadRequestErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+    if (err.errors != null) this.errors = err.errors;
+
+    this.name = "GetMediaExtendedAudioDescriptionsBadRequestError";
   }
 }
 
@@ -98,6 +156,8 @@ export const GetMediaExtendedAudioDescriptionsUnauthorizedError$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
+    code: operations.GetMediaExtendedAudioDescriptionsCode$inboundSchema
+      .optional(),
     error: z.string().optional(),
     request$: z.instanceof(Request),
     response$: z.instanceof(Response),
@@ -105,6 +165,27 @@ export const GetMediaExtendedAudioDescriptionsUnauthorizedError$inboundSchema:
   })
     .transform((v) => {
       return new GetMediaExtendedAudioDescriptionsUnauthorizedError(v, {
+        request: v.request$,
+        response: v.response$,
+        body: v.body$,
+      });
+    });
+
+/** @internal */
+export const GetMediaExtendedAudioDescriptionsBadRequestError$inboundSchema:
+  z.ZodType<
+    GetMediaExtendedAudioDescriptionsBadRequestError,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    error: z.string().optional(),
+    errors: z.array(z.string()).optional(),
+    request$: z.instanceof(Request),
+    response$: z.instanceof(Response),
+    body$: z.string(),
+  })
+    .transform((v) => {
+      return new GetMediaExtendedAudioDescriptionsBadRequestError(v, {
         request: v.request$,
         response: v.response$,
         body: v.body$,

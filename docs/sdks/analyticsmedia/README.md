@@ -4,14 +4,15 @@
 
 ### Available Operations
 
-* [getAnalyticsMediasMediaId](#getanalyticsmediasmediaid) - Show Media Analytics
-* [getAnalyticsMediasMediaIdTimeseries](#getanalyticsmediasmediaidtimeseries) - Show Media Analytics Timeseries
-* [getAnalyticsMediasMediaIdEmbedLocations](#getanalyticsmediasmediaidembedlocations) - Show Media Embed Locations
-* [getAnalyticsMediasMediaIdTraffic](#getanalyticsmediasmediaidtraffic) - Show Media Traffic Breakdown
-* [getAnalyticsMediasMediaIdConversions](#getanalyticsmediasmediaidconversions) - Show Media Form Conversions
-* [getAnalyticsMediasMediaIdLanguages](#getanalyticsmediasmediaidlanguages) - Show Media Languages
+* [get](#get) - Show Media Analytics
+* [getTimeseries](#gettimeseries) - Show Media Analytics Timeseries
+* [getEmbedLocations](#getembedlocations) - Show Media Embed Locations
+* [getEmbedLocationsTimeseries](#getembedlocationstimeseries) - Show Media Embed Locations Timeseries
+* [getTraffic](#gettraffic) - Show Media Traffic Breakdown
+* [getConversions](#getconversions) - Show Media Form Conversions
+* [getLanguages](#getlanguages) - Show Media Languages
 
-## getAnalyticsMediasMediaId
+## get
 
 Retrieve aggregate analytics for a video over a date range. This endpoint provides
 Bottler-powered analytics including plays, loads, engagement rate, play rate, and
@@ -19,12 +20,17 @@ conversion metrics.
 
 The date range between `start_date` and `end_date` must not exceed 2 years.
 
-<!--- HIDE-MCP -->
+
 ## Requires api token with one of the following permissions
 ```
 Read detailed stats
 ```
-<!--- /HIDE-MCP -->
+
+Tokens with the "Act with a team member's permissions" permission
+(`all:delegate_to_contact_permissions` scope) can also be used. Requests
+made with such a token are authorized using the permissions of the
+contact assigned to the token.
+
 
 
 ### Example Usage
@@ -39,7 +45,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.analyticsMedia.getAnalyticsMediasMediaId({
+  const result = await wistia.analyticsMedia.get({
     mediaId: "<id>",
     startDate: new RFCDate("2026-06-10"),
     endDate: new RFCDate("2026-12-01"),
@@ -57,7 +63,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { analyticsMediaGetAnalyticsMediasMediaId } from "@wistia/wistia-api-client/funcs/analyticsMediaGetAnalyticsMediasMediaId.js";
+import { analyticsMediaGet } from "@wistia/wistia-api-client/funcs/analyticsMediaGet.js";
 import { RFCDate } from "@wistia/wistia-api-client/types";
 
 // Use `WistiaCore` for best tree-shaking performance.
@@ -67,7 +73,7 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await analyticsMediaGetAnalyticsMediasMediaId(wistia, {
+  const res = await analyticsMediaGet(wistia, {
     mediaId: "<id>",
     startDate: new RFCDate("2026-06-10"),
     endDate: new RFCDate("2026-12-01"),
@@ -76,7 +82,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("analyticsMediaGetAnalyticsMediasMediaId failed:", res.error);
+    console.log("analyticsMediaGet failed:", res.error);
   }
 }
 
@@ -107,19 +113,24 @@ run();
 | errors.GetAnalyticsMediasMediaIdServiceUnavailableError | 503                                                     | application/json                                        |
 | errors.WistiaDefaultError                               | 4XX, 5XX                                                | \*/\*                                                   |
 
-## getAnalyticsMediasMediaIdTimeseries
+## getTimeseries
 
 Retrieve analytics timeseries data for a video over a date range with configurable
 granularity. Returns an array of timestamped metric buckets.
 
 The date range between `start_date` and `end_date` must not exceed 2 years.
 
-<!--- HIDE-MCP -->
+
 ## Requires api token with one of the following permissions
 ```
 Read detailed stats
 ```
-<!--- /HIDE-MCP -->
+
+Tokens with the "Act with a team member's permissions" permission
+(`all:delegate_to_contact_permissions` scope) can also be used. Requests
+made with such a token are authorized using the permissions of the
+contact assigned to the token.
+
 
 
 ### Example Usage
@@ -134,7 +145,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.analyticsMedia.getAnalyticsMediasMediaIdTimeseries({
+  const result = await wistia.analyticsMedia.getTimeseries({
     mediaId: "<id>",
     startDate: new RFCDate("2024-05-04"),
     endDate: new RFCDate("2025-12-15"),
@@ -153,7 +164,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { analyticsMediaGetAnalyticsMediasMediaIdTimeseries } from "@wistia/wistia-api-client/funcs/analyticsMediaGetAnalyticsMediasMediaIdTimeseries.js";
+import { analyticsMediaGetTimeseries } from "@wistia/wistia-api-client/funcs/analyticsMediaGetTimeseries.js";
 import { RFCDate } from "@wistia/wistia-api-client/types";
 
 // Use `WistiaCore` for best tree-shaking performance.
@@ -163,7 +174,7 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await analyticsMediaGetAnalyticsMediasMediaIdTimeseries(wistia, {
+  const res = await analyticsMediaGetTimeseries(wistia, {
     mediaId: "<id>",
     startDate: new RFCDate("2024-05-04"),
     endDate: new RFCDate("2025-12-15"),
@@ -173,7 +184,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("analyticsMediaGetAnalyticsMediasMediaIdTimeseries failed:", res.error);
+    console.log("analyticsMediaGetTimeseries failed:", res.error);
   }
 }
 
@@ -204,19 +215,24 @@ run();
 | errors.GetAnalyticsMediasMediaIdTimeseriesServiceUnavailableError | 503                                                               | application/json                                                  |
 | errors.WistiaDefaultError                                         | 4XX, 5XX                                                          | \*/\*                                                             |
 
-## getAnalyticsMediasMediaIdEmbedLocations
+## getEmbedLocations
 
 Retrieve embed location analytics for a video. Returns a list of pages where the
 video is embedded, ranked by the chosen metric.
 
 The date range between `start_date` and `end_date` must not exceed 2 years.
 
-<!--- HIDE-MCP -->
+
 ## Requires api token with one of the following permissions
 ```
 Read detailed stats
 ```
-<!--- /HIDE-MCP -->
+
+Tokens with the "Act with a team member's permissions" permission
+(`all:delegate_to_contact_permissions` scope) can also be used. Requests
+made with such a token are authorized using the permissions of the
+contact assigned to the token.
+
 
 
 ### Example Usage
@@ -231,7 +247,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.analyticsMedia.getAnalyticsMediasMediaIdEmbedLocations({
+  const result = await wistia.analyticsMedia.getEmbedLocations({
     mediaId: "<id>",
     startDate: new RFCDate("2025-01-17"),
     endDate: new RFCDate("2024-09-01"),
@@ -250,7 +266,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { analyticsMediaGetAnalyticsMediasMediaIdEmbedLocations } from "@wistia/wistia-api-client/funcs/analyticsMediaGetAnalyticsMediasMediaIdEmbedLocations.js";
+import { analyticsMediaGetEmbedLocations } from "@wistia/wistia-api-client/funcs/analyticsMediaGetEmbedLocations.js";
 import { RFCDate } from "@wistia/wistia-api-client/types";
 
 // Use `WistiaCore` for best tree-shaking performance.
@@ -260,7 +276,7 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await analyticsMediaGetAnalyticsMediasMediaIdEmbedLocations(wistia, {
+  const res = await analyticsMediaGetEmbedLocations(wistia, {
     mediaId: "<id>",
     startDate: new RFCDate("2025-01-17"),
     endDate: new RFCDate("2024-09-01"),
@@ -270,7 +286,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("analyticsMediaGetAnalyticsMediasMediaIdEmbedLocations failed:", res.error);
+    console.log("analyticsMediaGetEmbedLocations failed:", res.error);
   }
 }
 
@@ -301,19 +317,130 @@ run();
 | errors.GetAnalyticsMediasMediaIdEmbedLocationsServiceUnavailableError | 503                                                                   | application/json                                                      |
 | errors.WistiaDefaultError                                             | 4XX, 5XX                                                              | \*/\*                                                                 |
 
-## getAnalyticsMediasMediaIdTraffic
+## getEmbedLocationsTimeseries
+
+Retrieve timeseries analytics for a video broken down by embed location. Returns
+an array of timestamped buckets, each containing metrics for the top embed
+locations (ranked by the chosen metric) plus an "All other" entry aggregating
+the remaining locations.
+
+The date range between `start_date` and `end_date` must not exceed 2 years.
+
+
+## Requires api token with one of the following permissions
+```
+Read detailed stats
+```
+
+Tokens with the "Act with a team member's permissions" permission
+(`all:delegate_to_contact_permissions` scope) can also be used. Requests
+made with such a token are authorized using the permissions of the
+contact assigned to the token.
+
+
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="get_/analytics/medias/{mediaId}/embed_locations_timeseries" method="get" path="/analytics/medias/{mediaId}/embed_locations_timeseries" -->
+```typescript
+import { Wistia } from "@wistia/wistia-api-client";
+import { RFCDate } from "@wistia/wistia-api-client/types";
+
+const wistia = new Wistia({
+  bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
+});
+
+async function run() {
+  const result = await wistia.analyticsMedia.getEmbedLocationsTimeseries({
+    mediaId: "<id>",
+    startDate: new RFCDate("2025-02-07"),
+    endDate: new RFCDate("2025-10-04"),
+    granularity: "weekly",
+    embedUrl: "https://example.com/landing-page",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { WistiaCore } from "@wistia/wistia-api-client/core.js";
+import { analyticsMediaGetEmbedLocationsTimeseries } from "@wistia/wistia-api-client/funcs/analyticsMediaGetEmbedLocationsTimeseries.js";
+import { RFCDate } from "@wistia/wistia-api-client/types";
+
+// Use `WistiaCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const wistia = new WistiaCore({
+  bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
+});
+
+async function run() {
+  const res = await analyticsMediaGetEmbedLocationsTimeseries(wistia, {
+    mediaId: "<id>",
+    startDate: new RFCDate("2025-02-07"),
+    endDate: new RFCDate("2025-10-04"),
+    granularity: "weekly",
+    embedUrl: "https://example.com/landing-page",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("analyticsMediaGetEmbedLocationsTimeseries failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.GetAnalyticsMediasMediaIdEmbedLocationsTimeseriesRequest](../../models/operations/getanalyticsmediasmediaidembedlocationstimeseriesrequest.md)                     | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[operations.GetAnalyticsMediasMediaIdEmbedLocationsTimeseriesResponse[]](../../models/.md)\>**
+
+### Errors
+
+| Error Type                                                                      | Status Code                                                                     | Content Type                                                                    |
+| ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| errors.GetAnalyticsMediasMediaIdEmbedLocationsTimeseriesBadRequestError         | 400                                                                             | application/json                                                                |
+| errors.GetAnalyticsMediasMediaIdEmbedLocationsTimeseriesUnauthorizedError       | 401                                                                             | application/json                                                                |
+| errors.GetAnalyticsMediasMediaIdEmbedLocationsTimeseriesForbiddenError          | 403                                                                             | application/json                                                                |
+| errors.GetAnalyticsMediasMediaIdEmbedLocationsTimeseriesInternalServerError     | 500                                                                             | application/json                                                                |
+| errors.GetAnalyticsMediasMediaIdEmbedLocationsTimeseriesServiceUnavailableError | 503                                                                             | application/json                                                                |
+| errors.WistiaDefaultError                                                       | 4XX, 5XX                                                                        | \*/\*                                                                           |
+
+## getTraffic
 
 Retrieve traffic breakdown analytics for a video, grouped by a specified dimension
 such as UTM campaign, UTM source, UTM medium, referrer domain, or viewer screen size.
 
 The date range between `start_date` and `end_date` must not exceed 2 years.
 
-<!--- HIDE-MCP -->
+
 ## Requires api token with one of the following permissions
 ```
 Read detailed stats
 ```
-<!--- /HIDE-MCP -->
+
+Tokens with the "Act with a team member's permissions" permission
+(`all:delegate_to_contact_permissions` scope) can also be used. Requests
+made with such a token are authorized using the permissions of the
+contact assigned to the token.
+
 
 
 ### Example Usage
@@ -328,7 +455,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.analyticsMedia.getAnalyticsMediasMediaIdTraffic({
+  const result = await wistia.analyticsMedia.getTraffic({
     mediaId: "<id>",
     startDate: new RFCDate("2026-11-05"),
     endDate: new RFCDate("2026-08-31"),
@@ -347,7 +474,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { analyticsMediaGetAnalyticsMediasMediaIdTraffic } from "@wistia/wistia-api-client/funcs/analyticsMediaGetAnalyticsMediasMediaIdTraffic.js";
+import { analyticsMediaGetTraffic } from "@wistia/wistia-api-client/funcs/analyticsMediaGetTraffic.js";
 import { RFCDate } from "@wistia/wistia-api-client/types";
 
 // Use `WistiaCore` for best tree-shaking performance.
@@ -357,7 +484,7 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await analyticsMediaGetAnalyticsMediasMediaIdTraffic(wistia, {
+  const res = await analyticsMediaGetTraffic(wistia, {
     mediaId: "<id>",
     startDate: new RFCDate("2026-11-05"),
     endDate: new RFCDate("2026-08-31"),
@@ -367,7 +494,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("analyticsMediaGetAnalyticsMediasMediaIdTraffic failed:", res.error);
+    console.log("analyticsMediaGetTraffic failed:", res.error);
   }
 }
 
@@ -398,19 +525,24 @@ run();
 | errors.GetAnalyticsMediasMediaIdTrafficServiceUnavailableError | 503                                                            | application/json                                               |
 | errors.WistiaDefaultError                                      | 4XX, 5XX                                                       | \*/\*                                                          |
 
-## getAnalyticsMediasMediaIdConversions
+## getConversions
 
 Retrieve form conversion data for a video. Returns a paginated list of form
 submissions with visitor details and timestamps.
 
 The date range between `start_date` and `end_date` must not exceed 2 years.
 
-<!--- HIDE-MCP -->
+
 ## Requires api token with one of the following permissions
 ```
 Read detailed stats
 ```
-<!--- /HIDE-MCP -->
+
+Tokens with the "Act with a team member's permissions" permission
+(`all:delegate_to_contact_permissions` scope) can also be used. Requests
+made with such a token are authorized using the permissions of the
+contact assigned to the token.
+
 
 
 ### Example Usage
@@ -425,7 +557,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.analyticsMedia.getAnalyticsMediasMediaIdConversions({
+  const result = await wistia.analyticsMedia.getConversions({
     mediaId: "<id>",
     startDate: new RFCDate("2024-02-20"),
     endDate: new RFCDate("2026-07-17"),
@@ -443,7 +575,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { analyticsMediaGetAnalyticsMediasMediaIdConversions } from "@wistia/wistia-api-client/funcs/analyticsMediaGetAnalyticsMediasMediaIdConversions.js";
+import { analyticsMediaGetConversions } from "@wistia/wistia-api-client/funcs/analyticsMediaGetConversions.js";
 import { RFCDate } from "@wistia/wistia-api-client/types";
 
 // Use `WistiaCore` for best tree-shaking performance.
@@ -453,7 +585,7 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await analyticsMediaGetAnalyticsMediasMediaIdConversions(wistia, {
+  const res = await analyticsMediaGetConversions(wistia, {
     mediaId: "<id>",
     startDate: new RFCDate("2024-02-20"),
     endDate: new RFCDate("2026-07-17"),
@@ -462,7 +594,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("analyticsMediaGetAnalyticsMediasMediaIdConversions failed:", res.error);
+    console.log("analyticsMediaGetConversions failed:", res.error);
   }
 }
 
@@ -493,19 +625,24 @@ run();
 | errors.GetAnalyticsMediasMediaIdConversionsServiceUnavailableError | 503                                                                | application/json                                                   |
 | errors.WistiaDefaultError                                          | 4XX, 5XX                                                           | \*/\*                                                              |
 
-## getAnalyticsMediasMediaIdLanguages
+## getLanguages
 
 Retrieve language analytics for a video. Returns a breakdown of plays by
 viewer browser language, sorted by number of plays in descending order.
 
 The date range between `start_date` and `end_date` must not exceed 2 years.
 
-<!--- HIDE-MCP -->
+
 ## Requires api token with one of the following permissions
 ```
 Read detailed stats
 ```
-<!--- /HIDE-MCP -->
+
+Tokens with the "Act with a team member's permissions" permission
+(`all:delegate_to_contact_permissions` scope) can also be used. Requests
+made with such a token are authorized using the permissions of the
+contact assigned to the token.
+
 
 
 ### Example Usage
@@ -520,7 +657,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.analyticsMedia.getAnalyticsMediasMediaIdLanguages({
+  const result = await wistia.analyticsMedia.getLanguages({
     mediaId: "<id>",
     startDate: new RFCDate("2026-07-01"),
     endDate: new RFCDate("2024-01-19"),
@@ -538,7 +675,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { analyticsMediaGetAnalyticsMediasMediaIdLanguages } from "@wistia/wistia-api-client/funcs/analyticsMediaGetAnalyticsMediasMediaIdLanguages.js";
+import { analyticsMediaGetLanguages } from "@wistia/wistia-api-client/funcs/analyticsMediaGetLanguages.js";
 import { RFCDate } from "@wistia/wistia-api-client/types";
 
 // Use `WistiaCore` for best tree-shaking performance.
@@ -548,7 +685,7 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await analyticsMediaGetAnalyticsMediasMediaIdLanguages(wistia, {
+  const res = await analyticsMediaGetLanguages(wistia, {
     mediaId: "<id>",
     startDate: new RFCDate("2026-07-01"),
     endDate: new RFCDate("2024-01-19"),
@@ -557,7 +694,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("analyticsMediaGetAnalyticsMediasMediaIdLanguages failed:", res.error);
+    console.log("analyticsMediaGetLanguages failed:", res.error);
   }
 }
 

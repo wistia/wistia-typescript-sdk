@@ -1,0 +1,22 @@
+# PostRemixesRemixHashedIdContinueCreditsError
+
+Unprocessable entity (e.g., insufficient Credits, conversation not found).
+
+## Example Usage
+
+```typescript
+import { PostRemixesRemixHashedIdContinueCreditsError } from "@wistia/wistia-api-client/models/errors";
+
+// No examples available for this model
+```
+
+## Fields
+
+| Field                                                                                                                            | Type                                                                                                                             | Required                                                                                                                         | Description                                                                                                                      |
+| -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `error`                                                                                                                          | *string*                                                                                                                         | :heavy_minus_sign:                                                                                                               | N/A                                                                                                                              |
+| `billingMode`                                                                                                                    | [operations.PostRemixesRemixHashedIdContinueBillingMode](../../models/operations/postremixesremixhashedidcontinuebillingmode.md) | :heavy_minus_sign:                                                                                                               | Present when the request is blocked by insufficient Credits.                                                                     |
+| `creditBalance`                                                                                                                  | *number*                                                                                                                         | :heavy_minus_sign:                                                                                                               | Available Credit balance when the request was rejected.                                                                          |
+| `creditsRequired`                                                                                                                | *number*                                                                                                                         | :heavy_minus_sign:                                                                                                               | Account-specific Credit cost of the requested Remix iteration.                                                                   |
+| `creditsRenewAt`                                                                                                                 | [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date)                                    | :heavy_minus_sign:                                                                                                               | Next scheduled plan Credit grant (ISO 8601), when available.                                                                     |
+| `planType`                                                                                                                       | [operations.PostRemixesRemixHashedIdContinuePlanType](../../models/operations/postremixesremixhashedidcontinueplantype.md)       | :heavy_minus_sign:                                                                                                               | Account plan type, present for insufficient-Credits errors.                                                                      |

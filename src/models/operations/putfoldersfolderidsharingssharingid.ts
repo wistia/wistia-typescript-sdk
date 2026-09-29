@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
@@ -43,11 +44,27 @@ export type PutFoldersFolderIdSharingsSharingIdRequest = {
   requestBody: PutFoldersFolderIdSharingsSharingIdRequestBody;
 };
 
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const PutFoldersFolderIdSharingsSharingIdCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type PutFoldersFolderIdSharingsSharingIdCode = ClosedEnum<
+  typeof PutFoldersFolderIdSharingsSharingIdCode
+>;
+
 export type PutFoldersFolderIdSharingsSharingIdShare = {
   id: number;
   name: string;
   type: string;
-  email: string;
+  email?: string | undefined;
 };
 
 export type PutFoldersFolderIdSharingsSharingIdFolder = {
@@ -171,6 +188,11 @@ export function putFoldersFolderIdSharingsSharingIdRequestToJSON(
 }
 
 /** @internal */
+export const PutFoldersFolderIdSharingsSharingIdCode$inboundSchema:
+  z.ZodNativeEnum<typeof PutFoldersFolderIdSharingsSharingIdCode> = z
+    .nativeEnum(PutFoldersFolderIdSharingsSharingIdCode);
+
+/** @internal */
 export const PutFoldersFolderIdSharingsSharingIdShare$inboundSchema: z.ZodType<
   PutFoldersFolderIdSharingsSharingIdShare,
   z.ZodTypeDef,
@@ -179,7 +201,7 @@ export const PutFoldersFolderIdSharingsSharingIdShare$inboundSchema: z.ZodType<
   id: z.number().int(),
   name: z.string(),
   type: z.string(),
-  email: z.string(),
+  email: z.string().optional(),
 });
 
 export function putFoldersFolderIdSharingsSharingIdShareFromJSON(

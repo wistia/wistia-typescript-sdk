@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
@@ -20,13 +21,29 @@ export type DeleteFoldersFolderIdSubfoldersSubfolderIdRequest = {
 };
 
 /**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const DeleteFoldersFolderIdSubfoldersSubfolderIdCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type DeleteFoldersFolderIdSubfoldersSubfolderIdCode = ClosedEnum<
+  typeof DeleteFoldersFolderIdSubfoldersSubfolderIdCode
+>;
+
+/**
  * A subfolder within a folder that contains media.
  */
 export type DeleteFoldersFolderIdSubfoldersSubfolderIdResponse = {
   /**
    * A unique alphanumeric identifier for this subfolder.
    */
-  hashedId: string;
+  hashedId: string | null;
   /**
    * The display name of the subfolder.
    */
@@ -82,13 +99,18 @@ export function deleteFoldersFolderIdSubfoldersSubfolderIdRequestToJSON(
 }
 
 /** @internal */
+export const DeleteFoldersFolderIdSubfoldersSubfolderIdCode$inboundSchema:
+  z.ZodNativeEnum<typeof DeleteFoldersFolderIdSubfoldersSubfolderIdCode> = z
+    .nativeEnum(DeleteFoldersFolderIdSubfoldersSubfolderIdCode);
+
+/** @internal */
 export const DeleteFoldersFolderIdSubfoldersSubfolderIdResponse$inboundSchema:
   z.ZodType<
     DeleteFoldersFolderIdSubfoldersSubfolderIdResponse,
     z.ZodTypeDef,
     unknown
   > = z.object({
-    hashed_id: z.string(),
+    hashed_id: z.nullable(z.string()),
     name: z.nullable(z.string()).optional(),
     description: z.nullable(z.string()).optional(),
     position: z.nullable(z.number().int()),
