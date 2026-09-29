@@ -19,6 +19,11 @@ By default, the `trims` parameter specifies time ranges to **remove** from the m
 Read, update & delete anything
 ```
 
+Tokens with the "Act with a team member's permissions" permission
+(`all:delegate_to_contact_permissions` scope) can also be used. Requests
+made with such a token are authorized using the permissions of the
+contact assigned to the token.
+
 
 ### Example Usage
 

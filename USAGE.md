@@ -7,7 +7,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.media.uploadForm({
+  const result = await wistia.uploadOrImportMedia.postForm({
     url:
       "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
     lowPriority: true,

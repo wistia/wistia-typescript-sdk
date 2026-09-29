@@ -11,13 +11,15 @@ import { PutMediasMoveBackgroundJobStatus1 } from "@wistia/wistia-api-client/mod
 
 let value: PutMediasMoveBackgroundJobStatus1 = {
   id: 240021,
+  hashedId: "<id>",
   status: "failed",
 };
 ```
 
 ## Fields
 
-| Field                                                                              | Type                                                                               | Required                                                                           | Description                                                                        |
-| ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
-| `id`                                                                               | *number*                                                                           | :heavy_check_mark:                                                                 | The ID of the background job that's been queued for the request.                   |
-| `status`                                                                           | [operations.PutMediasMoveStatus1](../../models/operations/putmediasmovestatus1.md) | :heavy_check_mark:                                                                 | The status of the background job that's been queued for the request.               |
+| Field                                                                                                     | Type                                                                                                      | Required                                                                                                  | Description                                                                                               |
+| --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| `id`                                                                                                      | *number*                                                                                                  | :heavy_check_mark:                                                                                        | The ID of the background job that's been queued for the request.                                          |
+| `hashedId`                                                                                                | *string*                                                                                                  | :heavy_check_mark:                                                                                        | The unguessable hashed ID of the background job. Prefer this over the numeric ID when polling for status. |
+| `status`                                                                                                  | [operations.PutMediasMoveStatus1](../../models/operations/putmediasmovestatus1.md)                        | :heavy_check_mark:                                                                                        | The status of the background job that's been queued for the request.                                      |

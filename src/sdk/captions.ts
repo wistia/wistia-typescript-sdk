@@ -5,9 +5,11 @@
 import { captionsCreate } from "../funcs/captionsCreate.js";
 import { captionsCreateMultipart } from "../funcs/captionsCreateMultipart.js";
 import { captionsDelete } from "../funcs/captionsDelete.js";
+import { captionsEdit } from "../funcs/captionsEdit.js";
+import { captionsFindMatches } from "../funcs/captionsFindMatches.js";
 import { captionsGet, GetAcceptEnum } from "../funcs/captionsGet.js";
-import { captionsGetCaptions } from "../funcs/captionsGetCaptions.js";
 import { captionsList } from "../funcs/captionsList.js";
+import { captionsListAll } from "../funcs/captionsListAll.js";
 import { captionsPurchase } from "../funcs/captionsPurchase.js";
 import { captionsUpdate } from "../funcs/captionsUpdate.js";
 import { captionsUpdateMultipart } from "../funcs/captionsUpdateMultipart.js";
@@ -28,6 +30,11 @@ export class Captions extends ClientSDK {
    * ```
    * Read all folder and media data
    * ```
+   *
+   * Tokens with the "Act with a team member's permissions" permission
+   * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
+   * made with such a token are authorized using the permissions of the
+   * contact assigned to the token.
    */
   async list(
     request: operations.GetMediasMediaHashedIdCaptionsRequest,
@@ -50,6 +57,11 @@ export class Captions extends ClientSDK {
    * ```
    * Read, update & delete anything
    * ```
+   *
+   * Tokens with the "Act with a team member's permissions" permission
+   * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
+   * made with such a token are authorized using the permissions of the
+   * contact assigned to the token.
    */
   async create(
     request: operations.PostMediasMediaHashedIdCaptionsRequest,
@@ -72,6 +84,11 @@ export class Captions extends ClientSDK {
    * ```
    * Read, update & delete anything
    * ```
+   *
+   * Tokens with the "Act with a team member's permissions" permission
+   * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
+   * made with such a token are authorized using the permissions of the
+   * contact assigned to the token.
    */
   async createMultipart(
     request: operations.PostMediasMediaHashedIdCaptionsMultipartRequest,
@@ -88,19 +105,65 @@ export class Captions extends ClientSDK {
    * List Captions
    *
    * @remarks
-   * Lists captions belonging to the account. This endpoint can also narrow down results
-   * to those belonging to a specific media.
+   * Lists captions belonging to the account. Results can be narrowed to a specific media
+   * with `media_id`, or to several media and languages at once with `media_ids[]` and
+   * `languages[]`. Each caption includes its text, so combining these filters with
+   * pagination fetches transcripts for many media in a few requests. Pass
+   * `include=metadata` to omit transcript text when only track and language
+   * information is needed.
    *
    * ## Requires api token with one of the following permissions
    * ```
    * Read all folder and media data
    * ```
+   *
+   * Tokens with the "Act with a team member's permissions" permission
+   * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
+   * made with such a token are authorized using the permissions of the
+   * contact assigned to the token.
    */
-  async getCaptions(
+  async listAll(
     request?: operations.GetCaptionsRequest | undefined,
     options?: RequestOptions,
   ): Promise<Array<operations.GetCaptionsResponse>> {
-    return unwrapAsync(captionsGetCaptions(
+    return unwrapAsync(captionsListAll(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Find Caption Matches
+   *
+   * @remarks
+   * Finds exact text in caption tracks without modifying them. Matching uses the
+   * same normalization, composite-media boundaries, and time coordinates as the
+   * targeted caption edit endpoint. Fuzzy alternatives are returned separately
+   * as suggestions and are never reported as exact matches. A resolved match
+   * means the wording was located; a later write can still fail authorization,
+   * version, or edit-boundary checks.
+   *
+   * When more than 10 exact matches exist, use the one-based `occurrence`
+   * parameter to retrieve a specific later match.
+   *
+   * Authentication and request validation failures apply to the whole request.
+   * Missing, inaccessible, or otherwise unreadable media are reported as
+   * per-media statuses without exposing whether an inaccessible ID exists.
+   *
+   * ## Requires api token with one of the following permissions
+   * ```
+   * Read all folder and media data
+   * ```
+   *
+   * Tokens with the "Act with a team member's permissions" permission
+   * (`all:delegate_to_contact_permissions` scope) can also be used.
+   */
+  async findMatches(
+    request: operations.PostCaptionMatchesRequest,
+    options?: RequestOptions,
+  ): Promise<operations.PostCaptionMatchesResponse> {
+    return unwrapAsync(captionsFindMatches(
       this,
       request,
       options,
@@ -117,6 +180,11 @@ export class Captions extends ClientSDK {
    * ```
    * Read, update & delete anything
    * ```
+   *
+   * Tokens with the "Act with a team member's permissions" permission
+   * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
+   * made with such a token are authorized using the permissions of the
+   * contact assigned to the token.
    */
   async purchase(
     request: operations.PostMediasMediaHashedIdCaptionsPurchaseRequest,
@@ -133,7 +201,7 @@ export class Captions extends ClientSDK {
    * Show Captions
    *
    * @remarks
-   * Returns a video's captions in the specified language.
+   * Returns a media's captions in the specified language.
    * Supports multiple formats: JSON (default), SRT, VTT, and TXT.
    * Use file extensions (.srt, .vtt, .txt) or Accept headers to specify format.
    *
@@ -141,6 +209,11 @@ export class Captions extends ClientSDK {
    * ```
    * Read all folder and media data
    * ```
+   *
+   * Tokens with the "Act with a team member's permissions" permission
+   * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
+   * made with such a token are authorized using the permissions of the
+   * contact assigned to the token.
    */
   async get(
     request: operations.GetMediasMediaHashedIdCaptionsLanguageCodeRequest,
@@ -157,12 +230,17 @@ export class Captions extends ClientSDK {
    * Update Captions
    *
    * @remarks
-   * This method is for replacing the captions on a video for the specified language.
+   * This method is for replacing the captions on a video or audio media for the specified language.
    *
    * ## Requires api token with one of the following permissions
    * ```
    * Read, update & delete anything
    * ```
+   *
+   * Tokens with the "Act with a team member's permissions" permission
+   * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
+   * made with such a token are authorized using the permissions of the
+   * contact assigned to the token.
    */
   async update(
     request: operations.PutMediasMediaHashedIdCaptionsLanguageCodeRequest,
@@ -179,12 +257,17 @@ export class Captions extends ClientSDK {
    * Update Captions
    *
    * @remarks
-   * This method is for replacing the captions on a video for the specified language.
+   * This method is for replacing the captions on a video or audio media for the specified language.
    *
    * ## Requires api token with one of the following permissions
    * ```
    * Read, update & delete anything
    * ```
+   *
+   * Tokens with the "Act with a team member's permissions" permission
+   * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
+   * made with such a token are authorized using the permissions of the
+   * contact assigned to the token.
    */
   async updateMultipart(
     request:
@@ -208,12 +291,48 @@ export class Captions extends ClientSDK {
    * ```
    * Read, update & delete anything
    * ```
+   *
+   * Tokens with the "Act with a team member's permissions" permission
+   * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
+   * made with such a token are authorized using the permissions of the
+   * contact assigned to the token.
    */
   async delete(
     request: operations.DeleteMediasMediaHashedIdCaptionsLanguageCodeRequest,
     options?: RequestOptions,
   ): Promise<void> {
     return unwrapAsync(captionsDelete(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Edit Captions Text
+   *
+   * @remarks
+   * Applies targeted find-and-replace corrections to a media's transcript for
+   * the specified language, preserving the timings of unchanged words. The whole
+   * batch is applied atomically against a specific caption version, or nothing is.
+   *
+   * ## Requires api token with one of the following permissions
+   * ```
+   * Read, update & delete anything
+   * ```
+   *
+   * Tokens with the "Act with a team member's permissions" permission
+   * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
+   * made with such a token are authorized using the permissions of the
+   * contact assigned to the token.
+   */
+  async edit(
+    request: operations.PostMediasMediaHashedIdCaptionsLanguageCodeEditsRequest,
+    options?: RequestOptions,
+  ): Promise<
+    operations.PostMediasMediaHashedIdCaptionsLanguageCodeEditsResponse
+  > {
+    return unwrapAsync(captionsEdit(
       this,
       request,
       options,

@@ -5,31 +5,48 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type PostMediasMediaHashedIdCaptionsPurchaseRequestBody = {
   /**
-   * Order computer-generated captions (free) or human-generated captions ($2.50/minute).
+   * Order computer-generated captions or human-reviewed ones. What each costs depends on the account's plan and billing settings; computer-generated captions are included at no cost on some plans and billed per minute on others.
    */
   automated?: boolean | undefined;
   /**
-   * Enable rush order for one business day turnaround ($4.00/minute) or standard four business day turnaround for human-generated captions ($2.50/minute). Rush can only be used for human-generated captions.
+   * Enable rush order for one business day turnaround instead of the standard four, for human-reviewed captions only. Rush bills at the account's higher per-minute rate.
    */
   rush?: boolean | undefined;
   /**
-   * Automatically enable captions for the video once the order is ready or hold the captions for review before manually enabling.
+   * Automatically enable captions for the media once the order is ready or hold the captions for review before manually enabling.
    */
   automaticallyEnable?: boolean | undefined;
 };
 
 export type PostMediasMediaHashedIdCaptionsPurchaseRequest = {
   /**
-   * Unique identifier for the video.
+   * Unique identifier for the media.
    */
   mediaHashedId: string;
   requestBody: PostMediasMediaHashedIdCaptionsPurchaseRequestBody;
 };
+
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const PostMediasMediaHashedIdCaptionsPurchaseCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type PostMediasMediaHashedIdCaptionsPurchaseCode = ClosedEnum<
+  typeof PostMediasMediaHashedIdCaptionsPurchaseCode
+>;
 
 /**
  * Successful operation. Captions purchased.
@@ -112,6 +129,11 @@ export function postMediasMediaHashedIdCaptionsPurchaseRequestToJSON(
     ),
   );
 }
+
+/** @internal */
+export const PostMediasMediaHashedIdCaptionsPurchaseCode$inboundSchema:
+  z.ZodNativeEnum<typeof PostMediasMediaHashedIdCaptionsPurchaseCode> = z
+    .nativeEnum(PostMediasMediaHashedIdCaptionsPurchaseCode);
 
 /** @internal */
 export const PostMediasMediaHashedIdCaptionsPurchaseResponse$inboundSchema:

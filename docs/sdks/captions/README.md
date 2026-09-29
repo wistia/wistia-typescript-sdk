@@ -7,12 +7,14 @@
 * [list](#list) - List Captions by Media
 * [create](#create) - Create Captions
 * [createMultipart](#createmultipart) - Create Captions
-* [getCaptions](#getcaptions) - List Captions
+* [listAll](#listall) - List Captions
+* [findMatches](#findmatches) - Find Caption Matches
 * [purchase](#purchase) - Purchase Captions
 * [get](#get) - Show Captions
 * [update](#update) - Update Captions
 * [updateMultipart](#updatemultipart) - Update Captions
 * [delete](#delete) - Delete Captions
+* [edit](#edit) - Edit Captions Text
 
 ## list
 
@@ -22,6 +24,11 @@ Lists captions belonging to a specific media.
 ```
 Read all folder and media data
 ```
+
+Tokens with the "Act with a team member's permissions" permission
+(`all:delegate_to_contact_permissions` scope) can also be used. Requests
+made with such a token are authorized using the permissions of the
+contact assigned to the token.
 
 
 ### Example Usage
@@ -103,6 +110,11 @@ Adds captions to a specified media by providing an SRT file or its contents dire
 ```
 Read, update & delete anything
 ```
+
+Tokens with the "Act with a team member's permissions" permission
+(`all:delegate_to_contact_permissions` scope) can also be used. Requests
+made with such a token are authorized using the permissions of the
+contact assigned to the token.
 
 
 ### Example Usage
@@ -192,6 +204,11 @@ Adds captions to a specified media by providing an SRT file or its contents dire
 Read, update & delete anything
 ```
 
+Tokens with the "Act with a team member's permissions" permission
+(`all:delegate_to_contact_permissions` scope) can also be used. Requests
+made with such a token are authorized using the permissions of the
+contact assigned to the token.
+
 
 ### Example Usage
 
@@ -273,15 +290,24 @@ run();
 | errors.PostMediasMediaHashedIdCaptionsMultipartInternalServerError | 500                                                                | application/json                                                   |
 | errors.WistiaDefaultError                                          | 4XX, 5XX                                                           | \*/\*                                                              |
 
-## getCaptions
+## listAll
 
-Lists captions belonging to the account. This endpoint can also narrow down results
-to those belonging to a specific media.
+Lists captions belonging to the account. Results can be narrowed to a specific media
+with `media_id`, or to several media and languages at once with `media_ids[]` and
+`languages[]`. Each caption includes its text, so combining these filters with
+pagination fetches transcripts for many media in a few requests. Pass
+`include=metadata` to omit transcript text when only track and language
+information is needed.
 
 ## Requires api token with one of the following permissions
 ```
 Read all folder and media data
 ```
+
+Tokens with the "Act with a team member's permissions" permission
+(`all:delegate_to_contact_permissions` scope) can also be used. Requests
+made with such a token are authorized using the permissions of the
+contact assigned to the token.
 
 
 ### Example Usage
@@ -295,7 +321,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.captions.getCaptions({});
+  const result = await wistia.captions.listAll({});
 
   console.log(result);
 }
@@ -309,7 +335,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { captionsGetCaptions } from "@wistia/wistia-api-client/funcs/captionsGetCaptions.js";
+import { captionsListAll } from "@wistia/wistia-api-client/funcs/captionsListAll.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -318,12 +344,12 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await captionsGetCaptions(wistia, {});
+  const res = await captionsListAll(wistia, {});
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("captionsGetCaptions failed:", res.error);
+    console.log("captionsListAll failed:", res.error);
   }
 }
 
@@ -352,6 +378,105 @@ run();
 | errors.GetCaptionsInternalServerError | 500                                   | application/json                      |
 | errors.WistiaDefaultError             | 4XX, 5XX                              | \*/\*                                 |
 
+## findMatches
+
+Finds exact text in caption tracks without modifying them. Matching uses the
+same normalization, composite-media boundaries, and time coordinates as the
+targeted caption edit endpoint. Fuzzy alternatives are returned separately
+as suggestions and are never reported as exact matches. A resolved match
+means the wording was located; a later write can still fail authorization,
+version, or edit-boundary checks.
+
+When more than 10 exact matches exist, use the one-based `occurrence`
+parameter to retrieve a specific later match.
+
+Authentication and request validation failures apply to the whole request.
+Missing, inaccessible, or otherwise unreadable media are reported as
+per-media statuses without exposing whether an inaccessible ID exists.
+
+## Requires api token with one of the following permissions
+```
+Read all folder and media data
+```
+
+Tokens with the "Act with a team member's permissions" permission
+(`all:delegate_to_contact_permissions` scope) can also be used.
+
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="post_/caption_matches" method="post" path="/caption_matches" -->
+```typescript
+import { Wistia } from "@wistia/wistia-api-client";
+
+const wistia = new Wistia({
+  bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
+});
+
+async function run() {
+  const result = await wistia.captions.findMatches({
+    mediaIds: [],
+    targetText: "<value>",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { WistiaCore } from "@wistia/wistia-api-client/core.js";
+import { captionsFindMatches } from "@wistia/wistia-api-client/funcs/captionsFindMatches.js";
+
+// Use `WistiaCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const wistia = new WistiaCore({
+  bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
+});
+
+async function run() {
+  const res = await captionsFindMatches(wistia, {
+    mediaIds: [],
+    targetText: "<value>",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("captionsFindMatches failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.PostCaptionMatchesRequest](../../models/operations/postcaptionmatchesrequest.md)                                                                                   | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[operations.PostCaptionMatchesResponse](../../models/operations/postcaptionmatchesresponse.md)\>**
+
+### Errors
+
+| Error Type                                   | Status Code                                  | Content Type                                 |
+| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
+| errors.PostCaptionMatchesBadRequestError     | 400                                          | application/json                             |
+| errors.PostCaptionMatchesUnauthorizedError   | 401                                          | application/json                             |
+| errors.PostCaptionMatchesInternalServerError | 500                                          | application/json                             |
+| errors.WistiaDefaultError                    | 4XX, 5XX                                     | \*/\*                                        |
+
 ## purchase
 
 This method is for purchasing English captions for a media. The request will charge the credit card on the account if successful. A saved credit card is required to use this endpoint.
@@ -360,6 +485,11 @@ This method is for purchasing English captions for a media. The request will cha
 ```
 Read, update & delete anything
 ```
+
+Tokens with the "Act with a team member's permissions" permission
+(`all:delegate_to_contact_permissions` scope) can also be used. Requests
+made with such a token are authorized using the permissions of the
+contact assigned to the token.
 
 
 ### Example Usage
@@ -438,7 +568,7 @@ run();
 
 ## get
 
-Returns a video's captions in the specified language.
+Returns a media's captions in the specified language.
 Supports multiple formats: JSON (default), SRT, VTT, and TXT.
 Use file extensions (.srt, .vtt, .txt) or Accept headers to specify format.
 
@@ -446,6 +576,11 @@ Use file extensions (.srt, .vtt, .txt) or Accept headers to specify format.
 ```
 Read all folder and media data
 ```
+
+Tokens with the "Act with a team member's permissions" permission
+(`all:delegate_to_contact_permissions` scope) can also be used. Requests
+made with such a token are authorized using the permissions of the
+contact assigned to the token.
 
 
 ### Example Usage
@@ -523,12 +658,17 @@ run();
 
 ## update
 
-This method is for replacing the captions on a video for the specified language.
+This method is for replacing the captions on a video or audio media for the specified language.
 
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
+
+Tokens with the "Act with a team member's permissions" permission
+(`all:delegate_to_contact_permissions` scope) can also be used. Requests
+made with such a token are authorized using the permissions of the
+contact assigned to the token.
 
 
 ### Example Usage
@@ -612,12 +752,17 @@ run();
 
 ## updateMultipart
 
-This method is for replacing the captions on a video for the specified language.
+This method is for replacing the captions on a video or audio media for the specified language.
 
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
+
+Tokens with the "Act with a team member's permissions" permission
+(`all:delegate_to_contact_permissions` scope) can also be used. Requests
+made with such a token are authorized using the permissions of the
+contact assigned to the token.
 
 
 ### Example Usage
@@ -710,6 +855,11 @@ Removes the captions file from a media for the specified language.
 Read, update & delete anything
 ```
 
+Tokens with the "Act with a team member's permissions" permission
+(`all:delegate_to_contact_permissions` scope) can also be used. Requests
+made with such a token are authorized using the permissions of the
+contact assigned to the token.
+
 
 ### Example Usage
 
@@ -783,3 +933,116 @@ run();
 | errors.DeleteMediasMediaHashedIdCaptionsLanguageCodeUnauthorizedError   | 401                                                                     | application/json                                                        |
 | errors.DeleteMediasMediaHashedIdCaptionsLanguageCodeInternalServerError | 500                                                                     | application/json                                                        |
 | errors.WistiaDefaultError                                               | 4XX, 5XX                                                                | \*/\*                                                                   |
+
+## edit
+
+Applies targeted find-and-replace corrections to a media's transcript for
+the specified language, preserving the timings of unchanged words. The whole
+batch is applied atomically against a specific caption version, or nothing is.
+
+## Requires api token with one of the following permissions
+```
+Read, update & delete anything
+```
+
+Tokens with the "Act with a team member's permissions" permission
+(`all:delegate_to_contact_permissions` scope) can also be used. Requests
+made with such a token are authorized using the permissions of the
+contact assigned to the token.
+
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="post_/medias/{mediaHashedId}/captions/{languageCode}/edits" method="post" path="/medias/{mediaHashedId}/captions/{languageCode}/edits" -->
+```typescript
+import { Wistia } from "@wistia/wistia-api-client";
+
+const wistia = new Wistia({
+  bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
+});
+
+async function run() {
+  const result = await wistia.captions.edit({
+    mediaHashedId: "<id>",
+    languageCode: "<value>",
+    requestBody: {
+      edits: [
+        {
+          targetText: "<value>",
+          replacementText: "<value>",
+        },
+      ],
+      expectedVersion: 751935,
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { WistiaCore } from "@wistia/wistia-api-client/core.js";
+import { captionsEdit } from "@wistia/wistia-api-client/funcs/captionsEdit.js";
+
+// Use `WistiaCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const wistia = new WistiaCore({
+  bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
+});
+
+async function run() {
+  const res = await captionsEdit(wistia, {
+    mediaHashedId: "<id>",
+    languageCode: "<value>",
+    requestBody: {
+      edits: [
+        {
+          targetText: "<value>",
+          replacementText: "<value>",
+        },
+      ],
+      expectedVersion: 751935,
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("captionsEdit failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.PostMediasMediaHashedIdCaptionsLanguageCodeEditsRequest](../../models/operations/postmediasmediahashedidcaptionslanguagecodeeditsrequest.md)                       | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[operations.PostMediasMediaHashedIdCaptionsLanguageCodeEditsResponse](../../models/operations/postmediasmediahashedidcaptionslanguagecodeeditsresponse.md)\>**
+
+### Errors
+
+| Error Type                                                                      | Status Code                                                                     | Content Type                                                                    |
+| ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| errors.PostMediasMediaHashedIdCaptionsLanguageCodeEditsBadRequestError          | 400                                                                             | application/json                                                                |
+| errors.PostMediasMediaHashedIdCaptionsLanguageCodeEditsUnauthorizedError        | 401                                                                             | application/json                                                                |
+| errors.PostMediasMediaHashedIdCaptionsLanguageCodeEditsForbiddenError           | 403                                                                             | application/json                                                                |
+| errors.PostMediasMediaHashedIdCaptionsLanguageCodeEditsNotFoundError            | 404                                                                             | application/json                                                                |
+| errors.PostMediasMediaHashedIdCaptionsLanguageCodeEditsConflictError            | 409                                                                             | application/json                                                                |
+| errors.PostMediasMediaHashedIdCaptionsLanguageCodeEditsUnprocessableEntityError | 422                                                                             | application/json                                                                |
+| errors.PostMediasMediaHashedIdCaptionsLanguageCodeEditsInternalServerError      | 500                                                                             | application/json                                                                |
+| errors.WistiaDefaultError                                                       | 4XX, 5XX                                                                        | \*/\*                                                                           |

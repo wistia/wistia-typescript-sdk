@@ -5,20 +5,34 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
+/**
+ * The type of object the permission is being performed on. Supports `media`, `folder` and `account`.
+ */
+export const PostExpiringTokenType = {
+  Media: "media",
+  Folder: "folder",
+  Account: "account",
+} as const;
+/**
+ * The type of object the permission is being performed on. Supports `media`, `folder` and `account`.
+ */
+export type PostExpiringTokenType = ClosedEnum<typeof PostExpiringTokenType>;
+
 export type Authorization = {
   /**
-   * The type of object the permission is being performed on, only media is currently supported
+   * The type of object the permission is being performed on. Supports `media`, `folder` and `account`.
    */
-  type: string;
+  type: PostExpiringTokenType;
   /**
-   * The hashed if of the object the permissions are being performed on.
+   * The id of the object the permissions are being performed on: the hashed id of a `media` or `folder`, or the numeric `id` of the `account` (as returned by `GET /modern/account`), which must be the token's own account.
    */
   id: string;
   /**
-   * The types of permissions, currently only supports edit-transcripts
+   * The permissions granted on the object. `media` supports `show`, `update`, `destroy` and `edit-transcripts`; `folder` supports `show`, `update` and `destroy`; `account` supports `create-folders`. Any permission implicitly allows viewing the object; all other permissions must be declared explicitly.
    */
   permissions: Array<string>;
 };
@@ -28,6 +42,10 @@ export type ExpiringAccessToken = {
    * an ISO8601 string of when the token will expire, defaults to two days from creation
    */
   expiresAt?: string | undefined;
+  /**
+   * The scopes the token will be granted. `graphql:all` allows GraphQL requests (e.g. the embedded transcript editor) and `all:delegate_to_contact_permissions` allows REST API requests authorized by the token's authorizations. Defaults to `["graphql:all"]` when omitted.
+   */
+  scopes?: Array<string> | undefined;
   /**
    * a list of authorizations the token will have
    */
@@ -39,14 +57,33 @@ export type PostExpiringTokenRequest = {
 };
 
 /**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const PostExpiringTokenCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type PostExpiringTokenCode = ClosedEnum<typeof PostExpiringTokenCode>;
+
+/**
  * Successful response
  */
 export type PostExpiringTokenResponse = {
   /**
-   * A token which can be used to authorize requests to Wistia. Currently only for doing transcript embeds.
+   * A token which can be used to authorize requests to Wistia. With the `graphql:all` scope it authorizes GraphQL requests such as transcript embeds; with the `all:delegate_to_contact_permissions` scope it can also be used as a bearer token for REST API requests authorized by the token's authorizations.
    */
   token: string;
 };
+
+/** @internal */
+export const PostExpiringTokenType$outboundSchema: z.ZodNativeEnum<
+  typeof PostExpiringTokenType
+> = z.nativeEnum(PostExpiringTokenType);
 
 /** @internal */
 export type Authorization$Outbound = {
@@ -61,7 +98,7 @@ export const Authorization$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   Authorization
 > = z.object({
-  type: z.string(),
+  type: PostExpiringTokenType$outboundSchema,
   id: z.string(),
   permissions: z.array(z.string()),
 });
@@ -73,6 +110,7 @@ export function authorizationToJSON(authorization: Authorization): string {
 /** @internal */
 export type ExpiringAccessToken$Outbound = {
   expires_at?: string | undefined;
+  scopes?: Array<string> | undefined;
   authorizations?: Array<Authorization$Outbound> | undefined;
 };
 
@@ -83,6 +121,7 @@ export const ExpiringAccessToken$outboundSchema: z.ZodType<
   ExpiringAccessToken
 > = z.object({
   expiresAt: z.string().optional(),
+  scopes: z.array(z.string()).optional(),
   authorizations: z.array(z.lazy(() => Authorization$outboundSchema))
     .optional(),
 }).transform((v) => {
@@ -125,6 +164,11 @@ export function postExpiringTokenRequestToJSON(
     PostExpiringTokenRequest$outboundSchema.parse(postExpiringTokenRequest),
   );
 }
+
+/** @internal */
+export const PostExpiringTokenCode$inboundSchema: z.ZodNativeEnum<
+  typeof PostExpiringTokenCode
+> = z.nativeEnum(PostExpiringTokenCode);
 
 /** @internal */
 export const PostExpiringTokenResponse$inboundSchema: z.ZodType<

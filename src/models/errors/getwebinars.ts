@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import * as operations from "../operations/index.js";
 import { WistiaError } from "./wistiaerror.js";
 
 /**
@@ -71,6 +72,10 @@ export class GetWebinarsForbiddenError extends WistiaError {
  * Unauthorized, invalid or missing token
  */
 export type GetWebinarsUnauthorizedErrorData = {
+  /**
+   * A machine-readable identifier for the specific authorization failure.
+   */
+  code?: operations.GetWebinarsCode | undefined;
   error?: string | undefined;
 };
 
@@ -78,6 +83,10 @@ export type GetWebinarsUnauthorizedErrorData = {
  * Unauthorized, invalid or missing token
  */
 export class GetWebinarsUnauthorizedError extends WistiaError {
+  /**
+   * A machine-readable identifier for the specific authorization failure.
+   */
+  code?: operations.GetWebinarsCode | undefined;
   error?: string | undefined;
 
   /** The original data that was passed to this error instance. */
@@ -92,9 +101,56 @@ export class GetWebinarsUnauthorizedError extends WistiaError {
       : `API error occurred: ${JSON.stringify(err)}`;
     super(message, httpMeta);
     this.data$ = err;
+    if (err.code != null) this.code = err.code;
     if (err.error != null) this.error = err.error;
 
     this.name = "GetWebinarsUnauthorizedError";
+  }
+}
+
+/**
+ * Bad request
+ */
+export type GetWebinarsBadRequestErrorData = {
+  /**
+   * Error message detailing the reason for the bad request.
+   */
+  error?: string | undefined;
+  /**
+   * Array of error messages detailing the reasons for the bad request.
+   */
+  errors?: Array<string> | undefined;
+};
+
+/**
+ * Bad request
+ */
+export class GetWebinarsBadRequestError extends WistiaError {
+  /**
+   * Error message detailing the reason for the bad request.
+   */
+  error?: string | undefined;
+  /**
+   * Array of error messages detailing the reasons for the bad request.
+   */
+  errors?: Array<string> | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: GetWebinarsBadRequestErrorData;
+
+  constructor(
+    err: GetWebinarsBadRequestErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+    if (err.errors != null) this.errors = err.errors;
+
+    this.name = "GetWebinarsBadRequestError";
   }
 }
 
@@ -142,6 +198,7 @@ export const GetWebinarsUnauthorizedError$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  code: operations.GetWebinarsCode$inboundSchema.optional(),
   error: z.string().optional(),
   request$: z.instanceof(Request),
   response$: z.instanceof(Response),
@@ -149,6 +206,26 @@ export const GetWebinarsUnauthorizedError$inboundSchema: z.ZodType<
 })
   .transform((v) => {
     return new GetWebinarsUnauthorizedError(v, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
+  });
+
+/** @internal */
+export const GetWebinarsBadRequestError$inboundSchema: z.ZodType<
+  GetWebinarsBadRequestError,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  error: z.string().optional(),
+  errors: z.array(z.string()).optional(),
+  request$: z.instanceof(Request),
+  response$: z.instanceof(Response),
+  body$: z.string(),
+})
+  .transform((v) => {
+    return new GetWebinarsBadRequestError(v, {
       request: v.request$,
       response: v.response$,
       body: v.body$,

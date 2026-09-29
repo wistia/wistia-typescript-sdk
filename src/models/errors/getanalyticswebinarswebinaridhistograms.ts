@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import * as operations from "../operations/index.js";
 import { WistiaError } from "./wistiaerror.js";
 
 /**
@@ -149,6 +150,10 @@ export class GetAnalyticsWebinarsWebinarIdHistogramsForbiddenError
  * Unauthorized, invalid or missing token
  */
 export type GetAnalyticsWebinarsWebinarIdHistogramsUnauthorizedErrorData = {
+  /**
+   * A machine-readable identifier for the specific authorization failure.
+   */
+  code?: operations.GetAnalyticsWebinarsWebinarIdHistogramsCode | undefined;
   error?: string | undefined;
 };
 
@@ -158,6 +163,10 @@ export type GetAnalyticsWebinarsWebinarIdHistogramsUnauthorizedErrorData = {
 export class GetAnalyticsWebinarsWebinarIdHistogramsUnauthorizedError
   extends WistiaError
 {
+  /**
+   * A machine-readable identifier for the specific authorization failure.
+   */
+  code?: operations.GetAnalyticsWebinarsWebinarIdHistogramsCode | undefined;
   error?: string | undefined;
 
   /** The original data that was passed to this error instance. */
@@ -172,6 +181,7 @@ export class GetAnalyticsWebinarsWebinarIdHistogramsUnauthorizedError
       : `API error occurred: ${JSON.stringify(err)}`;
     super(message, httpMeta);
     this.data$ = err;
+    if (err.code != null) this.code = err.code;
     if (err.error != null) this.error = err.error;
 
     this.name = "GetAnalyticsWebinarsWebinarIdHistogramsUnauthorizedError";
@@ -264,6 +274,8 @@ export const GetAnalyticsWebinarsWebinarIdHistogramsUnauthorizedError$inboundSch
     z.ZodTypeDef,
     unknown
   > = z.object({
+    code: operations.GetAnalyticsWebinarsWebinarIdHistogramsCode$inboundSchema
+      .optional(),
     error: z.string().optional(),
     request$: z.instanceof(Request),
     response$: z.instanceof(Response),

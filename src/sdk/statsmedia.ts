@@ -16,12 +16,15 @@ export class StatsMedia extends ClientSDK {
    * @remarks
    * Retrieve stats for a video. This endpoint provides statistics for a specific video identified by its media-id.
    *
-   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read detailed stats
    * ```
-   * <!--- /HIDE-MCP -->
+   *
+   * Tokens with the "Act with a team member's permissions" permission
+   * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
+   * made with such a token are authorized using the permissions of the
+   * contact assigned to the token.
    */
   async get(
     request: operations.GetStatsMediasMediaIdRequest,
@@ -40,12 +43,15 @@ export class StatsMedia extends ClientSDK {
    * @remarks
    * Retrieve stats for a media organized by day, between a start and end date paramater (inclusive). If start and end date are not provided, defaults to yesterday and today.
    *
-   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read detailed stats
    * ```
-   * <!--- /HIDE-MCP -->
+   *
+   * Tokens with the "Act with a team member's permissions" permission
+   * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
+   * made with such a token are authorized using the permissions of the
+   * contact assigned to the token.
    */
   async getByDate(
     request: operations.GetStatsMediasMediaIdByDateRequest,
@@ -64,12 +70,15 @@ export class StatsMedia extends ClientSDK {
    * @remarks
    * Retrieve engagement data for a video. This endpoint provides engagement data for a specific video identified by its media-id.
    *
-   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read detailed stats
    * ```
-   * <!--- /HIDE-MCP -->
+   *
+   * Tokens with the "Act with a team member's permissions" permission
+   * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
+   * made with such a token are authorized using the permissions of the
+   * contact assigned to the token.
    */
   async getEngagement(
     request: operations.GetStatsMediasMediaIdEngagementRequest,

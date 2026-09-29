@@ -25,6 +25,59 @@ export type PutMediasMediaHashedIdSwapRequest = {
 };
 
 /**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const PutMediasMediaHashedIdSwapCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type PutMediasMediaHashedIdSwapCode = ClosedEnum<
+  typeof PutMediasMediaHashedIdSwapCode
+>;
+
+/**
+ * The status of the background job that's been queued for the request.
+ */
+export const PutMediasMediaHashedIdSwapBackgroundJobStatusStatus = {
+  Queued: "queued",
+  Started: "started",
+  Finished: "finished",
+  Failed: "failed",
+} as const;
+/**
+ * The status of the background job that's been queued for the request.
+ */
+export type PutMediasMediaHashedIdSwapBackgroundJobStatusStatus = ClosedEnum<
+  typeof PutMediasMediaHashedIdSwapBackgroundJobStatusStatus
+>;
+
+/**
+ * A background job keeps track of the progress of an asynchronous task, e.g
+ *
+ * @remarks
+ * bulk archiving media, translating media, etc.
+ */
+export type PutMediasMediaHashedIdSwapBackgroundJobStatus = {
+  /**
+   * The ID of the background job that's been queued for the request.
+   */
+  id: number;
+  /**
+   * The unguessable hashed ID of the background job. Prefer this over the numeric ID when polling for status.
+   */
+  hashedId: string;
+  /**
+   * The status of the background job that's been queued for the request.
+   */
+  status: PutMediasMediaHashedIdSwapBackgroundJobStatusStatus;
+};
+
+/**
  * A string representing what type of media this is.
  */
 export const PutMediasMediaHashedIdSwapType = {
@@ -137,64 +190,22 @@ export type PutMediasMediaHashedIdSwapMedia = {
    */
   section?: string | null | undefined;
   thumbnail?: PutMediasMediaHashedIdSwapThumbnail | undefined;
-};
-
-/**
- * The status of the background job that's been queued for the request.
- */
-export const PutMediasMediaHashedIdSwapBackgroundJobStatusStatus = {
-  Queued: "queued",
-  Started: "started",
-  Finished: "finished",
-  Failed: "failed",
-} as const;
-/**
- * The status of the background job that's been queued for the request.
- */
-export type PutMediasMediaHashedIdSwapBackgroundJobStatusStatus = ClosedEnum<
-  typeof PutMediasMediaHashedIdSwapBackgroundJobStatusStatus
->;
-
-/**
- * A background job keeps track of the progress of an asynchronous task, e.g
- *
- * @remarks
- * bulk archiving media, translating media, etc.
- */
-export type PutMediasMediaHashedIdSwapBackgroundJobStatus = {
   /**
-   * The ID of the background job that's been queued for the request.
+   * Whether the media is protected (e.g. requires a password or other authentication to view). Null if the media is not protected.
    */
-  id: number;
-  /**
-   * The status of the background job that's been queued for the request.
-   */
-  status: PutMediasMediaHashedIdSwapBackgroundJobStatusStatus;
+  protected?: boolean | null | undefined;
 };
 
 /**
  * Successfully queued background job for media swap.
  */
 export type PutMediasMediaHashedIdSwapResponse = {
-  message?: string | undefined;
   /**
-   * A media generally represents a video or an audio which can be embedded into your website.
-   *
-   * @remarks
-   *
-   * CDN-backed medias are accessible using this url structure: https://fast.wistia.com/embed/medias/{hashed_id}.m3u8.
-   * For more information, see https://docs.wistia.com/docs/asset-urls#getting-hls-assets.
+   * A confirmation message that the background job has been queued.
    */
+  message: string;
+  backgroundJobStatus: PutMediasMediaHashedIdSwapBackgroundJobStatus;
   media?: PutMediasMediaHashedIdSwapMedia | undefined;
-  /**
-   * A background job keeps track of the progress of an asynchronous task, e.g
-   *
-   * @remarks
-   * bulk archiving media, translating media, etc.
-   */
-  backgroundJobStatus?:
-    | PutMediasMediaHashedIdSwapBackgroundJobStatus
-    | undefined;
 };
 
 /** @internal */
@@ -258,6 +269,48 @@ export function putMediasMediaHashedIdSwapRequestToJSON(
 }
 
 /** @internal */
+export const PutMediasMediaHashedIdSwapCode$inboundSchema: z.ZodNativeEnum<
+  typeof PutMediasMediaHashedIdSwapCode
+> = z.nativeEnum(PutMediasMediaHashedIdSwapCode);
+
+/** @internal */
+export const PutMediasMediaHashedIdSwapBackgroundJobStatusStatus$inboundSchema:
+  z.ZodNativeEnum<typeof PutMediasMediaHashedIdSwapBackgroundJobStatusStatus> =
+    z.nativeEnum(PutMediasMediaHashedIdSwapBackgroundJobStatusStatus);
+
+/** @internal */
+export const PutMediasMediaHashedIdSwapBackgroundJobStatus$inboundSchema:
+  z.ZodType<
+    PutMediasMediaHashedIdSwapBackgroundJobStatus,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    id: z.number().int(),
+    hashed_id: z.string(),
+    status: PutMediasMediaHashedIdSwapBackgroundJobStatusStatus$inboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      "hashed_id": "hashedId",
+    });
+  });
+
+export function putMediasMediaHashedIdSwapBackgroundJobStatusFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  PutMediasMediaHashedIdSwapBackgroundJobStatus,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      PutMediasMediaHashedIdSwapBackgroundJobStatus$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'PutMediasMediaHashedIdSwapBackgroundJobStatus' from JSON`,
+  );
+}
+
+/** @internal */
 export const PutMediasMediaHashedIdSwapType$inboundSchema: z.ZodNativeEnum<
   typeof PutMediasMediaHashedIdSwapType
 > = z.nativeEnum(PutMediasMediaHashedIdSwapType);
@@ -312,6 +365,7 @@ export const PutMediasMediaHashedIdSwapMedia$inboundSchema: z.ZodType<
   section: z.nullable(z.string()).optional(),
   thumbnail: z.lazy(() => PutMediasMediaHashedIdSwapThumbnail$inboundSchema)
     .optional(),
+  protected: z.nullable(z.boolean()).optional(),
 }).transform((v) => {
   return remap$(v, {
     "hashed_id": "hashedId",
@@ -329,48 +383,16 @@ export function putMediasMediaHashedIdSwapMediaFromJSON(
 }
 
 /** @internal */
-export const PutMediasMediaHashedIdSwapBackgroundJobStatusStatus$inboundSchema:
-  z.ZodNativeEnum<typeof PutMediasMediaHashedIdSwapBackgroundJobStatusStatus> =
-    z.nativeEnum(PutMediasMediaHashedIdSwapBackgroundJobStatusStatus);
-
-/** @internal */
-export const PutMediasMediaHashedIdSwapBackgroundJobStatus$inboundSchema:
-  z.ZodType<
-    PutMediasMediaHashedIdSwapBackgroundJobStatus,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    id: z.number().int(),
-    status: PutMediasMediaHashedIdSwapBackgroundJobStatusStatus$inboundSchema,
-  });
-
-export function putMediasMediaHashedIdSwapBackgroundJobStatusFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  PutMediasMediaHashedIdSwapBackgroundJobStatus,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      PutMediasMediaHashedIdSwapBackgroundJobStatus$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'PutMediasMediaHashedIdSwapBackgroundJobStatus' from JSON`,
-  );
-}
-
-/** @internal */
 export const PutMediasMediaHashedIdSwapResponse$inboundSchema: z.ZodType<
   PutMediasMediaHashedIdSwapResponse,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  message: z.string().optional(),
-  media: z.lazy(() => PutMediasMediaHashedIdSwapMedia$inboundSchema).optional(),
+  message: z.string(),
   background_job_status: z.lazy(() =>
     PutMediasMediaHashedIdSwapBackgroundJobStatus$inboundSchema
-  ).optional(),
+  ),
+  media: z.lazy(() => PutMediasMediaHashedIdSwapMedia$inboundSchema).optional(),
 }).transform((v) => {
   return remap$(v, {
     "background_job_status": "backgroundJobStatus",

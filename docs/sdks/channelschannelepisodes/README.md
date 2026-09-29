@@ -15,6 +15,11 @@ Lists Channel Episodes belonging to the channel passed in the path.
 Read all folder and media data
 ```
 
+Tokens with the "Act with a team member's permissions" permission
+(`all:delegate_to_contact_permissions` scope) can also be used. Requests
+made with such a token are authorized using the permissions of the
+contact assigned to the token.
+
 
 ### Example Usage
 
