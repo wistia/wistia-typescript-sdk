@@ -16,12 +16,15 @@ export class StatsEvents extends ClientSDK {
    * Retrieve a list of events. Please note that due to our data retention policy,
    * only events from the last 2 years are available.
    *
-   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read detailed stats
    * ```
-   * <!--- /HIDE-MCP -->
+   *
+   * Tokens with the "Act with a team member's permissions" permission
+   * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
+   * made with such a token are authorized using the permissions of the
+   * contact assigned to the token.
    */
   async list(
     request?: operations.GetStatsEventsRequest | undefined,
@@ -41,12 +44,15 @@ export class StatsEvents extends ClientSDK {
    * Retrieve information for a single event. Please note that due to our data retention policy,
    * only events from the last 2 years are available.
    *
-   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read detailed stats
    * ```
-   * <!--- /HIDE-MCP -->
+   *
+   * Tokens with the "Act with a team member's permissions" permission
+   * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
+   * made with such a token are authorized using the permissions of the
+   * contact assigned to the token.
    */
   async get(
     request: operations.GetStatsEventsEventKeyRequest,

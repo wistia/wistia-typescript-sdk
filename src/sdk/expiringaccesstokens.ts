@@ -17,12 +17,19 @@ export class ExpiringAccessTokens extends ClientSDK {
    * This API is still under development and can change at any time.
    * ```
    *
-   * This endpoint is for creating expiring access tokens which can be used for some iframe embeds.
+   * This endpoint is for creating expiring access tokens which can be used for some iframe embeds
+   * and, when granted the `all:delegate_to_contact_permissions` scope, for REST API requests
+   * authorized by the token's authorizations.
    *
    * ## Requires api token with one of the following permissions
    * ```
    * Read, update & delete anything
    * ```
+   *
+   * Tokens with the "Act with a team member's permissions" permission
+   * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
+   * made with such a token are authorized using the permissions of the
+   * contact assigned to the token.
    */
   async create(
     request?: operations.PostExpiringTokenRequest | undefined,

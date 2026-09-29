@@ -78,6 +78,7 @@ run();
 
 | Error Type                                                  | Status Code                                                 | Content Type                                                |
 | ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- |
+| errors.GetMediaExtendedAudioDescriptionsBadRequestError     | 400                                                         | application/json                                            |
 | errors.GetMediaExtendedAudioDescriptionsUnauthorizedError   | 401                                                         | application/json                                            |
 | errors.GetMediaExtendedAudioDescriptionsInternalServerError | 500                                                         | application/json                                            |
 | errors.WistiaDefaultError                                   | 4XX, 5XX                                                    | \*/\*                                                       |

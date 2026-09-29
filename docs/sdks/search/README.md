@@ -17,6 +17,11 @@ timestamps when the query matches spoken content.
 Read all data
 ```
 
+Tokens with the "Act with a team member's permissions" permission
+(`all:delegate_to_contact_permissions` scope) can also be used. Requests
+made with such a token are authorized using the permissions of the
+contact assigned to the token.
+
 
 ### Example Usage
 
@@ -87,5 +92,6 @@ run();
 | ----------------------------------- | ----------------------------------- | ----------------------------------- |
 | errors.GetSearchBadRequestError     | 400                                 | application/json                    |
 | errors.GetSearchUnauthorizedError   | 401                                 | application/json                    |
+| errors.GetSearchForbiddenError      | 403                                 | application/json                    |
 | errors.GetSearchInternalServerError | 500                                 | application/json                    |
 | errors.WistiaDefaultError           | 4XX, 5XX                            | \*/\*                               |

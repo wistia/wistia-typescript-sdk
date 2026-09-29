@@ -1,0 +1,25 @@
+# GetAnalyticsAccountTopContentRequest
+
+## Example Usage
+
+```typescript
+import { GetAnalyticsAccountTopContentRequest } from "@wistia/wistia-api-client/models/operations";
+import { RFCDate } from "@wistia/wistia-api-client/types";
+
+let value: GetAnalyticsAccountTopContentRequest = {
+  startDate: new RFCDate("2026-09-23"),
+  endDate: new RFCDate("2025-12-13"),
+};
+```
+
+## Fields
+
+| Field                                                                                                                            | Type                                                                                                                             | Required                                                                                                                         | Description                                                                                                                      |
+| -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `startDate`                                                                                                                      | [RFCDate](../../types/rfcdate.md)                                                                                                | :heavy_check_mark:                                                                                                               | Start date for the analytics period in ISO 8601 format (YYYY-MM-DD). Inclusive — the range starts at the beginning of this date. |
+| `endDate`                                                                                                                        | [RFCDate](../../types/rfcdate.md)                                                                                                | :heavy_check_mark:                                                                                                               | End date for the analytics period in ISO 8601 format (YYYY-MM-DD). Exclusive — the range ends before the beginning of this date. |
+| `groupBy`                                                                                                                        | [operations.GetAnalyticsAccountTopContentGroupBy](../../models/operations/getanalyticsaccounttopcontentgroupby.md)               | :heavy_minus_sign:                                                                                                               | The type of content to rank.                                                                                                     |
+| `hashedIds`                                                                                                                      | *string*[]                                                                                                                       | :heavy_minus_sign:                                                                                                               | Scope the ranking to these specific media's hashed IDs, rather than the whole account. Only valid with group_by=media.           |
+| `sortBy`                                                                                                                         | [operations.GetAnalyticsAccountTopContentSortBy](../../models/operations/getanalyticsaccounttopcontentsortby.md)                 | :heavy_minus_sign:                                                                                                               | The metric to rank content by.                                                                                                   |
+| `sortDirection`                                                                                                                  | [operations.GetAnalyticsAccountTopContentSortDirection](../../models/operations/getanalyticsaccounttopcontentsortdirection.md)   | :heavy_minus_sign:                                                                                                               | The sort direction.                                                                                                              |
+| `perPage`                                                                                                                        | *number*                                                                                                                         | :heavy_minus_sign:                                                                                                               | Number of results to return. Defaults to the number of hashed_ids requested, or 10 when hashed_ids is not given.                 |

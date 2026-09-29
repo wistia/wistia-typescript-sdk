@@ -21,6 +21,11 @@ export class Localizations extends ClientSDK {
    * ```
    * Read all data
    * ```
+   *
+   * Tokens with the "Act with a team member's permissions" permission
+   * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
+   * made with such a token are authorized using the permissions of the
+   * contact assigned to the token.
    */
   async list(
     request: operations.GetMediasMediaHashedIdLocalizationsRequest,
@@ -39,10 +44,19 @@ export class Localizations extends ClientSDK {
    * @remarks
    * Creates a new localization.
    *
+   * Creating a localization can incur a charge on your account. Accounts get a
+   * free-dub allowance; once it is used up, dubs bill per minute at the
+   * account's configured rate.
+   *
    * ## Requires api token with one of the following permissions
    * ```
    * Read, update & delete anything
    * ```
+   *
+   * Tokens with the "Act with a team member's permissions" permission
+   * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
+   * made with such a token are authorized using the permissions of the
+   * contact assigned to the token.
    */
   async create(
     request: operations.PostMediasMediaHashedIdLocalizationsRequest,
@@ -65,6 +79,11 @@ export class Localizations extends ClientSDK {
    * ```
    * Read all data
    * ```
+   *
+   * Tokens with the "Act with a team member's permissions" permission
+   * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
+   * made with such a token are authorized using the permissions of the
+   * contact assigned to the token.
    */
   async get(
     request:
@@ -90,6 +109,11 @@ export class Localizations extends ClientSDK {
    * ```
    * Read, update & delete anything
    * ```
+   *
+   * Tokens with the "Act with a team member's permissions" permission
+   * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
+   * made with such a token are authorized using the permissions of the
+   * contact assigned to the token.
    */
   async delete(
     request:

@@ -4,24 +4,29 @@
 
 ### Available Operations
 
-* [getAnalyticsWebinarsWebinarId](#getanalyticswebinarswebinarid) - Show Webinar Analytics
-* [getAnalyticsWebinarsWebinarIdRegistration](#getanalyticswebinarswebinaridregistration) - Show Webinar Registration Timeseries
-* [getAnalyticsWebinarsWebinarIdTraffic](#getanalyticswebinarswebinaridtraffic) - Show Webinar Traffic Breakdown
-* [getAnalyticsWebinarsWebinarIdAudience](#getanalyticswebinarswebinaridaudience) - Show Webinar Audience
-* [getAnalyticsWebinarsWebinarIdHistograms](#getanalyticswebinarswebinaridhistograms) - Show Webinar Histograms
+* [get](#get) - Show Webinar Analytics
+* [getRegistration](#getregistration) - Show Webinar Registration Timeseries
+* [getTraffic](#gettraffic) - Show Webinar Traffic Breakdown
+* [getAudience](#getaudience) - Show Webinar Audience
+* [getHistograms](#gethistograms) - Show Webinar Histograms
 
-## getAnalyticsWebinarsWebinarId
+## get
 
 Retrieve aggregate analytics for a webinar. This endpoint provides
 Bottler-powered analytics including registrations, attendance, engagement,
 chat activity, and poll results.
 
-<!--- HIDE-MCP -->
+
 ## Requires api token with one of the following permissions
 ```
 Read detailed stats
 ```
-<!--- /HIDE-MCP -->
+
+Tokens with the "Act with a team member's permissions" permission
+(`all:delegate_to_contact_permissions` scope) can also be used. Requests
+made with such a token are authorized using the permissions of the
+contact assigned to the token.
+
 
 
 ### Example Usage
@@ -35,7 +40,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.analyticsWebinar.getAnalyticsWebinarsWebinarId({
+  const result = await wistia.analyticsWebinar.get({
     webinarId: "<id>",
   });
 
@@ -51,7 +56,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { analyticsWebinarGetAnalyticsWebinarsWebinarId } from "@wistia/wistia-api-client/funcs/analyticsWebinarGetAnalyticsWebinarsWebinarId.js";
+import { analyticsWebinarGet } from "@wistia/wistia-api-client/funcs/analyticsWebinarGet.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -60,14 +65,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await analyticsWebinarGetAnalyticsWebinarsWebinarId(wistia, {
+  const res = await analyticsWebinarGet(wistia, {
     webinarId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("analyticsWebinarGetAnalyticsWebinarsWebinarId failed:", res.error);
+    console.log("analyticsWebinarGet failed:", res.error);
   }
 }
 
@@ -99,18 +104,23 @@ run();
 | errors.GetAnalyticsWebinarsWebinarIdServiceUnavailableError  | 503                                                          | application/json                                             |
 | errors.WistiaDefaultError                                    | 4XX, 5XX                                                     | \*/\*                                                        |
 
-## getAnalyticsWebinarsWebinarIdRegistration
+## getRegistration
 
 Retrieve registration timeseries data for a webinar with configurable
 granularity. Returns an array of timestamped registration metric buckets
 including impressions, registrations, and completion rates.
 
-<!--- HIDE-MCP -->
+
 ## Requires api token with one of the following permissions
 ```
 Read detailed stats
 ```
-<!--- /HIDE-MCP -->
+
+Tokens with the "Act with a team member's permissions" permission
+(`all:delegate_to_contact_permissions` scope) can also be used. Requests
+made with such a token are authorized using the permissions of the
+contact assigned to the token.
+
 
 
 ### Example Usage
@@ -124,7 +134,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.analyticsWebinar.getAnalyticsWebinarsWebinarIdRegistration({
+  const result = await wistia.analyticsWebinar.getRegistration({
     webinarId: "<id>",
     granularity: "monthly",
   });
@@ -141,7 +151,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { analyticsWebinarGetAnalyticsWebinarsWebinarIdRegistration } from "@wistia/wistia-api-client/funcs/analyticsWebinarGetAnalyticsWebinarsWebinarIdRegistration.js";
+import { analyticsWebinarGetRegistration } from "@wistia/wistia-api-client/funcs/analyticsWebinarGetRegistration.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -150,7 +160,7 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await analyticsWebinarGetAnalyticsWebinarsWebinarIdRegistration(wistia, {
+  const res = await analyticsWebinarGetRegistration(wistia, {
     webinarId: "<id>",
     granularity: "monthly",
   });
@@ -158,7 +168,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("analyticsWebinarGetAnalyticsWebinarsWebinarIdRegistration failed:", res.error);
+    console.log("analyticsWebinarGetRegistration failed:", res.error);
   }
 }
 
@@ -189,17 +199,22 @@ run();
 | errors.GetAnalyticsWebinarsWebinarIdRegistrationServiceUnavailableError | 503                                                                     | application/json                                                        |
 | errors.WistiaDefaultError                                               | 4XX, 5XX                                                                | \*/\*                                                                   |
 
-## getAnalyticsWebinarsWebinarIdTraffic
+## getTraffic
 
 Retrieve traffic breakdown analytics for a webinar, grouped by a specified dimension
 such as UTM campaign, UTM source, UTM medium, or referrer domain.
 
-<!--- HIDE-MCP -->
+
 ## Requires api token with one of the following permissions
 ```
 Read detailed stats
 ```
-<!--- /HIDE-MCP -->
+
+Tokens with the "Act with a team member's permissions" permission
+(`all:delegate_to_contact_permissions` scope) can also be used. Requests
+made with such a token are authorized using the permissions of the
+contact assigned to the token.
+
 
 
 ### Example Usage
@@ -213,7 +228,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.analyticsWebinar.getAnalyticsWebinarsWebinarIdTraffic({
+  const result = await wistia.analyticsWebinar.getTraffic({
     webinarId: "<id>",
     groupBy: "utm_campaign",
   });
@@ -230,7 +245,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { analyticsWebinarGetAnalyticsWebinarsWebinarIdTraffic } from "@wistia/wistia-api-client/funcs/analyticsWebinarGetAnalyticsWebinarsWebinarIdTraffic.js";
+import { analyticsWebinarGetTraffic } from "@wistia/wistia-api-client/funcs/analyticsWebinarGetTraffic.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -239,7 +254,7 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await analyticsWebinarGetAnalyticsWebinarsWebinarIdTraffic(wistia, {
+  const res = await analyticsWebinarGetTraffic(wistia, {
     webinarId: "<id>",
     groupBy: "utm_campaign",
   });
@@ -247,7 +262,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("analyticsWebinarGetAnalyticsWebinarsWebinarIdTraffic failed:", res.error);
+    console.log("analyticsWebinarGetTraffic failed:", res.error);
   }
 }
 
@@ -278,18 +293,23 @@ run();
 | errors.GetAnalyticsWebinarsWebinarIdTrafficServiceUnavailableError | 503                                                                | application/json                                                   |
 | errors.WistiaDefaultError                                          | 4XX, 5XX                                                           | \*/\*                                                              |
 
-## getAnalyticsWebinarsWebinarIdAudience
+## getAudience
 
 Retrieve audience data for a webinar. Returns a paginated list of
 registrants with their attendance status, engagement metrics,
 attribution data, and per-attendee histograms.
 
-<!--- HIDE-MCP -->
+
 ## Requires api token with one of the following permissions
 ```
 Read detailed stats
 ```
-<!--- /HIDE-MCP -->
+
+Tokens with the "Act with a team member's permissions" permission
+(`all:delegate_to_contact_permissions` scope) can also be used. Requests
+made with such a token are authorized using the permissions of the
+contact assigned to the token.
+
 
 
 ### Example Usage
@@ -303,7 +323,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.analyticsWebinar.getAnalyticsWebinarsWebinarIdAudience({
+  const result = await wistia.analyticsWebinar.getAudience({
     webinarId: "<id>",
   });
 
@@ -319,7 +339,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { analyticsWebinarGetAnalyticsWebinarsWebinarIdAudience } from "@wistia/wistia-api-client/funcs/analyticsWebinarGetAnalyticsWebinarsWebinarIdAudience.js";
+import { analyticsWebinarGetAudience } from "@wistia/wistia-api-client/funcs/analyticsWebinarGetAudience.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -328,14 +348,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await analyticsWebinarGetAnalyticsWebinarsWebinarIdAudience(wistia, {
+  const res = await analyticsWebinarGetAudience(wistia, {
     webinarId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("analyticsWebinarGetAnalyticsWebinarsWebinarIdAudience failed:", res.error);
+    console.log("analyticsWebinarGetAudience failed:", res.error);
   }
 }
 
@@ -365,18 +385,23 @@ run();
 | errors.GetAnalyticsWebinarsWebinarIdAudienceServiceUnavailableError | 503                                                                 | application/json                                                    |
 | errors.WistiaDefaultError                                           | 4XX, 5XX                                                            | \*/\*                                                               |
 
-## getAnalyticsWebinarsWebinarIdHistograms
+## getHistograms
 
 Retrieve engagement histogram data for a webinar. Returns arrays of
 per-time-bucket counts for attendees, chat activity, and visual focus,
 useful for rendering engagement visualizations.
 
-<!--- HIDE-MCP -->
+
 ## Requires api token with one of the following permissions
 ```
 Read detailed stats
 ```
-<!--- /HIDE-MCP -->
+
+Tokens with the "Act with a team member's permissions" permission
+(`all:delegate_to_contact_permissions` scope) can also be used. Requests
+made with such a token are authorized using the permissions of the
+contact assigned to the token.
+
 
 
 ### Example Usage
@@ -390,7 +415,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.analyticsWebinar.getAnalyticsWebinarsWebinarIdHistograms({
+  const result = await wistia.analyticsWebinar.getHistograms({
     webinarId: "<id>",
   });
 
@@ -406,7 +431,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { analyticsWebinarGetAnalyticsWebinarsWebinarIdHistograms } from "@wistia/wistia-api-client/funcs/analyticsWebinarGetAnalyticsWebinarsWebinarIdHistograms.js";
+import { analyticsWebinarGetHistograms } from "@wistia/wistia-api-client/funcs/analyticsWebinarGetHistograms.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -415,14 +440,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await analyticsWebinarGetAnalyticsWebinarsWebinarIdHistograms(wistia, {
+  const res = await analyticsWebinarGetHistograms(wistia, {
     webinarId: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("analyticsWebinarGetAnalyticsWebinarsWebinarIdHistograms failed:", res.error);
+    console.log("analyticsWebinarGetHistograms failed:", res.error);
   }
 }
 

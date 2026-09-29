@@ -10,6 +10,20 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const GetTokenDetailsCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type GetTokenDetailsCode = ClosedEnum<typeof GetTokenDetailsCode>;
+
+/**
  * The type of token used.
  */
 export const GetTokenDetailsType = {
@@ -61,6 +75,11 @@ export type GetTokenDetailsResponse = {
    */
   expiresAt?: string | null | undefined;
 };
+
+/** @internal */
+export const GetTokenDetailsCode$inboundSchema: z.ZodNativeEnum<
+  typeof GetTokenDetailsCode
+> = z.nativeEnum(GetTokenDetailsCode);
 
 /** @internal */
 export const GetTokenDetailsType$inboundSchema: z.ZodNativeEnum<

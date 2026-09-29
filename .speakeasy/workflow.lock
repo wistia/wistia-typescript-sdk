@@ -1,20 +1,20 @@
-speakeasyVersion: 1.761.0
+speakeasyVersion: 1.799.0
 sources:
     Data API:
         sourceNamespace: data-api
-        sourceRevisionDigest: sha256:4c3bff76f4d7a8f16884cbc1e1f35309af16dfbff2561130463417b6e6dfffda
-        sourceBlobDigest: sha256:aafe340b56f76aee26fac9629e058f0dc966dae958f2d18b887d80160c0c0a0f
+        sourceRevisionDigest: sha256:bb9e94647c1c841fab2078f34b631c713d2672eb9423020b5226c570ddd0df58
+        sourceBlobDigest: sha256:cf9ee901318ba470302783b57423f28213db3cf78d3da0234cbfee649d74ffb4
         tags:
             - latest
-            - 2026.03.0
+            - 2026.09.0
 targets:
     wistia:
         source: Data API
         sourceNamespace: data-api
-        sourceRevisionDigest: sha256:4c3bff76f4d7a8f16884cbc1e1f35309af16dfbff2561130463417b6e6dfffda
-        sourceBlobDigest: sha256:aafe340b56f76aee26fac9629e058f0dc966dae958f2d18b887d80160c0c0a0f
+        sourceRevisionDigest: sha256:bb9e94647c1c841fab2078f34b631c713d2672eb9423020b5226c570ddd0df58
+        sourceBlobDigest: sha256:cf9ee901318ba470302783b57423f28213db3cf78d3da0234cbfee649d74ffb4
         codeSamplesNamespace: data-api-typescript-code-samples
-        codeSamplesRevisionDigest: sha256:07fcc0ad68d98970bc841a35d2321112403ccfe43bcff2c152c9eb00606bfbd5
+        codeSamplesRevisionDigest: sha256:ef93c594ce1261b2f2ec25e25832edd3f136a30fc4f0ccc052f8eb2952617dd3
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
@@ -22,16 +22,10 @@ workflow:
         Data API:
             inputs:
                 - location: https://wistia.github.io/wistia/api/openapi-upload.yaml
-                - location: https://wistia.github.io/wistia/api/openapi-latest.yaml
-            overlays:
-                - location: .speakeasy/speakeasy-modifications-overlay.yaml
-                - location: .speakeasy/servers-overlay.yaml
+                - location: https://wistia.github.io/wistia/api/openapi-2026-09.yaml
             output: .speakeasy/out.openapi.yaml
             registry:
                 location: registry.speakeasyapi.dev/wistia/wistia/data-api
-        upload-api:
-            inputs:
-                - location: https://wistia.github.io/wistia/api/openapi-upload.yaml
     targets:
         wistia:
             target: typescript
@@ -43,6 +37,8 @@ workflow:
                 output: code-samples.yaml
                 registry:
                     location: registry.speakeasyapi.dev/wistia/wistia/data-api-typescript-code-samples
+                style: readme
+                langOverride: javascript
                 labelOverride:
                     fixedValue: Typescript (SDK)
                 blocking: false

@@ -14,7 +14,7 @@ let value: PostFoldersFolderIdSharingsResponse = {
     ],
   },
   result: {
-    folder: "http://myaccount.wistia.com/folders/13",
+    project: "http://myaccount.wistia.com/folders/13",
     sharing: {
       id: 14,
       isAdmin: true,

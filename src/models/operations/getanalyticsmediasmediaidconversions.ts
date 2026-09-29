@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { RFCDate } from "../../types/rfcdate.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -15,11 +16,11 @@ export type GetAnalyticsMediasMediaIdConversionsRequest = {
    */
   mediaId: string;
   /**
-   * Start date for the analytics period in ISO 8601 format (YYYY-MM-DD).
+   * Start date for the analytics period in ISO 8601 format (YYYY-MM-DD). Inclusive — the range starts at the beginning of this date.
    */
   startDate: RFCDate;
   /**
-   * End date for the analytics period in ISO 8601 format (YYYY-MM-DD).
+   * End date for the analytics period in ISO 8601 format (YYYY-MM-DD). Exclusive — the range ends before the beginning of this date.
    */
   endDate: RFCDate;
   /**
@@ -30,6 +31,33 @@ export type GetAnalyticsMediasMediaIdConversionsRequest = {
    * Cursor for pagination. Use the value from the previous response's page_info.end_cursor.
    */
   cursor?: string | undefined;
+};
+
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const GetAnalyticsMediasMediaIdConversionsCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type GetAnalyticsMediasMediaIdConversionsCode = ClosedEnum<
+  typeof GetAnalyticsMediasMediaIdConversionsCode
+>;
+
+export type CustomField = {
+  /**
+   * The label of the custom form field.
+   */
+  label?: string | undefined;
+  /**
+   * The value the visitor submitted for this custom form field.
+   */
+  value?: string | undefined;
 };
 
 export type GetAnalyticsMediasMediaIdConversionsData = {
@@ -49,6 +77,10 @@ export type GetAnalyticsMediasMediaIdConversionsData = {
    * The timestamp when the form was submitted in ISO 8601 format.
    */
   convertedAt?: Date | undefined;
+  /**
+   * The custom form field responses submitted with this conversion (text, dropdown, and single-checkbox fields).
+   */
+  customFields?: Array<CustomField> | undefined;
 };
 
 export type GetAnalyticsMediasMediaIdConversionsPageInfo = {
@@ -119,6 +151,31 @@ export function getAnalyticsMediasMediaIdConversionsRequestToJSON(
 }
 
 /** @internal */
+export const GetAnalyticsMediasMediaIdConversionsCode$inboundSchema:
+  z.ZodNativeEnum<typeof GetAnalyticsMediasMediaIdConversionsCode> = z
+    .nativeEnum(GetAnalyticsMediasMediaIdConversionsCode);
+
+/** @internal */
+export const CustomField$inboundSchema: z.ZodType<
+  CustomField,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  label: z.string().optional(),
+  value: z.string().optional(),
+});
+
+export function customFieldFromJSON(
+  jsonString: string,
+): SafeParseResult<CustomField, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CustomField$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CustomField' from JSON`,
+  );
+}
+
+/** @internal */
 export const GetAnalyticsMediasMediaIdConversionsData$inboundSchema: z.ZodType<
   GetAnalyticsMediasMediaIdConversionsData,
   z.ZodTypeDef,
@@ -130,11 +187,13 @@ export const GetAnalyticsMediasMediaIdConversionsData$inboundSchema: z.ZodType<
   converted_at: z.string().datetime({ offset: true }).transform(v =>
     new Date(v)
   ).optional(),
+  custom_fields: z.array(z.lazy(() => CustomField$inboundSchema)).optional(),
 }).transform((v) => {
   return remap$(v, {
     "first_name": "firstName",
     "last_name": "lastName",
     "converted_at": "convertedAt",
+    "custom_fields": "customFields",
   });
 });
 

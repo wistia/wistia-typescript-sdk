@@ -1,5 +1,10 @@
 # PostMediasMediaIdCustomizationsPluginResponse
 
+Container for player plugin configurations. Plugin keys are extensible and
+not strictly validated; the documented sub-objects represent the most
+common plugins.
+
+
 ## Example Usage
 
 ```typescript

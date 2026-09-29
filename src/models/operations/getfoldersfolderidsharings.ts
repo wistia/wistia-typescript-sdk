@@ -30,7 +30,7 @@ export type GetFoldersFolderIdSharingsEnabled = ClosedEnum<
 >;
 
 /**
- * If `cursor[enabled]` is set to 1 than cursor pagination is enabled and the
+ * If `cursor[enabled]` is set to 1 then cursor pagination is enabled and the
  *
  * @remarks
  * first set of records are fetched up to the `per_page`. Cursor
@@ -40,7 +40,7 @@ export type GetFoldersFolderIdSharingsEnabled = ClosedEnum<
  * the cursor of the first record can be used to fetch records before the result set.
  *
  * NOTE: a cursor value is only valid if the `sort_by` value hasn't changed from the
- * last fetch. For example, you cannot fetch using `sort_by` id and than pass that
+ * last fetch. For example, you cannot fetch using `sort_by` id and then pass that
  * cursor value to a `sort_by` name.
  */
 export type GetFoldersFolderIdSharingsCursor = {
@@ -52,7 +52,7 @@ export type GetFoldersFolderIdSharingsCursor = {
    */
   enabled?: GetFoldersFolderIdSharingsEnabled | undefined;
   /**
-   * If `cursor[before]` is set than cursor pagination is enabled and all records
+   * If `cursor[before]` is set then cursor pagination is enabled and all records
    *
    * @remarks
    * before the cursor up to the `per_page` are returned. This feature is useful for
@@ -61,7 +61,7 @@ export type GetFoldersFolderIdSharingsCursor = {
    */
   before?: string | undefined;
   /**
-   * If `cursor[after]` is set than cursor pagination is enabled and all records
+   * If `cursor[after]` is set then cursor pagination is enabled and all records
    *
    * @remarks
    * after the cursor up to the `per_page` are returned.
@@ -76,6 +76,8 @@ export type GetFoldersFolderIdSharingsCursor = {
  * only `id` is supported.
  */
 export const GetFoldersFolderIdSharingsSortBy = {
+  Created: "created",
+  Updated: "updated",
   Id: "id",
 } as const;
 /**
@@ -119,7 +121,7 @@ export type GetFoldersFolderIdSharingsRequest = {
    */
   perPage?: number | undefined;
   /**
-   * If `cursor[enabled]` is set to 1 than cursor pagination is enabled and the
+   * If `cursor[enabled]` is set to 1 then cursor pagination is enabled and the
    *
    * @remarks
    * first set of records are fetched up to the `per_page`. Cursor
@@ -129,7 +131,7 @@ export type GetFoldersFolderIdSharingsRequest = {
    * the cursor of the first record can be used to fetch records before the result set.
    *
    * NOTE: a cursor value is only valid if the `sort_by` value hasn't changed from the
-   * last fetch. For example, you cannot fetch using `sort_by` id and than pass that
+   * last fetch. For example, you cannot fetch using `sort_by` id and then pass that
    * cursor value to a `sort_by` name.
    */
   cursor?: GetFoldersFolderIdSharingsCursor | undefined;
@@ -150,11 +152,27 @@ export type GetFoldersFolderIdSharingsRequest = {
   hashedIds?: Array<string> | undefined;
 };
 
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const GetFoldersFolderIdSharingsCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type GetFoldersFolderIdSharingsCode = ClosedEnum<
+  typeof GetFoldersFolderIdSharingsCode
+>;
+
 export type GetFoldersFolderIdSharingsShare = {
   id: number;
   name: string;
   type: string;
-  email: string;
+  email?: string | undefined;
 };
 
 export type GetFoldersFolderIdSharingsFolder = {
@@ -271,6 +289,11 @@ export function getFoldersFolderIdSharingsRequestToJSON(
 }
 
 /** @internal */
+export const GetFoldersFolderIdSharingsCode$inboundSchema: z.ZodNativeEnum<
+  typeof GetFoldersFolderIdSharingsCode
+> = z.nativeEnum(GetFoldersFolderIdSharingsCode);
+
+/** @internal */
 export const GetFoldersFolderIdSharingsShare$inboundSchema: z.ZodType<
   GetFoldersFolderIdSharingsShare,
   z.ZodTypeDef,
@@ -279,7 +302,7 @@ export const GetFoldersFolderIdSharingsShare$inboundSchema: z.ZodType<
   id: z.number().int(),
   name: z.string(),
   type: z.string(),
-  email: z.string(),
+  email: z.string().optional(),
 });
 
 export function getFoldersFolderIdSharingsShareFromJSON(

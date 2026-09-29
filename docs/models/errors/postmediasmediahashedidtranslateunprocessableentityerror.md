@@ -1,6 +1,6 @@
 # PostMediasMediaHashedIdTranslateUnprocessableEntityError
 
-Unprocessible entity, parameters provided were invalid.
+Unprocessable entity. The translation could not be queued, including due to insufficient Credits when Credits billing applies.
 
 ## Example Usage
 

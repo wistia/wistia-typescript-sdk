@@ -18,6 +18,11 @@ Lists all the localizations for a media.
 Read all data
 ```
 
+Tokens with the "Act with a team member's permissions" permission
+(`all:delegate_to_contact_permissions` scope) can also be used. Requests
+made with such a token are authorized using the permissions of the
+contact assigned to the token.
+
 
 ### Example Usage
 
@@ -95,10 +100,19 @@ run();
 
 Creates a new localization.
 
+Creating a localization can incur a charge on your account. Accounts get a
+free-dub allowance; once it is used up, dubs bill per minute at the
+account's configured rate.
+
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
+
+Tokens with the "Act with a team member's permissions" permission
+(`all:delegate_to_contact_permissions` scope) can also be used. Requests
+made with such a token are authorized using the permissions of the
+contact assigned to the token.
 
 
 ### Example Usage
@@ -185,6 +199,11 @@ Obtain detailed information about a localization.
 Read all data
 ```
 
+Tokens with the "Act with a team member's permissions" permission
+(`all:delegate_to_contact_permissions` scope) can also be used. Requests
+made with such a token are authorized using the permissions of the
+contact assigned to the token.
+
 
 ### Example Usage
 
@@ -268,6 +287,11 @@ Deletes a localization.
 ```
 Read, update & delete anything
 ```
+
+Tokens with the "Act with a team member's permissions" permission
+(`all:delegate_to_contact_permissions` scope) can also be used. Requests
+made with such a token are authorized using the permissions of the
+contact assigned to the token.
 
 
 ### Example Usage
