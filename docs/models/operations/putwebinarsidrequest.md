@@ -11,8 +11,10 @@ let value: PutWebinarsIdRequest = {
     webinar: {
       title: "Updated Webinar Title",
       description: "Updated webinar description",
-      scheduledFor: new Date("2024-03-20T15:30:00-05:00"),
+      scheduledFor: new Date("2024-03-20T15:30:00Z"),
       eventDuration: 90,
+      timeZone: "America/New_York",
+      folderId: "abc123def456",
     },
   },
 };

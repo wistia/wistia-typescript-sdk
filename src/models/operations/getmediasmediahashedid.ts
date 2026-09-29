@@ -9,6 +9,19 @@ import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
+/**
+ * Set to `speakers` to include active transcript speaker assignments used for diarization. Webinar hosts and panelists are not included.
+ */
+export const GetMediasMediaHashedIdInclude = {
+  Speakers: "speakers",
+} as const;
+/**
+ * Set to `speakers` to include active transcript speaker assignments used for diarization. Webinar hosts and panelists are not included.
+ */
+export type GetMediasMediaHashedIdInclude = ClosedEnum<
+  typeof GetMediasMediaHashedIdInclude
+>;
+
 export type GetMediasMediaHashedIdRequest = {
   /**
    * The hashed ID of the media.
@@ -18,7 +31,27 @@ export type GetMediasMediaHashedIdRequest = {
    * Format for media descriptions
    */
   descriptionFormat?: "markdown" | undefined;
+  /**
+   * Set to `speakers` to include active transcript speaker assignments used for diarization. Webinar hosts and panelists are not included.
+   */
+  include?: GetMediasMediaHashedIdInclude | undefined;
 };
+
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const GetMediasMediaHashedIdCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type GetMediasMediaHashedIdCode = ClosedEnum<
+  typeof GetMediasMediaHashedIdCode
+>;
 
 /**
  * A string representing what type of media this is.
@@ -110,13 +143,13 @@ export type GetMediasMediaHashedIdAsset = {
 };
 
 /**
- * A subfolder within a folder that contains media.
+ * The subfolder (media group) in which the media appears. Null if the media is not in a subfolder.
  */
 export type GetMediasMediaHashedIdSubfolder = {
   /**
    * A unique alphanumeric identifier for this subfolder.
    */
-  hashedId: string;
+  hashedId: string | null;
   /**
    * The display name of the subfolder.
    */
@@ -148,6 +181,21 @@ export type GetMediasMediaHashedIdTag = {
    * The display name of the tag.
    */
   name?: string | undefined;
+};
+
+export type GetMediasMediaHashedIdSpeaker = {
+  /**
+   * The unique identifier for this transcript speaker assignment on the media.
+   */
+  mediaSpeakerId: string;
+  /**
+   * The reusable account speaker profile assigned to the transcript speaker.
+   */
+  speakerProfileId: string;
+  /**
+   * The assigned speaker profile's display name.
+   */
+  name: string;
 };
 
 /**
@@ -218,6 +266,10 @@ export type GetMediasMediaHashedIdResponse = {
    */
   section?: string | null | undefined;
   thumbnail?: GetMediasMediaHashedIdThumbnail | undefined;
+  /**
+   * Whether the media is protected (e.g. requires a password or other authentication to view). Null if the media is not protected.
+   */
+  protected?: boolean | null | undefined;
   folder: GetMediasMediaHashedIdFolder | null;
   /**
    * An array of the assets available for this media.
@@ -231,12 +283,22 @@ export type GetMediasMediaHashedIdResponse = {
    * Tags associated with this media.
    */
   tags?: Array<GetMediasMediaHashedIdTag> | undefined;
+  /**
+   * Active transcript speaker assignments used for diarization. Webinar hosts and panelists are not included. Present when `include=speakers` is requested.
+   */
+  speakers?: Array<GetMediasMediaHashedIdSpeaker> | undefined;
 };
+
+/** @internal */
+export const GetMediasMediaHashedIdInclude$outboundSchema: z.ZodNativeEnum<
+  typeof GetMediasMediaHashedIdInclude
+> = z.nativeEnum(GetMediasMediaHashedIdInclude);
 
 /** @internal */
 export type GetMediasMediaHashedIdRequest$Outbound = {
   mediaHashedId: string;
   description_format?: "markdown" | undefined;
+  include?: string | undefined;
 };
 
 /** @internal */
@@ -247,6 +309,7 @@ export const GetMediasMediaHashedIdRequest$outboundSchema: z.ZodType<
 > = z.object({
   mediaHashedId: z.string(),
   descriptionFormat: z.literal("markdown").optional(),
+  include: GetMediasMediaHashedIdInclude$outboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     descriptionFormat: "description_format",
@@ -262,6 +325,11 @@ export function getMediasMediaHashedIdRequestToJSON(
     ),
   );
 }
+
+/** @internal */
+export const GetMediasMediaHashedIdCode$inboundSchema: z.ZodNativeEnum<
+  typeof GetMediasMediaHashedIdCode
+> = z.nativeEnum(GetMediasMediaHashedIdCode);
 
 /** @internal */
 export const GetMediasMediaHashedIdType$inboundSchema: z.ZodNativeEnum<
@@ -302,7 +370,11 @@ export const GetMediasMediaHashedIdFolder$inboundSchema: z.ZodType<
 > = z.object({
   id: z.number().int().optional(),
   name: z.string().optional(),
-  hashedId: z.string().optional(),
+  hashed_id: z.string().optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "hashed_id": "hashedId",
+  });
 });
 
 export function getMediasMediaHashedIdFolderFromJSON(
@@ -350,7 +422,7 @@ export const GetMediasMediaHashedIdSubfolder$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  hashed_id: z.string(),
+  hashed_id: z.nullable(z.string()),
   name: z.nullable(z.string()).optional(),
   description: z.nullable(z.string()).optional(),
   position: z.nullable(z.number().int()),
@@ -397,6 +469,32 @@ export function getMediasMediaHashedIdTagFromJSON(
 }
 
 /** @internal */
+export const GetMediasMediaHashedIdSpeaker$inboundSchema: z.ZodType<
+  GetMediasMediaHashedIdSpeaker,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  media_speaker_id: z.string(),
+  speaker_profile_id: z.string(),
+  name: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    "media_speaker_id": "mediaSpeakerId",
+    "speaker_profile_id": "speakerProfileId",
+  });
+});
+
+export function getMediasMediaHashedIdSpeakerFromJSON(
+  jsonString: string,
+): SafeParseResult<GetMediasMediaHashedIdSpeaker, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetMediasMediaHashedIdSpeaker$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetMediasMediaHashedIdSpeaker' from JSON`,
+  );
+}
+
+/** @internal */
 export const GetMediasMediaHashedIdResponse$inboundSchema: z.ZodType<
   GetMediasMediaHashedIdResponse,
   z.ZodTypeDef,
@@ -419,12 +517,15 @@ export const GetMediasMediaHashedIdResponse$inboundSchema: z.ZodType<
   section: z.nullable(z.string()).optional(),
   thumbnail: z.lazy(() => GetMediasMediaHashedIdThumbnail$inboundSchema)
     .optional(),
+  protected: z.nullable(z.boolean()).optional(),
   folder: z.nullable(z.lazy(() => GetMediasMediaHashedIdFolder$inboundSchema)),
   assets: z.array(z.lazy(() => GetMediasMediaHashedIdAsset$inboundSchema))
     .optional(),
   subfolder: z.lazy(() => GetMediasMediaHashedIdSubfolder$inboundSchema)
     .optional(),
   tags: z.array(z.lazy(() => GetMediasMediaHashedIdTag$inboundSchema))
+    .optional(),
+  speakers: z.array(z.lazy(() => GetMediasMediaHashedIdSpeaker$inboundSchema))
     .optional(),
 }).transform((v) => {
   return remap$(v, {

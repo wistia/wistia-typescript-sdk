@@ -41,13 +41,27 @@ export type GetStatsVisitorsRequest = {
   search?: string | undefined;
 };
 
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const GetStatsVisitorsCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type GetStatsVisitorsCode = ClosedEnum<typeof GetStatsVisitorsCode>;
+
 export type GetStatsVisitorsOrg = {
   name?: string | null | undefined;
   title?: string | null | undefined;
 };
 
 export type GetStatsVisitorsVisitorIdentity = {
-  name?: string | undefined;
+  name?: string | null | undefined;
   email?: string | null | undefined;
   org?: GetStatsVisitorsOrg | undefined;
 };
@@ -75,7 +89,11 @@ export type GetStatsVisitorsResponse = {
   /**
    * The event key for the last video play action.
    */
-  lastEventKey?: string | undefined;
+  lastEventKey?: string | null | undefined;
+  /**
+   * The event key for the conversion event that identified the visitor. Null when the visitor has not been identified.
+   */
+  identifyingEventKey?: string | null | undefined;
   /**
    * The total number of videos loaded by the visitor.
    */
@@ -125,6 +143,11 @@ export function getStatsVisitorsRequestToJSON(
 }
 
 /** @internal */
+export const GetStatsVisitorsCode$inboundSchema: z.ZodNativeEnum<
+  typeof GetStatsVisitorsCode
+> = z.nativeEnum(GetStatsVisitorsCode);
+
+/** @internal */
 export const GetStatsVisitorsOrg$inboundSchema: z.ZodType<
   GetStatsVisitorsOrg,
   z.ZodTypeDef,
@@ -150,7 +173,7 @@ export const GetStatsVisitorsVisitorIdentity$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  name: z.string().optional(),
+  name: z.nullable(z.string()).optional(),
   email: z.nullable(z.string()).optional(),
   org: z.lazy(() => GetStatsVisitorsOrg$inboundSchema).optional(),
 });
@@ -203,7 +226,8 @@ export const GetStatsVisitorsResponse$inboundSchema: z.ZodType<
   last_active_at: z.string().datetime({ offset: true }).transform(v =>
     new Date(v)
   ).optional(),
-  last_event_key: z.string().optional(),
+  last_event_key: z.nullable(z.string()).optional(),
+  identifying_event_key: z.nullable(z.string()).optional(),
   load_count: z.number().int().optional(),
   play_count: z.number().int().optional(),
   visitor_identity: z.lazy(() => GetStatsVisitorsVisitorIdentity$inboundSchema)
@@ -217,6 +241,7 @@ export const GetStatsVisitorsResponse$inboundSchema: z.ZodType<
     "created_at": "createdAt",
     "last_active_at": "lastActiveAt",
     "last_event_key": "lastEventKey",
+    "identifying_event_key": "identifyingEventKey",
     "load_count": "loadCount",
     "play_count": "playCount",
     "visitor_identity": "visitorIdentity",

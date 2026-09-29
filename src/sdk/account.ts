@@ -3,7 +3,12 @@
  */
 
 import { accountGet } from "../funcs/accountGet.js";
+import { accountGetBrandKitColors } from "../funcs/accountGetBrandKitColors.js";
+import { accountGetBrandPreload } from "../funcs/accountGetBrandPreload.js";
+import { accountGetCreditBalance } from "../funcs/accountGetCreditBalance.js";
 import { accountGetTokenDetails } from "../funcs/accountGetTokenDetails.js";
+import { accountGetUsage } from "../funcs/accountGetUsage.js";
+import { accountUpdateBrandPreload } from "../funcs/accountUpdateBrandPreload.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
@@ -19,11 +24,184 @@ export class Account extends ClientSDK {
    * ```
    * (any scope allowed)
    * ```
+   *
+   * Tokens with the "Act with a team member's permissions" permission
+   * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
+   * made with such a token are authorized using the permissions of the
+   * contact assigned to the token.
    */
   async get(
     options?: RequestOptions,
   ): Promise<operations.GetAccountDetailsResponse> {
     return unwrapAsync(accountGet(
+      this,
+      options,
+    ));
+  }
+
+  /**
+   * Get Account Usage
+   *
+   * @remarks
+   * Retrieves plan, usage, and limit information for the current account.
+   *
+   * The response includes plan tier, upload eligibility, and links to billing pages.
+   * Usage and limit details (media counts, storage, seats, bandwidth) are only visible
+   * to account owners and managers — other contacts receive `null` for the `limits` field.
+   *
+   * ## Requires api token with one of the following permissions
+   * ```
+   * (any scope allowed)
+   * ```
+   *
+   * Tokens with the "Act with a team member's permissions" permission
+   * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
+   * made with such a token are authorized using the permissions of the
+   * contact assigned to the token.
+   */
+  async getUsage(
+    options?: RequestOptions,
+  ): Promise<operations.GetAccountUsageResponse> {
+    return unwrapAsync(accountGetUsage(
+      this,
+      options,
+    ));
+  }
+
+  /**
+   * Get Credit Balance
+   *
+   * @remarks
+   * Retrieves the current account's available credit balance and expected next recurring credit grant time.
+   *
+   * The balance is a near-real-time hint and can lag one in-flight metered operation. A `402`
+   * response from an operation is authoritative when deciding whether more credits are required.
+   * Negative ledger balances are returned as `0` available credits.
+   *
+   * `next_grant_at` comes from the account's billing schedule, not an existing grant's expiration.
+   * It is null when no scheduled grant can be determined. Processing may occur later, and other
+   * grants may arrive sooner.
+   *
+   * ## Requires api token with one of the following permissions
+   * ```
+   * (any scope allowed)
+   * ```
+   *
+   * Tokens with the "Act with a team member's permissions" permission
+   * (`all:delegate_to_contact_permissions` scope) can also be used. The account is always derived
+   * from the authenticated token; this endpoint does not accept an account identifier.
+   */
+  async getCreditBalance(
+    options?: RequestOptions,
+  ): Promise<operations.GetCreditBalanceResponse> {
+    return unwrapAsync(accountGetCreditBalance(
+      this,
+      options,
+    ));
+  }
+
+  /**
+   * Get Brand Preload
+   *
+   * @remarks
+   * Retrieves Brandfetch-derived brand info for the current account's contact
+   * domain, plus a boolean indicating whether the account already has any brand
+   * kits configured. Used by Glass onboarding to preload the brand kit for new
+   * signups on business-email domains.
+   *
+   * Returns `brandfetch_brand` with nil `primary_color`/`logo`/`domain` for
+   * free-mail domains, Wistia's own domain, when the Brandfetch feature
+   * flag is off, or when Brandfetch has no data — the caller silently
+   * skips the preload in every such case. The object itself is always
+   * present; only its fields go nil.
+   *
+   * ## Requires api token with one of the following permissions
+   * ```
+   * (any scope allowed)
+   * ```
+   *
+   * Tokens with the "Act with a team member's permissions" permission
+   * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
+   * made with such a token are authorized using the permissions of the
+   * contact assigned to the token.
+   */
+  async getBrandPreload(
+    options?: RequestOptions,
+  ): Promise<operations.GetBrandPreloadResponse> {
+    return unwrapAsync(accountGetBrandPreload(
+      this,
+      options,
+    ));
+  }
+
+  /**
+   * Update Brand Preload
+   *
+   * @remarks
+   * Persists the account's default page logo (by Bakery hashed_id) and
+   * default player color. Both fields are optional independently — omit a
+   * field to leave that account setting untouched. Passing an empty string
+   * for `selected_logo_hashed_id` clears the logo.
+   *
+   * Requires the OAuth contact to be an owner or manager of the account
+   * (or a Wistia admin) — mirrors the auth check on the underlying
+   * `updateWtwBrandKitAccountSettings` GraphQL mutation.
+   *
+   * Deliberately narrower than the mutation: this endpoint does not
+   * create/update BrandKits or set body font family. Glass's onboarding
+   * customize step writes only these two fields; broader brand-kit
+   * editing continues to happen through the WTW web UI + GraphQL.
+   *
+   * ## Requires api token with one of the following permissions
+   * ```
+   * (any scope allowed)
+   * ```
+   */
+  async updateBrandPreload(
+    request?: operations.UpdateBrandPreloadRequest | undefined,
+    options?: RequestOptions,
+  ): Promise<operations.UpdateBrandPreloadResponse> {
+    return unwrapAsync(accountUpdateBrandPreload(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Get Brand Kit Colors
+   *
+   * @remarks
+   * Retrieves the current account's brand colors for the Wistia desktop
+   * app's background picker.
+   *
+   * `colors` lists solid colors: every brand kit's color tokens (the colors
+   * the web editor offers as "Brand colors"), then each brand's primary and
+   * page background color when it is solid, default brand first. Values are
+   * six-digit hex strings, and a repeated color is listed once. Tokens whose
+   * value isn't a hex color are left out. An account without a brand kit
+   * gets its player color in place of the kit, which is what its default
+   * brand kit would hold.
+   *
+   * `brand_gradients` lists each brand's primary and page background color
+   * that is set to a gradient, as color stops sorted by position, default
+   * brand first. Stops whose color isn't a hex color are left out, and a
+   * gradient with fewer than two hex stops left isn't listed.
+   *
+   * ## Requires api token with one of the following permissions
+   * ```
+   * (any scope allowed)
+   * ```
+   *
+   * Tokens with the "Act with a team member's permissions" permission
+   * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
+   * made with such a token are authorized using the permissions of the
+   * contact assigned to the token.
+   */
+  async getBrandKitColors(
+    options?: RequestOptions,
+  ): Promise<operations.GetBrandKitColorsResponse> {
+    return unwrapAsync(accountGetBrandKitColors(
       this,
       options,
     ));

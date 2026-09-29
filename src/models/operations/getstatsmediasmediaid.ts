@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
@@ -15,7 +16,23 @@ export type GetStatsMediasMediaIdRequest = {
   mediaId: string;
 };
 
-export type Action = {
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const GetStatsMediasMediaIdCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type GetStatsMediasMediaIdCode = ClosedEnum<
+  typeof GetStatsMediasMediaIdCode
+>;
+
+export type GetStatsMediasMediaIdAction = {
   /**
    * Type of action (e.g., "Call to Action").
    */
@@ -32,6 +49,14 @@ export type Action = {
    * The rate of actions performed over impressions.
    */
   rate?: number | undefined;
+  /**
+   * For action types that link out (e.g., post-roll CTA), the URL the viewer was directed to.
+   */
+  url?: string | null | undefined;
+  /**
+   * For action types that include display text (e.g., post-roll CTA), the text shown to the viewer.
+   */
+  text?: string | null | undefined;
 };
 
 /**
@@ -62,7 +87,7 @@ export type GetStatsMediasMediaIdResponse = {
    * The total number of unique people that have loaded this video.
    */
   visitors?: number | undefined;
-  actions?: Array<Action> | undefined;
+  actions?: Array<GetStatsMediasMediaIdAction> | undefined;
 };
 
 /** @internal */
@@ -90,26 +115,36 @@ export function getStatsMediasMediaIdRequestToJSON(
 }
 
 /** @internal */
-export const Action$inboundSchema: z.ZodType<Action, z.ZodTypeDef, unknown> = z
-  .object({
-    type: z.string().optional(),
-    action_count: z.number().int().optional(),
-    impression_count: z.number().int().optional(),
-    rate: z.number().optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      "action_count": "actionCount",
-      "impression_count": "impressionCount",
-    });
-  });
+export const GetStatsMediasMediaIdCode$inboundSchema: z.ZodNativeEnum<
+  typeof GetStatsMediasMediaIdCode
+> = z.nativeEnum(GetStatsMediasMediaIdCode);
 
-export function actionFromJSON(
+/** @internal */
+export const GetStatsMediasMediaIdAction$inboundSchema: z.ZodType<
+  GetStatsMediasMediaIdAction,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  type: z.string().optional(),
+  action_count: z.number().int().optional(),
+  impression_count: z.number().int().optional(),
+  rate: z.number().optional(),
+  url: z.nullable(z.string()).optional(),
+  text: z.nullable(z.string()).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "action_count": "actionCount",
+    "impression_count": "impressionCount",
+  });
+});
+
+export function getStatsMediasMediaIdActionFromJSON(
   jsonString: string,
-): SafeParseResult<Action, SDKValidationError> {
+): SafeParseResult<GetStatsMediasMediaIdAction, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => Action$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Action' from JSON`,
+    (x) => GetStatsMediasMediaIdAction$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetStatsMediasMediaIdAction' from JSON`,
   );
 }
 
@@ -125,7 +160,8 @@ export const GetStatsMediasMediaIdResponse$inboundSchema: z.ZodType<
   hours_watched: z.number().optional(),
   engagement: z.number().optional(),
   visitors: z.number().int().optional(),
-  actions: z.array(z.lazy(() => Action$inboundSchema)).optional(),
+  actions: z.array(z.lazy(() => GetStatsMediasMediaIdAction$inboundSchema))
+    .optional(),
 }).transform((v) => {
   return remap$(v, {
     "load_count": "loadCount",

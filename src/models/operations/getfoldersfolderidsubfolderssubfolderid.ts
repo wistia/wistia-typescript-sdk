@@ -25,6 +25,22 @@ export type GetFoldersFolderIdSubfoldersSubfolderIdRequest = {
 };
 
 /**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const GetFoldersFolderIdSubfoldersSubfolderIdCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type GetFoldersFolderIdSubfoldersSubfolderIdCode = ClosedEnum<
+  typeof GetFoldersFolderIdSubfoldersSubfolderIdCode
+>;
+
+/**
  * A string representing what type of media this is.
  */
 export const GetFoldersFolderIdSubfoldersSubfolderIdType = {
@@ -137,6 +153,10 @@ export type GetFoldersFolderIdSubfoldersSubfolderIdMedia = {
    */
   section?: string | null | undefined;
   thumbnail?: GetFoldersFolderIdSubfoldersSubfolderIdThumbnail | undefined;
+  /**
+   * Whether the media is protected (e.g. requires a password or other authentication to view). Null if the media is not protected.
+   */
+  protected?: boolean | null | undefined;
 };
 
 /**
@@ -146,7 +166,7 @@ export type GetFoldersFolderIdSubfoldersSubfolderIdResponse = {
   /**
    * A unique alphanumeric identifier for this subfolder.
    */
-  hashedId: string;
+  hashedId: string | null;
   /**
    * The display name of the subfolder.
    */
@@ -212,6 +232,11 @@ export function getFoldersFolderIdSubfoldersSubfolderIdRequestToJSON(
 }
 
 /** @internal */
+export const GetFoldersFolderIdSubfoldersSubfolderIdCode$inboundSchema:
+  z.ZodNativeEnum<typeof GetFoldersFolderIdSubfoldersSubfolderIdCode> = z
+    .nativeEnum(GetFoldersFolderIdSubfoldersSubfolderIdCode);
+
+/** @internal */
 export const GetFoldersFolderIdSubfoldersSubfolderIdType$inboundSchema:
   z.ZodNativeEnum<typeof GetFoldersFolderIdSubfoldersSubfolderIdType> = z
     .nativeEnum(GetFoldersFolderIdSubfoldersSubfolderIdType);
@@ -275,6 +300,7 @@ export const GetFoldersFolderIdSubfoldersSubfolderIdMedia$inboundSchema:
     thumbnail: z.lazy(() =>
       GetFoldersFolderIdSubfoldersSubfolderIdThumbnail$inboundSchema
     ).optional(),
+    protected: z.nullable(z.boolean()).optional(),
   }).transform((v) => {
     return remap$(v, {
       "hashed_id": "hashedId",
@@ -304,7 +330,7 @@ export const GetFoldersFolderIdSubfoldersSubfolderIdResponse$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    hashed_id: z.string(),
+    hashed_id: z.nullable(z.string()),
     name: z.nullable(z.string()).optional(),
     description: z.nullable(z.string()).optional(),
     position: z.nullable(z.number().int()),

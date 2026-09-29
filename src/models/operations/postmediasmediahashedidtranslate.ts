@@ -11,11 +11,11 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type PostMediasMediaHashedIdTranslateRequestBody = {
   /**
-   * The language to translate the transcript to as a 3-character IETF language code.
+   * The language to translate the transcript to. Use the bibliographic ISO 639-2 form or a supported regional or script IETF tag.
    */
   targetLanguage: string;
   /**
-   * The language of the source transcript to be translated as a 3-character IETF language code. If not provided, the media's default transcript language will be used.
+   * The language of the source transcript. Use the bibliographic ISO 639-2 form or a supported regional or script IETF tag. If not provided, the media's default transcript language will be used.
    */
   sourceLanguage?: string | undefined;
 };
@@ -27,6 +27,22 @@ export type PostMediasMediaHashedIdTranslateRequest = {
   mediaHashedId: string;
   requestBody?: PostMediasMediaHashedIdTranslateRequestBody | undefined;
 };
+
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const PostMediasMediaHashedIdTranslateCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type PostMediasMediaHashedIdTranslateCode = ClosedEnum<
+  typeof PostMediasMediaHashedIdTranslateCode
+>;
 
 /**
  * The status of the background job that's been queued for the request.
@@ -56,6 +72,10 @@ export type PostMediasMediaHashedIdTranslateBackgroundJobStatus = {
    */
   id: number;
   /**
+   * The unguessable hashed ID of the background job. Prefer this over the numeric ID when polling for status.
+   */
+  hashedId: string;
+  /**
    * The status of the background job that's been queued for the request.
    */
   status: PostMediasMediaHashedIdTranslateStatus;
@@ -65,16 +85,11 @@ export type PostMediasMediaHashedIdTranslateBackgroundJobStatus = {
  * Successfully queued background job for translation of the transcript.
  */
 export type PostMediasMediaHashedIdTranslateResponse = {
-  message?: string | undefined;
   /**
-   * A background job keeps track of the progress of an asynchronous task, e.g
-   *
-   * @remarks
-   * bulk archiving media, translating media, etc.
+   * A confirmation message that the background job has been queued.
    */
-  backgroundJobStatus?:
-    | PostMediasMediaHashedIdTranslateBackgroundJobStatus
-    | undefined;
+  message: string;
+  backgroundJobStatus: PostMediasMediaHashedIdTranslateBackgroundJobStatus;
 };
 
 /** @internal */
@@ -146,6 +161,12 @@ export function postMediasMediaHashedIdTranslateRequestToJSON(
 }
 
 /** @internal */
+export const PostMediasMediaHashedIdTranslateCode$inboundSchema:
+  z.ZodNativeEnum<typeof PostMediasMediaHashedIdTranslateCode> = z.nativeEnum(
+    PostMediasMediaHashedIdTranslateCode,
+  );
+
+/** @internal */
 export const PostMediasMediaHashedIdTranslateStatus$inboundSchema:
   z.ZodNativeEnum<typeof PostMediasMediaHashedIdTranslateStatus> = z.nativeEnum(
     PostMediasMediaHashedIdTranslateStatus,
@@ -159,7 +180,12 @@ export const PostMediasMediaHashedIdTranslateBackgroundJobStatus$inboundSchema:
     unknown
   > = z.object({
     id: z.number().int(),
+    hashed_id: z.string(),
     status: PostMediasMediaHashedIdTranslateStatus$inboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      "hashed_id": "hashedId",
+    });
   });
 
 export function postMediasMediaHashedIdTranslateBackgroundJobStatusFromJSON(
@@ -184,10 +210,10 @@ export const PostMediasMediaHashedIdTranslateResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  message: z.string().optional(),
+  message: z.string(),
   background_job_status: z.lazy(() =>
     PostMediasMediaHashedIdTranslateBackgroundJobStatus$inboundSchema
-  ).optional(),
+  ),
 }).transform((v) => {
   return remap$(v, {
     "background_job_status": "backgroundJobStatus",

@@ -12,6 +12,7 @@ import { PostFoldersUnauthorizedError } from "@wistia/wistia-api-client/models/e
 
 ## Fields
 
-| Field                | Type                 | Required             | Description          | Example              |
-| -------------------- | -------------------- | -------------------- | -------------------- | -------------------- |
-| `error`              | *string*             | :heavy_minus_sign:   | N/A                  | Invalid credentials. |
+| Field                                                                    | Type                                                                     | Required                                                                 | Description                                                              | Example                                                                  |
+| ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ |
+| `code`                                                                   | [operations.PostFoldersCode](../../models/operations/postfolderscode.md) | :heavy_minus_sign:                                                       | A machine-readable identifier for the specific authorization failure.    |                                                                          |
+| `error`                                                                  | *string*                                                                 | :heavy_minus_sign:                                                       | N/A                                                                      | Invalid credentials.                                                     |

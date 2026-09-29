@@ -16,5 +16,5 @@ let value: GetTagsSortBy = "taggingsCount";
 ## Values
 
 ```typescript
-"name" | "created" | "updated" | "taggingsCount"
+"name" | "created" | "updated" | "taggingsCount" | "id"
 ```

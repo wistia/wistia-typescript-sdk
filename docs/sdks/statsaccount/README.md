@@ -11,12 +11,17 @@
 
 Retrieve account-wide video stats. Get statistics like the number of video loads, plays, and hours watched for the entire account.
 
-<!--- HIDE-MCP -->
+
 ## Requires api token with one of the following permissions
 ```
 Read detailed stats
 ```
-<!--- /HIDE-MCP -->
+
+Tokens with the "Act with a team member's permissions" permission
+(`all:delegate_to_contact_permissions` scope) can also be used. Requests
+made with such a token are authorized using the permissions of the
+contact assigned to the token.
+
 
 
 ### Example Usage
@@ -90,12 +95,17 @@ run();
 
 Retrieve account-wide stats organized by day, between a start and end date parameter (inclusive). If start and end date are not provided, defaults to yesterday and today.
 
-<!--- HIDE-MCP -->
+
 ## Requires api token with one of the following permissions
 ```
 Read detailed stats
 ```
-<!--- /HIDE-MCP -->
+
+Tokens with the "Act with a team member's permissions" permission
+(`all:delegate_to_contact_permissions` scope) can also be used. Requests
+made with such a token are authorized using the permissions of the
+contact assigned to the token.
+
 
 
 ### Example Usage

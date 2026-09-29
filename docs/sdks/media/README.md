@@ -4,8 +4,6 @@
 
 ### Available Operations
 
-* [uploadForm](#uploadform) - Upload or Import Media
-* [uploadMultipart](#uploadmultipart) - Upload or Import Media
 * [list](#list) - List Media
 * [get](#get) - Show Media
 * [update](#update) - Update Media
@@ -14,173 +12,11 @@
 * [swap](#swap) - Swap Media
 * [getStats](#getstats) - Show Media Aggregated Stats
 * [translate](#translate) - Translate Media
-* [postMediasImportUrl](#postmediasimporturl) - Import Media from URL
+* [importUrl](#importurl) - Import Media from URL
 * [archive](#archive) - Archive Media
 * [move](#move) - Move Media
 * [restore](#restore) - Restore Media
-* [putMediasCopy](#putmediascopy) - Bulk Copy Media
-
-## uploadForm
-
-Endpoint to upload media files from a local system or import from a web URL.
-
-- Use `multipart/form-data` with a `file` parameter to upload from local system
-- Use `application/x-www-form-urlencoded` with a `url` parameter to import from web URL
-
-
-### Example Usage
-
-<!-- UsageSnippet language="typescript" operationID="post_/_form" method="post" path="/" example="missing_credentials" -->
-```typescript
-import { Wistia } from "@wistia/wistia-api-client";
-
-const wistia = new Wistia({
-  bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
-});
-
-async function run() {
-  const result = await wistia.media.uploadForm({
-    url: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-    lowPriority: true,
-  });
-
-  console.log(result);
-}
-
-run();
-```
-
-### Standalone function
-
-The standalone function version of this method:
-
-```typescript
-import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { mediaUploadForm } from "@wistia/wistia-api-client/funcs/mediaUploadForm.js";
-
-// Use `WistiaCore` for best tree-shaking performance.
-// You can create one instance of it to use across an application.
-const wistia = new WistiaCore({
-  bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
-});
-
-async function run() {
-  const res = await mediaUploadForm(wistia, {
-    url: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-    lowPriority: true,
-  });
-  if (res.ok) {
-    const { value: result } = res;
-    console.log(result);
-  } else {
-    console.log("mediaUploadForm failed:", res.error);
-  }
-}
-
-run();
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.PostFormRequest](../../models/operations/postformrequest.md)                                                                                                       | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
-| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
-| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-| `options.serverURL`                                                                                                                                                            | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | An optional server URL to use.                                                                                                                                                 |
-
-### Response
-
-**Promise\<[operations.PostFormResponse](../../models/operations/postformresponse.md)\>**
-
-### Errors
-
-| Error Type                     | Status Code                    | Content Type                   |
-| ------------------------------ | ------------------------------ | ------------------------------ |
-| errors.PostFormBadRequestError | 400                            | application/json               |
-| errors.WistiaDefaultError      | 4XX, 5XX                       | \*/\*                          |
-
-## uploadMultipart
-
-Endpoint to upload media files from a local system or import from a web URL.
-
-- Use `multipart/form-data` with a `file` parameter to upload from local system
-- Use `application/x-www-form-urlencoded` with a `url` parameter to import from web URL
-
-
-### Example Usage
-
-<!-- UsageSnippet language="typescript" operationID="post_/_multipart" method="post" path="/" example="missing_credentials" -->
-```typescript
-import { Wistia } from "@wistia/wistia-api-client";
-import { openAsBlob } from "node:fs";
-
-const wistia = new Wistia({
-  bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
-});
-
-async function run() {
-  const result = await wistia.media.uploadMultipart({
-    file: await openAsBlob("example.file"),
-  });
-
-  console.log(result);
-}
-
-run();
-```
-
-### Standalone function
-
-The standalone function version of this method:
-
-```typescript
-import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { mediaUploadMultipart } from "@wistia/wistia-api-client/funcs/mediaUploadMultipart.js";
-import { openAsBlob } from "node:fs";
-
-// Use `WistiaCore` for best tree-shaking performance.
-// You can create one instance of it to use across an application.
-const wistia = new WistiaCore({
-  bearerAuth: process.env["WISTIA_BEARER_AUTH"] ?? "",
-});
-
-async function run() {
-  const res = await mediaUploadMultipart(wistia, {
-    file: await openAsBlob("example.file"),
-  });
-  if (res.ok) {
-    const { value: result } = res;
-    console.log(result);
-  } else {
-    console.log("mediaUploadMultipart failed:", res.error);
-  }
-}
-
-run();
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.PostMultipartRequest](../../models/operations/postmultipartrequest.md)                                                                                             | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
-| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
-| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-| `options.serverURL`                                                                                                                                                            | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | An optional server URL to use.                                                                                                                                                 |
-
-### Response
-
-**Promise\<[operations.PostMultipartResponse](../../models/operations/postmultipartresponse.md)\>**
-
-### Errors
-
-| Error Type                          | Status Code                         | Content Type                        |
-| ----------------------------------- | ----------------------------------- | ----------------------------------- |
-| errors.PostMultipartBadRequestError | 400                                 | application/json                    |
-| errors.WistiaDefaultError           | 4XX, 5XX                            | \*/\*                               |
+* [bulkCopy](#bulkcopy) - Bulk Copy Media
 
 ## list
 
@@ -191,6 +27,11 @@ do a batch fetch based off of the hashed id.
 ```
 Read all folder and media data
 ```
+
+Tokens with the "Act with a team member's permissions" permission
+(`all:delegate_to_contact_permissions` scope) can also be used. Requests
+made with such a token are authorized using the permissions of the
+contact assigned to the token.
 
 
 ### Example Usage
@@ -269,6 +110,16 @@ Fetches a single media by its hashed id.
 ```
 Read all folder and media data
 ```
+
+Tokens with the "Act with a team member's permissions" permission
+(`all:delegate_to_contact_permissions` scope) can also be used. Requests
+made with such a token are authorized using the permissions of the
+contact assigned to the token.
+
+An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+created with the `all:delegate_to_contact_permissions` scope and an
+authorization for this media can also be used; any permission granted on a
+media allows showing it.
 
 
 ### Example Usage
@@ -352,6 +203,16 @@ Updates the attributes on a media.
 Read, update & delete anything
 ```
 
+Tokens with the "Act with a team member's permissions" permission
+(`all:delegate_to_contact_permissions` scope) can also be used. Requests
+made with such a token are authorized using the permissions of the
+contact assigned to the token.
+
+An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+created with the `all:delegate_to_contact_permissions` scope and an
+authorization granting the `update` permission on this media can also be
+used.
+
 
 ### Example Usage
 
@@ -429,12 +290,24 @@ run();
 
 ## delete
 
-Deletes a media.
+Deletes a media. Deleted media moves to the account's Recently Deleted area,
+where it can be restored until the account's restore window ends, after which
+it is permanently purged.
 
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
+
+Tokens with the "Act with a team member's permissions" permission
+(`all:delegate_to_contact_permissions` scope) can also be used. Requests
+made with such a token are authorized using the permissions of the
+contact assigned to the token.
+
+An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+created with the `all:delegate_to_contact_permissions` scope and an
+authorization granting the `destroy` permission on this media can also be
+used.
 
 
 ### Example Usage
@@ -518,6 +391,11 @@ This endpoint copies a media and its assets to a destination folder (defaults to
 ```
 Read, update & delete anything
 ```
+
+Tokens with the "Act with a team member's permissions" permission
+(`all:delegate_to_contact_permissions` scope) can also be used. Requests
+made with such a token are authorized using the permissions of the
+contact assigned to the token.
 
 
 ### Example Usage
@@ -604,6 +482,17 @@ Swap one media with another media. This operation queues a background job to rep
 Read, update & delete anything
 ```
 
+Tokens with the "Act with a team member's permissions" permission
+(`all:delegate_to_contact_permissions` scope) can also be used. Requests
+made with such a token are authorized using the permissions of the
+contact assigned to the token.
+
+An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+created with the `all:delegate_to_contact_permissions` scope can also be
+used when its authorizations grant the `update` permission on both the
+media being replaced and the replacement media. A replacement media the
+token does not name is treated as not found.
+
 
 ### Example Usage
 
@@ -687,6 +576,11 @@ Aggregated tracking statistics for a video embedded on your site.
 ```
 Read all folder and media data
 ```
+
+Tokens with the "Act with a team member's permissions" permission
+(`all:delegate_to_contact_permissions` scope) can also be used. Requests
+made with such a token are authorized using the permissions of the
+contact assigned to the token.
 
 
 ### Example Usage
@@ -772,6 +666,11 @@ Translates the transcript for a media.
 Read, update & delete anything
 ```
 
+Tokens with the "Act with a team member's permissions" permission
+(`all:delegate_to_contact_permissions` scope) can also be used. Requests
+made with such a token are authorized using the permissions of the
+contact assigned to the token.
+
 
 ### Example Usage
 
@@ -848,7 +747,7 @@ run();
 | errors.PostMediasMediaHashedIdTranslateInternalServerError      | 500                                                             | application/json                                                |
 | errors.WistiaDefaultError                                       | 4XX, 5XX                                                        | \*/\*                                                           |
 
-## postMediasImportUrl
+## importUrl
 
 This endpoint imports a media file from a given URL. The import is processed
 asynchronously and will return a background_job_status object rather than the
@@ -858,14 +757,21 @@ to check on the progress of the import.
 If no folder_id is provided, a new folder called "Untitled Folder" will be
 created and the imported media will be placed there.
 
+The URL must be publicly accessible — Wistia's servers need to be able to fetch the file directly.
+
 Note: imports from certain domains (e.g. vimeo.com, wistia.com) are not permitted.
 
-<!--- HIDE-MCP -->
+
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
-<!--- /HIDE-MCP -->
+
+Tokens with the "Act with a team member's permissions" permission
+(`all:delegate_to_contact_permissions` scope) can also be used. Requests
+made with such a token are authorized using the permissions of the
+contact assigned to the token.
+
 
 
 ### Example Usage
@@ -879,7 +785,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.media.postMediasImportUrl({
+  const result = await wistia.media.importUrl({
     url: "https://example.com/video.mp4",
   });
 
@@ -895,7 +801,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { mediaPostMediasImportUrl } from "@wistia/wistia-api-client/funcs/mediaPostMediasImportUrl.js";
+import { mediaImportUrl } from "@wistia/wistia-api-client/funcs/mediaImportUrl.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -904,14 +810,14 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await mediaPostMediasImportUrl(wistia, {
+  const res = await mediaImportUrl(wistia, {
     url: "https://example.com/video.mp4",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("mediaPostMediasImportUrl failed:", res.error);
+    console.log("mediaImportUrl failed:", res.error);
   }
 }
 
@@ -951,6 +857,11 @@ This method accepts a list of up to 100 medias to archive per request. It proces
 ```
 Read, update & delete anything
 ```
+
+Tokens with the "Act with a team member's permissions" permission
+(`all:delegate_to_contact_permissions` scope) can also be used. Requests
+made with such a token are authorized using the permissions of the
+contact assigned to the token.
 
 
 ### Example Usage
@@ -1028,19 +939,30 @@ run();
 
 ## move
 
-Move one or many media to a different folder and optionally to a specific subfolder.
-Max 100 media per request, and max 10 requests in 5 minutes.
-Note: this is a different rate limit than applies to the rest of the api!
+Moves up to 100 media to a folder and optional subfolder. The subfolder must
+belong to the specified folder.
 
-If a subfolder_id is provided, media will be moved to that subfolder. The subfolder
-must belong to the specified folder.
+This endpoint allows 10 requests per 5 minutes, separate from the general
+API rate limit. Returns a Background Job because the move is asynchronous.
 
-Returns a Background Job as the move is async.
+For more than 100 media, multiple destinations, or mixed actions, use the
+Create Bulk Actions endpoint with `move` actions.
 
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
+
+Tokens with the "Act with a team member's permissions" permission
+(`all:delegate_to_contact_permissions` scope) can also be used. Requests
+made with such a token are authorized using the permissions of the
+contact assigned to the token.
+
+An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+created with the `all:delegate_to_contact_permissions` scope and
+authorizations granting the `update` permission on every media being moved
+and on the destination folder can also be used. `subfolder_id` is not
+available to expiring access tokens.
 
 
 ### Example Usage
@@ -1134,6 +1056,11 @@ Restores archived medias to your account. This method accepts a list of up to 10
 Read, update & delete anything
 ```
 
+Tokens with the "Act with a team member's permissions" permission
+(`all:delegate_to_contact_permissions` scope) can also be used. Requests
+made with such a token are authorized using the permissions of the
+contact assigned to the token.
+
 
 ### Example Usage
 
@@ -1211,7 +1138,7 @@ run();
 | errors.PutMediasRestoreInternalServerError      | 500                                             | application/json                                |
 | errors.WistiaDefaultError                       | 4XX, 5XX                                        | \*/\*                                           |
 
-## putMediasCopy
+## bulkCopy
 
 This method accepts a list of medias to copy to a destination folder. It processes requests asynchronously and will return a background_job_status object rather than the typical Media response object.
 
@@ -1221,6 +1148,17 @@ Each media will be duplicated and the copy will be placed in the specified desti
 ```
 Read, update & delete anything
 ```
+
+Tokens with the "Act with a team member's permissions" permission
+(`all:delegate_to_contact_permissions` scope) can also be used. Requests
+made with such a token are authorized using the permissions of the
+contact assigned to the token.
+
+An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+created with the `all:delegate_to_contact_permissions` scope and an
+authorization granting the `update` permission on the destination folder
+can also be used; only the media the token's authorizations name are
+copied.
 
 
 ### Example Usage
@@ -1234,7 +1172,7 @@ const wistia = new Wistia({
 });
 
 async function run() {
-  const result = await wistia.media.putMediasCopy({
+  const result = await wistia.media.bulkCopy({
     hashedIds: [
       "<value 1>",
     ],
@@ -1253,7 +1191,7 @@ The standalone function version of this method:
 
 ```typescript
 import { WistiaCore } from "@wistia/wistia-api-client/core.js";
-import { mediaPutMediasCopy } from "@wistia/wistia-api-client/funcs/mediaPutMediasCopy.js";
+import { mediaBulkCopy } from "@wistia/wistia-api-client/funcs/mediaBulkCopy.js";
 
 // Use `WistiaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -1262,7 +1200,7 @@ const wistia = new WistiaCore({
 });
 
 async function run() {
-  const res = await mediaPutMediasCopy(wistia, {
+  const res = await mediaBulkCopy(wistia, {
     hashedIds: [
       "<value 1>",
     ],
@@ -1272,7 +1210,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("mediaPutMediasCopy failed:", res.error);
+    console.log("mediaBulkCopy failed:", res.error);
   }
 }
 

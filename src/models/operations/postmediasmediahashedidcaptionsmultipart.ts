@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { blobLikeSchema } from "../../types/blobs.js";
+import { ClosedEnum } from "../../types/enums.js";
 
 export type PostMediasMediaHashedIdCaptionsMultipartCaptionFile = {
   fileName: string;
@@ -29,6 +30,22 @@ export type PostMediasMediaHashedIdCaptionsMultipartRequest = {
   mediaHashedId: string;
   requestBody: PostMediasMediaHashedIdCaptionsMultipartRequestBody;
 };
+
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const PostMediasMediaHashedIdCaptionsMultipartCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type PostMediasMediaHashedIdCaptionsMultipartCode = ClosedEnum<
+  typeof PostMediasMediaHashedIdCaptionsMultipartCode
+>;
 
 /** @internal */
 export type PostMediasMediaHashedIdCaptionsMultipartCaptionFile$Outbound = {
@@ -132,3 +149,8 @@ export function postMediasMediaHashedIdCaptionsMultipartRequestToJSON(
     ),
   );
 }
+
+/** @internal */
+export const PostMediasMediaHashedIdCaptionsMultipartCode$inboundSchema:
+  z.ZodNativeEnum<typeof PostMediasMediaHashedIdCaptionsMultipartCode> = z
+    .nativeEnum(PostMediasMediaHashedIdCaptionsMultipartCode);

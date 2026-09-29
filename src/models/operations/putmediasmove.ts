@@ -25,6 +25,20 @@ export type PutMediasMoveRequest = {
 };
 
 /**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export const PutMediasMoveCode = {
+  UnauthorizedCredentials: "unauthorized_credentials",
+  AccountInactive: "account_inactive",
+  UnauthorizedScope: "unauthorized_scope",
+  UnauthorizedParams: "unauthorized_params",
+} as const;
+/**
+ * A machine-readable identifier for the specific authorization failure.
+ */
+export type PutMediasMoveCode = ClosedEnum<typeof PutMediasMoveCode>;
+
+/**
  * The status of the background job that's been queued for the request.
  */
 export const PutMediasMoveStatus2 = {
@@ -50,6 +64,10 @@ export type PutMediasMoveBackgroundJobStatus2 = {
    */
   id: number;
   /**
+   * The unguessable hashed ID of the background job. Prefer this over the numeric ID when polling for status.
+   */
+  hashedId: string;
+  /**
    * The status of the background job that's been queued for the request.
    */
   status: PutMediasMoveStatus2;
@@ -64,14 +82,11 @@ export type PartialError = {
  * Successfully queued move of at least one media. Other provided hashed_ids failed.
  */
 export type PutMediasMoveResponseBody2 = {
-  message?: string | undefined;
   /**
-   * A background job keeps track of the progress of an asynchronous task, e.g
-   *
-   * @remarks
-   * bulk archiving media, translating media, etc.
+   * A confirmation message that the background job has been queued.
    */
-  backgroundJobStatus?: PutMediasMoveBackgroundJobStatus2 | undefined;
+  message: string;
+  backgroundJobStatus: PutMediasMoveBackgroundJobStatus2;
   partialErrors?: Array<PartialError> | undefined;
 };
 
@@ -101,6 +116,10 @@ export type PutMediasMoveBackgroundJobStatus1 = {
    */
   id: number;
   /**
+   * The unguessable hashed ID of the background job. Prefer this over the numeric ID when polling for status.
+   */
+  hashedId: string;
+  /**
    * The status of the background job that's been queued for the request.
    */
   status: PutMediasMoveStatus1;
@@ -110,14 +129,11 @@ export type PutMediasMoveBackgroundJobStatus1 = {
  * Successfully queued move of all the media.
  */
 export type PutMediasMoveResponseBody1 = {
-  message?: string | undefined;
   /**
-   * A background job keeps track of the progress of an asynchronous task, e.g
-   *
-   * @remarks
-   * bulk archiving media, translating media, etc.
+   * A confirmation message that the background job has been queued.
    */
-  backgroundJobStatus?: PutMediasMoveBackgroundJobStatus1 | undefined;
+  message: string;
+  backgroundJobStatus: PutMediasMoveBackgroundJobStatus1;
 };
 
 export type PutMediasMoveResponse =
@@ -157,6 +173,11 @@ export function putMediasMoveRequestToJSON(
 }
 
 /** @internal */
+export const PutMediasMoveCode$inboundSchema: z.ZodNativeEnum<
+  typeof PutMediasMoveCode
+> = z.nativeEnum(PutMediasMoveCode);
+
+/** @internal */
 export const PutMediasMoveStatus2$inboundSchema: z.ZodNativeEnum<
   typeof PutMediasMoveStatus2
 > = z.nativeEnum(PutMediasMoveStatus2);
@@ -168,7 +189,12 @@ export const PutMediasMoveBackgroundJobStatus2$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.number().int(),
+  hashed_id: z.string(),
   status: PutMediasMoveStatus2$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "hashed_id": "hashedId",
+  });
 });
 
 export function putMediasMoveBackgroundJobStatus2FromJSON(
@@ -211,10 +237,10 @@ export const PutMediasMoveResponseBody2$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  message: z.string().optional(),
+  message: z.string(),
   background_job_status: z.lazy(() =>
     PutMediasMoveBackgroundJobStatus2$inboundSchema
-  ).optional(),
+  ),
   partial_errors: z.array(z.lazy(() => PartialError$inboundSchema)).optional(),
 }).transform((v) => {
   return remap$(v, {
@@ -245,7 +271,12 @@ export const PutMediasMoveBackgroundJobStatus1$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.number().int(),
+  hashed_id: z.string(),
   status: PutMediasMoveStatus1$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "hashed_id": "hashedId",
+  });
 });
 
 export function putMediasMoveBackgroundJobStatus1FromJSON(
@@ -264,10 +295,10 @@ export const PutMediasMoveResponseBody1$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  message: z.string().optional(),
+  message: z.string(),
   background_job_status: z.lazy(() =>
     PutMediasMoveBackgroundJobStatus1$inboundSchema
-  ).optional(),
+  ),
 }).transform((v) => {
   return remap$(v, {
     "background_job_status": "backgroundJobStatus",

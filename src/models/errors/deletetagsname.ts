@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import * as operations from "../operations/index.js";
 import { WistiaError } from "./wistiaerror.js";
 
 /**
@@ -71,6 +72,10 @@ export class DeleteTagsNameForbiddenError extends WistiaError {
  * Unauthorized, invalid or missing token
  */
 export type DeleteTagsNameUnauthorizedErrorData = {
+  /**
+   * A machine-readable identifier for the specific authorization failure.
+   */
+  code?: operations.DeleteTagsNameCode | undefined;
   error?: string | undefined;
 };
 
@@ -78,6 +83,10 @@ export type DeleteTagsNameUnauthorizedErrorData = {
  * Unauthorized, invalid or missing token
  */
 export class DeleteTagsNameUnauthorizedError extends WistiaError {
+  /**
+   * A machine-readable identifier for the specific authorization failure.
+   */
+  code?: operations.DeleteTagsNameCode | undefined;
   error?: string | undefined;
 
   /** The original data that was passed to this error instance. */
@@ -92,6 +101,7 @@ export class DeleteTagsNameUnauthorizedError extends WistiaError {
       : `API error occurred: ${JSON.stringify(err)}`;
     super(message, httpMeta);
     this.data$ = err;
+    if (err.code != null) this.code = err.code;
     if (err.error != null) this.error = err.error;
 
     this.name = "DeleteTagsNameUnauthorizedError";
@@ -142,6 +152,7 @@ export const DeleteTagsNameUnauthorizedError$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  code: operations.DeleteTagsNameCode$inboundSchema.optional(),
   error: z.string().optional(),
   request$: z.instanceof(Request),
   response$: z.instanceof(Response),

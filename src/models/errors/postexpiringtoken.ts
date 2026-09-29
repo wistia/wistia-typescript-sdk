@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import * as operations from "../operations/index.js";
 import { WistiaError } from "./wistiaerror.js";
 
 /**
@@ -72,6 +73,10 @@ export class PostExpiringTokenInternalServerError extends WistiaError {
  */
 export type PostExpiringTokenUnprocessableEntityErrorData = {
   /**
+   * A single error message describing what went wrong.
+   */
+  error?: string | undefined;
+  /**
    * Array of error messages describing what went wrong.
    */
   errors?: Array<string> | undefined;
@@ -81,6 +86,10 @@ export type PostExpiringTokenUnprocessableEntityErrorData = {
  * Unprocessable entity, the request parameters were invalid.
  */
 export class PostExpiringTokenUnprocessableEntityError extends WistiaError {
+  /**
+   * A single error message describing what went wrong.
+   */
+  error?: string | undefined;
   /**
    * Array of error messages describing what went wrong.
    */
@@ -98,6 +107,7 @@ export class PostExpiringTokenUnprocessableEntityError extends WistiaError {
       : `API error occurred: ${JSON.stringify(err)}`;
     super(message, httpMeta);
     this.data$ = err;
+    if (err.error != null) this.error = err.error;
     if (err.errors != null) this.errors = err.errors;
 
     this.name = "PostExpiringTokenUnprocessableEntityError";
@@ -108,6 +118,10 @@ export class PostExpiringTokenUnprocessableEntityError extends WistiaError {
  * Unauthorized, invalid or missing token
  */
 export type PostExpiringTokenUnauthorizedErrorData = {
+  /**
+   * A machine-readable identifier for the specific authorization failure.
+   */
+  code?: operations.PostExpiringTokenCode | undefined;
   error?: string | undefined;
 };
 
@@ -115,6 +129,10 @@ export type PostExpiringTokenUnauthorizedErrorData = {
  * Unauthorized, invalid or missing token
  */
 export class PostExpiringTokenUnauthorizedError extends WistiaError {
+  /**
+   * A machine-readable identifier for the specific authorization failure.
+   */
+  code?: operations.PostExpiringTokenCode | undefined;
   error?: string | undefined;
 
   /** The original data that was passed to this error instance. */
@@ -129,6 +147,7 @@ export class PostExpiringTokenUnauthorizedError extends WistiaError {
       : `API error occurred: ${JSON.stringify(err)}`;
     super(message, httpMeta);
     this.data$ = err;
+    if (err.code != null) this.code = err.code;
     if (err.error != null) this.error = err.error;
 
     this.name = "PostExpiringTokenUnauthorizedError";
@@ -179,6 +198,7 @@ export const PostExpiringTokenUnprocessableEntityError$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  error: z.string().optional(),
   errors: z.array(z.string()).optional(),
   request$: z.instanceof(Request),
   response$: z.instanceof(Response),
@@ -198,6 +218,7 @@ export const PostExpiringTokenUnauthorizedError$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  code: operations.PostExpiringTokenCode$inboundSchema.optional(),
   error: z.string().optional(),
   request$: z.instanceof(Request),
   response$: z.instanceof(Response),

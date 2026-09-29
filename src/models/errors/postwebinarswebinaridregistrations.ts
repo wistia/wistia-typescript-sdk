@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import * as operations from "../operations/index.js";
 import { WistiaError } from "./wistiaerror.js";
 
 /**
@@ -147,6 +148,10 @@ export class PostWebinarsWebinarIdRegistrationsForbiddenError
  * Unauthorized, invalid or missing token
  */
 export type PostWebinarsWebinarIdRegistrationsUnauthorizedErrorData = {
+  /**
+   * A machine-readable identifier for the specific authorization failure.
+   */
+  code?: operations.PostWebinarsWebinarIdRegistrationsCode | undefined;
   error?: string | undefined;
 };
 
@@ -156,6 +161,10 @@ export type PostWebinarsWebinarIdRegistrationsUnauthorizedErrorData = {
 export class PostWebinarsWebinarIdRegistrationsUnauthorizedError
   extends WistiaError
 {
+  /**
+   * A machine-readable identifier for the specific authorization failure.
+   */
+  code?: operations.PostWebinarsWebinarIdRegistrationsCode | undefined;
   error?: string | undefined;
 
   /** The original data that was passed to this error instance. */
@@ -170,6 +179,7 @@ export class PostWebinarsWebinarIdRegistrationsUnauthorizedError
       : `API error occurred: ${JSON.stringify(err)}`;
     super(message, httpMeta);
     this.data$ = err;
+    if (err.code != null) this.code = err.code;
     if (err.error != null) this.error = err.error;
 
     this.name = "PostWebinarsWebinarIdRegistrationsUnauthorizedError";
@@ -263,6 +273,8 @@ export const PostWebinarsWebinarIdRegistrationsUnauthorizedError$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
+    code: operations.PostWebinarsWebinarIdRegistrationsCode$inboundSchema
+      .optional(),
     error: z.string().optional(),
     request$: z.instanceof(Request),
     response$: z.instanceof(Response),

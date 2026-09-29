@@ -11,6 +11,9 @@ const value: operations.GetMediasMediaHashedIdCaptionsLanguageCodeResponseBody =
     language: "<value>",
     isDraft: true,
     id: "<id>",
+    mediaId: "<id>",
+    version: 191558,
+    segments: null,
   };
 ```
 

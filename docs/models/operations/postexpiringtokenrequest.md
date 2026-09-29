@@ -5,7 +5,27 @@
 ```typescript
 import { PostExpiringTokenRequest } from "@wistia/wistia-api-client/models/operations";
 
-let value: PostExpiringTokenRequest = {};
+let value: PostExpiringTokenRequest = {
+  expiringAccessToken: {
+    scopes: [
+      "graphql:all",
+      "all:delegate_to_contact_permissions",
+    ],
+    authorizations: [
+      {
+        type: "account",
+        id: "<id>",
+        permissions: [
+          "show",
+          "update",
+          "destroy",
+          "edit-transcripts",
+          "create-folders",
+        ],
+      },
+    ],
+  },
+};
 ```
 
 ## Fields
