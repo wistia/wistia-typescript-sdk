@@ -13,12 +13,12 @@ Lists media that has been soft-deleted and is still inside the account's
 restore window. Media is listed only while it can still be restored — 30 days
 on most plans, 14 on free plans. After which it is permanently purged.
 
-<!--- HIDE-MCP -->
+
 ## Requires api token with one of the following permissions
 ```
 Read all folder and media data
 ```
-<!--- /HIDE-MCP -->
+
 
 
 ### Example Usage
@@ -98,12 +98,12 @@ folder instead. Only media still inside the restore window can be recovered.
 The restore runs asynchronously and the response includes a background job
 status.
 
-<!--- HIDE-MCP -->
+
 ## Requires api token with one of the following permissions
 ```
 Upload and view media
 ```
-<!--- /HIDE-MCP -->
+
 
 
 ### Example Usage

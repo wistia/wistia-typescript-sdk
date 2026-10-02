@@ -23,17 +23,11 @@ export const PostChannelsChannelHashedIdChannelEpisodesPublishStatus = {
 export type PostChannelsChannelHashedIdChannelEpisodesPublishStatus =
   ClosedEnum<typeof PostChannelsChannelHashedIdChannelEpisodesPublishStatus>;
 
-/**
- * The type of episode.
- */
 export const PostChannelsChannelHashedIdChannelEpisodesEpisodeTypeRequest = {
   Full: "full",
   Trailer: "trailer",
   Bonus: "bonus",
 } as const;
-/**
- * The type of episode.
- */
 export type PostChannelsChannelHashedIdChannelEpisodesEpisodeTypeRequest =
   ClosedEnum<
     typeof PostChannelsChannelHashedIdChannelEpisodesEpisodeTypeRequest
@@ -51,15 +45,16 @@ export type PostChannelsChannelHashedIdChannelEpisodesPodcastSettingsRequest = {
    */
   episodeType?:
     | PostChannelsChannelHashedIdChannelEpisodesEpisodeTypeRequest
+    | null
     | undefined;
   /**
    * The number of the episode.
    */
-  episodeNumber?: number | undefined;
+  episodeNumber?: number | null | undefined;
   /**
    * The season number of the episode.
    */
-  seasonNumber?: number | undefined;
+  seasonNumber?: number | null | undefined;
   /**
    * Whether the episode contains explicit content.
    */
@@ -132,17 +127,11 @@ export type PostChannelsChannelHashedIdChannelEpisodesCode = ClosedEnum<
   typeof PostChannelsChannelHashedIdChannelEpisodesCode
 >;
 
-/**
- * The type of episode.
- */
 export const PostChannelsChannelHashedIdChannelEpisodesEpisodeTypeResponse = {
   Full: "full",
   Trailer: "trailer",
   Bonus: "bonus",
 } as const;
-/**
- * The type of episode.
- */
 export type PostChannelsChannelHashedIdChannelEpisodesEpisodeTypeResponse =
   ClosedEnum<
     typeof PostChannelsChannelHashedIdChannelEpisodesEpisodeTypeResponse
@@ -161,15 +150,16 @@ export type PostChannelsChannelHashedIdChannelEpisodesPodcastSettingsResponse =
      */
     episodeType?:
       | PostChannelsChannelHashedIdChannelEpisodesEpisodeTypeResponse
+      | null
       | undefined;
     /**
      * The number of the episode.
      */
-    episodeNumber?: number | undefined;
+    episodeNumber?: number | null | undefined;
     /**
      * The season number of the episode.
      */
-    seasonNumber?: number | undefined;
+    seasonNumber?: number | null | undefined;
     /**
      * Whether the episode contains explicit content.
      */
@@ -267,9 +257,9 @@ export const PostChannelsChannelHashedIdChannelEpisodesEpisodeTypeRequest$outbou
 /** @internal */
 export type PostChannelsChannelHashedIdChannelEpisodesPodcastSettingsRequest$Outbound =
   {
-    episode_type?: string | undefined;
-    episode_number?: number | undefined;
-    season_number?: number | undefined;
+    episode_type?: string | null | undefined;
+    episode_number?: number | null | undefined;
+    season_number?: number | null | undefined;
     explicit_content?: boolean | undefined;
     hide_from_feed?: boolean | undefined;
   };
@@ -281,11 +271,11 @@ export const PostChannelsChannelHashedIdChannelEpisodesPodcastSettingsRequest$ou
     z.ZodTypeDef,
     PostChannelsChannelHashedIdChannelEpisodesPodcastSettingsRequest
   > = z.object({
-    episodeType:
-      PostChannelsChannelHashedIdChannelEpisodesEpisodeTypeRequest$outboundSchema
-        .optional(),
-    episodeNumber: z.number().int().optional(),
-    seasonNumber: z.number().int().optional(),
+    episodeType: z.nullable(
+      PostChannelsChannelHashedIdChannelEpisodesEpisodeTypeRequest$outboundSchema,
+    ).optional(),
+    episodeNumber: z.nullable(z.number().int()).optional(),
+    seasonNumber: z.nullable(z.number().int()).optional(),
     explicitContent: z.boolean().optional(),
     hideFromFeed: z.boolean().optional(),
   }).transform((v) => {
@@ -413,11 +403,11 @@ export const PostChannelsChannelHashedIdChannelEpisodesPodcastSettingsResponse$i
     z.ZodTypeDef,
     unknown
   > = z.object({
-    episode_type:
-      PostChannelsChannelHashedIdChannelEpisodesEpisodeTypeResponse$inboundSchema
-        .optional(),
-    episode_number: z.number().int().optional(),
-    season_number: z.number().int().optional(),
+    episode_type: z.nullable(
+      PostChannelsChannelHashedIdChannelEpisodesEpisodeTypeResponse$inboundSchema,
+    ).optional(),
+    episode_number: z.nullable(z.number().int()).optional(),
+    season_number: z.nullable(z.number().int()).optional(),
     explicit_content: z.boolean().optional(),
     hide_from_feed: z.boolean().optional(),
   }).transform((v) => {
