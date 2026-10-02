@@ -39,12 +39,10 @@ import { Result } from "../types/fp.js";
  * restore window. Media is listed only while it can still be restored — 30 days
  * on most plans, 14 on free plans. After which it is permanently purged.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read all folder and media data
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function deletedMediaGetDeletedMedia(
   client: WistiaCore,

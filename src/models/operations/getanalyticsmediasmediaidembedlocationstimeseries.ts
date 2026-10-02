@@ -111,39 +111,39 @@ export type Entry = {
   /**
    * The number of video loads from this location.
    */
-  loads?: number | undefined;
+  loads?: number | null | undefined;
   /**
    * The number of unique video loads from this location (one per visitor session).
    */
-  uniqueLoads?: number | undefined;
+  uniqueLoads?: number | null | undefined;
   /**
    * The number of video plays from this location.
    */
-  plays?: number | undefined;
+  plays?: number | null | undefined;
   /**
    * The number of unique video plays from this location (one per visitor session).
    */
-  uniquePlays?: number | undefined;
+  uniquePlays?: number | null | undefined;
   /**
    * The play rate from this location (between 0 and 1).
    */
-  playRate?: number | undefined;
+  playRate?: number | null | undefined;
   /**
    * Total time spent watching from this location in seconds.
    */
-  playedTime?: number | undefined;
+  playedTime?: number | null | undefined;
   /**
    * The average engagement rate from this location (between 0 and 1).
    */
-  engagementRate?: number | undefined;
+  engagementRate?: number | null | undefined;
   /**
    * The number of unique visitors from this location.
    */
-  uniqueVisitors?: number | undefined;
+  uniqueVisitors?: number | null | undefined;
   /**
    * The CTA conversion rate from this location (between 0 and 1).
    */
-  ctaConversionRate?: number | undefined;
+  ctaConversionRate?: number | null | undefined;
 };
 
 export type GetAnalyticsMediasMediaIdEmbedLocationsTimeseriesResponse = {
@@ -233,15 +233,15 @@ export const Entry$inboundSchema: z.ZodType<Entry, z.ZodTypeDef, unknown> = z
     embed_path: z.nullable(z.string()).optional(),
     embed_url: z.nullable(z.string()).optional(),
     page_title: z.nullable(z.string()).optional(),
-    loads: z.number().int().optional(),
-    unique_loads: z.number().int().optional(),
-    plays: z.number().int().optional(),
-    unique_plays: z.number().int().optional(),
-    play_rate: z.number().optional(),
-    played_time: z.number().optional(),
-    engagement_rate: z.number().optional(),
-    unique_visitors: z.number().int().optional(),
-    cta_conversion_rate: z.number().optional(),
+    loads: z.nullable(z.number().int()).optional(),
+    unique_loads: z.nullable(z.number().int()).optional(),
+    plays: z.nullable(z.number().int()).optional(),
+    unique_plays: z.nullable(z.number().int()).optional(),
+    play_rate: z.nullable(z.number()).optional(),
+    played_time: z.nullable(z.number()).optional(),
+    engagement_rate: z.nullable(z.number()).optional(),
+    unique_visitors: z.nullable(z.number().int()).optional(),
+    cta_conversion_rate: z.nullable(z.number()).optional(),
   }).transform((v) => {
     return remap$(v, {
       "embed_domain": "embedDomain",

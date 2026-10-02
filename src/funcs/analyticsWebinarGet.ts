@@ -34,12 +34,10 @@ import { Result } from "../types/fp.js";
  * Bottler-powered analytics including registrations, attendance, engagement,
  * chat activity, and poll results.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read detailed stats
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function analyticsWebinarGet(
   client: WistiaCore,
