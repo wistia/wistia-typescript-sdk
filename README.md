@@ -808,7 +808,7 @@ run();
 **Primary error:**
 * [`WistiaError`](./src/models/errors/wistiaerror.ts): The base class for HTTP error responses.
 
-<details><summary>Less common errors (638)</summary>
+<details><summary>Less common errors (640)</summary>
 
 <br />
 
@@ -1115,6 +1115,8 @@ run();
 * [`DeleteFoldersIdForbiddenError`](./src/models/errors/deletefoldersidforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 170 methods.*
 * [`PostFoldersFolderIdSharingsForbiddenError`](./src/models/errors/postfoldersfolderidsharingsforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 170 methods.*
 * [`PostFoldersFolderIdSubfoldersForbiddenError`](./src/models/errors/postfoldersfolderidsubfoldersforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 170 methods.*
+* [`PutFoldersFolderIdSubfoldersSubfolderIdForbiddenError`](./src/models/errors/putfoldersfolderidsubfolderssubfolderidforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 170 methods.*
+* [`DeleteFoldersFolderIdSubfoldersSubfolderIdForbiddenError`](./src/models/errors/deletefoldersfolderidsubfolderssubfolderidforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 170 methods.*
 * [`DeleteFoldersFolderIdSubfoldersBulkDeleteForbiddenError`](./src/models/errors/deletefoldersfolderidsubfoldersbulkdeleteforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 170 methods.*
 * [`PostChannelsForbiddenError`](./src/models/errors/postchannelsforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 170 methods.*
 * [`PutChannelsChannelHashedIdForbiddenError`](./src/models/errors/putchannelschannelhashedidforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 170 methods.*
