@@ -34,12 +34,10 @@ import { Result } from "../types/fp.js";
  * registrants with their attendance status, engagement metrics,
  * attribution data, and per-attendee histograms.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read detailed stats
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function analyticsWebinarGetAudience(
   client: WistiaCore,
