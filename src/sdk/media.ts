@@ -91,7 +91,9 @@ export class Media extends ClientSDK {
    * Delete Media
    *
    * @remarks
-   * Deletes a media.
+   * Deletes a media. Deleted media moves to the account's Recently Deleted area,
+   * where it can be restored until the account's restore window ends, after which
+   * it is permanently purged.
    *
    * ## Requires api token with one of the following permissions
    * ```
@@ -213,12 +215,10 @@ export class Media extends ClientSDK {
    *
    * Note: imports from certain domains (e.g. vimeo.com, wistia.com) are not permitted.
    *
-   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read, update & delete anything
    * ```
-   * <!--- /HIDE-MCP -->
    */
   async importUrl(
     request?: operations.PostMediasImportUrlRequest | undefined,
