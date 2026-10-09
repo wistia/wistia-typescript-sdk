@@ -20,12 +20,12 @@ conversion metrics.
 
 The date range between `start_date` and `end_date` must not exceed 2 years.
 
-<!--- HIDE-MCP -->
+
 ## Requires api token with one of the following permissions
 ```
 Read detailed stats
 ```
-<!--- /HIDE-MCP -->
+
 
 
 ### Example Usage
@@ -115,12 +115,12 @@ granularity. Returns an array of timestamped metric buckets.
 
 The date range between `start_date` and `end_date` must not exceed 2 years.
 
-<!--- HIDE-MCP -->
+
 ## Requires api token with one of the following permissions
 ```
 Read detailed stats
 ```
-<!--- /HIDE-MCP -->
+
 
 
 ### Example Usage
@@ -212,12 +212,12 @@ video is embedded, ranked by the chosen metric.
 
 The date range between `start_date` and `end_date` must not exceed 2 years.
 
-<!--- HIDE-MCP -->
+
 ## Requires api token with one of the following permissions
 ```
 Read detailed stats
 ```
-<!--- /HIDE-MCP -->
+
 
 
 ### Example Usage
@@ -311,12 +311,12 @@ the remaining locations.
 
 The date range between `start_date` and `end_date` must not exceed 2 years.
 
-<!--- HIDE-MCP -->
+
 ## Requires api token with one of the following permissions
 ```
 Read detailed stats
 ```
-<!--- /HIDE-MCP -->
+
 
 
 ### Example Usage
@@ -410,12 +410,12 @@ such as UTM campaign, UTM source, UTM medium, referrer domain, or viewer screen 
 
 The date range between `start_date` and `end_date` must not exceed 2 years.
 
-<!--- HIDE-MCP -->
+
 ## Requires api token with one of the following permissions
 ```
 Read detailed stats
 ```
-<!--- /HIDE-MCP -->
+
 
 
 ### Example Usage
@@ -507,12 +507,12 @@ submissions with visitor details and timestamps.
 
 The date range between `start_date` and `end_date` must not exceed 2 years.
 
-<!--- HIDE-MCP -->
+
 ## Requires api token with one of the following permissions
 ```
 Read detailed stats
 ```
-<!--- /HIDE-MCP -->
+
 
 
 ### Example Usage
@@ -602,12 +602,12 @@ viewer browser language, sorted by number of plays in descending order.
 
 The date range between `start_date` and `end_date` must not exceed 2 years.
 
-<!--- HIDE-MCP -->
+
 ## Requires api token with one of the following permissions
 ```
 Read detailed stats
 ```
-<!--- /HIDE-MCP -->
+
 
 
 ### Example Usage
