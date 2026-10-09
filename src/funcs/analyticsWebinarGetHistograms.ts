@@ -34,12 +34,10 @@ import { Result } from "../types/fp.js";
  * per-time-bucket counts for attendees, chat activity, and visual focus,
  * useful for rendering engagement visualizations.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read detailed stats
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function analyticsWebinarGetHistograms(
   client: WistiaCore,
