@@ -113,7 +113,12 @@ export type GetMediasMediaHashedIdCaptionsLanguageCodeDiarizedSegment = {
 };
 
 /**
- * Speaker-data availability when `include=diarized_segments`.
+ * Speaker-data availability when `include=diarized_segments`. Reading a derivable media
+ *
+ * @remarks
+ * with no speaker data starts generating it and reports `processing`; read again shortly
+ * for `ready`. `disabled` means the account has speaker identification turned off; an
+ * account owner or manager can turn it on in Account Settings.
  */
 export const GetMediasMediaHashedIdCaptionsLanguageCodeDiarizationStatus = {
   Ready: "ready",
@@ -122,7 +127,12 @@ export const GetMediasMediaHashedIdCaptionsLanguageCodeDiarizationStatus = {
   Disabled: "disabled",
 } as const;
 /**
- * Speaker-data availability when `include=diarized_segments`.
+ * Speaker-data availability when `include=diarized_segments`. Reading a derivable media
+ *
+ * @remarks
+ * with no speaker data starts generating it and reports `processing`; read again shortly
+ * for `ready`. `disabled` means the account has speaker identification turned off; an
+ * account owner or manager can turn it on in Account Settings.
  */
 export type GetMediasMediaHashedIdCaptionsLanguageCodeDiarizationStatus =
   ClosedEnum<
@@ -173,13 +183,18 @@ export type GetMediasMediaHashedIdCaptionsLanguageCodeResponseBody = {
     | Array<GetMediasMediaHashedIdCaptionsLanguageCodeDiarizedSegment>
     | undefined;
   /**
-   * Speaker-data availability when `include=diarized_segments`.
+   * Speaker-data availability when `include=diarized_segments`. Reading a derivable media
+   *
+   * @remarks
+   * with no speaker data starts generating it and reports `processing`; read again shortly
+   * for `ready`. `disabled` means the account has speaker identification turned off; an
+   * account owner or manager can turn it on in Account Settings.
    */
   diarizationStatus?:
     | GetMediasMediaHashedIdCaptionsLanguageCodeDiarizationStatus
     | undefined;
   /**
-   * Whether speaker data can be derived from the active default transcript when `include=diarized_segments`.
+   * Whether speaker data can be generated from the active default transcript when `include=diarized_segments`. When false, the media stays `unavailable`.
    */
   diarizationDerivable?: boolean | undefined;
   /**

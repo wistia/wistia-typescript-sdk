@@ -1,17 +1,17 @@
 # PostExpiringTokenType
 
-The type of object the permission is being performed on. Supports `media`, `folder` and `account`.
+The type of object the rule names.
 
 ## Example Usage
 
 ```typescript
 import { PostExpiringTokenType } from "@wistia/wistia-api-client/models/operations";
 
-let value: PostExpiringTokenType = "media";
+let value: PostExpiringTokenType = "folder";
 ```
 
 ## Values
 
 ```typescript
-"media" | "folder" | "account"
+"media" | "folder" | "account" | "webinar" | "channel" | "review-bundle"
 ```

@@ -32,6 +32,12 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Orders an extended audio description for a media. The request will charge the credit card on the account when the order is ready.
  * Only accounts on paid plans with the `order_audio_descriptions` feature can use this endpoint.
+ *
+ * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+ * created with the `all:delegate_to_contact_permissions` scope and an
+ * authorization granting the `order-audio-descriptions` permission on the
+ * media can also be used. The order is attributed to the contact the token
+ * was created for.
  */
 export function mediaExtendedAudioDescriptionsPostMediaExtendedAudioDescriptionsOrder(
   client: WistiaCore,

@@ -36,6 +36,11 @@ import { Result } from "../types/fp.js";
  *
  * @remarks
  * Lists all extended audio descriptions belonging to the account. Supports pagination and sorting.
+ *
+ * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+ * created with the `all:delegate_to_contact_permissions` scope and an
+ * authorization naming a media (any permission) can also be used; it lists
+ * the extended audio descriptions of the media the token names.
  */
 export function mediaExtendedAudioDescriptionsGetMediaExtendedAudioDescriptions(
   client: WistiaCore,
