@@ -79,6 +79,7 @@ export const GetTagsSortBy = {
   Created: "created",
   Updated: "updated",
   TaggingsCount: "taggingsCount",
+  Id: "id",
 } as const;
 /**
  * Ordering. When using cursor pagination (see cursor param),

@@ -38,7 +38,7 @@ export type GetStatsVisitorsVisitorKeyOrg = {
 };
 
 export type GetStatsVisitorsVisitorKeyVisitorIdentity = {
-  name?: string | undefined;
+  name?: string | null | undefined;
   email?: string | null | undefined;
   org?: GetStatsVisitorsVisitorKeyOrg | undefined;
 };
@@ -69,7 +69,11 @@ export type GetStatsVisitorsVisitorKeyResponse = {
   /**
    * The event key for the last video play action.
    */
-  lastEventKey?: string | undefined;
+  lastEventKey?: string | null | undefined;
+  /**
+   * The event key for the conversion event that identified the visitor. Null when the visitor has not been identified.
+   */
+  identifyingEventKey?: string | null | undefined;
   /**
    * The total number of videos loaded by the visitor.
    */
@@ -137,7 +141,7 @@ export const GetStatsVisitorsVisitorKeyVisitorIdentity$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  name: z.string().optional(),
+  name: z.nullable(z.string()).optional(),
   email: z.nullable(z.string()).optional(),
   org: z.lazy(() => GetStatsVisitorsVisitorKeyOrg$inboundSchema).optional(),
 });
@@ -200,7 +204,8 @@ export const GetStatsVisitorsVisitorKeyResponse$inboundSchema: z.ZodType<
   last_active_at: z.string().datetime({ offset: true }).transform(v =>
     new Date(v)
   ).optional(),
-  last_event_key: z.string().optional(),
+  last_event_key: z.nullable(z.string()).optional(),
+  identifying_event_key: z.nullable(z.string()).optional(),
   load_count: z.number().int().optional(),
   play_count: z.number().int().optional(),
   visitor_identity: z.lazy(() =>
@@ -215,6 +220,7 @@ export const GetStatsVisitorsVisitorKeyResponse$inboundSchema: z.ZodType<
     "created_at": "createdAt",
     "last_active_at": "lastActiveAt",
     "last_event_key": "lastEventKey",
+    "identifying_event_key": "identifyingEventKey",
     "load_count": "loadCount",
     "play_count": "playCount",
     "visitor_identity": "visitorIdentity",
