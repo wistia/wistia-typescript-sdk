@@ -66,6 +66,12 @@ export class BulkActions extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * [Expiring access tokens](https://docs.wistia.com/reference/post_expiring-token)
+   * with authorizations cannot use this endpoint: each action is authorized
+   * later, in a background job, as the persisted contact that submitted it,
+   * and a token's authorizations are not carried into that job. Such requests
+   * are forbidden.
    */
   async postBulk(
     request: operations.PostBulkRequest,

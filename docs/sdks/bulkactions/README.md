@@ -64,6 +64,12 @@ Tokens with the "Act with a team member's permissions" permission
 made with such a token are authorized using the permissions of the
 contact assigned to the token.
 
+[Expiring access tokens](https://docs.wistia.com/reference/post_expiring-token)
+with authorizations cannot use this endpoint: each action is authorized
+later, in a background job, as the persisted contact that submitted it,
+and a token's authorizations are not carried into that job. Such requests
+are forbidden.
+
 
 
 ### Example Usage
@@ -171,5 +177,6 @@ run();
 | ---------------------------------- | ---------------------------------- | ---------------------------------- |
 | errors.PostBulkBadRequestError     | 400                                | application/json                   |
 | errors.PostBulkUnauthorizedError   | 401                                | application/json                   |
+| errors.PostBulkForbiddenError      | 403                                | application/json                   |
 | errors.PostBulkInternalServerError | 500                                | application/json                   |
 | errors.WistiaDefaultError          | 4XX, 5XX                           | \*/\*                              |

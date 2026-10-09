@@ -42,6 +42,12 @@ import { Result } from "../types/fp.js";
  * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
  * made with such a token are authorized using the permissions of the
  * contact assigned to the token.
+ *
+ * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+ * created with the `all:delegate_to_contact_permissions` scope and an
+ * authorization granting the `edit-transcripts` permission on this media can
+ * also be used. A token granted any other permission on the media lists no
+ * captions.
  */
 export function captionsList(
   client: WistiaCore,

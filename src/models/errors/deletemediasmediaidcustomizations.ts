@@ -73,6 +73,39 @@ export class DeleteMediasMediaIdCustomizationsNotFoundError
 }
 
 /**
+ * Forbidden, token is valid but account does not have access to feature
+ */
+export type DeleteMediasMediaIdCustomizationsForbiddenErrorData = {
+  error?: string | undefined;
+};
+
+/**
+ * Forbidden, token is valid but account does not have access to feature
+ */
+export class DeleteMediasMediaIdCustomizationsForbiddenError
+  extends WistiaError
+{
+  error?: string | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: DeleteMediasMediaIdCustomizationsForbiddenErrorData;
+
+  constructor(
+    err: DeleteMediasMediaIdCustomizationsForbiddenErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+
+    this.name = "DeleteMediasMediaIdCustomizationsForbiddenError";
+  }
+}
+
+/**
  * Unauthorized, invalid or missing token
  */
 export type DeleteMediasMediaIdCustomizationsUnauthorizedErrorData = {
@@ -148,6 +181,26 @@ export const DeleteMediasMediaIdCustomizationsNotFoundError$inboundSchema:
   })
     .transform((v) => {
       return new DeleteMediasMediaIdCustomizationsNotFoundError(v, {
+        request: v.request$,
+        response: v.response$,
+        body: v.body$,
+      });
+    });
+
+/** @internal */
+export const DeleteMediasMediaIdCustomizationsForbiddenError$inboundSchema:
+  z.ZodType<
+    DeleteMediasMediaIdCustomizationsForbiddenError,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    error: z.string().optional(),
+    request$: z.instanceof(Request),
+    response$: z.instanceof(Response),
+    body$: z.string(),
+  })
+    .transform((v) => {
+      return new DeleteMediasMediaIdCustomizationsForbiddenError(v, {
         request: v.request$,
         response: v.response$,
         body: v.body$,

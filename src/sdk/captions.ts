@@ -35,6 +35,12 @@ export class Captions extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * authorization granting the `edit-transcripts` permission on this media can
+   * also be used. A token granted any other permission on the media lists no
+   * captions.
    */
   async list(
     request: operations.GetMediasMediaHashedIdCaptionsRequest,
@@ -62,6 +68,11 @@ export class Captions extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * authorization granting the `create-transcripts` permission on this media can
+   * also be used.
    */
   async create(
     request: operations.PostMediasMediaHashedIdCaptionsRequest,
@@ -89,6 +100,11 @@ export class Captions extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * authorization granting the `create-transcripts` permission on this media can
+   * also be used.
    */
   async createMultipart(
     request: operations.PostMediasMediaHashedIdCaptionsMultipartRequest,
@@ -121,6 +137,11 @@ export class Captions extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope can also be
+   * used. It lists only the captions of media it grants the `edit-transcripts`
+   * permission on; no other permission reaches a media's captions.
    */
   async listAll(
     request?: operations.GetCaptionsRequest | undefined,
@@ -185,6 +206,11 @@ export class Captions extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * authorization granting the `create-transcripts` permission on this media can
+   * also be used.
    */
   async purchase(
     request: operations.PostMediasMediaHashedIdCaptionsPurchaseRequest,
@@ -214,6 +240,12 @@ export class Captions extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * authorization granting the `edit-transcripts` permission on this media can
+   * also be used. For a token granted any other permission on the media the
+   * captions are not found.
    */
   async get(
     request: operations.GetMediasMediaHashedIdCaptionsLanguageCodeRequest,
@@ -241,6 +273,11 @@ export class Captions extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * authorization granting the `edit-transcripts` permission on this media can
+   * also be used.
    */
   async update(
     request: operations.PutMediasMediaHashedIdCaptionsLanguageCodeRequest,
@@ -268,6 +305,11 @@ export class Captions extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * authorization granting the `edit-transcripts` permission on this media can
+   * also be used.
    */
   async updateMultipart(
     request:
@@ -296,6 +338,11 @@ export class Captions extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * authorization granting the `edit-transcripts` permission on this media can
+   * also be used.
    */
   async delete(
     request: operations.DeleteMediasMediaHashedIdCaptionsLanguageCodeRequest,
@@ -325,6 +372,12 @@ export class Captions extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * authorization granting the `edit-transcripts` permission on this media can
+   * also be used. When the media is a composite whose captions belong to
+   * another media, the token also needs `edit-transcripts` on that media.
    */
   async edit(
     request: operations.PostMediasMediaHashedIdCaptionsLanguageCodeEditsRequest,

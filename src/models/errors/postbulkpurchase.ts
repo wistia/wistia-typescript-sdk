@@ -38,6 +38,37 @@ export class PostBulkPurchaseInternalServerError extends WistiaError {
 }
 
 /**
+ * Forbidden, token is valid but account does not have access to feature
+ */
+export type PostBulkPurchaseForbiddenErrorData = {
+  error?: string | undefined;
+};
+
+/**
+ * Forbidden, token is valid but account does not have access to feature
+ */
+export class PostBulkPurchaseForbiddenError extends WistiaError {
+  error?: string | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: PostBulkPurchaseForbiddenErrorData;
+
+  constructor(
+    err: PostBulkPurchaseForbiddenErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+
+    this.name = "PostBulkPurchaseForbiddenError";
+  }
+}
+
+/**
  * Unauthorized, invalid or missing token
  */
 export type PostBulkPurchaseUnauthorizedErrorData = {
@@ -136,6 +167,25 @@ export const PostBulkPurchaseInternalServerError$inboundSchema: z.ZodType<
 })
   .transform((v) => {
     return new PostBulkPurchaseInternalServerError(v, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
+  });
+
+/** @internal */
+export const PostBulkPurchaseForbiddenError$inboundSchema: z.ZodType<
+  PostBulkPurchaseForbiddenError,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  error: z.string().optional(),
+  request$: z.instanceof(Request),
+  response$: z.instanceof(Response),
+  body$: z.string(),
+})
+  .transform((v) => {
+    return new PostBulkPurchaseForbiddenError(v, {
       request: v.request$,
       response: v.response$,
       body: v.body$,

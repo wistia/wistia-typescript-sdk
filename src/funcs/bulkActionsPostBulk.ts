@@ -84,6 +84,12 @@ import { Result } from "../types/fp.js";
  * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
  * made with such a token are authorized using the permissions of the
  * contact assigned to the token.
+ *
+ * [Expiring access tokens](https://docs.wistia.com/reference/post_expiring-token)
+ * with authorizations cannot use this endpoint: each action is authorized
+ * later, in a background job, as the persisted contact that submitted it,
+ * and a token's authorizations are not carried into that job. Such requests
+ * are forbidden.
  */
 export function bulkActionsPostBulk(
   client: WistiaCore,
@@ -94,6 +100,7 @@ export function bulkActionsPostBulk(
     operations.PostBulkResponse,
     | errors.PostBulkBadRequestError
     | errors.PostBulkUnauthorizedError
+    | errors.PostBulkForbiddenError
     | errors.PostBulkInternalServerError
     | WistiaError
     | ResponseValidationError
@@ -122,6 +129,7 @@ async function $do(
       operations.PostBulkResponse,
       | errors.PostBulkBadRequestError
       | errors.PostBulkUnauthorizedError
+      | errors.PostBulkForbiddenError
       | errors.PostBulkInternalServerError
       | WistiaError
       | ResponseValidationError
@@ -207,6 +215,7 @@ async function $do(
     operations.PostBulkResponse,
     | errors.PostBulkBadRequestError
     | errors.PostBulkUnauthorizedError
+    | errors.PostBulkForbiddenError
     | errors.PostBulkInternalServerError
     | WistiaError
     | ResponseValidationError
@@ -220,6 +229,7 @@ async function $do(
     M.json(202, operations.PostBulkResponse$inboundSchema),
     M.jsonErr(400, errors.PostBulkBadRequestError$inboundSchema),
     M.jsonErr(401, errors.PostBulkUnauthorizedError$inboundSchema),
+    M.jsonErr(403, errors.PostBulkForbiddenError$inboundSchema),
     M.jsonErr(500, errors.PostBulkInternalServerError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),

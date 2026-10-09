@@ -808,7 +808,7 @@ run();
 **Primary error:**
 * [`WistiaError`](./src/models/errors/wistiaerror.ts): The base class for HTTP error responses.
 
-<details><summary>Less common errors (638)</summary>
+<details><summary>Less common errors (652)</summary>
 
 <br />
 
@@ -1079,6 +1079,8 @@ run();
 * [`PutMediasRestoreForbiddenError`](./src/models/errors/putmediasrestoreforbiddenerror.ts): Forbidden, e.g. account does not have access to archiving. Status code `403`. Applicable to 1 of 170 methods.*
 * [`PutMediasCopyForbiddenError`](./src/models/errors/putmediascopyforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 170 methods.*
 * [`PostMediasMediaIdCustomizationsForbiddenError`](./src/models/errors/postmediasmediaidcustomizationsforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 170 methods.*
+* [`PutMediasMediaIdCustomizationsForbiddenError`](./src/models/errors/putmediasmediaidcustomizationsforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 170 methods.*
+* [`DeleteMediasMediaIdCustomizationsForbiddenError`](./src/models/errors/deletemediasmediaidcustomizationsforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 170 methods.*
 * [`PutMediasMediaIdCustomizationsAppearanceForbiddenError`](./src/models/errors/putmediasmediaidcustomizationsappearanceforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 170 methods.*
 * [`PutMediasMediaIdCustomizationsPlaybackForbiddenError`](./src/models/errors/putmediasmediaidcustomizationsplaybackforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 170 methods.*
 * [`PutMediasMediaIdCustomizationsThumbnailForbiddenError`](./src/models/errors/putmediasmediaidcustomizationsthumbnailforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 170 methods.*
@@ -1095,6 +1097,7 @@ run();
 * [`DeleteMediasMediaIdShareLinkForbiddenError`](./src/models/errors/deletemediasmediaidsharelinkforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 170 methods.*
 * [`PostMediasMediaHashedIdCaptionsForbiddenError`](./src/models/errors/postmediasmediahashedidcaptionsforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 170 methods.*
 * [`PostMediasMediaHashedIdCaptionsMultipartForbiddenError`](./src/models/errors/postmediasmediahashedidcaptionsmultipartforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 170 methods.*
+* [`PostMediasMediaHashedIdCaptionsPurchaseForbiddenError`](./src/models/errors/postmediasmediahashedidcaptionspurchaseforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 170 methods.*
 * [`PostMediasMediaHashedIdCaptionsLanguageCodeEditsForbiddenError`](./src/models/errors/postmediasmediahashedidcaptionslanguagecodeeditsforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 170 methods.*
 * [`PostMediasMediaHashedIdLocalizationsForbiddenError`](./src/models/errors/postmediasmediahashedidlocalizationsforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 170 methods.*
 * [`DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdForbiddenError`](./src/models/errors/deletemediasmediahashedidlocalizationslocalizationhashedidforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 170 methods.*
@@ -1109,12 +1112,18 @@ run();
 * [`GetSpeakersForbiddenError`](./src/models/errors/getspeakersforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 170 methods.*
 * [`PostTagsForbiddenError`](./src/models/errors/posttagsforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 170 methods.*
 * [`DeleteTagsNameForbiddenError`](./src/models/errors/deletetagsnameforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 170 methods.*
+* [`PostBulkForbiddenError`](./src/models/errors/postbulkforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 170 methods.*
+* [`PostBulkPurchaseForbiddenError`](./src/models/errors/postbulkpurchaseforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 170 methods.*
 * [`PostTaggingsBulkCreateForbiddenError`](./src/models/errors/posttaggingsbulkcreateforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 170 methods.*
 * [`PostFoldersForbiddenError`](./src/models/errors/postfoldersforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 170 methods.*
 * [`PutFoldersIdForbiddenError`](./src/models/errors/putfoldersidforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 170 methods.*
 * [`DeleteFoldersIdForbiddenError`](./src/models/errors/deletefoldersidforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 170 methods.*
 * [`PostFoldersFolderIdSharingsForbiddenError`](./src/models/errors/postfoldersfolderidsharingsforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 170 methods.*
+* [`PutFoldersFolderIdSharingsSharingIdForbiddenError`](./src/models/errors/putfoldersfolderidsharingssharingidforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 170 methods.*
+* [`DeleteFoldersFolderIdSharingsSharingIdForbiddenError`](./src/models/errors/deletefoldersfolderidsharingssharingidforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 170 methods.*
 * [`PostFoldersFolderIdSubfoldersForbiddenError`](./src/models/errors/postfoldersfolderidsubfoldersforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 170 methods.*
+* [`PutFoldersFolderIdSubfoldersSubfolderIdForbiddenError`](./src/models/errors/putfoldersfolderidsubfolderssubfolderidforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 170 methods.*
+* [`DeleteFoldersFolderIdSubfoldersSubfolderIdForbiddenError`](./src/models/errors/deletefoldersfolderidsubfolderssubfolderidforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 170 methods.*
 * [`DeleteFoldersFolderIdSubfoldersBulkDeleteForbiddenError`](./src/models/errors/deletefoldersfolderidsubfoldersbulkdeleteforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 170 methods.*
 * [`PostChannelsForbiddenError`](./src/models/errors/postchannelsforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 170 methods.*
 * [`PutChannelsChannelHashedIdForbiddenError`](./src/models/errors/putchannelschannelhashedidforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 170 methods.*
@@ -1124,6 +1133,8 @@ run();
 * [`DeleteChannelEpisodesChannelEpisodeHashedIdForbiddenError`](./src/models/errors/deletechannelepisodeschannelepisodehashedidforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 170 methods.*
 * [`PutChannelEpisodesChannelEpisodeHashedIdPublishForbiddenError`](./src/models/errors/putchannelepisodeschannelepisodehashedidpublishforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 170 methods.*
 * [`PutChannelEpisodesChannelEpisodeHashedIdUnpublishForbiddenError`](./src/models/errors/putchannelepisodeschannelepisodehashedidunpublishforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 170 methods.*
+* [`PostChannelsChannelHashedIdCollaboratorsForbiddenError`](./src/models/errors/postchannelschannelhashedidcollaboratorsforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 170 methods.*
+* [`DeleteChannelsChannelHashedIdCollaboratorsIdForbiddenError`](./src/models/errors/deletechannelschannelhashedidcollaboratorsidforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 170 methods.*
 * [`GetWebinarsForbiddenError`](./src/models/errors/getwebinarsforbiddenerror.ts): Webinar feature not available. Status code `403`. Applicable to 1 of 170 methods.*
 * [`PostWebinarsForbiddenError`](./src/models/errors/postwebinarsforbiddenerror.ts): Webinar feature not available. Status code `403`. Applicable to 1 of 170 methods.*
 * [`GetWebinarsIdForbiddenError`](./src/models/errors/getwebinarsidforbiddenerror.ts): Webinar feature not available. Status code `403`. Applicable to 1 of 170 methods.*
@@ -1131,6 +1142,8 @@ run();
 * [`DeleteWebinarsIdForbiddenError`](./src/models/errors/deletewebinarsidforbiddenerror.ts): Webinar feature not available. Status code `403`. Applicable to 1 of 170 methods.*
 * [`GetWebinarsWebinarIdRegistrationsForbiddenError`](./src/models/errors/getwebinarswebinaridregistrationsforbiddenerror.ts): Webinar feature not available. Status code `403`. Applicable to 1 of 170 methods.*
 * [`PostWebinarsWebinarIdRegistrationsForbiddenError`](./src/models/errors/postwebinarswebinaridregistrationsforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 170 methods.*
+* [`PostWebinarsWebinarIdCollaboratorsForbiddenError`](./src/models/errors/postwebinarswebinaridcollaboratorsforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 170 methods.*
+* [`DeleteWebinarsWebinarIdCollaboratorsIdForbiddenError`](./src/models/errors/deletewebinarswebinaridcollaboratorsidforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 170 methods.*
 * [`UpdateBrandPreloadForbiddenError`](./src/models/errors/updatebrandpreloadforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 170 methods.*
 * [`PostContactsForbiddenError`](./src/models/errors/postcontactsforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 170 methods.*
 * [`PostAccountTrialsForbiddenError`](./src/models/errors/postaccounttrialsforbiddenerror.ts): Forbidden, token is valid but account does not have access to feature. Status code `403`. Applicable to 1 of 170 methods.*
@@ -1207,6 +1220,7 @@ run();
 * [`PostMediasMediaHashedIdLocalizationsNotFoundError`](./src/models/errors/postmediasmediahashedidlocalizationsnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 170 methods.*
 * [`GetMediasMediaHashedIdLocalizationsLocalizationHashedIdNotFoundError`](./src/models/errors/getmediasmediahashedidlocalizationslocalizationhashedidnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 170 methods.*
 * [`DeleteMediasMediaHashedIdLocalizationsLocalizationHashedIdNotFoundError`](./src/models/errors/deletemediasmediahashedidlocalizationslocalizationhashedidnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 170 methods.*
+* [`PostMediasMediaHashedIdTrimsNotFoundError`](./src/models/errors/postmediasmediahashedidtrimsnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 170 methods.*
 * [`GetMediaExtendedAudioDescriptionsIdNotFoundError`](./src/models/errors/getmediaextendedaudiodescriptionsidnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 170 methods.*
 * [`DeleteMediaExtendedAudioDescriptionsIdNotFoundError`](./src/models/errors/deletemediaextendedaudiodescriptionsidnotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 170 methods.*
 * [`PostMediaExtendedAudioDescriptionsOrderNotFoundError`](./src/models/errors/postmediaextendedaudiodescriptionsordernotfounderror.ts): Resource not found. Status code `404`. Applicable to 1 of 170 methods.*

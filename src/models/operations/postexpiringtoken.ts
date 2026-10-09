@@ -10,29 +10,70 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
- * The type of object the permission is being performed on. Supports `media`, `folder` and `account`.
+ * The type of object the rule names.
  */
 export const PostExpiringTokenType = {
   Media: "media",
   Folder: "folder",
   Account: "account",
+  Webinar: "webinar",
+  Channel: "channel",
+  ReviewBundle: "review-bundle",
 } as const;
 /**
- * The type of object the permission is being performed on. Supports `media`, `folder` and `account`.
+ * The type of object the rule names.
  */
 export type PostExpiringTokenType = ClosedEnum<typeof PostExpiringTokenType>;
 
 export type Authorization = {
   /**
-   * The type of object the permission is being performed on. Supports `media`, `folder` and `account`.
+   * The type of object the rule names.
    */
   type: PostExpiringTokenType;
   /**
-   * The id of the object the permissions are being performed on: the hashed id of a `media` or `folder`, or the numeric `id` of the `account` (as returned by `GET /modern/account`), which must be the token's own account.
+   * The id of the object the rule names: its hashed id, except for an `account`, which uses its numeric `id` (as returned by `GET /modern/account`) and must be the token's own account.
    */
   id: string;
   /**
-   * The permissions granted on the object. `media` supports `show`, `update`, `destroy` and `edit-transcripts`; `folder` supports `show`, `update` and `destroy`; `account` supports `create-folders`. Any permission implicitly allows viewing the object; all other permissions must be declared explicitly.
+   * The permissions granted on the object, by type:
+   *
+   * @remarks
+   *
+   * - `media`: `show`, `update`, `destroy`, `edit-transcripts`, `view-stats`,
+   *   `edit`, `share`, `translate`, `order-audio-descriptions`, `create-transcripts`.
+   *   `edit` allows changing the media's player customizations. `edit-transcripts`
+   *   also lists and shows the media's localizations, and deletes them together
+   *   with `update`; no other permission reaches a media's localizations.
+   *   `translate` orders localizations (dubs). Any permission lists and shows the
+   *   media's extended audio descriptions, `update` deletes them and
+   *   `order-audio-descriptions` orders one. `edit-transcripts` is the only
+   *   permission that also reaches the media's captions and speaker data; `show`,
+   *   `update` and `destroy` apply to the media itself and never to those nested
+   *   resources. `create-transcripts` allows uploading and purchasing captions for
+   *   the media without reading or editing existing ones. `share` allows adding
+   *   the media to a new review bundle.
+   * - `folder`: `show`, `update`, `destroy`, `share`, `view-stats`. A rule also covers the
+   *   folder's subfolders: any permission lists and shows them, and `update`
+   *   creates, renames and deletes them. It also covers the folder's sharings:
+   *   any permission lists and shows them, `share` creates them, and `update`
+   *   edits and deletes them.
+   * - `account`: `create-folders`, `create-channels`, `create-webinars`,
+   *   `view-stats`, `manage-team`, `view-speakers`, `view-tags`, `manage-tags`,
+   *   `manage-allowed-domains`. `manage-team` allows inviting contacts to the
+   *   account. `view-speakers` lists the account's speaker profiles. `view-tags`
+   *   lists the account's tags, and `manage-tags` also creates and deletes them.
+   *   `manage-allowed-domains` lists, shows, adds and deletes the account's allowed
+   *   domains; without it a token sees none.
+   * - `webinar`: `show`, `update`, `destroy`, `view-stats`. A rule also covers
+   *   the webinar's registrations and collaborators: any permission lists its
+   *   registrations, and `update` registers attendees and lists, invites and
+   *   removes collaborators.
+   * - `channel`: `show`, `update`, `destroy`. A rule also covers the channel's
+   *   episodes and collaborators: any permission lists and shows its episodes,
+   *   and `update` adds, edits, publishes, unpublishes and removes episodes and
+   *   lists, invites and removes collaborators.
+   * - `review-bundle`: `show`, `destroy`. Creating a review bundle needs no
+   *   rule on a review bundle; it needs `share` on every media in it.
    */
   permissions: Array<string>;
 };
@@ -47,7 +88,13 @@ export type ExpiringAccessToken = {
    */
   scopes?: Array<string> | undefined;
   /**
-   * a list of authorizations the token will have
+   * The rules the token carries. Each rule names one object by `type` and `id`
+   *
+   * @remarks
+   * and lists the `permissions` granted on it.
+   *
+   * Any permission implicitly allows viewing the object; every other permission
+   * must be declared explicitly.
    */
   authorizations?: Array<Authorization> | undefined;
 };

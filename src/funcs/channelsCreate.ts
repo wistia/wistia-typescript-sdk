@@ -31,6 +31,11 @@ import { Result } from "../types/fp.js";
  *
  * @remarks
  * Creates a channel.
+ *
+ * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+ * created with the `all:delegate_to_contact_permissions` scope and an
+ * authorization granting the `create-channels` permission on the account
+ * can also be used.
  */
 export function channelsCreate(
   client: WistiaCore,
