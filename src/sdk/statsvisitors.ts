@@ -15,12 +15,10 @@ export class StatsVisitors extends ClientSDK {
    * @remarks
    * This endpoint provides a list of visitors that have watched videos in your account.
    *
-   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read detailed stats
    * ```
-   * <!--- /HIDE-MCP -->
    */
   async list(
     request?: operations.GetStatsVisitorsRequest | undefined,
@@ -39,12 +37,10 @@ export class StatsVisitors extends ClientSDK {
    * @remarks
    * This endpoint provides detailed information about a specific visitor.
    *
-   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read detailed stats
    * ```
-   * <!--- /HIDE-MCP -->
    */
   async get(
     request: operations.GetStatsVisitorsVisitorKeyRequest,
