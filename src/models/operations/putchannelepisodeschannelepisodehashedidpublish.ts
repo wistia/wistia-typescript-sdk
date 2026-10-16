@@ -42,17 +42,11 @@ export type PutChannelEpisodesChannelEpisodeHashedIdPublishCode = ClosedEnum<
   typeof PutChannelEpisodesChannelEpisodeHashedIdPublishCode
 >;
 
-/**
- * The type of episode.
- */
 export const PutChannelEpisodesChannelEpisodeHashedIdPublishEpisodeType = {
   Full: "full",
   Trailer: "trailer",
   Bonus: "bonus",
 } as const;
-/**
- * The type of episode.
- */
 export type PutChannelEpisodesChannelEpisodeHashedIdPublishEpisodeType =
   ClosedEnum<typeof PutChannelEpisodesChannelEpisodeHashedIdPublishEpisodeType>;
 
@@ -68,15 +62,16 @@ export type PutChannelEpisodesChannelEpisodeHashedIdPublishPodcastSettings = {
    */
   episodeType?:
     | PutChannelEpisodesChannelEpisodeHashedIdPublishEpisodeType
+    | null
     | undefined;
   /**
    * The number of the episode.
    */
-  episodeNumber?: number | undefined;
+  episodeNumber?: number | null | undefined;
   /**
    * The season number of the episode.
    */
-  seasonNumber?: number | undefined;
+  seasonNumber?: number | null | undefined;
   /**
    * Whether the episode contains explicit content.
    */
@@ -241,11 +236,11 @@ export const PutChannelEpisodesChannelEpisodeHashedIdPublishPodcastSettings$inbo
     z.ZodTypeDef,
     unknown
   > = z.object({
-    episode_type:
-      PutChannelEpisodesChannelEpisodeHashedIdPublishEpisodeType$inboundSchema
-        .optional(),
-    episode_number: z.number().int().optional(),
-    season_number: z.number().int().optional(),
+    episode_type: z.nullable(
+      PutChannelEpisodesChannelEpisodeHashedIdPublishEpisodeType$inboundSchema,
+    ).optional(),
+    episode_number: z.nullable(z.number().int()).optional(),
+    season_number: z.nullable(z.number().int()).optional(),
     explicit_content: z.boolean().optional(),
     hide_from_feed: z.boolean().optional(),
   }).transform((v) => {

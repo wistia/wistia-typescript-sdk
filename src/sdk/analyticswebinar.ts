@@ -20,12 +20,10 @@ export class AnalyticsWebinar extends ClientSDK {
    * Bottler-powered analytics including registrations, attendance, engagement,
    * chat activity, and poll results.
    *
-   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read detailed stats
    * ```
-   * <!--- /HIDE-MCP -->
    */
   async get(
     request: operations.GetAnalyticsWebinarsWebinarIdRequest,
@@ -46,12 +44,10 @@ export class AnalyticsWebinar extends ClientSDK {
    * granularity. Returns an array of timestamped registration metric buckets
    * including impressions, registrations, and completion rates.
    *
-   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read detailed stats
    * ```
-   * <!--- /HIDE-MCP -->
    */
   async getRegistration(
     request: operations.GetAnalyticsWebinarsWebinarIdRegistrationRequest,
@@ -73,12 +69,10 @@ export class AnalyticsWebinar extends ClientSDK {
    * Retrieve traffic breakdown analytics for a webinar, grouped by a specified dimension
    * such as UTM campaign, UTM source, UTM medium, or referrer domain.
    *
-   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read detailed stats
    * ```
-   * <!--- /HIDE-MCP -->
    */
   async getTraffic(
     request: operations.GetAnalyticsWebinarsWebinarIdTrafficRequest,
@@ -99,12 +93,10 @@ export class AnalyticsWebinar extends ClientSDK {
    * registrants with their attendance status, engagement metrics,
    * attribution data, and per-attendee histograms.
    *
-   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read detailed stats
    * ```
-   * <!--- /HIDE-MCP -->
    */
   async getAudience(
     request: operations.GetAnalyticsWebinarsWebinarIdAudienceRequest,
@@ -125,12 +117,10 @@ export class AnalyticsWebinar extends ClientSDK {
    * per-time-bucket counts for attendees, chat activity, and visual focus,
    * useful for rendering engagement visualizations.
    *
-   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read detailed stats
    * ```
-   * <!--- /HIDE-MCP -->
    */
   async getHistograms(
     request: operations.GetAnalyticsWebinarsWebinarIdHistogramsRequest,

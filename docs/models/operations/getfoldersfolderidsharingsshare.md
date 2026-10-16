@@ -20,4 +20,4 @@ let value: GetFoldersFolderIdSharingsShare = {
 | `id`               | *number*           | :heavy_check_mark: | N/A                | 3                  |
 | `name`             | *string*           | :heavy_check_mark: | N/A                | Jim                |
 | `type`             | *string*           | :heavy_check_mark: | N/A                | Contact            |
-| `email`            | *string*           | :heavy_check_mark: | N/A                | jim@wistia.com     |
+| `email`            | *string*           | :heavy_minus_sign: | N/A                | jim@wistia.com     |

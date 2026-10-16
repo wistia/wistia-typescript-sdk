@@ -33,7 +33,7 @@ generation:
     generateNewTests: true
     skipResponseBodyAssertions: false
 typescript:
-  version: 2026.7.0
+  version: 2026.7.1
   acceptHeaderEnum: true
   additionalDependencies:
     dependencies: {}
@@ -86,6 +86,7 @@ typescript:
   modelPropertyCasing: camel
   moduleFormat: dual
   multipartArrayFormat: legacy
+  numericEnumMemberNames: legacy
   outputModelSuffix: output
   packageName: '@wistia/wistia-api-client'
   preApplyUnionDiscriminators: true
