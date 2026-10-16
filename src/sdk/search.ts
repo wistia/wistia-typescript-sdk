@@ -25,6 +25,10 @@ export class Search extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * [Expiring access tokens](https://docs.wistia.com/reference/post_expiring-token)
+   * created with authorizations cannot be used: search responds with a 403,
+   * whatever the authorizations grant.
    */
   async search(
     request: operations.GetSearchRequest,

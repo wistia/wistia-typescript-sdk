@@ -30,6 +30,10 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Retrieves a summary of the token used to make the API request. This endpoint can primarily be used to
  * debug permission issues with the API.
+ *
+ * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+ * can also be used. The response then describes the expiring token itself,
+ * its scopes and expiry, not the API token or contact that created it.
  */
 export function accountGetTokenDetails(
   client: WistiaCore,

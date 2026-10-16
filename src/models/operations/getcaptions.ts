@@ -253,7 +253,12 @@ export type GetCaptionsDiarizedSegment = {
 };
 
 /**
- * Speaker-data availability when `include=diarized_segments`.
+ * Speaker-data availability when `include=diarized_segments`. Reading a derivable media
+ *
+ * @remarks
+ * with no speaker data starts generating it and reports `processing`; read again shortly
+ * for `ready`. `disabled` means the account has speaker identification turned off; an
+ * account owner or manager can turn it on in Account Settings.
  */
 export const GetCaptionsDiarizationStatus = {
   Ready: "ready",
@@ -262,7 +267,12 @@ export const GetCaptionsDiarizationStatus = {
   Disabled: "disabled",
 } as const;
 /**
- * Speaker-data availability when `include=diarized_segments`.
+ * Speaker-data availability when `include=diarized_segments`. Reading a derivable media
+ *
+ * @remarks
+ * with no speaker data starts generating it and reports `processing`; read again shortly
+ * for `ready`. `disabled` means the account has speaker identification turned off; an
+ * account owner or manager can turn it on in Account Settings.
  */
 export type GetCaptionsDiarizationStatus = ClosedEnum<
   typeof GetCaptionsDiarizationStatus
@@ -307,11 +317,16 @@ export type GetCaptionsResponse = {
    */
   diarizedSegments?: Array<GetCaptionsDiarizedSegment> | undefined;
   /**
-   * Speaker-data availability when `include=diarized_segments`.
+   * Speaker-data availability when `include=diarized_segments`. Reading a derivable media
+   *
+   * @remarks
+   * with no speaker data starts generating it and reports `processing`; read again shortly
+   * for `ready`. `disabled` means the account has speaker identification turned off; an
+   * account owner or manager can turn it on in Account Settings.
    */
   diarizationStatus?: GetCaptionsDiarizationStatus | undefined;
   /**
-   * Whether speaker data can be derived from the active default transcript when `include=diarized_segments`.
+   * Whether speaker data can be generated from the active default transcript when `include=diarized_segments`. When false, the media stays `unavailable`.
    */
   diarizationDerivable?: boolean | undefined;
   /**
