@@ -35,6 +35,10 @@ import { Result } from "../types/fp.js";
  *
  * Idempotent: a repeat call returns the timestamp of the first dismissal.
  *
+ * [Expiring access tokens](https://docs.wistia.com/reference/post_expiring-token)
+ * created with authorizations cannot be used: this endpoint responds with a
+ * 403, whatever the authorizations grant.
+ *
  * ## Requires api token with one of the following permissions
  * ```
  * Read, update & delete anything
@@ -47,6 +51,7 @@ export function contactDismissDesktopInstallPrompt(
   Result<
     operations.PostContactDismissDesktopInstallPromptResponse,
     | errors.PostContactDismissDesktopInstallPromptUnauthorizedError
+    | errors.PostContactDismissDesktopInstallPromptForbiddenError
     | errors.PostContactDismissDesktopInstallPromptInternalServerError
     | WistiaError
     | ResponseValidationError
@@ -72,6 +77,7 @@ async function $do(
     Result<
       operations.PostContactDismissDesktopInstallPromptResponse,
       | errors.PostContactDismissDesktopInstallPromptUnauthorizedError
+      | errors.PostContactDismissDesktopInstallPromptForbiddenError
       | errors.PostContactDismissDesktopInstallPromptInternalServerError
       | WistiaError
       | ResponseValidationError
@@ -143,6 +149,7 @@ async function $do(
   const [result] = await M.match<
     operations.PostContactDismissDesktopInstallPromptResponse,
     | errors.PostContactDismissDesktopInstallPromptUnauthorizedError
+    | errors.PostContactDismissDesktopInstallPromptForbiddenError
     | errors.PostContactDismissDesktopInstallPromptInternalServerError
     | WistiaError
     | ResponseValidationError
@@ -161,6 +168,10 @@ async function $do(
       401,
       errors
         .PostContactDismissDesktopInstallPromptUnauthorizedError$inboundSchema,
+    ),
+    M.jsonErr(
+      403,
+      errors.PostContactDismissDesktopInstallPromptForbiddenError$inboundSchema,
     ),
     M.jsonErr(
       500,

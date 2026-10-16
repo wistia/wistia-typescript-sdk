@@ -27,6 +27,12 @@ export class WebinarCollaborators extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * authorization granting the `update` permission on this webinar can also
+   * be used; a token granted only `show` on the webinar lists no
+   * collaborators.
    */
   async list(
     request: operations.GetWebinarsWebinarIdCollaboratorsRequest,
@@ -54,6 +60,11 @@ export class WebinarCollaborators extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * authorization granting the `update` permission on this webinar can also
+   * be used.
    */
   async create(
     request: operations.PostWebinarsWebinarIdCollaboratorsRequest,
@@ -81,6 +92,11 @@ export class WebinarCollaborators extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * authorization granting the `update` permission on this webinar can also
+   * be used.
    */
   async delete(
     request: operations.DeleteWebinarsWebinarIdCollaboratorsIdRequest,
