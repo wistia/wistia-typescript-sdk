@@ -698,12 +698,12 @@ The URL must be publicly accessible — Wistia's servers need to be able to fetc
 
 Note: imports from certain domains (e.g. vimeo.com, wistia.com) are not permitted.
 
-<!--- HIDE-MCP -->
+
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
 ```
-<!--- /HIDE-MCP -->
+
 
 
 ### Example Usage

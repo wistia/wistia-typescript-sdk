@@ -7,7 +7,7 @@ import { ClosedEnum } from "../../types/enums.js";
 
 export type DeleteTagsNameRequest = {
   /**
-   * Tag ID
+   * Name of the tag to delete
    */
   name: string;
 };
