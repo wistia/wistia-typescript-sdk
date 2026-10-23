@@ -127,6 +127,10 @@ export type PostMediaExtendedAudioDescriptionsOrderResponse = {
    */
   message: string;
   order: PostMediaExtendedAudioDescriptionsOrderOrder;
+  /**
+   * The credits held for the audio description, deducted when it completes. Null when the audio description is not paid for with credits. Decimal amounts are returned as strings.
+   */
+  expectedBilledCredits: string | null;
 };
 
 /** @internal */
@@ -300,6 +304,11 @@ export const PostMediaExtendedAudioDescriptionsOrderResponse$inboundSchema:
     order: z.lazy(() =>
       PostMediaExtendedAudioDescriptionsOrderOrder$inboundSchema
     ),
+    expected_billed_credits: z.nullable(z.string()),
+  }).transform((v) => {
+    return remap$(v, {
+      "expected_billed_credits": "expectedBilledCredits",
+    });
   });
 
 export function postMediaExtendedAudioDescriptionsOrderResponseFromJSON(
