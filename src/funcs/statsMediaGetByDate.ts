@@ -33,12 +33,10 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Retrieve stats for a media organized by day, between a start and end date paramater (inclusive). If start and end date are not provided, defaults to yesterday and today.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read detailed stats
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function statsMediaGetByDate(
   client: WistiaCore,

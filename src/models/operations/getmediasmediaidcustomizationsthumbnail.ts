@@ -32,6 +32,13 @@ export type GetMediasMediaIdCustomizationsThumbnailCode = ClosedEnum<
   typeof GetMediasMediaIdCustomizationsThumbnailCode
 >;
 
+export type GetMediasMediaIdCustomizationsThumbnailUnalteredStillImageAsset =
+  {};
+
+export type GetMediasMediaIdCustomizationsThumbnailUnalteredStillImageAssetUnion =
+  | string
+  | GetMediasMediaIdCustomizationsThumbnailUnalteredStillImageAsset;
+
 export type GetMediasMediaIdCustomizationsThumbnailVideoThumbnail = {
   clickToPlayButton?: string | undefined;
   clickForSound?: string | undefined;
@@ -65,7 +72,10 @@ export type GetMediasMediaIdCustomizationsThumbnailResponse = {
   stillUrl?: string | undefined;
   thumbnailAltText?: string | undefined;
   fitStrategy?: string | undefined;
-  unalteredStillImageAsset?: string | undefined;
+  unalteredStillImageAsset?:
+    | string
+    | GetMediasMediaIdCustomizationsThumbnailUnalteredStillImageAsset
+    | undefined;
   plugin?: GetMediasMediaIdCustomizationsThumbnailPlugin | undefined;
 };
 
@@ -99,6 +109,57 @@ export function getMediasMediaIdCustomizationsThumbnailRequestToJSON(
 export const GetMediasMediaIdCustomizationsThumbnailCode$inboundSchema:
   z.ZodNativeEnum<typeof GetMediasMediaIdCustomizationsThumbnailCode> = z
     .nativeEnum(GetMediasMediaIdCustomizationsThumbnailCode);
+
+/** @internal */
+export const GetMediasMediaIdCustomizationsThumbnailUnalteredStillImageAsset$inboundSchema:
+  z.ZodType<
+    GetMediasMediaIdCustomizationsThumbnailUnalteredStillImageAsset,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({});
+
+export function getMediasMediaIdCustomizationsThumbnailUnalteredStillImageAssetFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetMediasMediaIdCustomizationsThumbnailUnalteredStillImageAsset,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetMediasMediaIdCustomizationsThumbnailUnalteredStillImageAsset$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'GetMediasMediaIdCustomizationsThumbnailUnalteredStillImageAsset' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetMediasMediaIdCustomizationsThumbnailUnalteredStillImageAssetUnion$inboundSchema:
+  z.ZodType<
+    GetMediasMediaIdCustomizationsThumbnailUnalteredStillImageAssetUnion,
+    z.ZodTypeDef,
+    unknown
+  > = z.union([
+    z.string(),
+    z.lazy(() =>
+      GetMediasMediaIdCustomizationsThumbnailUnalteredStillImageAsset$inboundSchema
+    ),
+  ]);
+
+export function getMediasMediaIdCustomizationsThumbnailUnalteredStillImageAssetUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetMediasMediaIdCustomizationsThumbnailUnalteredStillImageAssetUnion,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetMediasMediaIdCustomizationsThumbnailUnalteredStillImageAssetUnion$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'GetMediasMediaIdCustomizationsThumbnailUnalteredStillImageAssetUnion' from JSON`,
+  );
+}
 
 /** @internal */
 export const GetMediasMediaIdCustomizationsThumbnailVideoThumbnail$inboundSchema:
@@ -202,7 +263,12 @@ export const GetMediasMediaIdCustomizationsThumbnailResponse$inboundSchema:
     stillUrl: z.string().optional(),
     thumbnailAltText: z.string().optional(),
     fitStrategy: z.string().optional(),
-    unalteredStillImageAsset: z.string().optional(),
+    unalteredStillImageAsset: z.union([
+      z.string(),
+      z.lazy(() =>
+        GetMediasMediaIdCustomizationsThumbnailUnalteredStillImageAsset$inboundSchema
+      ),
+    ]).optional(),
     plugin: z.lazy(() =>
       GetMediasMediaIdCustomizationsThumbnailPlugin$inboundSchema
     ).optional(),
