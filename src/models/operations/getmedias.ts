@@ -293,7 +293,7 @@ export type GetMediasSubfolder = {
   /**
    * A unique alphanumeric identifier for this subfolder.
    */
-  hashedId: string;
+  hashedId: string | null;
   /**
    * The display name of the subfolder.
    */
@@ -612,7 +612,7 @@ export const GetMediasSubfolder$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  hashed_id: z.string(),
+  hashed_id: z.nullable(z.string()),
   name: z.nullable(z.string()).optional(),
   description: z.nullable(z.string()).optional(),
   position: z.nullable(z.number().int()),
