@@ -22,6 +22,10 @@ Tokens with the "Act with a team member's permissions" permission
 made with such a token are authorized using the permissions of the
 contact assigned to the token.
 
+[Expiring access tokens](https://docs.wistia.com/reference/post_expiring-token)
+created with authorizations cannot be used: search responds with a 403,
+whatever the authorizations grant.
+
 
 ### Example Usage
 

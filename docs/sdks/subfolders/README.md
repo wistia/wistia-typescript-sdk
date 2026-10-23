@@ -25,6 +25,11 @@ Tokens with the "Act with a team member's permissions" permission
 made with such a token are authorized using the permissions of the
 contact assigned to the token.
 
+An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+created with the `all:delegate_to_contact_permissions` scope and an
+authorization naming this folder (any permission) can also be used; it
+lists the folder's subfolders.
+
 
 ### Example Usage
 
@@ -112,6 +117,11 @@ Tokens with the "Act with a team member's permissions" permission
 (`all:delegate_to_contact_permissions` scope) can also be used. Requests
 made with such a token are authorized using the permissions of the
 contact assigned to the token.
+
+An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+created with the `all:delegate_to_contact_permissions` scope and an
+authorization granting the `update` permission on this folder can also
+be used.
 
 
 ### Example Usage
@@ -210,6 +220,11 @@ Tokens with the "Act with a team member's permissions" permission
 made with such a token are authorized using the permissions of the
 contact assigned to the token.
 
+An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+created with the `all:delegate_to_contact_permissions` scope and an
+authorization naming this folder (any permission) can also be used. The
+embedded media are limited to those the token's authorizations name.
+
 
 ### Example Usage
 
@@ -299,6 +314,11 @@ Tokens with the "Act with a team member's permissions" permission
 made with such a token are authorized using the permissions of the
 contact assigned to the token.
 
+An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+created with the `all:delegate_to_contact_permissions` scope and an
+authorization granting the `update` permission on this folder can also
+be used.
+
 
 ### Example Usage
 
@@ -378,6 +398,7 @@ run();
 | Error Type                                                        | Status Code                                                       | Content Type                                                      |
 | ----------------------------------------------------------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------- |
 | errors.PutFoldersFolderIdSubfoldersSubfolderIdUnauthorizedError   | 401                                                               | application/json                                                  |
+| errors.PutFoldersFolderIdSubfoldersSubfolderIdForbiddenError      | 403                                                               | application/json                                                  |
 | errors.PutFoldersFolderIdSubfoldersSubfolderIdNotFoundError       | 404                                                               | application/json                                                  |
 | errors.PutFoldersFolderIdSubfoldersSubfolderIdInternalServerError | 500                                                               | application/json                                                  |
 | errors.WistiaDefaultError                                         | 4XX, 5XX                                                          | \*/\*                                                             |
@@ -395,6 +416,11 @@ Tokens with the "Act with a team member's permissions" permission
 (`all:delegate_to_contact_permissions` scope) can also be used. Requests
 made with such a token are authorized using the permissions of the
 contact assigned to the token.
+
+An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+created with the `all:delegate_to_contact_permissions` scope and an
+authorization granting the `update` permission on this folder can also
+be used.
 
 
 ### Example Usage
@@ -467,6 +493,7 @@ run();
 | Error Type                                                           | Status Code                                                          | Content Type                                                         |
 | -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
 | errors.DeleteFoldersFolderIdSubfoldersSubfolderIdUnauthorizedError   | 401                                                                  | application/json                                                     |
+| errors.DeleteFoldersFolderIdSubfoldersSubfolderIdForbiddenError      | 403                                                                  | application/json                                                     |
 | errors.DeleteFoldersFolderIdSubfoldersSubfolderIdNotFoundError       | 404                                                                  | application/json                                                     |
 | errors.DeleteFoldersFolderIdSubfoldersSubfolderIdInternalServerError | 500                                                                  | application/json                                                     |
 | errors.WistiaDefaultError                                            | 4XX, 5XX                                                             | \*/\*                                                                |
@@ -484,6 +511,11 @@ Tokens with the "Act with a team member's permissions" permission
 (`all:delegate_to_contact_permissions` scope) can also be used. Requests
 made with such a token are authorized using the permissions of the
 contact assigned to the token.
+
+An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+created with the `all:delegate_to_contact_permissions` scope and an
+authorization granting the `update` permission on this folder can also
+be used.
 
 An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
 created with the `all:delegate_to_contact_permissions` scope and an

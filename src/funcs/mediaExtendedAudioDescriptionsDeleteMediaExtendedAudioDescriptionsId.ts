@@ -31,6 +31,11 @@ import { Result } from "../types/fp.js";
  *
  * @remarks
  * Deletes an extended audio description by its hashed id.
+ *
+ * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+ * created with the `all:delegate_to_contact_permissions` scope and an
+ * authorization granting the `update` permission on the extended audio
+ * description's media can also be used.
  */
 export function mediaExtendedAudioDescriptionsDeleteMediaExtendedAudioDescriptionsId(
   client: WistiaCore,

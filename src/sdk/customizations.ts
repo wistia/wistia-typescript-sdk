@@ -46,6 +46,11 @@ export class Customizations extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * authorization for this media can also be used; any permission granted on
+   * the media allows reading its customizations.
    */
   async get(
     request: operations.GetMediasMediaIdCustomizationsRequest,
@@ -73,6 +78,10 @@ export class Customizations extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * authorization granting the `edit` permission on this media can also be used.
    */
   async create(
     request: operations.PostMediasMediaIdCustomizationsRequest,
@@ -100,6 +109,10 @@ export class Customizations extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * authorization granting the `edit` permission on this media can also be used.
    */
   async update(
     request: operations.PutMediasMediaIdCustomizationsRequest,
@@ -127,6 +140,10 @@ export class Customizations extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * authorization granting the `edit` permission on this media can also be used.
    */
   async delete(
     request: operations.DeleteMediasMediaIdCustomizationsRequest,
@@ -155,6 +172,11 @@ export class Customizations extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * authorization for this media can also be used; any permission granted on
+   * the media allows reading its customizations.
    */
   async getAppearance(
     request: operations.GetMediasMediaIdCustomizationsAppearanceRequest,
@@ -184,6 +206,10 @@ export class Customizations extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * authorization granting the `edit` permission on this media can also be used.
    */
   async updateAppearance(
     request: operations.PutMediasMediaIdCustomizationsAppearanceRequest,
@@ -213,6 +239,11 @@ export class Customizations extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * authorization for this media can also be used; any permission granted on
+   * the media allows reading its customizations.
    */
   async getPlayback(
     request: operations.GetMediasMediaIdCustomizationsPlaybackRequest,
@@ -242,6 +273,10 @@ export class Customizations extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * authorization granting the `edit` permission on this media can also be used.
    */
   async updatePlayback(
     request: operations.PutMediasMediaIdCustomizationsPlaybackRequest,
@@ -271,6 +306,11 @@ export class Customizations extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * authorization for this media can also be used; any permission granted on
+   * the media allows reading its customizations.
    */
   async getThumbnail(
     request: operations.GetMediasMediaIdCustomizationsThumbnailRequest,
@@ -300,6 +340,10 @@ export class Customizations extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * authorization granting the `edit` permission on this media can also be used.
    */
   async updateThumbnail(
     request: operations.PutMediasMediaIdCustomizationsThumbnailRequest,
@@ -328,6 +372,11 @@ export class Customizations extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * authorization for this media can also be used; any permission granted on
+   * the media allows reading its customizations.
    */
   async getAccessibility(
     request: operations.GetMediasMediaIdCustomizationsAccessibilityRequest,
@@ -357,6 +406,10 @@ export class Customizations extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * authorization granting the `edit` permission on this media can also be used.
    */
   async updateAccessibility(
     request: operations.PutMediasMediaIdCustomizationsAccessibilityRequest,
@@ -385,6 +438,11 @@ export class Customizations extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * authorization for this media can also be used; any permission granted on
+   * the media allows reading its customizations.
    */
   async getChapters(
     request: operations.GetMediasMediaIdCustomizationsChaptersRequest,
@@ -413,6 +471,10 @@ export class Customizations extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * authorization granting the `edit` permission on this media can also be used.
    */
   async updateChapters(
     request: operations.PutMediasMediaIdCustomizationsChaptersRequestRequest,
@@ -441,6 +503,11 @@ export class Customizations extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * authorization for this media can also be used; any permission granted on
+   * the media allows reading its customizations.
    */
   async getEngagement(
     request: operations.GetMediasMediaIdCustomizationsEngagementRequest,
@@ -470,6 +537,10 @@ export class Customizations extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * authorization granting the `edit` permission on this media can also be used.
    */
   async updateEngagement(
     request: operations.PutMediasMediaIdCustomizationsEngagementRequest,
@@ -499,6 +570,11 @@ export class Customizations extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * authorization for this media can also be used; any permission granted on
+   * the media allows reading its customizations.
    */
   async getRelatedMedia(
     request: operations.GetMediasMediaIdCustomizationsRelatedMediaRequest,
@@ -528,6 +604,10 @@ export class Customizations extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * authorization granting the `edit` permission on this media can also be used.
    */
   async updateRelatedMedia(
     request: operations.PutMediasMediaIdCustomizationsRelatedMediaRequest,
@@ -557,6 +637,11 @@ export class Customizations extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * authorization for this media can also be used; any permission granted on
+   * the media allows reading its customizations.
    */
   async getSharing(
     request: operations.GetMediasMediaIdCustomizationsSharingRequest,
@@ -586,6 +671,10 @@ export class Customizations extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * authorization granting the `edit` permission on this media can also be used.
    */
   async updateSharing(
     request: operations.PutMediasMediaIdCustomizationsSharingRequest,
@@ -614,6 +703,11 @@ export class Customizations extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * authorization for this media can also be used; any permission granted on
+   * the media allows reading its customizations.
    */
   async getLeadCapture(
     request: operations.GetMediasMediaIdCustomizationsLeadCaptureRequest,
@@ -642,6 +736,10 @@ export class Customizations extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * authorization granting the `edit` permission on this media can also be used.
    */
   async updateLeadCapture(
     request: operations.PutMediasMediaIdCustomizationsLeadCaptureRequest,
@@ -670,6 +768,11 @@ export class Customizations extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * authorization for this media can also be used; any permission granted on
+   * the media allows reading its customizations.
    */
   async getAccess(
     request: operations.GetMediasMediaIdCustomizationsAccessRequest,
@@ -698,6 +801,10 @@ export class Customizations extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * authorization granting the `edit` permission on this media can also be used.
    */
   async updateAccess(
     request: operations.PutMediasMediaIdCustomizationsAccessRequest,
