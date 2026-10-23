@@ -27,6 +27,11 @@ export class FolderSharings extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * authorization naming this folder (any permission) can also be used; it
+   * lists the folder's sharings.
    */
   async list(
     request: operations.GetFoldersFolderIdSharingsRequest,
@@ -54,6 +59,11 @@ export class FolderSharings extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * authorization granting the `share` permission on this folder can also
+   * be used.
    */
   async create(
     request: operations.PostFoldersFolderIdSharingsRequest,
@@ -81,6 +91,10 @@ export class FolderSharings extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * authorization naming this folder (any permission) can also be used.
    */
   async get(
     request: operations.GetFoldersFolderIdSharingsSharingIdRequest,
@@ -108,6 +122,11 @@ export class FolderSharings extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * authorization granting the `update` permission on this folder can also
+   * be used.
    */
   async update(
     request: operations.PutFoldersFolderIdSharingsSharingIdRequest,
@@ -135,6 +154,11 @@ export class FolderSharings extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * authorization granting the `update` permission on this folder can also
+   * be used.
    */
   async delete(
     request: operations.DeleteFoldersFolderIdSharingsSharingIdRequest,

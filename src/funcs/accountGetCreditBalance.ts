@@ -46,6 +46,10 @@ import { Result } from "../types/fp.js";
  * Tokens with the "Act with a team member's permissions" permission
  * (`all:delegate_to_contact_permissions` scope) can also be used. The account is always derived
  * from the authenticated token; this endpoint does not accept an account identifier.
+ *
+ * [Expiring access tokens](https://docs.wistia.com/reference/post_expiring-token)
+ * created with authorizations cannot be used: this endpoint responds with a
+ * 403, whatever the authorizations grant.
  */
 export function accountGetCreditBalance(
   client: WistiaCore,
@@ -54,6 +58,7 @@ export function accountGetCreditBalance(
   Result<
     operations.GetCreditBalanceResponse,
     | errors.GetCreditBalanceUnauthorizedError
+    | errors.GetCreditBalanceForbiddenError
     | errors.GetCreditBalanceNotFoundError
     | errors.GetCreditBalanceInternalServerError
     | WistiaError
@@ -80,6 +85,7 @@ async function $do(
     Result<
       operations.GetCreditBalanceResponse,
       | errors.GetCreditBalanceUnauthorizedError
+      | errors.GetCreditBalanceForbiddenError
       | errors.GetCreditBalanceNotFoundError
       | errors.GetCreditBalanceInternalServerError
       | WistiaError
@@ -152,6 +158,7 @@ async function $do(
   const [result] = await M.match<
     operations.GetCreditBalanceResponse,
     | errors.GetCreditBalanceUnauthorizedError
+    | errors.GetCreditBalanceForbiddenError
     | errors.GetCreditBalanceNotFoundError
     | errors.GetCreditBalanceInternalServerError
     | WistiaError
@@ -165,6 +172,7 @@ async function $do(
   >(
     M.json(200, operations.GetCreditBalanceResponse$inboundSchema),
     M.jsonErr(401, errors.GetCreditBalanceUnauthorizedError$inboundSchema),
+    M.jsonErr(403, errors.GetCreditBalanceForbiddenError$inboundSchema),
     M.jsonErr(404, errors.GetCreditBalanceNotFoundError$inboundSchema),
     M.jsonErr(500, errors.GetCreditBalanceInternalServerError$inboundSchema),
     M.fail("4XX"),
