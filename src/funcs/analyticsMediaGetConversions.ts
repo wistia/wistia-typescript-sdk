@@ -35,12 +35,10 @@ import { Result } from "../types/fp.js";
  *
  * The date range between `start_date` and `end_date` must not exceed 2 years.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read detailed stats
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function analyticsMediaGetConversions(
   client: WistiaCore,

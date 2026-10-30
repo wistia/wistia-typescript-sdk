@@ -18,6 +18,7 @@ generation:
     sharedErrorComponentsApr2025: true
     sharedNestedComponentsJan2026: false
     nameOverrideFeb2026: false
+    openSingleValueEnumsOct2026: false
   auth:
     oAuth2ClientCredentialsEnabled: true
     oAuth2PasswordEnabled: true
@@ -33,7 +34,7 @@ generation:
     generateNewTests: true
     skipResponseBodyAssertions: false
 typescript:
-  version: 2026.5.0
+  version: 2026.5.1
   acceptHeaderEnum: true
   additionalDependencies:
     dependencies: {}
@@ -47,6 +48,7 @@ typescript:
   additionalPackageJSON: {}
   additionalScripts: {}
   alwaysIncludeInboundAndOutbound: false
+  apiPromiseHelpers: false
   author: Speakeasy
   baseErrorName: WistiaError
   clientServerStatusCodesAsErrors: true
@@ -57,6 +59,7 @@ typescript:
   enableReactQuery: false
   enumFormat: union
   envVarPrefix: WISTIA
+  eventStreamClassName: EventStream
   exportZodModelNamespace: false
   fixEnumNameSanitization: false
   flatAdditionalProperties: false
@@ -84,11 +87,13 @@ typescript:
   modelPropertyCasing: camel
   moduleFormat: dual
   multipartArrayFormat: legacy
+  numericEnumMemberNames: legacy
   outputModelSuffix: output
   packageName: '@wistia/wistia-api-client'
   preApplyUnionDiscriminators: true
   preserveModelFieldNames: false
   privateIdentifierPrefix: '#'
+  requestExtras: false
   responseFormat: flat
   sseFlatResponse: false
   templateVersion: v2
