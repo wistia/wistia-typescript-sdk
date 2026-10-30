@@ -10,5 +10,8 @@ let value: PutMediasMediaIdCustomizationsThumbnailUnalteredStillImageAsset = {};
 
 ## Fields
 
-| Field       | Type        | Required    | Description |
-| ----------- | ----------- | ----------- | ----------- |
+| Field              | Type               | Required           | Description        |
+| ------------------ | ------------------ | ------------------ | ------------------ |
+| `url`              | *string*           | :heavy_minus_sign: | N/A                |
+| `width`            | *string*           | :heavy_minus_sign: | N/A                |
+| `height`           | *string*           | :heavy_minus_sign: | N/A                |

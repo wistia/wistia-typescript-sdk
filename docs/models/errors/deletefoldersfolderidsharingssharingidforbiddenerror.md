@@ -1,11 +1,11 @@
-# GetShareLinksIdentifierForbiddenError
+# DeleteFoldersFolderIdSharingsSharingIdForbiddenError
 
 Forbidden, token is valid but account does not have access to feature
 
 ## Example Usage
 
 ```typescript
-import { GetShareLinksIdentifierForbiddenError } from "@wistia/wistia-api-client/models/errors";
+import { DeleteFoldersFolderIdSharingsSharingIdForbiddenError } from "@wistia/wistia-api-client/models/errors";
 
 // No examples available for this model
 ```
