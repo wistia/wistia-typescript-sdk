@@ -42,12 +42,10 @@ import { Result } from "../types/fp.js";
  *
  * Note: imports from certain domains (e.g. vimeo.com, wistia.com) are not permitted.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read, update & delete anything
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function mediaImportUrl(
   client: WistiaCore,
