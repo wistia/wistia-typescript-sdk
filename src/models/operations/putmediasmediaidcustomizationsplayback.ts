@@ -262,7 +262,9 @@ export type PutMediasMediaIdCustomizationsPlaybackVideoFoamResponseUnion =
   | string
   | PutMediasMediaIdCustomizationsPlaybackVideoFoamResponse;
 
-export type PutMediasMediaIdCustomizationsPlaybackClickForSound = {};
+export type PutMediasMediaIdCustomizationsPlaybackClickForSound = {
+  showText?: string | undefined;
+};
 
 export type PutMediasMediaIdCustomizationsPlaybackClickForSoundUnion =
   | string
@@ -599,7 +601,9 @@ export const PutMediasMediaIdCustomizationsPlaybackClickForSound$inboundSchema:
     PutMediasMediaIdCustomizationsPlaybackClickForSound,
     z.ZodTypeDef,
     unknown
-  > = z.object({});
+  > = z.object({
+    showText: z.string().optional(),
+  });
 
 export function putMediasMediaIdCustomizationsPlaybackClickForSoundFromJSON(
   jsonString: string,

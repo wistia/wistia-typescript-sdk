@@ -31,6 +31,11 @@ export class ShareLinks extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * authorization naming the share link's media (any permission) can also be
+   * used. The share link of a media the token does not name is not found.
    */
   async resolve(
     request: operations.GetShareLinksIdentifierRequest,
@@ -60,6 +65,10 @@ export class ShareLinks extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * authorization granting the `share` permission on this media can also be used.
    */
   async get(
     request: operations.GetMediasMediaIdShareLinkRequest,
@@ -88,6 +97,10 @@ export class ShareLinks extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * authorization granting the `update` permission on this media can also be used.
    */
   async update(
     request: operations.PutMediasMediaIdShareLinkRequest,
@@ -117,6 +130,10 @@ export class ShareLinks extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * authorization granting the `update` permission on this media can also be used.
    */
   async delete(
     request: operations.DeleteMediasMediaIdShareLinkRequest,

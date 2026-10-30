@@ -26,6 +26,10 @@ Tokens with the "Act with a team member's permissions" permission
 made with such a token are authorized using the permissions of the
 contact assigned to the token.
 
+[Expiring access tokens](https://docs.wistia.com/reference/post_expiring-token)
+created with authorizations cannot be used: this endpoint responds with a
+403, whatever the authorizations grant.
+
 
 ### Example Usage
 
@@ -90,6 +94,7 @@ run();
 | Error Type                                  | Status Code                                 | Content Type                                |
 | ------------------------------------------- | ------------------------------------------- | ------------------------------------------- |
 | errors.GetAccountDetailsUnauthorizedError   | 401                                         | application/json                            |
+| errors.GetAccountDetailsForbiddenError      | 403                                         | application/json                            |
 | errors.GetAccountDetailsInternalServerError | 500                                         | application/json                            |
 | errors.WistiaDefaultError                   | 4XX, 5XX                                    | \*/\*                                       |
 
@@ -110,6 +115,10 @@ Tokens with the "Act with a team member's permissions" permission
 (`all:delegate_to_contact_permissions` scope) can also be used. Requests
 made with such a token are authorized using the permissions of the
 contact assigned to the token.
+
+[Expiring access tokens](https://docs.wistia.com/reference/post_expiring-token)
+created with authorizations cannot be used: this endpoint responds with a
+403, whatever the authorizations grant.
 
 
 ### Example Usage
@@ -175,6 +184,7 @@ run();
 | Error Type                                | Status Code                               | Content Type                              |
 | ----------------------------------------- | ----------------------------------------- | ----------------------------------------- |
 | errors.GetAccountUsageUnauthorizedError   | 401                                       | application/json                          |
+| errors.GetAccountUsageForbiddenError      | 403                                       | application/json                          |
 | errors.GetAccountUsageInternalServerError | 500                                       | application/json                          |
 | errors.WistiaDefaultError                 | 4XX, 5XX                                  | \*/\*                                     |
 
@@ -198,6 +208,10 @@ grants may arrive sooner.
 Tokens with the "Act with a team member's permissions" permission
 (`all:delegate_to_contact_permissions` scope) can also be used. The account is always derived
 from the authenticated token; this endpoint does not accept an account identifier.
+
+[Expiring access tokens](https://docs.wistia.com/reference/post_expiring-token)
+created with authorizations cannot be used: this endpoint responds with a
+403, whatever the authorizations grant.
 
 
 ### Example Usage
@@ -263,6 +277,7 @@ run();
 | Error Type                                 | Status Code                                | Content Type                               |
 | ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
 | errors.GetCreditBalanceUnauthorizedError   | 401                                        | application/json                           |
+| errors.GetCreditBalanceForbiddenError      | 403                                        | application/json                           |
 | errors.GetCreditBalanceNotFoundError       | 404                                        | application/json                           |
 | errors.GetCreditBalanceInternalServerError | 500                                        | application/json                           |
 | errors.WistiaDefaultError                  | 4XX, 5XX                                   | \*/\*                                      |
@@ -289,6 +304,11 @@ Tokens with the "Act with a team member's permissions" permission
 (`all:delegate_to_contact_permissions` scope) can also be used. Requests
 made with such a token are authorized using the permissions of the
 contact assigned to the token.
+
+An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+created with the `all:delegate_to_contact_permissions` scope can also be
+used, whatever its authorizations name; the preload belongs to the token's
+own account.
 
 
 ### Example Usage
@@ -367,6 +387,11 @@ for `selected_logo_hashed_id` clears the logo.
 Requires the OAuth contact to be an owner or manager of the account
 (or a Wistia admin) — mirrors the auth check on the underlying
 `updateWtwBrandKitAccountSettings` GraphQL mutation.
+
+An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+created with the `all:delegate_to_contact_permissions` scope and an
+`account` authorization granting the `manage-brand-preload` permission can
+also be used.
 
 Deliberately narrower than the mutation: this endpoint does not
 create/update BrandKits or set body font family. Glass's onboarding
@@ -477,6 +502,11 @@ Tokens with the "Act with a team member's permissions" permission
 made with such a token are authorized using the permissions of the
 contact assigned to the token.
 
+An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+created with the `all:delegate_to_contact_permissions` scope can also be
+used, whatever its authorizations name; the colors belong to the token's
+own account.
+
 
 ### Example Usage
 
@@ -548,6 +578,10 @@ run();
 
 Retrieves a summary of the token used to make the API request. This endpoint can primarily be used to
 debug permission issues with the API.
+
+An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+can also be used. The response then describes the expiring token itself,
+its scopes and expiry, not the API token or contact that created it.
 
 
 ### Example Usage

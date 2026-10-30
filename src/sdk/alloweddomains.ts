@@ -26,6 +26,11 @@ export class AllowedDomains extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * `account` authorization granting the `manage-allowed-domains` permission can
+   * also be used. Such a token without that permission receives an empty list.
    */
   async list(
     request?: operations.GetAllowedDomainsRequest | undefined,
@@ -53,6 +58,11 @@ export class AllowedDomains extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * `account` authorization granting the `manage-allowed-domains` permission can
+   * also be used.
    */
   async create(
     request: operations.PostAllowedDomainsRequest,
@@ -80,6 +90,11 @@ export class AllowedDomains extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * `account` authorization granting the `manage-allowed-domains` permission can
+   * also be used.
    */
   async get(
     request: operations.GetAllowedDomainsDomainRequest,
@@ -107,6 +122,11 @@ export class AllowedDomains extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * `account` authorization granting the `manage-allowed-domains` permission can
+   * also be used.
    */
   async delete(
     request: operations.DeleteAllowedDomainsDomainRequest,

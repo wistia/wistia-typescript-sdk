@@ -44,6 +44,11 @@ import { Result } from "../types/fp.js";
  *
  * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
  * created with the `all:delegate_to_contact_permissions` scope and an
+ * authorization granting the `update` permission on this folder can also
+ * be used.
+ *
+ * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+ * created with the `all:delegate_to_contact_permissions` scope and an
  * authorization granting the `update` permission on the folder can also be
  * used.
  */
