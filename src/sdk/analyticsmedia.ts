@@ -24,12 +24,10 @@ export class AnalyticsMedia extends ClientSDK {
    *
    * The date range between `start_date` and `end_date` must not exceed 2 years.
    *
-   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read detailed stats
    * ```
-   * <!--- /HIDE-MCP -->
    */
   async get(
     request: operations.GetAnalyticsMediasMediaIdRequest,
@@ -51,12 +49,10 @@ export class AnalyticsMedia extends ClientSDK {
    *
    * The date range between `start_date` and `end_date` must not exceed 2 years.
    *
-   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read detailed stats
    * ```
-   * <!--- /HIDE-MCP -->
    */
   async getTimeseries(
     request: operations.GetAnalyticsMediasMediaIdTimeseriesRequest,
@@ -78,12 +74,10 @@ export class AnalyticsMedia extends ClientSDK {
    *
    * The date range between `start_date` and `end_date` must not exceed 2 years.
    *
-   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read detailed stats
    * ```
-   * <!--- /HIDE-MCP -->
    */
   async getEmbedLocations(
     request: operations.GetAnalyticsMediasMediaIdEmbedLocationsRequest,
@@ -109,12 +103,10 @@ export class AnalyticsMedia extends ClientSDK {
    *
    * The date range between `start_date` and `end_date` must not exceed 2 years.
    *
-   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read detailed stats
    * ```
-   * <!--- /HIDE-MCP -->
    */
   async getEmbedLocationsTimeseries(
     request:
@@ -139,12 +131,10 @@ export class AnalyticsMedia extends ClientSDK {
    *
    * The date range between `start_date` and `end_date` must not exceed 2 years.
    *
-   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read detailed stats
    * ```
-   * <!--- /HIDE-MCP -->
    */
   async getTraffic(
     request: operations.GetAnalyticsMediasMediaIdTrafficRequest,
@@ -166,12 +156,10 @@ export class AnalyticsMedia extends ClientSDK {
    *
    * The date range between `start_date` and `end_date` must not exceed 2 years.
    *
-   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read detailed stats
    * ```
-   * <!--- /HIDE-MCP -->
    */
   async getConversions(
     request: operations.GetAnalyticsMediasMediaIdConversionsRequest,
@@ -193,12 +181,10 @@ export class AnalyticsMedia extends ClientSDK {
    *
    * The date range between `start_date` and `end_date` must not exceed 2 years.
    *
-   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read detailed stats
    * ```
-   * <!--- /HIDE-MCP -->
    */
   async getLanguages(
     request: operations.GetAnalyticsMediasMediaIdLanguagesRequest,
