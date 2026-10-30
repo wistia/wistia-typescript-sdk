@@ -32,12 +32,10 @@ import { Result } from "../types/fp.js";
  * @remarks
  * This endpoint provides detailed information about a specific visitor.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read detailed stats
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function statsVisitorsGet(
   client: WistiaCore,

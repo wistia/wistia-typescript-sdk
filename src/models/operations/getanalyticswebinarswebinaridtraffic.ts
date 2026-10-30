@@ -112,15 +112,15 @@ export type GetAnalyticsWebinarsWebinarIdTrafficResponse = {
   /**
    * The number of registrations from this traffic source.
    */
-  registrations?: number | undefined;
+  registrations?: number | null | undefined;
   /**
    * The number of attendees from this traffic source.
    */
-  attendees?: number | undefined;
+  attendees?: number | null | undefined;
   /**
    * The number of registration page impressions from this traffic source.
    */
-  impressions?: number | undefined;
+  impressions?: number | null | undefined;
 };
 
 /** @internal */
@@ -197,9 +197,9 @@ export const GetAnalyticsWebinarsWebinarIdTrafficResponse$inboundSchema:
     utm_source: z.nullable(z.string()).optional(),
     utm_medium: z.nullable(z.string()).optional(),
     referrer_domain: z.nullable(z.string()).optional(),
-    registrations: z.number().int().optional(),
-    attendees: z.number().int().optional(),
-    impressions: z.number().int().optional(),
+    registrations: z.nullable(z.number().int()).optional(),
+    attendees: z.nullable(z.number().int()).optional(),
+    impressions: z.nullable(z.number().int()).optional(),
   }).transform((v) => {
     return remap$(v, {
       "utm_campaign": "utmCampaign",
