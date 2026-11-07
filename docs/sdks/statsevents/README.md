@@ -12,12 +12,12 @@
 Retrieve a list of events. Please note that due to our data retention policy,
 only events from the last 2 years are available.
 
-<!--- HIDE-MCP -->
+
 ## Requires api token with one of the following permissions
 ```
 Read detailed stats
 ```
-<!--- /HIDE-MCP -->
+
 
 
 ### Example Usage
@@ -94,12 +94,12 @@ run();
 Retrieve information for a single event. Please note that due to our data retention policy,
 only events from the last 2 years are available.
 
-<!--- HIDE-MCP -->
+
 ## Requires api token with one of the following permissions
 ```
 Read detailed stats
 ```
-<!--- /HIDE-MCP -->
+
 
 
 ### Example Usage

@@ -34,12 +34,10 @@ import { Result } from "../types/fp.js";
  * Retrieve a list of events. Please note that due to our data retention policy,
  * only events from the last 2 years are available.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read detailed stats
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function statsEventsList(
   client: WistiaCore,

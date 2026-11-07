@@ -30,12 +30,10 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Retrieve account-wide video stats. Get statistics like the number of video loads, plays, and hours watched for the entire account.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read detailed stats
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function statsAccountGet(
   client: WistiaCore,
