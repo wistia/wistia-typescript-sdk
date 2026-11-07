@@ -14,12 +14,10 @@ export class StatsProjects extends ClientSDK {
    * @remarks
    * Retrieve stats for a project. This endpoint provides statistics for a specific project identified by its project-id.
    *
-   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read detailed stats
    * ```
-   * <!--- /HIDE-MCP -->
    */
   async get(
     request: operations.GetStatsProjectsProjectIdRequest,

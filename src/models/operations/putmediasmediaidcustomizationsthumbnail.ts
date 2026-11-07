@@ -123,9 +123,31 @@ export type PutMediasMediaIdCustomizationsThumbnailCode = ClosedEnum<
   typeof PutMediasMediaIdCustomizationsThumbnailCode
 >;
 
+export type PutMediasMediaIdCustomizationsThumbnailUnalteredStillImageAsset = {
+  url?: string | undefined;
+  width?: string | undefined;
+  height?: string | undefined;
+};
+
+export type PutMediasMediaIdCustomizationsThumbnailUnalteredStillImageAssetUnion =
+  | string
+  | PutMediasMediaIdCustomizationsThumbnailUnalteredStillImageAsset;
+
+export type PutMediasMediaIdCustomizationsThumbnailClickForSound = {
+  on?: string | undefined;
+  showText?: string | undefined;
+};
+
+export type PutMediasMediaIdCustomizationsThumbnailClickForSoundUnion =
+  | string
+  | PutMediasMediaIdCustomizationsThumbnailClickForSound;
+
 export type PutMediasMediaIdCustomizationsThumbnailVideoThumbnailResponse = {
   clickToPlayButton?: string | undefined;
-  clickForSound?: string | undefined;
+  clickForSound?:
+    | string
+    | PutMediasMediaIdCustomizationsThumbnailClickForSound
+    | undefined;
   hashedId?: string | undefined;
   trimStart?: string | undefined;
   trimEnd?: string | undefined;
@@ -148,7 +170,7 @@ export type PutMediasMediaIdCustomizationsThumbnailPluginResponse = {
 };
 
 /**
- * Explicitly-set thumbnail customizations for the video. Values are returned
+ * Explicitly-set thumbnail customizations for the video. Leaf values are returned
  *
  * @remarks
  * as strings (e.g. "true"); fields that have never been set are omitted.
@@ -157,7 +179,10 @@ export type PutMediasMediaIdCustomizationsThumbnailResponse = {
   stillUrl?: string | undefined;
   thumbnailAltText?: string | undefined;
   fitStrategy?: string | undefined;
-  unalteredStillImageAsset?: string | undefined;
+  unalteredStillImageAsset?:
+    | string
+    | PutMediasMediaIdCustomizationsThumbnailUnalteredStillImageAsset
+    | undefined;
   plugin?: PutMediasMediaIdCustomizationsThumbnailPluginResponse | undefined;
 };
 
@@ -341,6 +366,116 @@ export const PutMediasMediaIdCustomizationsThumbnailCode$inboundSchema:
     .nativeEnum(PutMediasMediaIdCustomizationsThumbnailCode);
 
 /** @internal */
+export const PutMediasMediaIdCustomizationsThumbnailUnalteredStillImageAsset$inboundSchema:
+  z.ZodType<
+    PutMediasMediaIdCustomizationsThumbnailUnalteredStillImageAsset,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    url: z.string().optional(),
+    width: z.string().optional(),
+    height: z.string().optional(),
+  });
+
+export function putMediasMediaIdCustomizationsThumbnailUnalteredStillImageAssetFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  PutMediasMediaIdCustomizationsThumbnailUnalteredStillImageAsset,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      PutMediasMediaIdCustomizationsThumbnailUnalteredStillImageAsset$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'PutMediasMediaIdCustomizationsThumbnailUnalteredStillImageAsset' from JSON`,
+  );
+}
+
+/** @internal */
+export const PutMediasMediaIdCustomizationsThumbnailUnalteredStillImageAssetUnion$inboundSchema:
+  z.ZodType<
+    PutMediasMediaIdCustomizationsThumbnailUnalteredStillImageAssetUnion,
+    z.ZodTypeDef,
+    unknown
+  > = z.union([
+    z.string(),
+    z.lazy(() =>
+      PutMediasMediaIdCustomizationsThumbnailUnalteredStillImageAsset$inboundSchema
+    ),
+  ]);
+
+export function putMediasMediaIdCustomizationsThumbnailUnalteredStillImageAssetUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  PutMediasMediaIdCustomizationsThumbnailUnalteredStillImageAssetUnion,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      PutMediasMediaIdCustomizationsThumbnailUnalteredStillImageAssetUnion$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'PutMediasMediaIdCustomizationsThumbnailUnalteredStillImageAssetUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const PutMediasMediaIdCustomizationsThumbnailClickForSound$inboundSchema:
+  z.ZodType<
+    PutMediasMediaIdCustomizationsThumbnailClickForSound,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    on: z.string().optional(),
+    showText: z.string().optional(),
+  });
+
+export function putMediasMediaIdCustomizationsThumbnailClickForSoundFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  PutMediasMediaIdCustomizationsThumbnailClickForSound,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      PutMediasMediaIdCustomizationsThumbnailClickForSound$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'PutMediasMediaIdCustomizationsThumbnailClickForSound' from JSON`,
+  );
+}
+
+/** @internal */
+export const PutMediasMediaIdCustomizationsThumbnailClickForSoundUnion$inboundSchema:
+  z.ZodType<
+    PutMediasMediaIdCustomizationsThumbnailClickForSoundUnion,
+    z.ZodTypeDef,
+    unknown
+  > = z.union([
+    z.string(),
+    z.lazy(() =>
+      PutMediasMediaIdCustomizationsThumbnailClickForSound$inboundSchema
+    ),
+  ]);
+
+export function putMediasMediaIdCustomizationsThumbnailClickForSoundUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  PutMediasMediaIdCustomizationsThumbnailClickForSoundUnion,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      PutMediasMediaIdCustomizationsThumbnailClickForSoundUnion$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'PutMediasMediaIdCustomizationsThumbnailClickForSoundUnion' from JSON`,
+  );
+}
+
+/** @internal */
 export const PutMediasMediaIdCustomizationsThumbnailVideoThumbnailResponse$inboundSchema:
   z.ZodType<
     PutMediasMediaIdCustomizationsThumbnailVideoThumbnailResponse,
@@ -348,7 +483,12 @@ export const PutMediasMediaIdCustomizationsThumbnailVideoThumbnailResponse$inbou
     unknown
   > = z.object({
     clickToPlayButton: z.string().optional(),
-    clickForSound: z.string().optional(),
+    clickForSound: z.union([
+      z.string(),
+      z.lazy(() =>
+        PutMediasMediaIdCustomizationsThumbnailClickForSound$inboundSchema
+      ),
+    ]).optional(),
     hashedId: z.string().optional(),
     trimStart: z.string().optional(),
     trimEnd: z.string().optional(),
@@ -441,7 +581,12 @@ export const PutMediasMediaIdCustomizationsThumbnailResponse$inboundSchema:
     stillUrl: z.string().optional(),
     thumbnailAltText: z.string().optional(),
     fitStrategy: z.string().optional(),
-    unalteredStillImageAsset: z.string().optional(),
+    unalteredStillImageAsset: z.union([
+      z.string(),
+      z.lazy(() =>
+        PutMediasMediaIdCustomizationsThumbnailUnalteredStillImageAsset$inboundSchema
+      ),
+    ]).optional(),
     plugin: z.lazy(() =>
       PutMediasMediaIdCustomizationsThumbnailPluginResponse$inboundSchema
     ).optional(),
