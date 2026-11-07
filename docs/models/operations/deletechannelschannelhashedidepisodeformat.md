@@ -1,7 +1,5 @@
 # DeleteChannelsChannelHashedIdEpisodeFormat
 
-The format for episodes for the podcast channel.
-
 ## Example Usage
 
 ```typescript
