@@ -79,6 +79,37 @@ export class PostMediasMediaHashedIdTrimsUnprocessableEntityError
 }
 
 /**
+ * Resource not found
+ */
+export type PostMediasMediaHashedIdTrimsNotFoundErrorData = {
+  error?: string | undefined;
+};
+
+/**
+ * Resource not found
+ */
+export class PostMediasMediaHashedIdTrimsNotFoundError extends WistiaError {
+  error?: string | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: PostMediasMediaHashedIdTrimsNotFoundErrorData;
+
+  constructor(
+    err: PostMediasMediaHashedIdTrimsNotFoundErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+
+    this.name = "PostMediasMediaHashedIdTrimsNotFoundError";
+  }
+}
+
+/**
  * Forbidden, token is valid but account does not have access to feature
  */
 export type PostMediasMediaHashedIdTrimsForbiddenErrorData = {
@@ -188,6 +219,25 @@ export const PostMediasMediaHashedIdTrimsUnprocessableEntityError$inboundSchema:
         body: v.body$,
       });
     });
+
+/** @internal */
+export const PostMediasMediaHashedIdTrimsNotFoundError$inboundSchema: z.ZodType<
+  PostMediasMediaHashedIdTrimsNotFoundError,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  error: z.string().optional(),
+  request$: z.instanceof(Request),
+  response$: z.instanceof(Response),
+  body$: z.string(),
+})
+  .transform((v) => {
+    return new PostMediasMediaHashedIdTrimsNotFoundError(v, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
+  });
 
 /** @internal */
 export const PostMediasMediaHashedIdTrimsForbiddenError$inboundSchema:

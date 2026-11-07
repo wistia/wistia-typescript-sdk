@@ -69,6 +69,37 @@ export class GetCreditBalanceNotFoundError extends WistiaError {
 }
 
 /**
+ * Forbidden, token is valid but account does not have access to feature
+ */
+export type GetCreditBalanceForbiddenErrorData = {
+  error?: string | undefined;
+};
+
+/**
+ * Forbidden, token is valid but account does not have access to feature
+ */
+export class GetCreditBalanceForbiddenError extends WistiaError {
+  error?: string | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: GetCreditBalanceForbiddenErrorData;
+
+  constructor(
+    err: GetCreditBalanceForbiddenErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+
+    this.name = "GetCreditBalanceForbiddenError";
+  }
+}
+
+/**
  * Unauthorized, invalid or missing token
  */
 export type GetCreditBalanceUnauthorizedErrorData = {
@@ -140,6 +171,25 @@ export const GetCreditBalanceNotFoundError$inboundSchema: z.ZodType<
 })
   .transform((v) => {
     return new GetCreditBalanceNotFoundError(v, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
+  });
+
+/** @internal */
+export const GetCreditBalanceForbiddenError$inboundSchema: z.ZodType<
+  GetCreditBalanceForbiddenError,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  error: z.string().optional(),
+  request$: z.instanceof(Request),
+  response$: z.instanceof(Response),
+  body$: z.string(),
+})
+  .transform((v) => {
+    return new GetCreditBalanceForbiddenError(v, {
       request: v.request$,
       response: v.response$,
       body: v.body$,

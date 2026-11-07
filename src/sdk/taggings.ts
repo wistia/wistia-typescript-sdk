@@ -25,6 +25,9 @@ export class Taggings extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * Expiring access tokens created with authorizations cannot be used; such
+   * requests fail with a 403.
    */
   async bulkCreate(
     request: operations.PostTaggingsBulkCreateRequest,

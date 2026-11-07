@@ -25,6 +25,11 @@ Tokens with the "Act with a team member's permissions" permission
 made with such a token are authorized using the permissions of the
 contact assigned to the token.
 
+An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+created with the `all:delegate_to_contact_permissions` scope and an
+authorization naming a channel (any permission) can also be used; it
+lists the channels the token names.
+
 
 ### Example Usage
 
@@ -97,6 +102,11 @@ run();
 ## create
 
 Creates a channel.
+
+An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+created with the `all:delegate_to_contact_permissions` scope and an
+authorization granting the `create-channels` permission on the account
+can also be used.
 
 
 ### Example Usage
@@ -181,6 +191,10 @@ Tokens with the "Act with a team member's permissions" permission
 made with such a token are authorized using the permissions of the
 contact assigned to the token.
 
+An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+created with the `all:delegate_to_contact_permissions` scope and an
+authorization naming this channel (any permission) can also be used.
+
 
 ### Example Usage
 
@@ -258,6 +272,12 @@ run();
 
 Updates a channel.
 
+An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+created with the `all:delegate_to_contact_permissions` scope and an
+authorization granting the `update` permission on this channel can also
+be used. The `update` permission also allows managing the channel's
+episodes and collaborators.
+
 
 ### Example Usage
 
@@ -334,6 +354,11 @@ run();
 ## delete
 
 Deletes a channel.
+
+An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+created with the `all:delegate_to_contact_permissions` scope and an
+authorization granting the `destroy` permission on this channel can also
+be used.
 
 
 ### Example Usage

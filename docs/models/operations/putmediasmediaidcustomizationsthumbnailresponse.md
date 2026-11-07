@@ -1,6 +1,6 @@
 # PutMediasMediaIdCustomizationsThumbnailResponse
 
-Explicitly-set thumbnail customizations for the video. Values are returned
+Explicitly-set thumbnail customizations for the video. Leaf values are returned
 as strings (e.g. "true"); fields that have never been set are omitted.
 
 

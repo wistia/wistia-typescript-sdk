@@ -24,6 +24,11 @@ Tokens with the "Act with a team member's permissions" permission
 made with such a token are authorized using the permissions of the
 contact assigned to the token.
 
+An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+created with the `all:delegate_to_contact_permissions` scope and an
+authorization naming this folder (any permission) can also be used; it
+lists the folder's sharings.
+
 
 ### Example Usage
 
@@ -110,6 +115,11 @@ Tokens with the "Act with a team member's permissions" permission
 (`all:delegate_to_contact_permissions` scope) can also be used. Requests
 made with such a token are authorized using the permissions of the
 contact assigned to the token.
+
+An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+created with the `all:delegate_to_contact_permissions` scope and an
+authorization granting the `share` permission on this folder can also
+be used.
 
 
 ### Example Usage
@@ -216,6 +226,10 @@ Tokens with the "Act with a team member's permissions" permission
 made with such a token are authorized using the permissions of the
 contact assigned to the token.
 
+An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+created with the `all:delegate_to_contact_permissions` scope and an
+authorization naming this folder (any permission) can also be used.
+
 
 ### Example Usage
 
@@ -305,6 +319,11 @@ Tokens with the "Act with a team member's permissions" permission
 made with such a token are authorized using the permissions of the
 contact assigned to the token.
 
+An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+created with the `all:delegate_to_contact_permissions` scope and an
+authorization granting the `update` permission on this folder can also
+be used.
+
 
 ### Example Usage
 
@@ -378,6 +397,7 @@ run();
 | Error Type                                                    | Status Code                                                   | Content Type                                                  |
 | ------------------------------------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------- |
 | errors.PutFoldersFolderIdSharingsSharingIdUnauthorizedError   | 401                                                           | application/json                                              |
+| errors.PutFoldersFolderIdSharingsSharingIdForbiddenError      | 403                                                           | application/json                                              |
 | errors.PutFoldersFolderIdSharingsSharingIdNotFoundError       | 404                                                           | application/json                                              |
 | errors.PutFoldersFolderIdSharingsSharingIdInternalServerError | 500                                                           | application/json                                              |
 | errors.WistiaDefaultError                                     | 4XX, 5XX                                                      | \*/\*                                                         |
@@ -395,6 +415,11 @@ Tokens with the "Act with a team member's permissions" permission
 (`all:delegate_to_contact_permissions` scope) can also be used. Requests
 made with such a token are authorized using the permissions of the
 contact assigned to the token.
+
+An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+created with the `all:delegate_to_contact_permissions` scope and an
+authorization granting the `update` permission on this folder can also
+be used.
 
 
 ### Example Usage
@@ -467,6 +492,7 @@ run();
 | Error Type                                                       | Status Code                                                      | Content Type                                                     |
 | ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- |
 | errors.DeleteFoldersFolderIdSharingsSharingIdUnauthorizedError   | 401                                                              | application/json                                                 |
+| errors.DeleteFoldersFolderIdSharingsSharingIdForbiddenError      | 403                                                              | application/json                                                 |
 | errors.DeleteFoldersFolderIdSharingsSharingIdNotFoundError       | 404                                                              | application/json                                                 |
 | errors.DeleteFoldersFolderIdSharingsSharingIdInternalServerError | 500                                                              | application/json                                                 |
 | errors.WistiaDefaultError                                        | 4XX, 5XX                                                         | \*/\*                                                            |

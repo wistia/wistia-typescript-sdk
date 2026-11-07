@@ -48,6 +48,11 @@ import { Result } from "../types/fp.js";
  * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
  * made with such a token are authorized using the permissions of the
  * contact assigned to the token.
+ *
+ * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+ * created with the `all:delegate_to_contact_permissions` scope and an
+ * authorization naming a review bundle (any permission) can also be used; it
+ * lists the review bundles the token names.
  */
 export function reviewBundlesList(
   client: WistiaCore,
@@ -58,7 +63,6 @@ export function reviewBundlesList(
     Array<operations.GetReviewBundlesResponse>,
     | errors.GetReviewBundlesBadRequestError
     | errors.GetReviewBundlesUnauthorizedError
-    | errors.GetReviewBundlesForbiddenError
     | errors.GetReviewBundlesInternalServerError
     | WistiaError
     | ResponseValidationError
@@ -87,7 +91,6 @@ async function $do(
       Array<operations.GetReviewBundlesResponse>,
       | errors.GetReviewBundlesBadRequestError
       | errors.GetReviewBundlesUnauthorizedError
-      | errors.GetReviewBundlesForbiddenError
       | errors.GetReviewBundlesInternalServerError
       | WistiaError
       | ResponseValidationError
@@ -190,7 +193,6 @@ async function $do(
     Array<operations.GetReviewBundlesResponse>,
     | errors.GetReviewBundlesBadRequestError
     | errors.GetReviewBundlesUnauthorizedError
-    | errors.GetReviewBundlesForbiddenError
     | errors.GetReviewBundlesInternalServerError
     | WistiaError
     | ResponseValidationError
@@ -204,7 +206,6 @@ async function $do(
     M.json(200, z.array(operations.GetReviewBundlesResponse$inboundSchema)),
     M.jsonErr(400, errors.GetReviewBundlesBadRequestError$inboundSchema),
     M.jsonErr(401, errors.GetReviewBundlesUnauthorizedError$inboundSchema),
-    M.jsonErr(403, errors.GetReviewBundlesForbiddenError$inboundSchema),
     M.jsonErr(500, errors.GetReviewBundlesInternalServerError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),

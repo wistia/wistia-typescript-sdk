@@ -31,6 +31,11 @@ import { Result } from "../types/fp.js";
  *
  * @remarks
  * Deletes a channel.
+ *
+ * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+ * created with the `all:delegate_to_contact_permissions` scope and an
+ * authorization granting the `destroy` permission on this channel can also
+ * be used.
  */
 export function channelsDelete(
   client: WistiaCore,
