@@ -41,6 +41,11 @@ import { Result } from "../types/fp.js";
  * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
  * made with such a token are authorized using the permissions of the
  * contact assigned to the token.
+ *
+ * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+ * created with the `all:delegate_to_contact_permissions` scope and an
+ * authorization granting the `update` permission on this folder can also
+ * be used.
  */
 export function folderSharingsUpdate(
   client: WistiaCore,
@@ -50,6 +55,7 @@ export function folderSharingsUpdate(
   Result<
     operations.PutFoldersFolderIdSharingsSharingIdResponse,
     | errors.PutFoldersFolderIdSharingsSharingIdUnauthorizedError
+    | errors.PutFoldersFolderIdSharingsSharingIdForbiddenError
     | errors.PutFoldersFolderIdSharingsSharingIdNotFoundError
     | errors.PutFoldersFolderIdSharingsSharingIdInternalServerError
     | WistiaError
@@ -78,6 +84,7 @@ async function $do(
     Result<
       operations.PutFoldersFolderIdSharingsSharingIdResponse,
       | errors.PutFoldersFolderIdSharingsSharingIdUnauthorizedError
+      | errors.PutFoldersFolderIdSharingsSharingIdForbiddenError
       | errors.PutFoldersFolderIdSharingsSharingIdNotFoundError
       | errors.PutFoldersFolderIdSharingsSharingIdInternalServerError
       | WistiaError
@@ -177,6 +184,7 @@ async function $do(
   const [result] = await M.match<
     operations.PutFoldersFolderIdSharingsSharingIdResponse,
     | errors.PutFoldersFolderIdSharingsSharingIdUnauthorizedError
+    | errors.PutFoldersFolderIdSharingsSharingIdForbiddenError
     | errors.PutFoldersFolderIdSharingsSharingIdNotFoundError
     | errors.PutFoldersFolderIdSharingsSharingIdInternalServerError
     | WistiaError
@@ -195,6 +203,10 @@ async function $do(
     M.jsonErr(
       401,
       errors.PutFoldersFolderIdSharingsSharingIdUnauthorizedError$inboundSchema,
+    ),
+    M.jsonErr(
+      403,
+      errors.PutFoldersFolderIdSharingsSharingIdForbiddenError$inboundSchema,
     ),
     M.jsonErr(
       404,

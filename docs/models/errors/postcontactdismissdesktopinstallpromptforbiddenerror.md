@@ -1,11 +1,11 @@
-# GetReviewBundlesForbiddenError
+# PostContactDismissDesktopInstallPromptForbiddenError
 
 Forbidden, token is valid but account does not have access to feature
 
 ## Example Usage
 
 ```typescript
-import { GetReviewBundlesForbiddenError } from "@wistia/wistia-api-client/models/errors";
+import { PostContactDismissDesktopInstallPromptForbiddenError } from "@wistia/wistia-api-client/models/errors";
 
 // No examples available for this model
 ```

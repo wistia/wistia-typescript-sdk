@@ -20,6 +20,11 @@ Tokens with the "Act with a team member's permissions" permission
 made with such a token are authorized using the permissions of the
 contact assigned to the token.
 
+An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+created with the `all:delegate_to_contact_permissions` scope and an
+authorization naming a channel (any permission) can also be used; it
+lists the episodes of the channels the token names.
+
 
 ### Example Usage
 
