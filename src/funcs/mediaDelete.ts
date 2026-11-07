@@ -30,7 +30,9 @@ import { Result } from "../types/fp.js";
  * Delete Media
  *
  * @remarks
- * Deletes a media.
+ * Deletes a media. Deleted media moves to the account's Recently Deleted area,
+ * where it can be restored until the account's restore window ends, after which
+ * it is permanently purged.
  *
  * ## Requires api token with one of the following permissions
  * ```

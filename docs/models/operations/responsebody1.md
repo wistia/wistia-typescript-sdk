@@ -5,7 +5,9 @@
 ```typescript
 import { ResponseBody1 } from "@wistia/wistia-api-client/models/operations";
 
-let value: ResponseBody1 = {};
+let value: ResponseBody1 = {
+  mediaHashedId: "<id>",
+};
 ```
 
 ## Fields
@@ -18,7 +20,7 @@ let value: ResponseBody1 = {};
 | `uniqueVisitors`                                                                 | *number*                                                                         | :heavy_minus_sign:                                                               | The number of unique visitors.                                                   |
 | `playedTime`                                                                     | *number*                                                                         | :heavy_minus_sign:                                                               | Total time spent watching in seconds.                                            |
 | `mediaName`                                                                      | *string*                                                                         | :heavy_minus_sign:                                                               | The name of the media.                                                           |
-| `mediaHashedId`                                                                  | *string*                                                                         | :heavy_minus_sign:                                                               | The hashed ID of the media.                                                      |
+| `mediaHashedId`                                                                  | *string*                                                                         | :heavy_check_mark:                                                               | The hashed ID of the media.                                                      |
 | `mediaType`                                                                      | *string*                                                                         | :heavy_minus_sign:                                                               | The type of the media (e.g., "Video", "Audio").                                  |
 | `mediaThumbnailUrl`                                                              | *string*                                                                         | :heavy_minus_sign:                                                               | URL of the media's thumbnail image.                                              |
 | `mediaDuration`                                                                  | *number*                                                                         | :heavy_minus_sign:                                                               | The duration of the media in seconds.                                            |

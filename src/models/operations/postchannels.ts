@@ -9,47 +9,45 @@ import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-/**
- * The format for episodes for the podcast channel.
- */
 export const PostChannelsEpisodeFormatRequest = {
   Episodic: "episodic",
   EpisodicWithSeasons: "episodic_with_seasons",
   Serial: "serial",
 } as const;
-/**
- * The format for episodes for the podcast channel.
- */
 export type PostChannelsEpisodeFormatRequest = ClosedEnum<
   typeof PostChannelsEpisodeFormatRequest
 >;
 
-/**
- * The primary category for the channel.
- */
 export const PostChannelsCategory1Request = {
+  Arts: "arts",
   ArtsGreaterThanBooks: "arts > books",
   ArtsGreaterThanDesign: "arts > design",
   ArtsGreaterThanFashionAndBeauty: "arts > fashion_and_beauty",
   ArtsGreaterThanFood: "arts > food",
   ArtsGreaterThanPerformingArts: "arts > performing_arts",
   ArtsGreaterThanVisualArts: "arts > visual_arts",
+  Business: "business",
   BusinessGreaterThanCareers: "business > careers",
   BusinessGreaterThanEntrepreneurship: "business > entrepreneurship",
   BusinessGreaterThanInvesting: "business > investing",
   BusinessGreaterThanManagement: "business > management",
   BusinessGreaterThanMarketing: "business > marketing",
   BusinessGreaterThanNonProfit: "business > non_profit",
+  Comedy: "comedy",
   ComedyGreaterThanComedyInterviews: "comedy > comedy_interviews",
   ComedyGreaterThanImprov: "comedy > improv",
   ComedyGreaterThanStandUp: "comedy > stand_up",
+  Education: "education",
   EducationGreaterThanCourses: "education > courses",
   EducationGreaterThanHowTo: "education > how_to",
   EducationGreaterThanLanguageLearning: "education > language_learning",
   EducationGreaterThanSelfImprovement: "education > self_improvement",
+  Fiction: "fiction",
   FictionGreaterThanComedyFiction: "fiction > comedy_fiction",
   FictionGreaterThanDrama: "fiction > drama",
   FictionGreaterThanScienceFiction: "fiction > science_fiction",
+  Government: "government",
+  HealthAndFitness: "health_and_fitness",
   HealthAndFitnessGreaterThanAlternativeHealth:
     "health_and_fitness > alternative_health",
   HealthAndFitnessGreaterThanFitness: "health_and_fitness > fitness",
@@ -57,11 +55,14 @@ export const PostChannelsCategory1Request = {
   HealthAndFitnessGreaterThanMentalHealth: "health_and_fitness > mental_health",
   HealthAndFitnessGreaterThanNutrition: "health_and_fitness > nutrition",
   HealthAndFitnessGreaterThanSexuality: "health_and_fitness > sexuality",
+  History: "history",
+  KidsAndFamily: "kids_and_family",
   KidsAndFamilyGreaterThanEducationForKids:
     "kids_and_family > education_for_kids",
   KidsAndFamilyGreaterThanParenting: "kids_and_family > parenting",
   KidsAndFamilyGreaterThanPetsAndAnimals: "kids_and_family > pets_and_animals",
   KidsAndFamilyGreaterThanStoriesForKids: "kids_and_family > stories_for_kids",
+  Leisure: "leisure",
   LeisureGreaterThanAnimationAndManga: "leisure > animation_and_manga",
   LeisureGreaterThanAutomotive: "leisure > automotive",
   LeisureGreaterThanAviation: "leisure > aviation",
@@ -70,9 +71,11 @@ export const PostChannelsCategory1Request = {
   LeisureGreaterThanHobbies: "leisure > hobbies",
   LeisureGreaterThanHomeAndGarden: "leisure > home_and_garden",
   LeisureGreaterThanVideoGames: "leisure > video_games",
+  Music: "music",
   MusicGreaterThanMusicCommentary: "music > music_commentary",
   MusicGreaterThanMusicHistory: "music > music_history",
   MusicGreaterThanMusicInterviews: "music > music_interviews",
+  News: "news",
   NewsGreaterThanBusinessNews: "news > business_news",
   NewsGreaterThanDailyNews: "news > daily_news",
   NewsGreaterThanEntertainmentNews: "news > entertainment_news",
@@ -80,6 +83,7 @@ export const PostChannelsCategory1Request = {
   NewsGreaterThanPolitics: "news > politics",
   NewsGreaterThanSportsNews: "news > sports_news",
   NewsGreaterThanTechNews: "news > tech_news",
+  ReligionAndSpirituality: "religion_and_spirituality",
   ReligionAndSpiritualityGreaterThanBuddhism:
     "religion_and_spirituality > buddhism",
   ReligionAndSpiritualityGreaterThanChristianity:
@@ -93,6 +97,7 @@ export const PostChannelsCategory1Request = {
     "religion_and_spirituality > religion",
   ReligionAndSpiritualityGreaterThanSpirituality:
     "religion_and_spirituality > spirituality",
+  Science: "science",
   ScienceGreaterThanAstronomy: "science > astronomy",
   ScienceGreaterThanChemistry: "science > chemistry",
   ScienceGreaterThanEarthSciences: "science > earth_sciences",
@@ -102,6 +107,7 @@ export const PostChannelsCategory1Request = {
   ScienceGreaterThanNature: "science > nature",
   ScienceGreaterThanPhysics: "science > physics",
   ScienceGreaterThanSocialSciences: "science > social_sciences",
+  SocietyAndCulture: "society_and_culture",
   SocietyAndCultureGreaterThanDocumentary: "society_and_culture > documentary",
   SocietyAndCultureGreaterThanPersonalJournals:
     "society_and_culture > personal_journals",
@@ -110,6 +116,7 @@ export const PostChannelsCategory1Request = {
     "society_and_culture > places_and_travel",
   SocietyAndCultureGreaterThanRelationships:
     "society_and_culture > relationships",
+  Sports: "sports",
   SportsGreaterThanBaseball: "sports > baseball",
   SportsGreaterThanBasketball: "sports > basketball",
   SportsGreaterThanCricket: "sports > cricket",
@@ -125,45 +132,49 @@ export const PostChannelsCategory1Request = {
   SportsGreaterThanVolleyball: "sports > volleyball",
   SportsGreaterThanWilderness: "sports > wilderness",
   SportsGreaterThanWrestling: "sports > wrestling",
+  Technology: "technology",
+  TrueCrime: "true_crime",
+  TvAndFilm: "tv_and_film",
   TvAndFilmGreaterThanAfterShows: "tv_and_film > after_shows",
   TvAndFilmGreaterThanFilmHistory: "tv_and_film > film_history",
   TvAndFilmGreaterThanFilmInterviews: "tv_and_film > film_interviews",
   TvAndFilmGreaterThanFilmReviews: "tv_and_film > film_reviews",
   TvAndFilmGreaterThanTvReviews: "tv_and_film > tv_reviews",
 } as const;
-/**
- * The primary category for the channel.
- */
 export type PostChannelsCategory1Request = ClosedEnum<
   typeof PostChannelsCategory1Request
 >;
 
-/**
- * The secondary category for the channel.
- */
 export const PostChannelsCategory2Request = {
+  Arts: "arts",
   ArtsGreaterThanBooks: "arts > books",
   ArtsGreaterThanDesign: "arts > design",
   ArtsGreaterThanFashionAndBeauty: "arts > fashion_and_beauty",
   ArtsGreaterThanFood: "arts > food",
   ArtsGreaterThanPerformingArts: "arts > performing_arts",
   ArtsGreaterThanVisualArts: "arts > visual_arts",
+  Business: "business",
   BusinessGreaterThanCareers: "business > careers",
   BusinessGreaterThanEntrepreneurship: "business > entrepreneurship",
   BusinessGreaterThanInvesting: "business > investing",
   BusinessGreaterThanManagement: "business > management",
   BusinessGreaterThanMarketing: "business > marketing",
   BusinessGreaterThanNonProfit: "business > non_profit",
+  Comedy: "comedy",
   ComedyGreaterThanComedyInterviews: "comedy > comedy_interviews",
   ComedyGreaterThanImprov: "comedy > improv",
   ComedyGreaterThanStandUp: "comedy > stand_up",
+  Education: "education",
   EducationGreaterThanCourses: "education > courses",
   EducationGreaterThanHowTo: "education > how_to",
   EducationGreaterThanLanguageLearning: "education > language_learning",
   EducationGreaterThanSelfImprovement: "education > self_improvement",
+  Fiction: "fiction",
   FictionGreaterThanComedyFiction: "fiction > comedy_fiction",
   FictionGreaterThanDrama: "fiction > drama",
   FictionGreaterThanScienceFiction: "fiction > science_fiction",
+  Government: "government",
+  HealthAndFitness: "health_and_fitness",
   HealthAndFitnessGreaterThanAlternativeHealth:
     "health_and_fitness > alternative_health",
   HealthAndFitnessGreaterThanFitness: "health_and_fitness > fitness",
@@ -171,11 +182,14 @@ export const PostChannelsCategory2Request = {
   HealthAndFitnessGreaterThanMentalHealth: "health_and_fitness > mental_health",
   HealthAndFitnessGreaterThanNutrition: "health_and_fitness > nutrition",
   HealthAndFitnessGreaterThanSexuality: "health_and_fitness > sexuality",
+  History: "history",
+  KidsAndFamily: "kids_and_family",
   KidsAndFamilyGreaterThanEducationForKids:
     "kids_and_family > education_for_kids",
   KidsAndFamilyGreaterThanParenting: "kids_and_family > parenting",
   KidsAndFamilyGreaterThanPetsAndAnimals: "kids_and_family > pets_and_animals",
   KidsAndFamilyGreaterThanStoriesForKids: "kids_and_family > stories_for_kids",
+  Leisure: "leisure",
   LeisureGreaterThanAnimationAndManga: "leisure > animation_and_manga",
   LeisureGreaterThanAutomotive: "leisure > automotive",
   LeisureGreaterThanAviation: "leisure > aviation",
@@ -184,9 +198,11 @@ export const PostChannelsCategory2Request = {
   LeisureGreaterThanHobbies: "leisure > hobbies",
   LeisureGreaterThanHomeAndGarden: "leisure > home_and_garden",
   LeisureGreaterThanVideoGames: "leisure > video_games",
+  Music: "music",
   MusicGreaterThanMusicCommentary: "music > music_commentary",
   MusicGreaterThanMusicHistory: "music > music_history",
   MusicGreaterThanMusicInterviews: "music > music_interviews",
+  News: "news",
   NewsGreaterThanBusinessNews: "news > business_news",
   NewsGreaterThanDailyNews: "news > daily_news",
   NewsGreaterThanEntertainmentNews: "news > entertainment_news",
@@ -194,6 +210,7 @@ export const PostChannelsCategory2Request = {
   NewsGreaterThanPolitics: "news > politics",
   NewsGreaterThanSportsNews: "news > sports_news",
   NewsGreaterThanTechNews: "news > tech_news",
+  ReligionAndSpirituality: "religion_and_spirituality",
   ReligionAndSpiritualityGreaterThanBuddhism:
     "religion_and_spirituality > buddhism",
   ReligionAndSpiritualityGreaterThanChristianity:
@@ -207,6 +224,7 @@ export const PostChannelsCategory2Request = {
     "religion_and_spirituality > religion",
   ReligionAndSpiritualityGreaterThanSpirituality:
     "religion_and_spirituality > spirituality",
+  Science: "science",
   ScienceGreaterThanAstronomy: "science > astronomy",
   ScienceGreaterThanChemistry: "science > chemistry",
   ScienceGreaterThanEarthSciences: "science > earth_sciences",
@@ -216,6 +234,7 @@ export const PostChannelsCategory2Request = {
   ScienceGreaterThanNature: "science > nature",
   ScienceGreaterThanPhysics: "science > physics",
   ScienceGreaterThanSocialSciences: "science > social_sciences",
+  SocietyAndCulture: "society_and_culture",
   SocietyAndCultureGreaterThanDocumentary: "society_and_culture > documentary",
   SocietyAndCultureGreaterThanPersonalJournals:
     "society_and_culture > personal_journals",
@@ -224,6 +243,7 @@ export const PostChannelsCategory2Request = {
     "society_and_culture > places_and_travel",
   SocietyAndCultureGreaterThanRelationships:
     "society_and_culture > relationships",
+  Sports: "sports",
   SportsGreaterThanBaseball: "sports > baseball",
   SportsGreaterThanBasketball: "sports > basketball",
   SportsGreaterThanCricket: "sports > cricket",
@@ -239,45 +259,49 @@ export const PostChannelsCategory2Request = {
   SportsGreaterThanVolleyball: "sports > volleyball",
   SportsGreaterThanWilderness: "sports > wilderness",
   SportsGreaterThanWrestling: "sports > wrestling",
+  Technology: "technology",
+  TrueCrime: "true_crime",
+  TvAndFilm: "tv_and_film",
   TvAndFilmGreaterThanAfterShows: "tv_and_film > after_shows",
   TvAndFilmGreaterThanFilmHistory: "tv_and_film > film_history",
   TvAndFilmGreaterThanFilmInterviews: "tv_and_film > film_interviews",
   TvAndFilmGreaterThanFilmReviews: "tv_and_film > film_reviews",
   TvAndFilmGreaterThanTvReviews: "tv_and_film > tv_reviews",
 } as const;
-/**
- * The secondary category for the channel.
- */
 export type PostChannelsCategory2Request = ClosedEnum<
   typeof PostChannelsCategory2Request
 >;
 
-/**
- * The third category for the channel.
- */
 export const PostChannelsCategory3Request = {
+  Arts: "arts",
   ArtsGreaterThanBooks: "arts > books",
   ArtsGreaterThanDesign: "arts > design",
   ArtsGreaterThanFashionAndBeauty: "arts > fashion_and_beauty",
   ArtsGreaterThanFood: "arts > food",
   ArtsGreaterThanPerformingArts: "arts > performing_arts",
   ArtsGreaterThanVisualArts: "arts > visual_arts",
+  Business: "business",
   BusinessGreaterThanCareers: "business > careers",
   BusinessGreaterThanEntrepreneurship: "business > entrepreneurship",
   BusinessGreaterThanInvesting: "business > investing",
   BusinessGreaterThanManagement: "business > management",
   BusinessGreaterThanMarketing: "business > marketing",
   BusinessGreaterThanNonProfit: "business > non_profit",
+  Comedy: "comedy",
   ComedyGreaterThanComedyInterviews: "comedy > comedy_interviews",
   ComedyGreaterThanImprov: "comedy > improv",
   ComedyGreaterThanStandUp: "comedy > stand_up",
+  Education: "education",
   EducationGreaterThanCourses: "education > courses",
   EducationGreaterThanHowTo: "education > how_to",
   EducationGreaterThanLanguageLearning: "education > language_learning",
   EducationGreaterThanSelfImprovement: "education > self_improvement",
+  Fiction: "fiction",
   FictionGreaterThanComedyFiction: "fiction > comedy_fiction",
   FictionGreaterThanDrama: "fiction > drama",
   FictionGreaterThanScienceFiction: "fiction > science_fiction",
+  Government: "government",
+  HealthAndFitness: "health_and_fitness",
   HealthAndFitnessGreaterThanAlternativeHealth:
     "health_and_fitness > alternative_health",
   HealthAndFitnessGreaterThanFitness: "health_and_fitness > fitness",
@@ -285,11 +309,14 @@ export const PostChannelsCategory3Request = {
   HealthAndFitnessGreaterThanMentalHealth: "health_and_fitness > mental_health",
   HealthAndFitnessGreaterThanNutrition: "health_and_fitness > nutrition",
   HealthAndFitnessGreaterThanSexuality: "health_and_fitness > sexuality",
+  History: "history",
+  KidsAndFamily: "kids_and_family",
   KidsAndFamilyGreaterThanEducationForKids:
     "kids_and_family > education_for_kids",
   KidsAndFamilyGreaterThanParenting: "kids_and_family > parenting",
   KidsAndFamilyGreaterThanPetsAndAnimals: "kids_and_family > pets_and_animals",
   KidsAndFamilyGreaterThanStoriesForKids: "kids_and_family > stories_for_kids",
+  Leisure: "leisure",
   LeisureGreaterThanAnimationAndManga: "leisure > animation_and_manga",
   LeisureGreaterThanAutomotive: "leisure > automotive",
   LeisureGreaterThanAviation: "leisure > aviation",
@@ -298,9 +325,11 @@ export const PostChannelsCategory3Request = {
   LeisureGreaterThanHobbies: "leisure > hobbies",
   LeisureGreaterThanHomeAndGarden: "leisure > home_and_garden",
   LeisureGreaterThanVideoGames: "leisure > video_games",
+  Music: "music",
   MusicGreaterThanMusicCommentary: "music > music_commentary",
   MusicGreaterThanMusicHistory: "music > music_history",
   MusicGreaterThanMusicInterviews: "music > music_interviews",
+  News: "news",
   NewsGreaterThanBusinessNews: "news > business_news",
   NewsGreaterThanDailyNews: "news > daily_news",
   NewsGreaterThanEntertainmentNews: "news > entertainment_news",
@@ -308,6 +337,7 @@ export const PostChannelsCategory3Request = {
   NewsGreaterThanPolitics: "news > politics",
   NewsGreaterThanSportsNews: "news > sports_news",
   NewsGreaterThanTechNews: "news > tech_news",
+  ReligionAndSpirituality: "religion_and_spirituality",
   ReligionAndSpiritualityGreaterThanBuddhism:
     "religion_and_spirituality > buddhism",
   ReligionAndSpiritualityGreaterThanChristianity:
@@ -321,6 +351,7 @@ export const PostChannelsCategory3Request = {
     "religion_and_spirituality > religion",
   ReligionAndSpiritualityGreaterThanSpirituality:
     "religion_and_spirituality > spirituality",
+  Science: "science",
   ScienceGreaterThanAstronomy: "science > astronomy",
   ScienceGreaterThanChemistry: "science > chemistry",
   ScienceGreaterThanEarthSciences: "science > earth_sciences",
@@ -330,6 +361,7 @@ export const PostChannelsCategory3Request = {
   ScienceGreaterThanNature: "science > nature",
   ScienceGreaterThanPhysics: "science > physics",
   ScienceGreaterThanSocialSciences: "science > social_sciences",
+  SocietyAndCulture: "society_and_culture",
   SocietyAndCultureGreaterThanDocumentary: "society_and_culture > documentary",
   SocietyAndCultureGreaterThanPersonalJournals:
     "society_and_culture > personal_journals",
@@ -338,6 +370,7 @@ export const PostChannelsCategory3Request = {
     "society_and_culture > places_and_travel",
   SocietyAndCultureGreaterThanRelationships:
     "society_and_culture > relationships",
+  Sports: "sports",
   SportsGreaterThanBaseball: "sports > baseball",
   SportsGreaterThanBasketball: "sports > basketball",
   SportsGreaterThanCricket: "sports > cricket",
@@ -353,21 +386,21 @@ export const PostChannelsCategory3Request = {
   SportsGreaterThanVolleyball: "sports > volleyball",
   SportsGreaterThanWilderness: "sports > wilderness",
   SportsGreaterThanWrestling: "sports > wrestling",
+  Technology: "technology",
+  TrueCrime: "true_crime",
+  TvAndFilm: "tv_and_film",
   TvAndFilmGreaterThanAfterShows: "tv_and_film > after_shows",
   TvAndFilmGreaterThanFilmHistory: "tv_and_film > film_history",
   TvAndFilmGreaterThanFilmInterviews: "tv_and_film > film_interviews",
   TvAndFilmGreaterThanFilmReviews: "tv_and_film > film_reviews",
   TvAndFilmGreaterThanTvReviews: "tv_and_film > tv_reviews",
 } as const;
-/**
- * The third category for the channel.
- */
 export type PostChannelsCategory3Request = ClosedEnum<
   typeof PostChannelsCategory3Request
 >;
 
 /**
- * The ISO 639-1 language code for the channel.
+ * The ISO 639-1 language code for the channel, published in the RSS feed as `<language>`.
  */
 export const PostChannelsLanguageRequest = {
   Af: "af",
@@ -468,7 +501,7 @@ export const PostChannelsLanguageRequest = {
   ZhTw: "zh-tw",
 } as const;
 /**
- * The ISO 639-1 language code for the channel.
+ * The ISO 639-1 language code for the channel, published in the RSS feed as `<language>`.
  */
 export type PostChannelsLanguageRequest = ClosedEnum<
   typeof PostChannelsLanguageRequest
@@ -478,47 +511,48 @@ export type PostChannelsLanguageRequest = ClosedEnum<
  * Podcast specific settings for a channel. These settings only take effect if
  *
  * @remarks
- * podcasting is enabled for the channel.
+ * podcasting is enabled for the channel. These values appear in the channel's
+ * publicly accessible podcast RSS feed.
  */
 export type PostChannelsPodcastSettingsRequest = {
   /**
-   * The channel's copyright information.
+   * The channel's copyright information, published in the RSS feed as `<copyright>`.
    */
   copyright?: string | null | undefined;
   /**
-   * The format for episodes for the podcast channel.
+   * The format for episodes for the podcast channel, published in the RSS feed as `<itunes:type>`. `episodic_with_seasons` is published as `episodic`.
    */
   episodeFormat?: PostChannelsEpisodeFormatRequest | null | undefined;
   /**
-   * The name of the author(s) for the channel.
+   * The name of the author(s) for the channel, published in the RSS feed as `<itunes:author>`.
    */
   authorName?: string | null | undefined;
   /**
-   * Whether the channel contains explicit content.
+   * Whether the channel contains explicit content, published in the RSS feed as `<itunes:explicit>`.
    */
   explicit?: boolean | null | undefined;
   /**
-   * The name of the owner for the channel.
+   * The podcast owner's name, published in the channel's public RSS feed as `<itunes:owner>`. Podcast directories use this as the show's administrative contact.
    */
   ownerName?: string | null | undefined;
   /**
-   * The email of the owner for the channel.
+   * The podcast owner's email address, published in the channel's public RSS feed as `<itunes:owner>`. Podcast directories such as Apple Podcasts require it for ownership verification.
    */
   ownerEmail?: string | null | undefined;
   /**
-   * The primary category for the channel.
+   * The primary category for the channel, published in the RSS feed as `<itunes:category>`.
    */
   category1?: PostChannelsCategory1Request | null | undefined;
   /**
-   * The secondary category for the channel.
+   * The secondary category for the channel, published in the RSS feed as `<itunes:category>`.
    */
   category2?: PostChannelsCategory2Request | null | undefined;
   /**
-   * The third category for the channel.
+   * The third category for the channel, published in the RSS feed as `<itunes:category>`.
    */
   category3?: PostChannelsCategory3Request | null | undefined;
   /**
-   * The ISO 639-1 language code for the channel.
+   * The ISO 639-1 language code for the channel, published in the RSS feed as `<language>`.
    */
   language?: PostChannelsLanguageRequest | null | undefined;
 };
@@ -548,7 +582,8 @@ export type PostChannelsRequest = {
    * Podcast specific settings for a channel. These settings only take effect if
    *
    * @remarks
-   * podcasting is enabled for the channel.
+   * podcasting is enabled for the channel. These values appear in the channel's
+   * publicly accessible podcast RSS feed.
    */
   podcastSettings?: PostChannelsPodcastSettingsRequest | undefined;
 };
@@ -567,47 +602,45 @@ export const PostChannelsCode = {
  */
 export type PostChannelsCode = ClosedEnum<typeof PostChannelsCode>;
 
-/**
- * The format for episodes for the podcast channel.
- */
 export const PostChannelsEpisodeFormatResponse = {
   Episodic: "episodic",
   EpisodicWithSeasons: "episodic_with_seasons",
   Serial: "serial",
 } as const;
-/**
- * The format for episodes for the podcast channel.
- */
 export type PostChannelsEpisodeFormatResponse = ClosedEnum<
   typeof PostChannelsEpisodeFormatResponse
 >;
 
-/**
- * The primary category for the channel.
- */
 export const PostChannelsCategory1Response = {
+  Arts: "arts",
   ArtsGreaterThanBooks: "arts > books",
   ArtsGreaterThanDesign: "arts > design",
   ArtsGreaterThanFashionAndBeauty: "arts > fashion_and_beauty",
   ArtsGreaterThanFood: "arts > food",
   ArtsGreaterThanPerformingArts: "arts > performing_arts",
   ArtsGreaterThanVisualArts: "arts > visual_arts",
+  Business: "business",
   BusinessGreaterThanCareers: "business > careers",
   BusinessGreaterThanEntrepreneurship: "business > entrepreneurship",
   BusinessGreaterThanInvesting: "business > investing",
   BusinessGreaterThanManagement: "business > management",
   BusinessGreaterThanMarketing: "business > marketing",
   BusinessGreaterThanNonProfit: "business > non_profit",
+  Comedy: "comedy",
   ComedyGreaterThanComedyInterviews: "comedy > comedy_interviews",
   ComedyGreaterThanImprov: "comedy > improv",
   ComedyGreaterThanStandUp: "comedy > stand_up",
+  Education: "education",
   EducationGreaterThanCourses: "education > courses",
   EducationGreaterThanHowTo: "education > how_to",
   EducationGreaterThanLanguageLearning: "education > language_learning",
   EducationGreaterThanSelfImprovement: "education > self_improvement",
+  Fiction: "fiction",
   FictionGreaterThanComedyFiction: "fiction > comedy_fiction",
   FictionGreaterThanDrama: "fiction > drama",
   FictionGreaterThanScienceFiction: "fiction > science_fiction",
+  Government: "government",
+  HealthAndFitness: "health_and_fitness",
   HealthAndFitnessGreaterThanAlternativeHealth:
     "health_and_fitness > alternative_health",
   HealthAndFitnessGreaterThanFitness: "health_and_fitness > fitness",
@@ -615,11 +648,14 @@ export const PostChannelsCategory1Response = {
   HealthAndFitnessGreaterThanMentalHealth: "health_and_fitness > mental_health",
   HealthAndFitnessGreaterThanNutrition: "health_and_fitness > nutrition",
   HealthAndFitnessGreaterThanSexuality: "health_and_fitness > sexuality",
+  History: "history",
+  KidsAndFamily: "kids_and_family",
   KidsAndFamilyGreaterThanEducationForKids:
     "kids_and_family > education_for_kids",
   KidsAndFamilyGreaterThanParenting: "kids_and_family > parenting",
   KidsAndFamilyGreaterThanPetsAndAnimals: "kids_and_family > pets_and_animals",
   KidsAndFamilyGreaterThanStoriesForKids: "kids_and_family > stories_for_kids",
+  Leisure: "leisure",
   LeisureGreaterThanAnimationAndManga: "leisure > animation_and_manga",
   LeisureGreaterThanAutomotive: "leisure > automotive",
   LeisureGreaterThanAviation: "leisure > aviation",
@@ -628,9 +664,11 @@ export const PostChannelsCategory1Response = {
   LeisureGreaterThanHobbies: "leisure > hobbies",
   LeisureGreaterThanHomeAndGarden: "leisure > home_and_garden",
   LeisureGreaterThanVideoGames: "leisure > video_games",
+  Music: "music",
   MusicGreaterThanMusicCommentary: "music > music_commentary",
   MusicGreaterThanMusicHistory: "music > music_history",
   MusicGreaterThanMusicInterviews: "music > music_interviews",
+  News: "news",
   NewsGreaterThanBusinessNews: "news > business_news",
   NewsGreaterThanDailyNews: "news > daily_news",
   NewsGreaterThanEntertainmentNews: "news > entertainment_news",
@@ -638,6 +676,7 @@ export const PostChannelsCategory1Response = {
   NewsGreaterThanPolitics: "news > politics",
   NewsGreaterThanSportsNews: "news > sports_news",
   NewsGreaterThanTechNews: "news > tech_news",
+  ReligionAndSpirituality: "religion_and_spirituality",
   ReligionAndSpiritualityGreaterThanBuddhism:
     "religion_and_spirituality > buddhism",
   ReligionAndSpiritualityGreaterThanChristianity:
@@ -651,6 +690,7 @@ export const PostChannelsCategory1Response = {
     "religion_and_spirituality > religion",
   ReligionAndSpiritualityGreaterThanSpirituality:
     "religion_and_spirituality > spirituality",
+  Science: "science",
   ScienceGreaterThanAstronomy: "science > astronomy",
   ScienceGreaterThanChemistry: "science > chemistry",
   ScienceGreaterThanEarthSciences: "science > earth_sciences",
@@ -660,6 +700,7 @@ export const PostChannelsCategory1Response = {
   ScienceGreaterThanNature: "science > nature",
   ScienceGreaterThanPhysics: "science > physics",
   ScienceGreaterThanSocialSciences: "science > social_sciences",
+  SocietyAndCulture: "society_and_culture",
   SocietyAndCultureGreaterThanDocumentary: "society_and_culture > documentary",
   SocietyAndCultureGreaterThanPersonalJournals:
     "society_and_culture > personal_journals",
@@ -668,6 +709,7 @@ export const PostChannelsCategory1Response = {
     "society_and_culture > places_and_travel",
   SocietyAndCultureGreaterThanRelationships:
     "society_and_culture > relationships",
+  Sports: "sports",
   SportsGreaterThanBaseball: "sports > baseball",
   SportsGreaterThanBasketball: "sports > basketball",
   SportsGreaterThanCricket: "sports > cricket",
@@ -683,45 +725,49 @@ export const PostChannelsCategory1Response = {
   SportsGreaterThanVolleyball: "sports > volleyball",
   SportsGreaterThanWilderness: "sports > wilderness",
   SportsGreaterThanWrestling: "sports > wrestling",
+  Technology: "technology",
+  TrueCrime: "true_crime",
+  TvAndFilm: "tv_and_film",
   TvAndFilmGreaterThanAfterShows: "tv_and_film > after_shows",
   TvAndFilmGreaterThanFilmHistory: "tv_and_film > film_history",
   TvAndFilmGreaterThanFilmInterviews: "tv_and_film > film_interviews",
   TvAndFilmGreaterThanFilmReviews: "tv_and_film > film_reviews",
   TvAndFilmGreaterThanTvReviews: "tv_and_film > tv_reviews",
 } as const;
-/**
- * The primary category for the channel.
- */
 export type PostChannelsCategory1Response = ClosedEnum<
   typeof PostChannelsCategory1Response
 >;
 
-/**
- * The secondary category for the channel.
- */
 export const PostChannelsCategory2Response = {
+  Arts: "arts",
   ArtsGreaterThanBooks: "arts > books",
   ArtsGreaterThanDesign: "arts > design",
   ArtsGreaterThanFashionAndBeauty: "arts > fashion_and_beauty",
   ArtsGreaterThanFood: "arts > food",
   ArtsGreaterThanPerformingArts: "arts > performing_arts",
   ArtsGreaterThanVisualArts: "arts > visual_arts",
+  Business: "business",
   BusinessGreaterThanCareers: "business > careers",
   BusinessGreaterThanEntrepreneurship: "business > entrepreneurship",
   BusinessGreaterThanInvesting: "business > investing",
   BusinessGreaterThanManagement: "business > management",
   BusinessGreaterThanMarketing: "business > marketing",
   BusinessGreaterThanNonProfit: "business > non_profit",
+  Comedy: "comedy",
   ComedyGreaterThanComedyInterviews: "comedy > comedy_interviews",
   ComedyGreaterThanImprov: "comedy > improv",
   ComedyGreaterThanStandUp: "comedy > stand_up",
+  Education: "education",
   EducationGreaterThanCourses: "education > courses",
   EducationGreaterThanHowTo: "education > how_to",
   EducationGreaterThanLanguageLearning: "education > language_learning",
   EducationGreaterThanSelfImprovement: "education > self_improvement",
+  Fiction: "fiction",
   FictionGreaterThanComedyFiction: "fiction > comedy_fiction",
   FictionGreaterThanDrama: "fiction > drama",
   FictionGreaterThanScienceFiction: "fiction > science_fiction",
+  Government: "government",
+  HealthAndFitness: "health_and_fitness",
   HealthAndFitnessGreaterThanAlternativeHealth:
     "health_and_fitness > alternative_health",
   HealthAndFitnessGreaterThanFitness: "health_and_fitness > fitness",
@@ -729,11 +775,14 @@ export const PostChannelsCategory2Response = {
   HealthAndFitnessGreaterThanMentalHealth: "health_and_fitness > mental_health",
   HealthAndFitnessGreaterThanNutrition: "health_and_fitness > nutrition",
   HealthAndFitnessGreaterThanSexuality: "health_and_fitness > sexuality",
+  History: "history",
+  KidsAndFamily: "kids_and_family",
   KidsAndFamilyGreaterThanEducationForKids:
     "kids_and_family > education_for_kids",
   KidsAndFamilyGreaterThanParenting: "kids_and_family > parenting",
   KidsAndFamilyGreaterThanPetsAndAnimals: "kids_and_family > pets_and_animals",
   KidsAndFamilyGreaterThanStoriesForKids: "kids_and_family > stories_for_kids",
+  Leisure: "leisure",
   LeisureGreaterThanAnimationAndManga: "leisure > animation_and_manga",
   LeisureGreaterThanAutomotive: "leisure > automotive",
   LeisureGreaterThanAviation: "leisure > aviation",
@@ -742,9 +791,11 @@ export const PostChannelsCategory2Response = {
   LeisureGreaterThanHobbies: "leisure > hobbies",
   LeisureGreaterThanHomeAndGarden: "leisure > home_and_garden",
   LeisureGreaterThanVideoGames: "leisure > video_games",
+  Music: "music",
   MusicGreaterThanMusicCommentary: "music > music_commentary",
   MusicGreaterThanMusicHistory: "music > music_history",
   MusicGreaterThanMusicInterviews: "music > music_interviews",
+  News: "news",
   NewsGreaterThanBusinessNews: "news > business_news",
   NewsGreaterThanDailyNews: "news > daily_news",
   NewsGreaterThanEntertainmentNews: "news > entertainment_news",
@@ -752,6 +803,7 @@ export const PostChannelsCategory2Response = {
   NewsGreaterThanPolitics: "news > politics",
   NewsGreaterThanSportsNews: "news > sports_news",
   NewsGreaterThanTechNews: "news > tech_news",
+  ReligionAndSpirituality: "religion_and_spirituality",
   ReligionAndSpiritualityGreaterThanBuddhism:
     "religion_and_spirituality > buddhism",
   ReligionAndSpiritualityGreaterThanChristianity:
@@ -765,6 +817,7 @@ export const PostChannelsCategory2Response = {
     "religion_and_spirituality > religion",
   ReligionAndSpiritualityGreaterThanSpirituality:
     "religion_and_spirituality > spirituality",
+  Science: "science",
   ScienceGreaterThanAstronomy: "science > astronomy",
   ScienceGreaterThanChemistry: "science > chemistry",
   ScienceGreaterThanEarthSciences: "science > earth_sciences",
@@ -774,6 +827,7 @@ export const PostChannelsCategory2Response = {
   ScienceGreaterThanNature: "science > nature",
   ScienceGreaterThanPhysics: "science > physics",
   ScienceGreaterThanSocialSciences: "science > social_sciences",
+  SocietyAndCulture: "society_and_culture",
   SocietyAndCultureGreaterThanDocumentary: "society_and_culture > documentary",
   SocietyAndCultureGreaterThanPersonalJournals:
     "society_and_culture > personal_journals",
@@ -782,6 +836,7 @@ export const PostChannelsCategory2Response = {
     "society_and_culture > places_and_travel",
   SocietyAndCultureGreaterThanRelationships:
     "society_and_culture > relationships",
+  Sports: "sports",
   SportsGreaterThanBaseball: "sports > baseball",
   SportsGreaterThanBasketball: "sports > basketball",
   SportsGreaterThanCricket: "sports > cricket",
@@ -797,45 +852,49 @@ export const PostChannelsCategory2Response = {
   SportsGreaterThanVolleyball: "sports > volleyball",
   SportsGreaterThanWilderness: "sports > wilderness",
   SportsGreaterThanWrestling: "sports > wrestling",
+  Technology: "technology",
+  TrueCrime: "true_crime",
+  TvAndFilm: "tv_and_film",
   TvAndFilmGreaterThanAfterShows: "tv_and_film > after_shows",
   TvAndFilmGreaterThanFilmHistory: "tv_and_film > film_history",
   TvAndFilmGreaterThanFilmInterviews: "tv_and_film > film_interviews",
   TvAndFilmGreaterThanFilmReviews: "tv_and_film > film_reviews",
   TvAndFilmGreaterThanTvReviews: "tv_and_film > tv_reviews",
 } as const;
-/**
- * The secondary category for the channel.
- */
 export type PostChannelsCategory2Response = ClosedEnum<
   typeof PostChannelsCategory2Response
 >;
 
-/**
- * The third category for the channel.
- */
 export const PostChannelsCategory3Response = {
+  Arts: "arts",
   ArtsGreaterThanBooks: "arts > books",
   ArtsGreaterThanDesign: "arts > design",
   ArtsGreaterThanFashionAndBeauty: "arts > fashion_and_beauty",
   ArtsGreaterThanFood: "arts > food",
   ArtsGreaterThanPerformingArts: "arts > performing_arts",
   ArtsGreaterThanVisualArts: "arts > visual_arts",
+  Business: "business",
   BusinessGreaterThanCareers: "business > careers",
   BusinessGreaterThanEntrepreneurship: "business > entrepreneurship",
   BusinessGreaterThanInvesting: "business > investing",
   BusinessGreaterThanManagement: "business > management",
   BusinessGreaterThanMarketing: "business > marketing",
   BusinessGreaterThanNonProfit: "business > non_profit",
+  Comedy: "comedy",
   ComedyGreaterThanComedyInterviews: "comedy > comedy_interviews",
   ComedyGreaterThanImprov: "comedy > improv",
   ComedyGreaterThanStandUp: "comedy > stand_up",
+  Education: "education",
   EducationGreaterThanCourses: "education > courses",
   EducationGreaterThanHowTo: "education > how_to",
   EducationGreaterThanLanguageLearning: "education > language_learning",
   EducationGreaterThanSelfImprovement: "education > self_improvement",
+  Fiction: "fiction",
   FictionGreaterThanComedyFiction: "fiction > comedy_fiction",
   FictionGreaterThanDrama: "fiction > drama",
   FictionGreaterThanScienceFiction: "fiction > science_fiction",
+  Government: "government",
+  HealthAndFitness: "health_and_fitness",
   HealthAndFitnessGreaterThanAlternativeHealth:
     "health_and_fitness > alternative_health",
   HealthAndFitnessGreaterThanFitness: "health_and_fitness > fitness",
@@ -843,11 +902,14 @@ export const PostChannelsCategory3Response = {
   HealthAndFitnessGreaterThanMentalHealth: "health_and_fitness > mental_health",
   HealthAndFitnessGreaterThanNutrition: "health_and_fitness > nutrition",
   HealthAndFitnessGreaterThanSexuality: "health_and_fitness > sexuality",
+  History: "history",
+  KidsAndFamily: "kids_and_family",
   KidsAndFamilyGreaterThanEducationForKids:
     "kids_and_family > education_for_kids",
   KidsAndFamilyGreaterThanParenting: "kids_and_family > parenting",
   KidsAndFamilyGreaterThanPetsAndAnimals: "kids_and_family > pets_and_animals",
   KidsAndFamilyGreaterThanStoriesForKids: "kids_and_family > stories_for_kids",
+  Leisure: "leisure",
   LeisureGreaterThanAnimationAndManga: "leisure > animation_and_manga",
   LeisureGreaterThanAutomotive: "leisure > automotive",
   LeisureGreaterThanAviation: "leisure > aviation",
@@ -856,9 +918,11 @@ export const PostChannelsCategory3Response = {
   LeisureGreaterThanHobbies: "leisure > hobbies",
   LeisureGreaterThanHomeAndGarden: "leisure > home_and_garden",
   LeisureGreaterThanVideoGames: "leisure > video_games",
+  Music: "music",
   MusicGreaterThanMusicCommentary: "music > music_commentary",
   MusicGreaterThanMusicHistory: "music > music_history",
   MusicGreaterThanMusicInterviews: "music > music_interviews",
+  News: "news",
   NewsGreaterThanBusinessNews: "news > business_news",
   NewsGreaterThanDailyNews: "news > daily_news",
   NewsGreaterThanEntertainmentNews: "news > entertainment_news",
@@ -866,6 +930,7 @@ export const PostChannelsCategory3Response = {
   NewsGreaterThanPolitics: "news > politics",
   NewsGreaterThanSportsNews: "news > sports_news",
   NewsGreaterThanTechNews: "news > tech_news",
+  ReligionAndSpirituality: "religion_and_spirituality",
   ReligionAndSpiritualityGreaterThanBuddhism:
     "religion_and_spirituality > buddhism",
   ReligionAndSpiritualityGreaterThanChristianity:
@@ -879,6 +944,7 @@ export const PostChannelsCategory3Response = {
     "religion_and_spirituality > religion",
   ReligionAndSpiritualityGreaterThanSpirituality:
     "religion_and_spirituality > spirituality",
+  Science: "science",
   ScienceGreaterThanAstronomy: "science > astronomy",
   ScienceGreaterThanChemistry: "science > chemistry",
   ScienceGreaterThanEarthSciences: "science > earth_sciences",
@@ -888,6 +954,7 @@ export const PostChannelsCategory3Response = {
   ScienceGreaterThanNature: "science > nature",
   ScienceGreaterThanPhysics: "science > physics",
   ScienceGreaterThanSocialSciences: "science > social_sciences",
+  SocietyAndCulture: "society_and_culture",
   SocietyAndCultureGreaterThanDocumentary: "society_and_culture > documentary",
   SocietyAndCultureGreaterThanPersonalJournals:
     "society_and_culture > personal_journals",
@@ -896,6 +963,7 @@ export const PostChannelsCategory3Response = {
     "society_and_culture > places_and_travel",
   SocietyAndCultureGreaterThanRelationships:
     "society_and_culture > relationships",
+  Sports: "sports",
   SportsGreaterThanBaseball: "sports > baseball",
   SportsGreaterThanBasketball: "sports > basketball",
   SportsGreaterThanCricket: "sports > cricket",
@@ -911,21 +979,21 @@ export const PostChannelsCategory3Response = {
   SportsGreaterThanVolleyball: "sports > volleyball",
   SportsGreaterThanWilderness: "sports > wilderness",
   SportsGreaterThanWrestling: "sports > wrestling",
+  Technology: "technology",
+  TrueCrime: "true_crime",
+  TvAndFilm: "tv_and_film",
   TvAndFilmGreaterThanAfterShows: "tv_and_film > after_shows",
   TvAndFilmGreaterThanFilmHistory: "tv_and_film > film_history",
   TvAndFilmGreaterThanFilmInterviews: "tv_and_film > film_interviews",
   TvAndFilmGreaterThanFilmReviews: "tv_and_film > film_reviews",
   TvAndFilmGreaterThanTvReviews: "tv_and_film > tv_reviews",
 } as const;
-/**
- * The third category for the channel.
- */
 export type PostChannelsCategory3Response = ClosedEnum<
   typeof PostChannelsCategory3Response
 >;
 
 /**
- * The ISO 639-1 language code for the channel.
+ * The ISO 639-1 language code for the channel, published in the RSS feed as `<language>`.
  */
 export const PostChannelsLanguageResponse = {
   Af: "af",
@@ -1026,7 +1094,7 @@ export const PostChannelsLanguageResponse = {
   ZhTw: "zh-tw",
 } as const;
 /**
- * The ISO 639-1 language code for the channel.
+ * The ISO 639-1 language code for the channel, published in the RSS feed as `<language>`.
  */
 export type PostChannelsLanguageResponse = ClosedEnum<
   typeof PostChannelsLanguageResponse
@@ -1040,43 +1108,43 @@ export type PostChannelsLanguageResponse = ClosedEnum<
  */
 export type PostChannelsPodcastSettingsResponse = {
   /**
-   * The channel's copyright information.
+   * The channel's copyright information, published in the RSS feed as `<copyright>`.
    */
   copyright?: string | null | undefined;
   /**
-   * The format for episodes for the podcast channel.
+   * The format for episodes for the podcast channel, published in the RSS feed as `<itunes:type>`. `episodic_with_seasons` is published as `episodic`.
    */
   episodeFormat?: PostChannelsEpisodeFormatResponse | null | undefined;
   /**
-   * The name of the author(s) for the channel.
+   * The name of the author(s) for the channel, published in the RSS feed as `<itunes:author>`.
    */
   authorName?: string | null | undefined;
   /**
-   * Whether the channel contains explicit content.
+   * Whether the channel contains explicit content, published in the RSS feed as `<itunes:explicit>`.
    */
   explicit?: boolean | null | undefined;
   /**
-   * The name of the owner for the channel.
+   * The podcast owner's name, published in the channel's public RSS feed as `<itunes:owner>`. Podcast directories use this as the show's administrative contact.
    */
   ownerName?: string | null | undefined;
   /**
-   * The email of the owner for the channel.
+   * The podcast owner's email address, published in the channel's public RSS feed as `<itunes:owner>`. Podcast directories such as Apple Podcasts require it for ownership verification.
    */
   ownerEmail?: string | null | undefined;
   /**
-   * The primary category for the channel.
+   * The primary category for the channel, published in the RSS feed as `<itunes:category>`.
    */
   category1?: PostChannelsCategory1Response | null | undefined;
   /**
-   * The secondary category for the channel.
+   * The secondary category for the channel, published in the RSS feed as `<itunes:category>`.
    */
   category2?: PostChannelsCategory2Response | null | undefined;
   /**
-   * The third category for the channel.
+   * The third category for the channel, published in the RSS feed as `<itunes:category>`.
    */
   category3?: PostChannelsCategory3Response | null | undefined;
   /**
-   * The ISO 639-1 language code for the channel.
+   * The ISO 639-1 language code for the channel, published in the RSS feed as `<language>`.
    */
   language?: PostChannelsLanguageResponse | null | undefined;
 };

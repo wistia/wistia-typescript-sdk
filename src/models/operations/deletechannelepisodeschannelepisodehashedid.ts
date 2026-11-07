@@ -32,17 +32,11 @@ export type DeleteChannelEpisodesChannelEpisodeHashedIdCode = ClosedEnum<
   typeof DeleteChannelEpisodesChannelEpisodeHashedIdCode
 >;
 
-/**
- * The type of episode.
- */
 export const DeleteChannelEpisodesChannelEpisodeHashedIdEpisodeType = {
   Full: "full",
   Trailer: "trailer",
   Bonus: "bonus",
 } as const;
-/**
- * The type of episode.
- */
 export type DeleteChannelEpisodesChannelEpisodeHashedIdEpisodeType = ClosedEnum<
   typeof DeleteChannelEpisodesChannelEpisodeHashedIdEpisodeType
 >;
@@ -59,15 +53,16 @@ export type DeleteChannelEpisodesChannelEpisodeHashedIdPodcastSettings = {
    */
   episodeType?:
     | DeleteChannelEpisodesChannelEpisodeHashedIdEpisodeType
+    | null
     | undefined;
   /**
    * The number of the episode.
    */
-  episodeNumber?: number | undefined;
+  episodeNumber?: number | null | undefined;
   /**
    * The season number of the episode.
    */
-  seasonNumber?: number | undefined;
+  seasonNumber?: number | null | undefined;
   /**
    * Whether the episode contains explicit content.
    */
@@ -192,11 +187,11 @@ export const DeleteChannelEpisodesChannelEpisodeHashedIdPodcastSettings$inboundS
     z.ZodTypeDef,
     unknown
   > = z.object({
-    episode_type:
-      DeleteChannelEpisodesChannelEpisodeHashedIdEpisodeType$inboundSchema
-        .optional(),
-    episode_number: z.number().int().optional(),
-    season_number: z.number().int().optional(),
+    episode_type: z.nullable(
+      DeleteChannelEpisodesChannelEpisodeHashedIdEpisodeType$inboundSchema,
+    ).optional(),
+    episode_number: z.nullable(z.number().int()).optional(),
+    season_number: z.nullable(z.number().int()).optional(),
     explicit_content: z.boolean().optional(),
     hide_from_feed: z.boolean().optional(),
   }).transform((v) => {
