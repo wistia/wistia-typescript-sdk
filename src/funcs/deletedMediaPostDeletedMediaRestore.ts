@@ -36,12 +36,10 @@ import { Result } from "../types/fp.js";
  * The restore runs asynchronously and the response includes a background job
  * status.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Upload and view media
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function deletedMediaPostDeletedMediaRestore(
   client: WistiaCore,
