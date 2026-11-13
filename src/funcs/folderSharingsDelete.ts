@@ -41,6 +41,11 @@ import { Result } from "../types/fp.js";
  * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
  * made with such a token are authorized using the permissions of the
  * contact assigned to the token.
+ *
+ * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+ * created with the `all:delegate_to_contact_permissions` scope and an
+ * authorization granting the `update` permission on this folder can also
+ * be used.
  */
 export function folderSharingsDelete(
   client: WistiaCore,
@@ -50,6 +55,7 @@ export function folderSharingsDelete(
   Result<
     operations.DeleteFoldersFolderIdSharingsSharingIdResponse,
     | errors.DeleteFoldersFolderIdSharingsSharingIdUnauthorizedError
+    | errors.DeleteFoldersFolderIdSharingsSharingIdForbiddenError
     | errors.DeleteFoldersFolderIdSharingsSharingIdNotFoundError
     | errors.DeleteFoldersFolderIdSharingsSharingIdInternalServerError
     | WistiaError
@@ -78,6 +84,7 @@ async function $do(
     Result<
       operations.DeleteFoldersFolderIdSharingsSharingIdResponse,
       | errors.DeleteFoldersFolderIdSharingsSharingIdUnauthorizedError
+      | errors.DeleteFoldersFolderIdSharingsSharingIdForbiddenError
       | errors.DeleteFoldersFolderIdSharingsSharingIdNotFoundError
       | errors.DeleteFoldersFolderIdSharingsSharingIdInternalServerError
       | WistiaError
@@ -176,6 +183,7 @@ async function $do(
   const [result] = await M.match<
     operations.DeleteFoldersFolderIdSharingsSharingIdResponse,
     | errors.DeleteFoldersFolderIdSharingsSharingIdUnauthorizedError
+    | errors.DeleteFoldersFolderIdSharingsSharingIdForbiddenError
     | errors.DeleteFoldersFolderIdSharingsSharingIdNotFoundError
     | errors.DeleteFoldersFolderIdSharingsSharingIdInternalServerError
     | WistiaError
@@ -195,6 +203,10 @@ async function $do(
       401,
       errors
         .DeleteFoldersFolderIdSharingsSharingIdUnauthorizedError$inboundSchema,
+    ),
+    M.jsonErr(
+      403,
+      errors.DeleteFoldersFolderIdSharingsSharingIdForbiddenError$inboundSchema,
     ),
     M.jsonErr(
       404,

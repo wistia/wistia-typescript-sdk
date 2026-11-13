@@ -31,6 +31,11 @@ import { Result } from "../types/fp.js";
  *
  * @remarks
  * Retrieves a single extended audio description by its hashed id, including download links.
+ *
+ * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+ * created with the `all:delegate_to_contact_permissions` scope and an
+ * authorization naming the extended audio description's media (any
+ * permission) can also be used.
  */
 export function mediaExtendedAudioDescriptionsGetMediaExtendedAudioDescriptionsId(
   client: WistiaCore,
