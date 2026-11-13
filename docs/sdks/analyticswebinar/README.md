@@ -16,12 +16,12 @@ Retrieve aggregate analytics for a webinar. This endpoint provides
 Bottler-powered analytics including registrations, attendance, engagement,
 chat activity, and poll results.
 
-<!--- HIDE-MCP -->
+
 ## Requires api token with one of the following permissions
 ```
 Read detailed stats
 ```
-<!--- /HIDE-MCP -->
+
 
 
 ### Example Usage
@@ -105,12 +105,12 @@ Retrieve registration timeseries data for a webinar with configurable
 granularity. Returns an array of timestamped registration metric buckets
 including impressions, registrations, and completion rates.
 
-<!--- HIDE-MCP -->
+
 ## Requires api token with one of the following permissions
 ```
 Read detailed stats
 ```
-<!--- /HIDE-MCP -->
+
 
 
 ### Example Usage
@@ -194,12 +194,12 @@ run();
 Retrieve traffic breakdown analytics for a webinar, grouped by a specified dimension
 such as UTM campaign, UTM source, UTM medium, or referrer domain.
 
-<!--- HIDE-MCP -->
+
 ## Requires api token with one of the following permissions
 ```
 Read detailed stats
 ```
-<!--- /HIDE-MCP -->
+
 
 
 ### Example Usage
@@ -284,12 +284,12 @@ Retrieve audience data for a webinar. Returns a paginated list of
 registrants with their attendance status, engagement metrics,
 attribution data, and per-attendee histograms.
 
-<!--- HIDE-MCP -->
+
 ## Requires api token with one of the following permissions
 ```
 Read detailed stats
 ```
-<!--- /HIDE-MCP -->
+
 
 
 ### Example Usage
@@ -371,12 +371,12 @@ Retrieve engagement histogram data for a webinar. Returns arrays of
 per-time-bucket counts for attendees, chat activity, and visual focus,
 useful for rendering engagement visualizations.
 
-<!--- HIDE-MCP -->
+
 ## Requires api token with one of the following permissions
 ```
 Read detailed stats
 ```
-<!--- /HIDE-MCP -->
+
 
 
 ### Example Usage

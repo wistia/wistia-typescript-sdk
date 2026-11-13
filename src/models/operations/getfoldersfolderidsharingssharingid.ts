@@ -40,7 +40,7 @@ export type GetFoldersFolderIdSharingsSharingIdShare = {
   id: number;
   name: string;
   type: string;
-  email: string;
+  email?: string | undefined;
 };
 
 export type GetFoldersFolderIdSharingsSharingIdFolder = {
@@ -109,7 +109,7 @@ export const GetFoldersFolderIdSharingsSharingIdShare$inboundSchema: z.ZodType<
   id: z.number().int(),
   name: z.string(),
   type: z.string(),
-  email: z.string(),
+  email: z.string().optional(),
 });
 
 export function getFoldersFolderIdSharingsSharingIdShareFromJSON(
