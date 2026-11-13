@@ -648,7 +648,7 @@ run();
 **Primary error:**
 * [`WistiaError`](./src/models/errors/wistiaerror.ts): The base class for HTTP error responses.
 
-<details><summary>Less common errors (399)</summary>
+<details><summary>Less common errors (400)</summary>
 
 <br />
 
@@ -680,6 +680,7 @@ run();
 * [`GetFoldersBadRequestError`](./src/models/errors/getfoldersbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 111 methods.*
 * [`GetFoldersFolderIdSharingsBadRequestError`](./src/models/errors/getfoldersfolderidsharingsbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 111 methods.*
 * [`GetFoldersFolderIdSubfoldersBadRequestError`](./src/models/errors/getfoldersfolderidsubfoldersbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 111 methods.*
+* [`PostFoldersFolderIdSubfoldersBadRequestError`](./src/models/errors/postfoldersfolderidsubfoldersbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 111 methods.*
 * [`GetChannelsBadRequestError`](./src/models/errors/getchannelsbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 111 methods.*
 * [`PostChannelsChannelHashedIdChannelEpisodesBadRequestError`](./src/models/errors/postchannelschannelhashedidchannelepisodesbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 111 methods.*
 * [`GetChannelEpisodesBadRequestError`](./src/models/errors/getchannelepisodesbadrequesterror.ts): Bad request. Status code `400`. Applicable to 1 of 111 methods.*
@@ -1181,7 +1182,7 @@ import { Wistia } from "@wistia/wistia-api-client";
 const sdk = new Wistia({ debugLogger: console });
 ```
 
-You can also enable a default debug logger by setting an environment variable `WISTIA_DEBUG` to true.
+You can also enable a default debug logger by setting an environment variable `WISTIA_DEBUG` to `true`, `1`, `yes` or `on` (case-insensitive). Any other value leaves it off.
 <!-- End Debugging [debug] -->
 
 <!-- Placeholder for Future Speakeasy SDK Sections -->
