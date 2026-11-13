@@ -40,7 +40,7 @@ export type DeleteFoldersFolderIdSharingsSharingIdShare = {
   id: number;
   name: string;
   type: string;
-  email: string;
+  email?: string | undefined;
 };
 
 export type DeleteFoldersFolderIdSharingsSharingIdFolder = {
@@ -110,7 +110,7 @@ export const DeleteFoldersFolderIdSharingsSharingIdShare$inboundSchema:
     id: z.number().int(),
     name: z.string(),
     type: z.string(),
-    email: z.string(),
+    email: z.string().optional(),
   });
 
 export function deleteFoldersFolderIdSharingsSharingIdShareFromJSON(

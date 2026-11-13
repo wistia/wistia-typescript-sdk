@@ -44,6 +44,7 @@ export function subfoldersCreate(
 ): APIPromise<
   Result<
     operations.PostFoldersFolderIdSubfoldersResponse,
+    | errors.PostFoldersFolderIdSubfoldersBadRequestError
     | errors.PostFoldersFolderIdSubfoldersUnauthorizedError
     | errors.PostFoldersFolderIdSubfoldersForbiddenError
     | errors.PostFoldersFolderIdSubfoldersNotFoundError
@@ -73,6 +74,7 @@ async function $do(
   [
     Result<
       operations.PostFoldersFolderIdSubfoldersResponse,
+      | errors.PostFoldersFolderIdSubfoldersBadRequestError
       | errors.PostFoldersFolderIdSubfoldersUnauthorizedError
       | errors.PostFoldersFolderIdSubfoldersForbiddenError
       | errors.PostFoldersFolderIdSubfoldersNotFoundError
@@ -168,6 +170,7 @@ async function $do(
 
   const [result] = await M.match<
     operations.PostFoldersFolderIdSubfoldersResponse,
+    | errors.PostFoldersFolderIdSubfoldersBadRequestError
     | errors.PostFoldersFolderIdSubfoldersUnauthorizedError
     | errors.PostFoldersFolderIdSubfoldersForbiddenError
     | errors.PostFoldersFolderIdSubfoldersNotFoundError
@@ -182,6 +185,10 @@ async function $do(
     | SDKValidationError
   >(
     M.json(201, operations.PostFoldersFolderIdSubfoldersResponse$inboundSchema),
+    M.jsonErr(
+      400,
+      errors.PostFoldersFolderIdSubfoldersBadRequestError$inboundSchema,
+    ),
     M.jsonErr(
       401,
       errors.PostFoldersFolderIdSubfoldersUnauthorizedError$inboundSchema,

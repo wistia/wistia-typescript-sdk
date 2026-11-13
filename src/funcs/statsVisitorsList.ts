@@ -33,12 +33,10 @@ import { Result } from "../types/fp.js";
  * @remarks
  * This endpoint provides a list of visitors that have watched videos in your account.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read detailed stats
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function statsVisitorsList(
   client: WistiaCore,

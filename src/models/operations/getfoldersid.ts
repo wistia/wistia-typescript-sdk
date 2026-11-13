@@ -123,6 +123,12 @@ export type GetFoldersIdResponse = {
    */
   kind: GetFoldersIdKind;
   /**
+   * Whether this folder is someone's personal library ("My Library"). Unlike `kind`, this is a property of the folder itself and does not depend on who is requesting — it is `true` for a personal library even when that library has been shared with you (where `kind` would read `shared`). Use this, not `kind`, to tell whether a folder is a personal library.
+   *
+   * @remarks
+   */
+  personalLibrary: boolean;
+  /**
    * A cursor for stable pagination based on current `sort_by` order. You can pass this to `cursor[before]` or `cursor[after]` as a parameter to fetch the records before or after this record in the same sort order. This is only populated if records were fetched with `cursor[enabled]`, or `cursor[before]` or `cursor[after]`.
    */
   cursor?: string | null | undefined;
@@ -198,6 +204,7 @@ export const GetFoldersIdResponse$inboundSchema: z.ZodType<
   anonymous_can_upload: z.boolean().optional(),
   anonymous_can_download: z.boolean().optional(),
   kind: GetFoldersIdKind$inboundSchema,
+  personal_library: z.boolean(),
   cursor: z.nullable(z.string()).optional(),
 }).transform((v) => {
   return remap$(v, {
@@ -206,6 +213,7 @@ export const GetFoldersIdResponse$inboundSchema: z.ZodType<
     "public_id": "publicId",
     "anonymous_can_upload": "anonymousCanUpload",
     "anonymous_can_download": "anonymousCanDownload",
+    "personal_library": "personalLibrary",
   });
 });
 

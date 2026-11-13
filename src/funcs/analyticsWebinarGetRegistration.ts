@@ -35,12 +35,10 @@ import { Result } from "../types/fp.js";
  * granularity. Returns an array of timestamped registration metric buckets
  * including impressions, registrations, and completion rates.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read detailed stats
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function analyticsWebinarGetRegistration(
   client: WistiaCore,
