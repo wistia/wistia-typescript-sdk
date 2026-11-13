@@ -14,6 +14,11 @@
 
 Lists all extended audio descriptions belonging to the account. Supports pagination and sorting.
 
+An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+created with the `all:delegate_to_contact_permissions` scope and an
+authorization naming a media (any permission) can also be used; it lists
+the extended audio descriptions of the media the token names.
+
 
 ### Example Usage
 
@@ -86,6 +91,11 @@ run();
 ## getMediaExtendedAudioDescriptionsId
 
 Retrieves a single extended audio description by its hashed id, including download links.
+
+An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+created with the `all:delegate_to_contact_permissions` scope and an
+authorization naming the extended audio description's media (any
+permission) can also be used.
 
 
 ### Example Usage
@@ -163,6 +173,11 @@ run();
 ## deleteMediaExtendedAudioDescriptionsId
 
 Deletes an extended audio description by its hashed id.
+
+An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+created with the `all:delegate_to_contact_permissions` scope and an
+authorization granting the `update` permission on the extended audio
+description's media can also be used.
 
 
 ### Example Usage
@@ -243,6 +258,12 @@ run();
 Orders an extended audio description for a media. The request will charge the credit card on the account when the order is ready.
 Only accounts on paid plans with the `order_audio_descriptions` feature can use this endpoint.
 
+An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+created with the `all:delegate_to_contact_permissions` scope and an
+authorization granting the `order-audio-descriptions` permission on the
+media can also be used. The order is attributed to the contact the token
+was created for.
+
 
 ### Example Usage
 
@@ -322,6 +343,11 @@ run();
 
 Returns the current status of an extended audio description order. Use the order id returned
 from the order endpoint to poll for status updates.
+
+An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+created with the `all:delegate_to_contact_permissions` scope and an
+authorization naming the order's media (any permission) can also be
+used.
 
 
 ### Example Usage

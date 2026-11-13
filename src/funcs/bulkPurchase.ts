@@ -68,6 +68,12 @@ import { Result } from "../types/fp.js";
  * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
  * made with such a token are authorized using the permissions of the
  * contact assigned to the token.
+ *
+ * [Expiring access tokens](https://docs.wistia.com/reference/post_expiring-token)
+ * with authorizations cannot use this endpoint: each action is authorized
+ * later, in a background job, as the persisted contact that submitted it,
+ * and a token's authorizations are not carried into that job. Such requests
+ * are forbidden.
  */
 export function bulkPurchase(
   client: WistiaCore,
@@ -78,6 +84,7 @@ export function bulkPurchase(
     operations.PostBulkPurchaseResponse,
     | errors.PostBulkPurchaseBadRequestError
     | errors.PostBulkPurchaseUnauthorizedError
+    | errors.PostBulkPurchaseForbiddenError
     | errors.PostBulkPurchaseInternalServerError
     | WistiaError
     | ResponseValidationError
@@ -106,6 +113,7 @@ async function $do(
       operations.PostBulkPurchaseResponse,
       | errors.PostBulkPurchaseBadRequestError
       | errors.PostBulkPurchaseUnauthorizedError
+      | errors.PostBulkPurchaseForbiddenError
       | errors.PostBulkPurchaseInternalServerError
       | WistiaError
       | ResponseValidationError
@@ -191,6 +199,7 @@ async function $do(
     operations.PostBulkPurchaseResponse,
     | errors.PostBulkPurchaseBadRequestError
     | errors.PostBulkPurchaseUnauthorizedError
+    | errors.PostBulkPurchaseForbiddenError
     | errors.PostBulkPurchaseInternalServerError
     | WistiaError
     | ResponseValidationError
@@ -204,6 +213,7 @@ async function $do(
     M.json(202, operations.PostBulkPurchaseResponse$inboundSchema),
     M.jsonErr(400, errors.PostBulkPurchaseBadRequestError$inboundSchema),
     M.jsonErr(401, errors.PostBulkPurchaseUnauthorizedError$inboundSchema),
+    M.jsonErr(403, errors.PostBulkPurchaseForbiddenError$inboundSchema),
     M.jsonErr(500, errors.PostBulkPurchaseInternalServerError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),

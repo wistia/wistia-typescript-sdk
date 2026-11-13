@@ -22,6 +22,9 @@ Tokens with the "Act with a team member's permissions" permission
 made with such a token are authorized using the permissions of the
 contact assigned to the token.
 
+Expiring access tokens created with authorizations cannot be used; such
+requests fail with a 403.
+
 
 ### Example Usage
 

@@ -19,11 +19,11 @@ export type EditRequest = {
    */
   replacementText: string;
   /**
-   * Optional lower bound (inclusive, in the requested media's coordinate space) restricting the match to a time window. Must be sent with end_ms.
+   * Optional lower bound (inclusive, in the requested media's coordinate space) restricting the match to a time window. Omit to start at the beginning.
    */
   startMs?: number | undefined;
   /**
-   * Optional upper bound (inclusive) restricting the match to a time window. Must be sent with start_ms.
+   * Optional upper bound (inclusive) restricting the match to a time window. Omit to run to the end.
    */
   endMs?: number | undefined;
 };
@@ -45,7 +45,7 @@ export type PostMediasMediaHashedIdCaptionsLanguageCodeEditsRequest = {
    */
   mediaHashedId: string;
   /**
-   * The 3-character ISO 639-2 language code of the caption track to edit (e.g., `eng`, `fra`, `spa`). Some languages use extended IETF subtags (e.g., `zh-Hant`).
+   * The 3-character ISO 639-2 language code of the caption track to edit (e.g., `eng`, `fre`, `spa`). Some languages use extended IETF subtags (e.g., `zh-Hant`).
    */
   languageCode: string;
   requestBody: PostMediasMediaHashedIdCaptionsLanguageCodeEditsRequestBody;
