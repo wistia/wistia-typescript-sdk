@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -43,7 +43,7 @@ export type DeleteFoldersFolderIdSubfoldersSubfolderIdResponse = {
   /**
    * A unique alphanumeric identifier for this subfolder.
    */
-  hashedId: string;
+  hashedId: string | null;
   /**
    * The display name of the subfolder.
    */
@@ -82,10 +82,12 @@ export const DeleteFoldersFolderIdSubfoldersSubfolderIdRequest$outboundSchema:
     DeleteFoldersFolderIdSubfoldersSubfolderIdRequest$Outbound,
     z.ZodTypeDef,
     DeleteFoldersFolderIdSubfoldersSubfolderIdRequest
-  > = z.object({
-    folderId: z.string(),
-    subfolderId: z.string(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      folderId: z.string(),
+      subfolderId: z.string(),
+    })
+  );
 
 export function deleteFoldersFolderIdSubfoldersSubfolderIdRequestToJSON(
   deleteFoldersFolderIdSubfoldersSubfolderIdRequest:
@@ -100,8 +102,10 @@ export function deleteFoldersFolderIdSubfoldersSubfolderIdRequestToJSON(
 
 /** @internal */
 export const DeleteFoldersFolderIdSubfoldersSubfolderIdCode$inboundSchema:
-  z.ZodNativeEnum<typeof DeleteFoldersFolderIdSubfoldersSubfolderIdCode> = z
-    .nativeEnum(DeleteFoldersFolderIdSubfoldersSubfolderIdCode);
+  z.ZodNativeEnum<typeof DeleteFoldersFolderIdSubfoldersSubfolderIdCode> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(DeleteFoldersFolderIdSubfoldersSubfolderIdCode)
+    );
 
 /** @internal */
 export const DeleteFoldersFolderIdSubfoldersSubfolderIdResponse$inboundSchema:
@@ -109,23 +113,25 @@ export const DeleteFoldersFolderIdSubfoldersSubfolderIdResponse$inboundSchema:
     DeleteFoldersFolderIdSubfoldersSubfolderIdResponse,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    hashed_id: z.string(),
-    name: z.nullable(z.string()).optional(),
-    description: z.nullable(z.string()).optional(),
-    position: z.nullable(z.number().int()),
-    created: z.nullable(
-      z.string().datetime({ offset: true }).transform(v => new Date(v)),
-    ),
-    updated: z.nullable(
-      z.string().datetime({ offset: true }).transform(v => new Date(v)),
-    ),
-    cursor: z.nullable(z.string()).optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      "hashed_id": "hashedId",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      hashed_id: z.nullable(z.string()),
+      name: z.nullable(z.string()).optional(),
+      description: z.nullable(z.string()).optional(),
+      position: z.nullable(z.number().int()),
+      created: z.nullable(
+        z.string().datetime({ offset: true }).transform(v => new Date(v)),
+      ),
+      updated: z.nullable(
+        z.string().datetime({ offset: true }).transform(v => new Date(v)),
+      ),
+      cursor: z.nullable(z.string()).optional(),
+    }).transform((v) => {
+      return remap$(v, {
+        "hashed_id": "hashedId",
+      });
+    })
+  );
 
 export function deleteFoldersFolderIdSubfoldersSubfolderIdResponseFromJSON(
   jsonString: string,

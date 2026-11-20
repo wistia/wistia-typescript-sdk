@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
 import * as operations from "../operations/index.js";
 import { WistiaError } from "./wistiaerror.js";
 
@@ -147,42 +148,7 @@ export const DeleteMediasMediaIdShareLinkInternalServerError$inboundSchema:
     DeleteMediasMediaIdShareLinkInternalServerError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new DeleteMediasMediaIdShareLinkInternalServerError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
-
-/** @internal */
-export const DeleteMediasMediaIdShareLinkNotFoundError$inboundSchema: z.ZodType<
-  DeleteMediasMediaIdShareLinkNotFoundError,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  error: z.string().optional(),
-  request$: z.instanceof(Request),
-  response$: z.instanceof(Response),
-  body$: z.string(),
-})
-  .transform((v) => {
-    return new DeleteMediasMediaIdShareLinkNotFoundError(v, {
-      request: v.request$,
-      response: v.response$,
-      body: v.body$,
-    });
-  });
-
-/** @internal */
-export const DeleteMediasMediaIdShareLinkForbiddenError$inboundSchema:
-  z.ZodType<DeleteMediasMediaIdShareLinkForbiddenError, z.ZodTypeDef, unknown> =
+  > = /* @__PURE__ */ lazySchema$(() =>
     z.object({
       error: z.string().optional(),
       request$: z.instanceof(Request),
@@ -190,12 +156,53 @@ export const DeleteMediasMediaIdShareLinkForbiddenError$inboundSchema:
       body$: z.string(),
     })
       .transform((v) => {
-        return new DeleteMediasMediaIdShareLinkForbiddenError(v, {
+        return new DeleteMediasMediaIdShareLinkInternalServerError(v, {
           request: v.request$,
           response: v.response$,
           body: v.body$,
         });
+      })
+  );
+
+/** @internal */
+export const DeleteMediasMediaIdShareLinkNotFoundError$inboundSchema: z.ZodType<
+  DeleteMediasMediaIdShareLinkNotFoundError,
+  z.ZodTypeDef,
+  unknown
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    error: z.string().optional(),
+    request$: z.instanceof(Request),
+    response$: z.instanceof(Response),
+    body$: z.string(),
+  })
+    .transform((v) => {
+      return new DeleteMediasMediaIdShareLinkNotFoundError(v, {
+        request: v.request$,
+        response: v.response$,
+        body: v.body$,
       });
+    })
+);
+
+/** @internal */
+export const DeleteMediasMediaIdShareLinkForbiddenError$inboundSchema:
+  z.ZodType<DeleteMediasMediaIdShareLinkForbiddenError, z.ZodTypeDef, unknown> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.object({
+        error: z.string().optional(),
+        request$: z.instanceof(Request),
+        response$: z.instanceof(Response),
+        body$: z.string(),
+      })
+        .transform((v) => {
+          return new DeleteMediasMediaIdShareLinkForbiddenError(v, {
+            request: v.request$,
+            response: v.response$,
+            body: v.body$,
+          });
+        })
+    );
 
 /** @internal */
 export const DeleteMediasMediaIdShareLinkUnauthorizedError$inboundSchema:
@@ -203,17 +210,20 @@ export const DeleteMediasMediaIdShareLinkUnauthorizedError$inboundSchema:
     DeleteMediasMediaIdShareLinkUnauthorizedError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    code: operations.DeleteMediasMediaIdShareLinkCode$inboundSchema.optional(),
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new DeleteMediasMediaIdShareLinkUnauthorizedError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      code: operations.DeleteMediasMediaIdShareLinkCode$inboundSchema
+        .optional(),
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new DeleteMediasMediaIdShareLinkUnauthorizedError(v, {
+          request: v.request$,
+          response: v.response$,
+          body: v.body$,
+        });
+      })
+  );

@@ -4,6 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
 import { blobLikeSchema } from "../../types/blobs.js";
 import { ClosedEnum } from "../../types/enums.js";
 
@@ -59,15 +60,17 @@ export const PostMediasMediaHashedIdCaptionsMultipartCaptionFile$outboundSchema:
     PostMediasMediaHashedIdCaptionsMultipartCaptionFile$Outbound,
     z.ZodTypeDef,
     PostMediasMediaHashedIdCaptionsMultipartCaptionFile
-  > = z.object({
-    fileName: z.string(),
-    content: z.union([
-      z.instanceof(ReadableStream<Uint8Array>),
-      z.instanceof(Blob),
-      z.instanceof(ArrayBuffer),
-      z.instanceof(Uint8Array),
-    ]),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      fileName: z.string(),
+      content: z.union([
+        z.instanceof(ReadableStream<Uint8Array>),
+        z.instanceof(Blob),
+        z.instanceof(ArrayBuffer),
+        z.instanceof(Uint8Array),
+      ]),
+    })
+  );
 
 export function postMediasMediaHashedIdCaptionsMultipartCaptionFileToJSON(
   postMediasMediaHashedIdCaptionsMultipartCaptionFile:
@@ -94,16 +97,18 @@ export const PostMediasMediaHashedIdCaptionsMultipartRequestBody$outboundSchema:
     PostMediasMediaHashedIdCaptionsMultipartRequestBody$Outbound,
     z.ZodTypeDef,
     PostMediasMediaHashedIdCaptionsMultipartRequestBody
-  > = z.object({
-    captionFile: z.lazy(() =>
-      PostMediasMediaHashedIdCaptionsMultipartCaptionFile$outboundSchema
-    ).or(blobLikeSchema),
-    language: z.string().optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      captionFile: "caption_file",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      captionFile: z.lazy(() =>
+        PostMediasMediaHashedIdCaptionsMultipartCaptionFile$outboundSchema
+      ).or(blobLikeSchema),
+      language: z.string().optional(),
+    }).transform((v) => {
+      return remap$(v, {
+        captionFile: "caption_file",
+      });
+    })
+  );
 
 export function postMediasMediaHashedIdCaptionsMultipartRequestBodyToJSON(
   postMediasMediaHashedIdCaptionsMultipartRequestBody:
@@ -128,16 +133,18 @@ export const PostMediasMediaHashedIdCaptionsMultipartRequest$outboundSchema:
     PostMediasMediaHashedIdCaptionsMultipartRequest$Outbound,
     z.ZodTypeDef,
     PostMediasMediaHashedIdCaptionsMultipartRequest
-  > = z.object({
-    mediaHashedId: z.string(),
-    requestBody: z.lazy(() =>
-      PostMediasMediaHashedIdCaptionsMultipartRequestBody$outboundSchema
-    ),
-  }).transform((v) => {
-    return remap$(v, {
-      requestBody: "RequestBody",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      mediaHashedId: z.string(),
+      requestBody: z.lazy(() =>
+        PostMediasMediaHashedIdCaptionsMultipartRequestBody$outboundSchema
+      ),
+    }).transform((v) => {
+      return remap$(v, {
+        requestBody: "RequestBody",
+      });
+    })
+  );
 
 export function postMediasMediaHashedIdCaptionsMultipartRequestToJSON(
   postMediasMediaHashedIdCaptionsMultipartRequest:
@@ -152,5 +159,7 @@ export function postMediasMediaHashedIdCaptionsMultipartRequestToJSON(
 
 /** @internal */
 export const PostMediasMediaHashedIdCaptionsMultipartCode$inboundSchema:
-  z.ZodNativeEnum<typeof PostMediasMediaHashedIdCaptionsMultipartCode> = z
-    .nativeEnum(PostMediasMediaHashedIdCaptionsMultipartCode);
+  z.ZodNativeEnum<typeof PostMediasMediaHashedIdCaptionsMultipartCode> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(PostMediasMediaHashedIdCaptionsMultipartCode)
+    );

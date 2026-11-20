@@ -8,9 +8,8 @@ import { matchStatusCode } from "../lib/http.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { RequestOptions } from "../lib/sdks.js";
+import { encodePath, RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
-import { pathToFunc } from "../lib/url.js";
 import {
   ConnectionError,
   InvalidRequestError,
@@ -34,12 +33,10 @@ import { Result } from "../types/fp.js";
  * registrants with their attendance status, engagement metrics,
  * attribution data, and per-attendee histograms.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read detailed stats
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function analyticsWebinarGetAudience(
   client: WistiaCore,
@@ -112,9 +109,14 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-  const path = pathToFunc("/analytics/webinars/{webinarId}/audience")(
+  const pathResult = encodePath(
+    "/analytics/webinars/{webinarId}/audience",
     pathParams,
   );
+  if (!pathResult.ok) {
+    return [pathResult, { status: "invalid" }];
+  }
+  const path = pathResult.value;
 
   const query = encodeFormQuery({
     "cursor": payload.cursor,

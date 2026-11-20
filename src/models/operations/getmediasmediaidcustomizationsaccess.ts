@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -76,9 +76,11 @@ export const GetMediasMediaIdCustomizationsAccessRequest$outboundSchema:
     GetMediasMediaIdCustomizationsAccessRequest$Outbound,
     z.ZodTypeDef,
     GetMediasMediaIdCustomizationsAccessRequest
-  > = z.object({
-    mediaId: z.string(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      mediaId: z.string(),
+    })
+  );
 
 export function getMediasMediaIdCustomizationsAccessRequestToJSON(
   getMediasMediaIdCustomizationsAccessRequest:
@@ -93,8 +95,10 @@ export function getMediasMediaIdCustomizationsAccessRequestToJSON(
 
 /** @internal */
 export const GetMediasMediaIdCustomizationsAccessCode$inboundSchema:
-  z.ZodNativeEnum<typeof GetMediasMediaIdCustomizationsAccessCode> = z
-    .nativeEnum(GetMediasMediaIdCustomizationsAccessCode);
+  z.ZodNativeEnum<typeof GetMediasMediaIdCustomizationsAccessCode> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(GetMediasMediaIdCustomizationsAccessCode)
+    );
 
 /** @internal */
 export const GetMediasMediaIdCustomizationsAccessPrivate$inboundSchema:
@@ -102,13 +106,15 @@ export const GetMediasMediaIdCustomizationsAccessPrivate$inboundSchema:
     GetMediasMediaIdCustomizationsAccessPrivate,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    password_protect_on: z.string().optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      "password_protect_on": "passwordProtectOn",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      password_protect_on: z.string().optional(),
+    }).transform((v) => {
+      return remap$(v, {
+        "password_protect_on": "passwordProtectOn",
+      });
+    })
+  );
 
 export function getMediasMediaIdCustomizationsAccessPrivateFromJSON(
   jsonString: string,
@@ -132,13 +138,15 @@ export const GetMediasMediaIdCustomizationsAccessEncrypted$inboundSchema:
     GetMediasMediaIdCustomizationsAccessEncrypted,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    password_protect_password: z.string().optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      "password_protect_password": "passwordProtectPassword",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      password_protect_password: z.string().optional(),
+    }).transform((v) => {
+      return remap$(v, {
+        "password_protect_password": "passwordProtectPassword",
+      });
+    })
+  );
 
 export function getMediasMediaIdCustomizationsAccessEncryptedFromJSON(
   jsonString: string,
@@ -162,12 +170,14 @@ export const GetMediasMediaIdCustomizationsAccessPasswordProtectedVideo$inboundS
     GetMediasMediaIdCustomizationsAccessPasswordProtectedVideo,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    on: z.string().optional(),
-    challenge: z.string().optional(),
-    src: z.string().optional(),
-    async: z.string().optional(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      on: z.string().optional(),
+      challenge: z.string().optional(),
+      src: z.string().optional(),
+      async: z.string().optional(),
+    })
+  );
 
 export function getMediasMediaIdCustomizationsAccessPasswordProtectedVideoFromJSON(
   jsonString: string,
@@ -187,11 +197,13 @@ export function getMediasMediaIdCustomizationsAccessPasswordProtectedVideoFromJS
 /** @internal */
 export const GetMediasMediaIdCustomizationsAccessPlugin$inboundSchema:
   z.ZodType<GetMediasMediaIdCustomizationsAccessPlugin, z.ZodTypeDef, unknown> =
-    z.object({
-      passwordProtectedVideo: z.lazy(() =>
-        GetMediasMediaIdCustomizationsAccessPasswordProtectedVideo$inboundSchema
-      ).optional(),
-    });
+    /* @__PURE__ */ lazySchema$(() =>
+      z.object({
+        passwordProtectedVideo: z.lazy(() =>
+          GetMediasMediaIdCustomizationsAccessPasswordProtectedVideo$inboundSchema
+        ).optional(),
+      })
+    );
 
 export function getMediasMediaIdCustomizationsAccessPluginFromJSON(
   jsonString: string,
@@ -215,17 +227,19 @@ export const GetMediasMediaIdCustomizationsAccessResponse$inboundSchema:
     GetMediasMediaIdCustomizationsAccessResponse,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    private: z.lazy(() =>
-      GetMediasMediaIdCustomizationsAccessPrivate$inboundSchema
-    ).optional(),
-    encrypted: z.lazy(() =>
-      GetMediasMediaIdCustomizationsAccessEncrypted$inboundSchema
-    ).optional(),
-    plugin: z.lazy(() =>
-      GetMediasMediaIdCustomizationsAccessPlugin$inboundSchema
-    ).optional(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      private: z.lazy(() =>
+        GetMediasMediaIdCustomizationsAccessPrivate$inboundSchema
+      ).optional(),
+      encrypted: z.lazy(() =>
+        GetMediasMediaIdCustomizationsAccessEncrypted$inboundSchema
+      ).optional(),
+      plugin: z.lazy(() =>
+        GetMediasMediaIdCustomizationsAccessPlugin$inboundSchema
+      ).optional(),
+    })
+  );
 
 export function getMediasMediaIdCustomizationsAccessResponseFromJSON(
   jsonString: string,

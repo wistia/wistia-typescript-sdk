@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -66,9 +66,11 @@ export const PostTagsRequest$outboundSchema: z.ZodType<
   PostTagsRequest$Outbound,
   z.ZodTypeDef,
   PostTagsRequest
-> = z.object({
-  name: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    name: z.string(),
+  })
+);
 
 export function postTagsRequestToJSON(
   postTagsRequest: PostTagsRequest,
@@ -78,28 +80,32 @@ export function postTagsRequestToJSON(
 
 /** @internal */
 export const PostTagsCode$inboundSchema: z.ZodNativeEnum<typeof PostTagsCode> =
-  z.nativeEnum(PostTagsCode);
+  /* @__PURE__ */ lazySchema$(() => z.nativeEnum(PostTagsCode));
 
 /** @internal */
 export const PostTagsResponse$inboundSchema: z.ZodType<
   PostTagsResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  name: z.string().optional(),
-  taggings_count: z.number().int().optional(),
-  created_at: z.string().datetime({ offset: true }).transform(v => new Date(v))
-    .optional(),
-  updated_at: z.string().datetime({ offset: true }).transform(v => new Date(v))
-    .optional(),
-  cursor: z.nullable(z.string()).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "taggings_count": "taggingsCount",
-    "created_at": "createdAt",
-    "updated_at": "updatedAt",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    name: z.string().optional(),
+    taggings_count: z.number().int().optional(),
+    created_at: z.string().datetime({ offset: true }).transform(v =>
+      new Date(v)
+    ).optional(),
+    updated_at: z.string().datetime({ offset: true }).transform(v =>
+      new Date(v)
+    ).optional(),
+    cursor: z.nullable(z.string()).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "taggings_count": "taggingsCount",
+      "created_at": "createdAt",
+      "updated_at": "updatedAt",
+    });
+  })
+);
 
 export function postTagsResponseFromJSON(
   jsonString: string,

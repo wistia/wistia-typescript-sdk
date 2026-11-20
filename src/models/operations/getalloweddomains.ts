@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -183,7 +183,7 @@ export type GetAllowedDomainsResponse = {
 /** @internal */
 export const GetAllowedDomainsEnabled$outboundSchema: z.ZodNativeEnum<
   typeof GetAllowedDomainsEnabled
-> = z.nativeEnum(GetAllowedDomainsEnabled);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetAllowedDomainsEnabled));
 
 /** @internal */
 export type GetAllowedDomainsCursor$Outbound = {
@@ -197,11 +197,13 @@ export const GetAllowedDomainsCursor$outboundSchema: z.ZodType<
   GetAllowedDomainsCursor$Outbound,
   z.ZodTypeDef,
   GetAllowedDomainsCursor
-> = z.object({
-  enabled: GetAllowedDomainsEnabled$outboundSchema.optional(),
-  before: z.string().optional(),
-  after: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    enabled: GetAllowedDomainsEnabled$outboundSchema.optional(),
+    before: z.string().optional(),
+    after: z.string().optional(),
+  })
+);
 
 export function getAllowedDomainsCursorToJSON(
   getAllowedDomainsCursor: GetAllowedDomainsCursor,
@@ -214,12 +216,14 @@ export function getAllowedDomainsCursorToJSON(
 /** @internal */
 export const GetAllowedDomainsSortBy$outboundSchema: z.ZodNativeEnum<
   typeof GetAllowedDomainsSortBy
-> = z.nativeEnum(GetAllowedDomainsSortBy);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetAllowedDomainsSortBy));
 
 /** @internal */
 export const GetAllowedDomainsSortDirection$outboundSchema: z.ZodNativeEnum<
   typeof GetAllowedDomainsSortDirection
-> = z.nativeEnum(GetAllowedDomainsSortDirection);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(GetAllowedDomainsSortDirection)
+);
 
 /** @internal */
 export type GetAllowedDomainsRequest$Outbound = {
@@ -235,19 +239,21 @@ export const GetAllowedDomainsRequest$outboundSchema: z.ZodType<
   GetAllowedDomainsRequest$Outbound,
   z.ZodTypeDef,
   GetAllowedDomainsRequest
-> = z.object({
-  page: z.number().int().optional(),
-  perPage: z.number().int().optional(),
-  cursor: z.lazy(() => GetAllowedDomainsCursor$outboundSchema).optional(),
-  sortBy: GetAllowedDomainsSortBy$outboundSchema.default("id"),
-  sortDirection: GetAllowedDomainsSortDirection$outboundSchema.default(1),
-}).transform((v) => {
-  return remap$(v, {
-    perPage: "per_page",
-    sortBy: "sort_by",
-    sortDirection: "sort_direction",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    page: z.number().int().optional(),
+    perPage: z.number().int().optional(),
+    cursor: z.lazy(() => GetAllowedDomainsCursor$outboundSchema).optional(),
+    sortBy: GetAllowedDomainsSortBy$outboundSchema.default("id"),
+    sortDirection: GetAllowedDomainsSortDirection$outboundSchema.default(1),
+  }).transform((v) => {
+    return remap$(v, {
+      perPage: "per_page",
+      sortBy: "sort_by",
+      sortDirection: "sort_direction",
+    });
+  })
+);
 
 export function getAllowedDomainsRequestToJSON(
   getAllowedDomainsRequest: GetAllowedDomainsRequest,
@@ -260,22 +266,26 @@ export function getAllowedDomainsRequestToJSON(
 /** @internal */
 export const GetAllowedDomainsCode$inboundSchema: z.ZodNativeEnum<
   typeof GetAllowedDomainsCode
-> = z.nativeEnum(GetAllowedDomainsCode);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetAllowedDomainsCode));
 
 /** @internal */
 export const GetAllowedDomainsResponse$inboundSchema: z.ZodType<
   GetAllowedDomainsResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  domain: z.string(),
-  created_at: z.string().datetime({ offset: true }).transform(v => new Date(v)),
-  cursor: z.nullable(z.string()).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "created_at": "createdAt",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    domain: z.string(),
+    created_at: z.string().datetime({ offset: true }).transform(v =>
+      new Date(v)
+    ),
+    cursor: z.nullable(z.string()).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "created_at": "createdAt",
+    });
+  })
+);
 
 export function getAllowedDomainsResponseFromJSON(
   jsonString: string,

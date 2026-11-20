@@ -34,6 +34,16 @@ import { Result } from "../types/fp.js";
  * Also searches through video transcripts, so media results may include transcript matches with
  * timestamps when the query matches spoken content.
  *
+ * > 🚧 Search results are changing
+ * >
+ * > This search is moving to a new search engine, so an open-ended `q` can return more
+ * > results than it used to. If you depend on `q` finding one record by name, use Show
+ * > Media or Show Folder with the record's hashed ID instead.
+ * >
+ * > Releases after 2026-09 have a newer search that takes `query` in place of `q`, returns
+ * > one relevance-ranked list in `content`, and adds filters, sorting, paging, and an
+ * > `exact_match` option.
+ *
  * ## Requires api token with one of the following permissions
  * ```
  * Read all data

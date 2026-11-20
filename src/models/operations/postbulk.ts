@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -191,12 +191,12 @@ export type PostBulkResponse = {
 /** @internal */
 export const PostBulkOperation$outboundSchema: z.ZodNativeEnum<
   typeof PostBulkOperation
-> = z.nativeEnum(PostBulkOperation);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(PostBulkOperation));
 
 /** @internal */
 export const PostBulkResourceType$outboundSchema: z.ZodNativeEnum<
   typeof PostBulkResourceType
-> = z.nativeEnum(PostBulkResourceType);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(PostBulkResourceType));
 
 /** @internal */
 export type Payload$Outbound = {};
@@ -206,7 +206,7 @@ export const Payload$outboundSchema: z.ZodType<
   Payload$Outbound,
   z.ZodTypeDef,
   Payload
-> = z.object({});
+> = /* @__PURE__ */ lazySchema$(() => z.object({}));
 
 export function payloadToJSON(payload: Payload): string {
   return JSON.stringify(Payload$outboundSchema.parse(payload));
@@ -225,16 +225,18 @@ export const PostBulkAction$outboundSchema: z.ZodType<
   PostBulkAction$Outbound,
   z.ZodTypeDef,
   PostBulkAction
-> = z.object({
-  operation: PostBulkOperation$outboundSchema,
-  resourceType: PostBulkResourceType$outboundSchema,
-  id: z.string().optional(),
-  payload: z.lazy(() => Payload$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    resourceType: "resource_type",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    operation: PostBulkOperation$outboundSchema,
+    resourceType: PostBulkResourceType$outboundSchema,
+    id: z.string().optional(),
+    payload: z.lazy(() => Payload$outboundSchema).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      resourceType: "resource_type",
+    });
+  })
+);
 
 export function postBulkActionToJSON(postBulkAction: PostBulkAction): string {
   return JSON.stringify(PostBulkAction$outboundSchema.parse(postBulkAction));
@@ -250,9 +252,11 @@ export const PostBulkRequest$outboundSchema: z.ZodType<
   PostBulkRequest$Outbound,
   z.ZodTypeDef,
   PostBulkRequest
-> = z.object({
-  actions: z.array(z.lazy(() => PostBulkAction$outboundSchema)),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    actions: z.array(z.lazy(() => PostBulkAction$outboundSchema)),
+  })
+);
 
 export function postBulkRequestToJSON(
   postBulkRequest: PostBulkRequest,
@@ -262,27 +266,29 @@ export function postBulkRequestToJSON(
 
 /** @internal */
 export const PostBulkCode$inboundSchema: z.ZodNativeEnum<typeof PostBulkCode> =
-  z.nativeEnum(PostBulkCode);
+  /* @__PURE__ */ lazySchema$(() => z.nativeEnum(PostBulkCode));
 
 /** @internal */
 export const PostBulkStatus$inboundSchema: z.ZodNativeEnum<
   typeof PostBulkStatus
-> = z.nativeEnum(PostBulkStatus);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(PostBulkStatus));
 
 /** @internal */
 export const PostBulkBackgroundJobStatus$inboundSchema: z.ZodType<
   PostBulkBackgroundJobStatus,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.number().int(),
-  hashed_id: z.string(),
-  status: PostBulkStatus$inboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    "hashed_id": "hashedId",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    id: z.number().int(),
+    hashed_id: z.string(),
+    status: PostBulkStatus$inboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      "hashed_id": "hashedId",
+    });
+  })
+);
 
 export function postBulkBackgroundJobStatusFromJSON(
   jsonString: string,
@@ -299,16 +305,18 @@ export const PostBulkResponse$inboundSchema: z.ZodType<
   PostBulkResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  message: z.string(),
-  background_job_status: z.lazy(() =>
-    PostBulkBackgroundJobStatus$inboundSchema
-  ),
-}).transform((v) => {
-  return remap$(v, {
-    "background_job_status": "backgroundJobStatus",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    message: z.string(),
+    background_job_status: z.lazy(() =>
+      PostBulkBackgroundJobStatus$inboundSchema
+    ),
+  }).transform((v) => {
+    return remap$(v, {
+      "background_job_status": "backgroundJobStatus",
+    });
+  })
+);
 
 export function postBulkResponseFromJSON(
   jsonString: string,

@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -70,9 +70,11 @@ export const GetMediasMediaHashedIdCaptionsRequest$outboundSchema: z.ZodType<
   GetMediasMediaHashedIdCaptionsRequest$Outbound,
   z.ZodTypeDef,
   GetMediasMediaHashedIdCaptionsRequest
-> = z.object({
-  mediaHashedId: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    mediaHashedId: z.string(),
+  })
+);
 
 export function getMediasMediaHashedIdCaptionsRequestToJSON(
   getMediasMediaHashedIdCaptionsRequest: GetMediasMediaHashedIdCaptionsRequest,
@@ -87,28 +89,32 @@ export function getMediasMediaHashedIdCaptionsRequestToJSON(
 /** @internal */
 export const GetMediasMediaHashedIdCaptionsCode$inboundSchema: z.ZodNativeEnum<
   typeof GetMediasMediaHashedIdCaptionsCode
-> = z.nativeEnum(GetMediasMediaHashedIdCaptionsCode);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(GetMediasMediaHashedIdCaptionsCode)
+);
 
 /** @internal */
 export const GetMediasMediaHashedIdCaptionsResponse$inboundSchema: z.ZodType<
   GetMediasMediaHashedIdCaptionsResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  english_name: z.string().optional(),
-  native_name: z.string().optional(),
-  language: z.string(),
-  text: z.nullable(z.string()).optional(),
-  is_draft: z.boolean(),
-  id: z.string(),
-  cursor: z.nullable(z.string()).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "english_name": "englishName",
-    "native_name": "nativeName",
-    "is_draft": "isDraft",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    english_name: z.string().optional(),
+    native_name: z.string().optional(),
+    language: z.string(),
+    text: z.nullable(z.string()).optional(),
+    is_draft: z.boolean(),
+    id: z.string(),
+    cursor: z.nullable(z.string()).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "english_name": "englishName",
+      "native_name": "nativeName",
+      "is_draft": "isDraft",
+    });
+  })
+);
 
 export function getMediasMediaHashedIdCaptionsResponseFromJSON(
   jsonString: string,

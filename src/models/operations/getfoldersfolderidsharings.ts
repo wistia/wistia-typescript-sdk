@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -170,7 +170,7 @@ export type GetFoldersFolderIdSharingsShare = {
   id: number;
   name: string;
   type: string;
-  email: string;
+  email?: string | undefined;
 };
 
 export type GetFoldersFolderIdSharingsFolder = {
@@ -200,7 +200,9 @@ export type GetFoldersFolderIdSharingsResponse = {
 /** @internal */
 export const GetFoldersFolderIdSharingsEnabled$outboundSchema: z.ZodNativeEnum<
   typeof GetFoldersFolderIdSharingsEnabled
-> = z.nativeEnum(GetFoldersFolderIdSharingsEnabled);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(GetFoldersFolderIdSharingsEnabled)
+);
 
 /** @internal */
 export type GetFoldersFolderIdSharingsCursor$Outbound = {
@@ -214,11 +216,13 @@ export const GetFoldersFolderIdSharingsCursor$outboundSchema: z.ZodType<
   GetFoldersFolderIdSharingsCursor$Outbound,
   z.ZodTypeDef,
   GetFoldersFolderIdSharingsCursor
-> = z.object({
-  enabled: GetFoldersFolderIdSharingsEnabled$outboundSchema.optional(),
-  before: z.string().optional(),
-  after: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    enabled: GetFoldersFolderIdSharingsEnabled$outboundSchema.optional(),
+    before: z.string().optional(),
+    after: z.string().optional(),
+  })
+);
 
 export function getFoldersFolderIdSharingsCursorToJSON(
   getFoldersFolderIdSharingsCursor: GetFoldersFolderIdSharingsCursor,
@@ -233,12 +237,16 @@ export function getFoldersFolderIdSharingsCursorToJSON(
 /** @internal */
 export const GetFoldersFolderIdSharingsSortBy$outboundSchema: z.ZodNativeEnum<
   typeof GetFoldersFolderIdSharingsSortBy
-> = z.nativeEnum(GetFoldersFolderIdSharingsSortBy);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(GetFoldersFolderIdSharingsSortBy)
+);
 
 /** @internal */
 export const GetFoldersFolderIdSharingsSortDirection$outboundSchema:
-  z.ZodNativeEnum<typeof GetFoldersFolderIdSharingsSortDirection> = z
-    .nativeEnum(GetFoldersFolderIdSharingsSortDirection);
+  z.ZodNativeEnum<typeof GetFoldersFolderIdSharingsSortDirection> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(GetFoldersFolderIdSharingsSortDirection)
+    );
 
 /** @internal */
 export type GetFoldersFolderIdSharingsRequest$Outbound = {
@@ -256,25 +264,26 @@ export const GetFoldersFolderIdSharingsRequest$outboundSchema: z.ZodType<
   GetFoldersFolderIdSharingsRequest$Outbound,
   z.ZodTypeDef,
   GetFoldersFolderIdSharingsRequest
-> = z.object({
-  folderId: z.string(),
-  page: z.number().int().optional(),
-  perPage: z.number().int().optional(),
-  cursor: z.lazy(() => GetFoldersFolderIdSharingsCursor$outboundSchema)
-    .optional(),
-  sortBy: GetFoldersFolderIdSharingsSortBy$outboundSchema.default("id"),
-  sortDirection: GetFoldersFolderIdSharingsSortDirection$outboundSchema.default(
-    1,
-  ),
-  hashedIds: z.array(z.string()).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    perPage: "per_page",
-    sortBy: "sort_by",
-    sortDirection: "sort_direction",
-    hashedIds: "hashed_ids[]",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    folderId: z.string(),
+    page: z.number().int().optional(),
+    perPage: z.number().int().optional(),
+    cursor: z.lazy(() => GetFoldersFolderIdSharingsCursor$outboundSchema)
+      .optional(),
+    sortBy: GetFoldersFolderIdSharingsSortBy$outboundSchema.default("id"),
+    sortDirection: GetFoldersFolderIdSharingsSortDirection$outboundSchema
+      .default(1),
+    hashedIds: z.array(z.string()).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      perPage: "per_page",
+      sortBy: "sort_by",
+      sortDirection: "sort_direction",
+      hashedIds: "hashed_ids[]",
+    });
+  })
+);
 
 export function getFoldersFolderIdSharingsRequestToJSON(
   getFoldersFolderIdSharingsRequest: GetFoldersFolderIdSharingsRequest,
@@ -289,19 +298,23 @@ export function getFoldersFolderIdSharingsRequestToJSON(
 /** @internal */
 export const GetFoldersFolderIdSharingsCode$inboundSchema: z.ZodNativeEnum<
   typeof GetFoldersFolderIdSharingsCode
-> = z.nativeEnum(GetFoldersFolderIdSharingsCode);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(GetFoldersFolderIdSharingsCode)
+);
 
 /** @internal */
 export const GetFoldersFolderIdSharingsShare$inboundSchema: z.ZodType<
   GetFoldersFolderIdSharingsShare,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.number().int(),
-  name: z.string(),
-  type: z.string(),
-  email: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    id: z.number().int(),
+    name: z.string(),
+    type: z.string(),
+    email: z.string().optional(),
+  })
+);
 
 export function getFoldersFolderIdSharingsShareFromJSON(
   jsonString: string,
@@ -318,10 +331,12 @@ export const GetFoldersFolderIdSharingsFolder$inboundSchema: z.ZodType<
   GetFoldersFolderIdSharingsFolder,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.number().int(),
-  name: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    id: z.number().int(),
+    name: z.string(),
+  })
+);
 
 export function getFoldersFolderIdSharingsFolderFromJSON(
   jsonString: string,
@@ -338,23 +353,25 @@ export const GetFoldersFolderIdSharingsResponse$inboundSchema: z.ZodType<
   GetFoldersFolderIdSharingsResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.number().int(),
-  is_admin: z.boolean(),
-  can_share: z.boolean(),
-  can_download: z.boolean(),
-  can_upload: z.boolean(),
-  share: z.lazy(() => GetFoldersFolderIdSharingsShare$inboundSchema),
-  folder: z.lazy(() => GetFoldersFolderIdSharingsFolder$inboundSchema),
-  cursor: z.nullable(z.string()).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "is_admin": "isAdmin",
-    "can_share": "canShare",
-    "can_download": "canDownload",
-    "can_upload": "canUpload",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    id: z.number().int(),
+    is_admin: z.boolean(),
+    can_share: z.boolean(),
+    can_download: z.boolean(),
+    can_upload: z.boolean(),
+    share: z.lazy(() => GetFoldersFolderIdSharingsShare$inboundSchema),
+    folder: z.lazy(() => GetFoldersFolderIdSharingsFolder$inboundSchema),
+    cursor: z.nullable(z.string()).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "is_admin": "isAdmin",
+      "can_share": "canShare",
+      "can_download": "canDownload",
+      "can_upload": "canUpload",
+    });
+  })
+);
 
 export function getFoldersFolderIdSharingsResponseFromJSON(
   jsonString: string,

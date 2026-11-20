@@ -8,9 +8,8 @@ import { matchStatusCode } from "../lib/http.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { RequestOptions } from "../lib/sdks.js";
+import { encodePath, RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
-import { pathToFunc } from "../lib/url.js";
 import {
   ConnectionError,
   InvalidRequestError,
@@ -32,12 +31,10 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Retrieve stats for a video. This endpoint provides statistics for a specific video identified by its media-id.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read detailed stats
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function statsMediaGet(
   client: WistiaCore,
@@ -107,7 +104,11 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-  const path = pathToFunc("/stats/medias/{mediaId}")(pathParams);
+  const pathResult = encodePath("/stats/medias/{mediaId}", pathParams);
+  if (!pathResult.ok) {
+    return [pathResult, { status: "invalid" }];
+  }
+  const path = pathResult.value;
 
   const headers = new Headers(compactMap({
     Accept: "application/json",

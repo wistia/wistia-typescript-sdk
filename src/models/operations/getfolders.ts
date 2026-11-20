@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -270,7 +270,7 @@ export type GetFoldersResponse = {
 /** @internal */
 export const GetFoldersEnabled$outboundSchema: z.ZodNativeEnum<
   typeof GetFoldersEnabled
-> = z.nativeEnum(GetFoldersEnabled);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetFoldersEnabled));
 
 /** @internal */
 export type GetFoldersCursor$Outbound = {
@@ -284,11 +284,13 @@ export const GetFoldersCursor$outboundSchema: z.ZodType<
   GetFoldersCursor$Outbound,
   z.ZodTypeDef,
   GetFoldersCursor
-> = z.object({
-  enabled: GetFoldersEnabled$outboundSchema.optional(),
-  before: z.string().optional(),
-  after: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    enabled: GetFoldersEnabled$outboundSchema.optional(),
+    before: z.string().optional(),
+    after: z.string().optional(),
+  })
+);
 
 export function getFoldersCursorToJSON(
   getFoldersCursor: GetFoldersCursor,
@@ -301,12 +303,12 @@ export function getFoldersCursorToJSON(
 /** @internal */
 export const GetFoldersSortBy$outboundSchema: z.ZodNativeEnum<
   typeof GetFoldersSortBy
-> = z.nativeEnum(GetFoldersSortBy);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetFoldersSortBy));
 
 /** @internal */
 export const GetFoldersSortDirection$outboundSchema: z.ZodNativeEnum<
   typeof GetFoldersSortDirection
-> = z.nativeEnum(GetFoldersSortDirection);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetFoldersSortDirection));
 
 /** @internal */
 export type GetFoldersRequest$Outbound = {
@@ -323,21 +325,23 @@ export const GetFoldersRequest$outboundSchema: z.ZodType<
   GetFoldersRequest$Outbound,
   z.ZodTypeDef,
   GetFoldersRequest
-> = z.object({
-  page: z.number().int().optional(),
-  perPage: z.number().int().optional(),
-  cursor: z.lazy(() => GetFoldersCursor$outboundSchema).optional(),
-  sortBy: GetFoldersSortBy$outboundSchema.optional(),
-  sortDirection: GetFoldersSortDirection$outboundSchema.optional(),
-  hashedIds: z.array(z.string()).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    perPage: "per_page",
-    sortBy: "sort_by",
-    sortDirection: "sort_direction",
-    hashedIds: "hashed_ids[]",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    page: z.number().int().optional(),
+    perPage: z.number().int().optional(),
+    cursor: z.lazy(() => GetFoldersCursor$outboundSchema).optional(),
+    sortBy: GetFoldersSortBy$outboundSchema.optional(),
+    sortDirection: GetFoldersSortDirection$outboundSchema.optional(),
+    hashedIds: z.array(z.string()).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      perPage: "per_page",
+      sortBy: "sort_by",
+      sortDirection: "sort_direction",
+      hashedIds: "hashed_ids[]",
+    });
+  })
+);
 
 export function getFoldersRequestToJSON(
   getFoldersRequest: GetFoldersRequest,
@@ -350,16 +354,18 @@ export function getFoldersRequestToJSON(
 /** @internal */
 export const GetFoldersCode$inboundSchema: z.ZodNativeEnum<
   typeof GetFoldersCode
-> = z.nativeEnum(GetFoldersCode);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetFoldersCode));
 
 /** @internal */
 export const GetFoldersMedias$inboundSchema: z.ZodType<
   GetFoldersMedias,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  url: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    url: z.string().optional(),
+  })
+);
 
 export function getFoldersMediasFromJSON(
   jsonString: string,
@@ -374,39 +380,41 @@ export function getFoldersMediasFromJSON(
 /** @internal */
 export const GetFoldersKind$inboundSchema: z.ZodNativeEnum<
   typeof GetFoldersKind
-> = z.nativeEnum(GetFoldersKind);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetFoldersKind));
 
 /** @internal */
 export const GetFoldersResponse$inboundSchema: z.ZodType<
   GetFoldersResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.number().int(),
-  name: z.string(),
-  description: z.nullable(z.string()).optional(),
-  media_count: z.number().int(),
-  medias: z.lazy(() => GetFoldersMedias$inboundSchema),
-  created: z.string().datetime({ offset: true }).transform(v => new Date(v)),
-  updated: z.string().datetime({ offset: true }).transform(v => new Date(v)),
-  hashed_id: z.string(),
-  public: z.boolean(),
-  public_id: z.nullable(z.string()),
-  anonymous_can_upload: z.boolean().optional(),
-  anonymous_can_download: z.boolean().optional(),
-  kind: GetFoldersKind$inboundSchema,
-  personal_library: z.boolean(),
-  cursor: z.nullable(z.string()).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "media_count": "mediaCount",
-    "hashed_id": "hashedId",
-    "public_id": "publicId",
-    "anonymous_can_upload": "anonymousCanUpload",
-    "anonymous_can_download": "anonymousCanDownload",
-    "personal_library": "personalLibrary",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    id: z.number().int(),
+    name: z.string(),
+    description: z.nullable(z.string()).optional(),
+    media_count: z.number().int(),
+    medias: z.lazy(() => GetFoldersMedias$inboundSchema),
+    created: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+    updated: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+    hashed_id: z.string(),
+    public: z.boolean(),
+    public_id: z.nullable(z.string()),
+    anonymous_can_upload: z.boolean().optional(),
+    anonymous_can_download: z.boolean().optional(),
+    kind: GetFoldersKind$inboundSchema,
+    personal_library: z.boolean(),
+    cursor: z.nullable(z.string()).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "media_count": "mediaCount",
+      "hashed_id": "hashedId",
+      "public_id": "publicId",
+      "anonymous_can_upload": "anonymousCanUpload",
+      "anonymous_can_download": "anonymousCanDownload",
+      "personal_library": "personalLibrary",
+    });
+  })
+);
 
 export function getFoldersResponseFromJSON(
   jsonString: string,
