@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { RFCDate } from "../../types/rfcdate.js";
@@ -98,7 +98,9 @@ export type GetAnalyticsWebinarsWebinarIdRegistrationResponse = {
 /** @internal */
 export const GetAnalyticsWebinarsWebinarIdRegistrationGranularity$outboundSchema:
   z.ZodNativeEnum<typeof GetAnalyticsWebinarsWebinarIdRegistrationGranularity> =
-    z.nativeEnum(GetAnalyticsWebinarsWebinarIdRegistrationGranularity);
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(GetAnalyticsWebinarsWebinarIdRegistrationGranularity)
+    );
 
 /** @internal */
 export type GetAnalyticsWebinarsWebinarIdRegistrationRequest$Outbound = {
@@ -115,22 +117,24 @@ export const GetAnalyticsWebinarsWebinarIdRegistrationRequest$outboundSchema:
     GetAnalyticsWebinarsWebinarIdRegistrationRequest$Outbound,
     z.ZodTypeDef,
     GetAnalyticsWebinarsWebinarIdRegistrationRequest
-  > = z.object({
-    webinarId: z.string(),
-    granularity:
-      GetAnalyticsWebinarsWebinarIdRegistrationGranularity$outboundSchema,
-    includePostEvent: z.boolean().default(false),
-    postEventStartDate: z.instanceof(RFCDate).transform(v => v.toString())
-      .optional(),
-    postEventEndDate: z.instanceof(RFCDate).transform(v => v.toString())
-      .optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      includePostEvent: "include_post_event",
-      postEventStartDate: "post_event_start_date",
-      postEventEndDate: "post_event_end_date",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      webinarId: z.string(),
+      granularity:
+        GetAnalyticsWebinarsWebinarIdRegistrationGranularity$outboundSchema,
+      includePostEvent: z.boolean().default(false),
+      postEventStartDate: z.instanceof(RFCDate).transform(v => v.toString())
+        .optional(),
+      postEventEndDate: z.instanceof(RFCDate).transform(v => v.toString())
+        .optional(),
+    }).transform((v) => {
+      return remap$(v, {
+        includePostEvent: "include_post_event",
+        postEventStartDate: "post_event_start_date",
+        postEventEndDate: "post_event_end_date",
+      });
+    })
+  );
 
 export function getAnalyticsWebinarsWebinarIdRegistrationRequestToJSON(
   getAnalyticsWebinarsWebinarIdRegistrationRequest:
@@ -145,8 +149,10 @@ export function getAnalyticsWebinarsWebinarIdRegistrationRequestToJSON(
 
 /** @internal */
 export const GetAnalyticsWebinarsWebinarIdRegistrationCode$inboundSchema:
-  z.ZodNativeEnum<typeof GetAnalyticsWebinarsWebinarIdRegistrationCode> = z
-    .nativeEnum(GetAnalyticsWebinarsWebinarIdRegistrationCode);
+  z.ZodNativeEnum<typeof GetAnalyticsWebinarsWebinarIdRegistrationCode> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(GetAnalyticsWebinarsWebinarIdRegistrationCode)
+    );
 
 /** @internal */
 export const GetAnalyticsWebinarsWebinarIdRegistrationResponse$inboundSchema:
@@ -154,23 +160,26 @@ export const GetAnalyticsWebinarsWebinarIdRegistrationResponse$inboundSchema:
     GetAnalyticsWebinarsWebinarIdRegistrationResponse,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    timestamp: z.string().datetime({ offset: true }).transform(v => new Date(v))
-      .optional(),
-    registrations: z.nullable(z.number().int()).optional(),
-    impressions: z.nullable(z.number().int()).optional(),
-    on_demand_registrations: z.nullable(z.number().int()).optional(),
-    on_demand_impressions: z.nullable(z.number().int()).optional(),
-    completion_rate: z.nullable(z.number()).optional(),
-    on_demand_completion_rate: z.nullable(z.number()).optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      "on_demand_registrations": "onDemandRegistrations",
-      "on_demand_impressions": "onDemandImpressions",
-      "completion_rate": "completionRate",
-      "on_demand_completion_rate": "onDemandCompletionRate",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      timestamp: z.string().datetime({ offset: true }).transform(v =>
+        new Date(v)
+      ).optional(),
+      registrations: z.nullable(z.number().int()).optional(),
+      impressions: z.nullable(z.number().int()).optional(),
+      on_demand_registrations: z.nullable(z.number().int()).optional(),
+      on_demand_impressions: z.nullable(z.number().int()).optional(),
+      completion_rate: z.nullable(z.number()).optional(),
+      on_demand_completion_rate: z.nullable(z.number()).optional(),
+    }).transform((v) => {
+      return remap$(v, {
+        "on_demand_registrations": "onDemandRegistrations",
+        "on_demand_impressions": "onDemandImpressions",
+        "completion_rate": "completionRate",
+        "on_demand_completion_rate": "onDemandCompletionRate",
+      });
+    })
+  );
 
 export function getAnalyticsWebinarsWebinarIdRegistrationResponseFromJSON(
   jsonString: string,

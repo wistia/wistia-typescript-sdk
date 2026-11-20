@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -105,21 +105,23 @@ export type GetBrandPreloadResponse = {
 /** @internal */
 export const GetBrandPreloadCode$inboundSchema: z.ZodNativeEnum<
   typeof GetBrandPreloadCode
-> = z.nativeEnum(GetBrandPreloadCode);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetBrandPreloadCode));
 
 /** @internal */
 export const GetBrandPreloadFormat$inboundSchema: z.ZodType<
   GetBrandPreloadFormat,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  src: z.string().optional(),
-  format: z.string().optional(),
-  background: z.nullable(z.string()).optional(),
-  height: z.nullable(z.number().int()).optional(),
-  width: z.nullable(z.number().int()).optional(),
-  size: z.nullable(z.number().int()).optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    src: z.string().optional(),
+    format: z.string().optional(),
+    background: z.nullable(z.string()).optional(),
+    height: z.nullable(z.number().int()).optional(),
+    width: z.nullable(z.number().int()).optional(),
+    size: z.nullable(z.number().int()).optional(),
+  })
+);
 
 export function getBrandPreloadFormatFromJSON(
   jsonString: string,
@@ -136,13 +138,15 @@ export const GetBrandPreloadLogo$inboundSchema: z.ZodType<
   GetBrandPreloadLogo,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  theme: z.nullable(z.string()).optional(),
-  type: z.nullable(z.string()).optional(),
-  tags: z.array(z.string()).optional(),
-  formats: z.array(z.lazy(() => GetBrandPreloadFormat$inboundSchema))
-    .optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    theme: z.nullable(z.string()).optional(),
+    type: z.nullable(z.string()).optional(),
+    tags: z.array(z.string()).optional(),
+    formats: z.array(z.lazy(() => GetBrandPreloadFormat$inboundSchema))
+      .optional(),
+  })
+);
 
 export function getBrandPreloadLogoFromJSON(
   jsonString: string,
@@ -159,19 +163,21 @@ export const GetBrandPreloadBrandfetchBrand$inboundSchema: z.ZodType<
   GetBrandPreloadBrandfetchBrand,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  domain: z.nullable(z.string()),
-  primary_color: z.nullable(z.string()),
-  logo: z.nullable(z.string()),
-  font: z.nullable(z.string()).optional(),
-  colors: z.array(z.string()).optional(),
-  logos: z.array(z.lazy(() => GetBrandPreloadLogo$inboundSchema)).optional(),
-  status: z.nullable(z.number().int()).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "primary_color": "primaryColor",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    domain: z.nullable(z.string()),
+    primary_color: z.nullable(z.string()),
+    logo: z.nullable(z.string()),
+    font: z.nullable(z.string()).optional(),
+    colors: z.array(z.string()).optional(),
+    logos: z.array(z.lazy(() => GetBrandPreloadLogo$inboundSchema)).optional(),
+    status: z.nullable(z.number().int()).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "primary_color": "primaryColor",
+    });
+  })
+);
 
 export function getBrandPreloadBrandfetchBrandFromJSON(
   jsonString: string,
@@ -188,15 +194,19 @@ export const GetBrandPreloadResponse$inboundSchema: z.ZodType<
   GetBrandPreloadResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  has_brand_kits: z.boolean(),
-  brandfetch_brand: z.lazy(() => GetBrandPreloadBrandfetchBrand$inboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    "has_brand_kits": "hasBrandKits",
-    "brandfetch_brand": "brandfetchBrand",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    has_brand_kits: z.boolean(),
+    brandfetch_brand: z.lazy(() =>
+      GetBrandPreloadBrandfetchBrand$inboundSchema
+    ),
+  }).transform((v) => {
+    return remap$(v, {
+      "has_brand_kits": "hasBrandKits",
+      "brandfetch_brand": "brandfetchBrand",
+    });
+  })
+);
 
 export function getBrandPreloadResponseFromJSON(
   jsonString: string,

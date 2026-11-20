@@ -8,9 +8,8 @@ import { matchStatusCode } from "../lib/http.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { RequestOptions } from "../lib/sdks.js";
+import { encodePath, RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
-import { pathToFunc } from "../lib/url.js";
 import {
   ConnectionError,
   InvalidRequestError,
@@ -45,9 +44,9 @@ import { Result } from "../types/fp.js";
  * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
  * created with the `all:delegate_to_contact_permissions` scope and an
  * authorization granting the `update` permission on this folder can also be
- * used. The `update` permission also allows bulk-deleting the folder's
- * subfolders and using the folder as the destination when moving or
- * bulk-copying media the token may update.
+ * used. The `update` permission also allows creating, renaming and deleting
+ * the folder's subfolders and using the folder as the destination when
+ * moving or bulk-copying media the token may update.
  */
 export function foldersUpdate(
   client: WistiaCore,
@@ -118,7 +117,11 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-  const path = pathToFunc("/folders/{id}")(pathParams);
+  const pathResult = encodePath("/folders/{id}", pathParams);
+  if (!pathResult.ok) {
+    return [pathResult, { status: "invalid" }];
+  }
+  const path = pathResult.value;
 
   const headers = new Headers(compactMap({
     "Content-Type": "application/json",

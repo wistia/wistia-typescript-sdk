@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -183,7 +183,7 @@ export type PostMediaExtendedAudioDescriptionsOrderResponse = {
 /** @internal */
 export const IetfLanguageTag$outboundSchema: z.ZodNativeEnum<
   typeof IetfLanguageTag
-> = z.nativeEnum(IetfLanguageTag);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(IetfLanguageTag));
 
 /** @internal */
 export type PostMediaExtendedAudioDescriptionsOrderRequest$Outbound = {
@@ -200,20 +200,22 @@ export const PostMediaExtendedAudioDescriptionsOrderRequest$outboundSchema:
     PostMediaExtendedAudioDescriptionsOrderRequest$Outbound,
     z.ZodTypeDef,
     PostMediaExtendedAudioDescriptionsOrderRequest
-  > = z.object({
-    mediaId: z.string(),
-    enabled: z.boolean().default(true),
-    aiEnabled: z.boolean().default(true),
-    orderInstructions: z.string().optional(),
-    ietfLanguageTag: IetfLanguageTag$outboundSchema.default("eng"),
-  }).transform((v) => {
-    return remap$(v, {
-      mediaId: "media_id",
-      aiEnabled: "ai_enabled",
-      orderInstructions: "order_instructions",
-      ietfLanguageTag: "ietf_language_tag",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      mediaId: z.string(),
+      enabled: z.boolean().default(true),
+      aiEnabled: z.boolean().default(true),
+      orderInstructions: z.string().optional(),
+      ietfLanguageTag: IetfLanguageTag$outboundSchema.default("eng"),
+    }).transform((v) => {
+      return remap$(v, {
+        mediaId: "media_id",
+        aiEnabled: "ai_enabled",
+        orderInstructions: "order_instructions",
+        ietfLanguageTag: "ietf_language_tag",
+      });
+    })
+  );
 
 export function postMediaExtendedAudioDescriptionsOrderRequestToJSON(
   postMediaExtendedAudioDescriptionsOrderRequest:
@@ -228,13 +230,17 @@ export function postMediaExtendedAudioDescriptionsOrderRequestToJSON(
 
 /** @internal */
 export const PostMediaExtendedAudioDescriptionsOrderCode$inboundSchema:
-  z.ZodNativeEnum<typeof PostMediaExtendedAudioDescriptionsOrderCode> = z
-    .nativeEnum(PostMediaExtendedAudioDescriptionsOrderCode);
+  z.ZodNativeEnum<typeof PostMediaExtendedAudioDescriptionsOrderCode> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(PostMediaExtendedAudioDescriptionsOrderCode)
+    );
 
 /** @internal */
 export const PostMediaExtendedAudioDescriptionsOrderOrderStatus$inboundSchema:
-  z.ZodNativeEnum<typeof PostMediaExtendedAudioDescriptionsOrderOrderStatus> = z
-    .nativeEnum(PostMediaExtendedAudioDescriptionsOrderOrderStatus);
+  z.ZodNativeEnum<typeof PostMediaExtendedAudioDescriptionsOrderOrderStatus> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(PostMediaExtendedAudioDescriptionsOrderOrderStatus)
+    );
 
 /** @internal */
 export const PostMediaExtendedAudioDescriptionsOrderMedia$inboundSchema:
@@ -242,15 +248,17 @@ export const PostMediaExtendedAudioDescriptionsOrderMedia$inboundSchema:
     PostMediaExtendedAudioDescriptionsOrderMedia,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    id: z.string(),
-    index_url: z.string(),
-    url: z.string(),
-  }).transform((v) => {
-    return remap$(v, {
-      "index_url": "indexUrl",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      id: z.string(),
+      index_url: z.string(),
+      url: z.string(),
+    }).transform((v) => {
+      return remap$(v, {
+        "index_url": "indexUrl",
+      });
+    })
+  );
 
 export function postMediaExtendedAudioDescriptionsOrderMediaFromJSON(
   jsonString: string,
@@ -274,15 +282,17 @@ export const PostMediaExtendedAudioDescriptionsOrderMediaExtendedAudioDescriptio
     PostMediaExtendedAudioDescriptionsOrderMediaExtendedAudioDescription,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    id: z.string(),
-    index_url: z.string(),
-    url: z.string(),
-  }).transform((v) => {
-    return remap$(v, {
-      "index_url": "indexUrl",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      id: z.string(),
+      index_url: z.string(),
+      url: z.string(),
+    }).transform((v) => {
+      return remap$(v, {
+        "index_url": "indexUrl",
+      });
+    })
+  );
 
 export function postMediaExtendedAudioDescriptionsOrderMediaExtendedAudioDescriptionFromJSON(
   jsonString: string,
@@ -305,34 +315,34 @@ export const PostMediaExtendedAudioDescriptionsOrderOrder$inboundSchema:
     PostMediaExtendedAudioDescriptionsOrderOrder,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    id: z.string(),
-    order_status:
-      PostMediaExtendedAudioDescriptionsOrderOrderStatus$inboundSchema,
-    created_at: z.string().datetime({ offset: true }).transform(v =>
-      new Date(v)
-    ),
-    updated_at: z.string().datetime({ offset: true }).transform(v =>
-      new Date(v)
-    ),
-    ietf_language_tag: z.string(),
-    media: z.lazy(() =>
-      PostMediaExtendedAudioDescriptionsOrderMedia$inboundSchema
-    ),
-    media_extended_audio_description: z.nullable(
-      z.lazy(() =>
-        PostMediaExtendedAudioDescriptionsOrderMediaExtendedAudioDescription$inboundSchema
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      id: z.string(),
+      order_status:
+        PostMediaExtendedAudioDescriptionsOrderOrderStatus$inboundSchema,
+      created_at: z.string().datetime({ offset: true }).transform(v =>
+        new Date(v)
       ),
-    ).optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      "order_status": "orderStatus",
-      "created_at": "createdAt",
-      "updated_at": "updatedAt",
-      "ietf_language_tag": "ietfLanguageTag",
-      "media_extended_audio_description": "mediaExtendedAudioDescription",
-    });
-  });
+      updated_at: z.string().datetime({ offset: true }).transform(v =>
+        new Date(v)
+      ),
+      ietf_language_tag: z.string(),
+      media: z.lazy(() =>
+        PostMediaExtendedAudioDescriptionsOrderMedia$inboundSchema
+      ),
+      media_extended_audio_description: z.nullable(z.lazy(() =>
+        PostMediaExtendedAudioDescriptionsOrderMediaExtendedAudioDescription$inboundSchema
+      )).optional(),
+    }).transform((v) => {
+      return remap$(v, {
+        "order_status": "orderStatus",
+        "created_at": "createdAt",
+        "updated_at": "updatedAt",
+        "ietf_language_tag": "ietfLanguageTag",
+        "media_extended_audio_description": "mediaExtendedAudioDescription",
+      });
+    })
+  );
 
 export function postMediaExtendedAudioDescriptionsOrderOrderFromJSON(
   jsonString: string,
@@ -356,17 +366,19 @@ export const PostMediaExtendedAudioDescriptionsOrderResponse$inboundSchema:
     PostMediaExtendedAudioDescriptionsOrderResponse,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    message: z.string(),
-    order: z.lazy(() =>
-      PostMediaExtendedAudioDescriptionsOrderOrder$inboundSchema
-    ),
-    expected_billed_credits: z.nullable(z.string()),
-  }).transform((v) => {
-    return remap$(v, {
-      "expected_billed_credits": "expectedBilledCredits",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      message: z.string(),
+      order: z.lazy(() =>
+        PostMediaExtendedAudioDescriptionsOrderOrder$inboundSchema
+      ),
+      expected_billed_credits: z.nullable(z.string()),
+    }).transform((v) => {
+      return remap$(v, {
+        "expected_billed_credits": "expectedBilledCredits",
+      });
+    })
+  );
 
 export function postMediaExtendedAudioDescriptionsOrderResponseFromJSON(
   jsonString: string,

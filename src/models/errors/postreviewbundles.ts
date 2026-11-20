@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
 import * as operations from "../operations/index.js";
 import { WistiaError } from "./wistiaerror.js";
 
@@ -159,75 +160,83 @@ export const PostReviewBundlesInternalServerError$inboundSchema: z.ZodType<
   PostReviewBundlesInternalServerError,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  error: z.string().optional(),
-  request$: z.instanceof(Request),
-  response$: z.instanceof(Response),
-  body$: z.string(),
-})
-  .transform((v) => {
-    return new PostReviewBundlesInternalServerError(v, {
-      request: v.request$,
-      response: v.response$,
-      body: v.body$,
-    });
-  });
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    error: z.string().optional(),
+    request$: z.instanceof(Request),
+    response$: z.instanceof(Response),
+    body$: z.string(),
+  })
+    .transform((v) => {
+      return new PostReviewBundlesInternalServerError(v, {
+        request: v.request$,
+        response: v.response$,
+        body: v.body$,
+      });
+    })
+);
 
 /** @internal */
 export const PostReviewBundlesUnprocessableEntityError$inboundSchema: z.ZodType<
   PostReviewBundlesUnprocessableEntityError,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  error: z.string().optional(),
-  errors: z.array(z.string()).optional(),
-  request$: z.instanceof(Request),
-  response$: z.instanceof(Response),
-  body$: z.string(),
-})
-  .transform((v) => {
-    return new PostReviewBundlesUnprocessableEntityError(v, {
-      request: v.request$,
-      response: v.response$,
-      body: v.body$,
-    });
-  });
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    error: z.string().optional(),
+    errors: z.array(z.string()).optional(),
+    request$: z.instanceof(Request),
+    response$: z.instanceof(Response),
+    body$: z.string(),
+  })
+    .transform((v) => {
+      return new PostReviewBundlesUnprocessableEntityError(v, {
+        request: v.request$,
+        response: v.response$,
+        body: v.body$,
+      });
+    })
+);
 
 /** @internal */
 export const PostReviewBundlesForbiddenError$inboundSchema: z.ZodType<
   PostReviewBundlesForbiddenError,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  error: z.string().optional(),
-  request$: z.instanceof(Request),
-  response$: z.instanceof(Response),
-  body$: z.string(),
-})
-  .transform((v) => {
-    return new PostReviewBundlesForbiddenError(v, {
-      request: v.request$,
-      response: v.response$,
-      body: v.body$,
-    });
-  });
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    error: z.string().optional(),
+    request$: z.instanceof(Request),
+    response$: z.instanceof(Response),
+    body$: z.string(),
+  })
+    .transform((v) => {
+      return new PostReviewBundlesForbiddenError(v, {
+        request: v.request$,
+        response: v.response$,
+        body: v.body$,
+      });
+    })
+);
 
 /** @internal */
 export const PostReviewBundlesUnauthorizedError$inboundSchema: z.ZodType<
   PostReviewBundlesUnauthorizedError,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  code: operations.PostReviewBundlesCode$inboundSchema.optional(),
-  error: z.string().optional(),
-  request$: z.instanceof(Request),
-  response$: z.instanceof(Response),
-  body$: z.string(),
-})
-  .transform((v) => {
-    return new PostReviewBundlesUnauthorizedError(v, {
-      request: v.request$,
-      response: v.response$,
-      body: v.body$,
-    });
-  });
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    code: operations.PostReviewBundlesCode$inboundSchema.optional(),
+    error: z.string().optional(),
+    request$: z.instanceof(Request),
+    response$: z.instanceof(Response),
+    body$: z.string(),
+  })
+    .transform((v) => {
+      return new PostReviewBundlesUnauthorizedError(v, {
+        request: v.request$,
+        response: v.response$,
+        body: v.body$,
+      });
+    })
+);

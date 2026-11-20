@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
 import * as operations from "../operations/index.js";
 import { WistiaError } from "./wistiaerror.js";
 
@@ -197,19 +198,21 @@ export const GetAnalyticsAccountTimeseriesServiceUnavailableError$inboundSchema:
     GetAnalyticsAccountTimeseriesServiceUnavailableError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new GetAnalyticsAccountTimeseriesServiceUnavailableError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new GetAnalyticsAccountTimeseriesServiceUnavailableError(v, {
+          request: v.request$,
+          response: v.response$,
+          body: v.body$,
+        });
+      })
+  );
 
 /** @internal */
 export const GetAnalyticsAccountTimeseriesInternalServerError$inboundSchema:
@@ -217,19 +220,21 @@ export const GetAnalyticsAccountTimeseriesInternalServerError$inboundSchema:
     GetAnalyticsAccountTimeseriesInternalServerError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new GetAnalyticsAccountTimeseriesInternalServerError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new GetAnalyticsAccountTimeseriesInternalServerError(v, {
+          request: v.request$,
+          response: v.response$,
+          body: v.body$,
+        });
+      })
+  );
 
 /** @internal */
 export const GetAnalyticsAccountTimeseriesForbiddenError$inboundSchema:
@@ -237,19 +242,21 @@ export const GetAnalyticsAccountTimeseriesForbiddenError$inboundSchema:
     GetAnalyticsAccountTimeseriesForbiddenError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new GetAnalyticsAccountTimeseriesForbiddenError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new GetAnalyticsAccountTimeseriesForbiddenError(v, {
+          request: v.request$,
+          response: v.response$,
+          body: v.body$,
+        });
+      })
+  );
 
 /** @internal */
 export const GetAnalyticsAccountTimeseriesUnauthorizedError$inboundSchema:
@@ -257,20 +264,23 @@ export const GetAnalyticsAccountTimeseriesUnauthorizedError$inboundSchema:
     GetAnalyticsAccountTimeseriesUnauthorizedError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    code: operations.GetAnalyticsAccountTimeseriesCode$inboundSchema.optional(),
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new GetAnalyticsAccountTimeseriesUnauthorizedError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      code: operations.GetAnalyticsAccountTimeseriesCode$inboundSchema
+        .optional(),
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new GetAnalyticsAccountTimeseriesUnauthorizedError(v, {
+          request: v.request$,
+          response: v.response$,
+          body: v.body$,
+        });
+      })
+  );
 
 /** @internal */
 export const GetAnalyticsAccountTimeseriesBadRequestError$inboundSchema:
@@ -278,17 +288,19 @@ export const GetAnalyticsAccountTimeseriesBadRequestError$inboundSchema:
     GetAnalyticsAccountTimeseriesBadRequestError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    error: z.string().optional(),
-    errors: z.array(z.string()).optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new GetAnalyticsAccountTimeseriesBadRequestError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      error: z.string().optional(),
+      errors: z.array(z.string()).optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new GetAnalyticsAccountTimeseriesBadRequestError(v, {
+          request: v.request$,
+          response: v.response$,
+          body: v.body$,
+        });
+      })
+  );

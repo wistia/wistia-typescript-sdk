@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -65,9 +65,11 @@ export const DeleteAllowedDomainsDomainRequest$outboundSchema: z.ZodType<
   DeleteAllowedDomainsDomainRequest$Outbound,
   z.ZodTypeDef,
   DeleteAllowedDomainsDomainRequest
-> = z.object({
-  domain: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    domain: z.string(),
+  })
+);
 
 export function deleteAllowedDomainsDomainRequestToJSON(
   deleteAllowedDomainsDomainRequest: DeleteAllowedDomainsDomainRequest,
@@ -82,22 +84,28 @@ export function deleteAllowedDomainsDomainRequestToJSON(
 /** @internal */
 export const DeleteAllowedDomainsDomainCode$inboundSchema: z.ZodNativeEnum<
   typeof DeleteAllowedDomainsDomainCode
-> = z.nativeEnum(DeleteAllowedDomainsDomainCode);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(DeleteAllowedDomainsDomainCode)
+);
 
 /** @internal */
 export const DeleteAllowedDomainsDomainResponse$inboundSchema: z.ZodType<
   DeleteAllowedDomainsDomainResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  domain: z.string(),
-  created_at: z.string().datetime({ offset: true }).transform(v => new Date(v)),
-  cursor: z.nullable(z.string()).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "created_at": "createdAt",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    domain: z.string(),
+    created_at: z.string().datetime({ offset: true }).transform(v =>
+      new Date(v)
+    ),
+    cursor: z.nullable(z.string()).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "created_at": "createdAt",
+    });
+  })
+);
 
 export function deleteAllowedDomainsDomainResponseFromJSON(
   jsonString: string,

@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -179,17 +179,17 @@ export type GetSpeakersResponse = {
 /** @internal */
 export const GetSpeakersSortBy$outboundSchema: z.ZodNativeEnum<
   typeof GetSpeakersSortBy
-> = z.nativeEnum(GetSpeakersSortBy);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetSpeakersSortBy));
 
 /** @internal */
 export const GetSpeakersSortDirection$outboundSchema: z.ZodNativeEnum<
   typeof GetSpeakersSortDirection
-> = z.nativeEnum(GetSpeakersSortDirection);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetSpeakersSortDirection));
 
 /** @internal */
 export const GetSpeakersEnabled$outboundSchema: z.ZodNativeEnum<
   typeof GetSpeakersEnabled
-> = z.nativeEnum(GetSpeakersEnabled);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetSpeakersEnabled));
 
 /** @internal */
 export type GetSpeakersCursor$Outbound = {
@@ -203,11 +203,13 @@ export const GetSpeakersCursor$outboundSchema: z.ZodType<
   GetSpeakersCursor$Outbound,
   z.ZodTypeDef,
   GetSpeakersCursor
-> = z.object({
-  enabled: GetSpeakersEnabled$outboundSchema.optional(),
-  before: z.string().optional(),
-  after: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    enabled: GetSpeakersEnabled$outboundSchema.optional(),
+    before: z.string().optional(),
+    after: z.string().optional(),
+  })
+);
 
 export function getSpeakersCursorToJSON(
   getSpeakersCursor: GetSpeakersCursor,
@@ -232,20 +234,22 @@ export const GetSpeakersRequest$outboundSchema: z.ZodType<
   GetSpeakersRequest$Outbound,
   z.ZodTypeDef,
   GetSpeakersRequest
-> = z.object({
-  name: z.string().optional(),
-  sortBy: GetSpeakersSortBy$outboundSchema.optional(),
-  sortDirection: GetSpeakersSortDirection$outboundSchema.optional(),
-  page: z.number().int().optional(),
-  perPage: z.number().int().optional(),
-  cursor: z.lazy(() => GetSpeakersCursor$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    sortBy: "sort_by",
-    sortDirection: "sort_direction",
-    perPage: "per_page",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    name: z.string().optional(),
+    sortBy: GetSpeakersSortBy$outboundSchema.optional(),
+    sortDirection: GetSpeakersSortDirection$outboundSchema.optional(),
+    page: z.number().int().optional(),
+    perPage: z.number().int().optional(),
+    cursor: z.lazy(() => GetSpeakersCursor$outboundSchema).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      sortBy: "sort_by",
+      sortDirection: "sort_direction",
+      perPage: "per_page",
+    });
+  })
+);
 
 export function getSpeakersRequestToJSON(
   getSpeakersRequest: GetSpeakersRequest,
@@ -258,25 +262,27 @@ export function getSpeakersRequestToJSON(
 /** @internal */
 export const GetSpeakersCode$inboundSchema: z.ZodNativeEnum<
   typeof GetSpeakersCode
-> = z.nativeEnum(GetSpeakersCode);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetSpeakersCode));
 
 /** @internal */
 export const GetSpeakersResponse$inboundSchema: z.ZodType<
   GetSpeakersResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  speaker_profile_id: z.string(),
-  name: z.string(),
-  title: z.nullable(z.string()),
-  image_url: z.nullable(z.string()),
-  cursor: z.nullable(z.string()).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "speaker_profile_id": "speakerProfileId",
-    "image_url": "imageUrl",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    speaker_profile_id: z.string(),
+    name: z.string(),
+    title: z.nullable(z.string()),
+    image_url: z.nullable(z.string()),
+    cursor: z.nullable(z.string()).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "speaker_profile_id": "speakerProfileId",
+      "image_url": "imageUrl",
+    });
+  })
+);
 
 export function getSpeakersResponseFromJSON(
   jsonString: string,

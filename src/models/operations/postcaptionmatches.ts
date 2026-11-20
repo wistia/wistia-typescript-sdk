@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -158,22 +158,24 @@ export const PostCaptionMatchesRequest$outboundSchema: z.ZodType<
   PostCaptionMatchesRequest$Outbound,
   z.ZodTypeDef,
   PostCaptionMatchesRequest
-> = z.object({
-  mediaIds: z.array(z.string()),
-  targetText: z.string(),
-  languageCode: z.string().optional(),
-  occurrence: z.number().int().optional(),
-  startMs: z.number().int().optional(),
-  endMs: z.number().int().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    mediaIds: "media_ids",
-    targetText: "target_text",
-    languageCode: "language_code",
-    startMs: "start_ms",
-    endMs: "end_ms",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    mediaIds: z.array(z.string()),
+    targetText: z.string(),
+    languageCode: z.string().optional(),
+    occurrence: z.number().int().optional(),
+    startMs: z.number().int().optional(),
+    endMs: z.number().int().optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      mediaIds: "media_ids",
+      targetText: "target_text",
+      languageCode: "language_code",
+      startMs: "start_ms",
+      endMs: "end_ms",
+    });
+  })
+);
 
 export function postCaptionMatchesRequestToJSON(
   postCaptionMatchesRequest: PostCaptionMatchesRequest,
@@ -186,29 +188,31 @@ export function postCaptionMatchesRequestToJSON(
 /** @internal */
 export const PostCaptionMatchesCode$inboundSchema: z.ZodNativeEnum<
   typeof PostCaptionMatchesCode
-> = z.nativeEnum(PostCaptionMatchesCode);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(PostCaptionMatchesCode));
 
 /** @internal */
 export const PostCaptionMatchesStatus$inboundSchema: z.ZodNativeEnum<
   typeof PostCaptionMatchesStatus
-> = z.nativeEnum(PostCaptionMatchesStatus);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(PostCaptionMatchesStatus));
 
 /** @internal */
-export const Track$inboundSchema: z.ZodType<Track, z.ZodTypeDef, unknown> = z
-  .object({
-    id: z.string(),
-    language: z.string(),
-    english_name: z.nullable(z.string()).optional(),
-    native_name: z.nullable(z.string()).optional(),
-    version: z.nullable(z.number().int()),
-    is_draft: z.boolean(),
-  }).transform((v) => {
-    return remap$(v, {
-      "english_name": "englishName",
-      "native_name": "nativeName",
-      "is_draft": "isDraft",
-    });
-  });
+export const Track$inboundSchema: z.ZodType<Track, z.ZodTypeDef, unknown> =
+  /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      id: z.string(),
+      language: z.string(),
+      english_name: z.nullable(z.string()).optional(),
+      native_name: z.nullable(z.string()).optional(),
+      version: z.nullable(z.number().int()),
+      is_draft: z.boolean(),
+    }).transform((v) => {
+      return remap$(v, {
+        "english_name": "englishName",
+        "native_name": "nativeName",
+        "is_draft": "isDraft",
+      });
+    })
+  );
 
 export function trackFromJSON(
   jsonString: string,
@@ -221,22 +225,24 @@ export function trackFromJSON(
 }
 
 /** @internal */
-export const MatchStatus$inboundSchema: z.ZodNativeEnum<typeof MatchStatus> = z
-  .nativeEnum(MatchStatus);
+export const MatchStatus$inboundSchema: z.ZodNativeEnum<typeof MatchStatus> =
+  /* @__PURE__ */ lazySchema$(() => z.nativeEnum(MatchStatus));
 
 /** @internal */
-export const Match$inboundSchema: z.ZodType<Match, z.ZodTypeDef, unknown> = z
-  .object({
-    text: z.string(),
-    context: z.string(),
-    start_ms: z.number().int(),
-    end_ms: z.number().int(),
-  }).transform((v) => {
-    return remap$(v, {
-      "start_ms": "startMs",
-      "end_ms": "endMs",
-    });
-  });
+export const Match$inboundSchema: z.ZodType<Match, z.ZodTypeDef, unknown> =
+  /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      text: z.string(),
+      context: z.string(),
+      start_ms: z.number().int(),
+      end_ms: z.number().int(),
+    }).transform((v) => {
+      return remap$(v, {
+        "start_ms": "startMs",
+        "end_ms": "endMs",
+      });
+    })
+  );
 
 export function matchFromJSON(
   jsonString: string,
@@ -253,17 +259,19 @@ export const Suggestion$inboundSchema: z.ZodType<
   Suggestion,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  text: z.string(),
-  context: z.string(),
-  start_ms: z.number().int(),
-  end_ms: z.number().int(),
-}).transform((v) => {
-  return remap$(v, {
-    "start_ms": "startMs",
-    "end_ms": "endMs",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    text: z.string(),
+    context: z.string(),
+    start_ms: z.number().int(),
+    end_ms: z.number().int(),
+  }).transform((v) => {
+    return remap$(v, {
+      "start_ms": "startMs",
+      "end_ms": "endMs",
+    });
+  })
+);
 
 export function suggestionFromJSON(
   jsonString: string,
@@ -280,30 +288,32 @@ export const PostCaptionMatchesResult$inboundSchema: z.ZodType<
   PostCaptionMatchesResult,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  media_hashed_id: z.string(),
-  status: PostCaptionMatchesStatus$inboundSchema,
-  tracks: z.array(z.lazy(() => Track$inboundSchema)).optional(),
-  track: z.lazy(() => Track$inboundSchema).optional(),
-  match_status: MatchStatus$inboundSchema.optional(),
-  match_count: z.number().int().optional(),
-  matches: z.array(z.lazy(() => Match$inboundSchema)).optional(),
-  matches_truncated: z.boolean().optional(),
-  next_occurrence: z.number().int().optional(),
-  suggestions: z.array(z.lazy(() => Suggestion$inboundSchema)).optional(),
-  suggestions_truncated: z.boolean().optional(),
-  hint: z.nullable(z.string()).optional(),
-  recovery: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "media_hashed_id": "mediaHashedId",
-    "match_status": "matchStatus",
-    "match_count": "matchCount",
-    "matches_truncated": "matchesTruncated",
-    "next_occurrence": "nextOccurrence",
-    "suggestions_truncated": "suggestionsTruncated",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    media_hashed_id: z.string(),
+    status: PostCaptionMatchesStatus$inboundSchema,
+    tracks: z.array(z.lazy(() => Track$inboundSchema)).optional(),
+    track: z.lazy(() => Track$inboundSchema).optional(),
+    match_status: MatchStatus$inboundSchema.optional(),
+    match_count: z.number().int().optional(),
+    matches: z.array(z.lazy(() => Match$inboundSchema)).optional(),
+    matches_truncated: z.boolean().optional(),
+    next_occurrence: z.number().int().optional(),
+    suggestions: z.array(z.lazy(() => Suggestion$inboundSchema)).optional(),
+    suggestions_truncated: z.boolean().optional(),
+    hint: z.nullable(z.string()).optional(),
+    recovery: z.string().optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "media_hashed_id": "mediaHashedId",
+      "match_status": "matchStatus",
+      "match_count": "matchCount",
+      "matches_truncated": "matchesTruncated",
+      "next_occurrence": "nextOccurrence",
+      "suggestions_truncated": "suggestionsTruncated",
+    });
+  })
+);
 
 export function postCaptionMatchesResultFromJSON(
   jsonString: string,
@@ -320,19 +330,21 @@ export const PostCaptionMatchesResponse$inboundSchema: z.ZodType<
   PostCaptionMatchesResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  requested_count: z.number().int(),
-  succeeded_count: z.number().int(),
-  failed_count: z.number().int(),
-  complete: z.boolean(),
-  results: z.array(z.lazy(() => PostCaptionMatchesResult$inboundSchema)),
-}).transform((v) => {
-  return remap$(v, {
-    "requested_count": "requestedCount",
-    "succeeded_count": "succeededCount",
-    "failed_count": "failedCount",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    requested_count: z.number().int(),
+    succeeded_count: z.number().int(),
+    failed_count: z.number().int(),
+    complete: z.boolean(),
+    results: z.array(z.lazy(() => PostCaptionMatchesResult$inboundSchema)),
+  }).transform((v) => {
+    return remap$(v, {
+      "requested_count": "requestedCount",
+      "succeeded_count": "succeededCount",
+      "failed_count": "failedCount",
+    });
+  })
+);
 
 export function postCaptionMatchesResponseFromJSON(
   jsonString: string,

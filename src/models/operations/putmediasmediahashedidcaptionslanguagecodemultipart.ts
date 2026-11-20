@@ -3,7 +3,11 @@
  */
 
 import * as z from "zod/v3";
-import { remap as remap$ } from "../../lib/primitives.js";
+import {
+  matchesPattern as matchesPattern$,
+  remap as remap$,
+} from "../../lib/primitives.js";
+import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
 import { blobLikeSchema } from "../../types/blobs.js";
 import { ClosedEnum } from "../../types/enums.js";
 
@@ -61,15 +65,17 @@ export const PutMediasMediaHashedIdCaptionsLanguageCodeMultipartCaptionFile$outb
     PutMediasMediaHashedIdCaptionsLanguageCodeMultipartCaptionFile$Outbound,
     z.ZodTypeDef,
     PutMediasMediaHashedIdCaptionsLanguageCodeMultipartCaptionFile
-  > = z.object({
-    fileName: z.string(),
-    content: z.union([
-      z.instanceof(ReadableStream<Uint8Array>),
-      z.instanceof(Blob),
-      z.instanceof(ArrayBuffer),
-      z.instanceof(Uint8Array),
-    ]),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      fileName: z.string(),
+      content: z.union([
+        z.instanceof(ReadableStream<Uint8Array>),
+        z.instanceof(Blob),
+        z.instanceof(ArrayBuffer),
+        z.instanceof(Uint8Array),
+      ]),
+    })
+  );
 
 export function putMediasMediaHashedIdCaptionsLanguageCodeMultipartCaptionFileToJSON(
   putMediasMediaHashedIdCaptionsLanguageCodeMultipartCaptionFile:
@@ -95,15 +101,17 @@ export const PutMediasMediaHashedIdCaptionsLanguageCodeMultipartRequestBody$outb
     PutMediasMediaHashedIdCaptionsLanguageCodeMultipartRequestBody$Outbound,
     z.ZodTypeDef,
     PutMediasMediaHashedIdCaptionsLanguageCodeMultipartRequestBody
-  > = z.object({
-    captionFile: z.lazy(() =>
-      PutMediasMediaHashedIdCaptionsLanguageCodeMultipartCaptionFile$outboundSchema
-    ).or(blobLikeSchema),
-  }).transform((v) => {
-    return remap$(v, {
-      captionFile: "caption_file",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      captionFile: z.lazy(() =>
+        PutMediasMediaHashedIdCaptionsLanguageCodeMultipartCaptionFile$outboundSchema
+      ).or(blobLikeSchema),
+    }).transform((v) => {
+      return remap$(v, {
+        captionFile: "caption_file",
+      });
+    })
+  );
 
 export function putMediasMediaHashedIdCaptionsLanguageCodeMultipartRequestBodyToJSON(
   putMediasMediaHashedIdCaptionsLanguageCodeMultipartRequestBody:
@@ -130,17 +138,21 @@ export const PutMediasMediaHashedIdCaptionsLanguageCodeMultipartRequest$outbound
     PutMediasMediaHashedIdCaptionsLanguageCodeMultipartRequest$Outbound,
     z.ZodTypeDef,
     PutMediasMediaHashedIdCaptionsLanguageCodeMultipartRequest
-  > = z.object({
-    mediaHashedId: z.string(),
-    languageCode: z.string(),
-    requestBody: z.lazy(() =>
-      PutMediasMediaHashedIdCaptionsLanguageCodeMultipartRequestBody$outboundSchema
-    ),
-  }).transform((v) => {
-    return remap$(v, {
-      requestBody: "RequestBody",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      mediaHashedId: z.string(),
+      languageCode: z.string().refine(matchesPattern$("^[a-z]{3}$"), {
+        message: "Value must match pattern ^[a-z]{3}$",
+      }),
+      requestBody: z.lazy(() =>
+        PutMediasMediaHashedIdCaptionsLanguageCodeMultipartRequestBody$outboundSchema
+      ),
+    }).transform((v) => {
+      return remap$(v, {
+        requestBody: "RequestBody",
+      });
+    })
+  );
 
 export function putMediasMediaHashedIdCaptionsLanguageCodeMultipartRequestToJSON(
   putMediasMediaHashedIdCaptionsLanguageCodeMultipartRequest:
@@ -156,4 +168,6 @@ export function putMediasMediaHashedIdCaptionsLanguageCodeMultipartRequestToJSON
 export const PutMediasMediaHashedIdCaptionsLanguageCodeMultipartCode$inboundSchema:
   z.ZodNativeEnum<
     typeof PutMediasMediaHashedIdCaptionsLanguageCodeMultipartCode
-  > = z.nativeEnum(PutMediasMediaHashedIdCaptionsLanguageCodeMultipartCode);
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.nativeEnum(PutMediasMediaHashedIdCaptionsLanguageCodeMultipartCode)
+  );

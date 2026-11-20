@@ -7,7 +7,7 @@ import { DeleteMediasMediaHashedIdCaptionsLanguageCodeRequest } from "@wistia/wi
 
 let value: DeleteMediasMediaHashedIdCaptionsLanguageCodeRequest = {
   mediaHashedId: "<id>",
-  languageCode: "<value>",
+  languageCode: "abc",
 };
 ```
 

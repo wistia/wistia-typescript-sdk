@@ -29,6 +29,11 @@ export class AnalyticsWebinar extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * authorization granting the `view-stats` permission on this webinar can also
+   * be used.
    */
   async get(
     request: operations.GetAnalyticsWebinarsWebinarIdRequest,
@@ -58,6 +63,11 @@ export class AnalyticsWebinar extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * authorization granting the `view-stats` permission on this webinar can also
+   * be used.
    */
   async getRegistration(
     request: operations.GetAnalyticsWebinarsWebinarIdRegistrationRequest,
@@ -88,6 +98,11 @@ export class AnalyticsWebinar extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * authorization granting the `view-stats` permission on this webinar can also
+   * be used.
    */
   async getTraffic(
     request: operations.GetAnalyticsWebinarsWebinarIdTrafficRequest,
@@ -117,6 +132,11 @@ export class AnalyticsWebinar extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * authorization granting the `view-stats` permission on this webinar can also
+   * be used.
    */
   async getAudience(
     request: operations.GetAnalyticsWebinarsWebinarIdAudienceRequest,
@@ -146,6 +166,11 @@ export class AnalyticsWebinar extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * authorization granting the `view-stats` permission on this webinar can also
+   * be used.
    */
   async getHistograms(
     request: operations.GetAnalyticsWebinarsWebinarIdHistogramsRequest,

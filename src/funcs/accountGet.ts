@@ -39,6 +39,10 @@ import { Result } from "../types/fp.js";
  * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
  * made with such a token are authorized using the permissions of the
  * contact assigned to the token.
+ *
+ * [Expiring access tokens](https://docs.wistia.com/reference/post_expiring-token)
+ * created with authorizations cannot be used: this endpoint responds with a
+ * 403, whatever the authorizations grant.
  */
 export function accountGet(
   client: WistiaCore,
@@ -47,6 +51,7 @@ export function accountGet(
   Result<
     operations.GetAccountDetailsResponse,
     | errors.GetAccountDetailsUnauthorizedError
+    | errors.GetAccountDetailsForbiddenError
     | errors.GetAccountDetailsInternalServerError
     | WistiaError
     | ResponseValidationError
@@ -72,6 +77,7 @@ async function $do(
     Result<
       operations.GetAccountDetailsResponse,
       | errors.GetAccountDetailsUnauthorizedError
+      | errors.GetAccountDetailsForbiddenError
       | errors.GetAccountDetailsInternalServerError
       | WistiaError
       | ResponseValidationError
@@ -143,6 +149,7 @@ async function $do(
   const [result] = await M.match<
     operations.GetAccountDetailsResponse,
     | errors.GetAccountDetailsUnauthorizedError
+    | errors.GetAccountDetailsForbiddenError
     | errors.GetAccountDetailsInternalServerError
     | WistiaError
     | ResponseValidationError
@@ -155,6 +162,7 @@ async function $do(
   >(
     M.json(200, operations.GetAccountDetailsResponse$inboundSchema),
     M.jsonErr(401, errors.GetAccountDetailsUnauthorizedError$inboundSchema),
+    M.jsonErr(403, errors.GetAccountDetailsForbiddenError$inboundSchema),
     M.jsonErr(500, errors.GetAccountDetailsInternalServerError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),

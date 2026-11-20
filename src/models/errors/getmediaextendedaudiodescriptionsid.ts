@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
 import * as operations from "../operations/index.js";
 import { WistiaError } from "./wistiaerror.js";
 
@@ -120,19 +121,21 @@ export const GetMediaExtendedAudioDescriptionsIdInternalServerError$inboundSchem
     GetMediaExtendedAudioDescriptionsIdInternalServerError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new GetMediaExtendedAudioDescriptionsIdInternalServerError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new GetMediaExtendedAudioDescriptionsIdInternalServerError(v, {
+          request: v.request$,
+          response: v.response$,
+          body: v.body$,
+        });
+      })
+  );
 
 /** @internal */
 export const GetMediaExtendedAudioDescriptionsIdNotFoundError$inboundSchema:
@@ -140,19 +143,21 @@ export const GetMediaExtendedAudioDescriptionsIdNotFoundError$inboundSchema:
     GetMediaExtendedAudioDescriptionsIdNotFoundError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new GetMediaExtendedAudioDescriptionsIdNotFoundError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new GetMediaExtendedAudioDescriptionsIdNotFoundError(v, {
+          request: v.request$,
+          response: v.response$,
+          body: v.body$,
+        });
+      })
+  );
 
 /** @internal */
 export const GetMediaExtendedAudioDescriptionsIdUnauthorizedError$inboundSchema:
@@ -160,18 +165,20 @@ export const GetMediaExtendedAudioDescriptionsIdUnauthorizedError$inboundSchema:
     GetMediaExtendedAudioDescriptionsIdUnauthorizedError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    code: operations.GetMediaExtendedAudioDescriptionsIdCode$inboundSchema
-      .optional(),
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new GetMediaExtendedAudioDescriptionsIdUnauthorizedError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      code: operations.GetMediaExtendedAudioDescriptionsIdCode$inboundSchema
+        .optional(),
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new GetMediaExtendedAudioDescriptionsIdUnauthorizedError(v, {
+          request: v.request$,
+          response: v.response$,
+          body: v.body$,
+        });
+      })
+  );

@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -87,7 +87,12 @@ export type GetMediasMediaHashedIdCaptionsDiarizedSegment = {
 };
 
 /**
- * Speaker-data availability when `include=diarized_segments`.
+ * Speaker-data availability when `include=diarized_segments`. Reading a derivable media
+ *
+ * @remarks
+ * with no speaker data starts generating it and reports `processing`; read again shortly
+ * for `ready`. `disabled` means the account has speaker identification turned off; an
+ * account owner or manager can turn it on in Account Settings.
  */
 export const GetMediasMediaHashedIdCaptionsDiarizationStatus = {
   Ready: "ready",
@@ -96,7 +101,12 @@ export const GetMediasMediaHashedIdCaptionsDiarizationStatus = {
   Disabled: "disabled",
 } as const;
 /**
- * Speaker-data availability when `include=diarized_segments`.
+ * Speaker-data availability when `include=diarized_segments`. Reading a derivable media
+ *
+ * @remarks
+ * with no speaker data starts generating it and reports `processing`; read again shortly
+ * for `ready`. `disabled` means the account has speaker identification turned off; an
+ * account owner or manager can turn it on in Account Settings.
  */
 export type GetMediasMediaHashedIdCaptionsDiarizationStatus = ClosedEnum<
   typeof GetMediasMediaHashedIdCaptionsDiarizationStatus
@@ -143,13 +153,18 @@ export type GetMediasMediaHashedIdCaptionsResponse = {
     | Array<GetMediasMediaHashedIdCaptionsDiarizedSegment>
     | undefined;
   /**
-   * Speaker-data availability when `include=diarized_segments`.
+   * Speaker-data availability when `include=diarized_segments`. Reading a derivable media
+   *
+   * @remarks
+   * with no speaker data starts generating it and reports `processing`; read again shortly
+   * for `ready`. `disabled` means the account has speaker identification turned off; an
+   * account owner or manager can turn it on in Account Settings.
    */
   diarizationStatus?:
     | GetMediasMediaHashedIdCaptionsDiarizationStatus
     | undefined;
   /**
-   * Whether speaker data can be derived from the active default transcript when `include=diarized_segments`.
+   * Whether speaker data can be generated from the active default transcript when `include=diarized_segments`. When false, the media stays `unavailable`.
    */
   diarizationDerivable?: boolean | undefined;
   /**
@@ -172,9 +187,11 @@ export const GetMediasMediaHashedIdCaptionsRequest$outboundSchema: z.ZodType<
   GetMediasMediaHashedIdCaptionsRequest$Outbound,
   z.ZodTypeDef,
   GetMediasMediaHashedIdCaptionsRequest
-> = z.object({
-  mediaHashedId: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    mediaHashedId: z.string(),
+  })
+);
 
 export function getMediasMediaHashedIdCaptionsRequestToJSON(
   getMediasMediaHashedIdCaptionsRequest: GetMediasMediaHashedIdCaptionsRequest,
@@ -189,23 +206,27 @@ export function getMediasMediaHashedIdCaptionsRequestToJSON(
 /** @internal */
 export const GetMediasMediaHashedIdCaptionsCode$inboundSchema: z.ZodNativeEnum<
   typeof GetMediasMediaHashedIdCaptionsCode
-> = z.nativeEnum(GetMediasMediaHashedIdCaptionsCode);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(GetMediasMediaHashedIdCaptionsCode)
+);
 
 /** @internal */
 export const GetMediasMediaHashedIdCaptionsSegment$inboundSchema: z.ZodType<
   GetMediasMediaHashedIdCaptionsSegment,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  start_ms: z.number().int(),
-  end_ms: z.number().int(),
-  text: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "start_ms": "startMs",
-    "end_ms": "endMs",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    start_ms: z.number().int(),
+    end_ms: z.number().int(),
+    text: z.string(),
+  }).transform((v) => {
+    return remap$(v, {
+      "start_ms": "startMs",
+      "end_ms": "endMs",
+    });
+  })
+);
 
 export function getMediasMediaHashedIdCaptionsSegmentFromJSON(
   jsonString: string,
@@ -223,20 +244,22 @@ export const GetMediasMediaHashedIdCaptionsSpeaker$inboundSchema: z.ZodType<
   GetMediasMediaHashedIdCaptionsSpeaker,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  media_speaker_id: z.nullable(z.string()),
-  speaker_profile_id: z.nullable(z.string()),
-  detected_speaker_id: z.nullable(z.string()),
-  display_label: z.string(),
-  name: z.nullable(z.string()),
-}).transform((v) => {
-  return remap$(v, {
-    "media_speaker_id": "mediaSpeakerId",
-    "speaker_profile_id": "speakerProfileId",
-    "detected_speaker_id": "detectedSpeakerId",
-    "display_label": "displayLabel",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    media_speaker_id: z.nullable(z.string()),
+    speaker_profile_id: z.nullable(z.string()),
+    detected_speaker_id: z.nullable(z.string()),
+    display_label: z.string(),
+    name: z.nullable(z.string()),
+  }).transform((v) => {
+    return remap$(v, {
+      "media_speaker_id": "mediaSpeakerId",
+      "speaker_profile_id": "speakerProfileId",
+      "detected_speaker_id": "detectedSpeakerId",
+      "display_label": "displayLabel",
+    });
+  })
+);
 
 export function getMediasMediaHashedIdCaptionsSpeakerFromJSON(
   jsonString: string,
@@ -255,17 +278,21 @@ export const GetMediasMediaHashedIdCaptionsDiarizedSegment$inboundSchema:
     GetMediasMediaHashedIdCaptionsDiarizedSegment,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    start_ms: z.number().int(),
-    end_ms: z.number().int(),
-    text: z.string(),
-    speaker: z.lazy(() => GetMediasMediaHashedIdCaptionsSpeaker$inboundSchema),
-  }).transform((v) => {
-    return remap$(v, {
-      "start_ms": "startMs",
-      "end_ms": "endMs",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      start_ms: z.number().int(),
+      end_ms: z.number().int(),
+      text: z.string(),
+      speaker: z.lazy(() =>
+        GetMediasMediaHashedIdCaptionsSpeaker$inboundSchema
+      ),
+    }).transform((v) => {
+      return remap$(v, {
+        "start_ms": "startMs",
+        "end_ms": "endMs",
+      });
+    })
+  );
 
 export function getMediasMediaHashedIdCaptionsDiarizedSegmentFromJSON(
   jsonString: string,
@@ -285,46 +312,52 @@ export function getMediasMediaHashedIdCaptionsDiarizedSegmentFromJSON(
 
 /** @internal */
 export const GetMediasMediaHashedIdCaptionsDiarizationStatus$inboundSchema:
-  z.ZodNativeEnum<typeof GetMediasMediaHashedIdCaptionsDiarizationStatus> = z
-    .nativeEnum(GetMediasMediaHashedIdCaptionsDiarizationStatus);
+  z.ZodNativeEnum<typeof GetMediasMediaHashedIdCaptionsDiarizationStatus> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(GetMediasMediaHashedIdCaptionsDiarizationStatus)
+    );
 
 /** @internal */
 export const GetMediasMediaHashedIdCaptionsResponse$inboundSchema: z.ZodType<
   GetMediasMediaHashedIdCaptionsResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  english_name: z.string().optional(),
-  native_name: z.string().optional(),
-  language: z.string(),
-  text: z.nullable(z.string()).optional(),
-  is_draft: z.boolean(),
-  id: z.string(),
-  media_id: z.string(),
-  version: z.nullable(z.number().int()),
-  segments: z.nullable(
-    z.array(z.lazy(() => GetMediasMediaHashedIdCaptionsSegment$inboundSchema)),
-  ),
-  diarized_segments: z.array(
-    z.lazy(() => GetMediasMediaHashedIdCaptionsDiarizedSegment$inboundSchema),
-  ).optional(),
-  diarization_status:
-    GetMediasMediaHashedIdCaptionsDiarizationStatus$inboundSchema.optional(),
-  diarization_derivable: z.boolean().optional(),
-  speaker_data_version: z.nullable(z.number().int()).optional(),
-  cursor: z.nullable(z.string()).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "english_name": "englishName",
-    "native_name": "nativeName",
-    "is_draft": "isDraft",
-    "media_id": "mediaId",
-    "diarized_segments": "diarizedSegments",
-    "diarization_status": "diarizationStatus",
-    "diarization_derivable": "diarizationDerivable",
-    "speaker_data_version": "speakerDataVersion",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    english_name: z.string().optional(),
+    native_name: z.string().optional(),
+    language: z.string(),
+    text: z.nullable(z.string()).optional(),
+    is_draft: z.boolean(),
+    id: z.string(),
+    media_id: z.string(),
+    version: z.nullable(z.number().int()),
+    segments: z.nullable(
+      z.array(
+        z.lazy(() => GetMediasMediaHashedIdCaptionsSegment$inboundSchema),
+      ),
+    ),
+    diarized_segments: z.array(
+      z.lazy(() => GetMediasMediaHashedIdCaptionsDiarizedSegment$inboundSchema),
+    ).optional(),
+    diarization_status:
+      GetMediasMediaHashedIdCaptionsDiarizationStatus$inboundSchema.optional(),
+    diarization_derivable: z.boolean().optional(),
+    speaker_data_version: z.nullable(z.number().int()).optional(),
+    cursor: z.nullable(z.string()).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "english_name": "englishName",
+      "native_name": "nativeName",
+      "is_draft": "isDraft",
+      "media_id": "mediaId",
+      "diarized_segments": "diarizedSegments",
+      "diarization_status": "diarizationStatus",
+      "diarization_derivable": "diarizationDerivable",
+      "speaker_data_version": "speakerDataVersion",
+    });
+  })
+);
 
 export function getMediasMediaHashedIdCaptionsResponseFromJSON(
   jsonString: string,

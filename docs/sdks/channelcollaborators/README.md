@@ -24,6 +24,12 @@ Tokens with the "Act with a team member's permissions" permission
 made with such a token are authorized using the permissions of the
 contact assigned to the token.
 
+An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+created with the `all:delegate_to_contact_permissions` scope and an
+authorization granting the `update` permission on this channel can also
+be used; a token granted only `show` on the channel lists no
+collaborators.
+
 
 ### Example Usage
 
@@ -112,6 +118,11 @@ Tokens with the "Act with a team member's permissions" permission
 made with such a token are authorized using the permissions of the
 contact assigned to the token.
 
+An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+created with the `all:delegate_to_contact_permissions` scope and an
+authorization granting the `update` permission on this channel can also
+be used.
+
 
 ### Example Usage
 
@@ -190,6 +201,7 @@ run();
 | ------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------ |
 | errors.PostChannelsChannelHashedIdCollaboratorsBadRequestError     | 400                                                                | application/json                                                   |
 | errors.PostChannelsChannelHashedIdCollaboratorsUnauthorizedError   | 401                                                                | application/json                                                   |
+| errors.PostChannelsChannelHashedIdCollaboratorsForbiddenError      | 403                                                                | application/json                                                   |
 | errors.PostChannelsChannelHashedIdCollaboratorsNotFoundError       | 404                                                                | application/json                                                   |
 | errors.PostChannelsChannelHashedIdCollaboratorsInternalServerError | 500                                                                | application/json                                                   |
 | errors.WistiaDefaultError                                          | 4XX, 5XX                                                           | \*/\*                                                              |
@@ -207,6 +219,11 @@ Tokens with the "Act with a team member's permissions" permission
 (`all:delegate_to_contact_permissions` scope) can also be used. Requests
 made with such a token are authorized using the permissions of the
 contact assigned to the token.
+
+An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+created with the `all:delegate_to_contact_permissions` scope and an
+authorization granting the `update` permission on this channel can also
+be used.
 
 
 ### Example Usage
@@ -279,6 +296,7 @@ run();
 | Error Type                                                             | Status Code                                                            | Content Type                                                           |
 | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- |
 | errors.DeleteChannelsChannelHashedIdCollaboratorsIdUnauthorizedError   | 401                                                                    | application/json                                                       |
+| errors.DeleteChannelsChannelHashedIdCollaboratorsIdForbiddenError      | 403                                                                    | application/json                                                       |
 | errors.DeleteChannelsChannelHashedIdCollaboratorsIdNotFoundError       | 404                                                                    | application/json                                                       |
 | errors.DeleteChannelsChannelHashedIdCollaboratorsIdInternalServerError | 500                                                                    | application/json                                                       |
 | errors.WistiaDefaultError                                              | 4XX, 5XX                                                               | \*/\*                                                                  |

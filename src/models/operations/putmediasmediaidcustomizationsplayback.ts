@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -262,7 +262,9 @@ export type PutMediasMediaIdCustomizationsPlaybackVideoFoamResponseUnion =
   | string
   | PutMediasMediaIdCustomizationsPlaybackVideoFoamResponse;
 
-export type PutMediasMediaIdCustomizationsPlaybackClickForSound = {};
+export type PutMediasMediaIdCustomizationsPlaybackClickForSound = {
+  showText?: string | undefined;
+};
 
 export type PutMediasMediaIdCustomizationsPlaybackClickForSoundUnion =
   | string
@@ -342,12 +344,14 @@ export const PutMediasMediaIdCustomizationsPlaybackVideoFoamRequest$outboundSche
     PutMediasMediaIdCustomizationsPlaybackVideoFoamRequest$Outbound,
     z.ZodTypeDef,
     PutMediasMediaIdCustomizationsPlaybackVideoFoamRequest
-  > = z.object({
-    minWidth: z.number().int().optional(),
-    maxWidth: z.number().int().optional(),
-    minHeight: z.number().int().optional(),
-    maxHeight: z.number().int().optional(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      minWidth: z.number().int().optional(),
+      maxWidth: z.number().int().optional(),
+      minHeight: z.number().int().optional(),
+      maxHeight: z.number().int().optional(),
+    })
+  );
 
 export function putMediasMediaIdCustomizationsPlaybackVideoFoamRequestToJSON(
   putMediasMediaIdCustomizationsPlaybackVideoFoamRequest:
@@ -371,12 +375,14 @@ export const PutMediasMediaIdCustomizationsPlaybackVideoFoamRequestUnion$outboun
     PutMediasMediaIdCustomizationsPlaybackVideoFoamRequestUnion$Outbound,
     z.ZodTypeDef,
     PutMediasMediaIdCustomizationsPlaybackVideoFoamRequestUnion
-  > = z.union([
-    z.boolean(),
-    z.lazy(() =>
-      PutMediasMediaIdCustomizationsPlaybackVideoFoamRequest$outboundSchema
-    ),
-  ]);
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.union([
+      z.boolean(),
+      z.lazy(() =>
+        PutMediasMediaIdCustomizationsPlaybackVideoFoamRequest$outboundSchema
+      ),
+    ])
+  );
 
 export function putMediasMediaIdCustomizationsPlaybackVideoFoamRequestUnionToJSON(
   putMediasMediaIdCustomizationsPlaybackVideoFoamRequestUnion:
@@ -440,52 +446,54 @@ export const PutMediasMediaIdCustomizationsPlaybackRequestBody$outboundSchema:
     PutMediasMediaIdCustomizationsPlaybackRequestBody$Outbound,
     z.ZodTypeDef,
     PutMediasMediaIdCustomizationsPlaybackRequestBody
-  > = z.object({
-    autoPlay: z.boolean().optional(),
-    silentAutoPlay: z.string().optional(),
-    muted: z.boolean().optional(),
-    volume: z.number().optional(),
-    controlsVisibleOnLoad: z.boolean().optional(),
-    playButton: z.boolean().optional(),
-    smallPlayButton: z.boolean().optional(),
-    playbar: z.boolean().optional(),
-    volumeControl: z.boolean().optional(),
-    fullscreenButton: z.boolean().optional(),
-    settingsControl: z.boolean().optional(),
-    playbackRateControl: z.boolean().optional(),
-    qualityControl: z.boolean().optional(),
-    qualityMin: z.number().int().optional(),
-    qualityMax: z.number().int().optional(),
-    videoQuality: z.string().optional(),
-    hls: z.boolean().optional(),
-    endVideoBehavior: z.string().optional(),
-    playsinline: z.boolean().optional(),
-    playlistLoop: z.boolean().optional(),
-    playlistLinks: z.boolean().optional(),
-    playPauseNotifier: z.boolean().optional(),
-    playSuspendedOffScreen: z.boolean().optional(),
-    resumable: z.string().optional(),
-    preload: z.string().optional(),
-    time: z.string().optional(),
-    keyMoments: z.boolean().optional(),
-    fullscreenOnRotateToLandscape: z.boolean().optional(),
-    fakeFullScreen: z.boolean().optional(),
-    videoFoam: z.union([
-      z.boolean(),
-      z.lazy(() =>
-        PutMediasMediaIdCustomizationsPlaybackVideoFoamRequest$outboundSchema
-      ),
-    ]).optional(),
-    wmode: z.string().optional(),
-    bpbTime: z.string().optional(),
-    spherical: z.boolean().optional(),
-    clickForSound: z.boolean().optional(),
-    seo: z.boolean().optional(),
-    doNotTrack: z.boolean().optional(),
-    copyLinkAndThumbnailEnabled: z.boolean().optional(),
-    email: z.string().optional(),
-    googleAnalytics: z.string().optional(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      autoPlay: z.boolean().optional(),
+      silentAutoPlay: z.string().optional(),
+      muted: z.boolean().optional(),
+      volume: z.number().optional(),
+      controlsVisibleOnLoad: z.boolean().optional(),
+      playButton: z.boolean().optional(),
+      smallPlayButton: z.boolean().optional(),
+      playbar: z.boolean().optional(),
+      volumeControl: z.boolean().optional(),
+      fullscreenButton: z.boolean().optional(),
+      settingsControl: z.boolean().optional(),
+      playbackRateControl: z.boolean().optional(),
+      qualityControl: z.boolean().optional(),
+      qualityMin: z.number().int().optional(),
+      qualityMax: z.number().int().optional(),
+      videoQuality: z.string().optional(),
+      hls: z.boolean().optional(),
+      endVideoBehavior: z.string().optional(),
+      playsinline: z.boolean().optional(),
+      playlistLoop: z.boolean().optional(),
+      playlistLinks: z.boolean().optional(),
+      playPauseNotifier: z.boolean().optional(),
+      playSuspendedOffScreen: z.boolean().optional(),
+      resumable: z.string().optional(),
+      preload: z.string().optional(),
+      time: z.string().optional(),
+      keyMoments: z.boolean().optional(),
+      fullscreenOnRotateToLandscape: z.boolean().optional(),
+      fakeFullScreen: z.boolean().optional(),
+      videoFoam: z.union([
+        z.boolean(),
+        z.lazy(() =>
+          PutMediasMediaIdCustomizationsPlaybackVideoFoamRequest$outboundSchema
+        ),
+      ]).optional(),
+      wmode: z.string().optional(),
+      bpbTime: z.string().optional(),
+      spherical: z.boolean().optional(),
+      clickForSound: z.boolean().optional(),
+      seo: z.boolean().optional(),
+      doNotTrack: z.boolean().optional(),
+      copyLinkAndThumbnailEnabled: z.boolean().optional(),
+      email: z.string().optional(),
+      googleAnalytics: z.string().optional(),
+    })
+  );
 
 export function putMediasMediaIdCustomizationsPlaybackRequestBodyToJSON(
   putMediasMediaIdCustomizationsPlaybackRequestBody:
@@ -510,16 +518,18 @@ export const PutMediasMediaIdCustomizationsPlaybackRequest$outboundSchema:
     PutMediasMediaIdCustomizationsPlaybackRequest$Outbound,
     z.ZodTypeDef,
     PutMediasMediaIdCustomizationsPlaybackRequest
-  > = z.object({
-    mediaId: z.string(),
-    requestBody: z.lazy(() =>
-      PutMediasMediaIdCustomizationsPlaybackRequestBody$outboundSchema
-    ),
-  }).transform((v) => {
-    return remap$(v, {
-      requestBody: "RequestBody",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      mediaId: z.string(),
+      requestBody: z.lazy(() =>
+        PutMediasMediaIdCustomizationsPlaybackRequestBody$outboundSchema
+      ),
+    }).transform((v) => {
+      return remap$(v, {
+        requestBody: "RequestBody",
+      });
+    })
+  );
 
 export function putMediasMediaIdCustomizationsPlaybackRequestToJSON(
   putMediasMediaIdCustomizationsPlaybackRequest:
@@ -534,8 +544,10 @@ export function putMediasMediaIdCustomizationsPlaybackRequestToJSON(
 
 /** @internal */
 export const PutMediasMediaIdCustomizationsPlaybackCode$inboundSchema:
-  z.ZodNativeEnum<typeof PutMediasMediaIdCustomizationsPlaybackCode> = z
-    .nativeEnum(PutMediasMediaIdCustomizationsPlaybackCode);
+  z.ZodNativeEnum<typeof PutMediasMediaIdCustomizationsPlaybackCode> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(PutMediasMediaIdCustomizationsPlaybackCode)
+    );
 
 /** @internal */
 export const PutMediasMediaIdCustomizationsPlaybackVideoFoamResponse$inboundSchema:
@@ -543,12 +555,14 @@ export const PutMediasMediaIdCustomizationsPlaybackVideoFoamResponse$inboundSche
     PutMediasMediaIdCustomizationsPlaybackVideoFoamResponse,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    minWidth: z.string().optional(),
-    maxWidth: z.string().optional(),
-    minHeight: z.string().optional(),
-    maxHeight: z.string().optional(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      minWidth: z.string().optional(),
+      maxWidth: z.string().optional(),
+      minHeight: z.string().optional(),
+      maxHeight: z.string().optional(),
+    })
+  );
 
 export function putMediasMediaIdCustomizationsPlaybackVideoFoamResponseFromJSON(
   jsonString: string,
@@ -571,12 +585,14 @@ export const PutMediasMediaIdCustomizationsPlaybackVideoFoamResponseUnion$inboun
     PutMediasMediaIdCustomizationsPlaybackVideoFoamResponseUnion,
     z.ZodTypeDef,
     unknown
-  > = z.union([
-    z.string(),
-    z.lazy(() =>
-      PutMediasMediaIdCustomizationsPlaybackVideoFoamResponse$inboundSchema
-    ),
-  ]);
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.union([
+      z.string(),
+      z.lazy(() =>
+        PutMediasMediaIdCustomizationsPlaybackVideoFoamResponse$inboundSchema
+      ),
+    ])
+  );
 
 export function putMediasMediaIdCustomizationsPlaybackVideoFoamResponseUnionFromJSON(
   jsonString: string,
@@ -599,7 +615,11 @@ export const PutMediasMediaIdCustomizationsPlaybackClickForSound$inboundSchema:
     PutMediasMediaIdCustomizationsPlaybackClickForSound,
     z.ZodTypeDef,
     unknown
-  > = z.object({});
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      showText: z.string().optional(),
+    })
+  );
 
 export function putMediasMediaIdCustomizationsPlaybackClickForSoundFromJSON(
   jsonString: string,
@@ -623,12 +643,14 @@ export const PutMediasMediaIdCustomizationsPlaybackClickForSoundUnion$inboundSch
     PutMediasMediaIdCustomizationsPlaybackClickForSoundUnion,
     z.ZodTypeDef,
     unknown
-  > = z.union([
-    z.string(),
-    z.lazy(() =>
-      PutMediasMediaIdCustomizationsPlaybackClickForSound$inboundSchema
-    ),
-  ]);
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.union([
+      z.string(),
+      z.lazy(() =>
+        PutMediasMediaIdCustomizationsPlaybackClickForSound$inboundSchema
+      ),
+    ])
+  );
 
 export function putMediasMediaIdCustomizationsPlaybackClickForSoundUnionFromJSON(
   jsonString: string,
@@ -651,57 +673,59 @@ export const PutMediasMediaIdCustomizationsPlaybackResponse$inboundSchema:
     PutMediasMediaIdCustomizationsPlaybackResponse,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    autoPlay: z.string().optional(),
-    silentAutoPlay: z.string().optional(),
-    muted: z.string().optional(),
-    volume: z.string().optional(),
-    controlsVisibleOnLoad: z.string().optional(),
-    playButton: z.string().optional(),
-    smallPlayButton: z.string().optional(),
-    playbar: z.string().optional(),
-    volumeControl: z.string().optional(),
-    fullscreenButton: z.string().optional(),
-    settingsControl: z.string().optional(),
-    playbackRateControl: z.string().optional(),
-    qualityControl: z.string().optional(),
-    qualityMin: z.string().optional(),
-    qualityMax: z.string().optional(),
-    videoQuality: z.string().optional(),
-    hls: z.string().optional(),
-    endVideoBehavior: z.string().optional(),
-    playsinline: z.string().optional(),
-    playlistLoop: z.string().optional(),
-    playlistLinks: z.string().optional(),
-    playPauseNotifier: z.string().optional(),
-    playSuspendedOffScreen: z.string().optional(),
-    resumable: z.string().optional(),
-    preload: z.string().optional(),
-    time: z.string().optional(),
-    keyMoments: z.string().optional(),
-    fullscreenOnRotateToLandscape: z.string().optional(),
-    fakeFullScreen: z.string().optional(),
-    videoFoam: z.union([
-      z.string(),
-      z.lazy(() =>
-        PutMediasMediaIdCustomizationsPlaybackVideoFoamResponse$inboundSchema
-      ),
-    ]).optional(),
-    wmode: z.string().optional(),
-    bpbTime: z.string().optional(),
-    spherical: z.string().optional(),
-    clickForSound: z.union([
-      z.string(),
-      z.lazy(() =>
-        PutMediasMediaIdCustomizationsPlaybackClickForSound$inboundSchema
-      ),
-    ]).optional(),
-    seo: z.string().optional(),
-    doNotTrack: z.string().optional(),
-    copyLinkAndThumbnailEnabled: z.string().optional(),
-    email: z.string().optional(),
-    googleAnalytics: z.string().optional(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      autoPlay: z.string().optional(),
+      silentAutoPlay: z.string().optional(),
+      muted: z.string().optional(),
+      volume: z.string().optional(),
+      controlsVisibleOnLoad: z.string().optional(),
+      playButton: z.string().optional(),
+      smallPlayButton: z.string().optional(),
+      playbar: z.string().optional(),
+      volumeControl: z.string().optional(),
+      fullscreenButton: z.string().optional(),
+      settingsControl: z.string().optional(),
+      playbackRateControl: z.string().optional(),
+      qualityControl: z.string().optional(),
+      qualityMin: z.string().optional(),
+      qualityMax: z.string().optional(),
+      videoQuality: z.string().optional(),
+      hls: z.string().optional(),
+      endVideoBehavior: z.string().optional(),
+      playsinline: z.string().optional(),
+      playlistLoop: z.string().optional(),
+      playlistLinks: z.string().optional(),
+      playPauseNotifier: z.string().optional(),
+      playSuspendedOffScreen: z.string().optional(),
+      resumable: z.string().optional(),
+      preload: z.string().optional(),
+      time: z.string().optional(),
+      keyMoments: z.string().optional(),
+      fullscreenOnRotateToLandscape: z.string().optional(),
+      fakeFullScreen: z.string().optional(),
+      videoFoam: z.union([
+        z.string(),
+        z.lazy(() =>
+          PutMediasMediaIdCustomizationsPlaybackVideoFoamResponse$inboundSchema
+        ),
+      ]).optional(),
+      wmode: z.string().optional(),
+      bpbTime: z.string().optional(),
+      spherical: z.string().optional(),
+      clickForSound: z.union([
+        z.string(),
+        z.lazy(() =>
+          PutMediasMediaIdCustomizationsPlaybackClickForSound$inboundSchema
+        ),
+      ]).optional(),
+      seo: z.string().optional(),
+      doNotTrack: z.string().optional(),
+      copyLinkAndThumbnailEnabled: z.string().optional(),
+      email: z.string().optional(),
+      googleAnalytics: z.string().optional(),
+    })
+  );
 
 export function putMediasMediaIdCustomizationsPlaybackResponseFromJSON(
   jsonString: string,

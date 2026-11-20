@@ -28,6 +28,11 @@ export class Subfolders extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * authorization naming this folder (any permission) can also be used; it
+   * lists the folder's subfolders.
    */
   async list(
     request: operations.GetFoldersFolderIdSubfoldersRequest,
@@ -55,6 +60,11 @@ export class Subfolders extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * authorization granting the `update` permission on this folder can also
+   * be used.
    */
   async create(
     request: operations.PostFoldersFolderIdSubfoldersRequest,
@@ -82,6 +92,11 @@ export class Subfolders extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * authorization naming this folder (any permission) can also be used. The
+   * embedded media are limited to those the token's authorizations name.
    */
   async get(
     request: operations.GetFoldersFolderIdSubfoldersSubfolderIdRequest,
@@ -109,6 +124,11 @@ export class Subfolders extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * authorization granting the `update` permission on this folder can also
+   * be used.
    */
   async update(
     request: operations.PutFoldersFolderIdSubfoldersSubfolderIdRequest,
@@ -136,6 +156,11 @@ export class Subfolders extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * authorization granting the `update` permission on this folder can also
+   * be used.
    */
   async delete(
     request: operations.DeleteFoldersFolderIdSubfoldersSubfolderIdRequest,
@@ -163,6 +188,11 @@ export class Subfolders extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * authorization granting the `update` permission on this folder can also
+   * be used.
    *
    * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
    * created with the `all:delegate_to_contact_permissions` scope and an

@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -105,10 +105,12 @@ export const DeleteWebinarsWebinarIdCollaboratorsIdRequest$outboundSchema:
     DeleteWebinarsWebinarIdCollaboratorsIdRequest$Outbound,
     z.ZodTypeDef,
     DeleteWebinarsWebinarIdCollaboratorsIdRequest
-  > = z.object({
-    webinarId: z.string(),
-    id: z.number().int(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      webinarId: z.string(),
+      id: z.number().int(),
+    })
+  );
 
 export function deleteWebinarsWebinarIdCollaboratorsIdRequestToJSON(
   deleteWebinarsWebinarIdCollaboratorsIdRequest:
@@ -123,13 +125,17 @@ export function deleteWebinarsWebinarIdCollaboratorsIdRequestToJSON(
 
 /** @internal */
 export const DeleteWebinarsWebinarIdCollaboratorsIdCode$inboundSchema:
-  z.ZodNativeEnum<typeof DeleteWebinarsWebinarIdCollaboratorsIdCode> = z
-    .nativeEnum(DeleteWebinarsWebinarIdCollaboratorsIdCode);
+  z.ZodNativeEnum<typeof DeleteWebinarsWebinarIdCollaboratorsIdCode> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(DeleteWebinarsWebinarIdCollaboratorsIdCode)
+    );
 
 /** @internal */
 export const DeleteWebinarsWebinarIdCollaboratorsIdRole$inboundSchema:
-  z.ZodNativeEnum<typeof DeleteWebinarsWebinarIdCollaboratorsIdRole> = z
-    .nativeEnum(DeleteWebinarsWebinarIdCollaboratorsIdRole);
+  z.ZodNativeEnum<typeof DeleteWebinarsWebinarIdCollaboratorsIdRole> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(DeleteWebinarsWebinarIdCollaboratorsIdRole)
+    );
 
 /** @internal */
 export const DeleteWebinarsWebinarIdCollaboratorsIdShare$inboundSchema:
@@ -137,12 +143,14 @@ export const DeleteWebinarsWebinarIdCollaboratorsIdShare$inboundSchema:
     DeleteWebinarsWebinarIdCollaboratorsIdShare,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    id: z.number().int(),
-    name: z.string(),
-    type: z.string(),
-    email: z.string().optional(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      id: z.number().int(),
+      name: z.string(),
+      type: z.string(),
+      email: z.string().optional(),
+    })
+  );
 
 export function deleteWebinarsWebinarIdCollaboratorsIdShareFromJSON(
   jsonString: string,
@@ -166,21 +174,23 @@ export const DeleteWebinarsWebinarIdCollaboratorsIdResponse$inboundSchema:
     DeleteWebinarsWebinarIdCollaboratorsIdResponse,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    id: z.number().int(),
-    role: DeleteWebinarsWebinarIdCollaboratorsIdRole$inboundSchema,
-    created_at: z.string().datetime({ offset: true }).transform(v =>
-      new Date(v)
-    ),
-    share: z.lazy(() =>
-      DeleteWebinarsWebinarIdCollaboratorsIdShare$inboundSchema
-    ),
-    cursor: z.nullable(z.string()).optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      "created_at": "createdAt",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      id: z.number().int(),
+      role: DeleteWebinarsWebinarIdCollaboratorsIdRole$inboundSchema,
+      created_at: z.string().datetime({ offset: true }).transform(v =>
+        new Date(v)
+      ),
+      share: z.lazy(() =>
+        DeleteWebinarsWebinarIdCollaboratorsIdShare$inboundSchema
+      ),
+      cursor: z.nullable(z.string()).optional(),
+    }).transform((v) => {
+      return remap$(v, {
+        "created_at": "createdAt",
+      });
+    })
+  );
 
 export function deleteWebinarsWebinarIdCollaboratorsIdResponseFromJSON(
   jsonString: string,

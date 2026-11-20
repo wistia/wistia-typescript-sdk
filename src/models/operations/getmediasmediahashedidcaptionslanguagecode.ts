@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -29,7 +29,7 @@ export type GetMediasMediaHashedIdCaptionsLanguageCodeRequest = {
    */
   mediaHashedId: string;
   /**
-   * The 3-character ISO 639-2 language code of the captions to be retrieved (e.g., `eng`, `fra`, `spa`). Some languages use extended IETF subtags (e.g., `zh-Hant`).
+   * The 3-character ISO 639-2 language code of the captions to be retrieved (e.g., `eng`, `fre`, `spa`). Some languages use extended IETF subtags (e.g., `zh-Hant`).
    */
   languageCode: string;
   /**
@@ -113,7 +113,12 @@ export type GetMediasMediaHashedIdCaptionsLanguageCodeDiarizedSegment = {
 };
 
 /**
- * Speaker-data availability when `include=diarized_segments`.
+ * Speaker-data availability when `include=diarized_segments`. Reading a derivable media
+ *
+ * @remarks
+ * with no speaker data starts generating it and reports `processing`; read again shortly
+ * for `ready`. `disabled` means the account has speaker identification turned off; an
+ * account owner or manager can turn it on in Account Settings.
  */
 export const GetMediasMediaHashedIdCaptionsLanguageCodeDiarizationStatus = {
   Ready: "ready",
@@ -122,7 +127,12 @@ export const GetMediasMediaHashedIdCaptionsLanguageCodeDiarizationStatus = {
   Disabled: "disabled",
 } as const;
 /**
- * Speaker-data availability when `include=diarized_segments`.
+ * Speaker-data availability when `include=diarized_segments`. Reading a derivable media
+ *
+ * @remarks
+ * with no speaker data starts generating it and reports `processing`; read again shortly
+ * for `ready`. `disabled` means the account has speaker identification turned off; an
+ * account owner or manager can turn it on in Account Settings.
  */
 export type GetMediasMediaHashedIdCaptionsLanguageCodeDiarizationStatus =
   ClosedEnum<
@@ -173,13 +183,18 @@ export type GetMediasMediaHashedIdCaptionsLanguageCodeResponseBody = {
     | Array<GetMediasMediaHashedIdCaptionsLanguageCodeDiarizedSegment>
     | undefined;
   /**
-   * Speaker-data availability when `include=diarized_segments`.
+   * Speaker-data availability when `include=diarized_segments`. Reading a derivable media
+   *
+   * @remarks
+   * with no speaker data starts generating it and reports `processing`; read again shortly
+   * for `ready`. `disabled` means the account has speaker identification turned off; an
+   * account owner or manager can turn it on in Account Settings.
    */
   diarizationStatus?:
     | GetMediasMediaHashedIdCaptionsLanguageCodeDiarizationStatus
     | undefined;
   /**
-   * Whether speaker data can be derived from the active default transcript when `include=diarized_segments`.
+   * Whether speaker data can be generated from the active default transcript when `include=diarized_segments`. When false, the media stays `unavailable`.
    */
   diarizationDerivable?: boolean | undefined;
   /**
@@ -199,8 +214,10 @@ export type GetMediasMediaHashedIdCaptionsLanguageCodeResponse =
 
 /** @internal */
 export const GetMediasMediaHashedIdCaptionsLanguageCodeInclude$outboundSchema:
-  z.ZodNativeEnum<typeof GetMediasMediaHashedIdCaptionsLanguageCodeInclude> = z
-    .nativeEnum(GetMediasMediaHashedIdCaptionsLanguageCodeInclude);
+  z.ZodNativeEnum<typeof GetMediasMediaHashedIdCaptionsLanguageCodeInclude> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(GetMediasMediaHashedIdCaptionsLanguageCodeInclude)
+    );
 
 /** @internal */
 export type GetMediasMediaHashedIdCaptionsLanguageCodeRequest$Outbound = {
@@ -216,17 +233,19 @@ export const GetMediasMediaHashedIdCaptionsLanguageCodeRequest$outboundSchema:
     GetMediasMediaHashedIdCaptionsLanguageCodeRequest$Outbound,
     z.ZodTypeDef,
     GetMediasMediaHashedIdCaptionsLanguageCodeRequest
-  > = z.object({
-    mediaHashedId: z.string(),
-    languageCode: z.string(),
-    include: GetMediasMediaHashedIdCaptionsLanguageCodeInclude$outboundSchema
-      .optional(),
-    includeSpeakers: z.boolean().default(false),
-  }).transform((v) => {
-    return remap$(v, {
-      includeSpeakers: "include_speakers",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      mediaHashedId: z.string(),
+      languageCode: z.string(),
+      include: GetMediasMediaHashedIdCaptionsLanguageCodeInclude$outboundSchema
+        .optional(),
+      includeSpeakers: z.boolean().default(false),
+    }).transform((v) => {
+      return remap$(v, {
+        includeSpeakers: "include_speakers",
+      });
+    })
+  );
 
 export function getMediasMediaHashedIdCaptionsLanguageCodeRequestToJSON(
   getMediasMediaHashedIdCaptionsLanguageCodeRequest:
@@ -241,8 +260,10 @@ export function getMediasMediaHashedIdCaptionsLanguageCodeRequestToJSON(
 
 /** @internal */
 export const GetMediasMediaHashedIdCaptionsLanguageCodeCode$inboundSchema:
-  z.ZodNativeEnum<typeof GetMediasMediaHashedIdCaptionsLanguageCodeCode> = z
-    .nativeEnum(GetMediasMediaHashedIdCaptionsLanguageCodeCode);
+  z.ZodNativeEnum<typeof GetMediasMediaHashedIdCaptionsLanguageCodeCode> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(GetMediasMediaHashedIdCaptionsLanguageCodeCode)
+    );
 
 /** @internal */
 export const GetMediasMediaHashedIdCaptionsLanguageCodeSegment$inboundSchema:
@@ -250,16 +271,18 @@ export const GetMediasMediaHashedIdCaptionsLanguageCodeSegment$inboundSchema:
     GetMediasMediaHashedIdCaptionsLanguageCodeSegment,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    start_ms: z.number().int(),
-    end_ms: z.number().int(),
-    text: z.string(),
-  }).transform((v) => {
-    return remap$(v, {
-      "start_ms": "startMs",
-      "end_ms": "endMs",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      start_ms: z.number().int(),
+      end_ms: z.number().int(),
+      text: z.string(),
+    }).transform((v) => {
+      return remap$(v, {
+        "start_ms": "startMs",
+        "end_ms": "endMs",
+      });
+    })
+  );
 
 export function getMediasMediaHashedIdCaptionsLanguageCodeSegmentFromJSON(
   jsonString: string,
@@ -283,20 +306,22 @@ export const GetMediasMediaHashedIdCaptionsLanguageCodeSpeaker$inboundSchema:
     GetMediasMediaHashedIdCaptionsLanguageCodeSpeaker,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    media_speaker_id: z.nullable(z.string()),
-    speaker_profile_id: z.nullable(z.string()),
-    detected_speaker_id: z.nullable(z.string()),
-    display_label: z.string(),
-    name: z.nullable(z.string()),
-  }).transform((v) => {
-    return remap$(v, {
-      "media_speaker_id": "mediaSpeakerId",
-      "speaker_profile_id": "speakerProfileId",
-      "detected_speaker_id": "detectedSpeakerId",
-      "display_label": "displayLabel",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      media_speaker_id: z.nullable(z.string()),
+      speaker_profile_id: z.nullable(z.string()),
+      detected_speaker_id: z.nullable(z.string()),
+      display_label: z.string(),
+      name: z.nullable(z.string()),
+    }).transform((v) => {
+      return remap$(v, {
+        "media_speaker_id": "mediaSpeakerId",
+        "speaker_profile_id": "speakerProfileId",
+        "detected_speaker_id": "detectedSpeakerId",
+        "display_label": "displayLabel",
+      });
+    })
+  );
 
 export function getMediasMediaHashedIdCaptionsLanguageCodeSpeakerFromJSON(
   jsonString: string,
@@ -320,19 +345,21 @@ export const GetMediasMediaHashedIdCaptionsLanguageCodeDiarizedSegment$inboundSc
     GetMediasMediaHashedIdCaptionsLanguageCodeDiarizedSegment,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    start_ms: z.number().int(),
-    end_ms: z.number().int(),
-    text: z.string(),
-    speaker: z.lazy(() =>
-      GetMediasMediaHashedIdCaptionsLanguageCodeSpeaker$inboundSchema
-    ),
-  }).transform((v) => {
-    return remap$(v, {
-      "start_ms": "startMs",
-      "end_ms": "endMs",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      start_ms: z.number().int(),
+      end_ms: z.number().int(),
+      text: z.string(),
+      speaker: z.lazy(() =>
+        GetMediasMediaHashedIdCaptionsLanguageCodeSpeaker$inboundSchema
+      ),
+    }).transform((v) => {
+      return remap$(v, {
+        "start_ms": "startMs",
+        "end_ms": "endMs",
+      });
+    })
+  );
 
 export function getMediasMediaHashedIdCaptionsLanguageCodeDiarizedSegmentFromJSON(
   jsonString: string,
@@ -353,7 +380,9 @@ export function getMediasMediaHashedIdCaptionsLanguageCodeDiarizedSegmentFromJSO
 export const GetMediasMediaHashedIdCaptionsLanguageCodeDiarizationStatus$inboundSchema:
   z.ZodNativeEnum<
     typeof GetMediasMediaHashedIdCaptionsLanguageCodeDiarizationStatus
-  > = z.nativeEnum(GetMediasMediaHashedIdCaptionsLanguageCodeDiarizationStatus);
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.nativeEnum(GetMediasMediaHashedIdCaptionsLanguageCodeDiarizationStatus)
+  );
 
 /** @internal */
 export const GetMediasMediaHashedIdCaptionsLanguageCodeResponseBody$inboundSchema:
@@ -361,43 +390,41 @@ export const GetMediasMediaHashedIdCaptionsLanguageCodeResponseBody$inboundSchem
     GetMediasMediaHashedIdCaptionsLanguageCodeResponseBody,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    english_name: z.string().optional(),
-    native_name: z.string().optional(),
-    language: z.string(),
-    text: z.nullable(z.string()).optional(),
-    is_draft: z.boolean(),
-    id: z.string(),
-    media_id: z.string(),
-    version: z.nullable(z.number().int()),
-    segments: z.nullable(
-      z.array(z.lazy(() =>
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      english_name: z.string().optional(),
+      native_name: z.string().optional(),
+      language: z.string(),
+      text: z.nullable(z.string()).optional(),
+      is_draft: z.boolean(),
+      id: z.string(),
+      media_id: z.string(),
+      version: z.nullable(z.number().int()),
+      segments: z.nullable(z.array(z.lazy(() =>
         GetMediasMediaHashedIdCaptionsLanguageCodeSegment$inboundSchema
-      )),
-    ),
-    diarized_segments: z.array(
-      z.lazy(() =>
+      ))),
+      diarized_segments: z.array(z.lazy(() =>
         GetMediasMediaHashedIdCaptionsLanguageCodeDiarizedSegment$inboundSchema
-      ),
-    ).optional(),
-    diarization_status:
-      GetMediasMediaHashedIdCaptionsLanguageCodeDiarizationStatus$inboundSchema
-        .optional(),
-    diarization_derivable: z.boolean().optional(),
-    speaker_data_version: z.nullable(z.number().int()).optional(),
-    cursor: z.nullable(z.string()).optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      "english_name": "englishName",
-      "native_name": "nativeName",
-      "is_draft": "isDraft",
-      "media_id": "mediaId",
-      "diarized_segments": "diarizedSegments",
-      "diarization_status": "diarizationStatus",
-      "diarization_derivable": "diarizationDerivable",
-      "speaker_data_version": "speakerDataVersion",
-    });
-  });
+      )).optional(),
+      diarization_status:
+        GetMediasMediaHashedIdCaptionsLanguageCodeDiarizationStatus$inboundSchema
+          .optional(),
+      diarization_derivable: z.boolean().optional(),
+      speaker_data_version: z.nullable(z.number().int()).optional(),
+      cursor: z.nullable(z.string()).optional(),
+    }).transform((v) => {
+      return remap$(v, {
+        "english_name": "englishName",
+        "native_name": "nativeName",
+        "is_draft": "isDraft",
+        "media_id": "mediaId",
+        "diarized_segments": "diarizedSegments",
+        "diarization_status": "diarizationStatus",
+        "diarization_derivable": "diarizationDerivable",
+        "speaker_data_version": "speakerDataVersion",
+      });
+    })
+  );
 
 export function getMediasMediaHashedIdCaptionsLanguageCodeResponseBodyFromJSON(
   jsonString: string,
@@ -420,13 +447,15 @@ export const GetMediasMediaHashedIdCaptionsLanguageCodeResponse$inboundSchema:
     GetMediasMediaHashedIdCaptionsLanguageCodeResponse,
     z.ZodTypeDef,
     unknown
-  > = z.union([
-    z.lazy(() =>
-      GetMediasMediaHashedIdCaptionsLanguageCodeResponseBody$inboundSchema
-    ),
-    z.string(),
-    z.string(),
-  ]);
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.union([
+      z.lazy(() =>
+        GetMediasMediaHashedIdCaptionsLanguageCodeResponseBody$inboundSchema
+      ),
+      z.string(),
+      z.string(),
+    ])
+  );
 
 export function getMediasMediaHashedIdCaptionsLanguageCodeResponseFromJSON(
   jsonString: string,

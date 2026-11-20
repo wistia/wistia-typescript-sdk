@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
 import * as operations from "../operations/index.js";
 import { WistiaError } from "./wistiaerror.js";
 
@@ -201,19 +202,21 @@ export const PutMediasMediaIdCustomizationsAccessInternalServerError$inboundSche
     PutMediasMediaIdCustomizationsAccessInternalServerError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new PutMediasMediaIdCustomizationsAccessInternalServerError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new PutMediasMediaIdCustomizationsAccessInternalServerError(v, {
+          request: v.request$,
+          response: v.response$,
+          body: v.body$,
+        });
+      })
+  );
 
 /** @internal */
 export const PutMediasMediaIdCustomizationsAccessNotFoundError$inboundSchema:
@@ -221,19 +224,21 @@ export const PutMediasMediaIdCustomizationsAccessNotFoundError$inboundSchema:
     PutMediasMediaIdCustomizationsAccessNotFoundError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new PutMediasMediaIdCustomizationsAccessNotFoundError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new PutMediasMediaIdCustomizationsAccessNotFoundError(v, {
+          request: v.request$,
+          response: v.response$,
+          body: v.body$,
+        });
+      })
+  );
 
 /** @internal */
 export const PutMediasMediaIdCustomizationsAccessForbiddenError$inboundSchema:
@@ -241,19 +246,21 @@ export const PutMediasMediaIdCustomizationsAccessForbiddenError$inboundSchema:
     PutMediasMediaIdCustomizationsAccessForbiddenError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new PutMediasMediaIdCustomizationsAccessForbiddenError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new PutMediasMediaIdCustomizationsAccessForbiddenError(v, {
+          request: v.request$,
+          response: v.response$,
+          body: v.body$,
+        });
+      })
+  );
 
 /** @internal */
 export const PutMediasMediaIdCustomizationsAccessUnauthorizedError$inboundSchema:
@@ -261,21 +268,23 @@ export const PutMediasMediaIdCustomizationsAccessUnauthorizedError$inboundSchema
     PutMediasMediaIdCustomizationsAccessUnauthorizedError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    code: operations.PutMediasMediaIdCustomizationsAccessCode$inboundSchema
-      .optional(),
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new PutMediasMediaIdCustomizationsAccessUnauthorizedError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      code: operations.PutMediasMediaIdCustomizationsAccessCode$inboundSchema
+        .optional(),
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new PutMediasMediaIdCustomizationsAccessUnauthorizedError(v, {
+          request: v.request$,
+          response: v.response$,
+          body: v.body$,
+        });
+      })
+  );
 
 /** @internal */
 export const PutMediasMediaIdCustomizationsAccessBadRequestError$inboundSchema:
@@ -283,17 +292,19 @@ export const PutMediasMediaIdCustomizationsAccessBadRequestError$inboundSchema:
     PutMediasMediaIdCustomizationsAccessBadRequestError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    error: z.string().optional(),
-    errors: z.array(z.string()).optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new PutMediasMediaIdCustomizationsAccessBadRequestError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      error: z.string().optional(),
+      errors: z.array(z.string()).optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new PutMediasMediaIdCustomizationsAccessBadRequestError(v, {
+          request: v.request$,
+          response: v.response$,
+          body: v.body$,
+        });
+      })
+  );

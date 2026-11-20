@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
 import * as operations from "../operations/index.js";
 import { WistiaError } from "./wistiaerror.js";
 
@@ -168,19 +169,21 @@ export const GetWebinarsWebinarIdCollaboratorsInternalServerError$inboundSchema:
     GetWebinarsWebinarIdCollaboratorsInternalServerError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new GetWebinarsWebinarIdCollaboratorsInternalServerError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new GetWebinarsWebinarIdCollaboratorsInternalServerError(v, {
+          request: v.request$,
+          response: v.response$,
+          body: v.body$,
+        });
+      })
+  );
 
 /** @internal */
 export const GetWebinarsWebinarIdCollaboratorsNotFoundError$inboundSchema:
@@ -188,19 +191,21 @@ export const GetWebinarsWebinarIdCollaboratorsNotFoundError$inboundSchema:
     GetWebinarsWebinarIdCollaboratorsNotFoundError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new GetWebinarsWebinarIdCollaboratorsNotFoundError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new GetWebinarsWebinarIdCollaboratorsNotFoundError(v, {
+          request: v.request$,
+          response: v.response$,
+          body: v.body$,
+        });
+      })
+  );
 
 /** @internal */
 export const GetWebinarsWebinarIdCollaboratorsUnauthorizedError$inboundSchema:
@@ -208,21 +213,23 @@ export const GetWebinarsWebinarIdCollaboratorsUnauthorizedError$inboundSchema:
     GetWebinarsWebinarIdCollaboratorsUnauthorizedError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    code: operations.GetWebinarsWebinarIdCollaboratorsCode$inboundSchema
-      .optional(),
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new GetWebinarsWebinarIdCollaboratorsUnauthorizedError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      code: operations.GetWebinarsWebinarIdCollaboratorsCode$inboundSchema
+        .optional(),
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new GetWebinarsWebinarIdCollaboratorsUnauthorizedError(v, {
+          request: v.request$,
+          response: v.response$,
+          body: v.body$,
+        });
+      })
+  );
 
 /** @internal */
 export const GetWebinarsWebinarIdCollaboratorsBadRequestError$inboundSchema:
@@ -230,17 +237,19 @@ export const GetWebinarsWebinarIdCollaboratorsBadRequestError$inboundSchema:
     GetWebinarsWebinarIdCollaboratorsBadRequestError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    error: z.string().optional(),
-    errors: z.array(z.string()).optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new GetWebinarsWebinarIdCollaboratorsBadRequestError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      error: z.string().optional(),
+      errors: z.array(z.string()).optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new GetWebinarsWebinarIdCollaboratorsBadRequestError(v, {
+          request: v.request$,
+          response: v.response$,
+          body: v.body$,
+        });
+      })
+  );

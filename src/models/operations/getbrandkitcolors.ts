@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -84,14 +84,16 @@ export type GetBrandKitColorsResponse = {
 /** @internal */
 export const GetBrandKitColorsCode$inboundSchema: z.ZodNativeEnum<
   typeof GetBrandKitColorsCode
-> = z.nativeEnum(GetBrandKitColorsCode);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetBrandKitColorsCode));
 
 /** @internal */
-export const Color$inboundSchema: z.ZodType<Color, z.ZodTypeDef, unknown> = z
-  .object({
-    name: z.string(),
-    value: z.string(),
-  });
+export const Color$inboundSchema: z.ZodType<Color, z.ZodTypeDef, unknown> =
+  /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      name: z.string(),
+      value: z.string(),
+    })
+  );
 
 export function colorFromJSON(
   jsonString: string,
@@ -104,11 +106,13 @@ export function colorFromJSON(
 }
 
 /** @internal */
-export const Stop$inboundSchema: z.ZodType<Stop, z.ZodTypeDef, unknown> = z
-  .object({
-    color: z.string(),
-    position: z.number(),
-  });
+export const Stop$inboundSchema: z.ZodType<Stop, z.ZodTypeDef, unknown> =
+  /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      color: z.string(),
+      position: z.number(),
+    })
+  );
 
 export function stopFromJSON(
   jsonString: string,
@@ -125,10 +129,12 @@ export const BrandGradient$inboundSchema: z.ZodType<
   BrandGradient,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  name: z.string(),
-  stops: z.array(z.lazy(() => Stop$inboundSchema)),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    name: z.string(),
+    stops: z.array(z.lazy(() => Stop$inboundSchema)),
+  })
+);
 
 export function brandGradientFromJSON(
   jsonString: string,
@@ -145,14 +151,16 @@ export const GetBrandKitColorsResponse$inboundSchema: z.ZodType<
   GetBrandKitColorsResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  colors: z.array(z.lazy(() => Color$inboundSchema)),
-  brand_gradients: z.array(z.lazy(() => BrandGradient$inboundSchema)),
-}).transform((v) => {
-  return remap$(v, {
-    "brand_gradients": "brandGradients",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    colors: z.array(z.lazy(() => Color$inboundSchema)),
+    brand_gradients: z.array(z.lazy(() => BrandGradient$inboundSchema)),
+  }).transform((v) => {
+    return remap$(v, {
+      "brand_gradients": "brandGradients",
+    });
+  })
+);
 
 export function getBrandKitColorsResponseFromJSON(
   jsonString: string,

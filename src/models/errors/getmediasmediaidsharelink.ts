@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
 import * as operations from "../operations/index.js";
 import { WistiaError } from "./wistiaerror.js";
 
@@ -145,72 +146,80 @@ export const GetMediasMediaIdShareLinkInternalServerError$inboundSchema:
     GetMediasMediaIdShareLinkInternalServerError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new GetMediasMediaIdShareLinkInternalServerError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
-
-/** @internal */
-export const GetMediasMediaIdShareLinkNotFoundError$inboundSchema: z.ZodType<
-  GetMediasMediaIdShareLinkNotFoundError,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  error: z.string().optional(),
-  request$: z.instanceof(Request),
-  response$: z.instanceof(Response),
-  body$: z.string(),
-})
-  .transform((v) => {
-    return new GetMediasMediaIdShareLinkNotFoundError(v, {
-      request: v.request$,
-      response: v.response$,
-      body: v.body$,
-    });
-  });
-
-/** @internal */
-export const GetMediasMediaIdShareLinkForbiddenError$inboundSchema: z.ZodType<
-  GetMediasMediaIdShareLinkForbiddenError,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  error: z.string().optional(),
-  request$: z.instanceof(Request),
-  response$: z.instanceof(Response),
-  body$: z.string(),
-})
-  .transform((v) => {
-    return new GetMediasMediaIdShareLinkForbiddenError(v, {
-      request: v.request$,
-      response: v.response$,
-      body: v.body$,
-    });
-  });
-
-/** @internal */
-export const GetMediasMediaIdShareLinkUnauthorizedError$inboundSchema:
-  z.ZodType<GetMediasMediaIdShareLinkUnauthorizedError, z.ZodTypeDef, unknown> =
+  > = /* @__PURE__ */ lazySchema$(() =>
     z.object({
-      code: operations.GetMediasMediaIdShareLinkCode$inboundSchema.optional(),
       error: z.string().optional(),
       request$: z.instanceof(Request),
       response$: z.instanceof(Response),
       body$: z.string(),
     })
       .transform((v) => {
-        return new GetMediasMediaIdShareLinkUnauthorizedError(v, {
+        return new GetMediasMediaIdShareLinkInternalServerError(v, {
           request: v.request$,
           response: v.response$,
           body: v.body$,
         });
+      })
+  );
+
+/** @internal */
+export const GetMediasMediaIdShareLinkNotFoundError$inboundSchema: z.ZodType<
+  GetMediasMediaIdShareLinkNotFoundError,
+  z.ZodTypeDef,
+  unknown
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    error: z.string().optional(),
+    request$: z.instanceof(Request),
+    response$: z.instanceof(Response),
+    body$: z.string(),
+  })
+    .transform((v) => {
+      return new GetMediasMediaIdShareLinkNotFoundError(v, {
+        request: v.request$,
+        response: v.response$,
+        body: v.body$,
       });
+    })
+);
+
+/** @internal */
+export const GetMediasMediaIdShareLinkForbiddenError$inboundSchema: z.ZodType<
+  GetMediasMediaIdShareLinkForbiddenError,
+  z.ZodTypeDef,
+  unknown
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    error: z.string().optional(),
+    request$: z.instanceof(Request),
+    response$: z.instanceof(Response),
+    body$: z.string(),
+  })
+    .transform((v) => {
+      return new GetMediasMediaIdShareLinkForbiddenError(v, {
+        request: v.request$,
+        response: v.response$,
+        body: v.body$,
+      });
+    })
+);
+
+/** @internal */
+export const GetMediasMediaIdShareLinkUnauthorizedError$inboundSchema:
+  z.ZodType<GetMediasMediaIdShareLinkUnauthorizedError, z.ZodTypeDef, unknown> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.object({
+        code: operations.GetMediasMediaIdShareLinkCode$inboundSchema.optional(),
+        error: z.string().optional(),
+        request$: z.instanceof(Request),
+        response$: z.instanceof(Response),
+        body$: z.string(),
+      })
+        .transform((v) => {
+          return new GetMediasMediaIdShareLinkUnauthorizedError(v, {
+            request: v.request$,
+            response: v.response$,
+            body: v.body$,
+          });
+        })
+    );

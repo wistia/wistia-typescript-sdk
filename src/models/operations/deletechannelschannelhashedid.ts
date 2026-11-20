@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -653,9 +653,11 @@ export const DeleteChannelsChannelHashedIdRequest$outboundSchema: z.ZodType<
   DeleteChannelsChannelHashedIdRequest$Outbound,
   z.ZodTypeDef,
   DeleteChannelsChannelHashedIdRequest
-> = z.object({
-  channelHashedId: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    channelHashedId: z.string(),
+  })
+);
 
 export function deleteChannelsChannelHashedIdRequestToJSON(
   deleteChannelsChannelHashedIdRequest: DeleteChannelsChannelHashedIdRequest,
@@ -670,36 +672,44 @@ export function deleteChannelsChannelHashedIdRequestToJSON(
 /** @internal */
 export const DeleteChannelsChannelHashedIdCode$inboundSchema: z.ZodNativeEnum<
   typeof DeleteChannelsChannelHashedIdCode
-> = z.nativeEnum(DeleteChannelsChannelHashedIdCode);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(DeleteChannelsChannelHashedIdCode)
+);
 
 /** @internal */
 export const DeleteChannelsChannelHashedIdEpisodeFormat$inboundSchema:
-  z.ZodNativeEnum<typeof DeleteChannelsChannelHashedIdEpisodeFormat> = z
-    .nativeEnum(DeleteChannelsChannelHashedIdEpisodeFormat);
+  z.ZodNativeEnum<typeof DeleteChannelsChannelHashedIdEpisodeFormat> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(DeleteChannelsChannelHashedIdEpisodeFormat)
+    );
 
 /** @internal */
 export const DeleteChannelsChannelHashedIdCategory1$inboundSchema:
-  z.ZodNativeEnum<typeof DeleteChannelsChannelHashedIdCategory1> = z.nativeEnum(
-    DeleteChannelsChannelHashedIdCategory1,
-  );
+  z.ZodNativeEnum<typeof DeleteChannelsChannelHashedIdCategory1> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(DeleteChannelsChannelHashedIdCategory1)
+    );
 
 /** @internal */
 export const DeleteChannelsChannelHashedIdCategory2$inboundSchema:
-  z.ZodNativeEnum<typeof DeleteChannelsChannelHashedIdCategory2> = z.nativeEnum(
-    DeleteChannelsChannelHashedIdCategory2,
-  );
+  z.ZodNativeEnum<typeof DeleteChannelsChannelHashedIdCategory2> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(DeleteChannelsChannelHashedIdCategory2)
+    );
 
 /** @internal */
 export const DeleteChannelsChannelHashedIdCategory3$inboundSchema:
-  z.ZodNativeEnum<typeof DeleteChannelsChannelHashedIdCategory3> = z.nativeEnum(
-    DeleteChannelsChannelHashedIdCategory3,
-  );
+  z.ZodNativeEnum<typeof DeleteChannelsChannelHashedIdCategory3> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(DeleteChannelsChannelHashedIdCategory3)
+    );
 
 /** @internal */
 export const DeleteChannelsChannelHashedIdLanguage$inboundSchema:
-  z.ZodNativeEnum<typeof DeleteChannelsChannelHashedIdLanguage> = z.nativeEnum(
-    DeleteChannelsChannelHashedIdLanguage,
-  );
+  z.ZodNativeEnum<typeof DeleteChannelsChannelHashedIdLanguage> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(DeleteChannelsChannelHashedIdLanguage)
+    );
 
 /** @internal */
 export const DeleteChannelsChannelHashedIdPodcastSettings$inboundSchema:
@@ -707,31 +717,36 @@ export const DeleteChannelsChannelHashedIdPodcastSettings$inboundSchema:
     DeleteChannelsChannelHashedIdPodcastSettings,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    copyright: z.nullable(z.string()).optional(),
-    episode_format: z.nullable(
-      DeleteChannelsChannelHashedIdEpisodeFormat$inboundSchema,
-    ).optional(),
-    author_name: z.nullable(z.string()).optional(),
-    explicit: z.nullable(z.boolean()).optional(),
-    owner_name: z.nullable(z.string()).optional(),
-    owner_email: z.nullable(z.string()).optional(),
-    category1: z.nullable(DeleteChannelsChannelHashedIdCategory1$inboundSchema)
-      .optional(),
-    category2: z.nullable(DeleteChannelsChannelHashedIdCategory2$inboundSchema)
-      .optional(),
-    category3: z.nullable(DeleteChannelsChannelHashedIdCategory3$inboundSchema)
-      .optional(),
-    language: z.nullable(DeleteChannelsChannelHashedIdLanguage$inboundSchema)
-      .optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      "episode_format": "episodeFormat",
-      "author_name": "authorName",
-      "owner_name": "ownerName",
-      "owner_email": "ownerEmail",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      copyright: z.nullable(z.string()).optional(),
+      episode_format: z.nullable(
+        DeleteChannelsChannelHashedIdEpisodeFormat$inboundSchema,
+      ).optional(),
+      author_name: z.nullable(z.string()).optional(),
+      explicit: z.nullable(z.boolean()).optional(),
+      owner_name: z.nullable(z.string()).optional(),
+      owner_email: z.nullable(z.string()).optional(),
+      category1: z.nullable(
+        DeleteChannelsChannelHashedIdCategory1$inboundSchema,
+      ).optional(),
+      category2: z.nullable(
+        DeleteChannelsChannelHashedIdCategory2$inboundSchema,
+      ).optional(),
+      category3: z.nullable(
+        DeleteChannelsChannelHashedIdCategory3$inboundSchema,
+      ).optional(),
+      language: z.nullable(DeleteChannelsChannelHashedIdLanguage$inboundSchema)
+        .optional(),
+    }).transform((v) => {
+      return remap$(v, {
+        "episode_format": "episodeFormat",
+        "author_name": "authorName",
+        "owner_name": "ownerName",
+        "owner_email": "ownerEmail",
+      });
+    })
+  );
 
 export function deleteChannelsChannelHashedIdPodcastSettingsFromJSON(
   jsonString: string,
@@ -754,33 +769,35 @@ export const DeleteChannelsChannelHashedIdResponse$inboundSchema: z.ZodType<
   DeleteChannelsChannelHashedIdResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.number().int(),
-  created: z.string().datetime({ offset: true }).transform(v => new Date(v)),
-  description: z.string(),
-  hashed_id: z.string(),
-  media_count: z.number().int(),
-  live_stream_event_count: z.number().int().optional(),
-  name: z.string(),
-  updated: z.string().datetime({ offset: true }).transform(v => new Date(v)),
-  auto_publish_enabled: z.nullable(z.boolean()).optional(),
-  podcast_enabled: z.nullable(z.boolean()).optional(),
-  custom_url: z.nullable(z.string()).optional(),
-  podcast_settings: z.lazy(() =>
-    DeleteChannelsChannelHashedIdPodcastSettings$inboundSchema
-  ).optional(),
-  cursor: z.nullable(z.string()).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "hashed_id": "hashedId",
-    "media_count": "mediaCount",
-    "live_stream_event_count": "liveStreamEventCount",
-    "auto_publish_enabled": "autoPublishEnabled",
-    "podcast_enabled": "podcastEnabled",
-    "custom_url": "customUrl",
-    "podcast_settings": "podcastSettings",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    id: z.number().int(),
+    created: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+    description: z.string(),
+    hashed_id: z.string(),
+    media_count: z.number().int(),
+    live_stream_event_count: z.number().int().optional(),
+    name: z.string(),
+    updated: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+    auto_publish_enabled: z.nullable(z.boolean()).optional(),
+    podcast_enabled: z.nullable(z.boolean()).optional(),
+    custom_url: z.nullable(z.string()).optional(),
+    podcast_settings: z.lazy(() =>
+      DeleteChannelsChannelHashedIdPodcastSettings$inboundSchema
+    ).optional(),
+    cursor: z.nullable(z.string()).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "hashed_id": "hashedId",
+      "media_count": "mediaCount",
+      "live_stream_event_count": "liveStreamEventCount",
+      "auto_publish_enabled": "autoPublishEnabled",
+      "podcast_enabled": "podcastEnabled",
+      "custom_url": "customUrl",
+      "podcast_settings": "podcastSettings",
+    });
+  })
+);
 
 export function deleteChannelsChannelHashedIdResponseFromJSON(
   jsonString: string,

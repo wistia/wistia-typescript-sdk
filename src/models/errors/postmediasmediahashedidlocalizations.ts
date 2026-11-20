@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
 import * as operations from "../operations/index.js";
 import { WistiaError } from "./wistiaerror.js";
 
@@ -240,19 +241,21 @@ export const PostMediasMediaHashedIdLocalizationsInternalServerError$inboundSche
     PostMediasMediaHashedIdLocalizationsInternalServerError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new PostMediasMediaHashedIdLocalizationsInternalServerError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new PostMediasMediaHashedIdLocalizationsInternalServerError(v, {
+          request: v.request$,
+          response: v.response$,
+          body: v.body$,
+        });
+      })
+  );
 
 /** @internal */
 export const PostMediasMediaHashedIdLocalizationsUnprocessableEntityError$inboundSchema:
@@ -260,18 +263,20 @@ export const PostMediasMediaHashedIdLocalizationsUnprocessableEntityError$inboun
     PostMediasMediaHashedIdLocalizationsUnprocessableEntityError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new PostMediasMediaHashedIdLocalizationsUnprocessableEntityError(
-        v,
-        { request: v.request$, response: v.response$, body: v.body$ },
-      );
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new PostMediasMediaHashedIdLocalizationsUnprocessableEntityError(
+          v,
+          { request: v.request$, response: v.response$, body: v.body$ },
+        );
+      })
+  );
 
 /** @internal */
 export const PostMediasMediaHashedIdLocalizationsNotFoundError$inboundSchema:
@@ -279,19 +284,21 @@ export const PostMediasMediaHashedIdLocalizationsNotFoundError$inboundSchema:
     PostMediasMediaHashedIdLocalizationsNotFoundError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new PostMediasMediaHashedIdLocalizationsNotFoundError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new PostMediasMediaHashedIdLocalizationsNotFoundError(v, {
+          request: v.request$,
+          response: v.response$,
+          body: v.body$,
+        });
+      })
+  );
 
 /** @internal */
 export const PostMediasMediaHashedIdLocalizationsForbiddenError$inboundSchema:
@@ -299,19 +306,21 @@ export const PostMediasMediaHashedIdLocalizationsForbiddenError$inboundSchema:
     PostMediasMediaHashedIdLocalizationsForbiddenError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new PostMediasMediaHashedIdLocalizationsForbiddenError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new PostMediasMediaHashedIdLocalizationsForbiddenError(v, {
+          request: v.request$,
+          response: v.response$,
+          body: v.body$,
+        });
+      })
+  );
 
 /** @internal */
 export const PostMediasMediaHashedIdLocalizationsUnauthorizedError$inboundSchema:
@@ -319,21 +328,23 @@ export const PostMediasMediaHashedIdLocalizationsUnauthorizedError$inboundSchema
     PostMediasMediaHashedIdLocalizationsUnauthorizedError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    code: operations.PostMediasMediaHashedIdLocalizationsCode$inboundSchema
-      .optional(),
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new PostMediasMediaHashedIdLocalizationsUnauthorizedError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      code: operations.PostMediasMediaHashedIdLocalizationsCode$inboundSchema
+        .optional(),
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new PostMediasMediaHashedIdLocalizationsUnauthorizedError(v, {
+          request: v.request$,
+          response: v.response$,
+          body: v.body$,
+        });
+      })
+  );
 
 /** @internal */
 export const PostMediasMediaHashedIdLocalizationsBadRequestError$inboundSchema:
@@ -341,17 +352,19 @@ export const PostMediasMediaHashedIdLocalizationsBadRequestError$inboundSchema:
     PostMediasMediaHashedIdLocalizationsBadRequestError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    error: z.string().optional(),
-    errors: z.array(z.string()).optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new PostMediasMediaHashedIdLocalizationsBadRequestError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      error: z.string().optional(),
+      errors: z.array(z.string()).optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new PostMediasMediaHashedIdLocalizationsBadRequestError(v, {
+          request: v.request$,
+          response: v.response$,
+          body: v.body$,
+        });
+      })
+  );
