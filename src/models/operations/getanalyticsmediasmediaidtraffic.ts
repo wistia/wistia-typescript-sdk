@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { RFCDate } from "../../types/rfcdate.js";
@@ -110,52 +110,57 @@ export type GetAnalyticsMediasMediaIdTrafficResponse = {
   /**
    * The UTM campaign value (present when group_by is utm_campaign).
    */
-  utmCampaign?: string | undefined;
+  utmCampaign?: string | null | undefined;
   /**
    * The UTM source value (present when group_by is utm_source).
    */
-  utmSource?: string | undefined;
+  utmSource?: string | null | undefined;
   /**
    * The UTM medium value (present when group_by is utm_medium).
    */
-  utmMedium?: string | undefined;
+  utmMedium?: string | null | undefined;
   /**
    * The referrer domain (present when group_by is referrer_domain).
    */
-  referrerDomain?: string | undefined;
+  referrerDomain?: string | null | undefined;
   /**
    * The viewer screen size (present when group_by is viewer_screen_size).
    */
-  viewerScreenSize?: string | undefined;
+  viewerScreenSize?: string | null | undefined;
   /**
    * The number of video loads for this group.
    */
-  loads?: number | undefined;
+  loads?: number | null | undefined;
   /**
    * The number of video plays for this group.
    */
-  plays?: number | undefined;
+  plays?: number | null | undefined;
   /**
    * The average engagement rate for this group (between 0 and 1).
    */
-  engagementRate?: number | undefined;
+  engagementRate?: number | null | undefined;
 };
 
 /** @internal */
 export const GetAnalyticsMediasMediaIdTrafficGroupBy$outboundSchema:
-  z.ZodNativeEnum<typeof GetAnalyticsMediasMediaIdTrafficGroupBy> = z
-    .nativeEnum(GetAnalyticsMediasMediaIdTrafficGroupBy);
+  z.ZodNativeEnum<typeof GetAnalyticsMediasMediaIdTrafficGroupBy> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(GetAnalyticsMediasMediaIdTrafficGroupBy)
+    );
 
 /** @internal */
 export const GetAnalyticsMediasMediaIdTrafficSortBy$outboundSchema:
-  z.ZodNativeEnum<typeof GetAnalyticsMediasMediaIdTrafficSortBy> = z.nativeEnum(
-    GetAnalyticsMediasMediaIdTrafficSortBy,
-  );
+  z.ZodNativeEnum<typeof GetAnalyticsMediasMediaIdTrafficSortBy> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(GetAnalyticsMediasMediaIdTrafficSortBy)
+    );
 
 /** @internal */
 export const GetAnalyticsMediasMediaIdTrafficSortDirection$outboundSchema:
-  z.ZodNativeEnum<typeof GetAnalyticsMediasMediaIdTrafficSortDirection> = z
-    .nativeEnum(GetAnalyticsMediasMediaIdTrafficSortDirection);
+  z.ZodNativeEnum<typeof GetAnalyticsMediasMediaIdTrafficSortDirection> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(GetAnalyticsMediasMediaIdTrafficSortDirection)
+    );
 
 /** @internal */
 export type GetAnalyticsMediasMediaIdTrafficRequest$Outbound = {
@@ -173,27 +178,29 @@ export const GetAnalyticsMediasMediaIdTrafficRequest$outboundSchema: z.ZodType<
   GetAnalyticsMediasMediaIdTrafficRequest$Outbound,
   z.ZodTypeDef,
   GetAnalyticsMediasMediaIdTrafficRequest
-> = z.object({
-  mediaId: z.string(),
-  startDate: z.instanceof(RFCDate).transform(v => v.toString()),
-  endDate: z.instanceof(RFCDate).transform(v => v.toString()),
-  groupBy: GetAnalyticsMediasMediaIdTrafficGroupBy$outboundSchema,
-  sortBy: GetAnalyticsMediasMediaIdTrafficSortBy$outboundSchema.default(
-    "plays",
-  ),
-  sortDirection: GetAnalyticsMediasMediaIdTrafficSortDirection$outboundSchema
-    .default("desc"),
-  perPage: z.number().int().default(100),
-}).transform((v) => {
-  return remap$(v, {
-    startDate: "start_date",
-    endDate: "end_date",
-    groupBy: "group_by",
-    sortBy: "sort_by",
-    sortDirection: "sort_direction",
-    perPage: "per_page",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    mediaId: z.string(),
+    startDate: z.instanceof(RFCDate).transform(v => v.toString()),
+    endDate: z.instanceof(RFCDate).transform(v => v.toString()),
+    groupBy: GetAnalyticsMediasMediaIdTrafficGroupBy$outboundSchema,
+    sortBy: GetAnalyticsMediasMediaIdTrafficSortBy$outboundSchema.default(
+      "plays",
+    ),
+    sortDirection: GetAnalyticsMediasMediaIdTrafficSortDirection$outboundSchema
+      .default("desc"),
+    perPage: z.number().int().default(100),
+  }).transform((v) => {
+    return remap$(v, {
+      startDate: "start_date",
+      endDate: "end_date",
+      groupBy: "group_by",
+      sortBy: "sort_by",
+      sortDirection: "sort_direction",
+      perPage: "per_page",
+    });
+  })
+);
 
 export function getAnalyticsMediasMediaIdTrafficRequestToJSON(
   getAnalyticsMediasMediaIdTrafficRequest:
@@ -208,34 +215,37 @@ export function getAnalyticsMediasMediaIdTrafficRequestToJSON(
 
 /** @internal */
 export const GetAnalyticsMediasMediaIdTrafficCode$inboundSchema:
-  z.ZodNativeEnum<typeof GetAnalyticsMediasMediaIdTrafficCode> = z.nativeEnum(
-    GetAnalyticsMediasMediaIdTrafficCode,
-  );
+  z.ZodNativeEnum<typeof GetAnalyticsMediasMediaIdTrafficCode> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(GetAnalyticsMediasMediaIdTrafficCode)
+    );
 
 /** @internal */
 export const GetAnalyticsMediasMediaIdTrafficResponse$inboundSchema: z.ZodType<
   GetAnalyticsMediasMediaIdTrafficResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  utm_campaign: z.string().optional(),
-  utm_source: z.string().optional(),
-  utm_medium: z.string().optional(),
-  referrer_domain: z.string().optional(),
-  viewer_screen_size: z.string().optional(),
-  loads: z.number().int().optional(),
-  plays: z.number().int().optional(),
-  engagement_rate: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "utm_campaign": "utmCampaign",
-    "utm_source": "utmSource",
-    "utm_medium": "utmMedium",
-    "referrer_domain": "referrerDomain",
-    "viewer_screen_size": "viewerScreenSize",
-    "engagement_rate": "engagementRate",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    utm_campaign: z.nullable(z.string()).optional(),
+    utm_source: z.nullable(z.string()).optional(),
+    utm_medium: z.nullable(z.string()).optional(),
+    referrer_domain: z.nullable(z.string()).optional(),
+    viewer_screen_size: z.nullable(z.string()).optional(),
+    loads: z.nullable(z.number().int()).optional(),
+    plays: z.nullable(z.number().int()).optional(),
+    engagement_rate: z.nullable(z.number()).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "utm_campaign": "utmCampaign",
+      "utm_source": "utmSource",
+      "utm_medium": "utmMedium",
+      "referrer_domain": "referrerDomain",
+      "viewer_screen_size": "viewerScreenSize",
+      "engagement_rate": "engagementRate",
+    });
+  })
+);
 
 export function getAnalyticsMediasMediaIdTrafficResponseFromJSON(
   jsonString: string,

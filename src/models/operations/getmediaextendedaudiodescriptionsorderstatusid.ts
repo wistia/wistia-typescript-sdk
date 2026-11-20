@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -123,9 +123,11 @@ export const GetMediaExtendedAudioDescriptionsOrderStatusIdRequest$outboundSchem
     GetMediaExtendedAudioDescriptionsOrderStatusIdRequest$Outbound,
     z.ZodTypeDef,
     GetMediaExtendedAudioDescriptionsOrderStatusIdRequest
-  > = z.object({
-    id: z.string(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      id: z.string(),
+    })
+  );
 
 export function getMediaExtendedAudioDescriptionsOrderStatusIdRequestToJSON(
   getMediaExtendedAudioDescriptionsOrderStatusIdRequest:
@@ -140,14 +142,18 @@ export function getMediaExtendedAudioDescriptionsOrderStatusIdRequestToJSON(
 
 /** @internal */
 export const GetMediaExtendedAudioDescriptionsOrderStatusIdCode$inboundSchema:
-  z.ZodNativeEnum<typeof GetMediaExtendedAudioDescriptionsOrderStatusIdCode> = z
-    .nativeEnum(GetMediaExtendedAudioDescriptionsOrderStatusIdCode);
+  z.ZodNativeEnum<typeof GetMediaExtendedAudioDescriptionsOrderStatusIdCode> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(GetMediaExtendedAudioDescriptionsOrderStatusIdCode)
+    );
 
 /** @internal */
 export const GetMediaExtendedAudioDescriptionsOrderStatusIdOrderStatus$inboundSchema:
   z.ZodNativeEnum<
     typeof GetMediaExtendedAudioDescriptionsOrderStatusIdOrderStatus
-  > = z.nativeEnum(GetMediaExtendedAudioDescriptionsOrderStatusIdOrderStatus);
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.nativeEnum(GetMediaExtendedAudioDescriptionsOrderStatusIdOrderStatus)
+  );
 
 /** @internal */
 export const GetMediaExtendedAudioDescriptionsOrderStatusIdMedia$inboundSchema:
@@ -155,15 +161,17 @@ export const GetMediaExtendedAudioDescriptionsOrderStatusIdMedia$inboundSchema:
     GetMediaExtendedAudioDescriptionsOrderStatusIdMedia,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    id: z.string(),
-    index_url: z.string(),
-    url: z.string(),
-  }).transform((v) => {
-    return remap$(v, {
-      "index_url": "indexUrl",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      id: z.string(),
+      index_url: z.string(),
+      url: z.string(),
+    }).transform((v) => {
+      return remap$(v, {
+        "index_url": "indexUrl",
+      });
+    })
+  );
 
 export function getMediaExtendedAudioDescriptionsOrderStatusIdMediaFromJSON(
   jsonString: string,
@@ -187,15 +195,17 @@ export const GetMediaExtendedAudioDescriptionsOrderStatusIdMediaExtendedAudioDes
     GetMediaExtendedAudioDescriptionsOrderStatusIdMediaExtendedAudioDescription,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    id: z.string(),
-    index_url: z.string(),
-    url: z.string(),
-  }).transform((v) => {
-    return remap$(v, {
-      "index_url": "indexUrl",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      id: z.string(),
+      index_url: z.string(),
+      url: z.string(),
+    }).transform((v) => {
+      return remap$(v, {
+        "index_url": "indexUrl",
+      });
+    })
+  );
 
 export function getMediaExtendedAudioDescriptionsOrderStatusIdMediaExtendedAudioDescriptionFromJSON(
   jsonString: string,
@@ -218,32 +228,32 @@ export const GetMediaExtendedAudioDescriptionsOrderStatusIdOrder$inboundSchema:
     GetMediaExtendedAudioDescriptionsOrderStatusIdOrder,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    id: z.string(),
-    order_status:
-      GetMediaExtendedAudioDescriptionsOrderStatusIdOrderStatus$inboundSchema,
-    created_at: z.string().datetime({ offset: true }).transform(v =>
-      new Date(v)
-    ),
-    updated_at: z.string().datetime({ offset: true }).transform(v =>
-      new Date(v)
-    ),
-    media: z.lazy(() =>
-      GetMediaExtendedAudioDescriptionsOrderStatusIdMedia$inboundSchema
-    ),
-    media_extended_audio_description: z.nullable(
-      z.lazy(() =>
-        GetMediaExtendedAudioDescriptionsOrderStatusIdMediaExtendedAudioDescription$inboundSchema
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      id: z.string(),
+      order_status:
+        GetMediaExtendedAudioDescriptionsOrderStatusIdOrderStatus$inboundSchema,
+      created_at: z.string().datetime({ offset: true }).transform(v =>
+        new Date(v)
       ),
-    ).optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      "order_status": "orderStatus",
-      "created_at": "createdAt",
-      "updated_at": "updatedAt",
-      "media_extended_audio_description": "mediaExtendedAudioDescription",
-    });
-  });
+      updated_at: z.string().datetime({ offset: true }).transform(v =>
+        new Date(v)
+      ),
+      media: z.lazy(() =>
+        GetMediaExtendedAudioDescriptionsOrderStatusIdMedia$inboundSchema
+      ),
+      media_extended_audio_description: z.nullable(z.lazy(() =>
+        GetMediaExtendedAudioDescriptionsOrderStatusIdMediaExtendedAudioDescription$inboundSchema
+      )).optional(),
+    }).transform((v) => {
+      return remap$(v, {
+        "order_status": "orderStatus",
+        "created_at": "createdAt",
+        "updated_at": "updatedAt",
+        "media_extended_audio_description": "mediaExtendedAudioDescription",
+      });
+    })
+  );
 
 export function getMediaExtendedAudioDescriptionsOrderStatusIdOrderFromJSON(
   jsonString: string,
@@ -267,11 +277,13 @@ export const GetMediaExtendedAudioDescriptionsOrderStatusIdResponse$inboundSchem
     GetMediaExtendedAudioDescriptionsOrderStatusIdResponse,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    order: z.lazy(() =>
-      GetMediaExtendedAudioDescriptionsOrderStatusIdOrder$inboundSchema
-    ),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      order: z.lazy(() =>
+        GetMediaExtendedAudioDescriptionsOrderStatusIdOrder$inboundSchema
+      ),
+    })
+  );
 
 export function getMediaExtendedAudioDescriptionsOrderStatusIdResponseFromJSON(
   jsonString: string,

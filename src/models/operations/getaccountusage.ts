@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -178,23 +178,25 @@ export type GetAccountUsageResponse = {
 /** @internal */
 export const GetAccountUsageCode$inboundSchema: z.ZodNativeEnum<
   typeof GetAccountUsageCode
-> = z.nativeEnum(GetAccountUsageCode);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetAccountUsageCode));
 
 /** @internal */
-export const Plan$inboundSchema: z.ZodType<Plan, z.ZodTypeDef, unknown> = z
-  .object({
-    tier: z.string(),
-    name: z.string(),
-    is_standard: z.boolean(),
-    is_trial: z.boolean(),
-    trial_expires_at: z.nullable(z.string()),
-  }).transform((v) => {
-    return remap$(v, {
-      "is_standard": "isStandard",
-      "is_trial": "isTrial",
-      "trial_expires_at": "trialExpiresAt",
-    });
-  });
+export const Plan$inboundSchema: z.ZodType<Plan, z.ZodTypeDef, unknown> =
+  /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      tier: z.string(),
+      name: z.string(),
+      is_standard: z.boolean(),
+      is_trial: z.boolean(),
+      trial_expires_at: z.nullable(z.string()),
+    }).transform((v) => {
+      return remap$(v, {
+        "is_standard": "isStandard",
+        "is_trial": "isTrial",
+        "trial_expires_at": "trialExpiresAt",
+      });
+    })
+  );
 
 export function planFromJSON(
   jsonString: string,
@@ -209,23 +211,25 @@ export function planFromJSON(
 /** @internal */
 export const PrimaryResource$inboundSchema: z.ZodNativeEnum<
   typeof PrimaryResource
-> = z.nativeEnum(PrimaryResource);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(PrimaryResource));
 
 /** @internal */
 export const GetAccountUsageMedia$inboundSchema: z.ZodType<
   GetAccountUsageMedia,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  count: z.number().int(),
-  flexible_limit: z.nullable(z.number().int()),
-  inflexible_limit: z.nullable(z.number().int()),
-}).transform((v) => {
-  return remap$(v, {
-    "flexible_limit": "flexibleLimit",
-    "inflexible_limit": "inflexibleLimit",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    count: z.number().int(),
+    flexible_limit: z.nullable(z.number().int()),
+    inflexible_limit: z.nullable(z.number().int()),
+  }).transform((v) => {
+    return remap$(v, {
+      "flexible_limit": "flexibleLimit",
+      "inflexible_limit": "inflexibleLimit",
+    });
+  })
+);
 
 export function getAccountUsageMediaFromJSON(
   jsonString: string,
@@ -239,17 +243,19 @@ export function getAccountUsageMediaFromJSON(
 
 /** @internal */
 export const Storage$inboundSchema: z.ZodType<Storage, z.ZodTypeDef, unknown> =
-  z.object({
-    used_bytes: z.number().int(),
-    flexible_limit_bytes: z.nullable(z.number().int()),
-    inflexible_limit_bytes: z.nullable(z.number().int()),
-  }).transform((v) => {
-    return remap$(v, {
-      "used_bytes": "usedBytes",
-      "flexible_limit_bytes": "flexibleLimitBytes",
-      "inflexible_limit_bytes": "inflexibleLimitBytes",
-    });
-  });
+  /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      used_bytes: z.number().int(),
+      flexible_limit_bytes: z.nullable(z.number().int()),
+      inflexible_limit_bytes: z.nullable(z.number().int()),
+    }).transform((v) => {
+      return remap$(v, {
+        "used_bytes": "usedBytes",
+        "flexible_limit_bytes": "flexibleLimitBytes",
+        "inflexible_limit_bytes": "inflexibleLimitBytes",
+      });
+    })
+  );
 
 export function storageFromJSON(
   jsonString: string,
@@ -262,16 +268,18 @@ export function storageFromJSON(
 }
 
 /** @internal */
-export const Limits$inboundSchema: z.ZodType<Limits, z.ZodTypeDef, unknown> = z
-  .object({
-    primary_resource: PrimaryResource$inboundSchema,
-    media: z.lazy(() => GetAccountUsageMedia$inboundSchema),
-    storage: z.lazy(() => Storage$inboundSchema),
-  }).transform((v) => {
-    return remap$(v, {
-      "primary_resource": "primaryResource",
-    });
-  });
+export const Limits$inboundSchema: z.ZodType<Limits, z.ZodTypeDef, unknown> =
+  /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      primary_resource: PrimaryResource$inboundSchema,
+      media: z.lazy(() => GetAccountUsageMedia$inboundSchema),
+      storage: z.lazy(() => Storage$inboundSchema),
+    }).transform((v) => {
+      return remap$(v, {
+        "primary_resource": "primaryResource",
+      });
+    })
+  );
 
 export function limitsFromJSON(
   jsonString: string,
@@ -284,18 +292,20 @@ export function limitsFromJSON(
 }
 
 /** @internal */
-export const Links$inboundSchema: z.ZodType<Links, z.ZodTypeDef, unknown> = z
-  .object({
-    plans_url: z.string(),
-    usage_url: z.nullable(z.string()),
-    billing_url: z.nullable(z.string()),
-  }).transform((v) => {
-    return remap$(v, {
-      "plans_url": "plansUrl",
-      "usage_url": "usageUrl",
-      "billing_url": "billingUrl",
-    });
-  });
+export const Links$inboundSchema: z.ZodType<Links, z.ZodTypeDef, unknown> =
+  /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      plans_url: z.string(),
+      usage_url: z.nullable(z.string()),
+      billing_url: z.nullable(z.string()),
+    }).transform((v) => {
+      return remap$(v, {
+        "plans_url": "plansUrl",
+        "usage_url": "usageUrl",
+        "billing_url": "billingUrl",
+      });
+    })
+  );
 
 export function linksFromJSON(
   jsonString: string,
@@ -312,18 +322,20 @@ export const GetAccountUsageResponse$inboundSchema: z.ZodType<
   GetAccountUsageResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  plan: z.lazy(() => Plan$inboundSchema),
-  can_upload: z.boolean(),
-  upload_blocked_reason: z.nullable(z.string()),
-  limits: z.nullable(z.lazy(() => Limits$inboundSchema)),
-  links: z.lazy(() => Links$inboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    "can_upload": "canUpload",
-    "upload_blocked_reason": "uploadBlockedReason",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    plan: z.lazy(() => Plan$inboundSchema),
+    can_upload: z.boolean(),
+    upload_blocked_reason: z.nullable(z.string()),
+    limits: z.nullable(z.lazy(() => Limits$inboundSchema)),
+    links: z.lazy(() => Links$inboundSchema),
+  }).transform((v) => {
+    return remap$(v, {
+      "can_upload": "canUpload",
+      "upload_blocked_reason": "uploadBlockedReason",
+    });
+  })
+);
 
 export function getAccountUsageResponseFromJSON(
   jsonString: string,

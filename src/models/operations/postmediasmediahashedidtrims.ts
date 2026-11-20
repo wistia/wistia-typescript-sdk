@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -103,14 +103,16 @@ export const PostMediasMediaHashedIdTrimsRequestBody$outboundSchema: z.ZodType<
   PostMediasMediaHashedIdTrimsRequestBody$Outbound,
   z.ZodTypeDef,
   PostMediasMediaHashedIdTrimsRequestBody
-> = z.object({
-  trims: z.array(z.string()),
-  keepTrims: z.boolean().default(false),
-}).transform((v) => {
-  return remap$(v, {
-    keepTrims: "keep_trims",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    trims: z.array(z.string()),
+    keepTrims: z.boolean().default(false),
+  }).transform((v) => {
+    return remap$(v, {
+      keepTrims: "keep_trims",
+    });
+  })
+);
 
 export function postMediasMediaHashedIdTrimsRequestBodyToJSON(
   postMediasMediaHashedIdTrimsRequestBody:
@@ -134,16 +136,18 @@ export const PostMediasMediaHashedIdTrimsRequest$outboundSchema: z.ZodType<
   PostMediasMediaHashedIdTrimsRequest$Outbound,
   z.ZodTypeDef,
   PostMediasMediaHashedIdTrimsRequest
-> = z.object({
-  mediaHashedId: z.string(),
-  requestBody: z.lazy(() =>
-    PostMediasMediaHashedIdTrimsRequestBody$outboundSchema
-  ),
-}).transform((v) => {
-  return remap$(v, {
-    requestBody: "RequestBody",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    mediaHashedId: z.string(),
+    requestBody: z.lazy(() =>
+      PostMediasMediaHashedIdTrimsRequestBody$outboundSchema
+    ),
+  }).transform((v) => {
+    return remap$(v, {
+      requestBody: "RequestBody",
+    });
+  })
+);
 
 export function postMediasMediaHashedIdTrimsRequestToJSON(
   postMediasMediaHashedIdTrimsRequest: PostMediasMediaHashedIdTrimsRequest,
@@ -158,12 +162,16 @@ export function postMediasMediaHashedIdTrimsRequestToJSON(
 /** @internal */
 export const PostMediasMediaHashedIdTrimsCode$inboundSchema: z.ZodNativeEnum<
   typeof PostMediasMediaHashedIdTrimsCode
-> = z.nativeEnum(PostMediasMediaHashedIdTrimsCode);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(PostMediasMediaHashedIdTrimsCode)
+);
 
 /** @internal */
 export const PostMediasMediaHashedIdTrimsStatus$inboundSchema: z.ZodNativeEnum<
   typeof PostMediasMediaHashedIdTrimsStatus
-> = z.nativeEnum(PostMediasMediaHashedIdTrimsStatus);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(PostMediasMediaHashedIdTrimsStatus)
+);
 
 /** @internal */
 export const PostMediasMediaHashedIdTrimsBackgroundJobStatus$inboundSchema:
@@ -171,10 +179,12 @@ export const PostMediasMediaHashedIdTrimsBackgroundJobStatus$inboundSchema:
     PostMediasMediaHashedIdTrimsBackgroundJobStatus,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    id: z.number().int(),
-    status: PostMediasMediaHashedIdTrimsStatus$inboundSchema,
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      id: z.number().int(),
+      status: PostMediasMediaHashedIdTrimsStatus$inboundSchema,
+    })
+  );
 
 export function postMediasMediaHashedIdTrimsBackgroundJobStatusFromJSON(
   jsonString: string,
@@ -197,15 +207,17 @@ export const PostMediasMediaHashedIdTrimsResponse$inboundSchema: z.ZodType<
   PostMediasMediaHashedIdTrimsResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  background_job_status: z.lazy(() =>
-    PostMediasMediaHashedIdTrimsBackgroundJobStatus$inboundSchema
-  ).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "background_job_status": "backgroundJobStatus",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    background_job_status: z.lazy(() =>
+      PostMediasMediaHashedIdTrimsBackgroundJobStatus$inboundSchema
+    ).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "background_job_status": "backgroundJobStatus",
+    });
+  })
+);
 
 export function postMediasMediaHashedIdTrimsResponseFromJSON(
   jsonString: string,

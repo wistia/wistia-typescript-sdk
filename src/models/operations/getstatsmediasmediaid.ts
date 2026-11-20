@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -100,9 +100,11 @@ export const GetStatsMediasMediaIdRequest$outboundSchema: z.ZodType<
   GetStatsMediasMediaIdRequest$Outbound,
   z.ZodTypeDef,
   GetStatsMediasMediaIdRequest
-> = z.object({
-  mediaId: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    mediaId: z.string(),
+  })
+);
 
 export function getStatsMediasMediaIdRequestToJSON(
   getStatsMediasMediaIdRequest: GetStatsMediasMediaIdRequest,
@@ -117,23 +119,25 @@ export function getStatsMediasMediaIdRequestToJSON(
 /** @internal */
 export const GetStatsMediasMediaIdCode$inboundSchema: z.ZodNativeEnum<
   typeof GetStatsMediasMediaIdCode
-> = z.nativeEnum(GetStatsMediasMediaIdCode);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetStatsMediasMediaIdCode));
 
 /** @internal */
-export const Action$inboundSchema: z.ZodType<Action, z.ZodTypeDef, unknown> = z
-  .object({
-    type: z.string().optional(),
-    action_count: z.number().int().optional(),
-    impression_count: z.number().int().optional(),
-    rate: z.number().optional(),
-    url: z.nullable(z.string()).optional(),
-    text: z.nullable(z.string()).optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      "action_count": "actionCount",
-      "impression_count": "impressionCount",
-    });
-  });
+export const Action$inboundSchema: z.ZodType<Action, z.ZodTypeDef, unknown> =
+  /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      type: z.string().optional(),
+      action_count: z.number().int().optional(),
+      impression_count: z.number().int().optional(),
+      rate: z.number().optional(),
+      url: z.nullable(z.string()).optional(),
+      text: z.nullable(z.string()).optional(),
+    }).transform((v) => {
+      return remap$(v, {
+        "action_count": "actionCount",
+        "impression_count": "impressionCount",
+      });
+    })
+  );
 
 export function actionFromJSON(
   jsonString: string,
@@ -150,22 +154,24 @@ export const GetStatsMediasMediaIdResponse$inboundSchema: z.ZodType<
   GetStatsMediasMediaIdResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  load_count: z.number().int().optional(),
-  play_count: z.number().int().optional(),
-  play_rate: z.number().optional(),
-  hours_watched: z.number().optional(),
-  engagement: z.number().optional(),
-  visitors: z.number().int().optional(),
-  actions: z.array(z.lazy(() => Action$inboundSchema)).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "load_count": "loadCount",
-    "play_count": "playCount",
-    "play_rate": "playRate",
-    "hours_watched": "hoursWatched",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    load_count: z.number().int().optional(),
+    play_count: z.number().int().optional(),
+    play_rate: z.number().optional(),
+    hours_watched: z.number().optional(),
+    engagement: z.number().optional(),
+    visitors: z.number().int().optional(),
+    actions: z.array(z.lazy(() => Action$inboundSchema)).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "load_count": "loadCount",
+      "play_count": "playCount",
+      "play_rate": "playRate",
+      "hours_watched": "hoursWatched",
+    });
+  })
+);
 
 export function getStatsMediasMediaIdResponseFromJSON(
   jsonString: string,

@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
 import * as operations from "../operations/index.js";
 import { WistiaError } from "./wistiaerror.js";
 
@@ -227,63 +228,7 @@ export const GetAnalyticsWebinarsWebinarIdServiceUnavailableError$inboundSchema:
     GetAnalyticsWebinarsWebinarIdServiceUnavailableError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new GetAnalyticsWebinarsWebinarIdServiceUnavailableError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
-
-/** @internal */
-export const GetAnalyticsWebinarsWebinarIdInternalServerError$inboundSchema:
-  z.ZodType<
-    GetAnalyticsWebinarsWebinarIdInternalServerError,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new GetAnalyticsWebinarsWebinarIdInternalServerError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
-
-/** @internal */
-export const GetAnalyticsWebinarsWebinarIdUnprocessableEntityError$inboundSchema:
-  z.ZodType<
-    GetAnalyticsWebinarsWebinarIdUnprocessableEntityError,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new GetAnalyticsWebinarsWebinarIdUnprocessableEntityError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
-
-/** @internal */
-export const GetAnalyticsWebinarsWebinarIdConflictError$inboundSchema:
-  z.ZodType<GetAnalyticsWebinarsWebinarIdConflictError, z.ZodTypeDef, unknown> =
+  > = /* @__PURE__ */ lazySchema$(() =>
     z.object({
       error: z.string().optional(),
       request$: z.instanceof(Request),
@@ -291,12 +236,76 @@ export const GetAnalyticsWebinarsWebinarIdConflictError$inboundSchema:
       body$: z.string(),
     })
       .transform((v) => {
-        return new GetAnalyticsWebinarsWebinarIdConflictError(v, {
+        return new GetAnalyticsWebinarsWebinarIdServiceUnavailableError(v, {
           request: v.request$,
           response: v.response$,
           body: v.body$,
         });
-      });
+      })
+  );
+
+/** @internal */
+export const GetAnalyticsWebinarsWebinarIdInternalServerError$inboundSchema:
+  z.ZodType<
+    GetAnalyticsWebinarsWebinarIdInternalServerError,
+    z.ZodTypeDef,
+    unknown
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new GetAnalyticsWebinarsWebinarIdInternalServerError(v, {
+          request: v.request$,
+          response: v.response$,
+          body: v.body$,
+        });
+      })
+  );
+
+/** @internal */
+export const GetAnalyticsWebinarsWebinarIdUnprocessableEntityError$inboundSchema:
+  z.ZodType<
+    GetAnalyticsWebinarsWebinarIdUnprocessableEntityError,
+    z.ZodTypeDef,
+    unknown
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new GetAnalyticsWebinarsWebinarIdUnprocessableEntityError(v, {
+          request: v.request$,
+          response: v.response$,
+          body: v.body$,
+        });
+      })
+  );
+
+/** @internal */
+export const GetAnalyticsWebinarsWebinarIdConflictError$inboundSchema:
+  z.ZodType<GetAnalyticsWebinarsWebinarIdConflictError, z.ZodTypeDef, unknown> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.object({
+        error: z.string().optional(),
+        request$: z.instanceof(Request),
+        response$: z.instanceof(Response),
+        body$: z.string(),
+      })
+        .transform((v) => {
+          return new GetAnalyticsWebinarsWebinarIdConflictError(v, {
+            request: v.request$,
+            response: v.response$,
+            body: v.body$,
+          });
+        })
+    );
 
 /** @internal */
 export const GetAnalyticsWebinarsWebinarIdForbiddenError$inboundSchema:
@@ -304,19 +313,21 @@ export const GetAnalyticsWebinarsWebinarIdForbiddenError$inboundSchema:
     GetAnalyticsWebinarsWebinarIdForbiddenError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new GetAnalyticsWebinarsWebinarIdForbiddenError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new GetAnalyticsWebinarsWebinarIdForbiddenError(v, {
+          request: v.request$,
+          response: v.response$,
+          body: v.body$,
+        });
+      })
+  );
 
 /** @internal */
 export const GetAnalyticsWebinarsWebinarIdUnauthorizedError$inboundSchema:
@@ -324,17 +335,20 @@ export const GetAnalyticsWebinarsWebinarIdUnauthorizedError$inboundSchema:
     GetAnalyticsWebinarsWebinarIdUnauthorizedError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    code: operations.GetAnalyticsWebinarsWebinarIdCode$inboundSchema.optional(),
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new GetAnalyticsWebinarsWebinarIdUnauthorizedError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      code: operations.GetAnalyticsWebinarsWebinarIdCode$inboundSchema
+        .optional(),
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new GetAnalyticsWebinarsWebinarIdUnauthorizedError(v, {
+          request: v.request$,
+          response: v.response$,
+          body: v.body$,
+        });
+      })
+  );

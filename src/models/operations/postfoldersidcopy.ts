@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -81,9 +81,11 @@ export const PostFoldersIdCopyRequestBody$outboundSchema: z.ZodType<
   PostFoldersIdCopyRequestBody$Outbound,
   z.ZodTypeDef,
   PostFoldersIdCopyRequestBody
-> = z.object({
-  adminEmail: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    adminEmail: z.string().optional(),
+  })
+);
 
 export function postFoldersIdCopyRequestBodyToJSON(
   postFoldersIdCopyRequestBody: PostFoldersIdCopyRequestBody,
@@ -106,15 +108,17 @@ export const PostFoldersIdCopyRequest$outboundSchema: z.ZodType<
   PostFoldersIdCopyRequest$Outbound,
   z.ZodTypeDef,
   PostFoldersIdCopyRequest
-> = z.object({
-  id: z.string(),
-  requestBody: z.lazy(() => PostFoldersIdCopyRequestBody$outboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    requestBody: "RequestBody",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    id: z.string(),
+    requestBody: z.lazy(() => PostFoldersIdCopyRequestBody$outboundSchema)
+      .optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      requestBody: "RequestBody",
+    });
+  })
+);
 
 export function postFoldersIdCopyRequestToJSON(
   postFoldersIdCopyRequest: PostFoldersIdCopyRequest,
@@ -127,22 +131,24 @@ export function postFoldersIdCopyRequestToJSON(
 /** @internal */
 export const PostFoldersIdCopyCode$inboundSchema: z.ZodNativeEnum<
   typeof PostFoldersIdCopyCode
-> = z.nativeEnum(PostFoldersIdCopyCode);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(PostFoldersIdCopyCode));
 
 /** @internal */
 export const PostFoldersIdCopyStatus$inboundSchema: z.ZodNativeEnum<
   typeof PostFoldersIdCopyStatus
-> = z.nativeEnum(PostFoldersIdCopyStatus);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(PostFoldersIdCopyStatus));
 
 /** @internal */
 export const PostFoldersIdCopyResponse$inboundSchema: z.ZodType<
   PostFoldersIdCopyResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.number().int(),
-  status: PostFoldersIdCopyStatus$inboundSchema,
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    id: z.number().int(),
+    status: PostFoldersIdCopyStatus$inboundSchema,
+  })
+);
 
 export function postFoldersIdCopyResponseFromJSON(
   jsonString: string,

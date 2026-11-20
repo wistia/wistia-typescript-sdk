@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
 import * as operations from "../operations/index.js";
 import { WistiaError } from "./wistiaerror.js";
 
@@ -155,18 +156,20 @@ export const DeleteFoldersFolderIdSubfoldersBulkDeleteInternalServerError$inboun
     DeleteFoldersFolderIdSubfoldersBulkDeleteInternalServerError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new DeleteFoldersFolderIdSubfoldersBulkDeleteInternalServerError(
-        v,
-        { request: v.request$, response: v.response$, body: v.body$ },
-      );
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new DeleteFoldersFolderIdSubfoldersBulkDeleteInternalServerError(
+          v,
+          { request: v.request$, response: v.response$, body: v.body$ },
+        );
+      })
+  );
 
 /** @internal */
 export const DeleteFoldersFolderIdSubfoldersBulkDeleteUnprocessableEntityError$inboundSchema:
@@ -174,18 +177,20 @@ export const DeleteFoldersFolderIdSubfoldersBulkDeleteUnprocessableEntityError$i
     DeleteFoldersFolderIdSubfoldersBulkDeleteUnprocessableEntityError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new DeleteFoldersFolderIdSubfoldersBulkDeleteUnprocessableEntityError(
-        v,
-        { request: v.request$, response: v.response$, body: v.body$ },
-      );
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new DeleteFoldersFolderIdSubfoldersBulkDeleteUnprocessableEntityError(
+          v,
+          { request: v.request$, response: v.response$, body: v.body$ },
+        );
+      })
+  );
 
 /** @internal */
 export const DeleteFoldersFolderIdSubfoldersBulkDeleteNotFoundError$inboundSchema:
@@ -193,19 +198,21 @@ export const DeleteFoldersFolderIdSubfoldersBulkDeleteNotFoundError$inboundSchem
     DeleteFoldersFolderIdSubfoldersBulkDeleteNotFoundError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new DeleteFoldersFolderIdSubfoldersBulkDeleteNotFoundError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new DeleteFoldersFolderIdSubfoldersBulkDeleteNotFoundError(v, {
+          request: v.request$,
+          response: v.response$,
+          body: v.body$,
+        });
+      })
+  );
 
 /** @internal */
 export const DeleteFoldersFolderIdSubfoldersBulkDeleteUnauthorizedError$inboundSchema:
@@ -213,18 +220,19 @@ export const DeleteFoldersFolderIdSubfoldersBulkDeleteUnauthorizedError$inboundS
     DeleteFoldersFolderIdSubfoldersBulkDeleteUnauthorizedError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    code: operations.DeleteFoldersFolderIdSubfoldersBulkDeleteCode$inboundSchema
-      .optional(),
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new DeleteFoldersFolderIdSubfoldersBulkDeleteUnauthorizedError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      code: operations
+        .DeleteFoldersFolderIdSubfoldersBulkDeleteCode$inboundSchema.optional(),
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new DeleteFoldersFolderIdSubfoldersBulkDeleteUnauthorizedError(
+          v,
+          { request: v.request$, response: v.response$, body: v.body$ },
+        );
+      })
+  );

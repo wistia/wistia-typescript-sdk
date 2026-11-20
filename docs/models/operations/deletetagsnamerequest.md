@@ -12,6 +12,6 @@ let value: DeleteTagsNameRequest = {
 
 ## Fields
 
-| Field              | Type               | Required           | Description        |
-| ------------------ | ------------------ | ------------------ | ------------------ |
-| `name`             | *string*           | :heavy_check_mark: | Tag ID             |
+| Field                     | Type                      | Required                  | Description               |
+| ------------------------- | ------------------------- | ------------------------- | ------------------------- |
+| `name`                    | *string*                  | :heavy_check_mark:        | Name of the tag to delete |

@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
 import * as operations from "../operations/index.js";
 import { WistiaError } from "./wistiaerror.js";
 
@@ -118,19 +119,21 @@ export const DeleteChannelsChannelHashedIdInternalServerError$inboundSchema:
     DeleteChannelsChannelHashedIdInternalServerError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new DeleteChannelsChannelHashedIdInternalServerError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new DeleteChannelsChannelHashedIdInternalServerError(v, {
+          request: v.request$,
+          response: v.response$,
+          body: v.body$,
+        });
+      })
+  );
 
 /** @internal */
 export const DeleteChannelsChannelHashedIdForbiddenError$inboundSchema:
@@ -138,19 +141,21 @@ export const DeleteChannelsChannelHashedIdForbiddenError$inboundSchema:
     DeleteChannelsChannelHashedIdForbiddenError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new DeleteChannelsChannelHashedIdForbiddenError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new DeleteChannelsChannelHashedIdForbiddenError(v, {
+          request: v.request$,
+          response: v.response$,
+          body: v.body$,
+        });
+      })
+  );
 
 /** @internal */
 export const DeleteChannelsChannelHashedIdUnauthorizedError$inboundSchema:
@@ -158,17 +163,20 @@ export const DeleteChannelsChannelHashedIdUnauthorizedError$inboundSchema:
     DeleteChannelsChannelHashedIdUnauthorizedError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    code: operations.DeleteChannelsChannelHashedIdCode$inboundSchema.optional(),
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new DeleteChannelsChannelHashedIdUnauthorizedError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      code: operations.DeleteChannelsChannelHashedIdCode$inboundSchema
+        .optional(),
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new DeleteChannelsChannelHashedIdUnauthorizedError(v, {
+          request: v.request$,
+          response: v.response$,
+          body: v.body$,
+        });
+      })
+  );

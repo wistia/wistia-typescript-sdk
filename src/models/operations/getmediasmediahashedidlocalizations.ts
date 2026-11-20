@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -160,14 +160,16 @@ export const GetMediasMediaHashedIdLocalizationsRequest$outboundSchema:
     GetMediasMediaHashedIdLocalizationsRequest$Outbound,
     z.ZodTypeDef,
     GetMediasMediaHashedIdLocalizationsRequest
-  > = z.object({
-    mediaHashedId: z.string(),
-    includeTranscript: z.boolean().default(false),
-  }).transform((v) => {
-    return remap$(v, {
-      includeTranscript: "include_transcript",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      mediaHashedId: z.string(),
+      includeTranscript: z.boolean().default(false),
+    }).transform((v) => {
+      return remap$(v, {
+        includeTranscript: "include_transcript",
+      });
+    })
+  );
 
 export function getMediasMediaHashedIdLocalizationsRequestToJSON(
   getMediasMediaHashedIdLocalizationsRequest:
@@ -182,8 +184,10 @@ export function getMediasMediaHashedIdLocalizationsRequestToJSON(
 
 /** @internal */
 export const GetMediasMediaHashedIdLocalizationsCode$inboundSchema:
-  z.ZodNativeEnum<typeof GetMediasMediaHashedIdLocalizationsCode> = z
-    .nativeEnum(GetMediasMediaHashedIdLocalizationsCode);
+  z.ZodNativeEnum<typeof GetMediasMediaHashedIdLocalizationsCode> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(GetMediasMediaHashedIdLocalizationsCode)
+    );
 
 /** @internal */
 export const GetMediasMediaHashedIdLocalizationsSourceMedia$inboundSchema:
@@ -191,23 +195,25 @@ export const GetMediasMediaHashedIdLocalizationsSourceMedia$inboundSchema:
     GetMediasMediaHashedIdLocalizationsSourceMedia,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    hashed_id: z.string(),
-    name: z.string(),
-    duration: z.number(),
-    created_at: z.string().datetime({ offset: true }).transform(v =>
-      new Date(v)
-    ),
-    updated_at: z.string().datetime({ offset: true }).transform(v =>
-      new Date(v)
-    ),
-  }).transform((v) => {
-    return remap$(v, {
-      "hashed_id": "hashedId",
-      "created_at": "createdAt",
-      "updated_at": "updatedAt",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      hashed_id: z.string(),
+      name: z.string(),
+      duration: z.number(),
+      created_at: z.string().datetime({ offset: true }).transform(v =>
+        new Date(v)
+      ),
+      updated_at: z.string().datetime({ offset: true }).transform(v =>
+        new Date(v)
+      ),
+    }).transform((v) => {
+      return remap$(v, {
+        "hashed_id": "hashedId",
+        "created_at": "createdAt",
+        "updated_at": "updatedAt",
+      });
+    })
+  );
 
 export function getMediasMediaHashedIdLocalizationsSourceMediaFromJSON(
   jsonString: string,
@@ -231,26 +237,28 @@ export const GetMediasMediaHashedIdLocalizationsTranscript$inboundSchema:
     GetMediasMediaHashedIdLocalizationsTranscript,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    hashed_id: z.string(),
-    language_name: z.string(),
-    native_language_name: z.string(),
-    text: z.string(),
-    created_at: z.string().datetime({ offset: true }).transform(v =>
-      new Date(v)
-    ),
-    updated_at: z.string().datetime({ offset: true }).transform(v =>
-      new Date(v)
-    ),
-  }).transform((v) => {
-    return remap$(v, {
-      "hashed_id": "hashedId",
-      "language_name": "languageName",
-      "native_language_name": "nativeLanguageName",
-      "created_at": "createdAt",
-      "updated_at": "updatedAt",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      hashed_id: z.string(),
+      language_name: z.string(),
+      native_language_name: z.string(),
+      text: z.string(),
+      created_at: z.string().datetime({ offset: true }).transform(v =>
+        new Date(v)
+      ),
+      updated_at: z.string().datetime({ offset: true }).transform(v =>
+        new Date(v)
+      ),
+    }).transform((v) => {
+      return remap$(v, {
+        "hashed_id": "hashedId",
+        "language_name": "languageName",
+        "native_language_name": "nativeLanguageName",
+        "created_at": "createdAt",
+        "updated_at": "updatedAt",
+      });
+    })
+  );
 
 export function getMediasMediaHashedIdLocalizationsTranscriptFromJSON(
   jsonString: string,
@@ -274,45 +282,49 @@ export const GetMediasMediaHashedIdLocalizationsResponse$inboundSchema:
     GetMediasMediaHashedIdLocalizationsResponse,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    hashed_id: z.string(),
-    language_code: z.string(),
-    iso639_2_language_code: z.string(),
-    language_name: z.string(),
-    native_language_name: z.string(),
-    created_at: z.string().datetime({ offset: true }).transform(v =>
-      new Date(v)
-    ),
-    updated_at: z.string().datetime({ offset: true }).transform(v =>
-      new Date(v)
-    ),
-    ordered_at: z.nullable(
-      z.string().datetime({ offset: true }).transform(v => new Date(v)),
-    ),
-    enabled_at: z.nullable(
-      z.string().datetime({ offset: true }).transform(v => new Date(v)),
-    ),
-    enabled: z.boolean(),
-    source_media: z.lazy(() =>
-      GetMediasMediaHashedIdLocalizationsSourceMedia$inboundSchema
-    ),
-    transcript: z.nullable(
-      z.lazy(() => GetMediasMediaHashedIdLocalizationsTranscript$inboundSchema),
-    ).optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      "hashed_id": "hashedId",
-      "language_code": "languageCode",
-      "iso639_2_language_code": "iso6392LanguageCode",
-      "language_name": "languageName",
-      "native_language_name": "nativeLanguageName",
-      "created_at": "createdAt",
-      "updated_at": "updatedAt",
-      "ordered_at": "orderedAt",
-      "enabled_at": "enabledAt",
-      "source_media": "sourceMedia",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      hashed_id: z.string(),
+      language_code: z.string(),
+      iso639_2_language_code: z.string(),
+      language_name: z.string(),
+      native_language_name: z.string(),
+      created_at: z.string().datetime({ offset: true }).transform(v =>
+        new Date(v)
+      ),
+      updated_at: z.string().datetime({ offset: true }).transform(v =>
+        new Date(v)
+      ),
+      ordered_at: z.nullable(
+        z.string().datetime({ offset: true }).transform(v => new Date(v)),
+      ),
+      enabled_at: z.nullable(
+        z.string().datetime({ offset: true }).transform(v => new Date(v)),
+      ),
+      enabled: z.boolean(),
+      source_media: z.lazy(() =>
+        GetMediasMediaHashedIdLocalizationsSourceMedia$inboundSchema
+      ),
+      transcript: z.nullable(
+        z.lazy(() =>
+          GetMediasMediaHashedIdLocalizationsTranscript$inboundSchema
+        ),
+      ).optional(),
+    }).transform((v) => {
+      return remap$(v, {
+        "hashed_id": "hashedId",
+        "language_code": "languageCode",
+        "iso639_2_language_code": "iso6392LanguageCode",
+        "language_name": "languageName",
+        "native_language_name": "nativeLanguageName",
+        "created_at": "createdAt",
+        "updated_at": "updatedAt",
+        "ordered_at": "orderedAt",
+        "enabled_at": "enabledAt",
+        "source_media": "sourceMedia",
+      });
+    })
+  );
 
 export function getMediasMediaHashedIdLocalizationsResponseFromJSON(
   jsonString: string,

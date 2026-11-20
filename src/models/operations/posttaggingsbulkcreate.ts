@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -97,15 +97,17 @@ export const PostTaggingsBulkCreateRequest$outboundSchema: z.ZodType<
   PostTaggingsBulkCreateRequest$Outbound,
   z.ZodTypeDef,
   PostTaggingsBulkCreateRequest
-> = z.object({
-  hashedIds: z.array(z.string()),
-  tagNames: z.array(z.string()),
-}).transform((v) => {
-  return remap$(v, {
-    hashedIds: "hashed_ids",
-    tagNames: "tag_names",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    hashedIds: z.array(z.string()),
+    tagNames: z.array(z.string()),
+  }).transform((v) => {
+    return remap$(v, {
+      hashedIds: "hashed_ids",
+      tagNames: "tag_names",
+    });
+  })
+);
 
 export function postTaggingsBulkCreateRequestToJSON(
   postTaggingsBulkCreateRequest: PostTaggingsBulkCreateRequest,
@@ -120,22 +122,26 @@ export function postTaggingsBulkCreateRequestToJSON(
 /** @internal */
 export const PostTaggingsBulkCreateCode$inboundSchema: z.ZodNativeEnum<
   typeof PostTaggingsBulkCreateCode
-> = z.nativeEnum(PostTaggingsBulkCreateCode);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(PostTaggingsBulkCreateCode));
 
 /** @internal */
 export const PostTaggingsBulkCreateStatus$inboundSchema: z.ZodNativeEnum<
   typeof PostTaggingsBulkCreateStatus
-> = z.nativeEnum(PostTaggingsBulkCreateStatus);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(PostTaggingsBulkCreateStatus)
+);
 
 /** @internal */
 export const PostTaggingsBulkCreateBackgroundJobStatus$inboundSchema: z.ZodType<
   PostTaggingsBulkCreateBackgroundJobStatus,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.number().int(),
-  status: PostTaggingsBulkCreateStatus$inboundSchema,
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    id: z.number().int(),
+    status: PostTaggingsBulkCreateStatus$inboundSchema,
+  })
+);
 
 export function postTaggingsBulkCreateBackgroundJobStatusFromJSON(
   jsonString: string,
@@ -158,16 +164,18 @@ export const PostTaggingsBulkCreateResponse$inboundSchema: z.ZodType<
   PostTaggingsBulkCreateResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  message: z.string().optional(),
-  background_job_status: z.lazy(() =>
-    PostTaggingsBulkCreateBackgroundJobStatus$inboundSchema
-  ).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "background_job_status": "backgroundJobStatus",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    message: z.string().optional(),
+    background_job_status: z.lazy(() =>
+      PostTaggingsBulkCreateBackgroundJobStatus$inboundSchema
+    ).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "background_job_status": "backgroundJobStatus",
+    });
+  })
+);
 
 export function postTaggingsBulkCreateResponseFromJSON(
   jsonString: string,

@@ -8,9 +8,8 @@ import { matchStatusCode } from "../lib/http.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { RequestOptions } from "../lib/sdks.js";
+import { encodePath, RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
-import { pathToFunc } from "../lib/url.js";
 import {
   ConnectionError,
   InvalidRequestError,
@@ -44,6 +43,7 @@ export function subfoldersCreate(
 ): APIPromise<
   Result<
     operations.PostFoldersFolderIdSubfoldersResponse,
+    | errors.PostFoldersFolderIdSubfoldersBadRequestError
     | errors.PostFoldersFolderIdSubfoldersUnauthorizedError
     | errors.PostFoldersFolderIdSubfoldersForbiddenError
     | errors.PostFoldersFolderIdSubfoldersNotFoundError
@@ -73,6 +73,7 @@ async function $do(
   [
     Result<
       operations.PostFoldersFolderIdSubfoldersResponse,
+      | errors.PostFoldersFolderIdSubfoldersBadRequestError
       | errors.PostFoldersFolderIdSubfoldersUnauthorizedError
       | errors.PostFoldersFolderIdSubfoldersForbiddenError
       | errors.PostFoldersFolderIdSubfoldersNotFoundError
@@ -109,7 +110,11 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-  const path = pathToFunc("/folders/{folderId}/subfolders")(pathParams);
+  const pathResult = encodePath("/folders/{folderId}/subfolders", pathParams);
+  if (!pathResult.ok) {
+    return [pathResult, { status: "invalid" }];
+  }
+  const path = pathResult.value;
 
   const headers = new Headers(compactMap({
     "Content-Type": "application/json",
@@ -168,6 +173,7 @@ async function $do(
 
   const [result] = await M.match<
     operations.PostFoldersFolderIdSubfoldersResponse,
+    | errors.PostFoldersFolderIdSubfoldersBadRequestError
     | errors.PostFoldersFolderIdSubfoldersUnauthorizedError
     | errors.PostFoldersFolderIdSubfoldersForbiddenError
     | errors.PostFoldersFolderIdSubfoldersNotFoundError
@@ -182,6 +188,10 @@ async function $do(
     | SDKValidationError
   >(
     M.json(201, operations.PostFoldersFolderIdSubfoldersResponse$inboundSchema),
+    M.jsonErr(
+      400,
+      errors.PostFoldersFolderIdSubfoldersBadRequestError$inboundSchema,
+    ),
     M.jsonErr(
       401,
       errors.PostFoldersFolderIdSubfoldersUnauthorizedError$inboundSchema,

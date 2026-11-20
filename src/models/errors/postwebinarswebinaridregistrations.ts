@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
 import * as operations from "../operations/index.js";
 import { WistiaError } from "./wistiaerror.js";
 
@@ -192,19 +193,21 @@ export const PostWebinarsWebinarIdRegistrationsInternalServerError$inboundSchema
     PostWebinarsWebinarIdRegistrationsInternalServerError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new PostWebinarsWebinarIdRegistrationsInternalServerError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new PostWebinarsWebinarIdRegistrationsInternalServerError(v, {
+          request: v.request$,
+          response: v.response$,
+          body: v.body$,
+        });
+      })
+  );
 
 /** @internal */
 export const PostWebinarsWebinarIdRegistrationsUnprocessableEntityError$inboundSchema:
@@ -212,19 +215,20 @@ export const PostWebinarsWebinarIdRegistrationsUnprocessableEntityError$inboundS
     PostWebinarsWebinarIdRegistrationsUnprocessableEntityError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    errors: z.record(z.array(z.string())).optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new PostWebinarsWebinarIdRegistrationsUnprocessableEntityError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      errors: z.record(z.array(z.string())).optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new PostWebinarsWebinarIdRegistrationsUnprocessableEntityError(
+          v,
+          { request: v.request$, response: v.response$, body: v.body$ },
+        );
+      })
+  );
 
 /** @internal */
 export const PostWebinarsWebinarIdRegistrationsNotFoundError$inboundSchema:
@@ -232,19 +236,21 @@ export const PostWebinarsWebinarIdRegistrationsNotFoundError$inboundSchema:
     PostWebinarsWebinarIdRegistrationsNotFoundError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new PostWebinarsWebinarIdRegistrationsNotFoundError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new PostWebinarsWebinarIdRegistrationsNotFoundError(v, {
+          request: v.request$,
+          response: v.response$,
+          body: v.body$,
+        });
+      })
+  );
 
 /** @internal */
 export const PostWebinarsWebinarIdRegistrationsForbiddenError$inboundSchema:
@@ -252,19 +258,21 @@ export const PostWebinarsWebinarIdRegistrationsForbiddenError$inboundSchema:
     PostWebinarsWebinarIdRegistrationsForbiddenError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new PostWebinarsWebinarIdRegistrationsForbiddenError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new PostWebinarsWebinarIdRegistrationsForbiddenError(v, {
+          request: v.request$,
+          response: v.response$,
+          body: v.body$,
+        });
+      })
+  );
 
 /** @internal */
 export const PostWebinarsWebinarIdRegistrationsUnauthorizedError$inboundSchema:
@@ -272,18 +280,20 @@ export const PostWebinarsWebinarIdRegistrationsUnauthorizedError$inboundSchema:
     PostWebinarsWebinarIdRegistrationsUnauthorizedError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    code: operations.PostWebinarsWebinarIdRegistrationsCode$inboundSchema
-      .optional(),
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new PostWebinarsWebinarIdRegistrationsUnauthorizedError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      code: operations.PostWebinarsWebinarIdRegistrationsCode$inboundSchema
+        .optional(),
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new PostWebinarsWebinarIdRegistrationsUnauthorizedError(v, {
+          request: v.request$,
+          response: v.response$,
+          body: v.body$,
+        });
+      })
+  );

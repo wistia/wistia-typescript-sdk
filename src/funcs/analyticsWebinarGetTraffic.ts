@@ -9,9 +9,8 @@ import { matchStatusCode } from "../lib/http.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { RequestOptions } from "../lib/sdks.js";
+import { encodePath, RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
-import { pathToFunc } from "../lib/url.js";
 import {
   ConnectionError,
   InvalidRequestError,
@@ -34,12 +33,10 @@ import { Result } from "../types/fp.js";
  * Retrieve traffic breakdown analytics for a webinar, grouped by a specified dimension
  * such as UTM campaign, UTM source, UTM medium, or referrer domain.
  *
- * <!--- HIDE-MCP -->
  * ## Requires api token with one of the following permissions
  * ```
  * Read detailed stats
  * ```
- * <!--- /HIDE-MCP -->
  */
 export function analyticsWebinarGetTraffic(
   client: WistiaCore,
@@ -114,9 +111,14 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-  const path = pathToFunc("/analytics/webinars/{webinarId}/traffic")(
+  const pathResult = encodePath(
+    "/analytics/webinars/{webinarId}/traffic",
     pathParams,
   );
+  if (!pathResult.ok) {
+    return [pathResult, { status: "invalid" }];
+  }
+  const path = pathResult.value;
 
   const query = encodeFormQuery({
     "group_by": payload.group_by,

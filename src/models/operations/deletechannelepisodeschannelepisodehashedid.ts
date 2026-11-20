@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -32,17 +32,11 @@ export type DeleteChannelEpisodesChannelEpisodeHashedIdCode = ClosedEnum<
   typeof DeleteChannelEpisodesChannelEpisodeHashedIdCode
 >;
 
-/**
- * The type of episode.
- */
 export const DeleteChannelEpisodesChannelEpisodeHashedIdEpisodeType = {
   Full: "full",
   Trailer: "trailer",
   Bonus: "bonus",
 } as const;
-/**
- * The type of episode.
- */
 export type DeleteChannelEpisodesChannelEpisodeHashedIdEpisodeType = ClosedEnum<
   typeof DeleteChannelEpisodesChannelEpisodeHashedIdEpisodeType
 >;
@@ -59,15 +53,16 @@ export type DeleteChannelEpisodesChannelEpisodeHashedIdPodcastSettings = {
    */
   episodeType?:
     | DeleteChannelEpisodesChannelEpisodeHashedIdEpisodeType
+    | null
     | undefined;
   /**
    * The number of the episode.
    */
-  episodeNumber?: number | undefined;
+  episodeNumber?: number | null | undefined;
   /**
    * The season number of the episode.
    */
-  seasonNumber?: number | undefined;
+  seasonNumber?: number | null | undefined;
   /**
    * Whether the episode contains explicit content.
    */
@@ -159,9 +154,11 @@ export const DeleteChannelEpisodesChannelEpisodeHashedIdRequest$outboundSchema:
     DeleteChannelEpisodesChannelEpisodeHashedIdRequest$Outbound,
     z.ZodTypeDef,
     DeleteChannelEpisodesChannelEpisodeHashedIdRequest
-  > = z.object({
-    channelEpisodeHashedId: z.string(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      channelEpisodeHashedId: z.string(),
+    })
+  );
 
 export function deleteChannelEpisodesChannelEpisodeHashedIdRequestToJSON(
   deleteChannelEpisodesChannelEpisodeHashedIdRequest:
@@ -176,14 +173,18 @@ export function deleteChannelEpisodesChannelEpisodeHashedIdRequestToJSON(
 
 /** @internal */
 export const DeleteChannelEpisodesChannelEpisodeHashedIdCode$inboundSchema:
-  z.ZodNativeEnum<typeof DeleteChannelEpisodesChannelEpisodeHashedIdCode> = z
-    .nativeEnum(DeleteChannelEpisodesChannelEpisodeHashedIdCode);
+  z.ZodNativeEnum<typeof DeleteChannelEpisodesChannelEpisodeHashedIdCode> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(DeleteChannelEpisodesChannelEpisodeHashedIdCode)
+    );
 
 /** @internal */
 export const DeleteChannelEpisodesChannelEpisodeHashedIdEpisodeType$inboundSchema:
   z.ZodNativeEnum<
     typeof DeleteChannelEpisodesChannelEpisodeHashedIdEpisodeType
-  > = z.nativeEnum(DeleteChannelEpisodesChannelEpisodeHashedIdEpisodeType);
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.nativeEnum(DeleteChannelEpisodesChannelEpisodeHashedIdEpisodeType)
+  );
 
 /** @internal */
 export const DeleteChannelEpisodesChannelEpisodeHashedIdPodcastSettings$inboundSchema:
@@ -191,23 +192,25 @@ export const DeleteChannelEpisodesChannelEpisodeHashedIdPodcastSettings$inboundS
     DeleteChannelEpisodesChannelEpisodeHashedIdPodcastSettings,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    episode_type:
-      DeleteChannelEpisodesChannelEpisodeHashedIdEpisodeType$inboundSchema
-        .optional(),
-    episode_number: z.number().int().optional(),
-    season_number: z.number().int().optional(),
-    explicit_content: z.boolean().optional(),
-    hide_from_feed: z.boolean().optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      "episode_type": "episodeType",
-      "episode_number": "episodeNumber",
-      "season_number": "seasonNumber",
-      "explicit_content": "explicitContent",
-      "hide_from_feed": "hideFromFeed",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      episode_type: z.nullable(
+        DeleteChannelEpisodesChannelEpisodeHashedIdEpisodeType$inboundSchema,
+      ).optional(),
+      episode_number: z.nullable(z.number().int()).optional(),
+      season_number: z.nullable(z.number().int()).optional(),
+      explicit_content: z.boolean().optional(),
+      hide_from_feed: z.boolean().optional(),
+    }).transform((v) => {
+      return remap$(v, {
+        "episode_type": "episodeType",
+        "episode_number": "episodeNumber",
+        "season_number": "seasonNumber",
+        "explicit_content": "explicitContent",
+        "hide_from_feed": "hideFromFeed",
+      });
+    })
+  );
 
 export function deleteChannelEpisodesChannelEpisodeHashedIdPodcastSettingsFromJSON(
   jsonString: string,
@@ -230,35 +233,41 @@ export const DeleteChannelEpisodesChannelEpisodeHashedIdResponse$inboundSchema:
     DeleteChannelEpisodesChannelEpisodeHashedIdResponse,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    id: z.number().int().optional(),
-    channel_hashed_id: z.string(),
-    created: z.string().datetime({ offset: true }).transform(v => new Date(v)),
-    cursor: z.nullable(z.string()).optional(),
-    description: z.string(),
-    summary: z.string(),
-    hashed_id: z.string(),
-    media_hashed_id: z.string(),
-    live_stream_event_hashed_id: z.nullable(z.string()).optional(),
-    published: z.boolean(),
-    publish_at: z.string().datetime({ offset: true }).transform(v =>
-      new Date(v)
-    ).optional(),
-    title: z.nullable(z.string()),
-    updated: z.string().datetime({ offset: true }).transform(v => new Date(v)),
-    podcast_settings: z.lazy(() =>
-      DeleteChannelEpisodesChannelEpisodeHashedIdPodcastSettings$inboundSchema
-    ).optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      "channel_hashed_id": "channelHashedId",
-      "hashed_id": "hashedId",
-      "media_hashed_id": "mediaHashedId",
-      "live_stream_event_hashed_id": "liveStreamEventHashedId",
-      "publish_at": "publishAt",
-      "podcast_settings": "podcastSettings",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      id: z.number().int().optional(),
+      channel_hashed_id: z.string(),
+      created: z.string().datetime({ offset: true }).transform(v =>
+        new Date(v)
+      ),
+      cursor: z.nullable(z.string()).optional(),
+      description: z.string(),
+      summary: z.string(),
+      hashed_id: z.string(),
+      media_hashed_id: z.string(),
+      live_stream_event_hashed_id: z.nullable(z.string()).optional(),
+      published: z.boolean(),
+      publish_at: z.string().datetime({ offset: true }).transform(v =>
+        new Date(v)
+      ).optional(),
+      title: z.nullable(z.string()),
+      updated: z.string().datetime({ offset: true }).transform(v =>
+        new Date(v)
+      ),
+      podcast_settings: z.lazy(() =>
+        DeleteChannelEpisodesChannelEpisodeHashedIdPodcastSettings$inboundSchema
+      ).optional(),
+    }).transform((v) => {
+      return remap$(v, {
+        "channel_hashed_id": "channelHashedId",
+        "hashed_id": "hashedId",
+        "media_hashed_id": "mediaHashedId",
+        "live_stream_event_hashed_id": "liveStreamEventHashedId",
+        "publish_at": "publishAt",
+        "podcast_settings": "podcastSettings",
+      });
+    })
+  );
 
 export function deleteChannelEpisodesChannelEpisodeHashedIdResponseFromJSON(
   jsonString: string,
