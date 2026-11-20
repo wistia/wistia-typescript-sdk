@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -1216,27 +1216,37 @@ export type PostChannelsResponse = {
 /** @internal */
 export const PostChannelsEpisodeFormatRequest$outboundSchema: z.ZodNativeEnum<
   typeof PostChannelsEpisodeFormatRequest
-> = z.nativeEnum(PostChannelsEpisodeFormatRequest);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(PostChannelsEpisodeFormatRequest)
+);
 
 /** @internal */
 export const PostChannelsCategory1Request$outboundSchema: z.ZodNativeEnum<
   typeof PostChannelsCategory1Request
-> = z.nativeEnum(PostChannelsCategory1Request);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(PostChannelsCategory1Request)
+);
 
 /** @internal */
 export const PostChannelsCategory2Request$outboundSchema: z.ZodNativeEnum<
   typeof PostChannelsCategory2Request
-> = z.nativeEnum(PostChannelsCategory2Request);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(PostChannelsCategory2Request)
+);
 
 /** @internal */
 export const PostChannelsCategory3Request$outboundSchema: z.ZodNativeEnum<
   typeof PostChannelsCategory3Request
-> = z.nativeEnum(PostChannelsCategory3Request);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(PostChannelsCategory3Request)
+);
 
 /** @internal */
 export const PostChannelsLanguageRequest$outboundSchema: z.ZodNativeEnum<
   typeof PostChannelsLanguageRequest
-> = z.nativeEnum(PostChannelsLanguageRequest);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(PostChannelsLanguageRequest)
+);
 
 /** @internal */
 export type PostChannelsPodcastSettingsRequest$Outbound = {
@@ -1257,26 +1267,31 @@ export const PostChannelsPodcastSettingsRequest$outboundSchema: z.ZodType<
   PostChannelsPodcastSettingsRequest$Outbound,
   z.ZodTypeDef,
   PostChannelsPodcastSettingsRequest
-> = z.object({
-  copyright: z.nullable(z.string()).optional(),
-  episodeFormat: z.nullable(PostChannelsEpisodeFormatRequest$outboundSchema)
-    .optional(),
-  authorName: z.nullable(z.string()).optional(),
-  explicit: z.nullable(z.boolean()).optional(),
-  ownerName: z.nullable(z.string()).optional(),
-  ownerEmail: z.nullable(z.string()).optional(),
-  category1: z.nullable(PostChannelsCategory1Request$outboundSchema).optional(),
-  category2: z.nullable(PostChannelsCategory2Request$outboundSchema).optional(),
-  category3: z.nullable(PostChannelsCategory3Request$outboundSchema).optional(),
-  language: z.nullable(PostChannelsLanguageRequest$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    episodeFormat: "episode_format",
-    authorName: "author_name",
-    ownerName: "owner_name",
-    ownerEmail: "owner_email",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    copyright: z.nullable(z.string()).optional(),
+    episodeFormat: z.nullable(PostChannelsEpisodeFormatRequest$outboundSchema)
+      .optional(),
+    authorName: z.nullable(z.string()).optional(),
+    explicit: z.nullable(z.boolean()).optional(),
+    ownerName: z.nullable(z.string()).optional(),
+    ownerEmail: z.nullable(z.string()).optional(),
+    category1: z.nullable(PostChannelsCategory1Request$outboundSchema)
+      .optional(),
+    category2: z.nullable(PostChannelsCategory2Request$outboundSchema)
+      .optional(),
+    category3: z.nullable(PostChannelsCategory3Request$outboundSchema)
+      .optional(),
+    language: z.nullable(PostChannelsLanguageRequest$outboundSchema).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      episodeFormat: "episode_format",
+      authorName: "author_name",
+      ownerName: "owner_name",
+      ownerEmail: "owner_email",
+    });
+  })
+);
 
 export function postChannelsPodcastSettingsRequestToJSON(
   postChannelsPodcastSettingsRequest: PostChannelsPodcastSettingsRequest,
@@ -1303,23 +1318,25 @@ export const PostChannelsRequest$outboundSchema: z.ZodType<
   PostChannelsRequest$Outbound,
   z.ZodTypeDef,
   PostChannelsRequest
-> = z.object({
-  name: z.nullable(z.string()).optional(),
-  description: z.nullable(z.string()).optional(),
-  autoPublishEnabled: z.boolean().optional(),
-  podcastEnabled: z.boolean().optional(),
-  customUrl: z.nullable(z.string()).optional(),
-  podcastSettings: z.lazy(() =>
-    PostChannelsPodcastSettingsRequest$outboundSchema
-  ).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    autoPublishEnabled: "auto_publish_enabled",
-    podcastEnabled: "podcast_enabled",
-    customUrl: "custom_url",
-    podcastSettings: "podcast_settings",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    name: z.nullable(z.string()).optional(),
+    description: z.nullable(z.string()).optional(),
+    autoPublishEnabled: z.boolean().optional(),
+    podcastEnabled: z.boolean().optional(),
+    customUrl: z.nullable(z.string()).optional(),
+    podcastSettings: z.lazy(() =>
+      PostChannelsPodcastSettingsRequest$outboundSchema
+    ).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      autoPublishEnabled: "auto_publish_enabled",
+      podcastEnabled: "podcast_enabled",
+      customUrl: "custom_url",
+      podcastSettings: "podcast_settings",
+    });
+  })
+);
 
 export function postChannelsRequestToJSON(
   postChannelsRequest: PostChannelsRequest,
@@ -1332,58 +1349,73 @@ export function postChannelsRequestToJSON(
 /** @internal */
 export const PostChannelsCode$inboundSchema: z.ZodNativeEnum<
   typeof PostChannelsCode
-> = z.nativeEnum(PostChannelsCode);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(PostChannelsCode));
 
 /** @internal */
 export const PostChannelsEpisodeFormatResponse$inboundSchema: z.ZodNativeEnum<
   typeof PostChannelsEpisodeFormatResponse
-> = z.nativeEnum(PostChannelsEpisodeFormatResponse);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(PostChannelsEpisodeFormatResponse)
+);
 
 /** @internal */
 export const PostChannelsCategory1Response$inboundSchema: z.ZodNativeEnum<
   typeof PostChannelsCategory1Response
-> = z.nativeEnum(PostChannelsCategory1Response);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(PostChannelsCategory1Response)
+);
 
 /** @internal */
 export const PostChannelsCategory2Response$inboundSchema: z.ZodNativeEnum<
   typeof PostChannelsCategory2Response
-> = z.nativeEnum(PostChannelsCategory2Response);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(PostChannelsCategory2Response)
+);
 
 /** @internal */
 export const PostChannelsCategory3Response$inboundSchema: z.ZodNativeEnum<
   typeof PostChannelsCategory3Response
-> = z.nativeEnum(PostChannelsCategory3Response);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(PostChannelsCategory3Response)
+);
 
 /** @internal */
 export const PostChannelsLanguageResponse$inboundSchema: z.ZodNativeEnum<
   typeof PostChannelsLanguageResponse
-> = z.nativeEnum(PostChannelsLanguageResponse);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(PostChannelsLanguageResponse)
+);
 
 /** @internal */
 export const PostChannelsPodcastSettingsResponse$inboundSchema: z.ZodType<
   PostChannelsPodcastSettingsResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  copyright: z.nullable(z.string()).optional(),
-  episode_format: z.nullable(PostChannelsEpisodeFormatResponse$inboundSchema)
-    .optional(),
-  author_name: z.nullable(z.string()).optional(),
-  explicit: z.nullable(z.boolean()).optional(),
-  owner_name: z.nullable(z.string()).optional(),
-  owner_email: z.nullable(z.string()).optional(),
-  category1: z.nullable(PostChannelsCategory1Response$inboundSchema).optional(),
-  category2: z.nullable(PostChannelsCategory2Response$inboundSchema).optional(),
-  category3: z.nullable(PostChannelsCategory3Response$inboundSchema).optional(),
-  language: z.nullable(PostChannelsLanguageResponse$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "episode_format": "episodeFormat",
-    "author_name": "authorName",
-    "owner_name": "ownerName",
-    "owner_email": "ownerEmail",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    copyright: z.nullable(z.string()).optional(),
+    episode_format: z.nullable(PostChannelsEpisodeFormatResponse$inboundSchema)
+      .optional(),
+    author_name: z.nullable(z.string()).optional(),
+    explicit: z.nullable(z.boolean()).optional(),
+    owner_name: z.nullable(z.string()).optional(),
+    owner_email: z.nullable(z.string()).optional(),
+    category1: z.nullable(PostChannelsCategory1Response$inboundSchema)
+      .optional(),
+    category2: z.nullable(PostChannelsCategory2Response$inboundSchema)
+      .optional(),
+    category3: z.nullable(PostChannelsCategory3Response$inboundSchema)
+      .optional(),
+    language: z.nullable(PostChannelsLanguageResponse$inboundSchema).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "episode_format": "episodeFormat",
+      "author_name": "authorName",
+      "owner_name": "ownerName",
+      "owner_email": "ownerEmail",
+    });
+  })
+);
 
 export function postChannelsPodcastSettingsResponseFromJSON(
   jsonString: string,
@@ -1401,33 +1433,35 @@ export const PostChannelsResponse$inboundSchema: z.ZodType<
   PostChannelsResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.number().int(),
-  created: z.string().datetime({ offset: true }).transform(v => new Date(v)),
-  description: z.string(),
-  hashed_id: z.string(),
-  media_count: z.number().int(),
-  live_stream_event_count: z.number().int().optional(),
-  name: z.string(),
-  updated: z.string().datetime({ offset: true }).transform(v => new Date(v)),
-  auto_publish_enabled: z.nullable(z.boolean()).optional(),
-  podcast_enabled: z.nullable(z.boolean()).optional(),
-  custom_url: z.nullable(z.string()).optional(),
-  podcast_settings: z.lazy(() =>
-    PostChannelsPodcastSettingsResponse$inboundSchema
-  ).optional(),
-  cursor: z.nullable(z.string()).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "hashed_id": "hashedId",
-    "media_count": "mediaCount",
-    "live_stream_event_count": "liveStreamEventCount",
-    "auto_publish_enabled": "autoPublishEnabled",
-    "podcast_enabled": "podcastEnabled",
-    "custom_url": "customUrl",
-    "podcast_settings": "podcastSettings",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    id: z.number().int(),
+    created: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+    description: z.string(),
+    hashed_id: z.string(),
+    media_count: z.number().int(),
+    live_stream_event_count: z.number().int().optional(),
+    name: z.string(),
+    updated: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+    auto_publish_enabled: z.nullable(z.boolean()).optional(),
+    podcast_enabled: z.nullable(z.boolean()).optional(),
+    custom_url: z.nullable(z.string()).optional(),
+    podcast_settings: z.lazy(() =>
+      PostChannelsPodcastSettingsResponse$inboundSchema
+    ).optional(),
+    cursor: z.nullable(z.string()).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "hashed_id": "hashedId",
+      "media_count": "mediaCount",
+      "live_stream_event_count": "liveStreamEventCount",
+      "auto_publish_enabled": "autoPublishEnabled",
+      "podcast_enabled": "podcastEnabled",
+      "custom_url": "customUrl",
+      "podcast_settings": "podcastSettings",
+    });
+  })
+);
 
 export function postChannelsResponseFromJSON(
   jsonString: string,

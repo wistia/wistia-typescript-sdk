@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -69,9 +69,11 @@ export const DeleteReviewBundlesReviewBundleHashedIdRequest$outboundSchema:
     DeleteReviewBundlesReviewBundleHashedIdRequest$Outbound,
     z.ZodTypeDef,
     DeleteReviewBundlesReviewBundleHashedIdRequest
-  > = z.object({
-    reviewBundleHashedId: z.string(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      reviewBundleHashedId: z.string(),
+    })
+  );
 
 export function deleteReviewBundlesReviewBundleHashedIdRequestToJSON(
   deleteReviewBundlesReviewBundleHashedIdRequest:
@@ -86,8 +88,10 @@ export function deleteReviewBundlesReviewBundleHashedIdRequestToJSON(
 
 /** @internal */
 export const DeleteReviewBundlesReviewBundleHashedIdCode$inboundSchema:
-  z.ZodNativeEnum<typeof DeleteReviewBundlesReviewBundleHashedIdCode> = z
-    .nativeEnum(DeleteReviewBundlesReviewBundleHashedIdCode);
+  z.ZodNativeEnum<typeof DeleteReviewBundlesReviewBundleHashedIdCode> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(DeleteReviewBundlesReviewBundleHashedIdCode)
+    );
 
 /** @internal */
 export const DeleteReviewBundlesReviewBundleHashedIdResponse$inboundSchema:
@@ -95,18 +99,20 @@ export const DeleteReviewBundlesReviewBundleHashedIdResponse$inboundSchema:
     DeleteReviewBundlesReviewBundleHashedIdResponse,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    hashed_id: z.string().optional(),
-    name: z.string().optional(),
-    url: z.string().optional(),
-    allow_downloads: z.boolean().optional(),
-    cursor: z.nullable(z.string()).optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      "hashed_id": "hashedId",
-      "allow_downloads": "allowDownloads",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      hashed_id: z.string().optional(),
+      name: z.string().optional(),
+      url: z.string().optional(),
+      allow_downloads: z.boolean().optional(),
+      cursor: z.nullable(z.string()).optional(),
+    }).transform((v) => {
+      return remap$(v, {
+        "hashed_id": "hashedId",
+        "allow_downloads": "allowDownloads",
+      });
+    })
+  );
 
 export function deleteReviewBundlesReviewBundleHashedIdResponseFromJSON(
   jsonString: string,

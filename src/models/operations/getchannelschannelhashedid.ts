@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -653,9 +653,11 @@ export const GetChannelsChannelHashedIdRequest$outboundSchema: z.ZodType<
   GetChannelsChannelHashedIdRequest$Outbound,
   z.ZodTypeDef,
   GetChannelsChannelHashedIdRequest
-> = z.object({
-  channelHashedId: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    channelHashedId: z.string(),
+  })
+);
 
 export function getChannelsChannelHashedIdRequestToJSON(
   getChannelsChannelHashedIdRequest: GetChannelsChannelHashedIdRequest,
@@ -670,63 +672,77 @@ export function getChannelsChannelHashedIdRequestToJSON(
 /** @internal */
 export const GetChannelsChannelHashedIdCode$inboundSchema: z.ZodNativeEnum<
   typeof GetChannelsChannelHashedIdCode
-> = z.nativeEnum(GetChannelsChannelHashedIdCode);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(GetChannelsChannelHashedIdCode)
+);
 
 /** @internal */
 export const GetChannelsChannelHashedIdEpisodeFormat$inboundSchema:
-  z.ZodNativeEnum<typeof GetChannelsChannelHashedIdEpisodeFormat> = z
-    .nativeEnum(GetChannelsChannelHashedIdEpisodeFormat);
+  z.ZodNativeEnum<typeof GetChannelsChannelHashedIdEpisodeFormat> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(GetChannelsChannelHashedIdEpisodeFormat)
+    );
 
 /** @internal */
 export const GetChannelsChannelHashedIdCategory1$inboundSchema: z.ZodNativeEnum<
   typeof GetChannelsChannelHashedIdCategory1
-> = z.nativeEnum(GetChannelsChannelHashedIdCategory1);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(GetChannelsChannelHashedIdCategory1)
+);
 
 /** @internal */
 export const GetChannelsChannelHashedIdCategory2$inboundSchema: z.ZodNativeEnum<
   typeof GetChannelsChannelHashedIdCategory2
-> = z.nativeEnum(GetChannelsChannelHashedIdCategory2);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(GetChannelsChannelHashedIdCategory2)
+);
 
 /** @internal */
 export const GetChannelsChannelHashedIdCategory3$inboundSchema: z.ZodNativeEnum<
   typeof GetChannelsChannelHashedIdCategory3
-> = z.nativeEnum(GetChannelsChannelHashedIdCategory3);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(GetChannelsChannelHashedIdCategory3)
+);
 
 /** @internal */
 export const GetChannelsChannelHashedIdLanguage$inboundSchema: z.ZodNativeEnum<
   typeof GetChannelsChannelHashedIdLanguage
-> = z.nativeEnum(GetChannelsChannelHashedIdLanguage);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(GetChannelsChannelHashedIdLanguage)
+);
 
 /** @internal */
 export const GetChannelsChannelHashedIdPodcastSettings$inboundSchema: z.ZodType<
   GetChannelsChannelHashedIdPodcastSettings,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  copyright: z.nullable(z.string()).optional(),
-  episode_format: z.nullable(
-    GetChannelsChannelHashedIdEpisodeFormat$inboundSchema,
-  ).optional(),
-  author_name: z.nullable(z.string()).optional(),
-  explicit: z.nullable(z.boolean()).optional(),
-  owner_name: z.nullable(z.string()).optional(),
-  owner_email: z.nullable(z.string()).optional(),
-  category1: z.nullable(GetChannelsChannelHashedIdCategory1$inboundSchema)
-    .optional(),
-  category2: z.nullable(GetChannelsChannelHashedIdCategory2$inboundSchema)
-    .optional(),
-  category3: z.nullable(GetChannelsChannelHashedIdCategory3$inboundSchema)
-    .optional(),
-  language: z.nullable(GetChannelsChannelHashedIdLanguage$inboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "episode_format": "episodeFormat",
-    "author_name": "authorName",
-    "owner_name": "ownerName",
-    "owner_email": "ownerEmail",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    copyright: z.nullable(z.string()).optional(),
+    episode_format: z.nullable(
+      GetChannelsChannelHashedIdEpisodeFormat$inboundSchema,
+    ).optional(),
+    author_name: z.nullable(z.string()).optional(),
+    explicit: z.nullable(z.boolean()).optional(),
+    owner_name: z.nullable(z.string()).optional(),
+    owner_email: z.nullable(z.string()).optional(),
+    category1: z.nullable(GetChannelsChannelHashedIdCategory1$inboundSchema)
+      .optional(),
+    category2: z.nullable(GetChannelsChannelHashedIdCategory2$inboundSchema)
+      .optional(),
+    category3: z.nullable(GetChannelsChannelHashedIdCategory3$inboundSchema)
+      .optional(),
+    language: z.nullable(GetChannelsChannelHashedIdLanguage$inboundSchema)
+      .optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "episode_format": "episodeFormat",
+      "author_name": "authorName",
+      "owner_name": "ownerName",
+      "owner_email": "ownerEmail",
+    });
+  })
+);
 
 export function getChannelsChannelHashedIdPodcastSettingsFromJSON(
   jsonString: string,
@@ -749,33 +765,35 @@ export const GetChannelsChannelHashedIdResponse$inboundSchema: z.ZodType<
   GetChannelsChannelHashedIdResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.number().int(),
-  created: z.string().datetime({ offset: true }).transform(v => new Date(v)),
-  description: z.string(),
-  hashed_id: z.string(),
-  media_count: z.number().int(),
-  live_stream_event_count: z.number().int().optional(),
-  name: z.string(),
-  updated: z.string().datetime({ offset: true }).transform(v => new Date(v)),
-  auto_publish_enabled: z.nullable(z.boolean()).optional(),
-  podcast_enabled: z.nullable(z.boolean()).optional(),
-  custom_url: z.nullable(z.string()).optional(),
-  podcast_settings: z.lazy(() =>
-    GetChannelsChannelHashedIdPodcastSettings$inboundSchema
-  ).optional(),
-  cursor: z.nullable(z.string()).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "hashed_id": "hashedId",
-    "media_count": "mediaCount",
-    "live_stream_event_count": "liveStreamEventCount",
-    "auto_publish_enabled": "autoPublishEnabled",
-    "podcast_enabled": "podcastEnabled",
-    "custom_url": "customUrl",
-    "podcast_settings": "podcastSettings",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    id: z.number().int(),
+    created: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+    description: z.string(),
+    hashed_id: z.string(),
+    media_count: z.number().int(),
+    live_stream_event_count: z.number().int().optional(),
+    name: z.string(),
+    updated: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+    auto_publish_enabled: z.nullable(z.boolean()).optional(),
+    podcast_enabled: z.nullable(z.boolean()).optional(),
+    custom_url: z.nullable(z.string()).optional(),
+    podcast_settings: z.lazy(() =>
+      GetChannelsChannelHashedIdPodcastSettings$inboundSchema
+    ).optional(),
+    cursor: z.nullable(z.string()).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "hashed_id": "hashedId",
+      "media_count": "mediaCount",
+      "live_stream_event_count": "liveStreamEventCount",
+      "auto_publish_enabled": "autoPublishEnabled",
+      "podcast_enabled": "podcastEnabled",
+      "custom_url": "customUrl",
+      "podcast_settings": "podcastSettings",
+    });
+  })
+);
 
 export function getChannelsChannelHashedIdResponseFromJSON(
   jsonString: string,

@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -144,15 +144,17 @@ export const UpdateBrandPreloadRequest$outboundSchema: z.ZodType<
   UpdateBrandPreloadRequest$Outbound,
   z.ZodTypeDef,
   UpdateBrandPreloadRequest
-> = z.object({
-  selectedPlayerColor: z.string().optional(),
-  selectedLogoHashedId: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    selectedPlayerColor: "selected_player_color",
-    selectedLogoHashedId: "selected_logo_hashed_id",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    selectedPlayerColor: z.string().optional(),
+    selectedLogoHashedId: z.string().optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      selectedPlayerColor: "selected_player_color",
+      selectedLogoHashedId: "selected_logo_hashed_id",
+    });
+  })
+);
 
 export function updateBrandPreloadRequestToJSON(
   updateBrandPreloadRequest: UpdateBrandPreloadRequest,
@@ -165,21 +167,23 @@ export function updateBrandPreloadRequestToJSON(
 /** @internal */
 export const UpdateBrandPreloadCode$inboundSchema: z.ZodNativeEnum<
   typeof UpdateBrandPreloadCode
-> = z.nativeEnum(UpdateBrandPreloadCode);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(UpdateBrandPreloadCode));
 
 /** @internal */
 export const UpdateBrandPreloadFormat$inboundSchema: z.ZodType<
   UpdateBrandPreloadFormat,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  src: z.string().optional(),
-  format: z.string().optional(),
-  background: z.nullable(z.string()).optional(),
-  height: z.nullable(z.number().int()).optional(),
-  width: z.nullable(z.number().int()).optional(),
-  size: z.nullable(z.number().int()).optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    src: z.string().optional(),
+    format: z.string().optional(),
+    background: z.nullable(z.string()).optional(),
+    height: z.nullable(z.number().int()).optional(),
+    width: z.nullable(z.number().int()).optional(),
+    size: z.nullable(z.number().int()).optional(),
+  })
+);
 
 export function updateBrandPreloadFormatFromJSON(
   jsonString: string,
@@ -196,13 +200,15 @@ export const UpdateBrandPreloadLogo$inboundSchema: z.ZodType<
   UpdateBrandPreloadLogo,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  theme: z.nullable(z.string()).optional(),
-  type: z.nullable(z.string()).optional(),
-  tags: z.array(z.string()).optional(),
-  formats: z.array(z.lazy(() => UpdateBrandPreloadFormat$inboundSchema))
-    .optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    theme: z.nullable(z.string()).optional(),
+    type: z.nullable(z.string()).optional(),
+    tags: z.array(z.string()).optional(),
+    formats: z.array(z.lazy(() => UpdateBrandPreloadFormat$inboundSchema))
+      .optional(),
+  })
+);
 
 export function updateBrandPreloadLogoFromJSON(
   jsonString: string,
@@ -219,19 +225,22 @@ export const UpdateBrandPreloadBrandfetchBrand$inboundSchema: z.ZodType<
   UpdateBrandPreloadBrandfetchBrand,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  domain: z.nullable(z.string()),
-  primary_color: z.nullable(z.string()),
-  logo: z.nullable(z.string()),
-  font: z.nullable(z.string()).optional(),
-  colors: z.array(z.string()).optional(),
-  logos: z.array(z.lazy(() => UpdateBrandPreloadLogo$inboundSchema)).optional(),
-  status: z.nullable(z.number().int()).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "primary_color": "primaryColor",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    domain: z.nullable(z.string()),
+    primary_color: z.nullable(z.string()),
+    logo: z.nullable(z.string()),
+    font: z.nullable(z.string()).optional(),
+    colors: z.array(z.string()).optional(),
+    logos: z.array(z.lazy(() => UpdateBrandPreloadLogo$inboundSchema))
+      .optional(),
+    status: z.nullable(z.number().int()).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "primary_color": "primaryColor",
+    });
+  })
+);
 
 export function updateBrandPreloadBrandfetchBrandFromJSON(
   jsonString: string,
@@ -248,17 +257,19 @@ export const UpdateBrandPreloadResponse$inboundSchema: z.ZodType<
   UpdateBrandPreloadResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  has_brand_kits: z.boolean(),
-  brandfetch_brand: z.lazy(() =>
-    UpdateBrandPreloadBrandfetchBrand$inboundSchema
-  ),
-}).transform((v) => {
-  return remap$(v, {
-    "has_brand_kits": "hasBrandKits",
-    "brandfetch_brand": "brandfetchBrand",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    has_brand_kits: z.boolean(),
+    brandfetch_brand: z.lazy(() =>
+      UpdateBrandPreloadBrandfetchBrand$inboundSchema
+    ),
+  }).transform((v) => {
+    return remap$(v, {
+      "has_brand_kits": "hasBrandKits",
+      "brandfetch_brand": "brandfetchBrand",
+    });
+  })
+);
 
 export function updateBrandPreloadResponseFromJSON(
   jsonString: string,

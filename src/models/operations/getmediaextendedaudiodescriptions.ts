@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -228,8 +228,10 @@ export type GetMediaExtendedAudioDescriptionsResponse = {
 
 /** @internal */
 export const GetMediaExtendedAudioDescriptionsEnabled$outboundSchema:
-  z.ZodNativeEnum<typeof GetMediaExtendedAudioDescriptionsEnabled> = z
-    .nativeEnum(GetMediaExtendedAudioDescriptionsEnabled);
+  z.ZodNativeEnum<typeof GetMediaExtendedAudioDescriptionsEnabled> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(GetMediaExtendedAudioDescriptionsEnabled)
+    );
 
 /** @internal */
 export type GetMediaExtendedAudioDescriptionsCursor$Outbound = {
@@ -243,11 +245,13 @@ export const GetMediaExtendedAudioDescriptionsCursor$outboundSchema: z.ZodType<
   GetMediaExtendedAudioDescriptionsCursor$Outbound,
   z.ZodTypeDef,
   GetMediaExtendedAudioDescriptionsCursor
-> = z.object({
-  enabled: GetMediaExtendedAudioDescriptionsEnabled$outboundSchema.optional(),
-  before: z.string().optional(),
-  after: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    enabled: GetMediaExtendedAudioDescriptionsEnabled$outboundSchema.optional(),
+    before: z.string().optional(),
+    after: z.string().optional(),
+  })
+);
 
 export function getMediaExtendedAudioDescriptionsCursorToJSON(
   getMediaExtendedAudioDescriptionsCursor:
@@ -262,13 +266,17 @@ export function getMediaExtendedAudioDescriptionsCursorToJSON(
 
 /** @internal */
 export const GetMediaExtendedAudioDescriptionsSortBy$outboundSchema:
-  z.ZodNativeEnum<typeof GetMediaExtendedAudioDescriptionsSortBy> = z
-    .nativeEnum(GetMediaExtendedAudioDescriptionsSortBy);
+  z.ZodNativeEnum<typeof GetMediaExtendedAudioDescriptionsSortBy> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(GetMediaExtendedAudioDescriptionsSortBy)
+    );
 
 /** @internal */
 export const GetMediaExtendedAudioDescriptionsSortDirection$outboundSchema:
-  z.ZodNativeEnum<typeof GetMediaExtendedAudioDescriptionsSortDirection> = z
-    .nativeEnum(GetMediaExtendedAudioDescriptionsSortDirection);
+  z.ZodNativeEnum<typeof GetMediaExtendedAudioDescriptionsSortDirection> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(GetMediaExtendedAudioDescriptionsSortDirection)
+    );
 
 /** @internal */
 export type GetMediaExtendedAudioDescriptionsRequest$Outbound = {
@@ -285,23 +293,25 @@ export const GetMediaExtendedAudioDescriptionsRequest$outboundSchema: z.ZodType<
   GetMediaExtendedAudioDescriptionsRequest$Outbound,
   z.ZodTypeDef,
   GetMediaExtendedAudioDescriptionsRequest
-> = z.object({
-  page: z.number().int().optional(),
-  perPage: z.number().int().optional(),
-  cursor: z.lazy(() => GetMediaExtendedAudioDescriptionsCursor$outboundSchema)
-    .optional(),
-  hashedIds: z.array(z.string()).optional(),
-  sortBy: GetMediaExtendedAudioDescriptionsSortBy$outboundSchema.optional(),
-  sortDirection: GetMediaExtendedAudioDescriptionsSortDirection$outboundSchema
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    perPage: "per_page",
-    hashedIds: "hashed_ids[]",
-    sortBy: "sort_by",
-    sortDirection: "sort_direction",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    page: z.number().int().optional(),
+    perPage: z.number().int().optional(),
+    cursor: z.lazy(() => GetMediaExtendedAudioDescriptionsCursor$outboundSchema)
+      .optional(),
+    hashedIds: z.array(z.string()).optional(),
+    sortBy: GetMediaExtendedAudioDescriptionsSortBy$outboundSchema.optional(),
+    sortDirection: GetMediaExtendedAudioDescriptionsSortDirection$outboundSchema
+      .optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      perPage: "per_page",
+      hashedIds: "hashed_ids[]",
+      sortBy: "sort_by",
+      sortDirection: "sort_direction",
+    });
+  })
+);
 
 export function getMediaExtendedAudioDescriptionsRequestToJSON(
   getMediaExtendedAudioDescriptionsRequest:
@@ -316,24 +326,27 @@ export function getMediaExtendedAudioDescriptionsRequestToJSON(
 
 /** @internal */
 export const GetMediaExtendedAudioDescriptionsCode$inboundSchema:
-  z.ZodNativeEnum<typeof GetMediaExtendedAudioDescriptionsCode> = z.nativeEnum(
-    GetMediaExtendedAudioDescriptionsCode,
-  );
+  z.ZodNativeEnum<typeof GetMediaExtendedAudioDescriptionsCode> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(GetMediaExtendedAudioDescriptionsCode)
+    );
 
 /** @internal */
 export const GetMediaExtendedAudioDescriptionsMedia$inboundSchema: z.ZodType<
   GetMediaExtendedAudioDescriptionsMedia,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.string(),
-  index_url: z.string(),
-  url: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "index_url": "indexUrl",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    id: z.string(),
+    index_url: z.string(),
+    url: z.string(),
+  }).transform((v) => {
+    return remap$(v, {
+      "index_url": "indexUrl",
+    });
+  })
+);
 
 export function getMediaExtendedAudioDescriptionsMediaFromJSON(
   jsonString: string,
@@ -352,15 +365,17 @@ export const GetMediaExtendedAudioDescriptionsProvidedMediaFile$inboundSchema:
     GetMediaExtendedAudioDescriptionsProvidedMediaFile,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    id: z.string(),
-    index_url: z.string(),
-    url: z.string(),
-  }).transform((v) => {
-    return remap$(v, {
-      "index_url": "indexUrl",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      id: z.string(),
+      index_url: z.string(),
+      url: z.string(),
+    }).transform((v) => {
+      return remap$(v, {
+        "index_url": "indexUrl",
+      });
+    })
+  );
 
 export function getMediaExtendedAudioDescriptionsProvidedMediaFileFromJSON(
   jsonString: string,
@@ -383,15 +398,17 @@ export const GetMediaExtendedAudioDescriptionsContact$inboundSchema: z.ZodType<
   GetMediaExtendedAudioDescriptionsContact,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.string(),
-  index_url: z.string(),
-  url: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "index_url": "indexUrl",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    id: z.string(),
+    index_url: z.string(),
+    url: z.string(),
+  }).transform((v) => {
+    return remap$(v, {
+      "index_url": "indexUrl",
+    });
+  })
+);
 
 export function getMediaExtendedAudioDescriptionsContactFromJSON(
   jsonString: string,
@@ -414,29 +431,34 @@ export const GetMediaExtendedAudioDescriptionsResponse$inboundSchema: z.ZodType<
   GetMediaExtendedAudioDescriptionsResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.string().optional(),
-  ietf_language_tag: z.string().optional(),
-  created_at: z.string().datetime({ offset: true }).transform(v => new Date(v))
-    .optional(),
-  updated_at: z.string().datetime({ offset: true }).transform(v => new Date(v))
-    .optional(),
-  media: z.lazy(() => GetMediaExtendedAudioDescriptionsMedia$inboundSchema)
-    .optional(),
-  provided_media_file: z.lazy(() =>
-    GetMediaExtendedAudioDescriptionsProvidedMediaFile$inboundSchema
-  ).optional(),
-  contact: z.lazy(() => GetMediaExtendedAudioDescriptionsContact$inboundSchema)
-    .optional(),
-  cursor: z.nullable(z.string()).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "ietf_language_tag": "ietfLanguageTag",
-    "created_at": "createdAt",
-    "updated_at": "updatedAt",
-    "provided_media_file": "providedMediaFile",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    id: z.string().optional(),
+    ietf_language_tag: z.string().optional(),
+    created_at: z.string().datetime({ offset: true }).transform(v =>
+      new Date(v)
+    ).optional(),
+    updated_at: z.string().datetime({ offset: true }).transform(v =>
+      new Date(v)
+    ).optional(),
+    media: z.lazy(() => GetMediaExtendedAudioDescriptionsMedia$inboundSchema)
+      .optional(),
+    provided_media_file: z.lazy(() =>
+      GetMediaExtendedAudioDescriptionsProvidedMediaFile$inboundSchema
+    ).optional(),
+    contact: z.lazy(() =>
+      GetMediaExtendedAudioDescriptionsContact$inboundSchema
+    ).optional(),
+    cursor: z.nullable(z.string()).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "ietf_language_tag": "ietfLanguageTag",
+      "created_at": "createdAt",
+      "updated_at": "updatedAt",
+      "provided_media_file": "providedMediaFile",
+    });
+  })
+);
 
 export function getMediaExtendedAudioDescriptionsResponseFromJSON(
   jsonString: string,

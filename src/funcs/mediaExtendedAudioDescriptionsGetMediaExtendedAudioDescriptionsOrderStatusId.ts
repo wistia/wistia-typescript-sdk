@@ -8,9 +8,8 @@ import { matchStatusCode } from "../lib/http.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { RequestOptions } from "../lib/sdks.js";
+import { encodePath, RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
-import { pathToFunc } from "../lib/url.js";
 import {
   ConnectionError,
   InvalidRequestError,
@@ -32,6 +31,11 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Returns the current status of an extended audio description order. Use the order id returned
  * from the order endpoint to poll for status updates.
+ *
+ * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+ * created with the `all:delegate_to_contact_permissions` scope and an
+ * authorization naming the order's media (any permission) can also be
+ * used.
  */
 export function mediaExtendedAudioDescriptionsGetMediaExtendedAudioDescriptionsOrderStatusId(
   client: WistiaCore,
@@ -105,9 +109,14 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-  const path = pathToFunc(
+  const pathResult = encodePath(
     "/media_extended_audio_descriptions/order_status/{id}",
-  )(pathParams);
+    pathParams,
+  );
+  if (!pathResult.ok) {
+    return [pathResult, { status: "invalid" }];
+  }
+  const path = pathResult.value;
 
   const headers = new Headers(compactMap({
     Accept: "application/json",

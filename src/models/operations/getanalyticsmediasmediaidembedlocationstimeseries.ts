@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { RFCDate } from "../../types/rfcdate.js";
@@ -163,15 +163,17 @@ export type GetAnalyticsMediasMediaIdEmbedLocationsTimeseriesResponse = {
 export const GetAnalyticsMediasMediaIdEmbedLocationsTimeseriesGranularity$outboundSchema:
   z.ZodNativeEnum<
     typeof GetAnalyticsMediasMediaIdEmbedLocationsTimeseriesGranularity
-  > = z.nativeEnum(
-    GetAnalyticsMediasMediaIdEmbedLocationsTimeseriesGranularity,
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.nativeEnum(GetAnalyticsMediasMediaIdEmbedLocationsTimeseriesGranularity)
   );
 
 /** @internal */
 export const GetAnalyticsMediasMediaIdEmbedLocationsTimeseriesSortBy$outboundSchema:
   z.ZodNativeEnum<
     typeof GetAnalyticsMediasMediaIdEmbedLocationsTimeseriesSortBy
-  > = z.nativeEnum(GetAnalyticsMediasMediaIdEmbedLocationsTimeseriesSortBy);
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.nativeEnum(GetAnalyticsMediasMediaIdEmbedLocationsTimeseriesSortBy)
+  );
 
 /** @internal */
 export type GetAnalyticsMediasMediaIdEmbedLocationsTimeseriesRequest$Outbound =
@@ -191,26 +193,28 @@ export const GetAnalyticsMediasMediaIdEmbedLocationsTimeseriesRequest$outboundSc
     GetAnalyticsMediasMediaIdEmbedLocationsTimeseriesRequest$Outbound,
     z.ZodTypeDef,
     GetAnalyticsMediasMediaIdEmbedLocationsTimeseriesRequest
-  > = z.object({
-    mediaId: z.string(),
-    startDate: z.instanceof(RFCDate).transform(v => v.toString()),
-    endDate: z.instanceof(RFCDate).transform(v => v.toString()),
-    granularity:
-      GetAnalyticsMediasMediaIdEmbedLocationsTimeseriesGranularity$outboundSchema,
-    sortBy:
-      GetAnalyticsMediasMediaIdEmbedLocationsTimeseriesSortBy$outboundSchema
-        .default("plays"),
-    embedUrl: z.string().optional(),
-    perPage: z.number().int().default(5),
-  }).transform((v) => {
-    return remap$(v, {
-      startDate: "start_date",
-      endDate: "end_date",
-      sortBy: "sort_by",
-      embedUrl: "embed_url",
-      perPage: "per_page",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      mediaId: z.string(),
+      startDate: z.instanceof(RFCDate).transform(v => v.toString()),
+      endDate: z.instanceof(RFCDate).transform(v => v.toString()),
+      granularity:
+        GetAnalyticsMediasMediaIdEmbedLocationsTimeseriesGranularity$outboundSchema,
+      sortBy:
+        GetAnalyticsMediasMediaIdEmbedLocationsTimeseriesSortBy$outboundSchema
+          .default("plays"),
+      embedUrl: z.string().optional(),
+      perPage: z.number().int().default(5),
+    }).transform((v) => {
+      return remap$(v, {
+        startDate: "start_date",
+        endDate: "end_date",
+        sortBy: "sort_by",
+        embedUrl: "embed_url",
+        perPage: "per_page",
+      });
+    })
+  );
 
 export function getAnalyticsMediasMediaIdEmbedLocationsTimeseriesRequestToJSON(
   getAnalyticsMediasMediaIdEmbedLocationsTimeseriesRequest:
@@ -226,39 +230,43 @@ export function getAnalyticsMediasMediaIdEmbedLocationsTimeseriesRequestToJSON(
 export const GetAnalyticsMediasMediaIdEmbedLocationsTimeseriesCode$inboundSchema:
   z.ZodNativeEnum<
     typeof GetAnalyticsMediasMediaIdEmbedLocationsTimeseriesCode
-  > = z.nativeEnum(GetAnalyticsMediasMediaIdEmbedLocationsTimeseriesCode);
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.nativeEnum(GetAnalyticsMediasMediaIdEmbedLocationsTimeseriesCode)
+  );
 
 /** @internal */
-export const Entry$inboundSchema: z.ZodType<Entry, z.ZodTypeDef, unknown> = z
-  .object({
-    embed_domain: z.nullable(z.string()).optional(),
-    embed_path: z.nullable(z.string()).optional(),
-    embed_url: z.nullable(z.string()).optional(),
-    page_title: z.nullable(z.string()).optional(),
-    loads: z.nullable(z.number().int()).optional(),
-    unique_loads: z.nullable(z.number().int()).optional(),
-    plays: z.nullable(z.number().int()).optional(),
-    unique_plays: z.nullable(z.number().int()).optional(),
-    play_rate: z.nullable(z.number()).optional(),
-    played_time: z.nullable(z.number()).optional(),
-    engagement_rate: z.nullable(z.number()).optional(),
-    unique_visitors: z.nullable(z.number().int()).optional(),
-    cta_conversion_rate: z.nullable(z.number()).optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      "embed_domain": "embedDomain",
-      "embed_path": "embedPath",
-      "embed_url": "embedUrl",
-      "page_title": "pageTitle",
-      "unique_loads": "uniqueLoads",
-      "unique_plays": "uniquePlays",
-      "play_rate": "playRate",
-      "played_time": "playedTime",
-      "engagement_rate": "engagementRate",
-      "unique_visitors": "uniqueVisitors",
-      "cta_conversion_rate": "ctaConversionRate",
-    });
-  });
+export const Entry$inboundSchema: z.ZodType<Entry, z.ZodTypeDef, unknown> =
+  /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      embed_domain: z.nullable(z.string()).optional(),
+      embed_path: z.nullable(z.string()).optional(),
+      embed_url: z.nullable(z.string()).optional(),
+      page_title: z.nullable(z.string()).optional(),
+      loads: z.nullable(z.number().int()).optional(),
+      unique_loads: z.nullable(z.number().int()).optional(),
+      plays: z.nullable(z.number().int()).optional(),
+      unique_plays: z.nullable(z.number().int()).optional(),
+      play_rate: z.nullable(z.number()).optional(),
+      played_time: z.nullable(z.number()).optional(),
+      engagement_rate: z.nullable(z.number()).optional(),
+      unique_visitors: z.nullable(z.number().int()).optional(),
+      cta_conversion_rate: z.nullable(z.number()).optional(),
+    }).transform((v) => {
+      return remap$(v, {
+        "embed_domain": "embedDomain",
+        "embed_path": "embedPath",
+        "embed_url": "embedUrl",
+        "page_title": "pageTitle",
+        "unique_loads": "uniqueLoads",
+        "unique_plays": "uniquePlays",
+        "play_rate": "playRate",
+        "played_time": "playedTime",
+        "engagement_rate": "engagementRate",
+        "unique_visitors": "uniqueVisitors",
+        "cta_conversion_rate": "ctaConversionRate",
+      });
+    })
+  );
 
 export function entryFromJSON(
   jsonString: string,
@@ -276,11 +284,14 @@ export const GetAnalyticsMediasMediaIdEmbedLocationsTimeseriesResponse$inboundSc
     GetAnalyticsMediasMediaIdEmbedLocationsTimeseriesResponse,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    timestamp: z.string().datetime({ offset: true }).transform(v => new Date(v))
-      .optional(),
-    entries: z.array(z.lazy(() => Entry$inboundSchema)).optional(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      timestamp: z.string().datetime({ offset: true }).transform(v =>
+        new Date(v)
+      ).optional(),
+      entries: z.array(z.lazy(() => Entry$inboundSchema)).optional(),
+    })
+  );
 
 export function getAnalyticsMediasMediaIdEmbedLocationsTimeseriesResponseFromJSON(
   jsonString: string,

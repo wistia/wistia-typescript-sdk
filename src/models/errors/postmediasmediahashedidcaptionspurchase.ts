@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
 import * as operations from "../operations/index.js";
 import { WistiaError } from "./wistiaerror.js";
 
@@ -73,6 +74,39 @@ export class PostMediasMediaHashedIdCaptionsPurchaseUnprocessableEntityError
 }
 
 /**
+ * Forbidden, token is valid but account does not have access to feature
+ */
+export type PostMediasMediaHashedIdCaptionsPurchaseForbiddenErrorData = {
+  error?: string | undefined;
+};
+
+/**
+ * Forbidden, token is valid but account does not have access to feature
+ */
+export class PostMediasMediaHashedIdCaptionsPurchaseForbiddenError
+  extends WistiaError
+{
+  error?: string | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: PostMediasMediaHashedIdCaptionsPurchaseForbiddenErrorData;
+
+  constructor(
+    err: PostMediasMediaHashedIdCaptionsPurchaseForbiddenErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+
+    this.name = "PostMediasMediaHashedIdCaptionsPurchaseForbiddenError";
+  }
+}
+
+/**
  * Unauthorized, invalid or missing token
  */
 export type PostMediasMediaHashedIdCaptionsPurchaseUnauthorizedErrorData = {
@@ -120,19 +154,20 @@ export const PostMediasMediaHashedIdCaptionsPurchaseInternalServerError$inboundS
     PostMediasMediaHashedIdCaptionsPurchaseInternalServerError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new PostMediasMediaHashedIdCaptionsPurchaseInternalServerError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new PostMediasMediaHashedIdCaptionsPurchaseInternalServerError(
+          v,
+          { request: v.request$, response: v.response$, body: v.body$ },
+        );
+      })
+  );
 
 /** @internal */
 export const PostMediasMediaHashedIdCaptionsPurchaseUnprocessableEntityError$inboundSchema:
@@ -140,18 +175,42 @@ export const PostMediasMediaHashedIdCaptionsPurchaseUnprocessableEntityError$inb
     PostMediasMediaHashedIdCaptionsPurchaseUnprocessableEntityError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    message: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new PostMediasMediaHashedIdCaptionsPurchaseUnprocessableEntityError(
-        v,
-        { request: v.request$, response: v.response$, body: v.body$ },
-      );
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      message: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new PostMediasMediaHashedIdCaptionsPurchaseUnprocessableEntityError(
+          v,
+          { request: v.request$, response: v.response$, body: v.body$ },
+        );
+      })
+  );
+
+/** @internal */
+export const PostMediasMediaHashedIdCaptionsPurchaseForbiddenError$inboundSchema:
+  z.ZodType<
+    PostMediasMediaHashedIdCaptionsPurchaseForbiddenError,
+    z.ZodTypeDef,
+    unknown
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new PostMediasMediaHashedIdCaptionsPurchaseForbiddenError(v, {
+          request: v.request$,
+          response: v.response$,
+          body: v.body$,
+        });
+      })
+  );
 
 /** @internal */
 export const PostMediasMediaHashedIdCaptionsPurchaseUnauthorizedError$inboundSchema:
@@ -159,18 +218,20 @@ export const PostMediasMediaHashedIdCaptionsPurchaseUnauthorizedError$inboundSch
     PostMediasMediaHashedIdCaptionsPurchaseUnauthorizedError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    code: operations.PostMediasMediaHashedIdCaptionsPurchaseCode$inboundSchema
-      .optional(),
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new PostMediasMediaHashedIdCaptionsPurchaseUnauthorizedError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      code: operations.PostMediasMediaHashedIdCaptionsPurchaseCode$inboundSchema
+        .optional(),
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new PostMediasMediaHashedIdCaptionsPurchaseUnauthorizedError(v, {
+          request: v.request$,
+          response: v.response$,
+          body: v.body$,
+        });
+      })
+  );

@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -190,17 +190,19 @@ export type GetReviewBundlesResponse = {
 /** @internal */
 export const GetReviewBundlesSortBy$outboundSchema: z.ZodNativeEnum<
   typeof GetReviewBundlesSortBy
-> = z.nativeEnum(GetReviewBundlesSortBy);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetReviewBundlesSortBy));
 
 /** @internal */
 export const GetReviewBundlesSortDirection$outboundSchema: z.ZodNativeEnum<
   typeof GetReviewBundlesSortDirection
-> = z.nativeEnum(GetReviewBundlesSortDirection);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(GetReviewBundlesSortDirection)
+);
 
 /** @internal */
 export const GetReviewBundlesEnabled$outboundSchema: z.ZodNativeEnum<
   typeof GetReviewBundlesEnabled
-> = z.nativeEnum(GetReviewBundlesEnabled);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetReviewBundlesEnabled));
 
 /** @internal */
 export type GetReviewBundlesCursor$Outbound = {
@@ -214,11 +216,13 @@ export const GetReviewBundlesCursor$outboundSchema: z.ZodType<
   GetReviewBundlesCursor$Outbound,
   z.ZodTypeDef,
   GetReviewBundlesCursor
-> = z.object({
-  enabled: GetReviewBundlesEnabled$outboundSchema.optional(),
-  before: z.string().optional(),
-  after: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    enabled: GetReviewBundlesEnabled$outboundSchema.optional(),
+    before: z.string().optional(),
+    after: z.string().optional(),
+  })
+);
 
 export function getReviewBundlesCursorToJSON(
   getReviewBundlesCursor: GetReviewBundlesCursor,
@@ -246,26 +250,28 @@ export const GetReviewBundlesRequest$outboundSchema: z.ZodType<
   GetReviewBundlesRequest$Outbound,
   z.ZodTypeDef,
   GetReviewBundlesRequest
-> = z.object({
-  hashedIds: z.array(z.string()).optional(),
-  name: z.string().optional(),
-  mediaHashedId: z.string().optional(),
-  folderHashedId: z.string().optional(),
-  sortBy: GetReviewBundlesSortBy$outboundSchema.optional(),
-  sortDirection: GetReviewBundlesSortDirection$outboundSchema.optional(),
-  page: z.number().int().optional(),
-  perPage: z.number().int().optional(),
-  cursor: z.lazy(() => GetReviewBundlesCursor$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    hashedIds: "hashed_ids[]",
-    mediaHashedId: "media_hashed_id",
-    folderHashedId: "folder_hashed_id",
-    sortBy: "sort_by",
-    sortDirection: "sort_direction",
-    perPage: "per_page",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    hashedIds: z.array(z.string()).optional(),
+    name: z.string().optional(),
+    mediaHashedId: z.string().optional(),
+    folderHashedId: z.string().optional(),
+    sortBy: GetReviewBundlesSortBy$outboundSchema.optional(),
+    sortDirection: GetReviewBundlesSortDirection$outboundSchema.optional(),
+    page: z.number().int().optional(),
+    perPage: z.number().int().optional(),
+    cursor: z.lazy(() => GetReviewBundlesCursor$outboundSchema).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      hashedIds: "hashed_ids[]",
+      mediaHashedId: "media_hashed_id",
+      folderHashedId: "folder_hashed_id",
+      sortBy: "sort_by",
+      sortDirection: "sort_direction",
+      perPage: "per_page",
+    });
+  })
+);
 
 export function getReviewBundlesRequestToJSON(
   getReviewBundlesRequest: GetReviewBundlesRequest,
@@ -278,25 +284,27 @@ export function getReviewBundlesRequestToJSON(
 /** @internal */
 export const GetReviewBundlesCode$inboundSchema: z.ZodNativeEnum<
   typeof GetReviewBundlesCode
-> = z.nativeEnum(GetReviewBundlesCode);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetReviewBundlesCode));
 
 /** @internal */
 export const GetReviewBundlesResponse$inboundSchema: z.ZodType<
   GetReviewBundlesResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  hashed_id: z.string().optional(),
-  name: z.string().optional(),
-  url: z.string().optional(),
-  allow_downloads: z.boolean().optional(),
-  cursor: z.nullable(z.string()).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "hashed_id": "hashedId",
-    "allow_downloads": "allowDownloads",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    hashed_id: z.string().optional(),
+    name: z.string().optional(),
+    url: z.string().optional(),
+    allow_downloads: z.boolean().optional(),
+    cursor: z.nullable(z.string()).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "hashed_id": "hashedId",
+      "allow_downloads": "allowDownloads",
+    });
+  })
+);
 
 export function getReviewBundlesResponseFromJSON(
   jsonString: string,

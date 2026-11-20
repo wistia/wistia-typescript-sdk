@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -210,15 +210,17 @@ export const GetFoldersFolderIdSubfoldersSubfolderIdRequest$outboundSchema:
     GetFoldersFolderIdSubfoldersSubfolderIdRequest$Outbound,
     z.ZodTypeDef,
     GetFoldersFolderIdSubfoldersSubfolderIdRequest
-  > = z.object({
-    folderId: z.string(),
-    subfolderId: z.string(),
-    descriptionFormat: z.literal("markdown").optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      descriptionFormat: "description_format",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      folderId: z.string(),
+      subfolderId: z.string(),
+      descriptionFormat: z.literal("markdown").optional(),
+    }).transform((v) => {
+      return remap$(v, {
+        descriptionFormat: "description_format",
+      });
+    })
+  );
 
 export function getFoldersFolderIdSubfoldersSubfolderIdRequestToJSON(
   getFoldersFolderIdSubfoldersSubfolderIdRequest:
@@ -233,18 +235,24 @@ export function getFoldersFolderIdSubfoldersSubfolderIdRequestToJSON(
 
 /** @internal */
 export const GetFoldersFolderIdSubfoldersSubfolderIdCode$inboundSchema:
-  z.ZodNativeEnum<typeof GetFoldersFolderIdSubfoldersSubfolderIdCode> = z
-    .nativeEnum(GetFoldersFolderIdSubfoldersSubfolderIdCode);
+  z.ZodNativeEnum<typeof GetFoldersFolderIdSubfoldersSubfolderIdCode> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(GetFoldersFolderIdSubfoldersSubfolderIdCode)
+    );
 
 /** @internal */
 export const GetFoldersFolderIdSubfoldersSubfolderIdType$inboundSchema:
-  z.ZodNativeEnum<typeof GetFoldersFolderIdSubfoldersSubfolderIdType> = z
-    .nativeEnum(GetFoldersFolderIdSubfoldersSubfolderIdType);
+  z.ZodNativeEnum<typeof GetFoldersFolderIdSubfoldersSubfolderIdType> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(GetFoldersFolderIdSubfoldersSubfolderIdType)
+    );
 
 /** @internal */
 export const GetFoldersFolderIdSubfoldersSubfolderIdStatus$inboundSchema:
-  z.ZodNativeEnum<typeof GetFoldersFolderIdSubfoldersSubfolderIdStatus> = z
-    .nativeEnum(GetFoldersFolderIdSubfoldersSubfolderIdStatus);
+  z.ZodNativeEnum<typeof GetFoldersFolderIdSubfoldersSubfolderIdStatus> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(GetFoldersFolderIdSubfoldersSubfolderIdStatus)
+    );
 
 /** @internal */
 export const GetFoldersFolderIdSubfoldersSubfolderIdThumbnail$inboundSchema:
@@ -252,11 +260,13 @@ export const GetFoldersFolderIdSubfoldersSubfolderIdThumbnail$inboundSchema:
     GetFoldersFolderIdSubfoldersSubfolderIdThumbnail,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    url: z.string().optional(),
-    width: z.number().int().optional(),
-    height: z.number().int().optional(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      url: z.string().optional(),
+      width: z.number().int().optional(),
+      height: z.number().int().optional(),
+    })
+  );
 
 export function getFoldersFolderIdSubfoldersSubfolderIdThumbnailFromJSON(
   jsonString: string,
@@ -280,32 +290,35 @@ export const GetFoldersFolderIdSubfoldersSubfolderIdMedia$inboundSchema:
     GetFoldersFolderIdSubfoldersSubfolderIdMedia,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    id: z.number().int().optional(),
-    name: z.string().optional(),
-    type: GetFoldersFolderIdSubfoldersSubfolderIdType$inboundSchema.optional(),
-    archived: z.boolean().optional(),
-    created: z.string().datetime({ offset: true }).transform(v => new Date(v))
-      .optional(),
-    updated: z.string().datetime({ offset: true }).transform(v => new Date(v))
-      .optional(),
-    duration: z.nullable(z.number()).optional(),
-    embedCode: z.string().optional(),
-    hashed_id: z.string().optional(),
-    description: z.string().optional(),
-    progress: z.number().optional(),
-    status: GetFoldersFolderIdSubfoldersSubfolderIdStatus$inboundSchema
-      .optional(),
-    section: z.nullable(z.string()).optional(),
-    thumbnail: z.lazy(() =>
-      GetFoldersFolderIdSubfoldersSubfolderIdThumbnail$inboundSchema
-    ).optional(),
-    protected: z.nullable(z.boolean()).optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      "hashed_id": "hashedId",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      id: z.number().int().optional(),
+      name: z.string().optional(),
+      type: GetFoldersFolderIdSubfoldersSubfolderIdType$inboundSchema
+        .optional(),
+      archived: z.boolean().optional(),
+      created: z.string().datetime({ offset: true }).transform(v => new Date(v))
+        .optional(),
+      updated: z.string().datetime({ offset: true }).transform(v => new Date(v))
+        .optional(),
+      duration: z.nullable(z.number()).optional(),
+      embedCode: z.string().optional(),
+      hashed_id: z.string().optional(),
+      description: z.string().optional(),
+      progress: z.number().optional(),
+      status: GetFoldersFolderIdSubfoldersSubfolderIdStatus$inboundSchema
+        .optional(),
+      section: z.nullable(z.string()).optional(),
+      thumbnail: z.lazy(() =>
+        GetFoldersFolderIdSubfoldersSubfolderIdThumbnail$inboundSchema
+      ).optional(),
+      protected: z.nullable(z.boolean()).optional(),
+    }).transform((v) => {
+      return remap$(v, {
+        "hashed_id": "hashedId",
+      });
+    })
+  );
 
 export function getFoldersFolderIdSubfoldersSubfolderIdMediaFromJSON(
   jsonString: string,
@@ -329,26 +342,30 @@ export const GetFoldersFolderIdSubfoldersSubfolderIdResponse$inboundSchema:
     GetFoldersFolderIdSubfoldersSubfolderIdResponse,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    hashed_id: z.nullable(z.string()),
-    name: z.nullable(z.string()).optional(),
-    description: z.nullable(z.string()).optional(),
-    position: z.nullable(z.number().int()),
-    created: z.nullable(
-      z.string().datetime({ offset: true }).transform(v => new Date(v)),
-    ),
-    updated: z.nullable(
-      z.string().datetime({ offset: true }).transform(v => new Date(v)),
-    ),
-    cursor: z.nullable(z.string()).optional(),
-    medias: z.array(
-      z.lazy(() => GetFoldersFolderIdSubfoldersSubfolderIdMedia$inboundSchema),
-    ).optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      "hashed_id": "hashedId",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      hashed_id: z.nullable(z.string()),
+      name: z.nullable(z.string()).optional(),
+      description: z.nullable(z.string()).optional(),
+      position: z.nullable(z.number().int()),
+      created: z.nullable(
+        z.string().datetime({ offset: true }).transform(v => new Date(v)),
+      ),
+      updated: z.nullable(
+        z.string().datetime({ offset: true }).transform(v => new Date(v)),
+      ),
+      cursor: z.nullable(z.string()).optional(),
+      medias: z.array(
+        z.lazy(() =>
+          GetFoldersFolderIdSubfoldersSubfolderIdMedia$inboundSchema
+        ),
+      ).optional(),
+    }).transform((v) => {
+      return remap$(v, {
+        "hashed_id": "hashedId",
+      });
+    })
+  );
 
 export function getFoldersFolderIdSubfoldersSubfolderIdResponseFromJSON(
   jsonString: string,

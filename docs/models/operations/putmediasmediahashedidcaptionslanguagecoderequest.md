@@ -7,7 +7,7 @@ import { PutMediasMediaHashedIdCaptionsLanguageCodeRequest } from "@wistia/wisti
 
 let value: PutMediasMediaHashedIdCaptionsLanguageCodeRequest = {
   mediaHashedId: "<id>",
-  languageCode: "<value>",
+  languageCode: "abc",
   requestBody: {
     captionFile: "<value>",
   },

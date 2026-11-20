@@ -44,6 +44,13 @@ import { Result } from "../types/fp.js";
  * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
  * made with such a token are authorized using the permissions of the
  * contact assigned to the token.
+ *
+ * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+ * created with the `all:delegate_to_contact_permissions` scope and
+ * authorizations granting the `share` permission on every listed media can
+ * also be used. The new review bundle is not covered by the token that
+ * created it, so follow-up requests need a token whose authorizations name
+ * the returned hashed id.
  */
 export function reviewBundlesCreate(
   client: WistiaCore,

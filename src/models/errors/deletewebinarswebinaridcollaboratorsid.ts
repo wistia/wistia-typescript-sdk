@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
 import * as operations from "../operations/index.js";
 import { WistiaError } from "./wistiaerror.js";
 
@@ -73,6 +74,39 @@ export class DeleteWebinarsWebinarIdCollaboratorsIdNotFoundError
 }
 
 /**
+ * Forbidden, token is valid but account does not have access to feature
+ */
+export type DeleteWebinarsWebinarIdCollaboratorsIdForbiddenErrorData = {
+  error?: string | undefined;
+};
+
+/**
+ * Forbidden, token is valid but account does not have access to feature
+ */
+export class DeleteWebinarsWebinarIdCollaboratorsIdForbiddenError
+  extends WistiaError
+{
+  error?: string | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: DeleteWebinarsWebinarIdCollaboratorsIdForbiddenErrorData;
+
+  constructor(
+    err: DeleteWebinarsWebinarIdCollaboratorsIdForbiddenErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+
+    this.name = "DeleteWebinarsWebinarIdCollaboratorsIdForbiddenError";
+  }
+}
+
+/**
  * Unauthorized, invalid or missing token
  */
 export type DeleteWebinarsWebinarIdCollaboratorsIdUnauthorizedErrorData = {
@@ -120,19 +154,20 @@ export const DeleteWebinarsWebinarIdCollaboratorsIdInternalServerError$inboundSc
     DeleteWebinarsWebinarIdCollaboratorsIdInternalServerError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new DeleteWebinarsWebinarIdCollaboratorsIdInternalServerError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new DeleteWebinarsWebinarIdCollaboratorsIdInternalServerError(
+          v,
+          { request: v.request$, response: v.response$, body: v.body$ },
+        );
+      })
+  );
 
 /** @internal */
 export const DeleteWebinarsWebinarIdCollaboratorsIdNotFoundError$inboundSchema:
@@ -140,19 +175,43 @@ export const DeleteWebinarsWebinarIdCollaboratorsIdNotFoundError$inboundSchema:
     DeleteWebinarsWebinarIdCollaboratorsIdNotFoundError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new DeleteWebinarsWebinarIdCollaboratorsIdNotFoundError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new DeleteWebinarsWebinarIdCollaboratorsIdNotFoundError(v, {
+          request: v.request$,
+          response: v.response$,
+          body: v.body$,
+        });
+      })
+  );
+
+/** @internal */
+export const DeleteWebinarsWebinarIdCollaboratorsIdForbiddenError$inboundSchema:
+  z.ZodType<
+    DeleteWebinarsWebinarIdCollaboratorsIdForbiddenError,
+    z.ZodTypeDef,
+    unknown
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new DeleteWebinarsWebinarIdCollaboratorsIdForbiddenError(v, {
+          request: v.request$,
+          response: v.response$,
+          body: v.body$,
+        });
+      })
+  );
 
 /** @internal */
 export const DeleteWebinarsWebinarIdCollaboratorsIdUnauthorizedError$inboundSchema:
@@ -160,18 +219,20 @@ export const DeleteWebinarsWebinarIdCollaboratorsIdUnauthorizedError$inboundSche
     DeleteWebinarsWebinarIdCollaboratorsIdUnauthorizedError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    code: operations.DeleteWebinarsWebinarIdCollaboratorsIdCode$inboundSchema
-      .optional(),
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new DeleteWebinarsWebinarIdCollaboratorsIdUnauthorizedError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      code: operations.DeleteWebinarsWebinarIdCollaboratorsIdCode$inboundSchema
+        .optional(),
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new DeleteWebinarsWebinarIdCollaboratorsIdUnauthorizedError(v, {
+          request: v.request$,
+          response: v.response$,
+          body: v.body$,
+        });
+      })
+  );

@@ -12,6 +12,11 @@ Invites one or more people to the account by email. Accepts a
 comma/whitespace/newline-separated list; each entry becomes a new contact
 if one does not already exist for that email.
 
+An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+created with the `all:delegate_to_contact_permissions` scope and an
+`account` authorization granting the `manage-team` permission can also be
+used.
+
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything

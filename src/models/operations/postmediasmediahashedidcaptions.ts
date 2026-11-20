@@ -4,6 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 
 export type PostMediasMediaHashedIdCaptionsRequestBody = {
@@ -53,14 +54,16 @@ export const PostMediasMediaHashedIdCaptionsRequestBody$outboundSchema:
     PostMediasMediaHashedIdCaptionsRequestBody$Outbound,
     z.ZodTypeDef,
     PostMediasMediaHashedIdCaptionsRequestBody
-  > = z.object({
-    captionFile: z.string(),
-    language: z.string().optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      captionFile: "caption_file",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      captionFile: z.string(),
+      language: z.string().optional(),
+    }).transform((v) => {
+      return remap$(v, {
+        captionFile: "caption_file",
+      });
+    })
+  );
 
 export function postMediasMediaHashedIdCaptionsRequestBodyToJSON(
   postMediasMediaHashedIdCaptionsRequestBody:
@@ -84,16 +87,18 @@ export const PostMediasMediaHashedIdCaptionsRequest$outboundSchema: z.ZodType<
   PostMediasMediaHashedIdCaptionsRequest$Outbound,
   z.ZodTypeDef,
   PostMediasMediaHashedIdCaptionsRequest
-> = z.object({
-  mediaHashedId: z.string(),
-  requestBody: z.lazy(() =>
-    PostMediasMediaHashedIdCaptionsRequestBody$outboundSchema
-  ),
-}).transform((v) => {
-  return remap$(v, {
-    requestBody: "RequestBody",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    mediaHashedId: z.string(),
+    requestBody: z.lazy(() =>
+      PostMediasMediaHashedIdCaptionsRequestBody$outboundSchema
+    ),
+  }).transform((v) => {
+    return remap$(v, {
+      requestBody: "RequestBody",
+    });
+  })
+);
 
 export function postMediasMediaHashedIdCaptionsRequestToJSON(
   postMediasMediaHashedIdCaptionsRequest:
@@ -109,4 +114,6 @@ export function postMediasMediaHashedIdCaptionsRequestToJSON(
 /** @internal */
 export const PostMediasMediaHashedIdCaptionsCode$inboundSchema: z.ZodNativeEnum<
   typeof PostMediasMediaHashedIdCaptionsCode
-> = z.nativeEnum(PostMediasMediaHashedIdCaptionsCode);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(PostMediasMediaHashedIdCaptionsCode)
+);

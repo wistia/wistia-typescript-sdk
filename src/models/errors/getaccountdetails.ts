@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
 import * as operations from "../operations/index.js";
 import { WistiaError } from "./wistiaerror.js";
 
@@ -34,6 +35,37 @@ export class GetAccountDetailsInternalServerError extends WistiaError {
     if (err.error != null) this.error = err.error;
 
     this.name = "GetAccountDetailsInternalServerError";
+  }
+}
+
+/**
+ * Forbidden, token is valid but account does not have access to feature
+ */
+export type GetAccountDetailsForbiddenErrorData = {
+  error?: string | undefined;
+};
+
+/**
+ * Forbidden, token is valid but account does not have access to feature
+ */
+export class GetAccountDetailsForbiddenError extends WistiaError {
+  error?: string | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: GetAccountDetailsForbiddenErrorData;
+
+  constructor(
+    err: GetAccountDetailsForbiddenErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+
+    this.name = "GetAccountDetailsForbiddenError";
   }
 }
 
@@ -82,36 +114,61 @@ export const GetAccountDetailsInternalServerError$inboundSchema: z.ZodType<
   GetAccountDetailsInternalServerError,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  error: z.string().optional(),
-  request$: z.instanceof(Request),
-  response$: z.instanceof(Response),
-  body$: z.string(),
-})
-  .transform((v) => {
-    return new GetAccountDetailsInternalServerError(v, {
-      request: v.request$,
-      response: v.response$,
-      body: v.body$,
-    });
-  });
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    error: z.string().optional(),
+    request$: z.instanceof(Request),
+    response$: z.instanceof(Response),
+    body$: z.string(),
+  })
+    .transform((v) => {
+      return new GetAccountDetailsInternalServerError(v, {
+        request: v.request$,
+        response: v.response$,
+        body: v.body$,
+      });
+    })
+);
+
+/** @internal */
+export const GetAccountDetailsForbiddenError$inboundSchema: z.ZodType<
+  GetAccountDetailsForbiddenError,
+  z.ZodTypeDef,
+  unknown
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    error: z.string().optional(),
+    request$: z.instanceof(Request),
+    response$: z.instanceof(Response),
+    body$: z.string(),
+  })
+    .transform((v) => {
+      return new GetAccountDetailsForbiddenError(v, {
+        request: v.request$,
+        response: v.response$,
+        body: v.body$,
+      });
+    })
+);
 
 /** @internal */
 export const GetAccountDetailsUnauthorizedError$inboundSchema: z.ZodType<
   GetAccountDetailsUnauthorizedError,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  code: operations.GetAccountDetailsCode$inboundSchema.optional(),
-  error: z.string().optional(),
-  request$: z.instanceof(Request),
-  response$: z.instanceof(Response),
-  body$: z.string(),
-})
-  .transform((v) => {
-    return new GetAccountDetailsUnauthorizedError(v, {
-      request: v.request$,
-      response: v.response$,
-      body: v.body$,
-    });
-  });
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    code: operations.GetAccountDetailsCode$inboundSchema.optional(),
+    error: z.string().optional(),
+    request$: z.instanceof(Request),
+    response$: z.instanceof(Response),
+    body$: z.string(),
+  })
+    .transform((v) => {
+      return new GetAccountDetailsUnauthorizedError(v, {
+        request: v.request$,
+        response: v.response$,
+        body: v.body$,
+      });
+    })
+);

@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -223,8 +223,10 @@ export type GetWebinarsWebinarIdCollaboratorsResponse = {
 
 /** @internal */
 export const GetWebinarsWebinarIdCollaboratorsEnabled$outboundSchema:
-  z.ZodNativeEnum<typeof GetWebinarsWebinarIdCollaboratorsEnabled> = z
-    .nativeEnum(GetWebinarsWebinarIdCollaboratorsEnabled);
+  z.ZodNativeEnum<typeof GetWebinarsWebinarIdCollaboratorsEnabled> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(GetWebinarsWebinarIdCollaboratorsEnabled)
+    );
 
 /** @internal */
 export type GetWebinarsWebinarIdCollaboratorsCursor$Outbound = {
@@ -238,11 +240,13 @@ export const GetWebinarsWebinarIdCollaboratorsCursor$outboundSchema: z.ZodType<
   GetWebinarsWebinarIdCollaboratorsCursor$Outbound,
   z.ZodTypeDef,
   GetWebinarsWebinarIdCollaboratorsCursor
-> = z.object({
-  enabled: GetWebinarsWebinarIdCollaboratorsEnabled$outboundSchema.optional(),
-  before: z.string().optional(),
-  after: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    enabled: GetWebinarsWebinarIdCollaboratorsEnabled$outboundSchema.optional(),
+    before: z.string().optional(),
+    after: z.string().optional(),
+  })
+);
 
 export function getWebinarsWebinarIdCollaboratorsCursorToJSON(
   getWebinarsWebinarIdCollaboratorsCursor:
@@ -257,13 +261,17 @@ export function getWebinarsWebinarIdCollaboratorsCursorToJSON(
 
 /** @internal */
 export const GetWebinarsWebinarIdCollaboratorsSortBy$outboundSchema:
-  z.ZodNativeEnum<typeof GetWebinarsWebinarIdCollaboratorsSortBy> = z
-    .nativeEnum(GetWebinarsWebinarIdCollaboratorsSortBy);
+  z.ZodNativeEnum<typeof GetWebinarsWebinarIdCollaboratorsSortBy> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(GetWebinarsWebinarIdCollaboratorsSortBy)
+    );
 
 /** @internal */
 export const GetWebinarsWebinarIdCollaboratorsSortDirection$outboundSchema:
-  z.ZodNativeEnum<typeof GetWebinarsWebinarIdCollaboratorsSortDirection> = z
-    .nativeEnum(GetWebinarsWebinarIdCollaboratorsSortDirection);
+  z.ZodNativeEnum<typeof GetWebinarsWebinarIdCollaboratorsSortDirection> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(GetWebinarsWebinarIdCollaboratorsSortDirection)
+    );
 
 /** @internal */
 export type GetWebinarsWebinarIdCollaboratorsRequest$Outbound = {
@@ -280,22 +288,26 @@ export const GetWebinarsWebinarIdCollaboratorsRequest$outboundSchema: z.ZodType<
   GetWebinarsWebinarIdCollaboratorsRequest$Outbound,
   z.ZodTypeDef,
   GetWebinarsWebinarIdCollaboratorsRequest
-> = z.object({
-  webinarId: z.string(),
-  page: z.number().int().optional(),
-  perPage: z.number().int().optional(),
-  cursor: z.lazy(() => GetWebinarsWebinarIdCollaboratorsCursor$outboundSchema)
-    .optional(),
-  sortBy: GetWebinarsWebinarIdCollaboratorsSortBy$outboundSchema.default("id"),
-  sortDirection: GetWebinarsWebinarIdCollaboratorsSortDirection$outboundSchema
-    .default(1),
-}).transform((v) => {
-  return remap$(v, {
-    perPage: "per_page",
-    sortBy: "sort_by",
-    sortDirection: "sort_direction",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    webinarId: z.string(),
+    page: z.number().int().optional(),
+    perPage: z.number().int().optional(),
+    cursor: z.lazy(() => GetWebinarsWebinarIdCollaboratorsCursor$outboundSchema)
+      .optional(),
+    sortBy: GetWebinarsWebinarIdCollaboratorsSortBy$outboundSchema.default(
+      "id",
+    ),
+    sortDirection: GetWebinarsWebinarIdCollaboratorsSortDirection$outboundSchema
+      .default(1),
+  }).transform((v) => {
+    return remap$(v, {
+      perPage: "per_page",
+      sortBy: "sort_by",
+      sortDirection: "sort_direction",
+    });
+  })
+);
 
 export function getWebinarsWebinarIdCollaboratorsRequestToJSON(
   getWebinarsWebinarIdCollaboratorsRequest:
@@ -310,27 +322,31 @@ export function getWebinarsWebinarIdCollaboratorsRequestToJSON(
 
 /** @internal */
 export const GetWebinarsWebinarIdCollaboratorsCode$inboundSchema:
-  z.ZodNativeEnum<typeof GetWebinarsWebinarIdCollaboratorsCode> = z.nativeEnum(
-    GetWebinarsWebinarIdCollaboratorsCode,
-  );
+  z.ZodNativeEnum<typeof GetWebinarsWebinarIdCollaboratorsCode> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(GetWebinarsWebinarIdCollaboratorsCode)
+    );
 
 /** @internal */
 export const GetWebinarsWebinarIdCollaboratorsRole$inboundSchema:
-  z.ZodNativeEnum<typeof GetWebinarsWebinarIdCollaboratorsRole> = z.nativeEnum(
-    GetWebinarsWebinarIdCollaboratorsRole,
-  );
+  z.ZodNativeEnum<typeof GetWebinarsWebinarIdCollaboratorsRole> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(GetWebinarsWebinarIdCollaboratorsRole)
+    );
 
 /** @internal */
 export const GetWebinarsWebinarIdCollaboratorsShare$inboundSchema: z.ZodType<
   GetWebinarsWebinarIdCollaboratorsShare,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.number().int(),
-  name: z.string(),
-  type: z.string(),
-  email: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    id: z.number().int(),
+    name: z.string(),
+    type: z.string(),
+    email: z.string().optional(),
+  })
+);
 
 export function getWebinarsWebinarIdCollaboratorsShareFromJSON(
   jsonString: string,
@@ -348,17 +364,21 @@ export const GetWebinarsWebinarIdCollaboratorsResponse$inboundSchema: z.ZodType<
   GetWebinarsWebinarIdCollaboratorsResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.number().int(),
-  role: GetWebinarsWebinarIdCollaboratorsRole$inboundSchema,
-  created_at: z.string().datetime({ offset: true }).transform(v => new Date(v)),
-  share: z.lazy(() => GetWebinarsWebinarIdCollaboratorsShare$inboundSchema),
-  cursor: z.nullable(z.string()).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "created_at": "createdAt",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    id: z.number().int(),
+    role: GetWebinarsWebinarIdCollaboratorsRole$inboundSchema,
+    created_at: z.string().datetime({ offset: true }).transform(v =>
+      new Date(v)
+    ),
+    share: z.lazy(() => GetWebinarsWebinarIdCollaboratorsShare$inboundSchema),
+    cursor: z.nullable(z.string()).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "created_at": "createdAt",
+    });
+  })
+);
 
 export function getWebinarsWebinarIdCollaboratorsResponseFromJSON(
   jsonString: string,

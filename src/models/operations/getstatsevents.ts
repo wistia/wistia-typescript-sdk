@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { RFCDate } from "../../types/rfcdate.js";
@@ -193,22 +193,24 @@ export const GetStatsEventsRequest$outboundSchema: z.ZodType<
   GetStatsEventsRequest$Outbound,
   z.ZodTypeDef,
   GetStatsEventsRequest
-> = z.object({
-  mediaId: z.string().optional(),
-  visitorKey: z.string().optional(),
-  perPage: z.number().int().optional(),
-  page: z.number().int().optional(),
-  startDate: z.instanceof(RFCDate).transform(v => v.toString()).optional(),
-  endDate: z.instanceof(RFCDate).transform(v => v.toString()).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    mediaId: "media_id",
-    visitorKey: "visitor_key",
-    perPage: "per_page",
-    startDate: "start_date",
-    endDate: "end_date",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    mediaId: z.string().optional(),
+    visitorKey: z.string().optional(),
+    perPage: z.number().int().optional(),
+    page: z.number().int().optional(),
+    startDate: z.instanceof(RFCDate).transform(v => v.toString()).optional(),
+    endDate: z.instanceof(RFCDate).transform(v => v.toString()).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      mediaId: "media_id",
+      visitorKey: "visitor_key",
+      perPage: "per_page",
+      startDate: "start_date",
+      endDate: "end_date",
+    });
+  })
+);
 
 export function getStatsEventsRequestToJSON(
   getStatsEventsRequest: GetStatsEventsRequest,
@@ -221,21 +223,23 @@ export function getStatsEventsRequestToJSON(
 /** @internal */
 export const GetStatsEventsCode$inboundSchema: z.ZodNativeEnum<
   typeof GetStatsEventsCode
-> = z.nativeEnum(GetStatsEventsCode);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetStatsEventsCode));
 
 /** @internal */
 export const GetStatsEventsThumbnail$inboundSchema: z.ZodType<
   GetStatsEventsThumbnail,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  url: z.string().optional(),
-  width: z.number().int().optional(),
-  height: z.number().int().optional(),
-  fileSize: z.number().int().optional(),
-  contentType: z.string().optional(),
-  type: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    url: z.string().optional(),
+    width: z.number().int().optional(),
+    height: z.number().int().optional(),
+    fileSize: z.number().int().optional(),
+    contentType: z.string().optional(),
+    type: z.string().optional(),
+  })
+);
 
 export function getStatsEventsThumbnailFromJSON(
   jsonString: string,
@@ -252,7 +256,7 @@ export const GetStatsEventsConversionType$inboundSchema: z.ZodType<
   GetStatsEventsConversionType,
   z.ZodTypeDef,
   unknown
-> = z.union([z.number().int(), z.string()]);
+> = /* @__PURE__ */ lazySchema$(() => z.union([z.number().int(), z.string()]));
 
 export function getStatsEventsConversionTypeFromJSON(
   jsonString: string,
@@ -269,18 +273,20 @@ export const GetStatsEventsConversionData$inboundSchema: z.ZodType<
   GetStatsEventsConversionData,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  email: z.string().optional(),
-  first_name: z.string().optional(),
-  is_new_lead: z.boolean().optional(),
-  last_name: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "first_name": "firstName",
-    "is_new_lead": "isNewLead",
-    "last_name": "lastName",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    email: z.string().optional(),
+    first_name: z.string().optional(),
+    is_new_lead: z.boolean().optional(),
+    last_name: z.string().optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "first_name": "firstName",
+      "is_new_lead": "isNewLead",
+      "last_name": "lastName",
+    });
+  })
+);
 
 export function getStatsEventsConversionDataFromJSON(
   jsonString: string,
@@ -297,16 +303,18 @@ export const GetStatsEventsUserAgentDetails$inboundSchema: z.ZodType<
   GetStatsEventsUserAgentDetails,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  browser: z.string().optional(),
-  browser_version: z.string().optional(),
-  platform: z.string().optional(),
-  mobile: z.boolean().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "browser_version": "browserVersion",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    browser: z.string().optional(),
+    browser_version: z.string().optional(),
+    platform: z.string().optional(),
+    mobile: z.boolean().optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "browser_version": "browserVersion",
+    });
+  })
+);
 
 export function getStatsEventsUserAgentDetailsFromJSON(
   jsonString: string,
@@ -323,7 +331,7 @@ export const GetStatsEventsAttributes$inboundSchema: z.ZodType<
   GetStatsEventsAttributes,
   z.ZodTypeDef,
   unknown
-> = z.object({});
+> = /* @__PURE__ */ lazySchema$(() => z.object({}));
 
 export function getStatsEventsAttributesFromJSON(
   jsonString: string,
@@ -340,48 +348,52 @@ export const GetStatsEventsResponse$inboundSchema: z.ZodType<
   GetStatsEventsResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  received_at: z.string().datetime({ offset: true }).transform(v => new Date(v))
-    .optional(),
-  event_key: z.string().optional(),
-  visitor_key: z.string().optional(),
-  embed_url: z.string().optional(),
-  percent_viewed: z.number().optional(),
-  ip: z.string().optional(),
-  org: z.string().optional(),
-  country: z.string().optional(),
-  region: z.string().optional(),
-  city: z.string().optional(),
-  lat: z.number().optional(),
-  lon: z.number().optional(),
-  email: z.nullable(z.string()).optional(),
-  media_id: z.string().optional(),
-  media_name: z.string().optional(),
-  media_url: z.string().optional(),
-  iframe_heatmap_url: z.string().optional(),
-  thumbnail: z.lazy(() => GetStatsEventsThumbnail$inboundSchema).optional(),
-  conversion_type: z.union([z.number().int(), z.string()]).optional(),
-  conversion_data: z.lazy(() => GetStatsEventsConversionData$inboundSchema)
-    .optional(),
-  user_agent_details: z.lazy(() => GetStatsEventsUserAgentDetails$inboundSchema)
-    .optional(),
-  attributes: z.lazy(() => GetStatsEventsAttributes$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "received_at": "receivedAt",
-    "event_key": "eventKey",
-    "visitor_key": "visitorKey",
-    "embed_url": "embedUrl",
-    "percent_viewed": "percentViewed",
-    "media_id": "mediaId",
-    "media_name": "mediaName",
-    "media_url": "mediaUrl",
-    "iframe_heatmap_url": "iframeHeatmapUrl",
-    "conversion_type": "conversionType",
-    "conversion_data": "conversionData",
-    "user_agent_details": "userAgentDetails",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    received_at: z.string().datetime({ offset: true }).transform(v =>
+      new Date(v)
+    ).optional(),
+    event_key: z.string().optional(),
+    visitor_key: z.string().optional(),
+    embed_url: z.string().optional(),
+    percent_viewed: z.number().optional(),
+    ip: z.string().optional(),
+    org: z.string().optional(),
+    country: z.string().optional(),
+    region: z.string().optional(),
+    city: z.string().optional(),
+    lat: z.number().optional(),
+    lon: z.number().optional(),
+    email: z.nullable(z.string()).optional(),
+    media_id: z.string().optional(),
+    media_name: z.string().optional(),
+    media_url: z.string().optional(),
+    iframe_heatmap_url: z.string().optional(),
+    thumbnail: z.lazy(() => GetStatsEventsThumbnail$inboundSchema).optional(),
+    conversion_type: z.union([z.number().int(), z.string()]).optional(),
+    conversion_data: z.lazy(() => GetStatsEventsConversionData$inboundSchema)
+      .optional(),
+    user_agent_details: z.lazy(() =>
+      GetStatsEventsUserAgentDetails$inboundSchema
+    ).optional(),
+    attributes: z.lazy(() => GetStatsEventsAttributes$inboundSchema).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "received_at": "receivedAt",
+      "event_key": "eventKey",
+      "visitor_key": "visitorKey",
+      "embed_url": "embedUrl",
+      "percent_viewed": "percentViewed",
+      "media_id": "mediaId",
+      "media_name": "mediaName",
+      "media_url": "mediaUrl",
+      "iframe_heatmap_url": "iframeHeatmapUrl",
+      "conversion_type": "conversionType",
+      "conversion_data": "conversionData",
+      "user_agent_details": "userAgentDetails",
+    });
+  })
+);
 
 export function getStatsEventsResponseFromJSON(
   jsonString: string,

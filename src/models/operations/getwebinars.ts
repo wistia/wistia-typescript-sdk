@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -297,7 +297,7 @@ export type GetWebinarsResponse = {
 /** @internal */
 export const GetWebinarsEnabled$outboundSchema: z.ZodNativeEnum<
   typeof GetWebinarsEnabled
-> = z.nativeEnum(GetWebinarsEnabled);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetWebinarsEnabled));
 
 /** @internal */
 export type GetWebinarsCursor$Outbound = {
@@ -311,11 +311,13 @@ export const GetWebinarsCursor$outboundSchema: z.ZodType<
   GetWebinarsCursor$Outbound,
   z.ZodTypeDef,
   GetWebinarsCursor
-> = z.object({
-  enabled: GetWebinarsEnabled$outboundSchema.optional(),
-  before: z.string().optional(),
-  after: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    enabled: GetWebinarsEnabled$outboundSchema.optional(),
+    before: z.string().optional(),
+    after: z.string().optional(),
+  })
+);
 
 export function getWebinarsCursorToJSON(
   getWebinarsCursor: GetWebinarsCursor,
@@ -328,16 +330,16 @@ export function getWebinarsCursorToJSON(
 /** @internal */
 export const GetWebinarsSortBy$outboundSchema: z.ZodNativeEnum<
   typeof GetWebinarsSortBy
-> = z.nativeEnum(GetWebinarsSortBy);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetWebinarsSortBy));
 
 /** @internal */
 export const GetWebinarsSortDirection$outboundSchema: z.ZodNativeEnum<
   typeof GetWebinarsSortDirection
-> = z.nativeEnum(GetWebinarsSortDirection);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetWebinarsSortDirection));
 
 /** @internal */
-export const Started$outboundSchema: z.ZodNativeEnum<typeof Started> = z
-  .nativeEnum(Started);
+export const Started$outboundSchema: z.ZodNativeEnum<typeof Started> =
+  /* @__PURE__ */ lazySchema$(() => z.nativeEnum(Started));
 
 /** @internal */
 export type GetWebinarsRequest$Outbound = {
@@ -355,22 +357,24 @@ export const GetWebinarsRequest$outboundSchema: z.ZodType<
   GetWebinarsRequest$Outbound,
   z.ZodTypeDef,
   GetWebinarsRequest
-> = z.object({
-  page: z.number().int().optional(),
-  perPage: z.number().int().optional(),
-  cursor: z.lazy(() => GetWebinarsCursor$outboundSchema).optional(),
-  sortBy: GetWebinarsSortBy$outboundSchema.optional(),
-  sortDirection: GetWebinarsSortDirection$outboundSchema.optional(),
-  hashedIds: z.array(z.string()).optional(),
-  started: Started$outboundSchema.optional(),
-}).transform((v) => {
-  return remap$(v, {
-    perPage: "per_page",
-    sortBy: "sort_by",
-    sortDirection: "sort_direction",
-    hashedIds: "hashed_ids[]",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    page: z.number().int().optional(),
+    perPage: z.number().int().optional(),
+    cursor: z.lazy(() => GetWebinarsCursor$outboundSchema).optional(),
+    sortBy: GetWebinarsSortBy$outboundSchema.optional(),
+    sortDirection: GetWebinarsSortDirection$outboundSchema.optional(),
+    hashedIds: z.array(z.string()).optional(),
+    started: Started$outboundSchema.optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      perPage: "per_page",
+      sortBy: "sort_by",
+      sortDirection: "sort_direction",
+      hashedIds: "hashed_ids[]",
+    });
+  })
+);
 
 export function getWebinarsRequestToJSON(
   getWebinarsRequest: GetWebinarsRequest,
@@ -383,27 +387,29 @@ export function getWebinarsRequestToJSON(
 /** @internal */
 export const GetWebinarsCode$inboundSchema: z.ZodNativeEnum<
   typeof GetWebinarsCode
-> = z.nativeEnum(GetWebinarsCode);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetWebinarsCode));
 
 /** @internal */
 export const GetWebinarsLifecycleStatus$inboundSchema: z.ZodNativeEnum<
   typeof GetWebinarsLifecycleStatus
-> = z.nativeEnum(GetWebinarsLifecycleStatus);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetWebinarsLifecycleStatus));
 
 /** @internal */
 export const GetWebinarsFolder$inboundSchema: z.ZodType<
   GetWebinarsFolder,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.string(),
-  index_url: z.string(),
-  url: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "index_url": "indexUrl",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    id: z.string(),
+    index_url: z.string(),
+    url: z.string(),
+  }).transform((v) => {
+    return remap$(v, {
+      "index_url": "indexUrl",
+    });
+  })
+);
 
 export function getWebinarsFolderFromJSON(
   jsonString: string,
@@ -420,42 +426,49 @@ export const GetWebinarsResponse$inboundSchema: z.ZodType<
   GetWebinarsResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.string(),
-  hashed_id: z.string(),
-  title: z.string(),
-  description: z.nullable(z.string()).optional(),
-  scheduled_for: z.nullable(
-    z.string().datetime({ offset: true }).transform(v => new Date(v)),
-  ).optional(),
-  event_duration: z.nullable(z.number().int()).optional(),
-  time_zone: z.string(),
-  lifecycle_status: GetWebinarsLifecycleStatus$inboundSchema,
-  registration_status: z.string(),
-  created_at: z.string().datetime({ offset: true }).transform(v => new Date(v)),
-  updated_at: z.string().datetime({ offset: true }).transform(v => new Date(v)),
-  audience_link: z.string(),
-  host_link: z.string(),
-  panelist_link: z.string(),
-  thumbnail_url: z.nullable(z.string()).optional(),
-  folder: z.nullable(z.lazy(() => GetWebinarsFolder$inboundSchema)).optional(),
-  cursor: z.nullable(z.string()).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "hashed_id": "hashedId",
-    "scheduled_for": "scheduledFor",
-    "event_duration": "eventDuration",
-    "time_zone": "timeZone",
-    "lifecycle_status": "lifecycleStatus",
-    "registration_status": "registrationStatus",
-    "created_at": "createdAt",
-    "updated_at": "updatedAt",
-    "audience_link": "audienceLink",
-    "host_link": "hostLink",
-    "panelist_link": "panelistLink",
-    "thumbnail_url": "thumbnailUrl",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    id: z.string(),
+    hashed_id: z.string(),
+    title: z.string(),
+    description: z.nullable(z.string()).optional(),
+    scheduled_for: z.nullable(
+      z.string().datetime({ offset: true }).transform(v => new Date(v)),
+    ).optional(),
+    event_duration: z.nullable(z.number().int()).optional(),
+    time_zone: z.string(),
+    lifecycle_status: GetWebinarsLifecycleStatus$inboundSchema,
+    registration_status: z.string(),
+    created_at: z.string().datetime({ offset: true }).transform(v =>
+      new Date(v)
+    ),
+    updated_at: z.string().datetime({ offset: true }).transform(v =>
+      new Date(v)
+    ),
+    audience_link: z.string(),
+    host_link: z.string(),
+    panelist_link: z.string(),
+    thumbnail_url: z.nullable(z.string()).optional(),
+    folder: z.nullable(z.lazy(() => GetWebinarsFolder$inboundSchema))
+      .optional(),
+    cursor: z.nullable(z.string()).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "hashed_id": "hashedId",
+      "scheduled_for": "scheduledFor",
+      "event_duration": "eventDuration",
+      "time_zone": "timeZone",
+      "lifecycle_status": "lifecycleStatus",
+      "registration_status": "registrationStatus",
+      "created_at": "createdAt",
+      "updated_at": "updatedAt",
+      "audience_link": "audienceLink",
+      "host_link": "hostLink",
+      "panelist_link": "panelistLink",
+      "thumbnail_url": "thumbnailUrl",
+    });
+  })
+);
 
 export function getWebinarsResponseFromJSON(
   jsonString: string,

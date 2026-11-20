@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -48,7 +48,9 @@ export type GetMediasMediaIdCustomizationsPlaybackVideoFoamUnion =
   | string
   | GetMediasMediaIdCustomizationsPlaybackVideoFoam;
 
-export type GetMediasMediaIdCustomizationsPlaybackClickForSound = {};
+export type GetMediasMediaIdCustomizationsPlaybackClickForSound = {
+  showText?: string | undefined;
+};
 
 export type GetMediasMediaIdCustomizationsPlaybackClickForSoundUnion =
   | string
@@ -125,9 +127,11 @@ export const GetMediasMediaIdCustomizationsPlaybackRequest$outboundSchema:
     GetMediasMediaIdCustomizationsPlaybackRequest$Outbound,
     z.ZodTypeDef,
     GetMediasMediaIdCustomizationsPlaybackRequest
-  > = z.object({
-    mediaId: z.string(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      mediaId: z.string(),
+    })
+  );
 
 export function getMediasMediaIdCustomizationsPlaybackRequestToJSON(
   getMediasMediaIdCustomizationsPlaybackRequest:
@@ -142,8 +146,10 @@ export function getMediasMediaIdCustomizationsPlaybackRequestToJSON(
 
 /** @internal */
 export const GetMediasMediaIdCustomizationsPlaybackCode$inboundSchema:
-  z.ZodNativeEnum<typeof GetMediasMediaIdCustomizationsPlaybackCode> = z
-    .nativeEnum(GetMediasMediaIdCustomizationsPlaybackCode);
+  z.ZodNativeEnum<typeof GetMediasMediaIdCustomizationsPlaybackCode> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(GetMediasMediaIdCustomizationsPlaybackCode)
+    );
 
 /** @internal */
 export const GetMediasMediaIdCustomizationsPlaybackVideoFoam$inboundSchema:
@@ -151,12 +157,14 @@ export const GetMediasMediaIdCustomizationsPlaybackVideoFoam$inboundSchema:
     GetMediasMediaIdCustomizationsPlaybackVideoFoam,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    minWidth: z.string().optional(),
-    maxWidth: z.string().optional(),
-    minHeight: z.string().optional(),
-    maxHeight: z.string().optional(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      minWidth: z.string().optional(),
+      maxWidth: z.string().optional(),
+      minHeight: z.string().optional(),
+      maxHeight: z.string().optional(),
+    })
+  );
 
 export function getMediasMediaIdCustomizationsPlaybackVideoFoamFromJSON(
   jsonString: string,
@@ -180,10 +188,14 @@ export const GetMediasMediaIdCustomizationsPlaybackVideoFoamUnion$inboundSchema:
     GetMediasMediaIdCustomizationsPlaybackVideoFoamUnion,
     z.ZodTypeDef,
     unknown
-  > = z.union([
-    z.string(),
-    z.lazy(() => GetMediasMediaIdCustomizationsPlaybackVideoFoam$inboundSchema),
-  ]);
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.union([
+      z.string(),
+      z.lazy(() =>
+        GetMediasMediaIdCustomizationsPlaybackVideoFoam$inboundSchema
+      ),
+    ])
+  );
 
 export function getMediasMediaIdCustomizationsPlaybackVideoFoamUnionFromJSON(
   jsonString: string,
@@ -207,7 +219,11 @@ export const GetMediasMediaIdCustomizationsPlaybackClickForSound$inboundSchema:
     GetMediasMediaIdCustomizationsPlaybackClickForSound,
     z.ZodTypeDef,
     unknown
-  > = z.object({});
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      showText: z.string().optional(),
+    })
+  );
 
 export function getMediasMediaIdCustomizationsPlaybackClickForSoundFromJSON(
   jsonString: string,
@@ -231,12 +247,14 @@ export const GetMediasMediaIdCustomizationsPlaybackClickForSoundUnion$inboundSch
     GetMediasMediaIdCustomizationsPlaybackClickForSoundUnion,
     z.ZodTypeDef,
     unknown
-  > = z.union([
-    z.string(),
-    z.lazy(() =>
-      GetMediasMediaIdCustomizationsPlaybackClickForSound$inboundSchema
-    ),
-  ]);
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.union([
+      z.string(),
+      z.lazy(() =>
+        GetMediasMediaIdCustomizationsPlaybackClickForSound$inboundSchema
+      ),
+    ])
+  );
 
 export function getMediasMediaIdCustomizationsPlaybackClickForSoundUnionFromJSON(
   jsonString: string,
@@ -259,57 +277,59 @@ export const GetMediasMediaIdCustomizationsPlaybackResponse$inboundSchema:
     GetMediasMediaIdCustomizationsPlaybackResponse,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    autoPlay: z.string().optional(),
-    silentAutoPlay: z.string().optional(),
-    muted: z.string().optional(),
-    volume: z.string().optional(),
-    controlsVisibleOnLoad: z.string().optional(),
-    playButton: z.string().optional(),
-    smallPlayButton: z.string().optional(),
-    playbar: z.string().optional(),
-    volumeControl: z.string().optional(),
-    fullscreenButton: z.string().optional(),
-    settingsControl: z.string().optional(),
-    playbackRateControl: z.string().optional(),
-    qualityControl: z.string().optional(),
-    qualityMin: z.string().optional(),
-    qualityMax: z.string().optional(),
-    videoQuality: z.string().optional(),
-    hls: z.string().optional(),
-    endVideoBehavior: z.string().optional(),
-    playsinline: z.string().optional(),
-    playlistLoop: z.string().optional(),
-    playlistLinks: z.string().optional(),
-    playPauseNotifier: z.string().optional(),
-    playSuspendedOffScreen: z.string().optional(),
-    resumable: z.string().optional(),
-    preload: z.string().optional(),
-    time: z.string().optional(),
-    keyMoments: z.string().optional(),
-    fullscreenOnRotateToLandscape: z.string().optional(),
-    fakeFullScreen: z.string().optional(),
-    videoFoam: z.union([
-      z.string(),
-      z.lazy(() =>
-        GetMediasMediaIdCustomizationsPlaybackVideoFoam$inboundSchema
-      ),
-    ]).optional(),
-    wmode: z.string().optional(),
-    bpbTime: z.string().optional(),
-    spherical: z.string().optional(),
-    clickForSound: z.union([
-      z.string(),
-      z.lazy(() =>
-        GetMediasMediaIdCustomizationsPlaybackClickForSound$inboundSchema
-      ),
-    ]).optional(),
-    seo: z.string().optional(),
-    doNotTrack: z.string().optional(),
-    copyLinkAndThumbnailEnabled: z.string().optional(),
-    email: z.string().optional(),
-    googleAnalytics: z.string().optional(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      autoPlay: z.string().optional(),
+      silentAutoPlay: z.string().optional(),
+      muted: z.string().optional(),
+      volume: z.string().optional(),
+      controlsVisibleOnLoad: z.string().optional(),
+      playButton: z.string().optional(),
+      smallPlayButton: z.string().optional(),
+      playbar: z.string().optional(),
+      volumeControl: z.string().optional(),
+      fullscreenButton: z.string().optional(),
+      settingsControl: z.string().optional(),
+      playbackRateControl: z.string().optional(),
+      qualityControl: z.string().optional(),
+      qualityMin: z.string().optional(),
+      qualityMax: z.string().optional(),
+      videoQuality: z.string().optional(),
+      hls: z.string().optional(),
+      endVideoBehavior: z.string().optional(),
+      playsinline: z.string().optional(),
+      playlistLoop: z.string().optional(),
+      playlistLinks: z.string().optional(),
+      playPauseNotifier: z.string().optional(),
+      playSuspendedOffScreen: z.string().optional(),
+      resumable: z.string().optional(),
+      preload: z.string().optional(),
+      time: z.string().optional(),
+      keyMoments: z.string().optional(),
+      fullscreenOnRotateToLandscape: z.string().optional(),
+      fakeFullScreen: z.string().optional(),
+      videoFoam: z.union([
+        z.string(),
+        z.lazy(() =>
+          GetMediasMediaIdCustomizationsPlaybackVideoFoam$inboundSchema
+        ),
+      ]).optional(),
+      wmode: z.string().optional(),
+      bpbTime: z.string().optional(),
+      spherical: z.string().optional(),
+      clickForSound: z.union([
+        z.string(),
+        z.lazy(() =>
+          GetMediasMediaIdCustomizationsPlaybackClickForSound$inboundSchema
+        ),
+      ]).optional(),
+      seo: z.string().optional(),
+      doNotTrack: z.string().optional(),
+      copyLinkAndThumbnailEnabled: z.string().optional(),
+      email: z.string().optional(),
+      googleAnalytics: z.string().optional(),
+    })
+  );
 
 export function getMediasMediaIdCustomizationsPlaybackResponseFromJSON(
   jsonString: string,

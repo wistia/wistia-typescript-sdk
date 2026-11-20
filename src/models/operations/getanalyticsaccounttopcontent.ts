@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { RFCDate } from "../../types/rfcdate.js";
@@ -260,20 +260,24 @@ export type GetAnalyticsAccountTopContentResponse =
 
 /** @internal */
 export const GetAnalyticsAccountTopContentGroupBy$outboundSchema:
-  z.ZodNativeEnum<typeof GetAnalyticsAccountTopContentGroupBy> = z.nativeEnum(
-    GetAnalyticsAccountTopContentGroupBy,
-  );
+  z.ZodNativeEnum<typeof GetAnalyticsAccountTopContentGroupBy> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(GetAnalyticsAccountTopContentGroupBy)
+    );
 
 /** @internal */
 export const GetAnalyticsAccountTopContentSortBy$outboundSchema:
-  z.ZodNativeEnum<typeof GetAnalyticsAccountTopContentSortBy> = z.nativeEnum(
-    GetAnalyticsAccountTopContentSortBy,
-  );
+  z.ZodNativeEnum<typeof GetAnalyticsAccountTopContentSortBy> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(GetAnalyticsAccountTopContentSortBy)
+    );
 
 /** @internal */
 export const GetAnalyticsAccountTopContentSortDirection$outboundSchema:
-  z.ZodNativeEnum<typeof GetAnalyticsAccountTopContentSortDirection> = z
-    .nativeEnum(GetAnalyticsAccountTopContentSortDirection);
+  z.ZodNativeEnum<typeof GetAnalyticsAccountTopContentSortDirection> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(GetAnalyticsAccountTopContentSortDirection)
+    );
 
 /** @internal */
 export type GetAnalyticsAccountTopContentRequest$Outbound = {
@@ -291,26 +295,30 @@ export const GetAnalyticsAccountTopContentRequest$outboundSchema: z.ZodType<
   GetAnalyticsAccountTopContentRequest$Outbound,
   z.ZodTypeDef,
   GetAnalyticsAccountTopContentRequest
-> = z.object({
-  startDate: z.instanceof(RFCDate).transform(v => v.toString()),
-  endDate: z.instanceof(RFCDate).transform(v => v.toString()),
-  groupBy: GetAnalyticsAccountTopContentGroupBy$outboundSchema.default("media"),
-  hashedIds: z.array(z.string()).optional(),
-  sortBy: GetAnalyticsAccountTopContentSortBy$outboundSchema.default("plays"),
-  sortDirection: GetAnalyticsAccountTopContentSortDirection$outboundSchema
-    .default("desc"),
-  perPage: z.number().int().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    startDate: "start_date",
-    endDate: "end_date",
-    groupBy: "group_by",
-    hashedIds: "hashed_ids[]",
-    sortBy: "sort_by",
-    sortDirection: "sort_direction",
-    perPage: "per_page",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    startDate: z.instanceof(RFCDate).transform(v => v.toString()),
+    endDate: z.instanceof(RFCDate).transform(v => v.toString()),
+    groupBy: GetAnalyticsAccountTopContentGroupBy$outboundSchema.default(
+      "media",
+    ),
+    hashedIds: z.array(z.string()).optional(),
+    sortBy: GetAnalyticsAccountTopContentSortBy$outboundSchema.default("plays"),
+    sortDirection: GetAnalyticsAccountTopContentSortDirection$outboundSchema
+      .default("desc"),
+    perPage: z.number().int().optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      startDate: "start_date",
+      endDate: "end_date",
+      groupBy: "group_by",
+      hashedIds: "hashed_ids[]",
+      sortBy: "sort_by",
+      sortDirection: "sort_direction",
+      perPage: "per_page",
+    });
+  })
+);
 
 export function getAnalyticsAccountTopContentRequestToJSON(
   getAnalyticsAccountTopContentRequest: GetAnalyticsAccountTopContentRequest,
@@ -325,37 +333,41 @@ export function getAnalyticsAccountTopContentRequestToJSON(
 /** @internal */
 export const GetAnalyticsAccountTopContentCode$inboundSchema: z.ZodNativeEnum<
   typeof GetAnalyticsAccountTopContentCode
-> = z.nativeEnum(GetAnalyticsAccountTopContentCode);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(GetAnalyticsAccountTopContentCode)
+);
 
 /** @internal */
 export const ResponseBody3$inboundSchema: z.ZodType<
   ResponseBody3,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  plays: z.nullable(z.number().int()).optional(),
-  play_rate: z.nullable(z.number()).optional(),
-  engagement_rate: z.nullable(z.number()).optional(),
-  unique_visitors: z.nullable(z.number().int()).optional(),
-  played_time: z.nullable(z.number()).optional(),
-  project_name: z.nullable(z.string()).optional(),
-  project_hashed_id: z.nullable(z.string()),
-  project_created_at: z.nullable(z.string()).optional(),
-  project_url: z.nullable(z.string()).optional(),
-  project_video_count: z.nullable(z.number().int()).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "play_rate": "playRate",
-    "engagement_rate": "engagementRate",
-    "unique_visitors": "uniqueVisitors",
-    "played_time": "playedTime",
-    "project_name": "projectName",
-    "project_hashed_id": "projectHashedId",
-    "project_created_at": "projectCreatedAt",
-    "project_url": "projectUrl",
-    "project_video_count": "projectVideoCount",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    plays: z.nullable(z.number().int()).optional(),
+    play_rate: z.nullable(z.number()).optional(),
+    engagement_rate: z.nullable(z.number()).optional(),
+    unique_visitors: z.nullable(z.number().int()).optional(),
+    played_time: z.nullable(z.number()).optional(),
+    project_name: z.nullable(z.string()).optional(),
+    project_hashed_id: z.nullable(z.string()),
+    project_created_at: z.nullable(z.string()).optional(),
+    project_url: z.nullable(z.string()).optional(),
+    project_video_count: z.nullable(z.number().int()).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "play_rate": "playRate",
+      "engagement_rate": "engagementRate",
+      "unique_visitors": "uniqueVisitors",
+      "played_time": "playedTime",
+      "project_name": "projectName",
+      "project_hashed_id": "projectHashedId",
+      "project_created_at": "projectCreatedAt",
+      "project_url": "projectUrl",
+      "project_video_count": "projectVideoCount",
+    });
+  })
+);
 
 export function responseBody3FromJSON(
   jsonString: string,
@@ -372,30 +384,32 @@ export const ResponseBody2$inboundSchema: z.ZodType<
   ResponseBody2,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  plays: z.nullable(z.number().int()).optional(),
-  play_rate: z.nullable(z.number()).optional(),
-  engagement_rate: z.nullable(z.number()).optional(),
-  unique_visitors: z.nullable(z.number().int()).optional(),
-  played_time: z.nullable(z.number()).optional(),
-  channel_title: z.nullable(z.string()).optional(),
-  channel_hashed_id: z.nullable(z.string()),
-  channel_episode_count: z.nullable(z.number().int()).optional(),
-  channel_created_at: z.nullable(z.string()).optional(),
-  channel_url: z.nullable(z.string()).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "play_rate": "playRate",
-    "engagement_rate": "engagementRate",
-    "unique_visitors": "uniqueVisitors",
-    "played_time": "playedTime",
-    "channel_title": "channelTitle",
-    "channel_hashed_id": "channelHashedId",
-    "channel_episode_count": "channelEpisodeCount",
-    "channel_created_at": "channelCreatedAt",
-    "channel_url": "channelUrl",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    plays: z.nullable(z.number().int()).optional(),
+    play_rate: z.nullable(z.number()).optional(),
+    engagement_rate: z.nullable(z.number()).optional(),
+    unique_visitors: z.nullable(z.number().int()).optional(),
+    played_time: z.nullable(z.number()).optional(),
+    channel_title: z.nullable(z.string()).optional(),
+    channel_hashed_id: z.nullable(z.string()),
+    channel_episode_count: z.nullable(z.number().int()).optional(),
+    channel_created_at: z.nullable(z.string()).optional(),
+    channel_url: z.nullable(z.string()).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "play_rate": "playRate",
+      "engagement_rate": "engagementRate",
+      "unique_visitors": "uniqueVisitors",
+      "played_time": "playedTime",
+      "channel_title": "channelTitle",
+      "channel_hashed_id": "channelHashedId",
+      "channel_episode_count": "channelEpisodeCount",
+      "channel_created_at": "channelCreatedAt",
+      "channel_url": "channelUrl",
+    });
+  })
+);
 
 export function responseBody2FromJSON(
   jsonString: string,
@@ -412,40 +426,42 @@ export const ResponseBody1$inboundSchema: z.ZodType<
   ResponseBody1,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  plays: z.nullable(z.number().int()).optional(),
-  play_rate: z.nullable(z.number()).optional(),
-  engagement_rate: z.nullable(z.number()).optional(),
-  unique_visitors: z.nullable(z.number().int()).optional(),
-  played_time: z.nullable(z.number()).optional(),
-  media_name: z.nullable(z.string()).optional(),
-  media_hashed_id: z.nullable(z.string()),
-  media_type: z.nullable(z.string()).optional(),
-  media_thumbnail_url: z.nullable(z.string()).optional(),
-  media_duration: z.nullable(z.number()).optional(),
-  media_uploaded_at: z.nullable(z.string()).optional(),
-  media_deleted_at: z.nullable(z.string()).optional(),
-  unique_loads: z.nullable(z.number().int()).optional(),
-  unique_plays: z.nullable(z.number().int()).optional(),
-  form_conversions: z.nullable(z.number().int()).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "play_rate": "playRate",
-    "engagement_rate": "engagementRate",
-    "unique_visitors": "uniqueVisitors",
-    "played_time": "playedTime",
-    "media_name": "mediaName",
-    "media_hashed_id": "mediaHashedId",
-    "media_type": "mediaType",
-    "media_thumbnail_url": "mediaThumbnailUrl",
-    "media_duration": "mediaDuration",
-    "media_uploaded_at": "mediaUploadedAt",
-    "media_deleted_at": "mediaDeletedAt",
-    "unique_loads": "uniqueLoads",
-    "unique_plays": "uniquePlays",
-    "form_conversions": "formConversions",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    plays: z.nullable(z.number().int()).optional(),
+    play_rate: z.nullable(z.number()).optional(),
+    engagement_rate: z.nullable(z.number()).optional(),
+    unique_visitors: z.nullable(z.number().int()).optional(),
+    played_time: z.nullable(z.number()).optional(),
+    media_name: z.nullable(z.string()).optional(),
+    media_hashed_id: z.nullable(z.string()),
+    media_type: z.nullable(z.string()).optional(),
+    media_thumbnail_url: z.nullable(z.string()).optional(),
+    media_duration: z.nullable(z.number()).optional(),
+    media_uploaded_at: z.nullable(z.string()).optional(),
+    media_deleted_at: z.nullable(z.string()).optional(),
+    unique_loads: z.nullable(z.number().int()).optional(),
+    unique_plays: z.nullable(z.number().int()).optional(),
+    form_conversions: z.nullable(z.number().int()).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "play_rate": "playRate",
+      "engagement_rate": "engagementRate",
+      "unique_visitors": "uniqueVisitors",
+      "played_time": "playedTime",
+      "media_name": "mediaName",
+      "media_hashed_id": "mediaHashedId",
+      "media_type": "mediaType",
+      "media_thumbnail_url": "mediaThumbnailUrl",
+      "media_duration": "mediaDuration",
+      "media_uploaded_at": "mediaUploadedAt",
+      "media_deleted_at": "mediaDeletedAt",
+      "unique_loads": "uniqueLoads",
+      "unique_plays": "uniquePlays",
+      "form_conversions": "formConversions",
+    });
+  })
+);
 
 export function responseBody1FromJSON(
   jsonString: string,
@@ -462,11 +478,13 @@ export const GetAnalyticsAccountTopContentResponse$inboundSchema: z.ZodType<
   GetAnalyticsAccountTopContentResponse,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.lazy(() => ResponseBody1$inboundSchema),
-  z.lazy(() => ResponseBody2$inboundSchema),
-  z.lazy(() => ResponseBody3$inboundSchema),
-]);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.union([
+    z.lazy(() => ResponseBody1$inboundSchema),
+    z.lazy(() => ResponseBody2$inboundSchema),
+    z.lazy(() => ResponseBody3$inboundSchema),
+  ])
+);
 
 export function getAnalyticsAccountTopContentResponseFromJSON(
   jsonString: string,

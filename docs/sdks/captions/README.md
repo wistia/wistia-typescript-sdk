@@ -30,6 +30,12 @@ Tokens with the "Act with a team member's permissions" permission
 made with such a token are authorized using the permissions of the
 contact assigned to the token.
 
+An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+created with the `all:delegate_to_contact_permissions` scope and an
+authorization granting the `edit-transcripts` permission on this media can
+also be used. A token granted any other permission on the media lists no
+captions.
+
 
 ### Example Usage
 
@@ -115,6 +121,11 @@ Tokens with the "Act with a team member's permissions" permission
 (`all:delegate_to_contact_permissions` scope) can also be used. Requests
 made with such a token are authorized using the permissions of the
 contact assigned to the token.
+
+An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+created with the `all:delegate_to_contact_permissions` scope and an
+authorization granting the `create-transcripts` permission on this media can
+also be used.
 
 
 ### Example Usage
@@ -208,6 +219,11 @@ Tokens with the "Act with a team member's permissions" permission
 (`all:delegate_to_contact_permissions` scope) can also be used. Requests
 made with such a token are authorized using the permissions of the
 contact assigned to the token.
+
+An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+created with the `all:delegate_to_contact_permissions` scope and an
+authorization granting the `create-transcripts` permission on this media can
+also be used.
 
 
 ### Example Usage
@@ -308,6 +324,11 @@ Tokens with the "Act with a team member's permissions" permission
 (`all:delegate_to_contact_permissions` scope) can also be used. Requests
 made with such a token are authorized using the permissions of the
 contact assigned to the token.
+
+An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+created with the `all:delegate_to_contact_permissions` scope can also be
+used. It lists only the captions of media it grants the `edit-transcripts`
+permission on; no other permission reaches a media's captions.
 
 
 ### Example Usage
@@ -491,6 +512,11 @@ Tokens with the "Act with a team member's permissions" permission
 made with such a token are authorized using the permissions of the
 contact assigned to the token.
 
+An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+created with the `all:delegate_to_contact_permissions` scope and an
+authorization granting the `create-transcripts` permission on this media can
+also be used.
+
 
 ### Example Usage
 
@@ -562,6 +588,7 @@ run();
 | Error Type                                                             | Status Code                                                            | Content Type                                                           |
 | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- |
 | errors.PostMediasMediaHashedIdCaptionsPurchaseUnauthorizedError        | 401                                                                    | application/json                                                       |
+| errors.PostMediasMediaHashedIdCaptionsPurchaseForbiddenError           | 403                                                                    | application/json                                                       |
 | errors.PostMediasMediaHashedIdCaptionsPurchaseUnprocessableEntityError | 422                                                                    | application/json                                                       |
 | errors.PostMediasMediaHashedIdCaptionsPurchaseInternalServerError      | 500                                                                    | application/json                                                       |
 | errors.WistiaDefaultError                                              | 4XX, 5XX                                                               | \*/\*                                                                  |
@@ -581,6 +608,12 @@ Tokens with the "Act with a team member's permissions" permission
 (`all:delegate_to_contact_permissions` scope) can also be used. Requests
 made with such a token are authorized using the permissions of the
 contact assigned to the token.
+
+An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+created with the `all:delegate_to_contact_permissions` scope and an
+authorization granting the `edit-transcripts` permission on this media can
+also be used. For a token granted any other permission on the media the
+captions are not found.
 
 
 ### Example Usage
@@ -669,6 +702,11 @@ Tokens with the "Act with a team member's permissions" permission
 (`all:delegate_to_contact_permissions` scope) can also be used. Requests
 made with such a token are authorized using the permissions of the
 contact assigned to the token.
+
+An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+created with the `all:delegate_to_contact_permissions` scope and an
+authorization granting the `edit-transcripts` permission on this media can
+also be used.
 
 
 ### Example Usage
@@ -763,6 +801,11 @@ Tokens with the "Act with a team member's permissions" permission
 (`all:delegate_to_contact_permissions` scope) can also be used. Requests
 made with such a token are authorized using the permissions of the
 contact assigned to the token.
+
+An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+created with the `all:delegate_to_contact_permissions` scope and an
+authorization granting the `edit-transcripts` permission on this media can
+also be used.
 
 
 ### Example Usage
@@ -860,6 +903,11 @@ Tokens with the "Act with a team member's permissions" permission
 made with such a token are authorized using the permissions of the
 contact assigned to the token.
 
+An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+created with the `all:delegate_to_contact_permissions` scope and an
+authorization granting the `edit-transcripts` permission on this media can
+also be used.
+
 
 ### Example Usage
 
@@ -949,6 +997,12 @@ Tokens with the "Act with a team member's permissions" permission
 (`all:delegate_to_contact_permissions` scope) can also be used. Requests
 made with such a token are authorized using the permissions of the
 contact assigned to the token.
+
+An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+created with the `all:delegate_to_contact_permissions` scope and an
+authorization granting the `edit-transcripts` permission on this media can
+also be used. When the media is a composite whose captions belong to
+another media, the token also needs `edit-transcripts` on that media.
 
 
 ### Example Usage

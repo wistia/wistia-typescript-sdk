@@ -10,11 +10,11 @@ let value: PutMediasMediaIdCustomizationsThumbnailVideoThumbnailResponse = {};
 
 ## Fields
 
-| Field               | Type                | Required            | Description         |
-| ------------------- | ------------------- | ------------------- | ------------------- |
-| `clickToPlayButton` | *string*            | :heavy_minus_sign:  | N/A                 |
-| `clickForSound`     | *string*            | :heavy_minus_sign:  | N/A                 |
-| `hashedId`          | *string*            | :heavy_minus_sign:  | N/A                 |
-| `trimStart`         | *string*            | :heavy_minus_sign:  | N/A                 |
-| `trimEnd`           | *string*            | :heavy_minus_sign:  | N/A                 |
-| `priorityMode`      | *string*            | :heavy_minus_sign:  | N/A                 |
+| Field                                                                  | Type                                                                   | Required                                                               | Description                                                            |
+| ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| `clickToPlayButton`                                                    | *string*                                                               | :heavy_minus_sign:                                                     | N/A                                                                    |
+| `clickForSound`                                                        | *operations.PutMediasMediaIdCustomizationsThumbnailClickForSoundUnion* | :heavy_minus_sign:                                                     | N/A                                                                    |
+| `hashedId`                                                             | *string*                                                               | :heavy_minus_sign:                                                     | N/A                                                                    |
+| `trimStart`                                                            | *string*                                                               | :heavy_minus_sign:                                                     | N/A                                                                    |
+| `trimEnd`                                                              | *string*                                                               | :heavy_minus_sign:                                                     | N/A                                                                    |
+| `priorityMode`                                                         | *string*                                                               | :heavy_minus_sign:                                                     | N/A                                                                    |

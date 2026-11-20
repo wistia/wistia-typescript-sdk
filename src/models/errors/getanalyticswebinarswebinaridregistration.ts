@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
 import * as operations from "../operations/index.js";
 import { WistiaError } from "./wistiaerror.js";
 
@@ -203,18 +204,20 @@ export const GetAnalyticsWebinarsWebinarIdRegistrationServiceUnavailableError$in
     GetAnalyticsWebinarsWebinarIdRegistrationServiceUnavailableError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new GetAnalyticsWebinarsWebinarIdRegistrationServiceUnavailableError(
-        v,
-        { request: v.request$, response: v.response$, body: v.body$ },
-      );
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new GetAnalyticsWebinarsWebinarIdRegistrationServiceUnavailableError(
+          v,
+          { request: v.request$, response: v.response$, body: v.body$ },
+        );
+      })
+  );
 
 /** @internal */
 export const GetAnalyticsWebinarsWebinarIdRegistrationInternalServerError$inboundSchema:
@@ -222,18 +225,20 @@ export const GetAnalyticsWebinarsWebinarIdRegistrationInternalServerError$inboun
     GetAnalyticsWebinarsWebinarIdRegistrationInternalServerError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new GetAnalyticsWebinarsWebinarIdRegistrationInternalServerError(
-        v,
-        { request: v.request$, response: v.response$, body: v.body$ },
-      );
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new GetAnalyticsWebinarsWebinarIdRegistrationInternalServerError(
+          v,
+          { request: v.request$, response: v.response$, body: v.body$ },
+        );
+      })
+  );
 
 /** @internal */
 export const GetAnalyticsWebinarsWebinarIdRegistrationForbiddenError$inboundSchema:
@@ -241,19 +246,21 @@ export const GetAnalyticsWebinarsWebinarIdRegistrationForbiddenError$inboundSche
     GetAnalyticsWebinarsWebinarIdRegistrationForbiddenError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new GetAnalyticsWebinarsWebinarIdRegistrationForbiddenError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new GetAnalyticsWebinarsWebinarIdRegistrationForbiddenError(v, {
+          request: v.request$,
+          response: v.response$,
+          body: v.body$,
+        });
+      })
+  );
 
 /** @internal */
 export const GetAnalyticsWebinarsWebinarIdRegistrationUnauthorizedError$inboundSchema:
@@ -261,21 +268,22 @@ export const GetAnalyticsWebinarsWebinarIdRegistrationUnauthorizedError$inboundS
     GetAnalyticsWebinarsWebinarIdRegistrationUnauthorizedError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    code: operations.GetAnalyticsWebinarsWebinarIdRegistrationCode$inboundSchema
-      .optional(),
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new GetAnalyticsWebinarsWebinarIdRegistrationUnauthorizedError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      code: operations
+        .GetAnalyticsWebinarsWebinarIdRegistrationCode$inboundSchema.optional(),
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new GetAnalyticsWebinarsWebinarIdRegistrationUnauthorizedError(
+          v,
+          { request: v.request$, response: v.response$, body: v.body$ },
+        );
+      })
+  );
 
 /** @internal */
 export const GetAnalyticsWebinarsWebinarIdRegistrationBadRequestError$inboundSchema:
@@ -283,17 +291,19 @@ export const GetAnalyticsWebinarsWebinarIdRegistrationBadRequestError$inboundSch
     GetAnalyticsWebinarsWebinarIdRegistrationBadRequestError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    error: z.string().optional(),
-    errors: z.array(z.string()).optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new GetAnalyticsWebinarsWebinarIdRegistrationBadRequestError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      error: z.string().optional(),
+      errors: z.array(z.string()).optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new GetAnalyticsWebinarsWebinarIdRegistrationBadRequestError(v, {
+          request: v.request$,
+          response: v.response$,
+          body: v.body$,
+        });
+      })
+  );

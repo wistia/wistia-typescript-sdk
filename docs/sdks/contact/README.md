@@ -15,6 +15,10 @@ never shows again for that contact.
 
 Idempotent: a repeat call returns the timestamp of the first dismissal.
 
+[Expiring access tokens](https://docs.wistia.com/reference/post_expiring-token)
+created with authorizations cannot be used: this endpoint responds with a
+403, whatever the authorizations grant.
+
 ## Requires api token with one of the following permissions
 ```
 Read, update & delete anything
@@ -84,5 +88,6 @@ run();
 | Error Type                                                       | Status Code                                                      | Content Type                                                     |
 | ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- |
 | errors.PostContactDismissDesktopInstallPromptUnauthorizedError   | 401                                                              | application/json                                                 |
+| errors.PostContactDismissDesktopInstallPromptForbiddenError      | 403                                                              | application/json                                                 |
 | errors.PostContactDismissDesktopInstallPromptInternalServerError | 500                                                              | application/json                                                 |
 | errors.WistiaDefaultError                                        | 4XX, 5XX                                                         | \*/\*                                                            |

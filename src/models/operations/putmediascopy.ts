@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -107,15 +107,17 @@ export const PutMediasCopyRequest$outboundSchema: z.ZodType<
   PutMediasCopyRequest$Outbound,
   z.ZodTypeDef,
   PutMediasCopyRequest
-> = z.object({
-  hashedIds: z.array(z.string()),
-  folderId: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    hashedIds: "hashed_ids",
-    folderId: "folder_id",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    hashedIds: z.array(z.string()),
+    folderId: z.string(),
+  }).transform((v) => {
+    return remap$(v, {
+      hashedIds: "hashed_ids",
+      folderId: "folder_id",
+    });
+  })
+);
 
 export function putMediasCopyRequestToJSON(
   putMediasCopyRequest: PutMediasCopyRequest,
@@ -128,27 +130,29 @@ export function putMediasCopyRequestToJSON(
 /** @internal */
 export const PutMediasCopyCode$inboundSchema: z.ZodNativeEnum<
   typeof PutMediasCopyCode
-> = z.nativeEnum(PutMediasCopyCode);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(PutMediasCopyCode));
 
 /** @internal */
 export const PutMediasCopyStatus$inboundSchema: z.ZodNativeEnum<
   typeof PutMediasCopyStatus
-> = z.nativeEnum(PutMediasCopyStatus);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(PutMediasCopyStatus));
 
 /** @internal */
 export const PutMediasCopyBackgroundJobStatus$inboundSchema: z.ZodType<
   PutMediasCopyBackgroundJobStatus,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.number().int(),
-  hashed_id: z.string(),
-  status: PutMediasCopyStatus$inboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    "hashed_id": "hashedId",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    id: z.number().int(),
+    hashed_id: z.string(),
+    status: PutMediasCopyStatus$inboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      "hashed_id": "hashedId",
+    });
+  })
+);
 
 export function putMediasCopyBackgroundJobStatusFromJSON(
   jsonString: string,
@@ -165,11 +169,13 @@ export const Destination$inboundSchema: z.ZodType<
   Destination,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  type: z.string().optional(),
-  name: z.string().optional(),
-  hashedId: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    type: z.string().optional(),
+    name: z.string().optional(),
+    hashedId: z.string().optional(),
+  })
+);
 
 export function destinationFromJSON(
   jsonString: string,
@@ -186,17 +192,19 @@ export const PutMediasCopyResponse$inboundSchema: z.ZodType<
   PutMediasCopyResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  message: z.string(),
-  background_job_status: z.lazy(() =>
-    PutMediasCopyBackgroundJobStatus$inboundSchema
-  ),
-  destination: z.lazy(() => Destination$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "background_job_status": "backgroundJobStatus",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    message: z.string(),
+    background_job_status: z.lazy(() =>
+      PutMediasCopyBackgroundJobStatus$inboundSchema
+    ),
+    destination: z.lazy(() => Destination$inboundSchema).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "background_job_status": "backgroundJobStatus",
+    });
+  })
+);
 
 export function putMediasCopyResponseFromJSON(
   jsonString: string,
