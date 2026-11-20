@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -79,22 +79,24 @@ export type GetTokenDetailsResponse = {
 /** @internal */
 export const GetTokenDetailsCode$inboundSchema: z.ZodNativeEnum<
   typeof GetTokenDetailsCode
-> = z.nativeEnum(GetTokenDetailsCode);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetTokenDetailsCode));
 
 /** @internal */
 export const GetTokenDetailsType$inboundSchema: z.ZodNativeEnum<
   typeof GetTokenDetailsType
-> = z.nativeEnum(GetTokenDetailsType);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetTokenDetailsType));
 
 /** @internal */
 export const Application$inboundSchema: z.ZodType<
   Application,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  name: z.string(),
-  scopes: z.array(z.string()),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    name: z.string(),
+    scopes: z.array(z.string()),
+  })
+);
 
 export function applicationFromJSON(
   jsonString: string,
@@ -111,17 +113,19 @@ export const GetTokenDetailsResponse$inboundSchema: z.ZodType<
   GetTokenDetailsResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  type: GetTokenDetailsType$inboundSchema,
-  application: z.nullable(z.lazy(() => Application$inboundSchema)),
-  scopes: z.array(z.string()),
-  name: z.nullable(z.string()),
-  expires_at: z.nullable(z.string()).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "expires_at": "expiresAt",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    type: GetTokenDetailsType$inboundSchema,
+    application: z.nullable(z.lazy(() => Application$inboundSchema)),
+    scopes: z.array(z.string()),
+    name: z.nullable(z.string()),
+    expires_at: z.nullable(z.string()).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "expires_at": "expiresAt",
+    });
+  })
+);
 
 export function getTokenDetailsResponseFromJSON(
   jsonString: string,

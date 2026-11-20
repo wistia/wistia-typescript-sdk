@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
 import * as operations from "../operations/index.js";
 import { WistiaError } from "./wistiaerror.js";
 
@@ -155,43 +156,7 @@ export const PostMediasMediaHashedIdTrimsInternalServerError$inboundSchema:
     PostMediasMediaHashedIdTrimsInternalServerError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new PostMediasMediaHashedIdTrimsInternalServerError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
-
-/** @internal */
-export const PostMediasMediaHashedIdTrimsUnprocessableEntityError$inboundSchema:
-  z.ZodType<
-    PostMediasMediaHashedIdTrimsUnprocessableEntityError,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    errors: z.record(z.array(z.string())).optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new PostMediasMediaHashedIdTrimsUnprocessableEntityError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
-
-/** @internal */
-export const PostMediasMediaHashedIdTrimsForbiddenError$inboundSchema:
-  z.ZodType<PostMediasMediaHashedIdTrimsForbiddenError, z.ZodTypeDef, unknown> =
+  > = /* @__PURE__ */ lazySchema$(() =>
     z.object({
       error: z.string().optional(),
       request$: z.instanceof(Request),
@@ -199,12 +164,54 @@ export const PostMediasMediaHashedIdTrimsForbiddenError$inboundSchema:
       body$: z.string(),
     })
       .transform((v) => {
-        return new PostMediasMediaHashedIdTrimsForbiddenError(v, {
+        return new PostMediasMediaHashedIdTrimsInternalServerError(v, {
           request: v.request$,
           response: v.response$,
           body: v.body$,
         });
-      });
+      })
+  );
+
+/** @internal */
+export const PostMediasMediaHashedIdTrimsUnprocessableEntityError$inboundSchema:
+  z.ZodType<
+    PostMediasMediaHashedIdTrimsUnprocessableEntityError,
+    z.ZodTypeDef,
+    unknown
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      errors: z.record(z.array(z.string())).optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new PostMediasMediaHashedIdTrimsUnprocessableEntityError(v, {
+          request: v.request$,
+          response: v.response$,
+          body: v.body$,
+        });
+      })
+  );
+
+/** @internal */
+export const PostMediasMediaHashedIdTrimsForbiddenError$inboundSchema:
+  z.ZodType<PostMediasMediaHashedIdTrimsForbiddenError, z.ZodTypeDef, unknown> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.object({
+        error: z.string().optional(),
+        request$: z.instanceof(Request),
+        response$: z.instanceof(Response),
+        body$: z.string(),
+      })
+        .transform((v) => {
+          return new PostMediasMediaHashedIdTrimsForbiddenError(v, {
+            request: v.request$,
+            response: v.response$,
+            body: v.body$,
+          });
+        })
+    );
 
 /** @internal */
 export const PostMediasMediaHashedIdTrimsUnauthorizedError$inboundSchema:
@@ -212,17 +219,20 @@ export const PostMediasMediaHashedIdTrimsUnauthorizedError$inboundSchema:
     PostMediasMediaHashedIdTrimsUnauthorizedError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    code: operations.PostMediasMediaHashedIdTrimsCode$inboundSchema.optional(),
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new PostMediasMediaHashedIdTrimsUnauthorizedError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      code: operations.PostMediasMediaHashedIdTrimsCode$inboundSchema
+        .optional(),
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new PostMediasMediaHashedIdTrimsUnauthorizedError(v, {
+          request: v.request$,
+          response: v.response$,
+          body: v.body$,
+        });
+      })
+  );

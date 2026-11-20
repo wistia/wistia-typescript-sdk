@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -145,9 +145,11 @@ export const GetMediaExtendedAudioDescriptionsIdRequest$outboundSchema:
     GetMediaExtendedAudioDescriptionsIdRequest$Outbound,
     z.ZodTypeDef,
     GetMediaExtendedAudioDescriptionsIdRequest
-  > = z.object({
-    id: z.string(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      id: z.string(),
+    })
+  );
 
 export function getMediaExtendedAudioDescriptionsIdRequestToJSON(
   getMediaExtendedAudioDescriptionsIdRequest:
@@ -162,23 +164,27 @@ export function getMediaExtendedAudioDescriptionsIdRequestToJSON(
 
 /** @internal */
 export const GetMediaExtendedAudioDescriptionsIdCode$inboundSchema:
-  z.ZodNativeEnum<typeof GetMediaExtendedAudioDescriptionsIdCode> = z
-    .nativeEnum(GetMediaExtendedAudioDescriptionsIdCode);
+  z.ZodNativeEnum<typeof GetMediaExtendedAudioDescriptionsIdCode> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(GetMediaExtendedAudioDescriptionsIdCode)
+    );
 
 /** @internal */
 export const GetMediaExtendedAudioDescriptionsIdMedia$inboundSchema: z.ZodType<
   GetMediaExtendedAudioDescriptionsIdMedia,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.string(),
-  index_url: z.string(),
-  url: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "index_url": "indexUrl",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    id: z.string(),
+    index_url: z.string(),
+    url: z.string(),
+  }).transform((v) => {
+    return remap$(v, {
+      "index_url": "indexUrl",
+    });
+  })
+);
 
 export function getMediaExtendedAudioDescriptionsIdMediaFromJSON(
   jsonString: string,
@@ -202,15 +208,17 @@ export const GetMediaExtendedAudioDescriptionsIdProvidedMediaFile$inboundSchema:
     GetMediaExtendedAudioDescriptionsIdProvidedMediaFile,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    id: z.string(),
-    index_url: z.string(),
-    url: z.string(),
-  }).transform((v) => {
-    return remap$(v, {
-      "index_url": "indexUrl",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      id: z.string(),
+      index_url: z.string(),
+      url: z.string(),
+    }).transform((v) => {
+      return remap$(v, {
+        "index_url": "indexUrl",
+      });
+    })
+  );
 
 export function getMediaExtendedAudioDescriptionsIdProvidedMediaFileFromJSON(
   jsonString: string,
@@ -231,15 +239,17 @@ export function getMediaExtendedAudioDescriptionsIdProvidedMediaFileFromJSON(
 /** @internal */
 export const GetMediaExtendedAudioDescriptionsIdContact$inboundSchema:
   z.ZodType<GetMediaExtendedAudioDescriptionsIdContact, z.ZodTypeDef, unknown> =
-    z.object({
-      id: z.string(),
-      index_url: z.string(),
-      url: z.string(),
-    }).transform((v) => {
-      return remap$(v, {
-        "index_url": "indexUrl",
-      });
-    });
+    /* @__PURE__ */ lazySchema$(() =>
+      z.object({
+        id: z.string(),
+        index_url: z.string(),
+        url: z.string(),
+      }).transform((v) => {
+        return remap$(v, {
+          "index_url": "indexUrl",
+        });
+      })
+    );
 
 export function getMediaExtendedAudioDescriptionsIdContactFromJSON(
   jsonString: string,
@@ -258,17 +268,19 @@ export function getMediaExtendedAudioDescriptionsIdContactFromJSON(
 }
 
 /** @internal */
-export const Assets$inboundSchema: z.ZodType<Assets, z.ZodTypeDef, unknown> = z
-  .object({
-    mp3_url: z.nullable(z.string()),
-    webvtt: z.nullable(z.string()),
-    webvtt_extended: z.nullable(z.string()),
-  }).transform((v) => {
-    return remap$(v, {
-      "mp3_url": "mp3Url",
-      "webvtt_extended": "webvttExtended",
-    });
-  });
+export const Assets$inboundSchema: z.ZodType<Assets, z.ZodTypeDef, unknown> =
+  /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      mp3_url: z.nullable(z.string()),
+      webvtt: z.nullable(z.string()),
+      webvtt_extended: z.nullable(z.string()),
+    }).transform((v) => {
+      return remap$(v, {
+        "mp3_url": "mp3Url",
+        "webvtt_extended": "webvttExtended",
+      });
+    })
+  );
 
 export function assetsFromJSON(
   jsonString: string,
@@ -286,33 +298,36 @@ export const GetMediaExtendedAudioDescriptionsIdResponse$inboundSchema:
     GetMediaExtendedAudioDescriptionsIdResponse,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    id: z.string().optional(),
-    ietf_language_tag: z.string().optional(),
-    created_at: z.string().datetime({ offset: true }).transform(v =>
-      new Date(v)
-    ).optional(),
-    updated_at: z.string().datetime({ offset: true }).transform(v =>
-      new Date(v)
-    ).optional(),
-    media: z.lazy(() => GetMediaExtendedAudioDescriptionsIdMedia$inboundSchema)
-      .optional(),
-    provided_media_file: z.lazy(() =>
-      GetMediaExtendedAudioDescriptionsIdProvidedMediaFile$inboundSchema
-    ).optional(),
-    contact: z.lazy(() =>
-      GetMediaExtendedAudioDescriptionsIdContact$inboundSchema
-    ).optional(),
-    cursor: z.nullable(z.string()).optional(),
-    assets: z.lazy(() => Assets$inboundSchema).optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      "ietf_language_tag": "ietfLanguageTag",
-      "created_at": "createdAt",
-      "updated_at": "updatedAt",
-      "provided_media_file": "providedMediaFile",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      id: z.string().optional(),
+      ietf_language_tag: z.string().optional(),
+      created_at: z.string().datetime({ offset: true }).transform(v =>
+        new Date(v)
+      ).optional(),
+      updated_at: z.string().datetime({ offset: true }).transform(v =>
+        new Date(v)
+      ).optional(),
+      media: z.lazy(() =>
+        GetMediaExtendedAudioDescriptionsIdMedia$inboundSchema
+      ).optional(),
+      provided_media_file: z.lazy(() =>
+        GetMediaExtendedAudioDescriptionsIdProvidedMediaFile$inboundSchema
+      ).optional(),
+      contact: z.lazy(() =>
+        GetMediaExtendedAudioDescriptionsIdContact$inboundSchema
+      ).optional(),
+      cursor: z.nullable(z.string()).optional(),
+      assets: z.lazy(() => Assets$inboundSchema).optional(),
+    }).transform((v) => {
+      return remap$(v, {
+        "ietf_language_tag": "ietfLanguageTag",
+        "created_at": "createdAt",
+        "updated_at": "updatedAt",
+        "provided_media_file": "providedMediaFile",
+      });
+    })
+  );
 
 export function getMediaExtendedAudioDescriptionsIdResponseFromJSON(
   jsonString: string,

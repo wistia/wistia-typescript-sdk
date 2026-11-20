@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -63,29 +63,31 @@ export type GetAccountDetailsResponse = {
 /** @internal */
 export const GetAccountDetailsCode$inboundSchema: z.ZodNativeEnum<
   typeof GetAccountDetailsCode
-> = z.nativeEnum(GetAccountDetailsCode);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetAccountDetailsCode));
 
 /** @internal */
 export const GetAccountDetailsResponse$inboundSchema: z.ZodType<
   GetAccountDetailsResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.number().int(),
-  name: z.string(),
-  url: z.string(),
-  media_count: z.number().int(),
-  video_limit: z.nullable(z.number().int()),
-  folder_count: z.number().int(),
-  channel_count: z.number().int(),
-}).transform((v) => {
-  return remap$(v, {
-    "media_count": "mediaCount",
-    "video_limit": "videoLimit",
-    "folder_count": "folderCount",
-    "channel_count": "channelCount",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    id: z.number().int(),
+    name: z.string(),
+    url: z.string(),
+    media_count: z.number().int(),
+    video_limit: z.nullable(z.number().int()),
+    folder_count: z.number().int(),
+    channel_count: z.number().int(),
+  }).transform((v) => {
+    return remap$(v, {
+      "media_count": "mediaCount",
+      "video_limit": "videoLimit",
+      "folder_count": "folderCount",
+      "channel_count": "channelCount",
+    });
+  })
+);
 
 export function getAccountDetailsResponseFromJSON(
   jsonString: string,

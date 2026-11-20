@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -15,7 +15,7 @@ export type GetMediasMediaHashedIdCaptionsLanguageCodeRequest = {
    */
   mediaHashedId: string;
   /**
-   * The 3-character ISO 639-2 language code of the captions to be retrieved (e.g., `eng`, `fra`, `spa`). Some languages use extended IETF subtags (e.g., `zh-Hant`).
+   * The 3-character ISO 639-2 language code of the captions to be retrieved (e.g., `eng`, `fre`, `spa`). Some languages use extended IETF subtags (e.g., `zh-Hant`).
    */
   languageCode: string;
 };
@@ -84,10 +84,12 @@ export const GetMediasMediaHashedIdCaptionsLanguageCodeRequest$outboundSchema:
     GetMediasMediaHashedIdCaptionsLanguageCodeRequest$Outbound,
     z.ZodTypeDef,
     GetMediasMediaHashedIdCaptionsLanguageCodeRequest
-  > = z.object({
-    mediaHashedId: z.string(),
-    languageCode: z.string(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      mediaHashedId: z.string(),
+      languageCode: z.string(),
+    })
+  );
 
 export function getMediasMediaHashedIdCaptionsLanguageCodeRequestToJSON(
   getMediasMediaHashedIdCaptionsLanguageCodeRequest:
@@ -102,8 +104,10 @@ export function getMediasMediaHashedIdCaptionsLanguageCodeRequestToJSON(
 
 /** @internal */
 export const GetMediasMediaHashedIdCaptionsLanguageCodeCode$inboundSchema:
-  z.ZodNativeEnum<typeof GetMediasMediaHashedIdCaptionsLanguageCodeCode> = z
-    .nativeEnum(GetMediasMediaHashedIdCaptionsLanguageCodeCode);
+  z.ZodNativeEnum<typeof GetMediasMediaHashedIdCaptionsLanguageCodeCode> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(GetMediasMediaHashedIdCaptionsLanguageCodeCode)
+    );
 
 /** @internal */
 export const GetMediasMediaHashedIdCaptionsLanguageCodeResponseBody$inboundSchema:
@@ -111,21 +115,23 @@ export const GetMediasMediaHashedIdCaptionsLanguageCodeResponseBody$inboundSchem
     GetMediasMediaHashedIdCaptionsLanguageCodeResponseBody,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    english_name: z.string().optional(),
-    native_name: z.string().optional(),
-    language: z.string(),
-    text: z.nullable(z.string()).optional(),
-    is_draft: z.boolean(),
-    id: z.string(),
-    cursor: z.nullable(z.string()).optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      "english_name": "englishName",
-      "native_name": "nativeName",
-      "is_draft": "isDraft",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      english_name: z.string().optional(),
+      native_name: z.string().optional(),
+      language: z.string(),
+      text: z.nullable(z.string()).optional(),
+      is_draft: z.boolean(),
+      id: z.string(),
+      cursor: z.nullable(z.string()).optional(),
+    }).transform((v) => {
+      return remap$(v, {
+        "english_name": "englishName",
+        "native_name": "nativeName",
+        "is_draft": "isDraft",
+      });
+    })
+  );
 
 export function getMediasMediaHashedIdCaptionsLanguageCodeResponseBodyFromJSON(
   jsonString: string,
@@ -148,13 +154,15 @@ export const GetMediasMediaHashedIdCaptionsLanguageCodeResponse$inboundSchema:
     GetMediasMediaHashedIdCaptionsLanguageCodeResponse,
     z.ZodTypeDef,
     unknown
-  > = z.union([
-    z.lazy(() =>
-      GetMediasMediaHashedIdCaptionsLanguageCodeResponseBody$inboundSchema
-    ),
-    z.string(),
-    z.string(),
-  ]);
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.union([
+      z.lazy(() =>
+        GetMediasMediaHashedIdCaptionsLanguageCodeResponseBody$inboundSchema
+      ),
+      z.string(),
+      z.string(),
+    ])
+  );
 
 export function getMediasMediaHashedIdCaptionsLanguageCodeResponseFromJSON(
   jsonString: string,

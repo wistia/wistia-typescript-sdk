@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -94,14 +94,16 @@ export const PostMediasImportUrlRequest$outboundSchema: z.ZodType<
   PostMediasImportUrlRequest$Outbound,
   z.ZodTypeDef,
   PostMediasImportUrlRequest
-> = z.object({
-  url: z.string(),
-  folderId: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    folderId: "folder_id",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    url: z.string(),
+    folderId: z.string().optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      folderId: "folder_id",
+    });
+  })
+);
 
 export function postMediasImportUrlRequestToJSON(
   postMediasImportUrlRequest: PostMediasImportUrlRequest,
@@ -114,22 +116,24 @@ export function postMediasImportUrlRequestToJSON(
 /** @internal */
 export const PostMediasImportUrlCode$inboundSchema: z.ZodNativeEnum<
   typeof PostMediasImportUrlCode
-> = z.nativeEnum(PostMediasImportUrlCode);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(PostMediasImportUrlCode));
 
 /** @internal */
 export const PostMediasImportUrlStatus$inboundSchema: z.ZodNativeEnum<
   typeof PostMediasImportUrlStatus
-> = z.nativeEnum(PostMediasImportUrlStatus);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(PostMediasImportUrlStatus));
 
 /** @internal */
 export const PostMediasImportUrlBackgroundJobStatus$inboundSchema: z.ZodType<
   PostMediasImportUrlBackgroundJobStatus,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.number().int(),
-  status: PostMediasImportUrlStatus$inboundSchema,
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    id: z.number().int(),
+    status: PostMediasImportUrlStatus$inboundSchema,
+  })
+);
 
 export function postMediasImportUrlBackgroundJobStatusFromJSON(
   jsonString: string,
@@ -147,16 +151,18 @@ export const PostMediasImportUrlResponse$inboundSchema: z.ZodType<
   PostMediasImportUrlResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  message: z.string().optional(),
-  background_job_status: z.lazy(() =>
-    PostMediasImportUrlBackgroundJobStatus$inboundSchema
-  ).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "background_job_status": "backgroundJobStatus",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    message: z.string().optional(),
+    background_job_status: z.lazy(() =>
+      PostMediasImportUrlBackgroundJobStatus$inboundSchema
+    ).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "background_job_status": "backgroundJobStatus",
+    });
+  })
+);
 
 export function postMediasImportUrlResponseFromJSON(
   jsonString: string,

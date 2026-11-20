@@ -3,7 +3,11 @@
  */
 
 import * as z from "zod/v3";
-import { remap as remap$ } from "../../lib/primitives.js";
+import {
+  matchesPattern as matchesPattern$,
+  remap as remap$,
+} from "../../lib/primitives.js";
+import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 
 export type PutMediasMediaHashedIdCaptionsLanguageCodeRequestBody = {
@@ -52,13 +56,15 @@ export const PutMediasMediaHashedIdCaptionsLanguageCodeRequestBody$outboundSchem
     PutMediasMediaHashedIdCaptionsLanguageCodeRequestBody$Outbound,
     z.ZodTypeDef,
     PutMediasMediaHashedIdCaptionsLanguageCodeRequestBody
-  > = z.object({
-    captionFile: z.string(),
-  }).transform((v) => {
-    return remap$(v, {
-      captionFile: "caption_file",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      captionFile: z.string(),
+    }).transform((v) => {
+      return remap$(v, {
+        captionFile: "caption_file",
+      });
+    })
+  );
 
 export function putMediasMediaHashedIdCaptionsLanguageCodeRequestBodyToJSON(
   putMediasMediaHashedIdCaptionsLanguageCodeRequestBody:
@@ -84,17 +90,21 @@ export const PutMediasMediaHashedIdCaptionsLanguageCodeRequest$outboundSchema:
     PutMediasMediaHashedIdCaptionsLanguageCodeRequest$Outbound,
     z.ZodTypeDef,
     PutMediasMediaHashedIdCaptionsLanguageCodeRequest
-  > = z.object({
-    mediaHashedId: z.string(),
-    languageCode: z.string(),
-    requestBody: z.lazy(() =>
-      PutMediasMediaHashedIdCaptionsLanguageCodeRequestBody$outboundSchema
-    ),
-  }).transform((v) => {
-    return remap$(v, {
-      requestBody: "RequestBody",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      mediaHashedId: z.string(),
+      languageCode: z.string().refine(matchesPattern$("^[a-z]{3}$"), {
+        message: "Value must match pattern ^[a-z]{3}$",
+      }),
+      requestBody: z.lazy(() =>
+        PutMediasMediaHashedIdCaptionsLanguageCodeRequestBody$outboundSchema
+      ),
+    }).transform((v) => {
+      return remap$(v, {
+        requestBody: "RequestBody",
+      });
+    })
+  );
 
 export function putMediasMediaHashedIdCaptionsLanguageCodeRequestToJSON(
   putMediasMediaHashedIdCaptionsLanguageCodeRequest:
@@ -109,5 +119,7 @@ export function putMediasMediaHashedIdCaptionsLanguageCodeRequestToJSON(
 
 /** @internal */
 export const PutMediasMediaHashedIdCaptionsLanguageCodeCode$inboundSchema:
-  z.ZodNativeEnum<typeof PutMediasMediaHashedIdCaptionsLanguageCodeCode> = z
-    .nativeEnum(PutMediasMediaHashedIdCaptionsLanguageCodeCode);
+  z.ZodNativeEnum<typeof PutMediasMediaHashedIdCaptionsLanguageCodeCode> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(PutMediasMediaHashedIdCaptionsLanguageCodeCode)
+    );

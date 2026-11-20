@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -79,6 +79,7 @@ export const GetTagsSortBy = {
   Created: "created",
   Updated: "updated",
   TaggingsCount: "taggingsCount",
+  Id: "id",
 } as const;
 /**
  * Ordering. When using cursor pagination (see cursor param),
@@ -188,7 +189,7 @@ export type GetTagsResponse = {
 /** @internal */
 export const GetTagsEnabled$outboundSchema: z.ZodNativeEnum<
   typeof GetTagsEnabled
-> = z.nativeEnum(GetTagsEnabled);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetTagsEnabled));
 
 /** @internal */
 export type GetTagsCursor$Outbound = {
@@ -202,11 +203,13 @@ export const GetTagsCursor$outboundSchema: z.ZodType<
   GetTagsCursor$Outbound,
   z.ZodTypeDef,
   GetTagsCursor
-> = z.object({
-  enabled: GetTagsEnabled$outboundSchema.optional(),
-  before: z.string().optional(),
-  after: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    enabled: GetTagsEnabled$outboundSchema.optional(),
+    before: z.string().optional(),
+    after: z.string().optional(),
+  })
+);
 
 export function getTagsCursorToJSON(getTagsCursor: GetTagsCursor): string {
   return JSON.stringify(GetTagsCursor$outboundSchema.parse(getTagsCursor));
@@ -215,12 +218,12 @@ export function getTagsCursorToJSON(getTagsCursor: GetTagsCursor): string {
 /** @internal */
 export const GetTagsSortBy$outboundSchema: z.ZodNativeEnum<
   typeof GetTagsSortBy
-> = z.nativeEnum(GetTagsSortBy);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetTagsSortBy));
 
 /** @internal */
 export const GetTagsSortDirection$outboundSchema: z.ZodNativeEnum<
   typeof GetTagsSortDirection
-> = z.nativeEnum(GetTagsSortDirection);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetTagsSortDirection));
 
 /** @internal */
 export type GetTagsRequest$Outbound = {
@@ -236,48 +239,54 @@ export const GetTagsRequest$outboundSchema: z.ZodType<
   GetTagsRequest$Outbound,
   z.ZodTypeDef,
   GetTagsRequest
-> = z.object({
-  page: z.number().int().optional(),
-  perPage: z.number().int().optional(),
-  cursor: z.lazy(() => GetTagsCursor$outboundSchema).optional(),
-  sortBy: GetTagsSortBy$outboundSchema.optional(),
-  sortDirection: GetTagsSortDirection$outboundSchema.optional(),
-}).transform((v) => {
-  return remap$(v, {
-    perPage: "per_page",
-    sortBy: "sort_by",
-    sortDirection: "sort_direction",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    page: z.number().int().optional(),
+    perPage: z.number().int().optional(),
+    cursor: z.lazy(() => GetTagsCursor$outboundSchema).optional(),
+    sortBy: GetTagsSortBy$outboundSchema.optional(),
+    sortDirection: GetTagsSortDirection$outboundSchema.optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      perPage: "per_page",
+      sortBy: "sort_by",
+      sortDirection: "sort_direction",
+    });
+  })
+);
 
 export function getTagsRequestToJSON(getTagsRequest: GetTagsRequest): string {
   return JSON.stringify(GetTagsRequest$outboundSchema.parse(getTagsRequest));
 }
 
 /** @internal */
-export const GetTagsCode$inboundSchema: z.ZodNativeEnum<typeof GetTagsCode> = z
-  .nativeEnum(GetTagsCode);
+export const GetTagsCode$inboundSchema: z.ZodNativeEnum<typeof GetTagsCode> =
+  /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetTagsCode));
 
 /** @internal */
 export const GetTagsResponse$inboundSchema: z.ZodType<
   GetTagsResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  name: z.string().optional(),
-  taggings_count: z.number().int().optional(),
-  created_at: z.string().datetime({ offset: true }).transform(v => new Date(v))
-    .optional(),
-  updated_at: z.string().datetime({ offset: true }).transform(v => new Date(v))
-    .optional(),
-  cursor: z.nullable(z.string()).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "taggings_count": "taggingsCount",
-    "created_at": "createdAt",
-    "updated_at": "updatedAt",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    name: z.string().optional(),
+    taggings_count: z.number().int().optional(),
+    created_at: z.string().datetime({ offset: true }).transform(v =>
+      new Date(v)
+    ).optional(),
+    updated_at: z.string().datetime({ offset: true }).transform(v =>
+      new Date(v)
+    ).optional(),
+    cursor: z.nullable(z.string()).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "taggings_count": "taggingsCount",
+      "created_at": "createdAt",
+      "updated_at": "updatedAt",
+    });
+  })
+);
 
 export function getTagsResponseFromJSON(
   jsonString: string,

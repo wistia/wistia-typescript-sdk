@@ -1,7 +1,5 @@
 # PostChannelsChannelHashedIdChannelEpisodesEpisodeTypeRequest
 
-The type of episode.
-
 ## Example Usage
 
 ```typescript
