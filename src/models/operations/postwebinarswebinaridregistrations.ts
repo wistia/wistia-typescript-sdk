@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -75,16 +75,18 @@ export const PostWebinarsWebinarIdRegistrationsRequestBody$outboundSchema:
     PostWebinarsWebinarIdRegistrationsRequestBody$Outbound,
     z.ZodTypeDef,
     PostWebinarsWebinarIdRegistrationsRequestBody
-  > = z.object({
-    email: z.string(),
-    firstName: z.string(),
-    lastName: z.string(),
-  }).transform((v) => {
-    return remap$(v, {
-      firstName: "first_name",
-      lastName: "last_name",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      email: z.string(),
+      firstName: z.string(),
+      lastName: z.string(),
+    }).transform((v) => {
+      return remap$(v, {
+        firstName: "first_name",
+        lastName: "last_name",
+      });
+    })
+  );
 
 export function postWebinarsWebinarIdRegistrationsRequestBodyToJSON(
   postWebinarsWebinarIdRegistrationsRequestBody:
@@ -109,16 +111,18 @@ export const PostWebinarsWebinarIdRegistrationsRequest$outboundSchema:
     PostWebinarsWebinarIdRegistrationsRequest$Outbound,
     z.ZodTypeDef,
     PostWebinarsWebinarIdRegistrationsRequest
-  > = z.object({
-    webinarId: z.string(),
-    requestBody: z.lazy(() =>
-      PostWebinarsWebinarIdRegistrationsRequestBody$outboundSchema
-    ),
-  }).transform((v) => {
-    return remap$(v, {
-      requestBody: "RequestBody",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      webinarId: z.string(),
+      requestBody: z.lazy(() =>
+        PostWebinarsWebinarIdRegistrationsRequestBody$outboundSchema
+      ),
+    }).transform((v) => {
+      return remap$(v, {
+        requestBody: "RequestBody",
+      });
+    })
+  );
 
 export function postWebinarsWebinarIdRegistrationsRequestToJSON(
   postWebinarsWebinarIdRegistrationsRequest:
@@ -133,22 +137,25 @@ export function postWebinarsWebinarIdRegistrationsRequestToJSON(
 
 /** @internal */
 export const PostWebinarsWebinarIdRegistrationsCode$inboundSchema:
-  z.ZodNativeEnum<typeof PostWebinarsWebinarIdRegistrationsCode> = z.nativeEnum(
-    PostWebinarsWebinarIdRegistrationsCode,
-  );
+  z.ZodNativeEnum<typeof PostWebinarsWebinarIdRegistrationsCode> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(PostWebinarsWebinarIdRegistrationsCode)
+    );
 
 /** @internal */
 export const PostWebinarsWebinarIdRegistrationsResponse$inboundSchema:
   z.ZodType<PostWebinarsWebinarIdRegistrationsResponse, z.ZodTypeDef, unknown> =
-    z.object({
-      visitor_key: z.string(),
-      personalized_event_url: z.string(),
-    }).transform((v) => {
-      return remap$(v, {
-        "visitor_key": "visitorKey",
-        "personalized_event_url": "personalizedEventUrl",
-      });
-    });
+    /* @__PURE__ */ lazySchema$(() =>
+      z.object({
+        visitor_key: z.string(),
+        personalized_event_url: z.string(),
+      }).transform((v) => {
+        return remap$(v, {
+          "visitor_key": "visitorKey",
+          "personalized_event_url": "personalizedEventUrl",
+        });
+      })
+    );
 
 export function postWebinarsWebinarIdRegistrationsResponseFromJSON(
   jsonString: string,

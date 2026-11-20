@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -40,7 +40,7 @@ export type GetFoldersFolderIdSharingsSharingIdShare = {
   id: number;
   name: string;
   type: string;
-  email: string;
+  email?: string | undefined;
 };
 
 export type GetFoldersFolderIdSharingsSharingIdFolder = {
@@ -79,10 +79,12 @@ export const GetFoldersFolderIdSharingsSharingIdRequest$outboundSchema:
     GetFoldersFolderIdSharingsSharingIdRequest$Outbound,
     z.ZodTypeDef,
     GetFoldersFolderIdSharingsSharingIdRequest
-  > = z.object({
-    folderId: z.string(),
-    sharingId: z.number().int(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      folderId: z.string(),
+      sharingId: z.number().int(),
+    })
+  );
 
 export function getFoldersFolderIdSharingsSharingIdRequestToJSON(
   getFoldersFolderIdSharingsSharingIdRequest:
@@ -97,20 +99,24 @@ export function getFoldersFolderIdSharingsSharingIdRequestToJSON(
 
 /** @internal */
 export const GetFoldersFolderIdSharingsSharingIdCode$inboundSchema:
-  z.ZodNativeEnum<typeof GetFoldersFolderIdSharingsSharingIdCode> = z
-    .nativeEnum(GetFoldersFolderIdSharingsSharingIdCode);
+  z.ZodNativeEnum<typeof GetFoldersFolderIdSharingsSharingIdCode> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(GetFoldersFolderIdSharingsSharingIdCode)
+    );
 
 /** @internal */
 export const GetFoldersFolderIdSharingsSharingIdShare$inboundSchema: z.ZodType<
   GetFoldersFolderIdSharingsSharingIdShare,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.number().int(),
-  name: z.string(),
-  type: z.string(),
-  email: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    id: z.number().int(),
+    name: z.string(),
+    type: z.string(),
+    email: z.string().optional(),
+  })
+);
 
 export function getFoldersFolderIdSharingsSharingIdShareFromJSON(
   jsonString: string,
@@ -133,10 +139,12 @@ export const GetFoldersFolderIdSharingsSharingIdFolder$inboundSchema: z.ZodType<
   GetFoldersFolderIdSharingsSharingIdFolder,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.number().int(),
-  name: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    id: z.number().int(),
+    name: z.string(),
+  })
+);
 
 export function getFoldersFolderIdSharingsSharingIdFolderFromJSON(
   jsonString: string,
@@ -160,25 +168,29 @@ export const GetFoldersFolderIdSharingsSharingIdResponse$inboundSchema:
     GetFoldersFolderIdSharingsSharingIdResponse,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    id: z.number().int(),
-    is_admin: z.boolean(),
-    can_share: z.boolean(),
-    can_download: z.boolean(),
-    can_upload: z.boolean(),
-    share: z.lazy(() => GetFoldersFolderIdSharingsSharingIdShare$inboundSchema),
-    folder: z.lazy(() =>
-      GetFoldersFolderIdSharingsSharingIdFolder$inboundSchema
-    ),
-    cursor: z.nullable(z.string()).optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      "is_admin": "isAdmin",
-      "can_share": "canShare",
-      "can_download": "canDownload",
-      "can_upload": "canUpload",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      id: z.number().int(),
+      is_admin: z.boolean(),
+      can_share: z.boolean(),
+      can_download: z.boolean(),
+      can_upload: z.boolean(),
+      share: z.lazy(() =>
+        GetFoldersFolderIdSharingsSharingIdShare$inboundSchema
+      ),
+      folder: z.lazy(() =>
+        GetFoldersFolderIdSharingsSharingIdFolder$inboundSchema
+      ),
+      cursor: z.nullable(z.string()).optional(),
+    }).transform((v) => {
+      return remap$(v, {
+        "is_admin": "isAdmin",
+        "can_share": "canShare",
+        "can_download": "canDownload",
+        "can_upload": "canUpload",
+      });
+    })
+  );
 
 export function getFoldersFolderIdSharingsSharingIdResponseFromJSON(
   jsonString: string,

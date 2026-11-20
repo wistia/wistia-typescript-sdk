@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -88,9 +88,11 @@ export const GetMediasMediaIdCustomizationsChaptersRequest$outboundSchema:
     GetMediasMediaIdCustomizationsChaptersRequest$Outbound,
     z.ZodTypeDef,
     GetMediasMediaIdCustomizationsChaptersRequest
-  > = z.object({
-    mediaId: z.string(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      mediaId: z.string(),
+    })
+  );
 
 export function getMediasMediaIdCustomizationsChaptersRequestToJSON(
   getMediasMediaIdCustomizationsChaptersRequest:
@@ -105,8 +107,10 @@ export function getMediasMediaIdCustomizationsChaptersRequestToJSON(
 
 /** @internal */
 export const GetMediasMediaIdCustomizationsChaptersCode$inboundSchema:
-  z.ZodNativeEnum<typeof GetMediasMediaIdCustomizationsChaptersCode> = z
-    .nativeEnum(GetMediasMediaIdCustomizationsChaptersCode);
+  z.ZodNativeEnum<typeof GetMediasMediaIdCustomizationsChaptersCode> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(GetMediasMediaIdCustomizationsChaptersCode)
+    );
 
 /** @internal */
 export const GetMediasMediaIdCustomizationsChaptersChaptersChapterList$inboundSchema:
@@ -114,12 +118,14 @@ export const GetMediasMediaIdCustomizationsChaptersChaptersChapterList$inboundSc
     GetMediasMediaIdCustomizationsChaptersChaptersChapterList,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    id: z.string().optional(),
-    title: z.string().optional(),
-    time: z.string().optional(),
-    deleted: z.string().optional(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      id: z.string().optional(),
+      title: z.string().optional(),
+      time: z.string().optional(),
+      deleted: z.string().optional(),
+    })
+  );
 
 export function getMediasMediaIdCustomizationsChaptersChaptersChapterListFromJSON(
   jsonString: string,
@@ -142,15 +148,15 @@ export const GetMediasMediaIdCustomizationsChaptersChapters$inboundSchema:
     GetMediasMediaIdCustomizationsChaptersChapters,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    on: z.string().optional(),
-    visibleOnLoad: z.string().optional(),
-    chapterList: z.array(
-      z.lazy(() =>
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      on: z.string().optional(),
+      visibleOnLoad: z.string().optional(),
+      chapterList: z.array(z.lazy(() =>
         GetMediasMediaIdCustomizationsChaptersChaptersChapterList$inboundSchema
-      ),
-    ).optional(),
-  });
+      )).optional(),
+    })
+  );
 
 export function getMediasMediaIdCustomizationsChaptersChaptersFromJSON(
   jsonString: string,
@@ -174,12 +180,14 @@ export const GetMediasMediaIdCustomizationsChaptersAudioChaptersChapterList$inbo
     GetMediasMediaIdCustomizationsChaptersAudioChaptersChapterList,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    id: z.string().optional(),
-    title: z.string().optional(),
-    time: z.string().optional(),
-    deleted: z.string().optional(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      id: z.string().optional(),
+      title: z.string().optional(),
+      time: z.string().optional(),
+      deleted: z.string().optional(),
+    })
+  );
 
 export function getMediasMediaIdCustomizationsChaptersAudioChaptersChapterListFromJSON(
   jsonString: string,
@@ -202,15 +210,15 @@ export const GetMediasMediaIdCustomizationsChaptersAudioChapters$inboundSchema:
     GetMediasMediaIdCustomizationsChaptersAudioChapters,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    on: z.string().optional(),
-    visibleOnLoad: z.string().optional(),
-    chapterList: z.array(
-      z.lazy(() =>
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      on: z.string().optional(),
+      visibleOnLoad: z.string().optional(),
+      chapterList: z.array(z.lazy(() =>
         GetMediasMediaIdCustomizationsChaptersAudioChaptersChapterList$inboundSchema
-      ),
-    ).optional(),
-  });
+      )).optional(),
+    })
+  );
 
 export function getMediasMediaIdCustomizationsChaptersAudioChaptersFromJSON(
   jsonString: string,
@@ -234,14 +242,16 @@ export const GetMediasMediaIdCustomizationsChaptersPlugin$inboundSchema:
     GetMediasMediaIdCustomizationsChaptersPlugin,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    chapters: z.lazy(() =>
-      GetMediasMediaIdCustomizationsChaptersChapters$inboundSchema
-    ).optional(),
-    audioChapters: z.lazy(() =>
-      GetMediasMediaIdCustomizationsChaptersAudioChapters$inboundSchema
-    ).optional(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      chapters: z.lazy(() =>
+        GetMediasMediaIdCustomizationsChaptersChapters$inboundSchema
+      ).optional(),
+      audioChapters: z.lazy(() =>
+        GetMediasMediaIdCustomizationsChaptersAudioChapters$inboundSchema
+      ).optional(),
+    })
+  );
 
 export function getMediasMediaIdCustomizationsChaptersPluginFromJSON(
   jsonString: string,
@@ -265,11 +275,13 @@ export const GetMediasMediaIdCustomizationsChaptersResponse$inboundSchema:
     GetMediasMediaIdCustomizationsChaptersResponse,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    plugin: z.lazy(() =>
-      GetMediasMediaIdCustomizationsChaptersPlugin$inboundSchema
-    ).optional(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      plugin: z.lazy(() =>
+        GetMediasMediaIdCustomizationsChaptersPlugin$inboundSchema
+      ).optional(),
+    })
+  );
 
 export function getMediasMediaIdCustomizationsChaptersResponseFromJSON(
   jsonString: string,

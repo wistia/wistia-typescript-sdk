@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
 import * as operations from "../operations/index.js";
 import { WistiaError } from "./wistiaerror.js";
 
@@ -161,18 +162,20 @@ export const GetMediaExtendedAudioDescriptionsOrderStatusIdInternalServerError$i
     GetMediaExtendedAudioDescriptionsOrderStatusIdInternalServerError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new GetMediaExtendedAudioDescriptionsOrderStatusIdInternalServerError(
-        v,
-        { request: v.request$, response: v.response$, body: v.body$ },
-      );
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new GetMediaExtendedAudioDescriptionsOrderStatusIdInternalServerError(
+          v,
+          { request: v.request$, response: v.response$, body: v.body$ },
+        );
+      })
+  );
 
 /** @internal */
 export const GetMediaExtendedAudioDescriptionsOrderStatusIdNotFoundError$inboundSchema:
@@ -180,18 +183,20 @@ export const GetMediaExtendedAudioDescriptionsOrderStatusIdNotFoundError$inbound
     GetMediaExtendedAudioDescriptionsOrderStatusIdNotFoundError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new GetMediaExtendedAudioDescriptionsOrderStatusIdNotFoundError(
-        v,
-        { request: v.request$, response: v.response$, body: v.body$ },
-      );
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new GetMediaExtendedAudioDescriptionsOrderStatusIdNotFoundError(
+          v,
+          { request: v.request$, response: v.response$, body: v.body$ },
+        );
+      })
+  );
 
 /** @internal */
 export const GetMediaExtendedAudioDescriptionsOrderStatusIdForbiddenError$inboundSchema:
@@ -199,18 +204,20 @@ export const GetMediaExtendedAudioDescriptionsOrderStatusIdForbiddenError$inboun
     GetMediaExtendedAudioDescriptionsOrderStatusIdForbiddenError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new GetMediaExtendedAudioDescriptionsOrderStatusIdForbiddenError(
-        v,
-        { request: v.request$, response: v.response$, body: v.body$ },
-      );
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new GetMediaExtendedAudioDescriptionsOrderStatusIdForbiddenError(
+          v,
+          { request: v.request$, response: v.response$, body: v.body$ },
+        );
+      })
+  );
 
 /** @internal */
 export const GetMediaExtendedAudioDescriptionsOrderStatusIdUnauthorizedError$inboundSchema:
@@ -218,18 +225,20 @@ export const GetMediaExtendedAudioDescriptionsOrderStatusIdUnauthorizedError$inb
     GetMediaExtendedAudioDescriptionsOrderStatusIdUnauthorizedError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    code: operations
-      .GetMediaExtendedAudioDescriptionsOrderStatusIdCode$inboundSchema
-      .optional(),
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new GetMediaExtendedAudioDescriptionsOrderStatusIdUnauthorizedError(
-        v,
-        { request: v.request$, response: v.response$, body: v.body$ },
-      );
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      code: operations
+        .GetMediaExtendedAudioDescriptionsOrderStatusIdCode$inboundSchema
+        .optional(),
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new GetMediaExtendedAudioDescriptionsOrderStatusIdUnauthorizedError(
+          v,
+          { request: v.request$, response: v.response$, body: v.body$ },
+        );
+      })
+  );

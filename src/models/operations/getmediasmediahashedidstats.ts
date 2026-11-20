@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -90,9 +90,11 @@ export const GetMediasMediaHashedIdStatsRequest$outboundSchema: z.ZodType<
   GetMediasMediaHashedIdStatsRequest$Outbound,
   z.ZodTypeDef,
   GetMediasMediaHashedIdStatsRequest
-> = z.object({
-  mediaHashedId: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    mediaHashedId: z.string(),
+  })
+);
 
 export function getMediasMediaHashedIdStatsRequestToJSON(
   getMediasMediaHashedIdStatsRequest: GetMediasMediaHashedIdStatsRequest,
@@ -107,17 +109,21 @@ export function getMediasMediaHashedIdStatsRequestToJSON(
 /** @internal */
 export const GetMediasMediaHashedIdStatsCode$inboundSchema: z.ZodNativeEnum<
   typeof GetMediasMediaHashedIdStatsCode
-> = z.nativeEnum(GetMediasMediaHashedIdStatsCode);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(GetMediasMediaHashedIdStatsCode)
+);
 
 /** @internal */
-export const Stats$inboundSchema: z.ZodType<Stats, z.ZodTypeDef, unknown> = z
-  .object({
-    pageLoads: z.number().int().optional(),
-    visitors: z.number().int().optional(),
-    percentOfVisitorsClickingPlay: z.number().int().optional(),
-    plays: z.number().int().optional(),
-    averagePercentWatched: z.number().int().optional(),
-  });
+export const Stats$inboundSchema: z.ZodType<Stats, z.ZodTypeDef, unknown> =
+  /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      pageLoads: z.number().int().optional(),
+      visitors: z.number().int().optional(),
+      percentOfVisitorsClickingPlay: z.number().int().optional(),
+      plays: z.number().int().optional(),
+      averagePercentWatched: z.number().int().optional(),
+    })
+  );
 
 export function statsFromJSON(
   jsonString: string,
@@ -134,16 +140,18 @@ export const GetMediasMediaHashedIdStatsResponse$inboundSchema: z.ZodType<
   GetMediasMediaHashedIdStatsResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.number().int().optional(),
-  hashed_id: z.string().optional(),
-  name: z.string().optional(),
-  stats: z.lazy(() => Stats$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "hashed_id": "hashedId",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    id: z.number().int().optional(),
+    hashed_id: z.string().optional(),
+    name: z.string().optional(),
+    stats: z.lazy(() => Stats$inboundSchema).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "hashed_id": "hashedId",
+    });
+  })
+);
 
 export function getMediasMediaHashedIdStatsResponseFromJSON(
   jsonString: string,

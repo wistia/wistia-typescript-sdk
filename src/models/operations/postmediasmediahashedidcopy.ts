@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -195,14 +195,16 @@ export const PostMediasMediaHashedIdCopyRequestBody$outboundSchema: z.ZodType<
   PostMediasMediaHashedIdCopyRequestBody$Outbound,
   z.ZodTypeDef,
   PostMediasMediaHashedIdCopyRequestBody
-> = z.object({
-  folderId: z.number().int().optional(),
-  owner: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    folderId: "folder_id",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    folderId: z.number().int().optional(),
+    owner: z.string().optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      folderId: "folder_id",
+    });
+  })
+);
 
 export function postMediasMediaHashedIdCopyRequestBodyToJSON(
   postMediasMediaHashedIdCopyRequestBody:
@@ -226,16 +228,18 @@ export const PostMediasMediaHashedIdCopyRequest$outboundSchema: z.ZodType<
   PostMediasMediaHashedIdCopyRequest$Outbound,
   z.ZodTypeDef,
   PostMediasMediaHashedIdCopyRequest
-> = z.object({
-  mediaHashedId: z.string(),
-  requestBody: z.lazy(() =>
-    PostMediasMediaHashedIdCopyRequestBody$outboundSchema
-  ).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    requestBody: "RequestBody",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    mediaHashedId: z.string(),
+    requestBody: z.lazy(() =>
+      PostMediasMediaHashedIdCopyRequestBody$outboundSchema
+    ).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      requestBody: "RequestBody",
+    });
+  })
+);
 
 export function postMediasMediaHashedIdCopyRequestToJSON(
   postMediasMediaHashedIdCopyRequest: PostMediasMediaHashedIdCopyRequest,
@@ -250,28 +254,36 @@ export function postMediasMediaHashedIdCopyRequestToJSON(
 /** @internal */
 export const PostMediasMediaHashedIdCopyCode$inboundSchema: z.ZodNativeEnum<
   typeof PostMediasMediaHashedIdCopyCode
-> = z.nativeEnum(PostMediasMediaHashedIdCopyCode);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(PostMediasMediaHashedIdCopyCode)
+);
 
 /** @internal */
 export const PostMediasMediaHashedIdCopyType$inboundSchema: z.ZodNativeEnum<
   typeof PostMediasMediaHashedIdCopyType
-> = z.nativeEnum(PostMediasMediaHashedIdCopyType);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(PostMediasMediaHashedIdCopyType)
+);
 
 /** @internal */
 export const PostMediasMediaHashedIdCopyStatus$inboundSchema: z.ZodNativeEnum<
   typeof PostMediasMediaHashedIdCopyStatus
-> = z.nativeEnum(PostMediasMediaHashedIdCopyStatus);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(PostMediasMediaHashedIdCopyStatus)
+);
 
 /** @internal */
 export const PostMediasMediaHashedIdCopyThumbnail$inboundSchema: z.ZodType<
   PostMediasMediaHashedIdCopyThumbnail,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  url: z.string().optional(),
-  width: z.number().int().optional(),
-  height: z.number().int().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    url: z.string().optional(),
+    width: z.number().int().optional(),
+    height: z.number().int().optional(),
+  })
+);
 
 export function postMediasMediaHashedIdCopyThumbnailFromJSON(
   jsonString: string,
@@ -289,15 +301,17 @@ export const PostMediasMediaHashedIdCopyFolder$inboundSchema: z.ZodType<
   PostMediasMediaHashedIdCopyFolder,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.number().int().optional(),
-  name: z.string().optional(),
-  hashed_id: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "hashed_id": "hashedId",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    id: z.number().int().optional(),
+    name: z.string().optional(),
+    hashed_id: z.string().optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "hashed_id": "hashedId",
+    });
+  })
+);
 
 export function postMediasMediaHashedIdCopyFolderFromJSON(
   jsonString: string,
@@ -314,33 +328,35 @@ export const PostMediasMediaHashedIdCopyResponseBody$inboundSchema: z.ZodType<
   PostMediasMediaHashedIdCopyResponseBody,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.number().int().optional(),
-  name: z.string().optional(),
-  type: PostMediasMediaHashedIdCopyType$inboundSchema.optional(),
-  archived: z.boolean().optional(),
-  created: z.string().datetime({ offset: true }).transform(v => new Date(v))
-    .optional(),
-  updated: z.string().datetime({ offset: true }).transform(v => new Date(v))
-    .optional(),
-  duration: z.nullable(z.number()).optional(),
-  embedCode: z.string().optional(),
-  hashed_id: z.string().optional(),
-  description: z.string().optional(),
-  progress: z.number().optional(),
-  status: PostMediasMediaHashedIdCopyStatus$inboundSchema.optional(),
-  section: z.nullable(z.string()).optional(),
-  thumbnail: z.lazy(() => PostMediasMediaHashedIdCopyThumbnail$inboundSchema)
-    .optional(),
-  protected: z.nullable(z.boolean()).optional(),
-  folder: z.nullable(
-    z.lazy(() => PostMediasMediaHashedIdCopyFolder$inboundSchema),
-  ),
-}).transform((v) => {
-  return remap$(v, {
-    "hashed_id": "hashedId",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    id: z.number().int().optional(),
+    name: z.string().optional(),
+    type: PostMediasMediaHashedIdCopyType$inboundSchema.optional(),
+    archived: z.boolean().optional(),
+    created: z.string().datetime({ offset: true }).transform(v => new Date(v))
+      .optional(),
+    updated: z.string().datetime({ offset: true }).transform(v => new Date(v))
+      .optional(),
+    duration: z.nullable(z.number()).optional(),
+    embedCode: z.string().optional(),
+    hashed_id: z.string().optional(),
+    description: z.string().optional(),
+    progress: z.number().optional(),
+    status: PostMediasMediaHashedIdCopyStatus$inboundSchema.optional(),
+    section: z.nullable(z.string()).optional(),
+    thumbnail: z.lazy(() => PostMediasMediaHashedIdCopyThumbnail$inboundSchema)
+      .optional(),
+    protected: z.nullable(z.boolean()).optional(),
+    folder: z.nullable(
+      z.lazy(() => PostMediasMediaHashedIdCopyFolder$inboundSchema),
+    ),
+  }).transform((v) => {
+    return remap$(v, {
+      "hashed_id": "hashedId",
+    });
+  })
+);
 
 export function postMediasMediaHashedIdCopyResponseBodyFromJSON(
   jsonString: string,
@@ -363,15 +379,17 @@ export const PostMediasMediaHashedIdCopyResponse$inboundSchema: z.ZodType<
   PostMediasMediaHashedIdCopyResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  Headers: z.record(z.array(z.string())).default({}),
-  Result: z.lazy(() => PostMediasMediaHashedIdCopyResponseBody$inboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    "Headers": "headers",
-    "Result": "result",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    Headers: z.record(z.array(z.string())).default({}),
+    Result: z.lazy(() => PostMediasMediaHashedIdCopyResponseBody$inboundSchema),
+  }).transform((v) => {
+    return remap$(v, {
+      "Headers": "headers",
+      "Result": "result",
+    });
+  })
+);
 
 export function postMediasMediaHashedIdCopyResponseFromJSON(
   jsonString: string,

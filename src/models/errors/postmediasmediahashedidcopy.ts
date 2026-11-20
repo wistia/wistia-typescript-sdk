@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
 import * as operations from "../operations/index.js";
 import { WistiaError } from "./wistiaerror.js";
 
@@ -209,101 +210,7 @@ export const PostMediasMediaHashedIdCopyInternalServerError$inboundSchema:
     PostMediasMediaHashedIdCopyInternalServerError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new PostMediasMediaHashedIdCopyInternalServerError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
-
-/** @internal */
-export const MethodNotAllowedError$inboundSchema: z.ZodType<
-  MethodNotAllowedError,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  error: z.string().optional(),
-  request$: z.instanceof(Request),
-  response$: z.instanceof(Response),
-  body$: z.string(),
-})
-  .transform((v) => {
-    return new MethodNotAllowedError(v, {
-      request: v.request$,
-      response: v.response$,
-      body: v.body$,
-    });
-  });
-
-/** @internal */
-export const PostMediasMediaHashedIdCopyNotFoundError$inboundSchema: z.ZodType<
-  PostMediasMediaHashedIdCopyNotFoundError,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  error: z.string().optional(),
-  request$: z.instanceof(Request),
-  response$: z.instanceof(Response),
-  body$: z.string(),
-})
-  .transform((v) => {
-    return new PostMediasMediaHashedIdCopyNotFoundError(v, {
-      request: v.request$,
-      response: v.response$,
-      body: v.body$,
-    });
-  });
-
-/** @internal */
-export const PostMediasMediaHashedIdCopyForbiddenError$inboundSchema: z.ZodType<
-  PostMediasMediaHashedIdCopyForbiddenError,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  error: z.string().optional(),
-  request$: z.instanceof(Request),
-  response$: z.instanceof(Response),
-  body$: z.string(),
-})
-  .transform((v) => {
-    return new PostMediasMediaHashedIdCopyForbiddenError(v, {
-      request: v.request$,
-      response: v.response$,
-      body: v.body$,
-    });
-  });
-
-/** @internal */
-export const PostMediasMediaHashedIdCopyUnauthorizedError$inboundSchema:
-  z.ZodType<
-    PostMediasMediaHashedIdCopyUnauthorizedError,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    code: operations.PostMediasMediaHashedIdCopyCode$inboundSchema.optional(),
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new PostMediasMediaHashedIdCopyUnauthorizedError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
-
-/** @internal */
-export const PostMediasMediaHashedIdCopyBadRequestError$inboundSchema:
-  z.ZodType<PostMediasMediaHashedIdCopyBadRequestError, z.ZodTypeDef, unknown> =
+  > = /* @__PURE__ */ lazySchema$(() =>
     z.object({
       error: z.string().optional(),
       request$: z.instanceof(Request),
@@ -311,9 +218,115 @@ export const PostMediasMediaHashedIdCopyBadRequestError$inboundSchema:
       body$: z.string(),
     })
       .transform((v) => {
-        return new PostMediasMediaHashedIdCopyBadRequestError(v, {
+        return new PostMediasMediaHashedIdCopyInternalServerError(v, {
           request: v.request$,
           response: v.response$,
           body: v.body$,
         });
+      })
+  );
+
+/** @internal */
+export const MethodNotAllowedError$inboundSchema: z.ZodType<
+  MethodNotAllowedError,
+  z.ZodTypeDef,
+  unknown
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    error: z.string().optional(),
+    request$: z.instanceof(Request),
+    response$: z.instanceof(Response),
+    body$: z.string(),
+  })
+    .transform((v) => {
+      return new MethodNotAllowedError(v, {
+        request: v.request$,
+        response: v.response$,
+        body: v.body$,
       });
+    })
+);
+
+/** @internal */
+export const PostMediasMediaHashedIdCopyNotFoundError$inboundSchema: z.ZodType<
+  PostMediasMediaHashedIdCopyNotFoundError,
+  z.ZodTypeDef,
+  unknown
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    error: z.string().optional(),
+    request$: z.instanceof(Request),
+    response$: z.instanceof(Response),
+    body$: z.string(),
+  })
+    .transform((v) => {
+      return new PostMediasMediaHashedIdCopyNotFoundError(v, {
+        request: v.request$,
+        response: v.response$,
+        body: v.body$,
+      });
+    })
+);
+
+/** @internal */
+export const PostMediasMediaHashedIdCopyForbiddenError$inboundSchema: z.ZodType<
+  PostMediasMediaHashedIdCopyForbiddenError,
+  z.ZodTypeDef,
+  unknown
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    error: z.string().optional(),
+    request$: z.instanceof(Request),
+    response$: z.instanceof(Response),
+    body$: z.string(),
+  })
+    .transform((v) => {
+      return new PostMediasMediaHashedIdCopyForbiddenError(v, {
+        request: v.request$,
+        response: v.response$,
+        body: v.body$,
+      });
+    })
+);
+
+/** @internal */
+export const PostMediasMediaHashedIdCopyUnauthorizedError$inboundSchema:
+  z.ZodType<
+    PostMediasMediaHashedIdCopyUnauthorizedError,
+    z.ZodTypeDef,
+    unknown
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      code: operations.PostMediasMediaHashedIdCopyCode$inboundSchema.optional(),
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new PostMediasMediaHashedIdCopyUnauthorizedError(v, {
+          request: v.request$,
+          response: v.response$,
+          body: v.body$,
+        });
+      })
+  );
+
+/** @internal */
+export const PostMediasMediaHashedIdCopyBadRequestError$inboundSchema:
+  z.ZodType<PostMediasMediaHashedIdCopyBadRequestError, z.ZodTypeDef, unknown> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.object({
+        error: z.string().optional(),
+        request$: z.instanceof(Request),
+        response$: z.instanceof(Response),
+        body$: z.string(),
+      })
+        .transform((v) => {
+          return new PostMediasMediaHashedIdCopyBadRequestError(v, {
+            request: v.request$,
+            response: v.response$,
+            body: v.body$,
+          });
+        })
+    );

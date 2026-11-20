@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
 import * as operations from "../operations/index.js";
 import { WistiaError } from "./wistiaerror.js";
 
@@ -145,72 +146,80 @@ export const DeleteMediasMediaHashedIdInternalServerError$inboundSchema:
     DeleteMediasMediaHashedIdInternalServerError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new DeleteMediasMediaHashedIdInternalServerError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
-
-/** @internal */
-export const DeleteMediasMediaHashedIdNotFoundError$inboundSchema: z.ZodType<
-  DeleteMediasMediaHashedIdNotFoundError,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  error: z.string().optional(),
-  request$: z.instanceof(Request),
-  response$: z.instanceof(Response),
-  body$: z.string(),
-})
-  .transform((v) => {
-    return new DeleteMediasMediaHashedIdNotFoundError(v, {
-      request: v.request$,
-      response: v.response$,
-      body: v.body$,
-    });
-  });
-
-/** @internal */
-export const DeleteMediasMediaHashedIdForbiddenError$inboundSchema: z.ZodType<
-  DeleteMediasMediaHashedIdForbiddenError,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  error: z.string().optional(),
-  request$: z.instanceof(Request),
-  response$: z.instanceof(Response),
-  body$: z.string(),
-})
-  .transform((v) => {
-    return new DeleteMediasMediaHashedIdForbiddenError(v, {
-      request: v.request$,
-      response: v.response$,
-      body: v.body$,
-    });
-  });
-
-/** @internal */
-export const DeleteMediasMediaHashedIdUnauthorizedError$inboundSchema:
-  z.ZodType<DeleteMediasMediaHashedIdUnauthorizedError, z.ZodTypeDef, unknown> =
+  > = /* @__PURE__ */ lazySchema$(() =>
     z.object({
-      code: operations.DeleteMediasMediaHashedIdCode$inboundSchema.optional(),
       error: z.string().optional(),
       request$: z.instanceof(Request),
       response$: z.instanceof(Response),
       body$: z.string(),
     })
       .transform((v) => {
-        return new DeleteMediasMediaHashedIdUnauthorizedError(v, {
+        return new DeleteMediasMediaHashedIdInternalServerError(v, {
           request: v.request$,
           response: v.response$,
           body: v.body$,
         });
+      })
+  );
+
+/** @internal */
+export const DeleteMediasMediaHashedIdNotFoundError$inboundSchema: z.ZodType<
+  DeleteMediasMediaHashedIdNotFoundError,
+  z.ZodTypeDef,
+  unknown
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    error: z.string().optional(),
+    request$: z.instanceof(Request),
+    response$: z.instanceof(Response),
+    body$: z.string(),
+  })
+    .transform((v) => {
+      return new DeleteMediasMediaHashedIdNotFoundError(v, {
+        request: v.request$,
+        response: v.response$,
+        body: v.body$,
       });
+    })
+);
+
+/** @internal */
+export const DeleteMediasMediaHashedIdForbiddenError$inboundSchema: z.ZodType<
+  DeleteMediasMediaHashedIdForbiddenError,
+  z.ZodTypeDef,
+  unknown
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    error: z.string().optional(),
+    request$: z.instanceof(Request),
+    response$: z.instanceof(Response),
+    body$: z.string(),
+  })
+    .transform((v) => {
+      return new DeleteMediasMediaHashedIdForbiddenError(v, {
+        request: v.request$,
+        response: v.response$,
+        body: v.body$,
+      });
+    })
+);
+
+/** @internal */
+export const DeleteMediasMediaHashedIdUnauthorizedError$inboundSchema:
+  z.ZodType<DeleteMediasMediaHashedIdUnauthorizedError, z.ZodTypeDef, unknown> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.object({
+        code: operations.DeleteMediasMediaHashedIdCode$inboundSchema.optional(),
+        error: z.string().optional(),
+        request$: z.instanceof(Request),
+        response$: z.instanceof(Response),
+        body$: z.string(),
+      })
+        .transform((v) => {
+          return new DeleteMediasMediaHashedIdUnauthorizedError(v, {
+            request: v.request$,
+            response: v.response$,
+            body: v.body$,
+          });
+        })
+    );

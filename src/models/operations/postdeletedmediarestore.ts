@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -61,15 +61,17 @@ export const PostDeletedMediaRestoreRequest$outboundSchema: z.ZodType<
   PostDeletedMediaRestoreRequest$Outbound,
   z.ZodTypeDef,
   PostDeletedMediaRestoreRequest
-> = z.object({
-  mediaHashedIds: z.array(z.string()),
-  folderId: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    mediaHashedIds: "media_hashed_ids",
-    folderId: "folder_id",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    mediaHashedIds: z.array(z.string()),
+    folderId: z.string().optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      mediaHashedIds: "media_hashed_ids",
+      folderId: "folder_id",
+    });
+  })
+);
 
 export function postDeletedMediaRestoreRequestToJSON(
   postDeletedMediaRestoreRequest: PostDeletedMediaRestoreRequest,
@@ -84,20 +86,24 @@ export function postDeletedMediaRestoreRequestToJSON(
 /** @internal */
 export const PostDeletedMediaRestoreCode$inboundSchema: z.ZodNativeEnum<
   typeof PostDeletedMediaRestoreCode
-> = z.nativeEnum(PostDeletedMediaRestoreCode);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(PostDeletedMediaRestoreCode)
+);
 
 /** @internal */
 export const PostDeletedMediaRestoreBackgroundJobStatus$inboundSchema:
   z.ZodType<PostDeletedMediaRestoreBackgroundJobStatus, z.ZodTypeDef, unknown> =
-    z.object({
-      id: z.number().int().optional(),
-      hashed_id: z.string().optional(),
-      status: z.string().optional(),
-    }).transform((v) => {
-      return remap$(v, {
-        "hashed_id": "hashedId",
-      });
-    });
+    /* @__PURE__ */ lazySchema$(() =>
+      z.object({
+        id: z.number().int().optional(),
+        hashed_id: z.string().optional(),
+        status: z.string().optional(),
+      }).transform((v) => {
+        return remap$(v, {
+          "hashed_id": "hashedId",
+        });
+      })
+    );
 
 export function postDeletedMediaRestoreBackgroundJobStatusFromJSON(
   jsonString: string,
@@ -120,16 +126,18 @@ export const PostDeletedMediaRestoreResponse$inboundSchema: z.ZodType<
   PostDeletedMediaRestoreResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  message: z.string().optional(),
-  background_job_status: z.lazy(() =>
-    PostDeletedMediaRestoreBackgroundJobStatus$inboundSchema
-  ).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "background_job_status": "backgroundJobStatus",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    message: z.string().optional(),
+    background_job_status: z.lazy(() =>
+      PostDeletedMediaRestoreBackgroundJobStatus$inboundSchema
+    ).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "background_job_status": "backgroundJobStatus",
+    });
+  })
+);
 
 export function postDeletedMediaRestoreResponseFromJSON(
   jsonString: string,

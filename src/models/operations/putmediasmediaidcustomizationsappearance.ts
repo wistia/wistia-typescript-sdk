@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -140,10 +140,12 @@ export const PlayerColorGradientRequest$outboundSchema: z.ZodType<
   PlayerColorGradientRequest$Outbound,
   z.ZodTypeDef,
   PlayerColorGradientRequest
-> = z.object({
-  on: z.boolean().optional(),
-  colors: z.array(z.array(z.any())).optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    on: z.boolean().optional(),
+    colors: z.array(z.array(z.any())).optional(),
+  })
+);
 
 export function playerColorGradientRequestToJSON(
   playerColorGradientRequest: PlayerColorGradientRequest,
@@ -174,20 +176,23 @@ export const PutMediasMediaIdCustomizationsAppearanceRequestBody$outboundSchema:
     PutMediasMediaIdCustomizationsAppearanceRequestBody$Outbound,
     z.ZodTypeDef,
     PutMediasMediaIdCustomizationsAppearanceRequestBody
-  > = z.object({
-    playerColor: z.string().optional(),
-    playerColorGradient: z.lazy(() => PlayerColorGradientRequest$outboundSchema)
-      .optional(),
-    roundedPlayer: z.number().int().optional(),
-    opaqueControls: z.boolean().optional(),
-    contrastIcons: z.boolean().optional(),
-    branding: z.boolean().optional(),
-    showCustomerLogo: z.boolean().optional(),
-    customerLogoImageUrl: z.string().optional(),
-    customerLogoTargetUrl: z.string().optional(),
-    customerLogoPlacement: z.string().optional(),
-    customerLogoSizePercent: z.number().int().optional(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      playerColor: z.string().optional(),
+      playerColorGradient: z.lazy(() =>
+        PlayerColorGradientRequest$outboundSchema
+      ).optional(),
+      roundedPlayer: z.number().int().optional(),
+      opaqueControls: z.boolean().optional(),
+      contrastIcons: z.boolean().optional(),
+      branding: z.boolean().optional(),
+      showCustomerLogo: z.boolean().optional(),
+      customerLogoImageUrl: z.string().optional(),
+      customerLogoTargetUrl: z.string().optional(),
+      customerLogoPlacement: z.string().optional(),
+      customerLogoSizePercent: z.number().int().optional(),
+    })
+  );
 
 export function putMediasMediaIdCustomizationsAppearanceRequestBodyToJSON(
   putMediasMediaIdCustomizationsAppearanceRequestBody:
@@ -212,16 +217,18 @@ export const PutMediasMediaIdCustomizationsAppearanceRequest$outboundSchema:
     PutMediasMediaIdCustomizationsAppearanceRequest$Outbound,
     z.ZodTypeDef,
     PutMediasMediaIdCustomizationsAppearanceRequest
-  > = z.object({
-    mediaId: z.string(),
-    requestBody: z.lazy(() =>
-      PutMediasMediaIdCustomizationsAppearanceRequestBody$outboundSchema
-    ),
-  }).transform((v) => {
-    return remap$(v, {
-      requestBody: "RequestBody",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      mediaId: z.string(),
+      requestBody: z.lazy(() =>
+        PutMediasMediaIdCustomizationsAppearanceRequestBody$outboundSchema
+      ),
+    }).transform((v) => {
+      return remap$(v, {
+        requestBody: "RequestBody",
+      });
+    })
+  );
 
 export function putMediasMediaIdCustomizationsAppearanceRequestToJSON(
   putMediasMediaIdCustomizationsAppearanceRequest:
@@ -236,8 +243,10 @@ export function putMediasMediaIdCustomizationsAppearanceRequestToJSON(
 
 /** @internal */
 export const PutMediasMediaIdCustomizationsAppearanceCode$inboundSchema:
-  z.ZodNativeEnum<typeof PutMediasMediaIdCustomizationsAppearanceCode> = z
-    .nativeEnum(PutMediasMediaIdCustomizationsAppearanceCode);
+  z.ZodNativeEnum<typeof PutMediasMediaIdCustomizationsAppearanceCode> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(PutMediasMediaIdCustomizationsAppearanceCode)
+    );
 
 /** @internal */
 export const PutMediasMediaIdCustomizationsAppearancePlayerColorGradientResponse$inboundSchema:
@@ -245,10 +254,12 @@ export const PutMediasMediaIdCustomizationsAppearancePlayerColorGradientResponse
     PutMediasMediaIdCustomizationsAppearancePlayerColorGradientResponse,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    on: z.string().optional(),
-    colors: z.array(z.array(z.any())).optional(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      on: z.string().optional(),
+      colors: z.array(z.array(z.any())).optional(),
+    })
+  );
 
 export function putMediasMediaIdCustomizationsAppearancePlayerColorGradientResponseFromJSON(
   jsonString: string,
@@ -271,21 +282,23 @@ export const PutMediasMediaIdCustomizationsAppearanceResponse$inboundSchema:
     PutMediasMediaIdCustomizationsAppearanceResponse,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    playerColor: z.string().optional(),
-    playerColorGradient: z.lazy(() =>
-      PutMediasMediaIdCustomizationsAppearancePlayerColorGradientResponse$inboundSchema
-    ).optional(),
-    roundedPlayer: z.string().optional(),
-    opaqueControls: z.string().optional(),
-    contrastIcons: z.string().optional(),
-    branding: z.string().optional(),
-    showCustomerLogo: z.string().optional(),
-    customerLogoImageUrl: z.string().optional(),
-    customerLogoTargetUrl: z.string().optional(),
-    customerLogoPlacement: z.string().optional(),
-    customerLogoSizePercent: z.string().optional(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      playerColor: z.string().optional(),
+      playerColorGradient: z.lazy(() =>
+        PutMediasMediaIdCustomizationsAppearancePlayerColorGradientResponse$inboundSchema
+      ).optional(),
+      roundedPlayer: z.string().optional(),
+      opaqueControls: z.string().optional(),
+      contrastIcons: z.string().optional(),
+      branding: z.string().optional(),
+      showCustomerLogo: z.string().optional(),
+      customerLogoImageUrl: z.string().optional(),
+      customerLogoTargetUrl: z.string().optional(),
+      customerLogoPlacement: z.string().optional(),
+      customerLogoSizePercent: z.string().optional(),
+    })
+  );
 
 export function putMediasMediaIdCustomizationsAppearanceResponseFromJSON(
   jsonString: string,

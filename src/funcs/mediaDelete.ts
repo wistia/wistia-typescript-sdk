@@ -8,9 +8,8 @@ import { matchStatusCode } from "../lib/http.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { RequestOptions } from "../lib/sdks.js";
+import { encodePath, RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
-import { pathToFunc } from "../lib/url.js";
 import {
   ConnectionError,
   InvalidRequestError,
@@ -30,7 +29,9 @@ import { Result } from "../types/fp.js";
  * Delete Media
  *
  * @remarks
- * Deletes a media.
+ * Deletes a media. Deleted media moves to the account's Recently Deleted area,
+ * where it can be restored until the account's restore window ends, after which
+ * it is permanently purged.
  *
  * ## Requires api token with one of the following permissions
  * ```
@@ -107,7 +108,11 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-  const path = pathToFunc("/medias/{mediaHashedId}")(pathParams);
+  const pathResult = encodePath("/medias/{mediaHashedId}", pathParams);
+  if (!pathResult.ok) {
+    return [pathResult, { status: "invalid" }];
+  }
+  const path = pathResult.value;
 
   const headers = new Headers(compactMap({
     Accept: "application/json",

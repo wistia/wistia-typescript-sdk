@@ -17,12 +17,12 @@ loads, engagement rate, play rate, and conversion metrics.
 
 The date range between `start_date` and `end_date` must not exceed 2 years.
 
-<!--- HIDE-MCP -->
+
 ## Requires api token with one of the following permissions
 ```
 Read detailed stats
 ```
-<!--- /HIDE-MCP -->
+
 
 
 ### Example Usage
@@ -111,12 +111,12 @@ across all of the account's media.
 
 The date range between `start_date` and `end_date` must not exceed 2 years.
 
-<!--- HIDE-MCP -->
+
 ## Requires api token with one of the following permissions
 ```
 Read detailed stats
 ```
-<!--- /HIDE-MCP -->
+
 
 
 ### Example Usage
@@ -211,12 +211,12 @@ of videos, still sorted by `sort_by`.
 
 The date range between `start_date` and `end_date` must not exceed 2 years.
 
-<!--- HIDE-MCP -->
+
 ## Requires api token with one of the following permissions
 ```
 Read detailed stats
 ```
-<!--- /HIDE-MCP -->
+
 
 
 ### Example Usage
@@ -304,12 +304,12 @@ where the account's media are embedded, ranked by the chosen metric.
 
 The date range between `start_date` and `end_date` must not exceed 2 years.
 
-<!--- HIDE-MCP -->
+
 ## Requires api token with one of the following permissions
 ```
 Read detailed stats
 ```
-<!--- /HIDE-MCP -->
+
 
 
 ### Example Usage

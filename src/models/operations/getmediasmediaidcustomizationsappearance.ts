@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -69,9 +69,11 @@ export const GetMediasMediaIdCustomizationsAppearanceRequest$outboundSchema:
     GetMediasMediaIdCustomizationsAppearanceRequest$Outbound,
     z.ZodTypeDef,
     GetMediasMediaIdCustomizationsAppearanceRequest
-  > = z.object({
-    mediaId: z.string(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      mediaId: z.string(),
+    })
+  );
 
 export function getMediasMediaIdCustomizationsAppearanceRequestToJSON(
   getMediasMediaIdCustomizationsAppearanceRequest:
@@ -86,8 +88,10 @@ export function getMediasMediaIdCustomizationsAppearanceRequestToJSON(
 
 /** @internal */
 export const GetMediasMediaIdCustomizationsAppearanceCode$inboundSchema:
-  z.ZodNativeEnum<typeof GetMediasMediaIdCustomizationsAppearanceCode> = z
-    .nativeEnum(GetMediasMediaIdCustomizationsAppearanceCode);
+  z.ZodNativeEnum<typeof GetMediasMediaIdCustomizationsAppearanceCode> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(GetMediasMediaIdCustomizationsAppearanceCode)
+    );
 
 /** @internal */
 export const GetMediasMediaIdCustomizationsAppearancePlayerColorGradient$inboundSchema:
@@ -95,10 +99,12 @@ export const GetMediasMediaIdCustomizationsAppearancePlayerColorGradient$inbound
     GetMediasMediaIdCustomizationsAppearancePlayerColorGradient,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    on: z.string().optional(),
-    colors: z.array(z.array(z.any())).optional(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      on: z.string().optional(),
+      colors: z.array(z.array(z.any())).optional(),
+    })
+  );
 
 export function getMediasMediaIdCustomizationsAppearancePlayerColorGradientFromJSON(
   jsonString: string,
@@ -121,21 +127,23 @@ export const GetMediasMediaIdCustomizationsAppearanceResponse$inboundSchema:
     GetMediasMediaIdCustomizationsAppearanceResponse,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    playerColor: z.string().optional(),
-    playerColorGradient: z.lazy(() =>
-      GetMediasMediaIdCustomizationsAppearancePlayerColorGradient$inboundSchema
-    ).optional(),
-    roundedPlayer: z.string().optional(),
-    opaqueControls: z.string().optional(),
-    contrastIcons: z.string().optional(),
-    branding: z.string().optional(),
-    showCustomerLogo: z.string().optional(),
-    customerLogoImageUrl: z.string().optional(),
-    customerLogoTargetUrl: z.string().optional(),
-    customerLogoPlacement: z.string().optional(),
-    customerLogoSizePercent: z.string().optional(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      playerColor: z.string().optional(),
+      playerColorGradient: z.lazy(() =>
+        GetMediasMediaIdCustomizationsAppearancePlayerColorGradient$inboundSchema
+      ).optional(),
+      roundedPlayer: z.string().optional(),
+      opaqueControls: z.string().optional(),
+      contrastIcons: z.string().optional(),
+      branding: z.string().optional(),
+      showCustomerLogo: z.string().optional(),
+      customerLogoImageUrl: z.string().optional(),
+      customerLogoTargetUrl: z.string().optional(),
+      customerLogoPlacement: z.string().optional(),
+      customerLogoSizePercent: z.string().optional(),
+    })
+  );
 
 export function getMediasMediaIdCustomizationsAppearanceResponseFromJSON(
   jsonString: string,

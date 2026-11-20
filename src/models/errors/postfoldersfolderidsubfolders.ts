@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
 import * as operations from "../operations/index.js";
 import { WistiaError } from "./wistiaerror.js";
 
@@ -195,23 +196,7 @@ export const PostFoldersFolderIdSubfoldersInternalServerError$inboundSchema:
     PostFoldersFolderIdSubfoldersInternalServerError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new PostFoldersFolderIdSubfoldersInternalServerError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
-
-/** @internal */
-export const PostFoldersFolderIdSubfoldersNotFoundError$inboundSchema:
-  z.ZodType<PostFoldersFolderIdSubfoldersNotFoundError, z.ZodTypeDef, unknown> =
+  > = /* @__PURE__ */ lazySchema$(() =>
     z.object({
       error: z.string().optional(),
       request$: z.instanceof(Request),
@@ -219,12 +204,32 @@ export const PostFoldersFolderIdSubfoldersNotFoundError$inboundSchema:
       body$: z.string(),
     })
       .transform((v) => {
-        return new PostFoldersFolderIdSubfoldersNotFoundError(v, {
+        return new PostFoldersFolderIdSubfoldersInternalServerError(v, {
           request: v.request$,
           response: v.response$,
           body: v.body$,
         });
-      });
+      })
+  );
+
+/** @internal */
+export const PostFoldersFolderIdSubfoldersNotFoundError$inboundSchema:
+  z.ZodType<PostFoldersFolderIdSubfoldersNotFoundError, z.ZodTypeDef, unknown> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.object({
+        error: z.string().optional(),
+        request$: z.instanceof(Request),
+        response$: z.instanceof(Response),
+        body$: z.string(),
+      })
+        .transform((v) => {
+          return new PostFoldersFolderIdSubfoldersNotFoundError(v, {
+            request: v.request$,
+            response: v.response$,
+            body: v.body$,
+          });
+        })
+    );
 
 /** @internal */
 export const PostFoldersFolderIdSubfoldersForbiddenError$inboundSchema:
@@ -232,19 +237,21 @@ export const PostFoldersFolderIdSubfoldersForbiddenError$inboundSchema:
     PostFoldersFolderIdSubfoldersForbiddenError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new PostFoldersFolderIdSubfoldersForbiddenError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new PostFoldersFolderIdSubfoldersForbiddenError(v, {
+          request: v.request$,
+          response: v.response$,
+          body: v.body$,
+        });
+      })
+  );
 
 /** @internal */
 export const PostFoldersFolderIdSubfoldersUnauthorizedError$inboundSchema:
@@ -252,20 +259,23 @@ export const PostFoldersFolderIdSubfoldersUnauthorizedError$inboundSchema:
     PostFoldersFolderIdSubfoldersUnauthorizedError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    code: operations.PostFoldersFolderIdSubfoldersCode$inboundSchema.optional(),
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new PostFoldersFolderIdSubfoldersUnauthorizedError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      code: operations.PostFoldersFolderIdSubfoldersCode$inboundSchema
+        .optional(),
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new PostFoldersFolderIdSubfoldersUnauthorizedError(v, {
+          request: v.request$,
+          response: v.response$,
+          body: v.body$,
+        });
+      })
+  );
 
 /** @internal */
 export const PostFoldersFolderIdSubfoldersBadRequestError$inboundSchema:
@@ -273,17 +283,19 @@ export const PostFoldersFolderIdSubfoldersBadRequestError$inboundSchema:
     PostFoldersFolderIdSubfoldersBadRequestError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    error: z.string().optional(),
-    errors: z.array(z.string()).optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new PostFoldersFolderIdSubfoldersBadRequestError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      error: z.string().optional(),
+      errors: z.array(z.string()).optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new PostFoldersFolderIdSubfoldersBadRequestError(v, {
+          request: v.request$,
+          response: v.response$,
+          body: v.body$,
+        });
+      })
+  );

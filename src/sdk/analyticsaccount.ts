@@ -21,12 +21,10 @@ export class AnalyticsAccount extends ClientSDK {
    *
    * The date range between `start_date` and `end_date` must not exceed 2 years.
    *
-   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read detailed stats
    * ```
-   * <!--- /HIDE-MCP -->
    */
   async get(
     request: operations.GetAnalyticsAccountRequest,
@@ -49,12 +47,10 @@ export class AnalyticsAccount extends ClientSDK {
    *
    * The date range between `start_date` and `end_date` must not exceed 2 years.
    *
-   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read detailed stats
    * ```
-   * <!--- /HIDE-MCP -->
    */
   async getTimeseries(
     request: operations.GetAnalyticsAccountTimeseriesRequest,
@@ -81,12 +77,10 @@ export class AnalyticsAccount extends ClientSDK {
    *
    * The date range between `start_date` and `end_date` must not exceed 2 years.
    *
-   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read detailed stats
    * ```
-   * <!--- /HIDE-MCP -->
    */
   async getTopContent(
     request: operations.GetAnalyticsAccountTopContentRequest,
@@ -108,12 +102,10 @@ export class AnalyticsAccount extends ClientSDK {
    *
    * The date range between `start_date` and `end_date` must not exceed 2 years.
    *
-   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read detailed stats
    * ```
-   * <!--- /HIDE-MCP -->
    */
   async getEmbedLocations(
     request: operations.GetAnalyticsAccountEmbedLocationsRequest,
