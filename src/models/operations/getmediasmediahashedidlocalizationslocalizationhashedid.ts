@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -173,15 +173,17 @@ export const GetMediasMediaHashedIdLocalizationsLocalizationHashedIdRequest$outb
     GetMediasMediaHashedIdLocalizationsLocalizationHashedIdRequest$Outbound,
     z.ZodTypeDef,
     GetMediasMediaHashedIdLocalizationsLocalizationHashedIdRequest
-  > = z.object({
-    mediaHashedId: z.string(),
-    localizationHashedId: z.string(),
-    includeTranscript: z.boolean().default(false),
-  }).transform((v) => {
-    return remap$(v, {
-      includeTranscript: "include_transcript",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      mediaHashedId: z.string(),
+      localizationHashedId: z.string(),
+      includeTranscript: z.boolean().default(false),
+    }).transform((v) => {
+      return remap$(v, {
+        includeTranscript: "include_transcript",
+      });
+    })
+  );
 
 export function getMediasMediaHashedIdLocalizationsLocalizationHashedIdRequestToJSON(
   getMediasMediaHashedIdLocalizationsLocalizationHashedIdRequest:
@@ -197,7 +199,9 @@ export function getMediasMediaHashedIdLocalizationsLocalizationHashedIdRequestTo
 export const GetMediasMediaHashedIdLocalizationsLocalizationHashedIdCode$inboundSchema:
   z.ZodNativeEnum<
     typeof GetMediasMediaHashedIdLocalizationsLocalizationHashedIdCode
-  > = z.nativeEnum(GetMediasMediaHashedIdLocalizationsLocalizationHashedIdCode);
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.nativeEnum(GetMediasMediaHashedIdLocalizationsLocalizationHashedIdCode)
+  );
 
 /** @internal */
 export const GetMediasMediaHashedIdLocalizationsLocalizationHashedIdSourceMedia$inboundSchema:
@@ -205,23 +209,25 @@ export const GetMediasMediaHashedIdLocalizationsLocalizationHashedIdSourceMedia$
     GetMediasMediaHashedIdLocalizationsLocalizationHashedIdSourceMedia,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    hashed_id: z.string(),
-    name: z.string(),
-    duration: z.number(),
-    created_at: z.string().datetime({ offset: true }).transform(v =>
-      new Date(v)
-    ),
-    updated_at: z.string().datetime({ offset: true }).transform(v =>
-      new Date(v)
-    ),
-  }).transform((v) => {
-    return remap$(v, {
-      "hashed_id": "hashedId",
-      "created_at": "createdAt",
-      "updated_at": "updatedAt",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      hashed_id: z.string(),
+      name: z.string(),
+      duration: z.number(),
+      created_at: z.string().datetime({ offset: true }).transform(v =>
+        new Date(v)
+      ),
+      updated_at: z.string().datetime({ offset: true }).transform(v =>
+        new Date(v)
+      ),
+    }).transform((v) => {
+      return remap$(v, {
+        "hashed_id": "hashedId",
+        "created_at": "createdAt",
+        "updated_at": "updatedAt",
+      });
+    })
+  );
 
 export function getMediasMediaHashedIdLocalizationsLocalizationHashedIdSourceMediaFromJSON(
   jsonString: string,
@@ -244,26 +250,28 @@ export const GetMediasMediaHashedIdLocalizationsLocalizationHashedIdTranscript$i
     GetMediasMediaHashedIdLocalizationsLocalizationHashedIdTranscript,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    hashed_id: z.string(),
-    language_name: z.string(),
-    native_language_name: z.string(),
-    text: z.string(),
-    created_at: z.string().datetime({ offset: true }).transform(v =>
-      new Date(v)
-    ),
-    updated_at: z.string().datetime({ offset: true }).transform(v =>
-      new Date(v)
-    ),
-  }).transform((v) => {
-    return remap$(v, {
-      "hashed_id": "hashedId",
-      "language_name": "languageName",
-      "native_language_name": "nativeLanguageName",
-      "created_at": "createdAt",
-      "updated_at": "updatedAt",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      hashed_id: z.string(),
+      language_name: z.string(),
+      native_language_name: z.string(),
+      text: z.string(),
+      created_at: z.string().datetime({ offset: true }).transform(v =>
+        new Date(v)
+      ),
+      updated_at: z.string().datetime({ offset: true }).transform(v =>
+        new Date(v)
+      ),
+    }).transform((v) => {
+      return remap$(v, {
+        "hashed_id": "hashedId",
+        "language_name": "languageName",
+        "native_language_name": "nativeLanguageName",
+        "created_at": "createdAt",
+        "updated_at": "updatedAt",
+      });
+    })
+  );
 
 export function getMediasMediaHashedIdLocalizationsLocalizationHashedIdTranscriptFromJSON(
   jsonString: string,
@@ -286,47 +294,47 @@ export const GetMediasMediaHashedIdLocalizationsLocalizationHashedIdResponse$inb
     GetMediasMediaHashedIdLocalizationsLocalizationHashedIdResponse,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    hashed_id: z.string(),
-    language_code: z.string(),
-    iso639_2_language_code: z.string(),
-    language_name: z.string(),
-    native_language_name: z.string(),
-    created_at: z.string().datetime({ offset: true }).transform(v =>
-      new Date(v)
-    ),
-    updated_at: z.string().datetime({ offset: true }).transform(v =>
-      new Date(v)
-    ),
-    ordered_at: z.nullable(
-      z.string().datetime({ offset: true }).transform(v => new Date(v)),
-    ),
-    enabled_at: z.nullable(
-      z.string().datetime({ offset: true }).transform(v => new Date(v)),
-    ),
-    enabled: z.boolean(),
-    source_media: z.lazy(() =>
-      GetMediasMediaHashedIdLocalizationsLocalizationHashedIdSourceMedia$inboundSchema
-    ),
-    transcript: z.nullable(
-      z.lazy(() =>
-        GetMediasMediaHashedIdLocalizationsLocalizationHashedIdTranscript$inboundSchema
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      hashed_id: z.string(),
+      language_code: z.string(),
+      iso639_2_language_code: z.string(),
+      language_name: z.string(),
+      native_language_name: z.string(),
+      created_at: z.string().datetime({ offset: true }).transform(v =>
+        new Date(v)
       ),
-    ).optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      "hashed_id": "hashedId",
-      "language_code": "languageCode",
-      "iso639_2_language_code": "iso6392LanguageCode",
-      "language_name": "languageName",
-      "native_language_name": "nativeLanguageName",
-      "created_at": "createdAt",
-      "updated_at": "updatedAt",
-      "ordered_at": "orderedAt",
-      "enabled_at": "enabledAt",
-      "source_media": "sourceMedia",
-    });
-  });
+      updated_at: z.string().datetime({ offset: true }).transform(v =>
+        new Date(v)
+      ),
+      ordered_at: z.nullable(
+        z.string().datetime({ offset: true }).transform(v => new Date(v)),
+      ),
+      enabled_at: z.nullable(
+        z.string().datetime({ offset: true }).transform(v => new Date(v)),
+      ),
+      enabled: z.boolean(),
+      source_media: z.lazy(() =>
+        GetMediasMediaHashedIdLocalizationsLocalizationHashedIdSourceMedia$inboundSchema
+      ),
+      transcript: z.nullable(z.lazy(() =>
+        GetMediasMediaHashedIdLocalizationsLocalizationHashedIdTranscript$inboundSchema
+      )).optional(),
+    }).transform((v) => {
+      return remap$(v, {
+        "hashed_id": "hashedId",
+        "language_code": "languageCode",
+        "iso639_2_language_code": "iso6392LanguageCode",
+        "language_name": "languageName",
+        "native_language_name": "nativeLanguageName",
+        "created_at": "createdAt",
+        "updated_at": "updatedAt",
+        "ordered_at": "orderedAt",
+        "enabled_at": "enabledAt",
+        "source_media": "sourceMedia",
+      });
+    })
+  );
 
 export function getMediasMediaHashedIdLocalizationsLocalizationHashedIdResponseFromJSON(
   jsonString: string,

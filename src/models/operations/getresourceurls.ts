@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -81,7 +81,7 @@ export type GetResourceUrlsResponse = {
 /** @internal */
 export const GetResourceUrlsType$outboundSchema: z.ZodNativeEnum<
   typeof GetResourceUrlsType
-> = z.nativeEnum(GetResourceUrlsType);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetResourceUrlsType));
 
 /** @internal */
 export type GetResourceUrlsRequest$Outbound = {
@@ -94,14 +94,16 @@ export const GetResourceUrlsRequest$outboundSchema: z.ZodType<
   GetResourceUrlsRequest$Outbound,
   z.ZodTypeDef,
   GetResourceUrlsRequest
-> = z.object({
-  type: GetResourceUrlsType$outboundSchema,
-  hashedId: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    hashedId: "hashed_id",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    type: GetResourceUrlsType$outboundSchema,
+    hashedId: z.string(),
+  }).transform((v) => {
+    return remap$(v, {
+      hashedId: "hashed_id",
+    });
+  })
+);
 
 export function getResourceUrlsRequestToJSON(
   getResourceUrlsRequest: GetResourceUrlsRequest,
@@ -114,13 +116,15 @@ export function getResourceUrlsRequestToJSON(
 /** @internal */
 export const GetResourceUrlsCode$inboundSchema: z.ZodNativeEnum<
   typeof GetResourceUrlsCode
-> = z.nativeEnum(GetResourceUrlsCode);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetResourceUrlsCode));
 
 /** @internal */
-export const Urls$inboundSchema: z.ZodType<Urls, z.ZodTypeDef, unknown> = z
-  .object({
-    show: z.string(),
-  });
+export const Urls$inboundSchema: z.ZodType<Urls, z.ZodTypeDef, unknown> =
+  /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      show: z.string(),
+    })
+  );
 
 export function urlsFromJSON(
   jsonString: string,
@@ -137,15 +141,17 @@ export const GetResourceUrlsResponse$inboundSchema: z.ZodType<
   GetResourceUrlsResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  type: z.string(),
-  hashed_id: z.string(),
-  urls: z.lazy(() => Urls$inboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    "hashed_id": "hashedId",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    type: z.string(),
+    hashed_id: z.string(),
+    urls: z.lazy(() => Urls$inboundSchema),
+  }).transform((v) => {
+    return remap$(v, {
+      "hashed_id": "hashedId",
+    });
+  })
+);
 
 export function getResourceUrlsResponseFromJSON(
   jsonString: string,

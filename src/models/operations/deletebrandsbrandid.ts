@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -200,14 +200,16 @@ export const DeleteBrandsBrandIdRequest$outboundSchema: z.ZodType<
   DeleteBrandsBrandIdRequest$Outbound,
   z.ZodTypeDef,
   DeleteBrandsBrandIdRequest
-> = z.object({
-  brandId: z.string(),
-  syncToCustomizations: z.boolean().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    syncToCustomizations: "sync_to_customizations",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    brandId: z.string(),
+    syncToCustomizations: z.boolean().optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      syncToCustomizations: "sync_to_customizations",
+    });
+  })
+);
 
 export function deleteBrandsBrandIdRequestToJSON(
   deleteBrandsBrandIdRequest: DeleteBrandsBrandIdRequest,
@@ -220,14 +222,16 @@ export function deleteBrandsBrandIdRequestToJSON(
 /** @internal */
 export const DeleteBrandsBrandIdCode$inboundSchema: z.ZodNativeEnum<
   typeof DeleteBrandsBrandIdCode
-> = z.nativeEnum(DeleteBrandsBrandIdCode);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(DeleteBrandsBrandIdCode));
 
 /** @internal */
 export const DeleteBrandsBrandIdPrimaryColor$inboundSchema: z.ZodType<
   DeleteBrandsBrandIdPrimaryColor,
   z.ZodTypeDef,
   unknown
-> = z.union([z.string(), z.array(z.array(z.any()))]);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.union([z.string(), z.array(z.array(z.any()))])
+);
 
 export function deleteBrandsBrandIdPrimaryColorFromJSON(
   jsonString: string,
@@ -244,7 +248,9 @@ export const DeleteBrandsBrandIdPageBackgroundColor$inboundSchema: z.ZodType<
   DeleteBrandsBrandIdPageBackgroundColor,
   z.ZodTypeDef,
   unknown
-> = z.union([z.string(), z.array(z.array(z.any()))]);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.union([z.string(), z.array(z.array(z.any()))])
+);
 
 export function deleteBrandsBrandIdPageBackgroundColorFromJSON(
   jsonString: string,
@@ -260,22 +266,28 @@ export function deleteBrandsBrandIdPageBackgroundColorFromJSON(
 /** @internal */
 export const DeleteBrandsBrandIdContrastIcons$inboundSchema: z.ZodNativeEnum<
   typeof DeleteBrandsBrandIdContrastIcons
-> = z.nativeEnum(DeleteBrandsBrandIdContrastIcons);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(DeleteBrandsBrandIdContrastIcons)
+);
 
 /** @internal */
 export const DeleteBrandsBrandIdOpaqueControls$inboundSchema: z.ZodNativeEnum<
   typeof DeleteBrandsBrandIdOpaqueControls
-> = z.nativeEnum(DeleteBrandsBrandIdOpaqueControls);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(DeleteBrandsBrandIdOpaqueControls)
+);
 
 /** @internal */
 export const DeleteBrandsBrandIdPageLogoDimensions$inboundSchema: z.ZodType<
   DeleteBrandsBrandIdPageLogoDimensions,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  width: z.number().int().optional(),
-  height: z.number().int().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    width: z.number().int().optional(),
+    height: z.number().int().optional(),
+  })
+);
 
 export function deleteBrandsBrandIdPageLogoDimensionsFromJSON(
   jsonString: string,
@@ -293,13 +305,15 @@ export const DeleteBrandsBrandIdPageLogo$inboundSchema: z.ZodType<
   DeleteBrandsBrandIdPageLogo,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  url: z.string().optional(),
-  dimensions: z.nullable(
-    z.lazy(() => DeleteBrandsBrandIdPageLogoDimensions$inboundSchema),
-  ).optional(),
-  size: z.nullable(z.number()).optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    url: z.string().optional(),
+    dimensions: z.nullable(
+      z.lazy(() => DeleteBrandsBrandIdPageLogoDimensions$inboundSchema),
+    ).optional(),
+    size: z.nullable(z.number()).optional(),
+  })
+);
 
 export function deleteBrandsBrandIdPageLogoFromJSON(
   jsonString: string,
@@ -316,10 +330,12 @@ export const DeleteBrandsBrandIdPlayerLogoDimensions$inboundSchema: z.ZodType<
   DeleteBrandsBrandIdPlayerLogoDimensions,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  width: z.number().int().optional(),
-  height: z.number().int().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    width: z.number().int().optional(),
+    height: z.number().int().optional(),
+  })
+);
 
 export function deleteBrandsBrandIdPlayerLogoDimensionsFromJSON(
   jsonString: string,
@@ -342,13 +358,15 @@ export const DeleteBrandsBrandIdPlayerLogo$inboundSchema: z.ZodType<
   DeleteBrandsBrandIdPlayerLogo,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  url: z.string().optional(),
-  dimensions: z.nullable(
-    z.lazy(() => DeleteBrandsBrandIdPlayerLogoDimensions$inboundSchema),
-  ).optional(),
-  size: z.nullable(z.number()).optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    url: z.string().optional(),
+    dimensions: z.nullable(
+      z.lazy(() => DeleteBrandsBrandIdPlayerLogoDimensions$inboundSchema),
+    ).optional(),
+    size: z.nullable(z.number()).optional(),
+  })
+);
 
 export function deleteBrandsBrandIdPlayerLogoFromJSON(
   jsonString: string,
@@ -365,48 +383,51 @@ export const DeleteBrandsBrandIdResponse$inboundSchema: z.ZodType<
   DeleteBrandsBrandIdResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.string().optional(),
-  name: z.string().optional(),
-  is_default: z.boolean().optional(),
-  created: z.string().datetime({ offset: true }).transform(v => new Date(v))
-    .optional(),
-  updated: z.string().datetime({ offset: true }).transform(v => new Date(v))
-    .optional(),
-  primary_color: z.nullable(z.union([z.string(), z.array(z.array(z.any()))]))
-    .optional(),
-  page_background_color: z.nullable(
-    z.union([z.string(), z.array(z.array(z.any()))]),
-  ).optional(),
-  body_font_family: z.nullable(z.string()).optional(),
-  headline_font_family: z.nullable(z.string()).optional(),
-  button_font_family: z.nullable(z.string()).optional(),
-  border_radius: z.nullable(z.number().int()).optional(),
-  contrast_icons: z.nullable(DeleteBrandsBrandIdContrastIcons$inboundSchema)
-    .optional(),
-  opaque_controls: z.nullable(DeleteBrandsBrandIdOpaqueControls$inboundSchema)
-    .optional(),
-  page_logo: z.nullable(z.lazy(() => DeleteBrandsBrandIdPageLogo$inboundSchema))
-    .optional(),
-  player_logo: z.nullable(
-    z.lazy(() => DeleteBrandsBrandIdPlayerLogo$inboundSchema),
-  ).optional(),
-  cursor: z.nullable(z.string()).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "is_default": "isDefault",
-    "primary_color": "primaryColor",
-    "page_background_color": "pageBackgroundColor",
-    "body_font_family": "bodyFontFamily",
-    "headline_font_family": "headlineFontFamily",
-    "button_font_family": "buttonFontFamily",
-    "border_radius": "borderRadius",
-    "contrast_icons": "contrastIcons",
-    "opaque_controls": "opaqueControls",
-    "page_logo": "pageLogo",
-    "player_logo": "playerLogo",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    id: z.string().optional(),
+    name: z.string().optional(),
+    is_default: z.boolean().optional(),
+    created: z.string().datetime({ offset: true }).transform(v => new Date(v))
+      .optional(),
+    updated: z.string().datetime({ offset: true }).transform(v => new Date(v))
+      .optional(),
+    primary_color: z.nullable(z.union([z.string(), z.array(z.array(z.any()))]))
+      .optional(),
+    page_background_color: z.nullable(
+      z.union([z.string(), z.array(z.array(z.any()))]),
+    ).optional(),
+    body_font_family: z.nullable(z.string()).optional(),
+    headline_font_family: z.nullable(z.string()).optional(),
+    button_font_family: z.nullable(z.string()).optional(),
+    border_radius: z.nullable(z.number().int()).optional(),
+    contrast_icons: z.nullable(DeleteBrandsBrandIdContrastIcons$inboundSchema)
+      .optional(),
+    opaque_controls: z.nullable(DeleteBrandsBrandIdOpaqueControls$inboundSchema)
+      .optional(),
+    page_logo: z.nullable(
+      z.lazy(() => DeleteBrandsBrandIdPageLogo$inboundSchema),
+    ).optional(),
+    player_logo: z.nullable(
+      z.lazy(() => DeleteBrandsBrandIdPlayerLogo$inboundSchema),
+    ).optional(),
+    cursor: z.nullable(z.string()).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "is_default": "isDefault",
+      "primary_color": "primaryColor",
+      "page_background_color": "pageBackgroundColor",
+      "body_font_family": "bodyFontFamily",
+      "headline_font_family": "headlineFontFamily",
+      "button_font_family": "buttonFontFamily",
+      "border_radius": "borderRadius",
+      "contrast_icons": "contrastIcons",
+      "opaque_controls": "opaqueControls",
+      "page_logo": "pageLogo",
+      "player_logo": "playerLogo",
+    });
+  })
+);
 
 export function deleteBrandsBrandIdResponseFromJSON(
   jsonString: string,

@@ -8,9 +8,8 @@ import { matchStatusCode } from "../lib/http.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { RequestOptions } from "../lib/sdks.js";
+import { encodePath, RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
-import { pathToFunc } from "../lib/url.js";
 import {
   ConnectionError,
   InvalidRequestError,
@@ -41,6 +40,12 @@ import { Result } from "../types/fp.js";
  * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
  * made with such a token are authorized using the permissions of the
  * contact assigned to the token.
+ *
+ * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+ * created with the `all:delegate_to_contact_permissions` scope and an
+ * authorization granting the `edit-transcripts` permission on the source
+ * media can also be used. Other media permissions do not reach a media's
+ * localizations, so a token without `edit-transcripts` gets a 404.
  */
 export function localizationsGet(
   client: WistiaCore,
@@ -119,9 +124,14 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-  const path = pathToFunc(
+  const pathResult = encodePath(
     "/medias/{mediaHashedId}/localizations/{localizationHashedId}",
-  )(pathParams);
+    pathParams,
+  );
+  if (!pathResult.ok) {
+    return [pathResult, { status: "invalid" }];
+  }
+  const path = pathResult.value;
 
   const query = encodeFormQuery({
     "include_transcript": payload.include_transcript,

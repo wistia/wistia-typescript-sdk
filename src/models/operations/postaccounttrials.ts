@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -44,26 +44,28 @@ export type PostAccountTrialsResponse = {
 /** @internal */
 export const PostAccountTrialsCode$inboundSchema: z.ZodNativeEnum<
   typeof PostAccountTrialsCode
-> = z.nativeEnum(PostAccountTrialsCode);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(PostAccountTrialsCode));
 
 /** @internal */
 export const PostAccountTrialsResponse$inboundSchema: z.ZodType<
   PostAccountTrialsResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  trial_expires_at: z.nullable(
-    z.string().datetime({ offset: true }).transform(v => new Date(v)),
-  ),
-  plan_tier: z.nullable(z.string()),
-  is_trial: z.boolean(),
-}).transform((v) => {
-  return remap$(v, {
-    "trial_expires_at": "trialExpiresAt",
-    "plan_tier": "planTier",
-    "is_trial": "isTrial",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    trial_expires_at: z.nullable(
+      z.string().datetime({ offset: true }).transform(v => new Date(v)),
+    ),
+    plan_tier: z.nullable(z.string()),
+    is_trial: z.boolean(),
+  }).transform((v) => {
+    return remap$(v, {
+      "trial_expires_at": "trialExpiresAt",
+      "plan_tier": "planTier",
+      "is_trial": "isTrial",
+    });
+  })
+);
 
 export function postAccountTrialsResponseFromJSON(
   jsonString: string,

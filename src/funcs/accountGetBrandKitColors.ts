@@ -53,6 +53,11 @@ import { Result } from "../types/fp.js";
  * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
  * made with such a token are authorized using the permissions of the
  * contact assigned to the token.
+ *
+ * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+ * created with the `all:delegate_to_contact_permissions` scope can also be
+ * used, whatever its authorizations name; the colors belong to the token's
+ * own account.
  */
 export function accountGetBrandKitColors(
   client: WistiaCore,

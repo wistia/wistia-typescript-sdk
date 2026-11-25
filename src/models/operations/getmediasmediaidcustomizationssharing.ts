@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -67,9 +67,11 @@ export const GetMediasMediaIdCustomizationsSharingRequest$outboundSchema:
     GetMediasMediaIdCustomizationsSharingRequest$Outbound,
     z.ZodTypeDef,
     GetMediasMediaIdCustomizationsSharingRequest
-  > = z.object({
-    mediaId: z.string(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      mediaId: z.string(),
+    })
+  );
 
 export function getMediasMediaIdCustomizationsSharingRequestToJSON(
   getMediasMediaIdCustomizationsSharingRequest:
@@ -84,22 +86,26 @@ export function getMediasMediaIdCustomizationsSharingRequestToJSON(
 
 /** @internal */
 export const GetMediasMediaIdCustomizationsSharingCode$inboundSchema:
-  z.ZodNativeEnum<typeof GetMediasMediaIdCustomizationsSharingCode> = z
-    .nativeEnum(GetMediasMediaIdCustomizationsSharingCode);
+  z.ZodNativeEnum<typeof GetMediasMediaIdCustomizationsSharingCode> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(GetMediasMediaIdCustomizationsSharingCode)
+    );
 
 /** @internal */
 export const GetMediasMediaIdCustomizationsSharingShare$inboundSchema:
   z.ZodType<GetMediasMediaIdCustomizationsSharingShare, z.ZodTypeDef, unknown> =
-    z.object({
-      on: z.string().optional(),
-      channels: z.array(z.string()).optional(),
-      tweetText: z.string().optional(),
-      downloadType: z.string().optional(),
-      overrideUrl: z.string().optional(),
-      pageUrl: z.string().optional(),
-      pageTitle: z.string().optional(),
-      conversionOpportunityKey: z.string().optional(),
-    });
+    /* @__PURE__ */ lazySchema$(() =>
+      z.object({
+        on: z.string().optional(),
+        channels: z.array(z.string()).optional(),
+        tweetText: z.string().optional(),
+        downloadType: z.string().optional(),
+        overrideUrl: z.string().optional(),
+        pageUrl: z.string().optional(),
+        pageTitle: z.string().optional(),
+        conversionOpportunityKey: z.string().optional(),
+      })
+    );
 
 export function getMediasMediaIdCustomizationsSharingShareFromJSON(
   jsonString: string,
@@ -123,11 +129,13 @@ export const GetMediasMediaIdCustomizationsSharingPlugin$inboundSchema:
     GetMediasMediaIdCustomizationsSharingPlugin,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    share: z.lazy(() =>
-      GetMediasMediaIdCustomizationsSharingShare$inboundSchema
-    ).optional(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      share: z.lazy(() =>
+        GetMediasMediaIdCustomizationsSharingShare$inboundSchema
+      ).optional(),
+    })
+  );
 
 export function getMediasMediaIdCustomizationsSharingPluginFromJSON(
   jsonString: string,
@@ -151,11 +159,13 @@ export const GetMediasMediaIdCustomizationsSharingResponse$inboundSchema:
     GetMediasMediaIdCustomizationsSharingResponse,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    plugin: z.lazy(() =>
-      GetMediasMediaIdCustomizationsSharingPlugin$inboundSchema
-    ).optional(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      plugin: z.lazy(() =>
+        GetMediasMediaIdCustomizationsSharingPlugin$inboundSchema
+      ).optional(),
+    })
+  );
 
 export function getMediasMediaIdCustomizationsSharingResponseFromJSON(
   jsonString: string,

@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
 import * as operations from "../operations/index.js";
 import { WistiaError } from "./wistiaerror.js";
 
@@ -73,6 +74,39 @@ export class DeleteFoldersFolderIdSharingsSharingIdNotFoundError
 }
 
 /**
+ * Forbidden, token is valid but account does not have access to feature
+ */
+export type DeleteFoldersFolderIdSharingsSharingIdForbiddenErrorData = {
+  error?: string | undefined;
+};
+
+/**
+ * Forbidden, token is valid but account does not have access to feature
+ */
+export class DeleteFoldersFolderIdSharingsSharingIdForbiddenError
+  extends WistiaError
+{
+  error?: string | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: DeleteFoldersFolderIdSharingsSharingIdForbiddenErrorData;
+
+  constructor(
+    err: DeleteFoldersFolderIdSharingsSharingIdForbiddenErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+
+    this.name = "DeleteFoldersFolderIdSharingsSharingIdForbiddenError";
+  }
+}
+
+/**
  * Unauthorized, invalid or missing token
  */
 export type DeleteFoldersFolderIdSharingsSharingIdUnauthorizedErrorData = {
@@ -120,19 +154,20 @@ export const DeleteFoldersFolderIdSharingsSharingIdInternalServerError$inboundSc
     DeleteFoldersFolderIdSharingsSharingIdInternalServerError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new DeleteFoldersFolderIdSharingsSharingIdInternalServerError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new DeleteFoldersFolderIdSharingsSharingIdInternalServerError(
+          v,
+          { request: v.request$, response: v.response$, body: v.body$ },
+        );
+      })
+  );
 
 /** @internal */
 export const DeleteFoldersFolderIdSharingsSharingIdNotFoundError$inboundSchema:
@@ -140,19 +175,43 @@ export const DeleteFoldersFolderIdSharingsSharingIdNotFoundError$inboundSchema:
     DeleteFoldersFolderIdSharingsSharingIdNotFoundError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new DeleteFoldersFolderIdSharingsSharingIdNotFoundError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new DeleteFoldersFolderIdSharingsSharingIdNotFoundError(v, {
+          request: v.request$,
+          response: v.response$,
+          body: v.body$,
+        });
+      })
+  );
+
+/** @internal */
+export const DeleteFoldersFolderIdSharingsSharingIdForbiddenError$inboundSchema:
+  z.ZodType<
+    DeleteFoldersFolderIdSharingsSharingIdForbiddenError,
+    z.ZodTypeDef,
+    unknown
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new DeleteFoldersFolderIdSharingsSharingIdForbiddenError(v, {
+          request: v.request$,
+          response: v.response$,
+          body: v.body$,
+        });
+      })
+  );
 
 /** @internal */
 export const DeleteFoldersFolderIdSharingsSharingIdUnauthorizedError$inboundSchema:
@@ -160,18 +219,20 @@ export const DeleteFoldersFolderIdSharingsSharingIdUnauthorizedError$inboundSche
     DeleteFoldersFolderIdSharingsSharingIdUnauthorizedError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    code: operations.DeleteFoldersFolderIdSharingsSharingIdCode$inboundSchema
-      .optional(),
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new DeleteFoldersFolderIdSharingsSharingIdUnauthorizedError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      code: operations.DeleteFoldersFolderIdSharingsSharingIdCode$inboundSchema
+        .optional(),
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new DeleteFoldersFolderIdSharingsSharingIdUnauthorizedError(v, {
+          request: v.request$,
+          response: v.response$,
+          body: v.body$,
+        });
+      })
+  );

@@ -8,9 +8,8 @@ import { matchStatusCode } from "../lib/http.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { RequestOptions } from "../lib/sdks.js";
+import { encodePath, RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
-import { pathToFunc } from "../lib/url.js";
 import {
   ConnectionError,
   InvalidRequestError,
@@ -41,6 +40,13 @@ import { Result } from "../types/fp.js";
  * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
  * made with such a token are authorized using the permissions of the
  * contact assigned to the token.
+ *
+ * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+ * created with the `all:delegate_to_contact_permissions` scope can also be
+ * used when its authorizations cover the record the job acts on: any
+ * permission on that media, folder, channel or webinar suffices, and a job
+ * on the account itself is covered by every token for that account. Jobs on
+ * other records, including bulk operations, are not found.
  */
 export function backgroundJobStatusGet(
   client: WistiaCore,
@@ -111,9 +117,14 @@ async function $do(
       { explode: false, charEncoding: "percent" },
     ),
   };
-  const path = pathToFunc("/background_job_status/{backgroundJobStatusId}")(
+  const pathResult = encodePath(
+    "/background_job_status/{backgroundJobStatusId}",
     pathParams,
   );
+  if (!pathResult.ok) {
+    return [pathResult, { status: "invalid" }];
+  }
+  const path = pathResult.value;
 
   const headers = new Headers(compactMap({
     Accept: "application/json",

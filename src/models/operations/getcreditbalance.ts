@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -40,23 +40,25 @@ export type GetCreditBalanceResponse = {
 /** @internal */
 export const GetCreditBalanceCode$inboundSchema: z.ZodNativeEnum<
   typeof GetCreditBalanceCode
-> = z.nativeEnum(GetCreditBalanceCode);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetCreditBalanceCode));
 
 /** @internal */
 export const GetCreditBalanceResponse$inboundSchema: z.ZodType<
   GetCreditBalanceResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  balance: z.string(),
-  next_grant_at: z.nullable(
-    z.string().datetime({ offset: true }).transform(v => new Date(v)),
-  ),
-}).transform((v) => {
-  return remap$(v, {
-    "next_grant_at": "nextGrantAt",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    balance: z.string(),
+    next_grant_at: z.nullable(
+      z.string().datetime({ offset: true }).transform(v => new Date(v)),
+    ),
+  }).transform((v) => {
+    return remap$(v, {
+      "next_grant_at": "nextGrantAt",
+    });
+  })
+);
 
 export function getCreditBalanceResponseFromJSON(
   jsonString: string,

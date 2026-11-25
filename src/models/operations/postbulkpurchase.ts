@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -362,12 +362,14 @@ export type PostBulkPurchaseResponse = {
 /** @internal */
 export const PostBulkPurchaseOperation$outboundSchema: z.ZodNativeEnum<
   typeof PostBulkPurchaseOperation
-> = z.nativeEnum(PostBulkPurchaseOperation);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(PostBulkPurchaseOperation));
 
 /** @internal */
 export const PostBulkPurchaseResourceType$outboundSchema: z.ZodNativeEnum<
   typeof PostBulkPurchaseResourceType
-> = z.nativeEnum(PostBulkPurchaseResourceType);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(PostBulkPurchaseResourceType)
+);
 
 /** @internal */
 export type PostBulkPurchasePayload$Outbound = {};
@@ -377,7 +379,7 @@ export const PostBulkPurchasePayload$outboundSchema: z.ZodType<
   PostBulkPurchasePayload$Outbound,
   z.ZodTypeDef,
   PostBulkPurchasePayload
-> = z.object({});
+> = /* @__PURE__ */ lazySchema$(() => z.object({}));
 
 export function postBulkPurchasePayloadToJSON(
   postBulkPurchasePayload: PostBulkPurchasePayload,
@@ -400,16 +402,18 @@ export const PostBulkPurchaseAction$outboundSchema: z.ZodType<
   PostBulkPurchaseAction$Outbound,
   z.ZodTypeDef,
   PostBulkPurchaseAction
-> = z.object({
-  operation: PostBulkPurchaseOperation$outboundSchema,
-  resourceType: PostBulkPurchaseResourceType$outboundSchema,
-  id: z.string(),
-  payload: z.lazy(() => PostBulkPurchasePayload$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    resourceType: "resource_type",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    operation: PostBulkPurchaseOperation$outboundSchema,
+    resourceType: PostBulkPurchaseResourceType$outboundSchema,
+    id: z.string(),
+    payload: z.lazy(() => PostBulkPurchasePayload$outboundSchema).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      resourceType: "resource_type",
+    });
+  })
+);
 
 export function postBulkPurchaseActionToJSON(
   postBulkPurchaseAction: PostBulkPurchaseAction,
@@ -422,7 +426,7 @@ export function postBulkPurchaseActionToJSON(
 /** @internal */
 export const PostBulkPurchaseType$outboundSchema: z.ZodNativeEnum<
   typeof PostBulkPurchaseType
-> = z.nativeEnum(PostBulkPurchaseType);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(PostBulkPurchaseType));
 
 /** @internal */
 export type PostBulkPurchaseScope$Outbound = {
@@ -435,10 +439,12 @@ export const PostBulkPurchaseScope$outboundSchema: z.ZodType<
   PostBulkPurchaseScope$Outbound,
   z.ZodTypeDef,
   PostBulkPurchaseScope
-> = z.object({
-  type: PostBulkPurchaseType$outboundSchema,
-  id: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    type: PostBulkPurchaseType$outboundSchema,
+    id: z.string().optional(),
+  })
+);
 
 export function postBulkPurchaseScopeToJSON(
   postBulkPurchaseScope: PostBulkPurchaseScope,
@@ -462,17 +468,19 @@ export const PostBulkPurchaseJob$outboundSchema: z.ZodType<
   PostBulkPurchaseJob$Outbound,
   z.ZodTypeDef,
   PostBulkPurchaseJob
-> = z.object({
-  operation: PostBulkPurchaseOperation$outboundSchema,
-  resourceType: PostBulkPurchaseResourceType$outboundSchema,
-  scope: z.lazy(() => PostBulkPurchaseScope$outboundSchema).optional(),
-  ids: z.array(z.string()).optional(),
-  payload: z.lazy(() => PostBulkPurchasePayload$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    resourceType: "resource_type",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    operation: PostBulkPurchaseOperation$outboundSchema,
+    resourceType: PostBulkPurchaseResourceType$outboundSchema,
+    scope: z.lazy(() => PostBulkPurchaseScope$outboundSchema).optional(),
+    ids: z.array(z.string()).optional(),
+    payload: z.lazy(() => PostBulkPurchasePayload$outboundSchema).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      resourceType: "resource_type",
+    });
+  })
+);
 
 export function postBulkPurchaseJobToJSON(
   postBulkPurchaseJob: PostBulkPurchaseJob,
@@ -493,11 +501,13 @@ export const PostBulkPurchaseRequest$outboundSchema: z.ZodType<
   PostBulkPurchaseRequest$Outbound,
   z.ZodTypeDef,
   PostBulkPurchaseRequest
-> = z.object({
-  actions: z.array(z.lazy(() => PostBulkPurchaseAction$outboundSchema))
-    .optional(),
-  job: z.lazy(() => PostBulkPurchaseJob$outboundSchema).optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    actions: z.array(z.lazy(() => PostBulkPurchaseAction$outboundSchema))
+      .optional(),
+    job: z.lazy(() => PostBulkPurchaseJob$outboundSchema).optional(),
+  })
+);
 
 export function postBulkPurchaseRequestToJSON(
   postBulkPurchaseRequest: PostBulkPurchaseRequest,
@@ -510,27 +520,29 @@ export function postBulkPurchaseRequestToJSON(
 /** @internal */
 export const PostBulkPurchaseCode$inboundSchema: z.ZodNativeEnum<
   typeof PostBulkPurchaseCode
-> = z.nativeEnum(PostBulkPurchaseCode);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(PostBulkPurchaseCode));
 
 /** @internal */
 export const PostBulkPurchaseStatus$inboundSchema: z.ZodNativeEnum<
   typeof PostBulkPurchaseStatus
-> = z.nativeEnum(PostBulkPurchaseStatus);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(PostBulkPurchaseStatus));
 
 /** @internal */
 export const PostBulkPurchaseBackgroundJobStatus$inboundSchema: z.ZodType<
   PostBulkPurchaseBackgroundJobStatus,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.number().int(),
-  hashed_id: z.string(),
-  status: PostBulkPurchaseStatus$inboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    "hashed_id": "hashedId",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    id: z.number().int(),
+    hashed_id: z.string(),
+    status: PostBulkPurchaseStatus$inboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      "hashed_id": "hashedId",
+    });
+  })
+);
 
 export function postBulkPurchaseBackgroundJobStatusFromJSON(
   jsonString: string,
@@ -548,16 +560,18 @@ export const PostBulkPurchaseResponse$inboundSchema: z.ZodType<
   PostBulkPurchaseResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  message: z.string(),
-  background_job_status: z.lazy(() =>
-    PostBulkPurchaseBackgroundJobStatus$inboundSchema
-  ),
-}).transform((v) => {
-  return remap$(v, {
-    "background_job_status": "backgroundJobStatus",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    message: z.string(),
+    background_job_status: z.lazy(() =>
+      PostBulkPurchaseBackgroundJobStatus$inboundSchema
+    ),
+  }).transform((v) => {
+    return remap$(v, {
+      "background_job_status": "backgroundJobStatus",
+    });
+  })
+);
 
 export function postBulkPurchaseResponseFromJSON(
   jsonString: string,

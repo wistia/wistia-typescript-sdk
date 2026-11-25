@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { RFCDate } from "../../types/rfcdate.js";
@@ -55,15 +55,17 @@ export const GetStatsAccountByDateRequest$outboundSchema: z.ZodType<
   GetStatsAccountByDateRequest$Outbound,
   z.ZodTypeDef,
   GetStatsAccountByDateRequest
-> = z.object({
-  startDate: z.instanceof(RFCDate).transform(v => v.toString()).optional(),
-  endDate: z.instanceof(RFCDate).transform(v => v.toString()).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    startDate: "start_date",
-    endDate: "end_date",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    startDate: z.instanceof(RFCDate).transform(v => v.toString()).optional(),
+    endDate: z.instanceof(RFCDate).transform(v => v.toString()).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      startDate: "start_date",
+      endDate: "end_date",
+    });
+  })
+);
 
 export function getStatsAccountByDateRequestToJSON(
   getStatsAccountByDateRequest: GetStatsAccountByDateRequest,
@@ -78,25 +80,27 @@ export function getStatsAccountByDateRequestToJSON(
 /** @internal */
 export const GetStatsAccountByDateCode$inboundSchema: z.ZodNativeEnum<
   typeof GetStatsAccountByDateCode
-> = z.nativeEnum(GetStatsAccountByDateCode);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetStatsAccountByDateCode));
 
 /** @internal */
 export const GetStatsAccountByDateResponse$inboundSchema: z.ZodType<
   GetStatsAccountByDateResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  date: z.string().transform(v => new RFCDate(v)).optional(),
-  load_count: z.number().int().optional(),
-  play_count: z.number().int().optional(),
-  hours_watched: z.number().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "load_count": "loadCount",
-    "play_count": "playCount",
-    "hours_watched": "hoursWatched",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    date: z.string().transform(v => new RFCDate(v)).optional(),
+    load_count: z.number().int().optional(),
+    play_count: z.number().int().optional(),
+    hours_watched: z.number().optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "load_count": "loadCount",
+      "play_count": "playCount",
+      "hours_watched": "hoursWatched",
+    });
+  })
+);
 
 export function getStatsAccountByDateResponseFromJSON(
   jsonString: string,

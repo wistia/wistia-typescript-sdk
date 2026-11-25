@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -79,10 +79,12 @@ export const DeleteFoldersFolderIdSharingsSharingIdRequest$outboundSchema:
     DeleteFoldersFolderIdSharingsSharingIdRequest$Outbound,
     z.ZodTypeDef,
     DeleteFoldersFolderIdSharingsSharingIdRequest
-  > = z.object({
-    folderId: z.string(),
-    sharingId: z.string(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      folderId: z.string(),
+      sharingId: z.string(),
+    })
+  );
 
 export function deleteFoldersFolderIdSharingsSharingIdRequestToJSON(
   deleteFoldersFolderIdSharingsSharingIdRequest:
@@ -97,8 +99,10 @@ export function deleteFoldersFolderIdSharingsSharingIdRequestToJSON(
 
 /** @internal */
 export const DeleteFoldersFolderIdSharingsSharingIdCode$inboundSchema:
-  z.ZodNativeEnum<typeof DeleteFoldersFolderIdSharingsSharingIdCode> = z
-    .nativeEnum(DeleteFoldersFolderIdSharingsSharingIdCode);
+  z.ZodNativeEnum<typeof DeleteFoldersFolderIdSharingsSharingIdCode> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(DeleteFoldersFolderIdSharingsSharingIdCode)
+    );
 
 /** @internal */
 export const DeleteFoldersFolderIdSharingsSharingIdShare$inboundSchema:
@@ -106,12 +110,14 @@ export const DeleteFoldersFolderIdSharingsSharingIdShare$inboundSchema:
     DeleteFoldersFolderIdSharingsSharingIdShare,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    id: z.number().int(),
-    name: z.string(),
-    type: z.string(),
-    email: z.string().optional(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      id: z.number().int(),
+      name: z.string(),
+      type: z.string(),
+      email: z.string().optional(),
+    })
+  );
 
 export function deleteFoldersFolderIdSharingsSharingIdShareFromJSON(
   jsonString: string,
@@ -135,10 +141,12 @@ export const DeleteFoldersFolderIdSharingsSharingIdFolder$inboundSchema:
     DeleteFoldersFolderIdSharingsSharingIdFolder,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    id: z.number().int(),
-    name: z.string(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      id: z.number().int(),
+      name: z.string(),
+    })
+  );
 
 export function deleteFoldersFolderIdSharingsSharingIdFolderFromJSON(
   jsonString: string,
@@ -162,27 +170,29 @@ export const DeleteFoldersFolderIdSharingsSharingIdResponse$inboundSchema:
     DeleteFoldersFolderIdSharingsSharingIdResponse,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    id: z.number().int(),
-    is_admin: z.boolean(),
-    can_share: z.boolean(),
-    can_download: z.boolean(),
-    can_upload: z.boolean(),
-    share: z.lazy(() =>
-      DeleteFoldersFolderIdSharingsSharingIdShare$inboundSchema
-    ),
-    folder: z.lazy(() =>
-      DeleteFoldersFolderIdSharingsSharingIdFolder$inboundSchema
-    ),
-    cursor: z.nullable(z.string()).optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      "is_admin": "isAdmin",
-      "can_share": "canShare",
-      "can_download": "canDownload",
-      "can_upload": "canUpload",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      id: z.number().int(),
+      is_admin: z.boolean(),
+      can_share: z.boolean(),
+      can_download: z.boolean(),
+      can_upload: z.boolean(),
+      share: z.lazy(() =>
+        DeleteFoldersFolderIdSharingsSharingIdShare$inboundSchema
+      ),
+      folder: z.lazy(() =>
+        DeleteFoldersFolderIdSharingsSharingIdFolder$inboundSchema
+      ),
+      cursor: z.nullable(z.string()).optional(),
+    }).transform((v) => {
+      return remap$(v, {
+        "is_admin": "isAdmin",
+        "can_share": "canShare",
+        "can_download": "canDownload",
+        "can_upload": "canUpload",
+      });
+    })
+  );
 
 export function deleteFoldersFolderIdSharingsSharingIdResponseFromJSON(
   jsonString: string,

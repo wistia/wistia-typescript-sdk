@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { RFCDate } from "../../types/rfcdate.js";
@@ -78,18 +78,20 @@ export const GetAnalyticsMediasMediaIdLanguagesRequest$outboundSchema:
     GetAnalyticsMediasMediaIdLanguagesRequest$Outbound,
     z.ZodTypeDef,
     GetAnalyticsMediasMediaIdLanguagesRequest
-  > = z.object({
-    mediaId: z.string(),
-    startDate: z.instanceof(RFCDate).transform(v => v.toString()),
-    endDate: z.instanceof(RFCDate).transform(v => v.toString()),
-    perPage: z.number().int().default(100),
-  }).transform((v) => {
-    return remap$(v, {
-      startDate: "start_date",
-      endDate: "end_date",
-      perPage: "per_page",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      mediaId: z.string(),
+      startDate: z.instanceof(RFCDate).transform(v => v.toString()),
+      endDate: z.instanceof(RFCDate).transform(v => v.toString()),
+      perPage: z.number().int().default(100),
+    }).transform((v) => {
+      return remap$(v, {
+        startDate: "start_date",
+        endDate: "end_date",
+        perPage: "per_page",
+      });
+    })
+  );
 
 export function getAnalyticsMediasMediaIdLanguagesRequestToJSON(
   getAnalyticsMediasMediaIdLanguagesRequest:
@@ -104,24 +106,27 @@ export function getAnalyticsMediasMediaIdLanguagesRequestToJSON(
 
 /** @internal */
 export const GetAnalyticsMediasMediaIdLanguagesCode$inboundSchema:
-  z.ZodNativeEnum<typeof GetAnalyticsMediasMediaIdLanguagesCode> = z.nativeEnum(
-    GetAnalyticsMediasMediaIdLanguagesCode,
-  );
+  z.ZodNativeEnum<typeof GetAnalyticsMediasMediaIdLanguagesCode> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(GetAnalyticsMediasMediaIdLanguagesCode)
+    );
 
 /** @internal */
 export const GetAnalyticsMediasMediaIdLanguagesResponse$inboundSchema:
   z.ZodType<GetAnalyticsMediasMediaIdLanguagesResponse, z.ZodTypeDef, unknown> =
-    z.object({
-      language: z.string().optional(),
-      plays: z.number().int().optional(),
-      percent_of_total_plays: z.number().optional(),
-      captions_support: z.boolean().optional(),
-    }).transform((v) => {
-      return remap$(v, {
-        "percent_of_total_plays": "percentOfTotalPlays",
-        "captions_support": "captionsSupport",
-      });
-    });
+    /* @__PURE__ */ lazySchema$(() =>
+      z.object({
+        language: z.string().optional(),
+        plays: z.number().int().optional(),
+        percent_of_total_plays: z.number().optional(),
+        captions_support: z.boolean().optional(),
+      }).transform((v) => {
+        return remap$(v, {
+          "percent_of_total_plays": "percentOfTotalPlays",
+          "captions_support": "captionsSupport",
+        });
+      })
+    );
 
 export function getAnalyticsMediasMediaIdLanguagesResponseFromJSON(
   jsonString: string,

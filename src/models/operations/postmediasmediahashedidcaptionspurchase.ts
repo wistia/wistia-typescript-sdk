@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -75,15 +75,17 @@ export const PostMediasMediaHashedIdCaptionsPurchaseRequestBody$outboundSchema:
     PostMediasMediaHashedIdCaptionsPurchaseRequestBody$Outbound,
     z.ZodTypeDef,
     PostMediasMediaHashedIdCaptionsPurchaseRequestBody
-  > = z.object({
-    automated: z.boolean().default(false),
-    rush: z.boolean().default(true),
-    automaticallyEnable: z.boolean().default(true),
-  }).transform((v) => {
-    return remap$(v, {
-      automaticallyEnable: "automatically_enable",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      automated: z.boolean().default(false),
+      rush: z.boolean().default(false),
+      automaticallyEnable: z.boolean().default(false),
+    }).transform((v) => {
+      return remap$(v, {
+        automaticallyEnable: "automatically_enable",
+      });
+    })
+  );
 
 export function postMediasMediaHashedIdCaptionsPurchaseRequestBodyToJSON(
   postMediasMediaHashedIdCaptionsPurchaseRequestBody:
@@ -108,16 +110,18 @@ export const PostMediasMediaHashedIdCaptionsPurchaseRequest$outboundSchema:
     PostMediasMediaHashedIdCaptionsPurchaseRequest$Outbound,
     z.ZodTypeDef,
     PostMediasMediaHashedIdCaptionsPurchaseRequest
-  > = z.object({
-    mediaHashedId: z.string(),
-    requestBody: z.lazy(() =>
-      PostMediasMediaHashedIdCaptionsPurchaseRequestBody$outboundSchema
-    ),
-  }).transform((v) => {
-    return remap$(v, {
-      requestBody: "RequestBody",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      mediaHashedId: z.string(),
+      requestBody: z.lazy(() =>
+        PostMediasMediaHashedIdCaptionsPurchaseRequestBody$outboundSchema
+      ),
+    }).transform((v) => {
+      return remap$(v, {
+        requestBody: "RequestBody",
+      });
+    })
+  );
 
 export function postMediasMediaHashedIdCaptionsPurchaseRequestToJSON(
   postMediasMediaHashedIdCaptionsPurchaseRequest:
@@ -132,8 +136,10 @@ export function postMediasMediaHashedIdCaptionsPurchaseRequestToJSON(
 
 /** @internal */
 export const PostMediasMediaHashedIdCaptionsPurchaseCode$inboundSchema:
-  z.ZodNativeEnum<typeof PostMediasMediaHashedIdCaptionsPurchaseCode> = z
-    .nativeEnum(PostMediasMediaHashedIdCaptionsPurchaseCode);
+  z.ZodNativeEnum<typeof PostMediasMediaHashedIdCaptionsPurchaseCode> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(PostMediasMediaHashedIdCaptionsPurchaseCode)
+    );
 
 /** @internal */
 export const PostMediasMediaHashedIdCaptionsPurchaseResponse$inboundSchema:
@@ -141,10 +147,12 @@ export const PostMediasMediaHashedIdCaptionsPurchaseResponse$inboundSchema:
     PostMediasMediaHashedIdCaptionsPurchaseResponse,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    message: z.string(),
-    id: z.string(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      message: z.string(),
+      id: z.string(),
+    })
+  );
 
 export function postMediasMediaHashedIdCaptionsPurchaseResponseFromJSON(
   jsonString: string,

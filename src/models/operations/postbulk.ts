@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -518,12 +518,12 @@ export type PostBulkResponse = {
 /** @internal */
 export const ActionOperation$outboundSchema: z.ZodNativeEnum<
   typeof ActionOperation
-> = z.nativeEnum(ActionOperation);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(ActionOperation));
 
 /** @internal */
 export const ActionResourceType$outboundSchema: z.ZodNativeEnum<
   typeof ActionResourceType
-> = z.nativeEnum(ActionResourceType);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(ActionResourceType));
 
 /** @internal */
 export type ActionPayload$Outbound = {};
@@ -533,7 +533,7 @@ export const ActionPayload$outboundSchema: z.ZodType<
   ActionPayload$Outbound,
   z.ZodTypeDef,
   ActionPayload
-> = z.object({});
+> = /* @__PURE__ */ lazySchema$(() => z.object({}));
 
 export function actionPayloadToJSON(actionPayload: ActionPayload): string {
   return JSON.stringify(ActionPayload$outboundSchema.parse(actionPayload));
@@ -552,16 +552,18 @@ export const PostBulkAction$outboundSchema: z.ZodType<
   PostBulkAction$Outbound,
   z.ZodTypeDef,
   PostBulkAction
-> = z.object({
-  operation: ActionOperation$outboundSchema,
-  resourceType: ActionResourceType$outboundSchema,
-  id: z.string().optional(),
-  payload: z.lazy(() => ActionPayload$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    resourceType: "resource_type",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    operation: ActionOperation$outboundSchema,
+    resourceType: ActionResourceType$outboundSchema,
+    id: z.string().optional(),
+    payload: z.lazy(() => ActionPayload$outboundSchema).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      resourceType: "resource_type",
+    });
+  })
+);
 
 export function postBulkActionToJSON(postBulkAction: PostBulkAction): string {
   return JSON.stringify(PostBulkAction$outboundSchema.parse(postBulkAction));
@@ -569,16 +571,16 @@ export function postBulkActionToJSON(postBulkAction: PostBulkAction): string {
 
 /** @internal */
 export const JobOperation$outboundSchema: z.ZodNativeEnum<typeof JobOperation> =
-  z.nativeEnum(JobOperation);
+  /* @__PURE__ */ lazySchema$(() => z.nativeEnum(JobOperation));
 
 /** @internal */
 export const JobResourceType$outboundSchema: z.ZodNativeEnum<
   typeof JobResourceType
-> = z.nativeEnum(JobResourceType);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(JobResourceType));
 
 /** @internal */
 export const PostBulkType$outboundSchema: z.ZodNativeEnum<typeof PostBulkType> =
-  z.nativeEnum(PostBulkType);
+  /* @__PURE__ */ lazySchema$(() => z.nativeEnum(PostBulkType));
 
 /** @internal */
 export type PostBulkScope$Outbound = {
@@ -591,10 +593,12 @@ export const PostBulkScope$outboundSchema: z.ZodType<
   PostBulkScope$Outbound,
   z.ZodTypeDef,
   PostBulkScope
-> = z.object({
-  type: PostBulkType$outboundSchema,
-  id: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    type: PostBulkType$outboundSchema,
+    id: z.string().optional(),
+  })
+);
 
 export function postBulkScopeToJSON(postBulkScope: PostBulkScope): string {
   return JSON.stringify(PostBulkScope$outboundSchema.parse(postBulkScope));
@@ -608,7 +612,7 @@ export const JobPayload$outboundSchema: z.ZodType<
   JobPayload$Outbound,
   z.ZodTypeDef,
   JobPayload
-> = z.object({});
+> = /* @__PURE__ */ lazySchema$(() => z.object({}));
 
 export function jobPayloadToJSON(jobPayload: JobPayload): string {
   return JSON.stringify(JobPayload$outboundSchema.parse(jobPayload));
@@ -628,17 +632,19 @@ export const PostBulkJob$outboundSchema: z.ZodType<
   PostBulkJob$Outbound,
   z.ZodTypeDef,
   PostBulkJob
-> = z.object({
-  operation: JobOperation$outboundSchema,
-  resourceType: JobResourceType$outboundSchema,
-  scope: z.lazy(() => PostBulkScope$outboundSchema).optional(),
-  ids: z.array(z.string()).optional(),
-  payload: z.lazy(() => JobPayload$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    resourceType: "resource_type",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    operation: JobOperation$outboundSchema,
+    resourceType: JobResourceType$outboundSchema,
+    scope: z.lazy(() => PostBulkScope$outboundSchema).optional(),
+    ids: z.array(z.string()).optional(),
+    payload: z.lazy(() => JobPayload$outboundSchema).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      resourceType: "resource_type",
+    });
+  })
+);
 
 export function postBulkJobToJSON(postBulkJob: PostBulkJob): string {
   return JSON.stringify(PostBulkJob$outboundSchema.parse(postBulkJob));
@@ -655,10 +661,12 @@ export const PostBulkRequest$outboundSchema: z.ZodType<
   PostBulkRequest$Outbound,
   z.ZodTypeDef,
   PostBulkRequest
-> = z.object({
-  actions: z.array(z.lazy(() => PostBulkAction$outboundSchema)).optional(),
-  job: z.lazy(() => PostBulkJob$outboundSchema).optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    actions: z.array(z.lazy(() => PostBulkAction$outboundSchema)).optional(),
+    job: z.lazy(() => PostBulkJob$outboundSchema).optional(),
+  })
+);
 
 export function postBulkRequestToJSON(
   postBulkRequest: PostBulkRequest,
@@ -668,27 +676,29 @@ export function postBulkRequestToJSON(
 
 /** @internal */
 export const PostBulkCode$inboundSchema: z.ZodNativeEnum<typeof PostBulkCode> =
-  z.nativeEnum(PostBulkCode);
+  /* @__PURE__ */ lazySchema$(() => z.nativeEnum(PostBulkCode));
 
 /** @internal */
 export const PostBulkStatus$inboundSchema: z.ZodNativeEnum<
   typeof PostBulkStatus
-> = z.nativeEnum(PostBulkStatus);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(PostBulkStatus));
 
 /** @internal */
 export const PostBulkBackgroundJobStatus$inboundSchema: z.ZodType<
   PostBulkBackgroundJobStatus,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.number().int(),
-  hashed_id: z.string(),
-  status: PostBulkStatus$inboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    "hashed_id": "hashedId",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    id: z.number().int(),
+    hashed_id: z.string(),
+    status: PostBulkStatus$inboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      "hashed_id": "hashedId",
+    });
+  })
+);
 
 export function postBulkBackgroundJobStatusFromJSON(
   jsonString: string,
@@ -705,16 +715,18 @@ export const PostBulkResponse$inboundSchema: z.ZodType<
   PostBulkResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  message: z.string(),
-  background_job_status: z.lazy(() =>
-    PostBulkBackgroundJobStatus$inboundSchema
-  ),
-}).transform((v) => {
-  return remap$(v, {
-    "background_job_status": "backgroundJobStatus",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    message: z.string(),
+    background_job_status: z.lazy(() =>
+      PostBulkBackgroundJobStatus$inboundSchema
+    ),
+  }).transform((v) => {
+    return remap$(v, {
+      "background_job_status": "backgroundJobStatus",
+    });
+  })
+);
 
 export function postBulkResponseFromJSON(
   jsonString: string,

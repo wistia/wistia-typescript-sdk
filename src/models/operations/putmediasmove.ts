@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -152,17 +152,19 @@ export const PutMediasMoveRequest$outboundSchema: z.ZodType<
   PutMediasMoveRequest$Outbound,
   z.ZodTypeDef,
   PutMediasMoveRequest
-> = z.object({
-  hashedIds: z.array(z.string()),
-  folderId: z.string(),
-  subfolderId: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    hashedIds: "hashed_ids",
-    folderId: "folder_id",
-    subfolderId: "subfolder_id",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    hashedIds: z.array(z.string()),
+    folderId: z.string(),
+    subfolderId: z.string().optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      hashedIds: "hashed_ids",
+      folderId: "folder_id",
+      subfolderId: "subfolder_id",
+    });
+  })
+);
 
 export function putMediasMoveRequestToJSON(
   putMediasMoveRequest: PutMediasMoveRequest,
@@ -175,27 +177,29 @@ export function putMediasMoveRequestToJSON(
 /** @internal */
 export const PutMediasMoveCode$inboundSchema: z.ZodNativeEnum<
   typeof PutMediasMoveCode
-> = z.nativeEnum(PutMediasMoveCode);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(PutMediasMoveCode));
 
 /** @internal */
 export const PutMediasMoveStatus2$inboundSchema: z.ZodNativeEnum<
   typeof PutMediasMoveStatus2
-> = z.nativeEnum(PutMediasMoveStatus2);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(PutMediasMoveStatus2));
 
 /** @internal */
 export const PutMediasMoveBackgroundJobStatus2$inboundSchema: z.ZodType<
   PutMediasMoveBackgroundJobStatus2,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.number().int(),
-  hashed_id: z.string(),
-  status: PutMediasMoveStatus2$inboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    "hashed_id": "hashedId",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    id: z.number().int(),
+    hashed_id: z.string(),
+    status: PutMediasMoveStatus2$inboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      "hashed_id": "hashedId",
+    });
+  })
+);
 
 export function putMediasMoveBackgroundJobStatus2FromJSON(
   jsonString: string,
@@ -212,14 +216,16 @@ export const PartialError$inboundSchema: z.ZodType<
   PartialError,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  media_id: z.string().optional(),
-  error: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "media_id": "mediaId",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    media_id: z.string().optional(),
+    error: z.string().optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "media_id": "mediaId",
+    });
+  })
+);
 
 export function partialErrorFromJSON(
   jsonString: string,
@@ -236,18 +242,21 @@ export const PutMediasMoveResponseBody2$inboundSchema: z.ZodType<
   PutMediasMoveResponseBody2,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  message: z.string(),
-  background_job_status: z.lazy(() =>
-    PutMediasMoveBackgroundJobStatus2$inboundSchema
-  ),
-  partial_errors: z.array(z.lazy(() => PartialError$inboundSchema)).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "background_job_status": "backgroundJobStatus",
-    "partial_errors": "partialErrors",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    message: z.string(),
+    background_job_status: z.lazy(() =>
+      PutMediasMoveBackgroundJobStatus2$inboundSchema
+    ),
+    partial_errors: z.array(z.lazy(() => PartialError$inboundSchema))
+      .optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "background_job_status": "backgroundJobStatus",
+      "partial_errors": "partialErrors",
+    });
+  })
+);
 
 export function putMediasMoveResponseBody2FromJSON(
   jsonString: string,
@@ -262,22 +271,24 @@ export function putMediasMoveResponseBody2FromJSON(
 /** @internal */
 export const PutMediasMoveStatus1$inboundSchema: z.ZodNativeEnum<
   typeof PutMediasMoveStatus1
-> = z.nativeEnum(PutMediasMoveStatus1);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(PutMediasMoveStatus1));
 
 /** @internal */
 export const PutMediasMoveBackgroundJobStatus1$inboundSchema: z.ZodType<
   PutMediasMoveBackgroundJobStatus1,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.number().int(),
-  hashed_id: z.string(),
-  status: PutMediasMoveStatus1$inboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    "hashed_id": "hashedId",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    id: z.number().int(),
+    hashed_id: z.string(),
+    status: PutMediasMoveStatus1$inboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      "hashed_id": "hashedId",
+    });
+  })
+);
 
 export function putMediasMoveBackgroundJobStatus1FromJSON(
   jsonString: string,
@@ -294,16 +305,18 @@ export const PutMediasMoveResponseBody1$inboundSchema: z.ZodType<
   PutMediasMoveResponseBody1,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  message: z.string(),
-  background_job_status: z.lazy(() =>
-    PutMediasMoveBackgroundJobStatus1$inboundSchema
-  ),
-}).transform((v) => {
-  return remap$(v, {
-    "background_job_status": "backgroundJobStatus",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    message: z.string(),
+    background_job_status: z.lazy(() =>
+      PutMediasMoveBackgroundJobStatus1$inboundSchema
+    ),
+  }).transform((v) => {
+    return remap$(v, {
+      "background_job_status": "backgroundJobStatus",
+    });
+  })
+);
 
 export function putMediasMoveResponseBody1FromJSON(
   jsonString: string,
@@ -320,10 +333,12 @@ export const PutMediasMoveResponse$inboundSchema: z.ZodType<
   PutMediasMoveResponse,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.lazy(() => PutMediasMoveResponseBody1$inboundSchema),
-  z.lazy(() => PutMediasMoveResponseBody2$inboundSchema),
-]);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.union([
+    z.lazy(() => PutMediasMoveResponseBody1$inboundSchema),
+    z.lazy(() => PutMediasMoveResponseBody2$inboundSchema),
+  ])
+);
 
 export function putMediasMoveResponseFromJSON(
   jsonString: string,

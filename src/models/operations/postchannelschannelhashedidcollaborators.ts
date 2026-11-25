@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -117,8 +117,8 @@ export type PostChannelsChannelHashedIdCollaboratorsResponse = {
 };
 
 /** @internal */
-export const RoleRequest$outboundSchema: z.ZodNativeEnum<typeof RoleRequest> = z
-  .nativeEnum(RoleRequest);
+export const RoleRequest$outboundSchema: z.ZodNativeEnum<typeof RoleRequest> =
+  /* @__PURE__ */ lazySchema$(() => z.nativeEnum(RoleRequest));
 
 /** @internal */
 export type PostChannelsChannelHashedIdCollaboratorsRequestBody$Outbound = {
@@ -132,10 +132,12 @@ export const PostChannelsChannelHashedIdCollaboratorsRequestBody$outboundSchema:
     PostChannelsChannelHashedIdCollaboratorsRequestBody$Outbound,
     z.ZodTypeDef,
     PostChannelsChannelHashedIdCollaboratorsRequestBody
-  > = z.object({
-    email: z.string(),
-    role: RoleRequest$outboundSchema,
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      email: z.string(),
+      role: RoleRequest$outboundSchema,
+    })
+  );
 
 export function postChannelsChannelHashedIdCollaboratorsRequestBodyToJSON(
   postChannelsChannelHashedIdCollaboratorsRequestBody:
@@ -160,16 +162,18 @@ export const PostChannelsChannelHashedIdCollaboratorsRequest$outboundSchema:
     PostChannelsChannelHashedIdCollaboratorsRequest$Outbound,
     z.ZodTypeDef,
     PostChannelsChannelHashedIdCollaboratorsRequest
-  > = z.object({
-    channelHashedId: z.string(),
-    requestBody: z.lazy(() =>
-      PostChannelsChannelHashedIdCollaboratorsRequestBody$outboundSchema
-    ),
-  }).transform((v) => {
-    return remap$(v, {
-      requestBody: "RequestBody",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      channelHashedId: z.string(),
+      requestBody: z.lazy(() =>
+        PostChannelsChannelHashedIdCollaboratorsRequestBody$outboundSchema
+      ),
+    }).transform((v) => {
+      return remap$(v, {
+        requestBody: "RequestBody",
+      });
+    })
+  );
 
 export function postChannelsChannelHashedIdCollaboratorsRequestToJSON(
   postChannelsChannelHashedIdCollaboratorsRequest:
@@ -184,14 +188,18 @@ export function postChannelsChannelHashedIdCollaboratorsRequestToJSON(
 
 /** @internal */
 export const PostChannelsChannelHashedIdCollaboratorsCode$inboundSchema:
-  z.ZodNativeEnum<typeof PostChannelsChannelHashedIdCollaboratorsCode> = z
-    .nativeEnum(PostChannelsChannelHashedIdCollaboratorsCode);
+  z.ZodNativeEnum<typeof PostChannelsChannelHashedIdCollaboratorsCode> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(PostChannelsChannelHashedIdCollaboratorsCode)
+    );
 
 /** @internal */
 export const PostChannelsChannelHashedIdCollaboratorsRoleResponseBody$inboundSchema:
   z.ZodNativeEnum<
     typeof PostChannelsChannelHashedIdCollaboratorsRoleResponseBody
-  > = z.nativeEnum(PostChannelsChannelHashedIdCollaboratorsRoleResponseBody);
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.nativeEnum(PostChannelsChannelHashedIdCollaboratorsRoleResponseBody)
+  );
 
 /** @internal */
 export const PostChannelsChannelHashedIdCollaboratorsShare$inboundSchema:
@@ -199,12 +207,14 @@ export const PostChannelsChannelHashedIdCollaboratorsShare$inboundSchema:
     PostChannelsChannelHashedIdCollaboratorsShare,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    id: z.number().int(),
-    name: z.string(),
-    type: z.string(),
-    email: z.string().optional(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      id: z.number().int(),
+      name: z.string(),
+      type: z.string(),
+      email: z.string().optional(),
+    })
+  );
 
 export function postChannelsChannelHashedIdCollaboratorsShareFromJSON(
   jsonString: string,
@@ -228,22 +238,24 @@ export const PostChannelsChannelHashedIdCollaboratorsResponse$inboundSchema:
     PostChannelsChannelHashedIdCollaboratorsResponse,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    id: z.number().int(),
-    role:
-      PostChannelsChannelHashedIdCollaboratorsRoleResponseBody$inboundSchema,
-    created_at: z.string().datetime({ offset: true }).transform(v =>
-      new Date(v)
-    ),
-    share: z.lazy(() =>
-      PostChannelsChannelHashedIdCollaboratorsShare$inboundSchema
-    ),
-    cursor: z.nullable(z.string()).optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      "created_at": "createdAt",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      id: z.number().int(),
+      role:
+        PostChannelsChannelHashedIdCollaboratorsRoleResponseBody$inboundSchema,
+      created_at: z.string().datetime({ offset: true }).transform(v =>
+        new Date(v)
+      ),
+      share: z.lazy(() =>
+        PostChannelsChannelHashedIdCollaboratorsShare$inboundSchema
+      ),
+      cursor: z.nullable(z.string()).optional(),
+    }).transform((v) => {
+      return remap$(v, {
+        "created_at": "createdAt",
+      });
+    })
+  );
 
 export function postChannelsChannelHashedIdCollaboratorsResponseFromJSON(
   jsonString: string,

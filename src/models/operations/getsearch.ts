@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -69,12 +69,12 @@ export type GetSearchRequest = {
    * `resource_type` must include `media`. Use an empty `q` to match all media.
    *
    * The value shape depends on the field's type:
-   * - Select, text, url, and email fields take a value
+   * - Select and text fields take a value
    *   (`custom_metadata[region]=emea`) or an array of values matched as OR
    *   (`custom_metadata[region][]=emea&custom_metadata[region][]=amer`). Select fields
    *   match on option keys.
    * - Boolean fields take `true` or `false`.
-   * - Number, money, and time fields take an exact number (`custom_metadata[year]=2026`)
+   * - Number and time fields take an exact number (`custom_metadata[year]=2026`)
    *   or a range object (`custom_metadata[budget][min]=100&custom_metadata[budget][max]=500`;
    *   either bound may be omitted).
    * - Date and datetime fields take a `YYYY-MM-DD` date matching that UTC day, or a
@@ -82,8 +82,6 @@ export type GetSearchRequest = {
    *   `custom_metadata[shoot_date][before]=2026-02-01T00:00:00Z`). A bare-date bound
    *   covers its whole UTC day: `after` starts at the day's beginning and `before`
    *   runs through the day's end.
-   * - Contact fields (`contact_ref`, `contact_multi_ref`) only support the presence
-   *   filter below; a value filter on them is rejected.
    * - Any field type accepts a presence filter: `custom_metadata[region][exists]=false`
    *   returns media missing the field entirely (useful for metadata coverage audits),
    *   and `exists=true` returns media that have any value for it.
@@ -777,11 +775,11 @@ export type GetSearchResponse = {
 /** @internal */
 export const GetSearchResourceType$outboundSchema: z.ZodNativeEnum<
   typeof GetSearchResourceType
-> = z.nativeEnum(GetSearchResourceType);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetSearchResourceType));
 
 /** @internal */
-export const Exists$outboundSchema: z.ZodNativeEnum<typeof Exists> = z
-  .nativeEnum(Exists);
+export const Exists$outboundSchema: z.ZodNativeEnum<typeof Exists> =
+  /* @__PURE__ */ lazySchema$(() => z.nativeEnum(Exists));
 
 /** @internal */
 export type CustomMetadata$Outbound = {
@@ -797,13 +795,15 @@ export const CustomMetadata$outboundSchema: z.ZodType<
   CustomMetadata$Outbound,
   z.ZodTypeDef,
   CustomMetadata
-> = z.object({
-  min: z.string().optional(),
-  max: z.string().optional(),
-  after: z.string().optional(),
-  before: z.string().optional(),
-  exists: Exists$outboundSchema.optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    min: z.string().optional(),
+    max: z.string().optional(),
+    after: z.string().optional(),
+    before: z.string().optional(),
+    exists: Exists$outboundSchema.optional(),
+  })
+);
 
 export function customMetadataToJSON(customMetadata: CustomMetadata): string {
   return JSON.stringify(CustomMetadata$outboundSchema.parse(customMetadata));
@@ -820,11 +820,13 @@ export const CustomMetadataUnion$outboundSchema: z.ZodType<
   CustomMetadataUnion$Outbound,
   z.ZodTypeDef,
   CustomMetadataUnion
-> = z.union([
-  z.string(),
-  z.array(z.string()),
-  z.lazy(() => CustomMetadata$outboundSchema),
-]);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.union([
+    z.string(),
+    z.array(z.string()),
+    z.lazy(() => CustomMetadata$outboundSchema),
+  ])
+);
 
 export function customMetadataUnionToJSON(
   customMetadataUnion: CustomMetadataUnion,
@@ -837,7 +839,7 @@ export function customMetadataUnionToJSON(
 /** @internal */
 export const GetSearchInclude$outboundSchema: z.ZodNativeEnum<
   typeof GetSearchInclude
-> = z.nativeEnum(GetSearchInclude);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetSearchInclude));
 
 /** @internal */
 export type GetSearchRequest$Outbound = {
@@ -857,29 +859,31 @@ export const GetSearchRequest$outboundSchema: z.ZodType<
   GetSearchRequest$Outbound,
   z.ZodTypeDef,
   GetSearchRequest
-> = z.object({
-  q: z.string(),
-  tags: z.array(z.string()).optional(),
-  resourceType: z.array(GetSearchResourceType$outboundSchema).optional(),
-  customMetadata: z.record(
-    z.union([
-      z.string(),
-      z.array(z.string()),
-      z.lazy(() => CustomMetadata$outboundSchema),
-    ]),
-  ).optional(),
-  include: GetSearchInclude$outboundSchema.optional(),
-  createdAfter: z.date().transform(v => v.toISOString()).optional(),
-  createdBefore: z.date().transform(v => v.toISOString()).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    tags: "tags[]",
-    resourceType: "resource_type[]",
-    customMetadata: "custom_metadata",
-    createdAfter: "created_after",
-    createdBefore: "created_before",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    q: z.string(),
+    tags: z.array(z.string()).optional(),
+    resourceType: z.array(GetSearchResourceType$outboundSchema).optional(),
+    customMetadata: z.record(
+      z.union([
+        z.string(),
+        z.array(z.string()),
+        z.lazy(() => CustomMetadata$outboundSchema),
+      ]),
+    ).optional(),
+    include: GetSearchInclude$outboundSchema.optional(),
+    createdAfter: z.date().transform(v => v.toISOString()).optional(),
+    createdBefore: z.date().transform(v => v.toISOString()).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      tags: "tags[]",
+      resourceType: "resource_type[]",
+      customMetadata: "custom_metadata",
+      createdAfter: "created_after",
+      createdBefore: "created_before",
+    });
+  })
+);
 
 export function getSearchRequestToJSON(
   getSearchRequest: GetSearchRequest,
@@ -892,16 +896,18 @@ export function getSearchRequestToJSON(
 /** @internal */
 export const GetSearchCode$inboundSchema: z.ZodNativeEnum<
   typeof GetSearchCode
-> = z.nativeEnum(GetSearchCode);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetSearchCode));
 
 /** @internal */
 export const GetSearchMedias$inboundSchema: z.ZodType<
   GetSearchMedias,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  url: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    url: z.string().optional(),
+  })
+);
 
 export function getSearchMediasFromJSON(
   jsonString: string,
@@ -916,39 +922,41 @@ export function getSearchMediasFromJSON(
 /** @internal */
 export const GetSearchKind$inboundSchema: z.ZodNativeEnum<
   typeof GetSearchKind
-> = z.nativeEnum(GetSearchKind);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetSearchKind));
 
 /** @internal */
 export const GetSearchFolder$inboundSchema: z.ZodType<
   GetSearchFolder,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.number().int(),
-  name: z.string(),
-  description: z.nullable(z.string()).optional(),
-  media_count: z.number().int(),
-  medias: z.lazy(() => GetSearchMedias$inboundSchema),
-  created: z.string().datetime({ offset: true }).transform(v => new Date(v)),
-  updated: z.string().datetime({ offset: true }).transform(v => new Date(v)),
-  hashed_id: z.string(),
-  public: z.boolean(),
-  public_id: z.nullable(z.string()),
-  anonymous_can_upload: z.boolean().optional(),
-  anonymous_can_download: z.boolean().optional(),
-  kind: GetSearchKind$inboundSchema,
-  personal_library: z.boolean(),
-  cursor: z.nullable(z.string()).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "media_count": "mediaCount",
-    "hashed_id": "hashedId",
-    "public_id": "publicId",
-    "anonymous_can_upload": "anonymousCanUpload",
-    "anonymous_can_download": "anonymousCanDownload",
-    "personal_library": "personalLibrary",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    id: z.number().int(),
+    name: z.string(),
+    description: z.nullable(z.string()).optional(),
+    media_count: z.number().int(),
+    medias: z.lazy(() => GetSearchMedias$inboundSchema),
+    created: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+    updated: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+    hashed_id: z.string(),
+    public: z.boolean(),
+    public_id: z.nullable(z.string()),
+    anonymous_can_upload: z.boolean().optional(),
+    anonymous_can_download: z.boolean().optional(),
+    kind: GetSearchKind$inboundSchema,
+    personal_library: z.boolean(),
+    cursor: z.nullable(z.string()).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "media_count": "mediaCount",
+      "hashed_id": "hashedId",
+      "public_id": "publicId",
+      "anonymous_can_upload": "anonymousCanUpload",
+      "anonymous_can_download": "anonymousCanDownload",
+      "personal_library": "personalLibrary",
+    });
+  })
+);
 
 export function getSearchFolderFromJSON(
   jsonString: string,
@@ -965,23 +973,25 @@ export const GetSearchSubfolder$inboundSchema: z.ZodType<
   GetSearchSubfolder,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  hashed_id: z.nullable(z.string()),
-  name: z.nullable(z.string()).optional(),
-  description: z.nullable(z.string()).optional(),
-  position: z.nullable(z.number().int()),
-  created: z.nullable(
-    z.string().datetime({ offset: true }).transform(v => new Date(v)),
-  ),
-  updated: z.nullable(
-    z.string().datetime({ offset: true }).transform(v => new Date(v)),
-  ),
-  cursor: z.nullable(z.string()).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "hashed_id": "hashedId",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    hashed_id: z.nullable(z.string()),
+    name: z.nullable(z.string()).optional(),
+    description: z.nullable(z.string()).optional(),
+    position: z.nullable(z.number().int()),
+    created: z.nullable(
+      z.string().datetime({ offset: true }).transform(v => new Date(v)),
+    ),
+    updated: z.nullable(
+      z.string().datetime({ offset: true }).transform(v => new Date(v)),
+    ),
+    cursor: z.nullable(z.string()).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "hashed_id": "hashedId",
+    });
+  })
+);
 
 export function getSearchSubfolderFromJSON(
   jsonString: string,
@@ -996,23 +1006,25 @@ export function getSearchSubfolderFromJSON(
 /** @internal */
 export const GetSearchType$inboundSchema: z.ZodNativeEnum<
   typeof GetSearchType
-> = z.nativeEnum(GetSearchType);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetSearchType));
 
 /** @internal */
 export const GetSearchStatus$inboundSchema: z.ZodNativeEnum<
   typeof GetSearchStatus
-> = z.nativeEnum(GetSearchStatus);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetSearchStatus));
 
 /** @internal */
 export const GetSearchThumbnail$inboundSchema: z.ZodType<
   GetSearchThumbnail,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  url: z.string().optional(),
-  width: z.number().int().optional(),
-  height: z.number().int().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    url: z.string().optional(),
+    width: z.number().int().optional(),
+    height: z.number().int().optional(),
+  })
+);
 
 export function getSearchThumbnailFromJSON(
   jsonString: string,
@@ -1029,18 +1041,20 @@ export const TranscriptMatch$inboundSchema: z.ZodType<
   TranscriptMatch,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  text: z.string(),
-  start_time_seconds: z.number(),
-  start_time_formatted: z.string(),
-  thumbnail_url: z.nullable(z.string()),
-}).transform((v) => {
-  return remap$(v, {
-    "start_time_seconds": "startTimeSeconds",
-    "start_time_formatted": "startTimeFormatted",
-    "thumbnail_url": "thumbnailUrl",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    text: z.string(),
+    start_time_seconds: z.number(),
+    start_time_formatted: z.string(),
+    thumbnail_url: z.nullable(z.string()),
+  }).transform((v) => {
+    return remap$(v, {
+      "start_time_seconds": "startTimeSeconds",
+      "start_time_formatted": "startTimeFormatted",
+      "thumbnail_url": "thumbnailUrl",
+    });
+  })
+);
 
 export function transcriptMatchFromJSON(
   jsonString: string,
@@ -1053,19 +1067,21 @@ export function transcriptMatchFromJSON(
 }
 
 /** @internal */
-export const FieldType$inboundSchema: z.ZodNativeEnum<typeof FieldType> = z
-  .nativeEnum(FieldType);
+export const FieldType$inboundSchema: z.ZodNativeEnum<typeof FieldType> =
+  /* @__PURE__ */ lazySchema$(() => z.nativeEnum(FieldType));
 
 /** @internal */
-export const ValueType$inboundSchema: z.ZodNativeEnum<typeof ValueType> = z
-  .nativeEnum(ValueType);
+export const ValueType$inboundSchema: z.ZodNativeEnum<typeof ValueType> =
+  /* @__PURE__ */ lazySchema$(() => z.nativeEnum(ValueType));
 
 /** @internal */
-export const Value$inboundSchema: z.ZodType<Value, z.ZodTypeDef, unknown> = z
-  .object({
-    type: ValueType$inboundSchema.optional(),
-    id: z.string().optional(),
-  });
+export const Value$inboundSchema: z.ZodType<Value, z.ZodTypeDef, unknown> =
+  /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      type: ValueType$inboundSchema.optional(),
+      id: z.string().optional(),
+    })
+  );
 
 export function valueFromJSON(
   jsonString: string,
@@ -1082,13 +1098,15 @@ export const ValueUnion$inboundSchema: z.ZodType<
   ValueUnion,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.string(),
-  z.number(),
-  z.boolean(),
-  z.array(z.any()),
-  z.lazy(() => Value$inboundSchema),
-]);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.union([
+    z.string(),
+    z.number(),
+    z.boolean(),
+    z.array(z.any()),
+    z.lazy(() => Value$inboundSchema),
+  ])
+);
 
 export function valueUnionFromJSON(
   jsonString: string,
@@ -1101,21 +1119,23 @@ export function valueUnionFromJSON(
 }
 
 /** @internal */
-export const Source$inboundSchema: z.ZodNativeEnum<typeof Source> = z
-  .nativeEnum(Source);
+export const Source$inboundSchema: z.ZodNativeEnum<typeof Source> =
+  /* @__PURE__ */ lazySchema$(() => z.nativeEnum(Source));
 
 /** @internal */
 export const LastWriteType$inboundSchema: z.ZodNativeEnum<
   typeof LastWriteType
-> = z.nativeEnum(LastWriteType);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(LastWriteType));
 
 /** @internal */
-export const Actor$inboundSchema: z.ZodType<Actor, z.ZodTypeDef, unknown> = z
-  .object({
-    type: LastWriteType$inboundSchema,
-    id: z.string(),
-    name: z.string(),
-  });
+export const Actor$inboundSchema: z.ZodType<Actor, z.ZodTypeDef, unknown> =
+  /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      type: LastWriteType$inboundSchema,
+      id: z.string(),
+      name: z.string(),
+    })
+  );
 
 export function actorFromJSON(
   jsonString: string,
@@ -1132,11 +1152,13 @@ export const LastWrite$inboundSchema: z.ZodType<
   LastWrite,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  at: z.string().datetime({ offset: true }).transform(v => new Date(v)),
-  source: Source$inboundSchema,
-  actor: z.nullable(z.lazy(() => Actor$inboundSchema)),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    at: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+    source: Source$inboundSchema,
+    actor: z.nullable(z.lazy(() => Actor$inboundSchema)),
+  })
+);
 
 export function lastWriteFromJSON(
   jsonString: string,
@@ -1153,28 +1175,31 @@ export const CustomMetadataFieldValue$inboundSchema: z.ZodType<
   CustomMetadataFieldValue,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  key: z.string().optional(),
-  field_type: FieldType$inboundSchema.optional(),
-  value: z.nullable(
-    z.union([
-      z.string(),
-      z.number(),
-      z.boolean(),
-      z.array(z.any()),
-      z.lazy(() => Value$inboundSchema),
-    ]),
-  ).optional(),
-  updated_at: z.string().datetime({ offset: true }).transform(v => new Date(v))
-    .optional(),
-  last_write: z.nullable(z.lazy(() => LastWrite$inboundSchema)).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "field_type": "fieldType",
-    "updated_at": "updatedAt",
-    "last_write": "lastWrite",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    key: z.string().optional(),
+    field_type: FieldType$inboundSchema.optional(),
+    value: z.nullable(
+      z.union([
+        z.string(),
+        z.number(),
+        z.boolean(),
+        z.array(z.any()),
+        z.lazy(() => Value$inboundSchema),
+      ]),
+    ).optional(),
+    updated_at: z.string().datetime({ offset: true }).transform(v =>
+      new Date(v)
+    ).optional(),
+    last_write: z.nullable(z.lazy(() => LastWrite$inboundSchema)).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "field_type": "fieldType",
+      "updated_at": "updatedAt",
+      "last_write": "lastWrite",
+    });
+  })
+);
 
 export function customMetadataFieldValueFromJSON(
   jsonString: string,
@@ -1191,37 +1216,39 @@ export const GetSearchMedia$inboundSchema: z.ZodType<
   GetSearchMedia,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.number().int().optional(),
-  name: z.string().optional(),
-  type: GetSearchType$inboundSchema.optional(),
-  archived: z.boolean().optional(),
-  created: z.string().datetime({ offset: true }).transform(v => new Date(v))
-    .optional(),
-  updated: z.string().datetime({ offset: true }).transform(v => new Date(v))
-    .optional(),
-  duration: z.nullable(z.number()).optional(),
-  embedCode: z.string().optional(),
-  hashed_id: z.string().optional(),
-  description: z.string().optional(),
-  progress: z.number().optional(),
-  status: GetSearchStatus$inboundSchema.optional(),
-  section: z.nullable(z.string()).optional(),
-  thumbnail: z.lazy(() => GetSearchThumbnail$inboundSchema).optional(),
-  protected: z.nullable(z.boolean()).optional(),
-  folder_hashed_id: z.nullable(z.string()),
-  transcript_matches: z.array(z.lazy(() => TranscriptMatch$inboundSchema)),
-  custom_metadata_field_values: z.array(
-    z.lazy(() => CustomMetadataFieldValue$inboundSchema),
-  ).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "hashed_id": "hashedId",
-    "folder_hashed_id": "folderHashedId",
-    "transcript_matches": "transcriptMatches",
-    "custom_metadata_field_values": "customMetadataFieldValues",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    id: z.number().int().optional(),
+    name: z.string().optional(),
+    type: GetSearchType$inboundSchema.optional(),
+    archived: z.boolean().optional(),
+    created: z.string().datetime({ offset: true }).transform(v => new Date(v))
+      .optional(),
+    updated: z.string().datetime({ offset: true }).transform(v => new Date(v))
+      .optional(),
+    duration: z.nullable(z.number()).optional(),
+    embedCode: z.string().optional(),
+    hashed_id: z.string().optional(),
+    description: z.string().optional(),
+    progress: z.number().optional(),
+    status: GetSearchStatus$inboundSchema.optional(),
+    section: z.nullable(z.string()).optional(),
+    thumbnail: z.lazy(() => GetSearchThumbnail$inboundSchema).optional(),
+    protected: z.nullable(z.boolean()).optional(),
+    folder_hashed_id: z.nullable(z.string()),
+    transcript_matches: z.array(z.lazy(() => TranscriptMatch$inboundSchema)),
+    custom_metadata_field_values: z.array(
+      z.lazy(() => CustomMetadataFieldValue$inboundSchema),
+    ).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "hashed_id": "hashedId",
+      "folder_hashed_id": "folderHashedId",
+      "transcript_matches": "transcriptMatches",
+      "custom_metadata_field_values": "customMetadataFieldValues",
+    });
+  })
+);
 
 export function getSearchMediaFromJSON(
   jsonString: string,
@@ -1238,28 +1265,30 @@ export const GetSearchChannel$inboundSchema: z.ZodType<
   GetSearchChannel,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.number().int(),
-  hashed_id: z.string(),
-  name: z.string(),
-  description: z.string(),
-  media_count: z.number().int(),
-  created: z.string().datetime({ offset: true }).transform(v => new Date(v)),
-  updated: z.string().datetime({ offset: true }).transform(v => new Date(v)),
-  live_stream_event_count: z.number().int().optional(),
-  auto_publish_enabled: z.nullable(z.boolean()).optional(),
-  podcast_enabled: z.nullable(z.boolean()).optional(),
-  custom_url: z.nullable(z.string()).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "hashed_id": "hashedId",
-    "media_count": "mediaCount",
-    "live_stream_event_count": "liveStreamEventCount",
-    "auto_publish_enabled": "autoPublishEnabled",
-    "podcast_enabled": "podcastEnabled",
-    "custom_url": "customUrl",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    id: z.number().int(),
+    hashed_id: z.string(),
+    name: z.string(),
+    description: z.string(),
+    media_count: z.number().int(),
+    created: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+    updated: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+    live_stream_event_count: z.number().int().optional(),
+    auto_publish_enabled: z.nullable(z.boolean()).optional(),
+    podcast_enabled: z.nullable(z.boolean()).optional(),
+    custom_url: z.nullable(z.string()).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "hashed_id": "hashedId",
+      "media_count": "mediaCount",
+      "live_stream_event_count": "liveStreamEventCount",
+      "auto_publish_enabled": "autoPublishEnabled",
+      "podcast_enabled": "podcastEnabled",
+      "custom_url": "customUrl",
+    });
+  })
+);
 
 export function getSearchChannelFromJSON(
   jsonString: string,
@@ -1276,30 +1305,32 @@ export const ChannelEpisode$inboundSchema: z.ZodType<
   ChannelEpisode,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.number().int(),
-  hashed_id: z.string(),
-  title: z.nullable(z.string()).optional(),
-  description: z.string(),
-  summary: z.string(),
-  channel_hashed_id: z.nullable(z.string()),
-  media_hashed_id: z.nullable(z.string()),
-  live_stream_event_hashed_id: z.nullable(z.string()).optional(),
-  published: z.boolean(),
-  created: z.string().datetime({ offset: true }).transform(v => new Date(v)),
-  updated: z.string().datetime({ offset: true }).transform(v => new Date(v)),
-  publish_at: z.nullable(
-    z.string().datetime({ offset: true }).transform(v => new Date(v)),
-  ).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "hashed_id": "hashedId",
-    "channel_hashed_id": "channelHashedId",
-    "media_hashed_id": "mediaHashedId",
-    "live_stream_event_hashed_id": "liveStreamEventHashedId",
-    "publish_at": "publishAt",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    id: z.number().int(),
+    hashed_id: z.string(),
+    title: z.nullable(z.string()).optional(),
+    description: z.string(),
+    summary: z.string(),
+    channel_hashed_id: z.nullable(z.string()),
+    media_hashed_id: z.nullable(z.string()),
+    live_stream_event_hashed_id: z.nullable(z.string()).optional(),
+    published: z.boolean(),
+    created: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+    updated: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+    publish_at: z.nullable(
+      z.string().datetime({ offset: true }).transform(v => new Date(v)),
+    ).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "hashed_id": "hashedId",
+      "channel_hashed_id": "channelHashedId",
+      "media_hashed_id": "mediaHashedId",
+      "live_stream_event_hashed_id": "liveStreamEventHashedId",
+      "publish_at": "publishAt",
+    });
+  })
+);
 
 export function channelEpisodeFromJSON(
   jsonString: string,
@@ -1314,22 +1345,24 @@ export function channelEpisodeFromJSON(
 /** @internal */
 export const GetSearchLifecycleStatus$inboundSchema: z.ZodNativeEnum<
   typeof GetSearchLifecycleStatus
-> = z.nativeEnum(GetSearchLifecycleStatus);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetSearchLifecycleStatus));
 
 /** @internal */
 export const WebinarFolder$inboundSchema: z.ZodType<
   WebinarFolder,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.string(),
-  index_url: z.string(),
-  url: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "index_url": "indexUrl",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    id: z.string(),
+    index_url: z.string(),
+    url: z.string(),
+  }).transform((v) => {
+    return remap$(v, {
+      "index_url": "indexUrl",
+    });
+  })
+);
 
 export function webinarFolderFromJSON(
   jsonString: string,
@@ -1346,42 +1379,48 @@ export const GetSearchWebinar$inboundSchema: z.ZodType<
   GetSearchWebinar,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.string(),
-  hashed_id: z.string(),
-  title: z.string(),
-  description: z.nullable(z.string()).optional(),
-  scheduled_for: z.nullable(
-    z.string().datetime({ offset: true }).transform(v => new Date(v)),
-  ).optional(),
-  event_duration: z.nullable(z.number().int()).optional(),
-  time_zone: z.string(),
-  lifecycle_status: GetSearchLifecycleStatus$inboundSchema,
-  registration_status: z.string(),
-  created_at: z.string().datetime({ offset: true }).transform(v => new Date(v)),
-  updated_at: z.string().datetime({ offset: true }).transform(v => new Date(v)),
-  audience_link: z.string(),
-  host_link: z.string(),
-  panelist_link: z.string(),
-  thumbnail_url: z.nullable(z.string()).optional(),
-  folder: z.nullable(z.lazy(() => WebinarFolder$inboundSchema)).optional(),
-  cursor: z.nullable(z.string()).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "hashed_id": "hashedId",
-    "scheduled_for": "scheduledFor",
-    "event_duration": "eventDuration",
-    "time_zone": "timeZone",
-    "lifecycle_status": "lifecycleStatus",
-    "registration_status": "registrationStatus",
-    "created_at": "createdAt",
-    "updated_at": "updatedAt",
-    "audience_link": "audienceLink",
-    "host_link": "hostLink",
-    "panelist_link": "panelistLink",
-    "thumbnail_url": "thumbnailUrl",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    id: z.string(),
+    hashed_id: z.string(),
+    title: z.string(),
+    description: z.nullable(z.string()).optional(),
+    scheduled_for: z.nullable(
+      z.string().datetime({ offset: true }).transform(v => new Date(v)),
+    ).optional(),
+    event_duration: z.nullable(z.number().int()).optional(),
+    time_zone: z.string(),
+    lifecycle_status: GetSearchLifecycleStatus$inboundSchema,
+    registration_status: z.string(),
+    created_at: z.string().datetime({ offset: true }).transform(v =>
+      new Date(v)
+    ),
+    updated_at: z.string().datetime({ offset: true }).transform(v =>
+      new Date(v)
+    ),
+    audience_link: z.string(),
+    host_link: z.string(),
+    panelist_link: z.string(),
+    thumbnail_url: z.nullable(z.string()).optional(),
+    folder: z.nullable(z.lazy(() => WebinarFolder$inboundSchema)).optional(),
+    cursor: z.nullable(z.string()).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "hashed_id": "hashedId",
+      "scheduled_for": "scheduledFor",
+      "event_duration": "eventDuration",
+      "time_zone": "timeZone",
+      "lifecycle_status": "lifecycleStatus",
+      "registration_status": "registrationStatus",
+      "created_at": "createdAt",
+      "updated_at": "updatedAt",
+      "audience_link": "audienceLink",
+      "host_link": "hostLink",
+      "panelist_link": "panelistLink",
+      "thumbnail_url": "thumbnailUrl",
+    });
+  })
+);
 
 export function getSearchWebinarFromJSON(
   jsonString: string,
@@ -1398,18 +1437,20 @@ export const GetSearchData$inboundSchema: z.ZodType<
   GetSearchData,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  folders: z.array(z.lazy(() => GetSearchFolder$inboundSchema)),
-  subfolders: z.array(z.lazy(() => GetSearchSubfolder$inboundSchema)),
-  medias: z.array(z.lazy(() => GetSearchMedia$inboundSchema)),
-  channels: z.array(z.lazy(() => GetSearchChannel$inboundSchema)),
-  channel_episodes: z.array(z.lazy(() => ChannelEpisode$inboundSchema)),
-  webinars: z.array(z.lazy(() => GetSearchWebinar$inboundSchema)),
-}).transform((v) => {
-  return remap$(v, {
-    "channel_episodes": "channelEpisodes",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    folders: z.array(z.lazy(() => GetSearchFolder$inboundSchema)),
+    subfolders: z.array(z.lazy(() => GetSearchSubfolder$inboundSchema)),
+    medias: z.array(z.lazy(() => GetSearchMedia$inboundSchema)),
+    channels: z.array(z.lazy(() => GetSearchChannel$inboundSchema)),
+    channel_episodes: z.array(z.lazy(() => ChannelEpisode$inboundSchema)),
+    webinars: z.array(z.lazy(() => GetSearchWebinar$inboundSchema)),
+  }).transform((v) => {
+    return remap$(v, {
+      "channel_episodes": "channelEpisodes",
+    });
+  })
+);
 
 export function getSearchDataFromJSON(
   jsonString: string,
@@ -1426,9 +1467,11 @@ export const GetSearchResponse$inboundSchema: z.ZodType<
   GetSearchResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  data: z.lazy(() => GetSearchData$inboundSchema),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    data: z.lazy(() => GetSearchData$inboundSchema),
+  })
+);
 
 export function getSearchResponseFromJSON(
   jsonString: string,

@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -177,7 +177,7 @@ export type PutMediasMediaIdShareLinkResponse = {
 /** @internal */
 export const VisibilityRequest$outboundSchema: z.ZodNativeEnum<
   typeof VisibilityRequest
-> = z.nativeEnum(VisibilityRequest);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(VisibilityRequest));
 
 /** @internal */
 export type PutMediasMediaIdShareLinkRequestBody$Outbound = {
@@ -189,9 +189,11 @@ export const PutMediasMediaIdShareLinkRequestBody$outboundSchema: z.ZodType<
   PutMediasMediaIdShareLinkRequestBody$Outbound,
   z.ZodTypeDef,
   PutMediasMediaIdShareLinkRequestBody
-> = z.object({
-  visibility: VisibilityRequest$outboundSchema,
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    visibility: VisibilityRequest$outboundSchema,
+  })
+);
 
 export function putMediasMediaIdShareLinkRequestBodyToJSON(
   putMediasMediaIdShareLinkRequestBody: PutMediasMediaIdShareLinkRequestBody,
@@ -214,16 +216,18 @@ export const PutMediasMediaIdShareLinkRequest$outboundSchema: z.ZodType<
   PutMediasMediaIdShareLinkRequest$Outbound,
   z.ZodTypeDef,
   PutMediasMediaIdShareLinkRequest
-> = z.object({
-  mediaId: z.string(),
-  requestBody: z.lazy(() =>
-    PutMediasMediaIdShareLinkRequestBody$outboundSchema
-  ),
-}).transform((v) => {
-  return remap$(v, {
-    requestBody: "RequestBody",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    mediaId: z.string(),
+    requestBody: z.lazy(() =>
+      PutMediasMediaIdShareLinkRequestBody$outboundSchema
+    ),
+  }).transform((v) => {
+    return remap$(v, {
+      requestBody: "RequestBody",
+    });
+  })
+);
 
 export function putMediasMediaIdShareLinkRequestToJSON(
   putMediasMediaIdShareLinkRequest: PutMediasMediaIdShareLinkRequest,
@@ -238,33 +242,43 @@ export function putMediasMediaIdShareLinkRequestToJSON(
 /** @internal */
 export const PutMediasMediaIdShareLinkCode$inboundSchema: z.ZodNativeEnum<
   typeof PutMediasMediaIdShareLinkCode
-> = z.nativeEnum(PutMediasMediaIdShareLinkCode);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(PutMediasMediaIdShareLinkCode)
+);
 
 /** @internal */
 export const PutMediasMediaIdShareLinkVisibilityResponse$inboundSchema:
-  z.ZodNativeEnum<typeof PutMediasMediaIdShareLinkVisibilityResponse> = z
-    .nativeEnum(PutMediasMediaIdShareLinkVisibilityResponse);
+  z.ZodNativeEnum<typeof PutMediasMediaIdShareLinkVisibilityResponse> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(PutMediasMediaIdShareLinkVisibilityResponse)
+    );
 
 /** @internal */
 export const PutMediasMediaIdShareLinkResponse$inboundSchema: z.ZodType<
   PutMediasMediaIdShareLinkResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.string(),
-  media_id: z.string(),
-  url: z.string(),
-  slug: z.nullable(z.string()),
-  visibility: PutMediasMediaIdShareLinkVisibilityResponse$inboundSchema,
-  created_at: z.string().datetime({ offset: true }).transform(v => new Date(v)),
-  updated_at: z.string().datetime({ offset: true }).transform(v => new Date(v)),
-}).transform((v) => {
-  return remap$(v, {
-    "media_id": "mediaId",
-    "created_at": "createdAt",
-    "updated_at": "updatedAt",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    id: z.string(),
+    media_id: z.string(),
+    url: z.string(),
+    slug: z.nullable(z.string()),
+    visibility: PutMediasMediaIdShareLinkVisibilityResponse$inboundSchema,
+    created_at: z.string().datetime({ offset: true }).transform(v =>
+      new Date(v)
+    ),
+    updated_at: z.string().datetime({ offset: true }).transform(v =>
+      new Date(v)
+    ),
+  }).transform((v) => {
+    return remap$(v, {
+      "media_id": "mediaId",
+      "created_at": "createdAt",
+      "updated_at": "updatedAt",
+    });
+  })
+);
 
 export function putMediasMediaIdShareLinkResponseFromJSON(
   jsonString: string,

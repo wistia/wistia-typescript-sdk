@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -87,9 +87,11 @@ export const GetMediasMediaIdCustomizationsLeadCaptureRequest$outboundSchema:
     GetMediasMediaIdCustomizationsLeadCaptureRequest$Outbound,
     z.ZodTypeDef,
     GetMediasMediaIdCustomizationsLeadCaptureRequest
-  > = z.object({
-    mediaId: z.string(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      mediaId: z.string(),
+    })
+  );
 
 export function getMediasMediaIdCustomizationsLeadCaptureRequestToJSON(
   getMediasMediaIdCustomizationsLeadCaptureRequest:
@@ -104,8 +106,10 @@ export function getMediasMediaIdCustomizationsLeadCaptureRequestToJSON(
 
 /** @internal */
 export const GetMediasMediaIdCustomizationsLeadCaptureCode$inboundSchema:
-  z.ZodNativeEnum<typeof GetMediasMediaIdCustomizationsLeadCaptureCode> = z
-    .nativeEnum(GetMediasMediaIdCustomizationsLeadCaptureCode);
+  z.ZodNativeEnum<typeof GetMediasMediaIdCustomizationsLeadCaptureCode> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(GetMediasMediaIdCustomizationsLeadCaptureCode)
+    );
 
 /** @internal */
 export const GetMediasMediaIdCustomizationsLeadCaptureRequireEmailV1$inboundSchema:
@@ -113,9 +117,11 @@ export const GetMediasMediaIdCustomizationsLeadCaptureRequireEmailV1$inboundSche
     GetMediasMediaIdCustomizationsLeadCaptureRequireEmailV1,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    on: z.string().optional(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      on: z.string().optional(),
+    })
+  );
 
 export function getMediasMediaIdCustomizationsLeadCaptureRequireEmailV1FromJSON(
   jsonString: string,
@@ -138,9 +144,11 @@ export const GetMediasMediaIdCustomizationsLeadCaptureForm$inboundSchema:
     GetMediasMediaIdCustomizationsLeadCaptureForm,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    on: z.string().optional(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      on: z.string().optional(),
+    })
+  );
 
 export function getMediasMediaIdCustomizationsLeadCaptureFormFromJSON(
   jsonString: string,
@@ -164,9 +172,11 @@ export const GetMediasMediaIdCustomizationsLeadCaptureHubspotForm$inboundSchema:
     GetMediasMediaIdCustomizationsLeadCaptureHubspotForm,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    on: z.string().optional(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      on: z.string().optional(),
+    })
+  );
 
 export function getMediasMediaIdCustomizationsLeadCaptureHubspotFormFromJSON(
   jsonString: string,
@@ -190,9 +200,11 @@ export const GetMediasMediaIdCustomizationsLeadCaptureMarketoForm$inboundSchema:
     GetMediasMediaIdCustomizationsLeadCaptureMarketoForm,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    on: z.string().optional(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      on: z.string().optional(),
+    })
+  );
 
 export function getMediasMediaIdCustomizationsLeadCaptureMarketoFormFromJSON(
   jsonString: string,
@@ -216,9 +228,11 @@ export const GetMediasMediaIdCustomizationsLeadCapturePardotForm$inboundSchema:
     GetMediasMediaIdCustomizationsLeadCapturePardotForm,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    on: z.string().optional(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      on: z.string().optional(),
+    })
+  );
 
 export function getMediasMediaIdCustomizationsLeadCapturePardotFormFromJSON(
   jsonString: string,
@@ -242,27 +256,29 @@ export const GetMediasMediaIdCustomizationsLeadCapturePlugin$inboundSchema:
     GetMediasMediaIdCustomizationsLeadCapturePlugin,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    "requireEmail-v1": z.lazy(() =>
-      GetMediasMediaIdCustomizationsLeadCaptureRequireEmailV1$inboundSchema
-    ).optional(),
-    form: z.lazy(() =>
-      GetMediasMediaIdCustomizationsLeadCaptureForm$inboundSchema
-    ).optional(),
-    hubspotForm: z.lazy(() =>
-      GetMediasMediaIdCustomizationsLeadCaptureHubspotForm$inboundSchema
-    ).optional(),
-    marketoForm: z.lazy(() =>
-      GetMediasMediaIdCustomizationsLeadCaptureMarketoForm$inboundSchema
-    ).optional(),
-    pardotForm: z.lazy(() =>
-      GetMediasMediaIdCustomizationsLeadCapturePardotForm$inboundSchema
-    ).optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      "requireEmail-v1": "requireEmailV1",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      "requireEmail-v1": z.lazy(() =>
+        GetMediasMediaIdCustomizationsLeadCaptureRequireEmailV1$inboundSchema
+      ).optional(),
+      form: z.lazy(() =>
+        GetMediasMediaIdCustomizationsLeadCaptureForm$inboundSchema
+      ).optional(),
+      hubspotForm: z.lazy(() =>
+        GetMediasMediaIdCustomizationsLeadCaptureHubspotForm$inboundSchema
+      ).optional(),
+      marketoForm: z.lazy(() =>
+        GetMediasMediaIdCustomizationsLeadCaptureMarketoForm$inboundSchema
+      ).optional(),
+      pardotForm: z.lazy(() =>
+        GetMediasMediaIdCustomizationsLeadCapturePardotForm$inboundSchema
+      ).optional(),
+    }).transform((v) => {
+      return remap$(v, {
+        "requireEmail-v1": "requireEmailV1",
+      });
+    })
+  );
 
 export function getMediasMediaIdCustomizationsLeadCapturePluginFromJSON(
   jsonString: string,
@@ -286,11 +302,13 @@ export const GetMediasMediaIdCustomizationsLeadCaptureResponse$inboundSchema:
     GetMediasMediaIdCustomizationsLeadCaptureResponse,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    plugin: z.lazy(() =>
-      GetMediasMediaIdCustomizationsLeadCapturePlugin$inboundSchema
-    ).optional(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      plugin: z.lazy(() =>
+        GetMediasMediaIdCustomizationsLeadCapturePlugin$inboundSchema
+      ).optional(),
+    })
+  );
 
 export function getMediasMediaIdCustomizationsLeadCaptureResponseFromJSON(
   jsonString: string,

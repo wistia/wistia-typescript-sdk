@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
 import * as operations from "../operations/index.js";
 import { WistiaError } from "./wistiaerror.js";
 
@@ -36,6 +37,39 @@ export class PostContactDismissDesktopInstallPromptInternalServerError
     if (err.error != null) this.error = err.error;
 
     this.name = "PostContactDismissDesktopInstallPromptInternalServerError";
+  }
+}
+
+/**
+ * Forbidden, token is valid but account does not have access to feature
+ */
+export type PostContactDismissDesktopInstallPromptForbiddenErrorData = {
+  error?: string | undefined;
+};
+
+/**
+ * Forbidden, token is valid but account does not have access to feature
+ */
+export class PostContactDismissDesktopInstallPromptForbiddenError
+  extends WistiaError
+{
+  error?: string | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: PostContactDismissDesktopInstallPromptForbiddenErrorData;
+
+  constructor(
+    err: PostContactDismissDesktopInstallPromptForbiddenErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
+    this.data$ = err;
+    if (err.error != null) this.error = err.error;
+
+    this.name = "PostContactDismissDesktopInstallPromptForbiddenError";
   }
 }
 
@@ -87,19 +121,42 @@ export const PostContactDismissDesktopInstallPromptInternalServerError$inboundSc
     PostContactDismissDesktopInstallPromptInternalServerError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new PostContactDismissDesktopInstallPromptInternalServerError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new PostContactDismissDesktopInstallPromptInternalServerError(
+          v,
+          { request: v.request$, response: v.response$, body: v.body$ },
+        );
+      })
+  );
+
+/** @internal */
+export const PostContactDismissDesktopInstallPromptForbiddenError$inboundSchema:
+  z.ZodType<
+    PostContactDismissDesktopInstallPromptForbiddenError,
+    z.ZodTypeDef,
+    unknown
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new PostContactDismissDesktopInstallPromptForbiddenError(v, {
+          request: v.request$,
+          response: v.response$,
+          body: v.body$,
+        });
+      })
+  );
 
 /** @internal */
 export const PostContactDismissDesktopInstallPromptUnauthorizedError$inboundSchema:
@@ -107,18 +164,20 @@ export const PostContactDismissDesktopInstallPromptUnauthorizedError$inboundSche
     PostContactDismissDesktopInstallPromptUnauthorizedError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    code: operations.PostContactDismissDesktopInstallPromptCode$inboundSchema
-      .optional(),
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new PostContactDismissDesktopInstallPromptUnauthorizedError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      code: operations.PostContactDismissDesktopInstallPromptCode$inboundSchema
+        .optional(),
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new PostContactDismissDesktopInstallPromptUnauthorizedError(v, {
+          request: v.request$,
+          response: v.response$,
+          body: v.body$,
+        });
+      })
+  );

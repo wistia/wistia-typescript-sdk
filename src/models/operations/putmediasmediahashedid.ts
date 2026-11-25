@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -207,18 +207,20 @@ export const PutMediasMediaHashedIdRequestBody$outboundSchema: z.ZodType<
   PutMediasMediaHashedIdRequestBody$Outbound,
   z.ZodTypeDef,
   PutMediasMediaHashedIdRequestBody
-> = z.object({
-  name: z.string().optional(),
-  newStillMediaId: z.string().optional(),
-  description: z.string().optional(),
-  tags: z.array(z.string()).optional(),
-  customMetadata: z.record(z.any()).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    newStillMediaId: "new_still_media_id",
-    customMetadata: "custom_metadata",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    name: z.string().optional(),
+    newStillMediaId: z.string().optional(),
+    description: z.string().optional(),
+    tags: z.array(z.string()).optional(),
+    customMetadata: z.record(z.any()).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      newStillMediaId: "new_still_media_id",
+      customMetadata: "custom_metadata",
+    });
+  })
+);
 
 export function putMediasMediaHashedIdRequestBodyToJSON(
   putMediasMediaHashedIdRequestBody: PutMediasMediaHashedIdRequestBody,
@@ -241,15 +243,17 @@ export const PutMediasMediaHashedIdRequest$outboundSchema: z.ZodType<
   PutMediasMediaHashedIdRequest$Outbound,
   z.ZodTypeDef,
   PutMediasMediaHashedIdRequest
-> = z.object({
-  mediaHashedId: z.string(),
-  requestBody: z.lazy(() => PutMediasMediaHashedIdRequestBody$outboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    requestBody: "RequestBody",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    mediaHashedId: z.string(),
+    requestBody: z.lazy(() => PutMediasMediaHashedIdRequestBody$outboundSchema)
+      .optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      requestBody: "RequestBody",
+    });
+  })
+);
 
 export function putMediasMediaHashedIdRequestToJSON(
   putMediasMediaHashedIdRequest: PutMediasMediaHashedIdRequest,
@@ -264,28 +268,32 @@ export function putMediasMediaHashedIdRequestToJSON(
 /** @internal */
 export const PutMediasMediaHashedIdCode$inboundSchema: z.ZodNativeEnum<
   typeof PutMediasMediaHashedIdCode
-> = z.nativeEnum(PutMediasMediaHashedIdCode);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(PutMediasMediaHashedIdCode));
 
 /** @internal */
 export const PutMediasMediaHashedIdType$inboundSchema: z.ZodNativeEnum<
   typeof PutMediasMediaHashedIdType
-> = z.nativeEnum(PutMediasMediaHashedIdType);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(PutMediasMediaHashedIdType));
 
 /** @internal */
 export const PutMediasMediaHashedIdStatus$inboundSchema: z.ZodNativeEnum<
   typeof PutMediasMediaHashedIdStatus
-> = z.nativeEnum(PutMediasMediaHashedIdStatus);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(PutMediasMediaHashedIdStatus)
+);
 
 /** @internal */
 export const PutMediasMediaHashedIdThumbnail$inboundSchema: z.ZodType<
   PutMediasMediaHashedIdThumbnail,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  url: z.string().optional(),
-  width: z.number().int().optional(),
-  height: z.number().int().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    url: z.string().optional(),
+    width: z.number().int().optional(),
+    height: z.number().int().optional(),
+  })
+);
 
 export function putMediasMediaHashedIdThumbnailFromJSON(
   jsonString: string,
@@ -302,9 +310,11 @@ export const PutMediasMediaHashedIdTag$inboundSchema: z.ZodType<
   PutMediasMediaHashedIdTag,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  name: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    name: z.string().optional(),
+  })
+);
 
 export function putMediasMediaHashedIdTagFromJSON(
   jsonString: string,
@@ -321,32 +331,34 @@ export const PutMediasMediaHashedIdResponse$inboundSchema: z.ZodType<
   PutMediasMediaHashedIdResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.number().int().optional(),
-  name: z.string().optional(),
-  type: PutMediasMediaHashedIdType$inboundSchema.optional(),
-  archived: z.boolean().optional(),
-  created: z.string().datetime({ offset: true }).transform(v => new Date(v))
-    .optional(),
-  updated: z.string().datetime({ offset: true }).transform(v => new Date(v))
-    .optional(),
-  duration: z.nullable(z.number()).optional(),
-  embedCode: z.string().optional(),
-  hashed_id: z.string().optional(),
-  description: z.string().optional(),
-  progress: z.number().optional(),
-  status: PutMediasMediaHashedIdStatus$inboundSchema.optional(),
-  section: z.nullable(z.string()).optional(),
-  thumbnail: z.lazy(() => PutMediasMediaHashedIdThumbnail$inboundSchema)
-    .optional(),
-  protected: z.nullable(z.boolean()).optional(),
-  tags: z.array(z.lazy(() => PutMediasMediaHashedIdTag$inboundSchema))
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "hashed_id": "hashedId",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    id: z.number().int().optional(),
+    name: z.string().optional(),
+    type: PutMediasMediaHashedIdType$inboundSchema.optional(),
+    archived: z.boolean().optional(),
+    created: z.string().datetime({ offset: true }).transform(v => new Date(v))
+      .optional(),
+    updated: z.string().datetime({ offset: true }).transform(v => new Date(v))
+      .optional(),
+    duration: z.nullable(z.number()).optional(),
+    embedCode: z.string().optional(),
+    hashed_id: z.string().optional(),
+    description: z.string().optional(),
+    progress: z.number().optional(),
+    status: PutMediasMediaHashedIdStatus$inboundSchema.optional(),
+    section: z.nullable(z.string()).optional(),
+    thumbnail: z.lazy(() => PutMediasMediaHashedIdThumbnail$inboundSchema)
+      .optional(),
+    protected: z.nullable(z.boolean()).optional(),
+    tags: z.array(z.lazy(() => PutMediasMediaHashedIdTag$inboundSchema))
+      .optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "hashed_id": "hashedId",
+    });
+  })
+);
 
 export function putMediasMediaHashedIdResponseFromJSON(
   jsonString: string,

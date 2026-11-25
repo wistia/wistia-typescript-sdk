@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -107,8 +107,8 @@ export type GetStatsVisitorsResponse = {
 };
 
 /** @internal */
-export const Filter$outboundSchema: z.ZodNativeEnum<typeof Filter> = z
-  .nativeEnum(Filter);
+export const Filter$outboundSchema: z.ZodNativeEnum<typeof Filter> =
+  /* @__PURE__ */ lazySchema$(() => z.nativeEnum(Filter));
 
 /** @internal */
 export type GetStatsVisitorsRequest$Outbound = {
@@ -123,16 +123,18 @@ export const GetStatsVisitorsRequest$outboundSchema: z.ZodType<
   GetStatsVisitorsRequest$Outbound,
   z.ZodTypeDef,
   GetStatsVisitorsRequest
-> = z.object({
-  page: z.number().int().optional(),
-  perPage: z.number().int().optional(),
-  filter: Filter$outboundSchema.optional(),
-  search: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    perPage: "per_page",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    page: z.number().int().optional(),
+    perPage: z.number().int().optional(),
+    filter: Filter$outboundSchema.optional(),
+    search: z.string().optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      perPage: "per_page",
+    });
+  })
+);
 
 export function getStatsVisitorsRequestToJSON(
   getStatsVisitorsRequest: GetStatsVisitorsRequest,
@@ -145,17 +147,19 @@ export function getStatsVisitorsRequestToJSON(
 /** @internal */
 export const GetStatsVisitorsCode$inboundSchema: z.ZodNativeEnum<
   typeof GetStatsVisitorsCode
-> = z.nativeEnum(GetStatsVisitorsCode);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetStatsVisitorsCode));
 
 /** @internal */
 export const GetStatsVisitorsOrg$inboundSchema: z.ZodType<
   GetStatsVisitorsOrg,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  name: z.nullable(z.string()).optional(),
-  title: z.nullable(z.string()).optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    name: z.nullable(z.string()).optional(),
+    title: z.nullable(z.string()).optional(),
+  })
+);
 
 export function getStatsVisitorsOrgFromJSON(
   jsonString: string,
@@ -172,11 +176,13 @@ export const GetStatsVisitorsVisitorIdentity$inboundSchema: z.ZodType<
   GetStatsVisitorsVisitorIdentity,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  name: z.nullable(z.string()).optional(),
-  email: z.nullable(z.string()).optional(),
-  org: z.lazy(() => GetStatsVisitorsOrg$inboundSchema).optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    name: z.nullable(z.string()).optional(),
+    email: z.nullable(z.string()).optional(),
+    org: z.lazy(() => GetStatsVisitorsOrg$inboundSchema).optional(),
+  })
+);
 
 export function getStatsVisitorsVisitorIdentityFromJSON(
   jsonString: string,
@@ -193,16 +199,18 @@ export const GetStatsVisitorsUserAgentDetails$inboundSchema: z.ZodType<
   GetStatsVisitorsUserAgentDetails,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  browser: z.string().optional(),
-  browser_version: z.string().optional(),
-  platform: z.string().optional(),
-  mobile: z.boolean().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "browser_version": "browserVersion",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    browser: z.string().optional(),
+    browser_version: z.string().optional(),
+    platform: z.string().optional(),
+    mobile: z.boolean().optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "browser_version": "browserVersion",
+    });
+  })
+);
 
 export function getStatsVisitorsUserAgentDetailsFromJSON(
   jsonString: string,
@@ -219,35 +227,39 @@ export const GetStatsVisitorsResponse$inboundSchema: z.ZodType<
   GetStatsVisitorsResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  visitor_key: z.string().optional(),
-  created_at: z.string().datetime({ offset: true }).transform(v => new Date(v))
-    .optional(),
-  last_active_at: z.string().datetime({ offset: true }).transform(v =>
-    new Date(v)
-  ).optional(),
-  last_event_key: z.nullable(z.string()).optional(),
-  identifying_event_key: z.nullable(z.string()).optional(),
-  load_count: z.number().int().optional(),
-  play_count: z.number().int().optional(),
-  visitor_identity: z.lazy(() => GetStatsVisitorsVisitorIdentity$inboundSchema)
-    .optional(),
-  user_agent_details: z.lazy(() =>
-    GetStatsVisitorsUserAgentDetails$inboundSchema
-  ).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "visitor_key": "visitorKey",
-    "created_at": "createdAt",
-    "last_active_at": "lastActiveAt",
-    "last_event_key": "lastEventKey",
-    "identifying_event_key": "identifyingEventKey",
-    "load_count": "loadCount",
-    "play_count": "playCount",
-    "visitor_identity": "visitorIdentity",
-    "user_agent_details": "userAgentDetails",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    visitor_key: z.string().optional(),
+    created_at: z.string().datetime({ offset: true }).transform(v =>
+      new Date(v)
+    ).optional(),
+    last_active_at: z.string().datetime({ offset: true }).transform(v =>
+      new Date(v)
+    ).optional(),
+    last_event_key: z.nullable(z.string()).optional(),
+    identifying_event_key: z.nullable(z.string()).optional(),
+    load_count: z.number().int().optional(),
+    play_count: z.number().int().optional(),
+    visitor_identity: z.lazy(() =>
+      GetStatsVisitorsVisitorIdentity$inboundSchema
+    ).optional(),
+    user_agent_details: z.lazy(() =>
+      GetStatsVisitorsUserAgentDetails$inboundSchema
+    ).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "visitor_key": "visitorKey",
+      "created_at": "createdAt",
+      "last_active_at": "lastActiveAt",
+      "last_event_key": "lastEventKey",
+      "identifying_event_key": "identifyingEventKey",
+      "load_count": "loadCount",
+      "play_count": "playCount",
+      "visitor_identity": "visitorIdentity",
+      "user_agent_details": "userAgentDetails",
+    });
+  })
+);
 
 export function getStatsVisitorsResponseFromJSON(
   jsonString: string,

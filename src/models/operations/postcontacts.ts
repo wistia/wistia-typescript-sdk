@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -59,9 +59,11 @@ export const PostContactsRequest$outboundSchema: z.ZodType<
   PostContactsRequest$Outbound,
   z.ZodTypeDef,
   PostContactsRequest
-> = z.object({
-  contacts: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    contacts: z.string(),
+  })
+);
 
 export function postContactsRequestToJSON(
   postContactsRequest: PostContactsRequest,
@@ -74,18 +76,20 @@ export function postContactsRequestToJSON(
 /** @internal */
 export const PostContactsCode$inboundSchema: z.ZodNativeEnum<
   typeof PostContactsCode
-> = z.nativeEnum(PostContactsCode);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(PostContactsCode));
 
 /** @internal */
 export const PostContactsContact$inboundSchema: z.ZodType<
   PostContactsContact,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.number().int(),
-  email: z.string(),
-  role: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    id: z.number().int(),
+    email: z.string(),
+    role: z.string(),
+  })
+);
 
 export function postContactsContactFromJSON(
   jsonString: string,
@@ -102,9 +106,11 @@ export const PostContactsResponse$inboundSchema: z.ZodType<
   PostContactsResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  contacts: z.array(z.lazy(() => PostContactsContact$inboundSchema)),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    contacts: z.array(z.lazy(() => PostContactsContact$inboundSchema)),
+  })
+);
 
 export function postContactsResponseFromJSON(
   jsonString: string,

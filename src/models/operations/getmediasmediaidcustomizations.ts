@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -237,9 +237,11 @@ export const GetMediasMediaIdCustomizationsRequest$outboundSchema: z.ZodType<
   GetMediasMediaIdCustomizationsRequest$Outbound,
   z.ZodTypeDef,
   GetMediasMediaIdCustomizationsRequest
-> = z.object({
-  mediaId: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    mediaId: z.string(),
+  })
+);
 
 export function getMediasMediaIdCustomizationsRequestToJSON(
   getMediasMediaIdCustomizationsRequest: GetMediasMediaIdCustomizationsRequest,
@@ -254,7 +256,9 @@ export function getMediasMediaIdCustomizationsRequestToJSON(
 /** @internal */
 export const GetMediasMediaIdCustomizationsCode$inboundSchema: z.ZodNativeEnum<
   typeof GetMediasMediaIdCustomizationsCode
-> = z.nativeEnum(GetMediasMediaIdCustomizationsCode);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(GetMediasMediaIdCustomizationsCode)
+);
 
 /** @internal */
 export const GetMediasMediaIdCustomizationsPasswordProtectedVideo$inboundSchema:
@@ -262,12 +266,14 @@ export const GetMediasMediaIdCustomizationsPasswordProtectedVideo$inboundSchema:
     GetMediasMediaIdCustomizationsPasswordProtectedVideo,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    on: z.string().optional(),
-    src: z.string().optional(),
-    challenge: z.string().optional(),
-    async: z.string().optional(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      on: z.string().optional(),
+      src: z.string().optional(),
+      challenge: z.string().optional(),
+      async: z.string().optional(),
+    })
+  );
 
 export function getMediasMediaIdCustomizationsPasswordProtectedVideoFromJSON(
   jsonString: string,
@@ -291,9 +297,11 @@ export const GetMediasMediaIdCustomizationsVideoThumbnail$inboundSchema:
     GetMediasMediaIdCustomizationsVideoThumbnail,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    clickToPlayButton: z.string().optional(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      clickToPlayButton: z.string().optional(),
+    })
+  );
 
 export function getMediasMediaIdCustomizationsVideoThumbnailFromJSON(
   jsonString: string,
@@ -316,12 +324,14 @@ export const GetMediasMediaIdCustomizationsSocialbarV1$inboundSchema: z.ZodType<
   GetMediasMediaIdCustomizationsSocialbarV1,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  buttons: z.string().optional(),
-  showTweetCount: z.string().optional(),
-  tweetText: z.string().optional(),
-  height: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    buttons: z.string().optional(),
+    showTweetCount: z.string().optional(),
+    tweetText: z.string().optional(),
+    height: z.string().optional(),
+  })
+);
 
 export function getMediasMediaIdCustomizationsSocialbarV1FromJSON(
   jsonString: string,
@@ -344,12 +354,14 @@ export const GetMediasMediaIdCustomizationsChapterList$inboundSchema: z.ZodType<
   GetMediasMediaIdCustomizationsChapterList,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.string().optional(),
-  title: z.string().optional(),
-  time: z.string().optional(),
-  deleted: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    id: z.string().optional(),
+    title: z.string().optional(),
+    time: z.string().optional(),
+    deleted: z.string().optional(),
+  })
+);
 
 export function getMediasMediaIdCustomizationsChapterListFromJSON(
   jsonString: string,
@@ -372,13 +384,15 @@ export const GetMediasMediaIdCustomizationsChapters$inboundSchema: z.ZodType<
   GetMediasMediaIdCustomizationsChapters,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  visibleOnLoad: z.string().optional(),
-  chapterList: z.array(
-    z.lazy(() => GetMediasMediaIdCustomizationsChapterList$inboundSchema),
-  ).optional(),
-  on: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    visibleOnLoad: z.string().optional(),
+    chapterList: z.array(
+      z.lazy(() => GetMediasMediaIdCustomizationsChapterList$inboundSchema),
+    ).optional(),
+    on: z.string().optional(),
+  })
+);
 
 export function getMediasMediaIdCustomizationsChaptersFromJSON(
   jsonString: string,
@@ -396,9 +410,11 @@ export const GetMediasMediaIdCustomizationsStyle$inboundSchema: z.ZodType<
   GetMediasMediaIdCustomizationsStyle,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  backgroundColor: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    backgroundColor: z.string().optional(),
+  })
+);
 
 export function getMediasMediaIdCustomizationsStyleFromJSON(
   jsonString: string,
@@ -416,18 +432,20 @@ export const GetMediasMediaIdCustomizationsPostRollV1$inboundSchema: z.ZodType<
   GetMediasMediaIdCustomizationsPostRollV1,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  rewatch: z.string().optional(),
-  text: z.string().optional(),
-  link: z.string().optional(),
-  time: z.string().optional(),
-  autoSize: z.string().optional(),
-  style: z.lazy(() => GetMediasMediaIdCustomizationsStyle$inboundSchema)
-    .optional(),
-  ctaType: z.string().optional(),
-  on: z.string().optional(),
-  conversionOpportunityKey: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    rewatch: z.string().optional(),
+    text: z.string().optional(),
+    link: z.string().optional(),
+    time: z.string().optional(),
+    autoSize: z.string().optional(),
+    style: z.lazy(() => GetMediasMediaIdCustomizationsStyle$inboundSchema)
+      .optional(),
+    ctaType: z.string().optional(),
+    on: z.string().optional(),
+    conversionOpportunityKey: z.string().optional(),
+  })
+);
 
 export function getMediasMediaIdCustomizationsPostRollV1FromJSON(
   jsonString: string,
@@ -450,10 +468,12 @@ export const GetMediasMediaIdCustomizationsCaptionsV1$inboundSchema: z.ZodType<
   GetMediasMediaIdCustomizationsCaptionsV1,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  on: z.string().optional(),
-  onByDefault: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    on: z.string().optional(),
+    onByDefault: z.string().optional(),
+  })
+);
 
 export function getMediasMediaIdCustomizationsCaptionsV1FromJSON(
   jsonString: string,
@@ -476,31 +496,33 @@ export const GetMediasMediaIdCustomizationsPlugin$inboundSchema: z.ZodType<
   GetMediasMediaIdCustomizationsPlugin,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  passwordProtectedVideo: z.lazy(() =>
-    GetMediasMediaIdCustomizationsPasswordProtectedVideo$inboundSchema
-  ).optional(),
-  videoThumbnail: z.lazy(() =>
-    GetMediasMediaIdCustomizationsVideoThumbnail$inboundSchema
-  ).optional(),
-  "socialbar-v1": z.lazy(() =>
-    GetMediasMediaIdCustomizationsSocialbarV1$inboundSchema
-  ).optional(),
-  chapters: z.lazy(() => GetMediasMediaIdCustomizationsChapters$inboundSchema)
-    .optional(),
-  "postRoll-v1": z.lazy(() =>
-    GetMediasMediaIdCustomizationsPostRollV1$inboundSchema
-  ).optional(),
-  "captions-v1": z.lazy(() =>
-    GetMediasMediaIdCustomizationsCaptionsV1$inboundSchema
-  ).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "socialbar-v1": "socialbarV1",
-    "postRoll-v1": "postRollV1",
-    "captions-v1": "captionsV1",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    passwordProtectedVideo: z.lazy(() =>
+      GetMediasMediaIdCustomizationsPasswordProtectedVideo$inboundSchema
+    ).optional(),
+    videoThumbnail: z.lazy(() =>
+      GetMediasMediaIdCustomizationsVideoThumbnail$inboundSchema
+    ).optional(),
+    "socialbar-v1": z.lazy(() =>
+      GetMediasMediaIdCustomizationsSocialbarV1$inboundSchema
+    ).optional(),
+    chapters: z.lazy(() => GetMediasMediaIdCustomizationsChapters$inboundSchema)
+      .optional(),
+    "postRoll-v1": z.lazy(() =>
+      GetMediasMediaIdCustomizationsPostRollV1$inboundSchema
+    ).optional(),
+    "captions-v1": z.lazy(() =>
+      GetMediasMediaIdCustomizationsCaptionsV1$inboundSchema
+    ).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "socialbar-v1": "socialbarV1",
+      "postRoll-v1": "postRollV1",
+      "captions-v1": "captionsV1",
+    });
+  })
+);
 
 export function getMediasMediaIdCustomizationsPluginFromJSON(
   jsonString: string,
@@ -518,15 +540,17 @@ export const GetMediasMediaIdCustomizationsPrivate$inboundSchema: z.ZodType<
   GetMediasMediaIdCustomizationsPrivate,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  password_protect_on: z.string().optional(),
-  show_comments: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "password_protect_on": "passwordProtectOn",
-    "show_comments": "showComments",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    password_protect_on: z.string().optional(),
+    show_comments: z.string().optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "password_protect_on": "passwordProtectOn",
+      "show_comments": "showComments",
+    });
+  })
+);
 
 export function getMediasMediaIdCustomizationsPrivateFromJSON(
   jsonString: string,
@@ -544,13 +568,15 @@ export const GetMediasMediaIdCustomizationsEncrypted$inboundSchema: z.ZodType<
   GetMediasMediaIdCustomizationsEncrypted,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  password_protect_password: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "password_protect_password": "passwordProtectPassword",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    password_protect_password: z.string().optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "password_protect_password": "passwordProtectPassword",
+    });
+  })
+);
 
 export function getMediasMediaIdCustomizationsEncryptedFromJSON(
   jsonString: string,
@@ -573,54 +599,57 @@ export const GetMediasMediaIdCustomizationsResponse$inboundSchema: z.ZodType<
   GetMediasMediaIdCustomizationsResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  playerColor: z.string().optional(),
-  stillUrl: z.string().optional(),
-  autoPlay: z.string().optional(),
-  bpbTime: z.string().optional(),
-  controlsVisibleOnLoad: z.string().optional(),
-  endVideoBehavior: z.string().optional(),
-  fullscreenButton: z.string().optional(),
-  branding: z.string().optional(),
-  playbar: z.string().optional(),
-  playButton: z.string().optional(),
-  settingsControl: z.string().optional(),
-  showCustomerLogo: z.string().optional(),
-  qualityControl: z.string().optional(),
-  playbackRateControl: z.string().optional(),
-  smallPlayButton: z.string().optional(),
-  spherical: z.string().optional(),
-  volumeControl: z.string().optional(),
-  copyLinkAndThumbnailEnabled: z.string().optional(),
-  doNotTrack: z.string().optional(),
-  email: z.string().optional(),
-  fitStrategy: z.string().optional(),
-  fullscreenOnRotateToLandscape: z.string().optional(),
-  muted: z.string().optional(),
-  playlistLinks: z.string().optional(),
-  playlistLoop: z.string().optional(),
-  playsinline: z.string().optional(),
-  playPauseNotifier: z.string().optional(),
-  playSuspendedOffScreen: z.string().optional(),
-  preload: z.string().optional(),
-  qualityMax: z.string().optional(),
-  qualityMin: z.string().optional(),
-  resumable: z.string().optional(),
-  seo: z.string().optional(),
-  silentAutoPlay: z.string().optional(),
-  time: z.string().optional(),
-  thumbnailAltText: z.string().optional(),
-  videoFoam: z.string().optional(),
-  volume: z.string().optional(),
-  wmode: z.string().optional(),
-  keyMoments: z.string().optional(),
-  plugin: z.lazy(() => GetMediasMediaIdCustomizationsPlugin$inboundSchema)
-    .optional(),
-  private: z.lazy(() => GetMediasMediaIdCustomizationsPrivate$inboundSchema)
-    .optional(),
-  encrypted: z.lazy(() => GetMediasMediaIdCustomizationsEncrypted$inboundSchema)
-    .optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    playerColor: z.string().optional(),
+    stillUrl: z.string().optional(),
+    autoPlay: z.string().optional(),
+    bpbTime: z.string().optional(),
+    controlsVisibleOnLoad: z.string().optional(),
+    endVideoBehavior: z.string().optional(),
+    fullscreenButton: z.string().optional(),
+    branding: z.string().optional(),
+    playbar: z.string().optional(),
+    playButton: z.string().optional(),
+    settingsControl: z.string().optional(),
+    showCustomerLogo: z.string().optional(),
+    qualityControl: z.string().optional(),
+    playbackRateControl: z.string().optional(),
+    smallPlayButton: z.string().optional(),
+    spherical: z.string().optional(),
+    volumeControl: z.string().optional(),
+    copyLinkAndThumbnailEnabled: z.string().optional(),
+    doNotTrack: z.string().optional(),
+    email: z.string().optional(),
+    fitStrategy: z.string().optional(),
+    fullscreenOnRotateToLandscape: z.string().optional(),
+    muted: z.string().optional(),
+    playlistLinks: z.string().optional(),
+    playlistLoop: z.string().optional(),
+    playsinline: z.string().optional(),
+    playPauseNotifier: z.string().optional(),
+    playSuspendedOffScreen: z.string().optional(),
+    preload: z.string().optional(),
+    qualityMax: z.string().optional(),
+    qualityMin: z.string().optional(),
+    resumable: z.string().optional(),
+    seo: z.string().optional(),
+    silentAutoPlay: z.string().optional(),
+    time: z.string().optional(),
+    thumbnailAltText: z.string().optional(),
+    videoFoam: z.string().optional(),
+    volume: z.string().optional(),
+    wmode: z.string().optional(),
+    keyMoments: z.string().optional(),
+    plugin: z.lazy(() => GetMediasMediaIdCustomizationsPlugin$inboundSchema)
+      .optional(),
+    private: z.lazy(() => GetMediasMediaIdCustomizationsPrivate$inboundSchema)
+      .optional(),
+    encrypted: z.lazy(() =>
+      GetMediasMediaIdCustomizationsEncrypted$inboundSchema
+    ).optional(),
+  })
+);
 
 export function getMediasMediaIdCustomizationsResponseFromJSON(
   jsonString: string,

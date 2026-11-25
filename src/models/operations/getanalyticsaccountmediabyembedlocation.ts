@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { RFCDate } from "../../types/rfcdate.js";
@@ -72,8 +72,8 @@ export type GetAnalyticsAccountMediaByEmbedLocationResponse = {
 };
 
 /** @internal */
-export const PathMatch$outboundSchema: z.ZodNativeEnum<typeof PathMatch> = z
-  .nativeEnum(PathMatch);
+export const PathMatch$outboundSchema: z.ZodNativeEnum<typeof PathMatch> =
+  /* @__PURE__ */ lazySchema$(() => z.nativeEnum(PathMatch));
 
 /** @internal */
 export type GetAnalyticsAccountMediaByEmbedLocationRequest$Outbound = {
@@ -90,21 +90,23 @@ export const GetAnalyticsAccountMediaByEmbedLocationRequest$outboundSchema:
     GetAnalyticsAccountMediaByEmbedLocationRequest$Outbound,
     z.ZodTypeDef,
     GetAnalyticsAccountMediaByEmbedLocationRequest
-  > = z.object({
-    embedUrl: z.string(),
-    startDate: z.instanceof(RFCDate).transform(v => v.toString()).optional(),
-    endDate: z.instanceof(RFCDate).transform(v => v.toString()).optional(),
-    pathMatch: PathMatch$outboundSchema.default("exact"),
-    perPage: z.number().int().default(100),
-  }).transform((v) => {
-    return remap$(v, {
-      embedUrl: "embed_url",
-      startDate: "start_date",
-      endDate: "end_date",
-      pathMatch: "path_match",
-      perPage: "per_page",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      embedUrl: z.string(),
+      startDate: z.instanceof(RFCDate).transform(v => v.toString()).optional(),
+      endDate: z.instanceof(RFCDate).transform(v => v.toString()).optional(),
+      pathMatch: PathMatch$outboundSchema.default("exact"),
+      perPage: z.number().int().default(100),
+    }).transform((v) => {
+      return remap$(v, {
+        embedUrl: "embed_url",
+        startDate: "start_date",
+        endDate: "end_date",
+        pathMatch: "path_match",
+        perPage: "per_page",
+      });
+    })
+  );
 
 export function getAnalyticsAccountMediaByEmbedLocationRequestToJSON(
   getAnalyticsAccountMediaByEmbedLocationRequest:
@@ -119,8 +121,10 @@ export function getAnalyticsAccountMediaByEmbedLocationRequestToJSON(
 
 /** @internal */
 export const GetAnalyticsAccountMediaByEmbedLocationCode$inboundSchema:
-  z.ZodNativeEnum<typeof GetAnalyticsAccountMediaByEmbedLocationCode> = z
-    .nativeEnum(GetAnalyticsAccountMediaByEmbedLocationCode);
+  z.ZodNativeEnum<typeof GetAnalyticsAccountMediaByEmbedLocationCode> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(GetAnalyticsAccountMediaByEmbedLocationCode)
+    );
 
 /** @internal */
 export const GetAnalyticsAccountMediaByEmbedLocationResponse$inboundSchema:
@@ -128,13 +132,15 @@ export const GetAnalyticsAccountMediaByEmbedLocationResponse$inboundSchema:
     GetAnalyticsAccountMediaByEmbedLocationResponse,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    media_hashed_ids: z.array(z.string()).optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      "media_hashed_ids": "mediaHashedIds",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      media_hashed_ids: z.array(z.string()).optional(),
+    }).transform((v) => {
+      return remap$(v, {
+        "media_hashed_ids": "mediaHashedIds",
+      });
+    })
+  );
 
 export function getAnalyticsAccountMediaByEmbedLocationResponseFromJSON(
   jsonString: string,
