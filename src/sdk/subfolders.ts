@@ -105,9 +105,7 @@ export class Subfolders extends ClientSDK {
    * Delete Subfolder
    *
    * @remarks
-   * Deletes a subfolder from a folder. All media files in the subfolder will be moved to the folder's root level.
-   *
-   * The subfolder is soft-deleted and may be recoverable through other means, but is no longer accessible via the API.
+   * Deletes one subfolder and moves its media to the folder's root level. The subfolder is soft-deleted and is no longer accessible via the API. To delete multiple subfolders and their media, use the Bulk Delete Subfolders endpoint.
    *
    * ## Requires api token with one of the following permissions
    * ```
@@ -129,7 +127,7 @@ export class Subfolders extends ClientSDK {
    * Bulk Delete Subfolders
    *
    * @remarks
-   * This method accepts a list of subfolders to delete. It processes requests asynchronously and will return a background_job_status object. All media files in each deleted subfolder will be moved to the folder's root level.
+   * Deletes multiple subfolders asynchronously. Their media is also soft-deleted and can be restored from the trash by an account owner or manager until it is purged. To keep the media, use the Delete Subfolder endpoint, which moves it to the folder's root level.
    *
    * ## Requires api token with one of the following permissions
    * ```

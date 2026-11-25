@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -106,22 +106,24 @@ export const PostFormRequest$outboundSchema: z.ZodType<
   PostFormRequest$Outbound,
   z.ZodTypeDef,
   PostFormRequest
-> = z.object({
-  projectId: z.string().optional(),
-  name: z.string().optional(),
-  description: z.string().optional(),
-  contactId: z.number().int().optional(),
-  accessToken: z.string().optional(),
-  url: z.string(),
-  lowPriority: z.boolean().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    projectId: "project_id",
-    contactId: "contact_id",
-    accessToken: "access_token",
-    lowPriority: "low_priority",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    projectId: z.string().optional(),
+    name: z.string().optional(),
+    description: z.string().optional(),
+    contactId: z.number().int().optional(),
+    accessToken: z.string().optional(),
+    url: z.string(),
+    lowPriority: z.boolean().optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      projectId: "project_id",
+      contactId: "contact_id",
+      accessToken: "access_token",
+      lowPriority: "low_priority",
+    });
+  })
+);
 
 export function postFormRequestToJSON(
   postFormRequest: PostFormRequest,
@@ -134,10 +136,12 @@ export const PostFormError$inboundSchema: z.ZodType<
   PostFormError,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  code: z.string().optional(),
-  detail: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    code: z.string().optional(),
+    detail: z.string().optional(),
+  })
+);
 
 export function postFormErrorFromJSON(
   jsonString: string,
@@ -154,23 +158,25 @@ export const PostFormResponse$inboundSchema: z.ZodType<
   PostFormResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.number().int().optional(),
-  name: z.string().optional(),
-  type: z.string().optional(),
-  created: z.string().datetime({ offset: true }).transform(v => new Date(v))
-    .optional(),
-  updated: z.string().datetime({ offset: true }).transform(v => new Date(v))
-    .optional(),
-  duration: z.number().optional(),
-  hashed_id: z.string().optional(),
-  progress: z.number().optional(),
-  thumbnail: models.Thumbnail$inboundSchema.optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "hashed_id": "hashedId",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    id: z.number().int().optional(),
+    name: z.string().optional(),
+    type: z.string().optional(),
+    created: z.string().datetime({ offset: true }).transform(v => new Date(v))
+      .optional(),
+    updated: z.string().datetime({ offset: true }).transform(v => new Date(v))
+      .optional(),
+    duration: z.number().optional(),
+    hashed_id: z.string().optional(),
+    progress: z.number().optional(),
+    thumbnail: models.Thumbnail$inboundSchema.optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "hashed_id": "hashedId",
+    });
+  })
+);
 
 export function postFormResponseFromJSON(
   jsonString: string,

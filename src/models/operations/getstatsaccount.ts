@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -44,24 +44,26 @@ export type GetStatsAccountResponse = {
 /** @internal */
 export const GetStatsAccountCode$inboundSchema: z.ZodNativeEnum<
   typeof GetStatsAccountCode
-> = z.nativeEnum(GetStatsAccountCode);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetStatsAccountCode));
 
 /** @internal */
 export const GetStatsAccountResponse$inboundSchema: z.ZodType<
   GetStatsAccountResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  load_count: z.number().int(),
-  play_count: z.number().int(),
-  hours_watched: z.number(),
-}).transform((v) => {
-  return remap$(v, {
-    "load_count": "loadCount",
-    "play_count": "playCount",
-    "hours_watched": "hoursWatched",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    load_count: z.number().int(),
+    play_count: z.number().int(),
+    hours_watched: z.number(),
+  }).transform((v) => {
+    return remap$(v, {
+      "load_count": "loadCount",
+      "play_count": "playCount",
+      "hours_watched": "hoursWatched",
+    });
+  })
+);
 
 export function getStatsAccountResponseFromJSON(
   jsonString: string,

@@ -12,12 +12,12 @@
 
 Retrieve stats for a video. This endpoint provides statistics for a specific video identified by its media-id.
 
-<!--- HIDE-MCP -->
+
 ## Requires api token with one of the following permissions
 ```
 Read detailed stats
 ```
-<!--- /HIDE-MCP -->
+
 
 
 ### Example Usage
@@ -96,12 +96,12 @@ run();
 
 Retrieve stats for a media organized by day, between a start and end date paramater (inclusive). If start and end date are not provided, defaults to yesterday and today.
 
-<!--- HIDE-MCP -->
+
 ## Requires api token with one of the following permissions
 ```
 Read detailed stats
 ```
-<!--- /HIDE-MCP -->
+
 
 
 ### Example Usage
@@ -186,12 +186,12 @@ run();
 
 Retrieve engagement data for a video. This endpoint provides engagement data for a specific video identified by its media-id.
 
-<!--- HIDE-MCP -->
+
 ## Requires api token with one of the following permissions
 ```
 Read detailed stats
 ```
-<!--- /HIDE-MCP -->
+
 
 
 ### Example Usage

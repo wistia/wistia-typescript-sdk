@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -63,9 +63,11 @@ export const PostAllowedDomainsRequest$outboundSchema: z.ZodType<
   PostAllowedDomainsRequest$Outbound,
   z.ZodTypeDef,
   PostAllowedDomainsRequest
-> = z.object({
-  domain: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    domain: z.string(),
+  })
+);
 
 export function postAllowedDomainsRequestToJSON(
   postAllowedDomainsRequest: PostAllowedDomainsRequest,
@@ -78,22 +80,26 @@ export function postAllowedDomainsRequestToJSON(
 /** @internal */
 export const PostAllowedDomainsCode$inboundSchema: z.ZodNativeEnum<
   typeof PostAllowedDomainsCode
-> = z.nativeEnum(PostAllowedDomainsCode);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(PostAllowedDomainsCode));
 
 /** @internal */
 export const PostAllowedDomainsResponse$inboundSchema: z.ZodType<
   PostAllowedDomainsResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  domain: z.string(),
-  created_at: z.string().datetime({ offset: true }).transform(v => new Date(v)),
-  cursor: z.nullable(z.string()).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "created_at": "createdAt",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    domain: z.string(),
+    created_at: z.string().datetime({ offset: true }).transform(v =>
+      new Date(v)
+    ),
+    cursor: z.nullable(z.string()).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "created_at": "createdAt",
+    });
+  })
+);
 
 export function postAllowedDomainsResponseFromJSON(
   jsonString: string,
