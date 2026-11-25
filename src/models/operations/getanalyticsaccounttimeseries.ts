@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { RFCDate } from "../../types/rfcdate.js";
@@ -97,8 +97,10 @@ export type GetAnalyticsAccountTimeseriesResponse = {
 
 /** @internal */
 export const GetAnalyticsAccountTimeseriesGranularity$outboundSchema:
-  z.ZodNativeEnum<typeof GetAnalyticsAccountTimeseriesGranularity> = z
-    .nativeEnum(GetAnalyticsAccountTimeseriesGranularity);
+  z.ZodNativeEnum<typeof GetAnalyticsAccountTimeseriesGranularity> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(GetAnalyticsAccountTimeseriesGranularity)
+    );
 
 /** @internal */
 export type GetAnalyticsAccountTimeseriesRequest$Outbound = {
@@ -112,16 +114,18 @@ export const GetAnalyticsAccountTimeseriesRequest$outboundSchema: z.ZodType<
   GetAnalyticsAccountTimeseriesRequest$Outbound,
   z.ZodTypeDef,
   GetAnalyticsAccountTimeseriesRequest
-> = z.object({
-  startDate: z.instanceof(RFCDate).transform(v => v.toString()),
-  endDate: z.instanceof(RFCDate).transform(v => v.toString()),
-  granularity: GetAnalyticsAccountTimeseriesGranularity$outboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    startDate: "start_date",
-    endDate: "end_date",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    startDate: z.instanceof(RFCDate).transform(v => v.toString()),
+    endDate: z.instanceof(RFCDate).transform(v => v.toString()),
+    granularity: GetAnalyticsAccountTimeseriesGranularity$outboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      startDate: "start_date",
+      endDate: "end_date",
+    });
+  })
+);
 
 export function getAnalyticsAccountTimeseriesRequestToJSON(
   getAnalyticsAccountTimeseriesRequest: GetAnalyticsAccountTimeseriesRequest,
@@ -136,35 +140,39 @@ export function getAnalyticsAccountTimeseriesRequestToJSON(
 /** @internal */
 export const GetAnalyticsAccountTimeseriesCode$inboundSchema: z.ZodNativeEnum<
   typeof GetAnalyticsAccountTimeseriesCode
-> = z.nativeEnum(GetAnalyticsAccountTimeseriesCode);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(GetAnalyticsAccountTimeseriesCode)
+);
 
 /** @internal */
 export const GetAnalyticsAccountTimeseriesResponse$inboundSchema: z.ZodType<
   GetAnalyticsAccountTimeseriesResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  timestamp: z.string().datetime({ offset: true }).transform(v => new Date(v))
-    .optional(),
-  unique_loads: z.nullable(z.number().int()).optional(),
-  unique_plays: z.nullable(z.number().int()).optional(),
-  plays: z.nullable(z.number().int()).optional(),
-  play_rate: z.nullable(z.number()).optional(),
-  played_time: z.nullable(z.number().int()).optional(),
-  unique_visitors: z.nullable(z.number().int()).optional(),
-  engagement_rate: z.nullable(z.number()).optional(),
-  form_conversions: z.nullable(z.number().int()).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "unique_loads": "uniqueLoads",
-    "unique_plays": "uniquePlays",
-    "play_rate": "playRate",
-    "played_time": "playedTime",
-    "unique_visitors": "uniqueVisitors",
-    "engagement_rate": "engagementRate",
-    "form_conversions": "formConversions",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    timestamp: z.string().datetime({ offset: true }).transform(v => new Date(v))
+      .optional(),
+    unique_loads: z.nullable(z.number().int()).optional(),
+    unique_plays: z.nullable(z.number().int()).optional(),
+    plays: z.nullable(z.number().int()).optional(),
+    play_rate: z.nullable(z.number()).optional(),
+    played_time: z.nullable(z.number().int()).optional(),
+    unique_visitors: z.nullable(z.number().int()).optional(),
+    engagement_rate: z.nullable(z.number()).optional(),
+    form_conversions: z.nullable(z.number().int()).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "unique_loads": "uniqueLoads",
+      "unique_plays": "uniquePlays",
+      "play_rate": "playRate",
+      "played_time": "playedTime",
+      "unique_visitors": "uniqueVisitors",
+      "engagement_rate": "engagementRate",
+      "form_conversions": "formConversions",
+    });
+  })
+);
 
 export function getAnalyticsAccountTimeseriesResponseFromJSON(
   jsonString: string,

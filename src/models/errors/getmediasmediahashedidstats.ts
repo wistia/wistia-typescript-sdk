@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
 import * as operations from "../operations/index.js";
 import { WistiaError } from "./wistiaerror.js";
 
@@ -193,57 +194,63 @@ export const GetMediasMediaHashedIdStatsInternalServerError$inboundSchema:
     GetMediasMediaHashedIdStatsInternalServerError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new GetMediasMediaHashedIdStatsInternalServerError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new GetMediasMediaHashedIdStatsInternalServerError(v, {
+          request: v.request$,
+          response: v.response$,
+          body: v.body$,
+        });
+      })
+  );
 
 /** @internal */
 export const GetMediasMediaHashedIdStatsNotFoundError$inboundSchema: z.ZodType<
   GetMediasMediaHashedIdStatsNotFoundError,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  error: z.string().optional(),
-  request$: z.instanceof(Request),
-  response$: z.instanceof(Response),
-  body$: z.string(),
-})
-  .transform((v) => {
-    return new GetMediasMediaHashedIdStatsNotFoundError(v, {
-      request: v.request$,
-      response: v.response$,
-      body: v.body$,
-    });
-  });
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    error: z.string().optional(),
+    request$: z.instanceof(Request),
+    response$: z.instanceof(Response),
+    body$: z.string(),
+  })
+    .transform((v) => {
+      return new GetMediasMediaHashedIdStatsNotFoundError(v, {
+        request: v.request$,
+        response: v.response$,
+        body: v.body$,
+      });
+    })
+);
 
 /** @internal */
 export const GetMediasMediaHashedIdStatsForbiddenError$inboundSchema: z.ZodType<
   GetMediasMediaHashedIdStatsForbiddenError,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  error: z.string().optional(),
-  request$: z.instanceof(Request),
-  response$: z.instanceof(Response),
-  body$: z.string(),
-})
-  .transform((v) => {
-    return new GetMediasMediaHashedIdStatsForbiddenError(v, {
-      request: v.request$,
-      response: v.response$,
-      body: v.body$,
-    });
-  });
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    error: z.string().optional(),
+    request$: z.instanceof(Request),
+    response$: z.instanceof(Response),
+    body$: z.string(),
+  })
+    .transform((v) => {
+      return new GetMediasMediaHashedIdStatsForbiddenError(v, {
+        request: v.request$,
+        response: v.response$,
+        body: v.body$,
+      });
+    })
+);
 
 /** @internal */
 export const GetMediasMediaHashedIdStatsUnauthorizedError$inboundSchema:
@@ -251,35 +258,39 @@ export const GetMediasMediaHashedIdStatsUnauthorizedError$inboundSchema:
     GetMediasMediaHashedIdStatsUnauthorizedError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    code: operations.GetMediasMediaHashedIdStatsCode$inboundSchema.optional(),
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new GetMediasMediaHashedIdStatsUnauthorizedError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
-
-/** @internal */
-export const GetMediasMediaHashedIdStatsBadRequestError$inboundSchema:
-  z.ZodType<GetMediasMediaHashedIdStatsBadRequestError, z.ZodTypeDef, unknown> =
+  > = /* @__PURE__ */ lazySchema$(() =>
     z.object({
+      code: operations.GetMediasMediaHashedIdStatsCode$inboundSchema.optional(),
       error: z.string().optional(),
-      errors: z.array(z.string()).optional(),
       request$: z.instanceof(Request),
       response$: z.instanceof(Response),
       body$: z.string(),
     })
       .transform((v) => {
-        return new GetMediasMediaHashedIdStatsBadRequestError(v, {
+        return new GetMediasMediaHashedIdStatsUnauthorizedError(v, {
           request: v.request$,
           response: v.response$,
           body: v.body$,
         });
-      });
+      })
+  );
+
+/** @internal */
+export const GetMediasMediaHashedIdStatsBadRequestError$inboundSchema:
+  z.ZodType<GetMediasMediaHashedIdStatsBadRequestError, z.ZodTypeDef, unknown> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.object({
+        error: z.string().optional(),
+        errors: z.array(z.string()).optional(),
+        request$: z.instanceof(Request),
+        response$: z.instanceof(Response),
+        body$: z.string(),
+      })
+        .transform((v) => {
+          return new GetMediasMediaHashedIdStatsBadRequestError(v, {
+            request: v.request$,
+            response: v.response$,
+            body: v.body$,
+          });
+        })
+    );

@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -144,9 +144,11 @@ export const GetFoldersIdRequest$outboundSchema: z.ZodType<
   GetFoldersIdRequest$Outbound,
   z.ZodTypeDef,
   GetFoldersIdRequest
-> = z.object({
-  id: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    id: z.string(),
+  })
+);
 
 export function getFoldersIdRequestToJSON(
   getFoldersIdRequest: GetFoldersIdRequest,
@@ -159,16 +161,18 @@ export function getFoldersIdRequestToJSON(
 /** @internal */
 export const GetFoldersIdCode$inboundSchema: z.ZodNativeEnum<
   typeof GetFoldersIdCode
-> = z.nativeEnum(GetFoldersIdCode);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetFoldersIdCode));
 
 /** @internal */
 export const GetFoldersIdMedias$inboundSchema: z.ZodType<
   GetFoldersIdMedias,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  url: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    url: z.string().optional(),
+  })
+);
 
 export function getFoldersIdMediasFromJSON(
   jsonString: string,
@@ -183,39 +187,41 @@ export function getFoldersIdMediasFromJSON(
 /** @internal */
 export const GetFoldersIdKind$inboundSchema: z.ZodNativeEnum<
   typeof GetFoldersIdKind
-> = z.nativeEnum(GetFoldersIdKind);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetFoldersIdKind));
 
 /** @internal */
 export const GetFoldersIdResponse$inboundSchema: z.ZodType<
   GetFoldersIdResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.number().int(),
-  name: z.string(),
-  description: z.nullable(z.string()).optional(),
-  media_count: z.number().int(),
-  medias: z.lazy(() => GetFoldersIdMedias$inboundSchema),
-  created: z.string().datetime({ offset: true }).transform(v => new Date(v)),
-  updated: z.string().datetime({ offset: true }).transform(v => new Date(v)),
-  hashed_id: z.string(),
-  public: z.boolean(),
-  public_id: z.nullable(z.string()),
-  anonymous_can_upload: z.boolean().optional(),
-  anonymous_can_download: z.boolean().optional(),
-  kind: GetFoldersIdKind$inboundSchema,
-  personal_library: z.boolean(),
-  cursor: z.nullable(z.string()).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "media_count": "mediaCount",
-    "hashed_id": "hashedId",
-    "public_id": "publicId",
-    "anonymous_can_upload": "anonymousCanUpload",
-    "anonymous_can_download": "anonymousCanDownload",
-    "personal_library": "personalLibrary",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    id: z.number().int(),
+    name: z.string(),
+    description: z.nullable(z.string()).optional(),
+    media_count: z.number().int(),
+    medias: z.lazy(() => GetFoldersIdMedias$inboundSchema),
+    created: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+    updated: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+    hashed_id: z.string(),
+    public: z.boolean(),
+    public_id: z.nullable(z.string()),
+    anonymous_can_upload: z.boolean().optional(),
+    anonymous_can_download: z.boolean().optional(),
+    kind: GetFoldersIdKind$inboundSchema,
+    personal_library: z.boolean(),
+    cursor: z.nullable(z.string()).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "media_count": "mediaCount",
+      "hashed_id": "hashedId",
+      "public_id": "publicId",
+      "anonymous_can_upload": "anonymousCanUpload",
+      "anonymous_can_download": "anonymousCanDownload",
+      "personal_library": "personalLibrary",
+    });
+  })
+);
 
 export function getFoldersIdResponseFromJSON(
   jsonString: string,

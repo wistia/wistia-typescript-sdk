@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { blobLikeSchema } from "../../types/blobs.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -103,15 +103,17 @@ export const FileT$outboundSchema: z.ZodType<
   FileT$Outbound,
   z.ZodTypeDef,
   FileT
-> = z.object({
-  fileName: z.string(),
-  content: z.union([
-    z.instanceof(ReadableStream<Uint8Array>),
-    z.instanceof(Blob),
-    z.instanceof(ArrayBuffer),
-    z.instanceof(Uint8Array),
-  ]),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    fileName: z.string(),
+    content: z.union([
+      z.instanceof(ReadableStream<Uint8Array>),
+      z.instanceof(Blob),
+      z.instanceof(ArrayBuffer),
+      z.instanceof(Uint8Array),
+    ]),
+  })
+);
 
 export function fileToJSON(fileT: FileT): string {
   return JSON.stringify(FileT$outboundSchema.parse(fileT));
@@ -132,20 +134,22 @@ export const PostMultipartRequest$outboundSchema: z.ZodType<
   PostMultipartRequest$Outbound,
   z.ZodTypeDef,
   PostMultipartRequest
-> = z.object({
-  projectId: z.string().optional(),
-  name: z.string().optional(),
-  description: z.string().optional(),
-  contactId: z.number().int().optional(),
-  accessToken: z.string().optional(),
-  file: z.lazy(() => FileT$outboundSchema).or(blobLikeSchema),
-}).transform((v) => {
-  return remap$(v, {
-    projectId: "project_id",
-    contactId: "contact_id",
-    accessToken: "access_token",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    projectId: z.string().optional(),
+    name: z.string().optional(),
+    description: z.string().optional(),
+    contactId: z.number().int().optional(),
+    accessToken: z.string().optional(),
+    file: z.lazy(() => FileT$outboundSchema).or(blobLikeSchema),
+  }).transform((v) => {
+    return remap$(v, {
+      projectId: "project_id",
+      contactId: "contact_id",
+      accessToken: "access_token",
+    });
+  })
+);
 
 export function postMultipartRequestToJSON(
   postMultipartRequest: PostMultipartRequest,
@@ -160,10 +164,12 @@ export const PostMultipartError$inboundSchema: z.ZodType<
   PostMultipartError,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  code: z.string().optional(),
-  detail: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    code: z.string().optional(),
+    detail: z.string().optional(),
+  })
+);
 
 export function postMultipartErrorFromJSON(
   jsonString: string,
@@ -180,23 +186,25 @@ export const PostMultipartResponse$inboundSchema: z.ZodType<
   PostMultipartResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.number().int().optional(),
-  name: z.string().optional(),
-  type: z.string().optional(),
-  created: z.string().datetime({ offset: true }).transform(v => new Date(v))
-    .optional(),
-  updated: z.string().datetime({ offset: true }).transform(v => new Date(v))
-    .optional(),
-  duration: z.number().optional(),
-  hashed_id: z.string().optional(),
-  progress: z.number().optional(),
-  thumbnail: models.Thumbnail$inboundSchema.optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "hashed_id": "hashedId",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    id: z.number().int().optional(),
+    name: z.string().optional(),
+    type: z.string().optional(),
+    created: z.string().datetime({ offset: true }).transform(v => new Date(v))
+      .optional(),
+    updated: z.string().datetime({ offset: true }).transform(v => new Date(v))
+      .optional(),
+    duration: z.number().optional(),
+    hashed_id: z.string().optional(),
+    progress: z.number().optional(),
+    thumbnail: models.Thumbnail$inboundSchema.optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "hashed_id": "hashedId",
+    });
+  })
+);
 
 export function postMultipartResponseFromJSON(
   jsonString: string,

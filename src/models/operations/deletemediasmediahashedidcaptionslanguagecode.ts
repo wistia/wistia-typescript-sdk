@@ -3,6 +3,8 @@
  */
 
 import * as z from "zod/v3";
+import { matchesPattern as matchesPattern$ } from "../../lib/primitives.js";
+import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 
 export type DeleteMediasMediaHashedIdCaptionsLanguageCodeRequest = {
@@ -44,10 +46,14 @@ export const DeleteMediasMediaHashedIdCaptionsLanguageCodeRequest$outboundSchema
     DeleteMediasMediaHashedIdCaptionsLanguageCodeRequest$Outbound,
     z.ZodTypeDef,
     DeleteMediasMediaHashedIdCaptionsLanguageCodeRequest
-  > = z.object({
-    mediaHashedId: z.string(),
-    languageCode: z.string(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      mediaHashedId: z.string(),
+      languageCode: z.string().refine(matchesPattern$("^[a-z]{3}$"), {
+        message: "Value must match pattern ^[a-z]{3}$",
+      }),
+    })
+  );
 
 export function deleteMediasMediaHashedIdCaptionsLanguageCodeRequestToJSON(
   deleteMediasMediaHashedIdCaptionsLanguageCodeRequest:
@@ -62,5 +68,7 @@ export function deleteMediasMediaHashedIdCaptionsLanguageCodeRequestToJSON(
 
 /** @internal */
 export const DeleteMediasMediaHashedIdCaptionsLanguageCodeCode$inboundSchema:
-  z.ZodNativeEnum<typeof DeleteMediasMediaHashedIdCaptionsLanguageCodeCode> = z
-    .nativeEnum(DeleteMediasMediaHashedIdCaptionsLanguageCodeCode);
+  z.ZodNativeEnum<typeof DeleteMediasMediaHashedIdCaptionsLanguageCodeCode> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(DeleteMediasMediaHashedIdCaptionsLanguageCodeCode)
+    );

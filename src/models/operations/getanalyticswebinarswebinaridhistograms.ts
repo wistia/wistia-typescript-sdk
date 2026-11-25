@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -61,9 +61,11 @@ export const GetAnalyticsWebinarsWebinarIdHistogramsRequest$outboundSchema:
     GetAnalyticsWebinarsWebinarIdHistogramsRequest$Outbound,
     z.ZodTypeDef,
     GetAnalyticsWebinarsWebinarIdHistogramsRequest
-  > = z.object({
-    webinarId: z.string(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      webinarId: z.string(),
+    })
+  );
 
 export function getAnalyticsWebinarsWebinarIdHistogramsRequestToJSON(
   getAnalyticsWebinarsWebinarIdHistogramsRequest:
@@ -78,8 +80,10 @@ export function getAnalyticsWebinarsWebinarIdHistogramsRequestToJSON(
 
 /** @internal */
 export const GetAnalyticsWebinarsWebinarIdHistogramsCode$inboundSchema:
-  z.ZodNativeEnum<typeof GetAnalyticsWebinarsWebinarIdHistogramsCode> = z
-    .nativeEnum(GetAnalyticsWebinarsWebinarIdHistogramsCode);
+  z.ZodNativeEnum<typeof GetAnalyticsWebinarsWebinarIdHistogramsCode> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(GetAnalyticsWebinarsWebinarIdHistogramsCode)
+    );
 
 /** @internal */
 export const GetAnalyticsWebinarsWebinarIdHistogramsResponse$inboundSchema:
@@ -87,17 +91,19 @@ export const GetAnalyticsWebinarsWebinarIdHistogramsResponse$inboundSchema:
     GetAnalyticsWebinarsWebinarIdHistogramsResponse,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    attendees_histogram: z.array(z.number()).optional(),
-    chat_histogram: z.array(z.number()).optional(),
-    visual_focus_played_histogram: z.array(z.number()).optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      "attendees_histogram": "attendeesHistogram",
-      "chat_histogram": "chatHistogram",
-      "visual_focus_played_histogram": "visualFocusPlayedHistogram",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      attendees_histogram: z.array(z.number()).optional(),
+      chat_histogram: z.array(z.number()).optional(),
+      visual_focus_played_histogram: z.array(z.number()).optional(),
+    }).transform((v) => {
+      return remap$(v, {
+        "attendees_histogram": "attendeesHistogram",
+        "chat_histogram": "chatHistogram",
+        "visual_focus_played_histogram": "visualFocusPlayedHistogram",
+      });
+    })
+  );
 
 export function getAnalyticsWebinarsWebinarIdHistogramsResponseFromJSON(
   jsonString: string,

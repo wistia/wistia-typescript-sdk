@@ -17,12 +17,10 @@ export class DeletedMedia extends ClientSDK {
    * restore window. Media is listed only while it can still be restored — 30 days
    * on most plans, 14 on free plans. After which it is permanently purged.
    *
-   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Read all folder and media data
    * ```
-   * <!--- /HIDE-MCP -->
    */
   async getDeletedMedia(
     request?: operations.GetDeletedMediaRequest | undefined,
@@ -45,12 +43,10 @@ export class DeletedMedia extends ClientSDK {
    * The restore runs asynchronously and the response includes a background job
    * status.
    *
-   * <!--- HIDE-MCP -->
    * ## Requires api token with one of the following permissions
    * ```
    * Upload and view media
    * ```
-   * <!--- /HIDE-MCP -->
    */
   async postDeletedMediaRestore(
     request: operations.PostDeletedMediaRestoreRequest,
