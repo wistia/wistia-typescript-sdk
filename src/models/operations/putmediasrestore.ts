@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -109,15 +109,17 @@ export const PutMediasRestoreRequest$outboundSchema: z.ZodType<
   PutMediasRestoreRequest$Outbound,
   z.ZodTypeDef,
   PutMediasRestoreRequest
-> = z.object({
-  hashedIds: z.array(z.string()),
-  folderId: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    hashedIds: "hashed_ids",
-    folderId: "folder_id",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    hashedIds: z.array(z.string()),
+    folderId: z.string(),
+  }).transform((v) => {
+    return remap$(v, {
+      hashedIds: "hashed_ids",
+      folderId: "folder_id",
+    });
+  })
+);
 
 export function putMediasRestoreRequestToJSON(
   putMediasRestoreRequest: PutMediasRestoreRequest,
@@ -130,18 +132,20 @@ export function putMediasRestoreRequestToJSON(
 /** @internal */
 export const PutMediasRestoreCode$inboundSchema: z.ZodNativeEnum<
   typeof PutMediasRestoreCode
-> = z.nativeEnum(PutMediasRestoreCode);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(PutMediasRestoreCode));
 
 /** @internal */
 export const Container$inboundSchema: z.ZodType<
   Container,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  type: z.string().optional(),
-  name: z.string().optional(),
-  hashedId: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    type: z.string().optional(),
+    name: z.string().optional(),
+    hashedId: z.string().optional(),
+  })
+);
 
 export function containerFromJSON(
   jsonString: string,
@@ -156,17 +160,19 @@ export function containerFromJSON(
 /** @internal */
 export const PutMediasRestoreStatus$inboundSchema: z.ZodNativeEnum<
   typeof PutMediasRestoreStatus
-> = z.nativeEnum(PutMediasRestoreStatus);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(PutMediasRestoreStatus));
 
 /** @internal */
 export const PutMediasRestoreBackgroundJobStatus$inboundSchema: z.ZodType<
   PutMediasRestoreBackgroundJobStatus,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.number().int(),
-  status: PutMediasRestoreStatus$inboundSchema,
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    id: z.number().int(),
+    status: PutMediasRestoreStatus$inboundSchema,
+  })
+);
 
 export function putMediasRestoreBackgroundJobStatusFromJSON(
   jsonString: string,
@@ -184,17 +190,19 @@ export const PutMediasRestoreResponse$inboundSchema: z.ZodType<
   PutMediasRestoreResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  message: z.string().optional(),
-  container: z.lazy(() => Container$inboundSchema).optional(),
-  background_job_status: z.lazy(() =>
-    PutMediasRestoreBackgroundJobStatus$inboundSchema
-  ).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "background_job_status": "backgroundJobStatus",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    message: z.string().optional(),
+    container: z.lazy(() => Container$inboundSchema).optional(),
+    background_job_status: z.lazy(() =>
+      PutMediasRestoreBackgroundJobStatus$inboundSchema
+    ).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "background_job_status": "backgroundJobStatus",
+    });
+  })
+);
 
 export function putMediasRestoreResponseFromJSON(
   jsonString: string,

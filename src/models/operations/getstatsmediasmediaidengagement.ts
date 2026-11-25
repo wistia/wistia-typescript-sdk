@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -60,9 +60,11 @@ export const GetStatsMediasMediaIdEngagementRequest$outboundSchema: z.ZodType<
   GetStatsMediasMediaIdEngagementRequest$Outbound,
   z.ZodTypeDef,
   GetStatsMediasMediaIdEngagementRequest
-> = z.object({
-  mediaId: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    mediaId: z.string(),
+  })
+);
 
 export function getStatsMediasMediaIdEngagementRequestToJSON(
   getStatsMediasMediaIdEngagementRequest:
@@ -78,23 +80,27 @@ export function getStatsMediasMediaIdEngagementRequestToJSON(
 /** @internal */
 export const GetStatsMediasMediaIdEngagementCode$inboundSchema: z.ZodNativeEnum<
   typeof GetStatsMediasMediaIdEngagementCode
-> = z.nativeEnum(GetStatsMediasMediaIdEngagementCode);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(GetStatsMediasMediaIdEngagementCode)
+);
 
 /** @internal */
 export const GetStatsMediasMediaIdEngagementResponse$inboundSchema: z.ZodType<
   GetStatsMediasMediaIdEngagementResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  engagement: z.number().optional(),
-  engagement_data: z.array(z.number().int()).optional(),
-  rewatch_data: z.array(z.number().int()).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "engagement_data": "engagementData",
-    "rewatch_data": "rewatchData",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    engagement: z.number().optional(),
+    engagement_data: z.array(z.number().int()).optional(),
+    rewatch_data: z.array(z.number().int()).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "engagement_data": "engagementData",
+      "rewatch_data": "rewatchData",
+    });
+  })
+);
 
 export function getStatsMediasMediaIdEngagementResponseFromJSON(
   jsonString: string,

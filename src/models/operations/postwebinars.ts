@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -153,21 +153,23 @@ export const PostWebinarsRequest$outboundSchema: z.ZodType<
   PostWebinarsRequest$Outbound,
   z.ZodTypeDef,
   PostWebinarsRequest
-> = z.object({
-  title: z.string(),
-  description: z.string().optional(),
-  scheduledFor: z.date().transform(v => v.toISOString()),
-  eventDuration: z.number().int(),
-  timeZone: z.string(),
-  folderId: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    scheduledFor: "scheduled_for",
-    eventDuration: "event_duration",
-    timeZone: "time_zone",
-    folderId: "folder_id",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    title: z.string(),
+    description: z.string().optional(),
+    scheduledFor: z.date().transform(v => v.toISOString()),
+    eventDuration: z.number().int(),
+    timeZone: z.string(),
+    folderId: z.string().optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      scheduledFor: "scheduled_for",
+      eventDuration: "event_duration",
+      timeZone: "time_zone",
+      folderId: "folder_id",
+    });
+  })
+);
 
 export function postWebinarsRequestToJSON(
   postWebinarsRequest: PostWebinarsRequest,
@@ -180,22 +182,24 @@ export function postWebinarsRequestToJSON(
 /** @internal */
 export const PostWebinarsCode$inboundSchema: z.ZodNativeEnum<
   typeof PostWebinarsCode
-> = z.nativeEnum(PostWebinarsCode);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(PostWebinarsCode));
 
 /** @internal */
 export const PostWebinarsFolder$inboundSchema: z.ZodType<
   PostWebinarsFolder,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.string(),
-  index_url: z.string(),
-  url: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "index_url": "indexUrl",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    id: z.string(),
+    index_url: z.string(),
+    url: z.string(),
+  }).transform((v) => {
+    return remap$(v, {
+      "index_url": "indexUrl",
+    });
+  })
+);
 
 export function postWebinarsFolderFromJSON(
   jsonString: string,
@@ -212,38 +216,45 @@ export const PostWebinarsResponse$inboundSchema: z.ZodType<
   PostWebinarsResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.string(),
-  title: z.string(),
-  description: z.nullable(z.string()).optional(),
-  scheduled_for: z.nullable(
-    z.string().datetime({ offset: true }).transform(v => new Date(v)),
-  ).optional(),
-  event_duration: z.nullable(z.number().int()).optional(),
-  time_zone: z.string(),
-  lifecycle_status: z.string(),
-  registration_status: z.string(),
-  created_at: z.string().datetime({ offset: true }).transform(v => new Date(v)),
-  updated_at: z.string().datetime({ offset: true }).transform(v => new Date(v)),
-  audience_link: z.string(),
-  host_link: z.string(),
-  panelist_link: z.string(),
-  folder: z.nullable(z.lazy(() => PostWebinarsFolder$inboundSchema)).optional(),
-  cursor: z.nullable(z.string()).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "scheduled_for": "scheduledFor",
-    "event_duration": "eventDuration",
-    "time_zone": "timeZone",
-    "lifecycle_status": "lifecycleStatus",
-    "registration_status": "registrationStatus",
-    "created_at": "createdAt",
-    "updated_at": "updatedAt",
-    "audience_link": "audienceLink",
-    "host_link": "hostLink",
-    "panelist_link": "panelistLink",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    id: z.string(),
+    title: z.string(),
+    description: z.nullable(z.string()).optional(),
+    scheduled_for: z.nullable(
+      z.string().datetime({ offset: true }).transform(v => new Date(v)),
+    ).optional(),
+    event_duration: z.nullable(z.number().int()).optional(),
+    time_zone: z.string(),
+    lifecycle_status: z.string(),
+    registration_status: z.string(),
+    created_at: z.string().datetime({ offset: true }).transform(v =>
+      new Date(v)
+    ),
+    updated_at: z.string().datetime({ offset: true }).transform(v =>
+      new Date(v)
+    ),
+    audience_link: z.string(),
+    host_link: z.string(),
+    panelist_link: z.string(),
+    folder: z.nullable(z.lazy(() => PostWebinarsFolder$inboundSchema))
+      .optional(),
+    cursor: z.nullable(z.string()).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "scheduled_for": "scheduledFor",
+      "event_duration": "eventDuration",
+      "time_zone": "timeZone",
+      "lifecycle_status": "lifecycleStatus",
+      "registration_status": "registrationStatus",
+      "created_at": "createdAt",
+      "updated_at": "updatedAt",
+      "audience_link": "audienceLink",
+      "host_link": "hostLink",
+      "panelist_link": "panelistLink",
+    });
+  })
+);
 
 export function postWebinarsResponseFromJSON(
   jsonString: string,

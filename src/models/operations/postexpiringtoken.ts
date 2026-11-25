@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -75,11 +75,13 @@ export const Authorization$outboundSchema: z.ZodType<
   Authorization$Outbound,
   z.ZodTypeDef,
   Authorization
-> = z.object({
-  type: z.string(),
-  id: z.string(),
-  permissions: z.array(z.string()),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    type: z.string(),
+    id: z.string(),
+    permissions: z.array(z.string()),
+  })
+);
 
 export function authorizationToJSON(authorization: Authorization): string {
   return JSON.stringify(Authorization$outboundSchema.parse(authorization));
@@ -96,15 +98,17 @@ export const ExpiringAccessToken$outboundSchema: z.ZodType<
   ExpiringAccessToken$Outbound,
   z.ZodTypeDef,
   ExpiringAccessToken
-> = z.object({
-  expiresAt: z.string().optional(),
-  authorizations: z.array(z.lazy(() => Authorization$outboundSchema))
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    expiresAt: "expires_at",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    expiresAt: z.string().optional(),
+    authorizations: z.array(z.lazy(() => Authorization$outboundSchema))
+      .optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      expiresAt: "expires_at",
+    });
+  })
+);
 
 export function expiringAccessTokenToJSON(
   expiringAccessToken: ExpiringAccessToken,
@@ -124,14 +128,16 @@ export const PostExpiringTokenRequest$outboundSchema: z.ZodType<
   PostExpiringTokenRequest$Outbound,
   z.ZodTypeDef,
   PostExpiringTokenRequest
-> = z.object({
-  expiringAccessToken: z.lazy(() => ExpiringAccessToken$outboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    expiringAccessToken: "expiring_access_token",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    expiringAccessToken: z.lazy(() => ExpiringAccessToken$outboundSchema)
+      .optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      expiringAccessToken: "expiring_access_token",
+    });
+  })
+);
 
 export function postExpiringTokenRequestToJSON(
   postExpiringTokenRequest: PostExpiringTokenRequest,
@@ -144,16 +150,18 @@ export function postExpiringTokenRequestToJSON(
 /** @internal */
 export const PostExpiringTokenCode$inboundSchema: z.ZodNativeEnum<
   typeof PostExpiringTokenCode
-> = z.nativeEnum(PostExpiringTokenCode);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(PostExpiringTokenCode));
 
 /** @internal */
 export const PostExpiringTokenResponse$inboundSchema: z.ZodType<
   PostExpiringTokenResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  token: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    token: z.string(),
+  })
+);
 
 export function postExpiringTokenResponseFromJSON(
   jsonString: string,

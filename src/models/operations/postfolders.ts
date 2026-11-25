@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -131,6 +131,12 @@ export type PostFoldersResponse = {
    */
   kind: PostFoldersKind;
   /**
+   * Whether this folder is someone's personal library ("My Library"). Unlike `kind`, this is a property of the folder itself and does not depend on who is requesting — it is `true` for a personal library even when that library has been shared with you (where `kind` would read `shared`). Use this, not `kind`, to tell whether a folder is a personal library.
+   *
+   * @remarks
+   */
+  personalLibrary: boolean;
+  /**
    * A cursor for stable pagination based on current `sort_by` order. You can pass this to `cursor[before]` or `cursor[after]` as a parameter to fetch the records before or after this record in the same sort order. This is only populated if records were fetched with `cursor[enabled]`, or `cursor[before]` or `cursor[after]`.
    */
   cursor?: string | null | undefined;
@@ -148,11 +154,13 @@ export const PostFoldersRequest$outboundSchema: z.ZodType<
   PostFoldersRequest$Outbound,
   z.ZodTypeDef,
   PostFoldersRequest
-> = z.object({
-  name: z.string().optional(),
-  adminEmail: z.string().optional(),
-  public: z.boolean().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    name: z.string().optional(),
+    adminEmail: z.string().optional(),
+    public: z.boolean().optional(),
+  })
+);
 
 export function postFoldersRequestToJSON(
   postFoldersRequest: PostFoldersRequest,
@@ -165,16 +173,18 @@ export function postFoldersRequestToJSON(
 /** @internal */
 export const PostFoldersCode$inboundSchema: z.ZodNativeEnum<
   typeof PostFoldersCode
-> = z.nativeEnum(PostFoldersCode);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(PostFoldersCode));
 
 /** @internal */
 export const PostFoldersMedias$inboundSchema: z.ZodType<
   PostFoldersMedias,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  url: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    url: z.string().optional(),
+  })
+);
 
 export function postFoldersMediasFromJSON(
   jsonString: string,
@@ -189,37 +199,41 @@ export function postFoldersMediasFromJSON(
 /** @internal */
 export const PostFoldersKind$inboundSchema: z.ZodNativeEnum<
   typeof PostFoldersKind
-> = z.nativeEnum(PostFoldersKind);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(PostFoldersKind));
 
 /** @internal */
 export const PostFoldersResponse$inboundSchema: z.ZodType<
   PostFoldersResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.number().int(),
-  name: z.string(),
-  description: z.nullable(z.string()).optional(),
-  media_count: z.number().int(),
-  medias: z.lazy(() => PostFoldersMedias$inboundSchema),
-  created: z.string().datetime({ offset: true }).transform(v => new Date(v)),
-  updated: z.string().datetime({ offset: true }).transform(v => new Date(v)),
-  hashed_id: z.string(),
-  public: z.boolean(),
-  public_id: z.nullable(z.string()),
-  anonymous_can_upload: z.boolean().optional(),
-  anonymous_can_download: z.boolean().optional(),
-  kind: PostFoldersKind$inboundSchema,
-  cursor: z.nullable(z.string()).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "media_count": "mediaCount",
-    "hashed_id": "hashedId",
-    "public_id": "publicId",
-    "anonymous_can_upload": "anonymousCanUpload",
-    "anonymous_can_download": "anonymousCanDownload",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    id: z.number().int(),
+    name: z.string(),
+    description: z.nullable(z.string()).optional(),
+    media_count: z.number().int(),
+    medias: z.lazy(() => PostFoldersMedias$inboundSchema),
+    created: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+    updated: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+    hashed_id: z.string(),
+    public: z.boolean(),
+    public_id: z.nullable(z.string()),
+    anonymous_can_upload: z.boolean().optional(),
+    anonymous_can_download: z.boolean().optional(),
+    kind: PostFoldersKind$inboundSchema,
+    personal_library: z.boolean(),
+    cursor: z.nullable(z.string()).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "media_count": "mediaCount",
+      "hashed_id": "hashedId",
+      "public_id": "publicId",
+      "anonymous_can_upload": "anonymousCanUpload",
+      "anonymous_can_download": "anonymousCanDownload",
+      "personal_library": "personalLibrary",
+    });
+  })
+);
 
 export function postFoldersResponseFromJSON(
   jsonString: string,

@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -103,13 +103,15 @@ export const DeleteFoldersFolderIdSubfoldersBulkDeleteRequestBody$outboundSchema
     DeleteFoldersFolderIdSubfoldersBulkDeleteRequestBody$Outbound,
     z.ZodTypeDef,
     DeleteFoldersFolderIdSubfoldersBulkDeleteRequestBody
-  > = z.object({
-    hashedIds: z.array(z.string()),
-  }).transform((v) => {
-    return remap$(v, {
-      hashedIds: "hashed_ids",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      hashedIds: z.array(z.string()),
+    }).transform((v) => {
+      return remap$(v, {
+        hashedIds: "hashed_ids",
+      });
+    })
+  );
 
 export function deleteFoldersFolderIdSubfoldersBulkDeleteRequestBodyToJSON(
   deleteFoldersFolderIdSubfoldersBulkDeleteRequestBody:
@@ -134,16 +136,18 @@ export const DeleteFoldersFolderIdSubfoldersBulkDeleteRequest$outboundSchema:
     DeleteFoldersFolderIdSubfoldersBulkDeleteRequest$Outbound,
     z.ZodTypeDef,
     DeleteFoldersFolderIdSubfoldersBulkDeleteRequest
-  > = z.object({
-    folderId: z.string(),
-    requestBody: z.lazy(() =>
-      DeleteFoldersFolderIdSubfoldersBulkDeleteRequestBody$outboundSchema
-    ),
-  }).transform((v) => {
-    return remap$(v, {
-      requestBody: "RequestBody",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      folderId: z.string(),
+      requestBody: z.lazy(() =>
+        DeleteFoldersFolderIdSubfoldersBulkDeleteRequestBody$outboundSchema
+      ),
+    }).transform((v) => {
+      return remap$(v, {
+        requestBody: "RequestBody",
+      });
+    })
+  );
 
 export function deleteFoldersFolderIdSubfoldersBulkDeleteRequestToJSON(
   deleteFoldersFolderIdSubfoldersBulkDeleteRequest:
@@ -158,13 +162,17 @@ export function deleteFoldersFolderIdSubfoldersBulkDeleteRequestToJSON(
 
 /** @internal */
 export const DeleteFoldersFolderIdSubfoldersBulkDeleteCode$inboundSchema:
-  z.ZodNativeEnum<typeof DeleteFoldersFolderIdSubfoldersBulkDeleteCode> = z
-    .nativeEnum(DeleteFoldersFolderIdSubfoldersBulkDeleteCode);
+  z.ZodNativeEnum<typeof DeleteFoldersFolderIdSubfoldersBulkDeleteCode> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(DeleteFoldersFolderIdSubfoldersBulkDeleteCode)
+    );
 
 /** @internal */
 export const DeleteFoldersFolderIdSubfoldersBulkDeleteStatus$inboundSchema:
-  z.ZodNativeEnum<typeof DeleteFoldersFolderIdSubfoldersBulkDeleteStatus> = z
-    .nativeEnum(DeleteFoldersFolderIdSubfoldersBulkDeleteStatus);
+  z.ZodNativeEnum<typeof DeleteFoldersFolderIdSubfoldersBulkDeleteStatus> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(DeleteFoldersFolderIdSubfoldersBulkDeleteStatus)
+    );
 
 /** @internal */
 export const DeleteFoldersFolderIdSubfoldersBulkDeleteBackgroundJobStatus$inboundSchema:
@@ -172,10 +180,12 @@ export const DeleteFoldersFolderIdSubfoldersBulkDeleteBackgroundJobStatus$inboun
     DeleteFoldersFolderIdSubfoldersBulkDeleteBackgroundJobStatus,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    id: z.number().int(),
-    status: DeleteFoldersFolderIdSubfoldersBulkDeleteStatus$inboundSchema,
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      id: z.number().int(),
+      status: DeleteFoldersFolderIdSubfoldersBulkDeleteStatus$inboundSchema,
+    })
+  );
 
 export function deleteFoldersFolderIdSubfoldersBulkDeleteBackgroundJobStatusFromJSON(
   jsonString: string,
@@ -198,16 +208,18 @@ export const DeleteFoldersFolderIdSubfoldersBulkDeleteResponse$inboundSchema:
     DeleteFoldersFolderIdSubfoldersBulkDeleteResponse,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    message: z.string().optional(),
-    background_job_status: z.lazy(() =>
-      DeleteFoldersFolderIdSubfoldersBulkDeleteBackgroundJobStatus$inboundSchema
-    ).optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      "background_job_status": "backgroundJobStatus",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      message: z.string().optional(),
+      background_job_status: z.lazy(() =>
+        DeleteFoldersFolderIdSubfoldersBulkDeleteBackgroundJobStatus$inboundSchema
+      ).optional(),
+    }).transform((v) => {
+      return remap$(v, {
+        "background_job_status": "backgroundJobStatus",
+      });
+    })
+  );
 
 export function deleteFoldersFolderIdSubfoldersBulkDeleteResponseFromJSON(
   jsonString: string,

@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -206,15 +206,17 @@ export const GetAnalyticsWebinarsWebinarIdAudienceRequest$outboundSchema:
     GetAnalyticsWebinarsWebinarIdAudienceRequest$Outbound,
     z.ZodTypeDef,
     GetAnalyticsWebinarsWebinarIdAudienceRequest
-  > = z.object({
-    webinarId: z.string(),
-    perPage: z.number().int().default(25),
-    cursor: z.string().optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      perPage: "per_page",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      webinarId: z.string(),
+      perPage: z.number().int().default(25),
+      cursor: z.string().optional(),
+    }).transform((v) => {
+      return remap$(v, {
+        perPage: "per_page",
+      });
+    })
+  );
 
 export function getAnalyticsWebinarsWebinarIdAudienceRequestToJSON(
   getAnalyticsWebinarsWebinarIdAudienceRequest:
@@ -229,22 +231,26 @@ export function getAnalyticsWebinarsWebinarIdAudienceRequestToJSON(
 
 /** @internal */
 export const GetAnalyticsWebinarsWebinarIdAudienceCode$inboundSchema:
-  z.ZodNativeEnum<typeof GetAnalyticsWebinarsWebinarIdAudienceCode> = z
-    .nativeEnum(GetAnalyticsWebinarsWebinarIdAudienceCode);
+  z.ZodNativeEnum<typeof GetAnalyticsWebinarsWebinarIdAudienceCode> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(GetAnalyticsWebinarsWebinarIdAudienceCode)
+    );
 
 /** @internal */
 export const GetAnalyticsWebinarsWebinarIdAudienceChat$inboundSchema: z.ZodType<
   GetAnalyticsWebinarsWebinarIdAudienceChat,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  rounded_player_position: z.number().int().optional(),
-  chats: z.array(z.string()).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "rounded_player_position": "roundedPlayerPosition",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    rounded_player_position: z.number().int().optional(),
+    chats: z.array(z.string()).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "rounded_player_position": "roundedPlayerPosition",
+    });
+  })
+);
 
 export function getAnalyticsWebinarsWebinarIdAudienceChatFromJSON(
   jsonString: string,
@@ -267,71 +273,74 @@ export const GetAnalyticsWebinarsWebinarIdAudienceData$inboundSchema: z.ZodType<
   GetAnalyticsWebinarsWebinarIdAudienceData,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  first_name: z.nullable(z.string()).optional(),
-  last_name: z.nullable(z.string()).optional(),
-  email: z.nullable(z.string()).optional(),
-  phone_number: z.nullable(z.string()).optional(),
-  company: z.nullable(z.string()).optional(),
-  job_title: z.nullable(z.string()).optional(),
-  country: z.nullable(z.string()).optional(),
-  registered_at: z.nullable(
-    z.string().datetime({ offset: true }).transform(v => new Date(v)),
-  ).optional(),
-  attended_at: z.nullable(
-    z.string().datetime({ offset: true }).transform(v => new Date(v)),
-  ).optional(),
-  attendance_status: z.nullable(z.string()).optional(),
-  restriction_status: z.nullable(z.string()).optional(),
-  origin_method: z.nullable(z.string()).optional(),
-  utm_campaign: z.nullable(z.string()).optional(),
-  utm_source: z.nullable(z.string()).optional(),
-  utm_medium: z.nullable(z.string()).optional(),
-  referrer_domain: z.nullable(z.string()).optional(),
-  ip_country: z.nullable(z.string()).optional(),
-  ip_city: z.nullable(z.string()).optional(),
-  engagement_rate: z.nullable(z.number()).optional(),
-  focused_rate: z.nullable(z.number()).optional(),
-  played_time: z.nullable(z.number().int()).optional(),
-  focused_played_time: z.nullable(z.number().int()).optional(),
-  chat_count: z.nullable(z.number().int()).optional(),
-  annotation_click_count: z.nullable(z.number().int()).optional(),
-  poll_responses_count: z.nullable(z.number().int()).optional(),
-  attendee_histogram: z.nullable(z.array(z.nullable(z.number().int())))
-    .optional(),
-  focused_attendee_histogram: z.nullable(z.array(z.nullable(z.number().int())))
-    .optional(),
-  chats: z.array(
-    z.lazy(() => GetAnalyticsWebinarsWebinarIdAudienceChat$inboundSchema),
-  ).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "first_name": "firstName",
-    "last_name": "lastName",
-    "phone_number": "phoneNumber",
-    "job_title": "jobTitle",
-    "registered_at": "registeredAt",
-    "attended_at": "attendedAt",
-    "attendance_status": "attendanceStatus",
-    "restriction_status": "restrictionStatus",
-    "origin_method": "originMethod",
-    "utm_campaign": "utmCampaign",
-    "utm_source": "utmSource",
-    "utm_medium": "utmMedium",
-    "referrer_domain": "referrerDomain",
-    "ip_country": "ipCountry",
-    "ip_city": "ipCity",
-    "engagement_rate": "engagementRate",
-    "focused_rate": "focusedRate",
-    "played_time": "playedTime",
-    "focused_played_time": "focusedPlayedTime",
-    "chat_count": "chatCount",
-    "annotation_click_count": "annotationClickCount",
-    "poll_responses_count": "pollResponsesCount",
-    "attendee_histogram": "attendeeHistogram",
-    "focused_attendee_histogram": "focusedAttendeeHistogram",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    first_name: z.nullable(z.string()).optional(),
+    last_name: z.nullable(z.string()).optional(),
+    email: z.nullable(z.string()).optional(),
+    phone_number: z.nullable(z.string()).optional(),
+    company: z.nullable(z.string()).optional(),
+    job_title: z.nullable(z.string()).optional(),
+    country: z.nullable(z.string()).optional(),
+    registered_at: z.nullable(
+      z.string().datetime({ offset: true }).transform(v => new Date(v)),
+    ).optional(),
+    attended_at: z.nullable(
+      z.string().datetime({ offset: true }).transform(v => new Date(v)),
+    ).optional(),
+    attendance_status: z.nullable(z.string()).optional(),
+    restriction_status: z.nullable(z.string()).optional(),
+    origin_method: z.nullable(z.string()).optional(),
+    utm_campaign: z.nullable(z.string()).optional(),
+    utm_source: z.nullable(z.string()).optional(),
+    utm_medium: z.nullable(z.string()).optional(),
+    referrer_domain: z.nullable(z.string()).optional(),
+    ip_country: z.nullable(z.string()).optional(),
+    ip_city: z.nullable(z.string()).optional(),
+    engagement_rate: z.nullable(z.number()).optional(),
+    focused_rate: z.nullable(z.number()).optional(),
+    played_time: z.nullable(z.number().int()).optional(),
+    focused_played_time: z.nullable(z.number().int()).optional(),
+    chat_count: z.nullable(z.number().int()).optional(),
+    annotation_click_count: z.nullable(z.number().int()).optional(),
+    poll_responses_count: z.nullable(z.number().int()).optional(),
+    attendee_histogram: z.nullable(z.array(z.nullable(z.number().int())))
+      .optional(),
+    focused_attendee_histogram: z.nullable(
+      z.array(z.nullable(z.number().int())),
+    ).optional(),
+    chats: z.array(
+      z.lazy(() => GetAnalyticsWebinarsWebinarIdAudienceChat$inboundSchema),
+    ).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "first_name": "firstName",
+      "last_name": "lastName",
+      "phone_number": "phoneNumber",
+      "job_title": "jobTitle",
+      "registered_at": "registeredAt",
+      "attended_at": "attendedAt",
+      "attendance_status": "attendanceStatus",
+      "restriction_status": "restrictionStatus",
+      "origin_method": "originMethod",
+      "utm_campaign": "utmCampaign",
+      "utm_source": "utmSource",
+      "utm_medium": "utmMedium",
+      "referrer_domain": "referrerDomain",
+      "ip_country": "ipCountry",
+      "ip_city": "ipCity",
+      "engagement_rate": "engagementRate",
+      "focused_rate": "focusedRate",
+      "played_time": "playedTime",
+      "focused_played_time": "focusedPlayedTime",
+      "chat_count": "chatCount",
+      "annotation_click_count": "annotationClickCount",
+      "poll_responses_count": "pollResponsesCount",
+      "attendee_histogram": "attendeeHistogram",
+      "focused_attendee_histogram": "focusedAttendeeHistogram",
+    });
+  })
+);
 
 export function getAnalyticsWebinarsWebinarIdAudienceDataFromJSON(
   jsonString: string,
@@ -355,19 +364,21 @@ export const GetAnalyticsWebinarsWebinarIdAudiencePageInfo$inboundSchema:
     GetAnalyticsWebinarsWebinarIdAudiencePageInfo,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    has_next_page: z.boolean().optional(),
-    has_previous_page: z.boolean().optional(),
-    end_cursor: z.nullable(z.string()).optional(),
-    start_cursor: z.nullable(z.string()).optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      "has_next_page": "hasNextPage",
-      "has_previous_page": "hasPreviousPage",
-      "end_cursor": "endCursor",
-      "start_cursor": "startCursor",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      has_next_page: z.boolean().optional(),
+      has_previous_page: z.boolean().optional(),
+      end_cursor: z.nullable(z.string()).optional(),
+      start_cursor: z.nullable(z.string()).optional(),
+    }).transform((v) => {
+      return remap$(v, {
+        "has_next_page": "hasNextPage",
+        "has_previous_page": "hasPreviousPage",
+        "end_cursor": "endCursor",
+        "start_cursor": "startCursor",
+      });
+    })
+  );
 
 export function getAnalyticsWebinarsWebinarIdAudiencePageInfoFromJSON(
   jsonString: string,
@@ -391,18 +402,20 @@ export const GetAnalyticsWebinarsWebinarIdAudienceResponse$inboundSchema:
     GetAnalyticsWebinarsWebinarIdAudienceResponse,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    data: z.array(
-      z.lazy(() => GetAnalyticsWebinarsWebinarIdAudienceData$inboundSchema),
-    ).optional(),
-    page_info: z.lazy(() =>
-      GetAnalyticsWebinarsWebinarIdAudiencePageInfo$inboundSchema
-    ).optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      "page_info": "pageInfo",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      data: z.array(
+        z.lazy(() => GetAnalyticsWebinarsWebinarIdAudienceData$inboundSchema),
+      ).optional(),
+      page_info: z.lazy(() =>
+        GetAnalyticsWebinarsWebinarIdAudiencePageInfo$inboundSchema
+      ).optional(),
+    }).transform((v) => {
+      return remap$(v, {
+        "page_info": "pageInfo",
+      });
+    })
+  );
 
 export function getAnalyticsWebinarsWebinarIdAudienceResponseFromJSON(
   jsonString: string,

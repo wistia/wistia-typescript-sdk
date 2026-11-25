@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -147,6 +147,12 @@ export type PutFoldersIdResponse = {
    */
   kind: PutFoldersIdKind;
   /**
+   * Whether this folder is someone's personal library ("My Library"). Unlike `kind`, this is a property of the folder itself and does not depend on who is requesting — it is `true` for a personal library even when that library has been shared with you (where `kind` would read `shared`). Use this, not `kind`, to tell whether a folder is a personal library.
+   *
+   * @remarks
+   */
+  personalLibrary: boolean;
+  /**
    * A cursor for stable pagination based on current `sort_by` order. You can pass this to `cursor[before]` or `cursor[after]` as a parameter to fetch the records before or after this record in the same sort order. This is only populated if records were fetched with `cursor[enabled]`, or `cursor[before]` or `cursor[after]`.
    */
   cursor?: string | null | undefined;
@@ -166,13 +172,15 @@ export const PutFoldersIdRequestBody$outboundSchema: z.ZodType<
   PutFoldersIdRequestBody$Outbound,
   z.ZodTypeDef,
   PutFoldersIdRequestBody
-> = z.object({
-  name: z.string().optional(),
-  description: z.string().optional(),
-  anonymousCanUpload: z.boolean().optional(),
-  anonymousCanDownload: z.boolean().optional(),
-  public: z.boolean().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    name: z.string().optional(),
+    description: z.string().optional(),
+    anonymousCanUpload: z.boolean().optional(),
+    anonymousCanDownload: z.boolean().optional(),
+    public: z.boolean().optional(),
+  })
+);
 
 export function putFoldersIdRequestBodyToJSON(
   putFoldersIdRequestBody: PutFoldersIdRequestBody,
@@ -193,14 +201,17 @@ export const PutFoldersIdRequest$outboundSchema: z.ZodType<
   PutFoldersIdRequest$Outbound,
   z.ZodTypeDef,
   PutFoldersIdRequest
-> = z.object({
-  id: z.string(),
-  requestBody: z.lazy(() => PutFoldersIdRequestBody$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    requestBody: "RequestBody",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    id: z.string(),
+    requestBody: z.lazy(() => PutFoldersIdRequestBody$outboundSchema)
+      .optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      requestBody: "RequestBody",
+    });
+  })
+);
 
 export function putFoldersIdRequestToJSON(
   putFoldersIdRequest: PutFoldersIdRequest,
@@ -213,16 +224,18 @@ export function putFoldersIdRequestToJSON(
 /** @internal */
 export const PutFoldersIdCode$inboundSchema: z.ZodNativeEnum<
   typeof PutFoldersIdCode
-> = z.nativeEnum(PutFoldersIdCode);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(PutFoldersIdCode));
 
 /** @internal */
 export const PutFoldersIdMedias$inboundSchema: z.ZodType<
   PutFoldersIdMedias,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  url: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    url: z.string().optional(),
+  })
+);
 
 export function putFoldersIdMediasFromJSON(
   jsonString: string,
@@ -237,37 +250,41 @@ export function putFoldersIdMediasFromJSON(
 /** @internal */
 export const PutFoldersIdKind$inboundSchema: z.ZodNativeEnum<
   typeof PutFoldersIdKind
-> = z.nativeEnum(PutFoldersIdKind);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(PutFoldersIdKind));
 
 /** @internal */
 export const PutFoldersIdResponse$inboundSchema: z.ZodType<
   PutFoldersIdResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.number().int(),
-  name: z.string(),
-  description: z.nullable(z.string()).optional(),
-  media_count: z.number().int(),
-  medias: z.lazy(() => PutFoldersIdMedias$inboundSchema),
-  created: z.string().datetime({ offset: true }).transform(v => new Date(v)),
-  updated: z.string().datetime({ offset: true }).transform(v => new Date(v)),
-  hashed_id: z.string(),
-  public: z.boolean(),
-  public_id: z.nullable(z.string()),
-  anonymous_can_upload: z.boolean().optional(),
-  anonymous_can_download: z.boolean().optional(),
-  kind: PutFoldersIdKind$inboundSchema,
-  cursor: z.nullable(z.string()).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "media_count": "mediaCount",
-    "hashed_id": "hashedId",
-    "public_id": "publicId",
-    "anonymous_can_upload": "anonymousCanUpload",
-    "anonymous_can_download": "anonymousCanDownload",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    id: z.number().int(),
+    name: z.string(),
+    description: z.nullable(z.string()).optional(),
+    media_count: z.number().int(),
+    medias: z.lazy(() => PutFoldersIdMedias$inboundSchema),
+    created: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+    updated: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+    hashed_id: z.string(),
+    public: z.boolean(),
+    public_id: z.nullable(z.string()),
+    anonymous_can_upload: z.boolean().optional(),
+    anonymous_can_download: z.boolean().optional(),
+    kind: PutFoldersIdKind$inboundSchema,
+    personal_library: z.boolean(),
+    cursor: z.nullable(z.string()).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "media_count": "mediaCount",
+      "hashed_id": "hashedId",
+      "public_id": "publicId",
+      "anonymous_can_upload": "anonymousCanUpload",
+      "anonymous_can_download": "anonymousCanDownload",
+      "personal_library": "personalLibrary",
+    });
+  })
+);
 
 export function putFoldersIdResponseFromJSON(
   jsonString: string,

@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 
 export type DeleteMediasMediaIdCustomizationsRequest = {
@@ -38,9 +39,11 @@ export const DeleteMediasMediaIdCustomizationsRequest$outboundSchema: z.ZodType<
   DeleteMediasMediaIdCustomizationsRequest$Outbound,
   z.ZodTypeDef,
   DeleteMediasMediaIdCustomizationsRequest
-> = z.object({
-  mediaId: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    mediaId: z.string(),
+  })
+);
 
 export function deleteMediasMediaIdCustomizationsRequestToJSON(
   deleteMediasMediaIdCustomizationsRequest:
@@ -55,6 +58,7 @@ export function deleteMediasMediaIdCustomizationsRequestToJSON(
 
 /** @internal */
 export const DeleteMediasMediaIdCustomizationsCode$inboundSchema:
-  z.ZodNativeEnum<typeof DeleteMediasMediaIdCustomizationsCode> = z.nativeEnum(
-    DeleteMediasMediaIdCustomizationsCode,
-  );
+  z.ZodNativeEnum<typeof DeleteMediasMediaIdCustomizationsCode> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(DeleteMediasMediaIdCustomizationsCode)
+    );

@@ -8,9 +8,8 @@ import { matchStatusCode } from "../lib/http.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { RequestOptions } from "../lib/sdks.js";
+import { encodePath, RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
-import { pathToFunc } from "../lib/url.js";
 import {
   ConnectionError,
   InvalidRequestError,
@@ -30,9 +29,7 @@ import { Result } from "../types/fp.js";
  * Delete Subfolder
  *
  * @remarks
- * Deletes a subfolder from a folder. All media files in the subfolder will be moved to the folder's root level.
- *
- * The subfolder is soft-deleted and may be recoverable through other means, but is no longer accessible via the API.
+ * Deletes one subfolder and moves its media to the folder's root level. The subfolder is soft-deleted and is no longer accessible via the API. To delete multiple subfolders and their media, use the Bulk Delete Subfolders endpoint.
  *
  * ## Requires api token with one of the following permissions
  * ```
@@ -114,9 +111,14 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-  const path = pathToFunc("/folders/{folderId}/subfolders/{subfolderId}")(
+  const pathResult = encodePath(
+    "/folders/{folderId}/subfolders/{subfolderId}",
     pathParams,
   );
+  if (!pathResult.ok) {
+    return [pathResult, { status: "invalid" }];
+  }
+  const path = pathResult.value;
 
   const headers = new Headers(compactMap({
     Accept: "application/json",

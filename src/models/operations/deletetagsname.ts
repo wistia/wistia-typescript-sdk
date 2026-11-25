@@ -3,11 +3,12 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 
 export type DeleteTagsNameRequest = {
   /**
-   * Tag ID
+   * Name of the tag to delete
    */
   name: string;
 };
@@ -36,9 +37,11 @@ export const DeleteTagsNameRequest$outboundSchema: z.ZodType<
   DeleteTagsNameRequest$Outbound,
   z.ZodTypeDef,
   DeleteTagsNameRequest
-> = z.object({
-  name: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    name: z.string(),
+  })
+);
 
 export function deleteTagsNameRequestToJSON(
   deleteTagsNameRequest: DeleteTagsNameRequest,
@@ -51,4 +54,4 @@ export function deleteTagsNameRequestToJSON(
 /** @internal */
 export const DeleteTagsNameCode$inboundSchema: z.ZodNativeEnum<
   typeof DeleteTagsNameCode
-> = z.nativeEnum(DeleteTagsNameCode);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(DeleteTagsNameCode));

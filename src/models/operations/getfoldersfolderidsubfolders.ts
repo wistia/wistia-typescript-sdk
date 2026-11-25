@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -177,7 +177,7 @@ export type GetFoldersFolderIdSubfoldersResponse = {
   /**
    * A unique alphanumeric identifier for this subfolder.
    */
-  hashedId: string;
+  hashedId: string | null;
   /**
    * The display name of the subfolder.
    */
@@ -206,9 +206,10 @@ export type GetFoldersFolderIdSubfoldersResponse = {
 
 /** @internal */
 export const GetFoldersFolderIdSubfoldersEnabled$outboundSchema:
-  z.ZodNativeEnum<typeof GetFoldersFolderIdSubfoldersEnabled> = z.nativeEnum(
-    GetFoldersFolderIdSubfoldersEnabled,
-  );
+  z.ZodNativeEnum<typeof GetFoldersFolderIdSubfoldersEnabled> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(GetFoldersFolderIdSubfoldersEnabled)
+    );
 
 /** @internal */
 export type GetFoldersFolderIdSubfoldersCursor$Outbound = {
@@ -222,11 +223,13 @@ export const GetFoldersFolderIdSubfoldersCursor$outboundSchema: z.ZodType<
   GetFoldersFolderIdSubfoldersCursor$Outbound,
   z.ZodTypeDef,
   GetFoldersFolderIdSubfoldersCursor
-> = z.object({
-  enabled: GetFoldersFolderIdSubfoldersEnabled$outboundSchema.optional(),
-  before: z.string().optional(),
-  after: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    enabled: GetFoldersFolderIdSubfoldersEnabled$outboundSchema.optional(),
+    before: z.string().optional(),
+    after: z.string().optional(),
+  })
+);
 
 export function getFoldersFolderIdSubfoldersCursorToJSON(
   getFoldersFolderIdSubfoldersCursor: GetFoldersFolderIdSubfoldersCursor,
@@ -241,12 +244,16 @@ export function getFoldersFolderIdSubfoldersCursorToJSON(
 /** @internal */
 export const GetFoldersFolderIdSubfoldersSortBy$outboundSchema: z.ZodNativeEnum<
   typeof GetFoldersFolderIdSubfoldersSortBy
-> = z.nativeEnum(GetFoldersFolderIdSubfoldersSortBy);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(GetFoldersFolderIdSubfoldersSortBy)
+);
 
 /** @internal */
 export const GetFoldersFolderIdSubfoldersSortDirection$outboundSchema:
-  z.ZodNativeEnum<typeof GetFoldersFolderIdSubfoldersSortDirection> = z
-    .nativeEnum(GetFoldersFolderIdSubfoldersSortDirection);
+  z.ZodNativeEnum<typeof GetFoldersFolderIdSubfoldersSortDirection> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(GetFoldersFolderIdSubfoldersSortDirection)
+    );
 
 /** @internal */
 export type GetFoldersFolderIdSubfoldersRequest$Outbound = {
@@ -264,24 +271,28 @@ export const GetFoldersFolderIdSubfoldersRequest$outboundSchema: z.ZodType<
   GetFoldersFolderIdSubfoldersRequest$Outbound,
   z.ZodTypeDef,
   GetFoldersFolderIdSubfoldersRequest
-> = z.object({
-  folderId: z.string(),
-  page: z.number().int().optional(),
-  perPage: z.number().int().optional(),
-  cursor: z.lazy(() => GetFoldersFolderIdSubfoldersCursor$outboundSchema)
-    .optional(),
-  sortBy: GetFoldersFolderIdSubfoldersSortBy$outboundSchema.default("position"),
-  sortDirection: GetFoldersFolderIdSubfoldersSortDirection$outboundSchema
-    .default(1),
-  hashedIds: z.array(z.string()).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    perPage: "per_page",
-    sortBy: "sort_by",
-    sortDirection: "sort_direction",
-    hashedIds: "hashed_ids[]",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    folderId: z.string(),
+    page: z.number().int().optional(),
+    perPage: z.number().int().optional(),
+    cursor: z.lazy(() => GetFoldersFolderIdSubfoldersCursor$outboundSchema)
+      .optional(),
+    sortBy: GetFoldersFolderIdSubfoldersSortBy$outboundSchema.default(
+      "position",
+    ),
+    sortDirection: GetFoldersFolderIdSubfoldersSortDirection$outboundSchema
+      .default(1),
+    hashedIds: z.array(z.string()).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      perPage: "per_page",
+      sortBy: "sort_by",
+      sortDirection: "sort_direction",
+      hashedIds: "hashed_ids[]",
+    });
+  })
+);
 
 export function getFoldersFolderIdSubfoldersRequestToJSON(
   getFoldersFolderIdSubfoldersRequest: GetFoldersFolderIdSubfoldersRequest,
@@ -296,30 +307,34 @@ export function getFoldersFolderIdSubfoldersRequestToJSON(
 /** @internal */
 export const GetFoldersFolderIdSubfoldersCode$inboundSchema: z.ZodNativeEnum<
   typeof GetFoldersFolderIdSubfoldersCode
-> = z.nativeEnum(GetFoldersFolderIdSubfoldersCode);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(GetFoldersFolderIdSubfoldersCode)
+);
 
 /** @internal */
 export const GetFoldersFolderIdSubfoldersResponse$inboundSchema: z.ZodType<
   GetFoldersFolderIdSubfoldersResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  hashed_id: z.string(),
-  name: z.nullable(z.string()).optional(),
-  description: z.nullable(z.string()).optional(),
-  position: z.nullable(z.number().int()),
-  created: z.nullable(
-    z.string().datetime({ offset: true }).transform(v => new Date(v)),
-  ),
-  updated: z.nullable(
-    z.string().datetime({ offset: true }).transform(v => new Date(v)),
-  ),
-  cursor: z.nullable(z.string()).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "hashed_id": "hashedId",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    hashed_id: z.nullable(z.string()),
+    name: z.nullable(z.string()).optional(),
+    description: z.nullable(z.string()).optional(),
+    position: z.nullable(z.number().int()),
+    created: z.nullable(
+      z.string().datetime({ offset: true }).transform(v => new Date(v)),
+    ),
+    updated: z.nullable(
+      z.string().datetime({ offset: true }).transform(v => new Date(v)),
+    ),
+    cursor: z.nullable(z.string()).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "hashed_id": "hashedId",
+    });
+  })
+);
 
 export function getFoldersFolderIdSubfoldersResponseFromJSON(
   jsonString: string,

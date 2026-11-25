@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -61,7 +61,7 @@ export type PutFoldersFolderIdSubfoldersSubfolderIdResponse = {
   /**
    * A unique alphanumeric identifier for this subfolder.
    */
-  hashedId: string;
+  hashedId: string | null;
   /**
    * The display name of the subfolder.
    */
@@ -100,10 +100,12 @@ export const PutFoldersFolderIdSubfoldersSubfolderIdRequestBody$outboundSchema:
     PutFoldersFolderIdSubfoldersSubfolderIdRequestBody$Outbound,
     z.ZodTypeDef,
     PutFoldersFolderIdSubfoldersSubfolderIdRequestBody
-  > = z.object({
-    name: z.string().optional(),
-    description: z.nullable(z.string()).optional(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      name: z.string().optional(),
+      description: z.nullable(z.string()).optional(),
+    })
+  );
 
 export function putFoldersFolderIdSubfoldersSubfolderIdRequestBodyToJSON(
   putFoldersFolderIdSubfoldersSubfolderIdRequestBody:
@@ -129,17 +131,19 @@ export const PutFoldersFolderIdSubfoldersSubfolderIdRequest$outboundSchema:
     PutFoldersFolderIdSubfoldersSubfolderIdRequest$Outbound,
     z.ZodTypeDef,
     PutFoldersFolderIdSubfoldersSubfolderIdRequest
-  > = z.object({
-    folderId: z.string(),
-    subfolderId: z.string(),
-    requestBody: z.lazy(() =>
-      PutFoldersFolderIdSubfoldersSubfolderIdRequestBody$outboundSchema
-    ),
-  }).transform((v) => {
-    return remap$(v, {
-      requestBody: "RequestBody",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      folderId: z.string(),
+      subfolderId: z.string(),
+      requestBody: z.lazy(() =>
+        PutFoldersFolderIdSubfoldersSubfolderIdRequestBody$outboundSchema
+      ),
+    }).transform((v) => {
+      return remap$(v, {
+        requestBody: "RequestBody",
+      });
+    })
+  );
 
 export function putFoldersFolderIdSubfoldersSubfolderIdRequestToJSON(
   putFoldersFolderIdSubfoldersSubfolderIdRequest:
@@ -154,8 +158,10 @@ export function putFoldersFolderIdSubfoldersSubfolderIdRequestToJSON(
 
 /** @internal */
 export const PutFoldersFolderIdSubfoldersSubfolderIdCode$inboundSchema:
-  z.ZodNativeEnum<typeof PutFoldersFolderIdSubfoldersSubfolderIdCode> = z
-    .nativeEnum(PutFoldersFolderIdSubfoldersSubfolderIdCode);
+  z.ZodNativeEnum<typeof PutFoldersFolderIdSubfoldersSubfolderIdCode> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(PutFoldersFolderIdSubfoldersSubfolderIdCode)
+    );
 
 /** @internal */
 export const PutFoldersFolderIdSubfoldersSubfolderIdResponse$inboundSchema:
@@ -163,23 +169,25 @@ export const PutFoldersFolderIdSubfoldersSubfolderIdResponse$inboundSchema:
     PutFoldersFolderIdSubfoldersSubfolderIdResponse,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    hashed_id: z.string(),
-    name: z.nullable(z.string()).optional(),
-    description: z.nullable(z.string()).optional(),
-    position: z.nullable(z.number().int()),
-    created: z.nullable(
-      z.string().datetime({ offset: true }).transform(v => new Date(v)),
-    ),
-    updated: z.nullable(
-      z.string().datetime({ offset: true }).transform(v => new Date(v)),
-    ),
-    cursor: z.nullable(z.string()).optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      "hashed_id": "hashedId",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      hashed_id: z.nullable(z.string()),
+      name: z.nullable(z.string()).optional(),
+      description: z.nullable(z.string()).optional(),
+      position: z.nullable(z.number().int()),
+      created: z.nullable(
+        z.string().datetime({ offset: true }).transform(v => new Date(v)),
+      ),
+      updated: z.nullable(
+        z.string().datetime({ offset: true }).transform(v => new Date(v)),
+      ),
+      cursor: z.nullable(z.string()).optional(),
+    }).transform((v) => {
+      return remap$(v, {
+        "hashed_id": "hashedId",
+      });
+    })
+  );
 
 export function putFoldersFolderIdSubfoldersSubfolderIdResponseFromJSON(
   jsonString: string,
