@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -129,9 +129,11 @@ export const GetMediasMediaIdShareLinkRequest$outboundSchema: z.ZodType<
   GetMediasMediaIdShareLinkRequest$Outbound,
   z.ZodTypeDef,
   GetMediasMediaIdShareLinkRequest
-> = z.object({
-  mediaId: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    mediaId: z.string(),
+  })
+);
 
 export function getMediasMediaIdShareLinkRequestToJSON(
   getMediasMediaIdShareLinkRequest: GetMediasMediaIdShareLinkRequest,
@@ -146,33 +148,43 @@ export function getMediasMediaIdShareLinkRequestToJSON(
 /** @internal */
 export const GetMediasMediaIdShareLinkCode$inboundSchema: z.ZodNativeEnum<
   typeof GetMediasMediaIdShareLinkCode
-> = z.nativeEnum(GetMediasMediaIdShareLinkCode);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(GetMediasMediaIdShareLinkCode)
+);
 
 /** @internal */
 export const GetMediasMediaIdShareLinkVisibility$inboundSchema: z.ZodNativeEnum<
   typeof GetMediasMediaIdShareLinkVisibility
-> = z.nativeEnum(GetMediasMediaIdShareLinkVisibility);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(GetMediasMediaIdShareLinkVisibility)
+);
 
 /** @internal */
 export const GetMediasMediaIdShareLinkResponse$inboundSchema: z.ZodType<
   GetMediasMediaIdShareLinkResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.string(),
-  media_id: z.string(),
-  url: z.string(),
-  slug: z.nullable(z.string()),
-  visibility: GetMediasMediaIdShareLinkVisibility$inboundSchema,
-  created_at: z.string().datetime({ offset: true }).transform(v => new Date(v)),
-  updated_at: z.string().datetime({ offset: true }).transform(v => new Date(v)),
-}).transform((v) => {
-  return remap$(v, {
-    "media_id": "mediaId",
-    "created_at": "createdAt",
-    "updated_at": "updatedAt",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    id: z.string(),
+    media_id: z.string(),
+    url: z.string(),
+    slug: z.nullable(z.string()),
+    visibility: GetMediasMediaIdShareLinkVisibility$inboundSchema,
+    created_at: z.string().datetime({ offset: true }).transform(v =>
+      new Date(v)
+    ),
+    updated_at: z.string().datetime({ offset: true }).transform(v =>
+      new Date(v)
+    ),
+  }).transform((v) => {
+    return remap$(v, {
+      "media_id": "mediaId",
+      "created_at": "createdAt",
+      "updated_at": "updatedAt",
+    });
+  })
+);
 
 export function getMediasMediaIdShareLinkResponseFromJSON(
   jsonString: string,

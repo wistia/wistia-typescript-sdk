@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -37,8 +37,10 @@ export type PostContactDismissDesktopInstallPromptResponse = {
 
 /** @internal */
 export const PostContactDismissDesktopInstallPromptCode$inboundSchema:
-  z.ZodNativeEnum<typeof PostContactDismissDesktopInstallPromptCode> = z
-    .nativeEnum(PostContactDismissDesktopInstallPromptCode);
+  z.ZodNativeEnum<typeof PostContactDismissDesktopInstallPromptCode> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(PostContactDismissDesktopInstallPromptCode)
+    );
 
 /** @internal */
 export const PostContactDismissDesktopInstallPromptResponse$inboundSchema:
@@ -46,13 +48,15 @@ export const PostContactDismissDesktopInstallPromptResponse$inboundSchema:
     PostContactDismissDesktopInstallPromptResponse,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    dismissed_at: z.string(),
-  }).transform((v) => {
-    return remap$(v, {
-      "dismissed_at": "dismissedAt",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      dismissed_at: z.string(),
+    }).transform((v) => {
+      return remap$(v, {
+        "dismissed_at": "dismissedAt",
+      });
+    })
+  );
 
 export function postContactDismissDesktopInstallPromptResponseFromJSON(
   jsonString: string,

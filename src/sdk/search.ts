@@ -16,6 +16,16 @@ export class Search extends ClientSDK {
    * Also searches through video transcripts, so media results may include transcript matches with
    * timestamps when the query matches spoken content.
    *
+   * > 🚧 Search results are changing
+   * >
+   * > This search is moving to a new search engine, so an open-ended `q` can return more
+   * > results than it used to. If you depend on `q` finding one record by name, use Show
+   * > Media or Show Folder with the record's hashed ID instead.
+   * >
+   * > Releases after 2026-09 have a newer search that takes `query` in place of `q`, returns
+   * > one relevance-ranked list in `content`, and adds filters, sorting, paging, and an
+   * > `exact_match` option.
+   *
    * ## Requires api token with one of the following permissions
    * ```
    * Read all data
@@ -25,6 +35,10 @@ export class Search extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * [Expiring access tokens](https://docs.wistia.com/reference/post_expiring-token)
+   * created with authorizations cannot be used: search responds with a 403,
+   * whatever the authorizations grant.
    */
   async search(
     request: operations.GetSearchRequest,

@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -104,15 +104,17 @@ export const PostMediasMediaHashedIdTranslateRequestBody$outboundSchema:
     PostMediasMediaHashedIdTranslateRequestBody$Outbound,
     z.ZodTypeDef,
     PostMediasMediaHashedIdTranslateRequestBody
-  > = z.object({
-    targetLanguage: z.string(),
-    sourceLanguage: z.string().optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      targetLanguage: "target_language",
-      sourceLanguage: "source_language",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      targetLanguage: z.string(),
+      sourceLanguage: z.string().optional(),
+    }).transform((v) => {
+      return remap$(v, {
+        targetLanguage: "target_language",
+        sourceLanguage: "source_language",
+      });
+    })
+  );
 
 export function postMediasMediaHashedIdTranslateRequestBodyToJSON(
   postMediasMediaHashedIdTranslateRequestBody:
@@ -138,16 +140,18 @@ export const PostMediasMediaHashedIdTranslateRequest$outboundSchema: z.ZodType<
   PostMediasMediaHashedIdTranslateRequest$Outbound,
   z.ZodTypeDef,
   PostMediasMediaHashedIdTranslateRequest
-> = z.object({
-  mediaHashedId: z.string(),
-  requestBody: z.lazy(() =>
-    PostMediasMediaHashedIdTranslateRequestBody$outboundSchema
-  ).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    requestBody: "RequestBody",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    mediaHashedId: z.string(),
+    requestBody: z.lazy(() =>
+      PostMediasMediaHashedIdTranslateRequestBody$outboundSchema
+    ).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      requestBody: "RequestBody",
+    });
+  })
+);
 
 export function postMediasMediaHashedIdTranslateRequestToJSON(
   postMediasMediaHashedIdTranslateRequest:
@@ -162,15 +166,17 @@ export function postMediasMediaHashedIdTranslateRequestToJSON(
 
 /** @internal */
 export const PostMediasMediaHashedIdTranslateCode$inboundSchema:
-  z.ZodNativeEnum<typeof PostMediasMediaHashedIdTranslateCode> = z.nativeEnum(
-    PostMediasMediaHashedIdTranslateCode,
-  );
+  z.ZodNativeEnum<typeof PostMediasMediaHashedIdTranslateCode> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(PostMediasMediaHashedIdTranslateCode)
+    );
 
 /** @internal */
 export const PostMediasMediaHashedIdTranslateStatus$inboundSchema:
-  z.ZodNativeEnum<typeof PostMediasMediaHashedIdTranslateStatus> = z.nativeEnum(
-    PostMediasMediaHashedIdTranslateStatus,
-  );
+  z.ZodNativeEnum<typeof PostMediasMediaHashedIdTranslateStatus> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(PostMediasMediaHashedIdTranslateStatus)
+    );
 
 /** @internal */
 export const PostMediasMediaHashedIdTranslateBackgroundJobStatus$inboundSchema:
@@ -178,15 +184,17 @@ export const PostMediasMediaHashedIdTranslateBackgroundJobStatus$inboundSchema:
     PostMediasMediaHashedIdTranslateBackgroundJobStatus,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    id: z.number().int(),
-    hashed_id: z.string(),
-    status: PostMediasMediaHashedIdTranslateStatus$inboundSchema,
-  }).transform((v) => {
-    return remap$(v, {
-      "hashed_id": "hashedId",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      id: z.number().int(),
+      hashed_id: z.string(),
+      status: PostMediasMediaHashedIdTranslateStatus$inboundSchema,
+    }).transform((v) => {
+      return remap$(v, {
+        "hashed_id": "hashedId",
+      });
+    })
+  );
 
 export function postMediasMediaHashedIdTranslateBackgroundJobStatusFromJSON(
   jsonString: string,
@@ -209,16 +217,18 @@ export const PostMediasMediaHashedIdTranslateResponse$inboundSchema: z.ZodType<
   PostMediasMediaHashedIdTranslateResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  message: z.string(),
-  background_job_status: z.lazy(() =>
-    PostMediasMediaHashedIdTranslateBackgroundJobStatus$inboundSchema
-  ),
-}).transform((v) => {
-  return remap$(v, {
-    "background_job_status": "backgroundJobStatus",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    message: z.string(),
+    background_job_status: z.lazy(() =>
+      PostMediasMediaHashedIdTranslateBackgroundJobStatus$inboundSchema
+    ),
+  }).transform((v) => {
+    return remap$(v, {
+      "background_job_status": "backgroundJobStatus",
+    });
+  })
+);
 
 export function postMediasMediaHashedIdTranslateResponseFromJSON(
   jsonString: string,

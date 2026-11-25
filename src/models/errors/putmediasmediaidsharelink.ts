@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
 import * as operations from "../operations/index.js";
 import { WistiaError } from "./wistiaerror.js";
 
@@ -191,92 +192,102 @@ export const PutMediasMediaIdShareLinkInternalServerError$inboundSchema:
     PutMediasMediaIdShareLinkInternalServerError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new PutMediasMediaIdShareLinkInternalServerError(v, {
-        request: v.request$,
-        response: v.response$,
-        body: v.body$,
-      });
-    });
-
-/** @internal */
-export const PutMediasMediaIdShareLinkNotFoundError$inboundSchema: z.ZodType<
-  PutMediasMediaIdShareLinkNotFoundError,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  error: z.string().optional(),
-  request$: z.instanceof(Request),
-  response$: z.instanceof(Response),
-  body$: z.string(),
-})
-  .transform((v) => {
-    return new PutMediasMediaIdShareLinkNotFoundError(v, {
-      request: v.request$,
-      response: v.response$,
-      body: v.body$,
-    });
-  });
-
-/** @internal */
-export const PutMediasMediaIdShareLinkForbiddenError$inboundSchema: z.ZodType<
-  PutMediasMediaIdShareLinkForbiddenError,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  error: z.string().optional(),
-  request$: z.instanceof(Request),
-  response$: z.instanceof(Response),
-  body$: z.string(),
-})
-  .transform((v) => {
-    return new PutMediasMediaIdShareLinkForbiddenError(v, {
-      request: v.request$,
-      response: v.response$,
-      body: v.body$,
-    });
-  });
-
-/** @internal */
-export const PutMediasMediaIdShareLinkUnauthorizedError$inboundSchema:
-  z.ZodType<PutMediasMediaIdShareLinkUnauthorizedError, z.ZodTypeDef, unknown> =
+  > = /* @__PURE__ */ lazySchema$(() =>
     z.object({
-      code: operations.PutMediasMediaIdShareLinkCode$inboundSchema.optional(),
       error: z.string().optional(),
       request$: z.instanceof(Request),
       response$: z.instanceof(Response),
       body$: z.string(),
     })
       .transform((v) => {
-        return new PutMediasMediaIdShareLinkUnauthorizedError(v, {
+        return new PutMediasMediaIdShareLinkInternalServerError(v, {
           request: v.request$,
           response: v.response$,
           body: v.body$,
         });
+      })
+  );
+
+/** @internal */
+export const PutMediasMediaIdShareLinkNotFoundError$inboundSchema: z.ZodType<
+  PutMediasMediaIdShareLinkNotFoundError,
+  z.ZodTypeDef,
+  unknown
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    error: z.string().optional(),
+    request$: z.instanceof(Request),
+    response$: z.instanceof(Response),
+    body$: z.string(),
+  })
+    .transform((v) => {
+      return new PutMediasMediaIdShareLinkNotFoundError(v, {
+        request: v.request$,
+        response: v.response$,
+        body: v.body$,
       });
+    })
+);
+
+/** @internal */
+export const PutMediasMediaIdShareLinkForbiddenError$inboundSchema: z.ZodType<
+  PutMediasMediaIdShareLinkForbiddenError,
+  z.ZodTypeDef,
+  unknown
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    error: z.string().optional(),
+    request$: z.instanceof(Request),
+    response$: z.instanceof(Response),
+    body$: z.string(),
+  })
+    .transform((v) => {
+      return new PutMediasMediaIdShareLinkForbiddenError(v, {
+        request: v.request$,
+        response: v.response$,
+        body: v.body$,
+      });
+    })
+);
+
+/** @internal */
+export const PutMediasMediaIdShareLinkUnauthorizedError$inboundSchema:
+  z.ZodType<PutMediasMediaIdShareLinkUnauthorizedError, z.ZodTypeDef, unknown> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.object({
+        code: operations.PutMediasMediaIdShareLinkCode$inboundSchema.optional(),
+        error: z.string().optional(),
+        request$: z.instanceof(Request),
+        response$: z.instanceof(Response),
+        body$: z.string(),
+      })
+        .transform((v) => {
+          return new PutMediasMediaIdShareLinkUnauthorizedError(v, {
+            request: v.request$,
+            response: v.response$,
+            body: v.body$,
+          });
+        })
+    );
 
 /** @internal */
 export const PutMediasMediaIdShareLinkBadRequestError$inboundSchema: z.ZodType<
   PutMediasMediaIdShareLinkBadRequestError,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  error: z.string().optional(),
-  errors: z.array(z.string()).optional(),
-  request$: z.instanceof(Request),
-  response$: z.instanceof(Response),
-  body$: z.string(),
-})
-  .transform((v) => {
-    return new PutMediasMediaIdShareLinkBadRequestError(v, {
-      request: v.request$,
-      response: v.response$,
-      body: v.body$,
-    });
-  });
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    error: z.string().optional(),
+    errors: z.array(z.string()).optional(),
+    request$: z.instanceof(Request),
+    response$: z.instanceof(Response),
+    body$: z.string(),
+  })
+    .transform((v) => {
+      return new PutMediasMediaIdShareLinkBadRequestError(v, {
+        request: v.request$,
+        response: v.response$,
+        body: v.body$,
+      });
+    })
+);

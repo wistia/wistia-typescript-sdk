@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -122,14 +122,16 @@ export const RelatedMediaRequest$outboundSchema: z.ZodType<
   RelatedMediaRequest$Outbound,
   z.ZodTypeDef,
   RelatedMediaRequest
-> = z.object({
-  on: z.boolean().optional(),
-  hashedIdList: z.array(z.string()).optional(),
-  shouldShowOnPause: z.boolean().optional(),
-  shouldShowOnEnd: z.boolean().optional(),
-  mediaLabelText: z.string().optional(),
-  watchButtonText: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    on: z.boolean().optional(),
+    hashedIdList: z.array(z.string()).optional(),
+    shouldShowOnPause: z.boolean().optional(),
+    shouldShowOnEnd: z.boolean().optional(),
+    mediaLabelText: z.string().optional(),
+    watchButtonText: z.string().optional(),
+  })
+);
 
 export function relatedMediaRequestToJSON(
   relatedMediaRequest: RelatedMediaRequest,
@@ -150,9 +152,11 @@ export const PutMediasMediaIdCustomizationsRelatedMediaPluginRequest$outboundSch
     PutMediasMediaIdCustomizationsRelatedMediaPluginRequest$Outbound,
     z.ZodTypeDef,
     PutMediasMediaIdCustomizationsRelatedMediaPluginRequest
-  > = z.object({
-    relatedMedia: z.lazy(() => RelatedMediaRequest$outboundSchema).optional(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      relatedMedia: z.lazy(() => RelatedMediaRequest$outboundSchema).optional(),
+    })
+  );
 
 export function putMediasMediaIdCustomizationsRelatedMediaPluginRequestToJSON(
   putMediasMediaIdCustomizationsRelatedMediaPluginRequest:
@@ -177,11 +181,13 @@ export const PutMediasMediaIdCustomizationsRelatedMediaRequestBody$outboundSchem
     PutMediasMediaIdCustomizationsRelatedMediaRequestBody$Outbound,
     z.ZodTypeDef,
     PutMediasMediaIdCustomizationsRelatedMediaRequestBody
-  > = z.object({
-    plugin: z.lazy(() =>
-      PutMediasMediaIdCustomizationsRelatedMediaPluginRequest$outboundSchema
-    ).optional(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      plugin: z.lazy(() =>
+        PutMediasMediaIdCustomizationsRelatedMediaPluginRequest$outboundSchema
+      ).optional(),
+    })
+  );
 
 export function putMediasMediaIdCustomizationsRelatedMediaRequestBodyToJSON(
   putMediasMediaIdCustomizationsRelatedMediaRequestBody:
@@ -206,16 +212,18 @@ export const PutMediasMediaIdCustomizationsRelatedMediaRequest$outboundSchema:
     PutMediasMediaIdCustomizationsRelatedMediaRequest$Outbound,
     z.ZodTypeDef,
     PutMediasMediaIdCustomizationsRelatedMediaRequest
-  > = z.object({
-    mediaId: z.string(),
-    requestBody: z.lazy(() =>
-      PutMediasMediaIdCustomizationsRelatedMediaRequestBody$outboundSchema
-    ),
-  }).transform((v) => {
-    return remap$(v, {
-      requestBody: "RequestBody",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      mediaId: z.string(),
+      requestBody: z.lazy(() =>
+        PutMediasMediaIdCustomizationsRelatedMediaRequestBody$outboundSchema
+      ),
+    }).transform((v) => {
+      return remap$(v, {
+        requestBody: "RequestBody",
+      });
+    })
+  );
 
 export function putMediasMediaIdCustomizationsRelatedMediaRequestToJSON(
   putMediasMediaIdCustomizationsRelatedMediaRequest:
@@ -230,8 +238,10 @@ export function putMediasMediaIdCustomizationsRelatedMediaRequestToJSON(
 
 /** @internal */
 export const PutMediasMediaIdCustomizationsRelatedMediaCode$inboundSchema:
-  z.ZodNativeEnum<typeof PutMediasMediaIdCustomizationsRelatedMediaCode> = z
-    .nativeEnum(PutMediasMediaIdCustomizationsRelatedMediaCode);
+  z.ZodNativeEnum<typeof PutMediasMediaIdCustomizationsRelatedMediaCode> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(PutMediasMediaIdCustomizationsRelatedMediaCode)
+    );
 
 /** @internal */
 export const PutMediasMediaIdCustomizationsRelatedMediaRelatedMediaResponse$inboundSchema:
@@ -239,14 +249,16 @@ export const PutMediasMediaIdCustomizationsRelatedMediaRelatedMediaResponse$inbo
     PutMediasMediaIdCustomizationsRelatedMediaRelatedMediaResponse,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    on: z.string().optional(),
-    hashedIdList: z.array(z.string()).optional(),
-    shouldShowOnPause: z.string().optional(),
-    shouldShowOnEnd: z.string().optional(),
-    mediaLabelText: z.string().optional(),
-    watchButtonText: z.string().optional(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      on: z.string().optional(),
+      hashedIdList: z.array(z.string()).optional(),
+      shouldShowOnPause: z.string().optional(),
+      shouldShowOnEnd: z.string().optional(),
+      mediaLabelText: z.string().optional(),
+      watchButtonText: z.string().optional(),
+    })
+  );
 
 export function putMediasMediaIdCustomizationsRelatedMediaRelatedMediaResponseFromJSON(
   jsonString: string,
@@ -269,11 +281,13 @@ export const PutMediasMediaIdCustomizationsRelatedMediaPluginResponse$inboundSch
     PutMediasMediaIdCustomizationsRelatedMediaPluginResponse,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    relatedMedia: z.lazy(() =>
-      PutMediasMediaIdCustomizationsRelatedMediaRelatedMediaResponse$inboundSchema
-    ).optional(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      relatedMedia: z.lazy(() =>
+        PutMediasMediaIdCustomizationsRelatedMediaRelatedMediaResponse$inboundSchema
+      ).optional(),
+    })
+  );
 
 export function putMediasMediaIdCustomizationsRelatedMediaPluginResponseFromJSON(
   jsonString: string,
@@ -296,11 +310,13 @@ export const PutMediasMediaIdCustomizationsRelatedMediaResponse$inboundSchema:
     PutMediasMediaIdCustomizationsRelatedMediaResponse,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    plugin: z.lazy(() =>
-      PutMediasMediaIdCustomizationsRelatedMediaPluginResponse$inboundSchema
-    ).optional(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      plugin: z.lazy(() =>
+        PutMediasMediaIdCustomizationsRelatedMediaPluginResponse$inboundSchema
+      ).optional(),
+    })
+  );
 
 export function putMediasMediaIdCustomizationsRelatedMediaResponseFromJSON(
   jsonString: string,

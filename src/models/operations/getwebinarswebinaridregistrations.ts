@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -316,16 +316,18 @@ export type GetWebinarsWebinarIdRegistrationsResponse = {
 
 /** @internal */
 export const GetWebinarsWebinarIdRegistrationsSortDirection$outboundSchema:
-  z.ZodNativeEnum<typeof GetWebinarsWebinarIdRegistrationsSortDirection> = z
-    .nativeEnum(GetWebinarsWebinarIdRegistrationsSortDirection);
+  z.ZodNativeEnum<typeof GetWebinarsWebinarIdRegistrationsSortDirection> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(GetWebinarsWebinarIdRegistrationsSortDirection)
+    );
 
 /** @internal */
-export const Attendance$outboundSchema: z.ZodNativeEnum<typeof Attendance> = z
-  .nativeEnum(Attendance);
+export const Attendance$outboundSchema: z.ZodNativeEnum<typeof Attendance> =
+  /* @__PURE__ */ lazySchema$(() => z.nativeEnum(Attendance));
 
 /** @internal */
-export const Restriction$outboundSchema: z.ZodNativeEnum<typeof Restriction> = z
-  .nativeEnum(Restriction);
+export const Restriction$outboundSchema: z.ZodNativeEnum<typeof Restriction> =
+  /* @__PURE__ */ lazySchema$(() => z.nativeEnum(Restriction));
 
 /** @internal */
 export type GetWebinarsWebinarIdRegistrationsRequest$Outbound = {
@@ -343,22 +345,24 @@ export const GetWebinarsWebinarIdRegistrationsRequest$outboundSchema: z.ZodType<
   GetWebinarsWebinarIdRegistrationsRequest$Outbound,
   z.ZodTypeDef,
   GetWebinarsWebinarIdRegistrationsRequest
-> = z.object({
-  webinarId: z.string(),
-  perPage: z.number().int().default(100),
-  cursor: z.string().optional(),
-  sortDirection: GetWebinarsWebinarIdRegistrationsSortDirection$outboundSchema
-    .default(1),
-  attendance: Attendance$outboundSchema.default("all"),
-  restriction: Restriction$outboundSchema.default("all"),
-  emails: z.array(z.string()).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    perPage: "per_page",
-    sortDirection: "sort_direction",
-    emails: "emails[]",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    webinarId: z.string(),
+    perPage: z.number().int().default(100),
+    cursor: z.string().optional(),
+    sortDirection: GetWebinarsWebinarIdRegistrationsSortDirection$outboundSchema
+      .default(1),
+    attendance: Attendance$outboundSchema.default("all"),
+    restriction: Restriction$outboundSchema.default("all"),
+    emails: z.array(z.string()).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      perPage: "per_page",
+      sortDirection: "sort_direction",
+      emails: "emails[]",
+    });
+  })
+);
 
 export function getWebinarsWebinarIdRegistrationsRequestToJSON(
   getWebinarsWebinarIdRegistrationsRequest:
@@ -373,24 +377,27 @@ export function getWebinarsWebinarIdRegistrationsRequestToJSON(
 
 /** @internal */
 export const GetWebinarsWebinarIdRegistrationsCode$inboundSchema:
-  z.ZodNativeEnum<typeof GetWebinarsWebinarIdRegistrationsCode> = z.nativeEnum(
-    GetWebinarsWebinarIdRegistrationsCode,
-  );
+  z.ZodNativeEnum<typeof GetWebinarsWebinarIdRegistrationsCode> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(GetWebinarsWebinarIdRegistrationsCode)
+    );
 
 /** @internal */
 export const RestrictionStatus$inboundSchema: z.ZodNativeEnum<
   typeof RestrictionStatus
-> = z.nativeEnum(RestrictionStatus);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(RestrictionStatus));
 
 /** @internal */
 export const FormFieldDatum$inboundSchema: z.ZodType<
   FormFieldDatum,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  value: z.string().optional(),
-  label: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    value: z.string().optional(),
+    label: z.string().optional(),
+  })
+);
 
 export function formFieldDatumFromJSON(
   jsonString: string,
@@ -407,14 +414,16 @@ export const GetWebinarsWebinarIdRegistrationsChat$inboundSchema: z.ZodType<
   GetWebinarsWebinarIdRegistrationsChat,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  rounded_player_position: z.number().int().optional(),
-  chats: z.array(z.string()).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "rounded_player_position": "roundedPlayerPosition",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    rounded_player_position: z.number().int().optional(),
+    chats: z.array(z.string()).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "rounded_player_position": "roundedPlayerPosition",
+    });
+  })
+);
 
 export function getWebinarsWebinarIdRegistrationsChatFromJSON(
   jsonString: string,
@@ -432,13 +441,15 @@ export const QaQuestion1$inboundSchema: z.ZodType<
   QaQuestion1,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  question_text: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "question_text": "questionText",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    question_text: z.string().optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "question_text": "questionText",
+    });
+  })
+);
 
 export function qaQuestion1FromJSON(
   jsonString: string,
@@ -455,15 +466,17 @@ export const QaQuestion2$inboundSchema: z.ZodType<
   QaQuestion2,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  rounded_player_position: z.number().int().optional(),
-  qa_questions: z.array(z.lazy(() => QaQuestion1$inboundSchema)).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "rounded_player_position": "roundedPlayerPosition",
-    "qa_questions": "qaQuestions",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    rounded_player_position: z.number().int().optional(),
+    qa_questions: z.array(z.lazy(() => QaQuestion1$inboundSchema)).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "rounded_player_position": "roundedPlayerPosition",
+      "qa_questions": "qaQuestions",
+    });
+  })
+);
 
 export function qaQuestion2FromJSON(
   jsonString: string,
@@ -480,15 +493,17 @@ export const PollResponse$inboundSchema: z.ZodType<
   PollResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  poll_question_text: z.nullable(z.string()).optional(),
-  poll_option_text: z.nullable(z.string()).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "poll_question_text": "pollQuestionText",
-    "poll_option_text": "pollOptionText",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    poll_question_text: z.nullable(z.string()).optional(),
+    poll_option_text: z.nullable(z.string()).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "poll_question_text": "pollQuestionText",
+      "poll_option_text": "pollOptionText",
+    });
+  })
+);
 
 export function pollResponseFromJSON(
   jsonString: string,
@@ -505,86 +520,90 @@ export const Registration$inboundSchema: z.ZodType<
   Registration,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  visitor_key: z.nullable(z.string()).optional(),
-  email: z.nullable(z.string()).optional(),
-  first_name: z.nullable(z.string()).optional(),
-  last_name: z.nullable(z.string()).optional(),
-  phone_number: z.nullable(z.string()).optional(),
-  company: z.nullable(z.string()).optional(),
-  job_title: z.nullable(z.string()).optional(),
-  country: z.nullable(z.string()).optional(),
-  registered_at: z.nullable(
-    z.string().datetime({ offset: true }).transform(v => new Date(v)),
-  ).optional(),
-  attended_at: z.nullable(
-    z.string().datetime({ offset: true }).transform(v => new Date(v)),
-  ).optional(),
-  restriction_status: z.nullable(RestrictionStatus$inboundSchema).optional(),
-  origin_method: z.nullable(z.string()).optional(),
-  form_field_data: z.array(z.lazy(() => FormFieldDatum$inboundSchema))
-    .optional(),
-  utm_campaign: z.nullable(z.string()).optional(),
-  utm_source: z.nullable(z.string()).optional(),
-  utm_medium: z.nullable(z.string()).optional(),
-  utm_content: z.nullable(z.string()).optional(),
-  utm_term: z.nullable(z.string()).optional(),
-  referrer_domain: z.nullable(z.string()).optional(),
-  ip_region: z.nullable(z.string()).optional(),
-  ip_country: z.nullable(z.string()).optional(),
-  ip_city: z.nullable(z.string()).optional(),
-  engagement_rate: z.nullable(z.number()).optional(),
-  focused_rate: z.nullable(z.number()).optional(),
-  played_time: z.nullable(z.number().int()).optional(),
-  focused_played_time: z.nullable(z.number().int()).optional(),
-  chat_count: z.nullable(z.number().int()).optional(),
-  chats: z.array(
-    z.lazy(() => GetWebinarsWebinarIdRegistrationsChat$inboundSchema),
-  ).optional(),
-  qa_questions: z.array(z.lazy(() => QaQuestion2$inboundSchema)).optional(),
-  qa_answers: z.nullable(z.number().int()).optional(),
-  poll_responses: z.array(z.lazy(() => PollResponse$inboundSchema)).optional(),
-  poll_responses_count: z.nullable(z.number().int()).optional(),
-  annotation_click_count: z.nullable(z.number().int()).optional(),
-  attendee_histogram: z.nullable(z.array(z.nullable(z.number().int())))
-    .optional(),
-  focused_attendee_histogram: z.nullable(z.array(z.nullable(z.number().int())))
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "visitor_key": "visitorKey",
-    "first_name": "firstName",
-    "last_name": "lastName",
-    "phone_number": "phoneNumber",
-    "job_title": "jobTitle",
-    "registered_at": "registeredAt",
-    "attended_at": "attendedAt",
-    "restriction_status": "restrictionStatus",
-    "origin_method": "originMethod",
-    "form_field_data": "formFieldData",
-    "utm_campaign": "utmCampaign",
-    "utm_source": "utmSource",
-    "utm_medium": "utmMedium",
-    "utm_content": "utmContent",
-    "utm_term": "utmTerm",
-    "referrer_domain": "referrerDomain",
-    "ip_region": "ipRegion",
-    "ip_country": "ipCountry",
-    "ip_city": "ipCity",
-    "engagement_rate": "engagementRate",
-    "focused_rate": "focusedRate",
-    "played_time": "playedTime",
-    "focused_played_time": "focusedPlayedTime",
-    "chat_count": "chatCount",
-    "qa_questions": "qaQuestions",
-    "qa_answers": "qaAnswers",
-    "poll_responses": "pollResponses",
-    "poll_responses_count": "pollResponsesCount",
-    "annotation_click_count": "annotationClickCount",
-    "attendee_histogram": "attendeeHistogram",
-    "focused_attendee_histogram": "focusedAttendeeHistogram",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    visitor_key: z.nullable(z.string()).optional(),
+    email: z.nullable(z.string()).optional(),
+    first_name: z.nullable(z.string()).optional(),
+    last_name: z.nullable(z.string()).optional(),
+    phone_number: z.nullable(z.string()).optional(),
+    company: z.nullable(z.string()).optional(),
+    job_title: z.nullable(z.string()).optional(),
+    country: z.nullable(z.string()).optional(),
+    registered_at: z.nullable(
+      z.string().datetime({ offset: true }).transform(v => new Date(v)),
+    ).optional(),
+    attended_at: z.nullable(
+      z.string().datetime({ offset: true }).transform(v => new Date(v)),
+    ).optional(),
+    restriction_status: z.nullable(RestrictionStatus$inboundSchema).optional(),
+    origin_method: z.nullable(z.string()).optional(),
+    form_field_data: z.array(z.lazy(() => FormFieldDatum$inboundSchema))
+      .optional(),
+    utm_campaign: z.nullable(z.string()).optional(),
+    utm_source: z.nullable(z.string()).optional(),
+    utm_medium: z.nullable(z.string()).optional(),
+    utm_content: z.nullable(z.string()).optional(),
+    utm_term: z.nullable(z.string()).optional(),
+    referrer_domain: z.nullable(z.string()).optional(),
+    ip_region: z.nullable(z.string()).optional(),
+    ip_country: z.nullable(z.string()).optional(),
+    ip_city: z.nullable(z.string()).optional(),
+    engagement_rate: z.nullable(z.number()).optional(),
+    focused_rate: z.nullable(z.number()).optional(),
+    played_time: z.nullable(z.number().int()).optional(),
+    focused_played_time: z.nullable(z.number().int()).optional(),
+    chat_count: z.nullable(z.number().int()).optional(),
+    chats: z.array(
+      z.lazy(() => GetWebinarsWebinarIdRegistrationsChat$inboundSchema),
+    ).optional(),
+    qa_questions: z.array(z.lazy(() => QaQuestion2$inboundSchema)).optional(),
+    qa_answers: z.nullable(z.number().int()).optional(),
+    poll_responses: z.array(z.lazy(() => PollResponse$inboundSchema))
+      .optional(),
+    poll_responses_count: z.nullable(z.number().int()).optional(),
+    annotation_click_count: z.nullable(z.number().int()).optional(),
+    attendee_histogram: z.nullable(z.array(z.nullable(z.number().int())))
+      .optional(),
+    focused_attendee_histogram: z.nullable(
+      z.array(z.nullable(z.number().int())),
+    ).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "visitor_key": "visitorKey",
+      "first_name": "firstName",
+      "last_name": "lastName",
+      "phone_number": "phoneNumber",
+      "job_title": "jobTitle",
+      "registered_at": "registeredAt",
+      "attended_at": "attendedAt",
+      "restriction_status": "restrictionStatus",
+      "origin_method": "originMethod",
+      "form_field_data": "formFieldData",
+      "utm_campaign": "utmCampaign",
+      "utm_source": "utmSource",
+      "utm_medium": "utmMedium",
+      "utm_content": "utmContent",
+      "utm_term": "utmTerm",
+      "referrer_domain": "referrerDomain",
+      "ip_region": "ipRegion",
+      "ip_country": "ipCountry",
+      "ip_city": "ipCity",
+      "engagement_rate": "engagementRate",
+      "focused_rate": "focusedRate",
+      "played_time": "playedTime",
+      "focused_played_time": "focusedPlayedTime",
+      "chat_count": "chatCount",
+      "qa_questions": "qaQuestions",
+      "qa_answers": "qaAnswers",
+      "poll_responses": "pollResponses",
+      "poll_responses_count": "pollResponsesCount",
+      "annotation_click_count": "annotationClickCount",
+      "attendee_histogram": "attendeeHistogram",
+      "focused_attendee_histogram": "focusedAttendeeHistogram",
+    });
+  })
+);
 
 export function registrationFromJSON(
   jsonString: string,
@@ -601,19 +620,21 @@ export const GetWebinarsWebinarIdRegistrationsPageInfo$inboundSchema: z.ZodType<
   GetWebinarsWebinarIdRegistrationsPageInfo,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  has_next_page: z.boolean().optional(),
-  has_previous_page: z.boolean().optional(),
-  end_cursor: z.nullable(z.string()).optional(),
-  start_cursor: z.nullable(z.string()).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "has_next_page": "hasNextPage",
-    "has_previous_page": "hasPreviousPage",
-    "end_cursor": "endCursor",
-    "start_cursor": "startCursor",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    has_next_page: z.boolean().optional(),
+    has_previous_page: z.boolean().optional(),
+    end_cursor: z.nullable(z.string()).optional(),
+    start_cursor: z.nullable(z.string()).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "has_next_page": "hasNextPage",
+      "has_previous_page": "hasPreviousPage",
+      "end_cursor": "endCursor",
+      "start_cursor": "startCursor",
+    });
+  })
+);
 
 export function getWebinarsWebinarIdRegistrationsPageInfoFromJSON(
   jsonString: string,
@@ -636,16 +657,18 @@ export const GetWebinarsWebinarIdRegistrationsResponse$inboundSchema: z.ZodType<
   GetWebinarsWebinarIdRegistrationsResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  registrations: z.array(z.lazy(() => Registration$inboundSchema)).optional(),
-  page_info: z.lazy(() =>
-    GetWebinarsWebinarIdRegistrationsPageInfo$inboundSchema
-  ).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "page_info": "pageInfo",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    registrations: z.array(z.lazy(() => Registration$inboundSchema)).optional(),
+    page_info: z.lazy(() =>
+      GetWebinarsWebinarIdRegistrationsPageInfo$inboundSchema
+    ).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "page_info": "pageInfo",
+    });
+  })
+);
 
 export function getWebinarsWebinarIdRegistrationsResponseFromJSON(
   jsonString: string,

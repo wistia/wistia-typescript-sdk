@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { RFCDate } from "../../types/rfcdate.js";
@@ -86,15 +86,17 @@ export const GetAnalyticsAccountRequest$outboundSchema: z.ZodType<
   GetAnalyticsAccountRequest$Outbound,
   z.ZodTypeDef,
   GetAnalyticsAccountRequest
-> = z.object({
-  startDate: z.instanceof(RFCDate).transform(v => v.toString()),
-  endDate: z.instanceof(RFCDate).transform(v => v.toString()),
-}).transform((v) => {
-  return remap$(v, {
-    startDate: "start_date",
-    endDate: "end_date",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    startDate: z.instanceof(RFCDate).transform(v => v.toString()),
+    endDate: z.instanceof(RFCDate).transform(v => v.toString()),
+  }).transform((v) => {
+    return remap$(v, {
+      startDate: "start_date",
+      endDate: "end_date",
+    });
+  })
+);
 
 export function getAnalyticsAccountRequestToJSON(
   getAnalyticsAccountRequest: GetAnalyticsAccountRequest,
@@ -107,33 +109,35 @@ export function getAnalyticsAccountRequestToJSON(
 /** @internal */
 export const GetAnalyticsAccountCode$inboundSchema: z.ZodNativeEnum<
   typeof GetAnalyticsAccountCode
-> = z.nativeEnum(GetAnalyticsAccountCode);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetAnalyticsAccountCode));
 
 /** @internal */
 export const GetAnalyticsAccountResponse$inboundSchema: z.ZodType<
   GetAnalyticsAccountResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  unique_loads: z.nullable(z.number().int()).optional(),
-  unique_plays: z.nullable(z.number().int()).optional(),
-  plays: z.nullable(z.number().int()).optional(),
-  play_rate: z.nullable(z.number()).optional(),
-  played_time: z.nullable(z.number().int()).optional(),
-  unique_visitors: z.nullable(z.number().int()).optional(),
-  engagement_rate: z.nullable(z.number()).optional(),
-  form_conversions: z.nullable(z.number().int()).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "unique_loads": "uniqueLoads",
-    "unique_plays": "uniquePlays",
-    "play_rate": "playRate",
-    "played_time": "playedTime",
-    "unique_visitors": "uniqueVisitors",
-    "engagement_rate": "engagementRate",
-    "form_conversions": "formConversions",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    unique_loads: z.nullable(z.number().int()).optional(),
+    unique_plays: z.nullable(z.number().int()).optional(),
+    plays: z.nullable(z.number().int()).optional(),
+    play_rate: z.nullable(z.number()).optional(),
+    played_time: z.nullable(z.number().int()).optional(),
+    unique_visitors: z.nullable(z.number().int()).optional(),
+    engagement_rate: z.nullable(z.number()).optional(),
+    form_conversions: z.nullable(z.number().int()).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "unique_loads": "uniqueLoads",
+      "unique_plays": "uniquePlays",
+      "play_rate": "playRate",
+      "played_time": "playedTime",
+      "unique_visitors": "uniqueVisitors",
+      "engagement_rate": "engagementRate",
+      "form_conversions": "formConversions",
+    });
+  })
+);
 
 export function getAnalyticsAccountResponseFromJSON(
   jsonString: string,

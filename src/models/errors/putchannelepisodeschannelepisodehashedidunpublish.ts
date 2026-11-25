@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
 import * as operations from "../operations/index.js";
 import { WistiaError } from "./wistiaerror.js";
 
@@ -132,18 +133,20 @@ export const PutChannelEpisodesChannelEpisodeHashedIdUnpublishInternalServerErro
     PutChannelEpisodesChannelEpisodeHashedIdUnpublishInternalServerError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new PutChannelEpisodesChannelEpisodeHashedIdUnpublishInternalServerError(
-        v,
-        { request: v.request$, response: v.response$, body: v.body$ },
-      );
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new PutChannelEpisodesChannelEpisodeHashedIdUnpublishInternalServerError(
+          v,
+          { request: v.request$, response: v.response$, body: v.body$ },
+        );
+      })
+  );
 
 /** @internal */
 export const PutChannelEpisodesChannelEpisodeHashedIdUnpublishForbiddenError$inboundSchema:
@@ -151,18 +154,20 @@ export const PutChannelEpisodesChannelEpisodeHashedIdUnpublishForbiddenError$inb
     PutChannelEpisodesChannelEpisodeHashedIdUnpublishForbiddenError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new PutChannelEpisodesChannelEpisodeHashedIdUnpublishForbiddenError(
-        v,
-        { request: v.request$, response: v.response$, body: v.body$ },
-      );
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new PutChannelEpisodesChannelEpisodeHashedIdUnpublishForbiddenError(
+          v,
+          { request: v.request$, response: v.response$, body: v.body$ },
+        );
+      })
+  );
 
 /** @internal */
 export const PutChannelEpisodesChannelEpisodeHashedIdUnpublishUnauthorizedError$inboundSchema:
@@ -170,18 +175,20 @@ export const PutChannelEpisodesChannelEpisodeHashedIdUnpublishUnauthorizedError$
     PutChannelEpisodesChannelEpisodeHashedIdUnpublishUnauthorizedError,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    code: operations
-      .PutChannelEpisodesChannelEpisodeHashedIdUnpublishCode$inboundSchema
-      .optional(),
-    error: z.string().optional(),
-    request$: z.instanceof(Request),
-    response$: z.instanceof(Response),
-    body$: z.string(),
-  })
-    .transform((v) => {
-      return new PutChannelEpisodesChannelEpisodeHashedIdUnpublishUnauthorizedError(
-        v,
-        { request: v.request$, response: v.response$, body: v.body$ },
-      );
-    });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      code: operations
+        .PutChannelEpisodesChannelEpisodeHashedIdUnpublishCode$inboundSchema
+        .optional(),
+      error: z.string().optional(),
+      request$: z.instanceof(Request),
+      response$: z.instanceof(Response),
+      body$: z.string(),
+    })
+      .transform((v) => {
+        return new PutChannelEpisodesChannelEpisodeHashedIdUnpublishUnauthorizedError(
+          v,
+          { request: v.request$, response: v.response$, body: v.body$ },
+        );
+      })
+  );

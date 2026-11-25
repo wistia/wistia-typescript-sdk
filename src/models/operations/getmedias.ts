@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -457,7 +457,7 @@ export type GetMediasResponse = {
 /** @internal */
 export const GetMediasEnabled$outboundSchema: z.ZodNativeEnum<
   typeof GetMediasEnabled
-> = z.nativeEnum(GetMediasEnabled);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetMediasEnabled));
 
 /** @internal */
 export type GetMediasCursor$Outbound = {
@@ -471,11 +471,13 @@ export const GetMediasCursor$outboundSchema: z.ZodType<
   GetMediasCursor$Outbound,
   z.ZodTypeDef,
   GetMediasCursor
-> = z.object({
-  enabled: GetMediasEnabled$outboundSchema.optional(),
-  before: z.string().optional(),
-  after: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    enabled: GetMediasEnabled$outboundSchema.optional(),
+    before: z.string().optional(),
+    after: z.string().optional(),
+  })
+);
 
 export function getMediasCursorToJSON(
   getMediasCursor: GetMediasCursor,
@@ -486,22 +488,22 @@ export function getMediasCursorToJSON(
 /** @internal */
 export const GetMediasSortBy$outboundSchema: z.ZodNativeEnum<
   typeof GetMediasSortBy
-> = z.nativeEnum(GetMediasSortBy);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetMediasSortBy));
 
 /** @internal */
 export const GetMediasSortDirection$outboundSchema: z.ZodNativeEnum<
   typeof GetMediasSortDirection
-> = z.nativeEnum(GetMediasSortDirection);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetMediasSortDirection));
 
 /** @internal */
 export const GetMediasInclude$outboundSchema: z.ZodNativeEnum<
   typeof GetMediasInclude
-> = z.nativeEnum(GetMediasInclude);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetMediasInclude));
 
 /** @internal */
 export const GetMediasQueryParamType$outboundSchema: z.ZodNativeEnum<
   typeof GetMediasQueryParamType
-> = z.nativeEnum(GetMediasQueryParamType);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetMediasQueryParamType));
 
 /** @internal */
 export type GetMediasRequest$Outbound = {
@@ -525,31 +527,33 @@ export const GetMediasRequest$outboundSchema: z.ZodType<
   GetMediasRequest$Outbound,
   z.ZodTypeDef,
   GetMediasRequest
-> = z.object({
-  page: z.number().int().optional(),
-  perPage: z.number().int().optional(),
-  cursor: z.lazy(() => GetMediasCursor$outboundSchema).optional(),
-  sortBy: GetMediasSortBy$outboundSchema.optional(),
-  sortDirection: GetMediasSortDirection$outboundSchema.optional(),
-  folderId: z.string().optional(),
-  name: z.string().optional(),
-  descriptionFormat: z.literal("markdown").optional(),
-  include: GetMediasInclude$outboundSchema.optional(),
-  type: GetMediasQueryParamType$outboundSchema.optional(),
-  hashedIds: z.array(z.string()).optional(),
-  tags: z.array(z.string()).optional(),
-  archived: z.boolean().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    perPage: "per_page",
-    sortBy: "sort_by",
-    sortDirection: "sort_direction",
-    folderId: "folder_id",
-    descriptionFormat: "description_format",
-    hashedIds: "hashed_ids[]",
-    tags: "tags[]",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    page: z.number().int().optional(),
+    perPage: z.number().int().optional(),
+    cursor: z.lazy(() => GetMediasCursor$outboundSchema).optional(),
+    sortBy: GetMediasSortBy$outboundSchema.optional(),
+    sortDirection: GetMediasSortDirection$outboundSchema.optional(),
+    folderId: z.string().optional(),
+    name: z.string().optional(),
+    descriptionFormat: z.literal("markdown").optional(),
+    include: GetMediasInclude$outboundSchema.optional(),
+    type: GetMediasQueryParamType$outboundSchema.optional(),
+    hashedIds: z.array(z.string()).optional(),
+    tags: z.array(z.string()).optional(),
+    archived: z.boolean().optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      perPage: "per_page",
+      sortBy: "sort_by",
+      sortDirection: "sort_direction",
+      folderId: "folder_id",
+      descriptionFormat: "description_format",
+      hashedIds: "hashed_ids[]",
+      tags: "tags[]",
+    });
+  })
+);
 
 export function getMediasRequestToJSON(
   getMediasRequest: GetMediasRequest,
@@ -562,28 +566,30 @@ export function getMediasRequestToJSON(
 /** @internal */
 export const GetMediasCode$inboundSchema: z.ZodNativeEnum<
   typeof GetMediasCode
-> = z.nativeEnum(GetMediasCode);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetMediasCode));
 
 /** @internal */
 export const GetMediasTypeResponse$inboundSchema: z.ZodNativeEnum<
   typeof GetMediasTypeResponse
-> = z.nativeEnum(GetMediasTypeResponse);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetMediasTypeResponse));
 
 /** @internal */
 export const GetMediasStatus$inboundSchema: z.ZodNativeEnum<
   typeof GetMediasStatus
-> = z.nativeEnum(GetMediasStatus);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetMediasStatus));
 
 /** @internal */
 export const GetMediasThumbnail$inboundSchema: z.ZodType<
   GetMediasThumbnail,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  url: z.string().optional(),
-  width: z.number().int().optional(),
-  height: z.number().int().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    url: z.string().optional(),
+    width: z.number().int().optional(),
+    height: z.number().int().optional(),
+  })
+);
 
 export function getMediasThumbnailFromJSON(
   jsonString: string,
@@ -600,15 +606,17 @@ export const GetMediasFolder$inboundSchema: z.ZodType<
   GetMediasFolder,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.number().int().optional(),
-  name: z.string().optional(),
-  hashed_id: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "hashed_id": "hashedId",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    id: z.number().int().optional(),
+    name: z.string().optional(),
+    hashed_id: z.string().optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "hashed_id": "hashedId",
+    });
+  })
+);
 
 export function getMediasFolderFromJSON(
   jsonString: string,
@@ -625,19 +633,21 @@ export const GetMediasAsset$inboundSchema: z.ZodType<
   GetMediasAsset,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  url: z.string().optional(),
-  width: z.nullable(z.number().int()).optional(),
-  height: z.nullable(z.number().int()).optional(),
-  file_size: z.nullable(z.number().int()).optional(),
-  content_type: z.nullable(z.string()).optional(),
-  type: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "file_size": "fileSize",
-    "content_type": "contentType",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    url: z.string().optional(),
+    width: z.nullable(z.number().int()).optional(),
+    height: z.nullable(z.number().int()).optional(),
+    file_size: z.nullable(z.number().int()).optional(),
+    content_type: z.nullable(z.string()).optional(),
+    type: z.string().optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "file_size": "fileSize",
+      "content_type": "contentType",
+    });
+  })
+);
 
 export function getMediasAssetFromJSON(
   jsonString: string,
@@ -654,23 +664,25 @@ export const GetMediasSubfolder$inboundSchema: z.ZodType<
   GetMediasSubfolder,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  hashed_id: z.nullable(z.string()),
-  name: z.nullable(z.string()).optional(),
-  description: z.nullable(z.string()).optional(),
-  position: z.nullable(z.number().int()),
-  created: z.nullable(
-    z.string().datetime({ offset: true }).transform(v => new Date(v)),
-  ),
-  updated: z.nullable(
-    z.string().datetime({ offset: true }).transform(v => new Date(v)),
-  ),
-  cursor: z.nullable(z.string()).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "hashed_id": "hashedId",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    hashed_id: z.nullable(z.string()),
+    name: z.nullable(z.string()).optional(),
+    description: z.nullable(z.string()).optional(),
+    position: z.nullable(z.number().int()),
+    created: z.nullable(
+      z.string().datetime({ offset: true }).transform(v => new Date(v)),
+    ),
+    updated: z.nullable(
+      z.string().datetime({ offset: true }).transform(v => new Date(v)),
+    ),
+    cursor: z.nullable(z.string()).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "hashed_id": "hashedId",
+    });
+  })
+);
 
 export function getMediasSubfolderFromJSON(
   jsonString: string,
@@ -687,9 +699,11 @@ export const GetMediasTag$inboundSchema: z.ZodType<
   GetMediasTag,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  name: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    name: z.string().optional(),
+  })
+);
 
 export function getMediasTagFromJSON(
   jsonString: string,
@@ -706,16 +720,18 @@ export const GetMediasSpeaker$inboundSchema: z.ZodType<
   GetMediasSpeaker,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  media_speaker_id: z.string(),
-  speaker_profile_id: z.string(),
-  name: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "media_speaker_id": "mediaSpeakerId",
-    "speaker_profile_id": "speakerProfileId",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    media_speaker_id: z.string(),
+    speaker_profile_id: z.string(),
+    name: z.string(),
+  }).transform((v) => {
+    return remap$(v, {
+      "media_speaker_id": "mediaSpeakerId",
+      "speaker_profile_id": "speakerProfileId",
+    });
+  })
+);
 
 export function getMediasSpeakerFromJSON(
   jsonString: string,
@@ -732,35 +748,37 @@ export const GetMediasResponse$inboundSchema: z.ZodType<
   GetMediasResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.number().int().optional(),
-  name: z.string().optional(),
-  type: GetMediasTypeResponse$inboundSchema.optional(),
-  archived: z.boolean().optional(),
-  created: z.string().datetime({ offset: true }).transform(v => new Date(v))
-    .optional(),
-  updated: z.string().datetime({ offset: true }).transform(v => new Date(v))
-    .optional(),
-  duration: z.nullable(z.number()).optional(),
-  embedCode: z.string().optional(),
-  hashed_id: z.string().optional(),
-  description: z.string().optional(),
-  progress: z.number().optional(),
-  status: GetMediasStatus$inboundSchema.optional(),
-  section: z.nullable(z.string()).optional(),
-  thumbnail: z.lazy(() => GetMediasThumbnail$inboundSchema).optional(),
-  protected: z.nullable(z.boolean()).optional(),
-  folder: z.nullable(z.lazy(() => GetMediasFolder$inboundSchema)),
-  assets: z.array(z.lazy(() => GetMediasAsset$inboundSchema)).optional(),
-  subfolder: z.lazy(() => GetMediasSubfolder$inboundSchema).optional(),
-  tags: z.array(z.lazy(() => GetMediasTag$inboundSchema)).optional(),
-  speakers: z.array(z.lazy(() => GetMediasSpeaker$inboundSchema)).optional(),
-  cursor: z.nullable(z.string()).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "hashed_id": "hashedId",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    id: z.number().int().optional(),
+    name: z.string().optional(),
+    type: GetMediasTypeResponse$inboundSchema.optional(),
+    archived: z.boolean().optional(),
+    created: z.string().datetime({ offset: true }).transform(v => new Date(v))
+      .optional(),
+    updated: z.string().datetime({ offset: true }).transform(v => new Date(v))
+      .optional(),
+    duration: z.nullable(z.number()).optional(),
+    embedCode: z.string().optional(),
+    hashed_id: z.string().optional(),
+    description: z.string().optional(),
+    progress: z.number().optional(),
+    status: GetMediasStatus$inboundSchema.optional(),
+    section: z.nullable(z.string()).optional(),
+    thumbnail: z.lazy(() => GetMediasThumbnail$inboundSchema).optional(),
+    protected: z.nullable(z.boolean()).optional(),
+    folder: z.nullable(z.lazy(() => GetMediasFolder$inboundSchema)),
+    assets: z.array(z.lazy(() => GetMediasAsset$inboundSchema)).optional(),
+    subfolder: z.lazy(() => GetMediasSubfolder$inboundSchema).optional(),
+    tags: z.array(z.lazy(() => GetMediasTag$inboundSchema)).optional(),
+    speakers: z.array(z.lazy(() => GetMediasSpeaker$inboundSchema)).optional(),
+    cursor: z.nullable(z.string()).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "hashed_id": "hashedId",
+    });
+  })
+);
 
 export function getMediasResponseFromJSON(
   jsonString: string,

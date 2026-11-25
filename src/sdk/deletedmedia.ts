@@ -26,6 +26,12 @@ export class DeletedMedia extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * `account` authorization granting the `manage-deleted-media` permission can
+   * also be used. Only the deleted media the token's `media` authorizations
+   * name are listed.
    */
   async getDeletedMedia(
     request?: operations.GetDeletedMediaRequest | undefined,
@@ -57,6 +63,13 @@ export class DeletedMedia extends ClientSDK {
    * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
    * made with such a token are authorized using the permissions of the
    * contact assigned to the token.
+   *
+   * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+   * created with the `all:delegate_to_contact_permissions` scope and an
+   * `account` authorization granting the `manage-deleted-media` permission can
+   * also be used. Only the media the token's `media` authorizations name are
+   * restored, and `folder_id` also requires the `upload` permission on that
+   * folder.
    */
   async postDeletedMediaRestore(
     request: operations.PostDeletedMediaRestoreRequest,

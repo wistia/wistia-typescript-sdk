@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -197,17 +197,19 @@ export type GetDeletedMediaResponse = {
 /** @internal */
 export const GetDeletedMediaSortBy$outboundSchema: z.ZodNativeEnum<
   typeof GetDeletedMediaSortBy
-> = z.nativeEnum(GetDeletedMediaSortBy);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetDeletedMediaSortBy));
 
 /** @internal */
 export const GetDeletedMediaSortDirection$outboundSchema: z.ZodNativeEnum<
   typeof GetDeletedMediaSortDirection
-> = z.nativeEnum(GetDeletedMediaSortDirection);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(GetDeletedMediaSortDirection)
+);
 
 /** @internal */
 export const GetDeletedMediaEnabled$outboundSchema: z.ZodNativeEnum<
   typeof GetDeletedMediaEnabled
-> = z.nativeEnum(GetDeletedMediaEnabled);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetDeletedMediaEnabled));
 
 /** @internal */
 export type GetDeletedMediaCursor$Outbound = {
@@ -221,11 +223,13 @@ export const GetDeletedMediaCursor$outboundSchema: z.ZodType<
   GetDeletedMediaCursor$Outbound,
   z.ZodTypeDef,
   GetDeletedMediaCursor
-> = z.object({
-  enabled: GetDeletedMediaEnabled$outboundSchema.optional(),
-  before: z.string().optional(),
-  after: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    enabled: GetDeletedMediaEnabled$outboundSchema.optional(),
+    before: z.string().optional(),
+    after: z.string().optional(),
+  })
+);
 
 export function getDeletedMediaCursorToJSON(
   getDeletedMediaCursor: GetDeletedMediaCursor,
@@ -250,21 +254,23 @@ export const GetDeletedMediaRequest$outboundSchema: z.ZodType<
   GetDeletedMediaRequest$Outbound,
   z.ZodTypeDef,
   GetDeletedMediaRequest
-> = z.object({
-  hashedIds: z.array(z.string()).optional(),
-  sortBy: GetDeletedMediaSortBy$outboundSchema.optional(),
-  sortDirection: GetDeletedMediaSortDirection$outboundSchema.optional(),
-  page: z.number().int().optional(),
-  perPage: z.number().int().optional(),
-  cursor: z.lazy(() => GetDeletedMediaCursor$outboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    hashedIds: "hashed_ids[]",
-    sortBy: "sort_by",
-    sortDirection: "sort_direction",
-    perPage: "per_page",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    hashedIds: z.array(z.string()).optional(),
+    sortBy: GetDeletedMediaSortBy$outboundSchema.optional(),
+    sortDirection: GetDeletedMediaSortDirection$outboundSchema.optional(),
+    page: z.number().int().optional(),
+    perPage: z.number().int().optional(),
+    cursor: z.lazy(() => GetDeletedMediaCursor$outboundSchema).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      hashedIds: "hashed_ids[]",
+      sortBy: "sort_by",
+      sortDirection: "sort_direction",
+      perPage: "per_page",
+    });
+  })
+);
 
 export function getDeletedMediaRequestToJSON(
   getDeletedMediaRequest: GetDeletedMediaRequest,
@@ -277,21 +283,23 @@ export function getDeletedMediaRequestToJSON(
 /** @internal */
 export const GetDeletedMediaCode$inboundSchema: z.ZodNativeEnum<
   typeof GetDeletedMediaCode
-> = z.nativeEnum(GetDeletedMediaCode);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetDeletedMediaCode));
 
 /** @internal */
 export const GetDeletedMediaFolder$inboundSchema: z.ZodType<
   GetDeletedMediaFolder,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  hashed_id: z.string().optional(),
-  name: z.nullable(z.string()).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "hashed_id": "hashedId",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    hashed_id: z.string().optional(),
+    name: z.nullable(z.string()).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "hashed_id": "hashedId",
+    });
+  })
+);
 
 export function getDeletedMediaFolderFromJSON(
   jsonString: string,
@@ -308,26 +316,29 @@ export const GetDeletedMediaResponse$inboundSchema: z.ZodType<
   GetDeletedMediaResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  hashed_id: z.string().optional(),
-  name: z.string().optional(),
-  type: z.string().optional(),
-  duration: z.nullable(z.number()).optional(),
-  deleted_at: z.string().datetime({ offset: true }).transform(v => new Date(v))
-    .optional(),
-  restore_expires_at: z.string().datetime({ offset: true }).transform(v =>
-    new Date(v)
-  ).optional(),
-  folder: z.nullable(z.lazy(() => GetDeletedMediaFolder$inboundSchema))
-    .optional(),
-  cursor: z.nullable(z.string()).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "hashed_id": "hashedId",
-    "deleted_at": "deletedAt",
-    "restore_expires_at": "restoreExpiresAt",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    hashed_id: z.string().optional(),
+    name: z.string().optional(),
+    type: z.string().optional(),
+    duration: z.nullable(z.number()).optional(),
+    deleted_at: z.string().datetime({ offset: true }).transform(v =>
+      new Date(v)
+    ).optional(),
+    restore_expires_at: z.string().datetime({ offset: true }).transform(v =>
+      new Date(v)
+    ).optional(),
+    folder: z.nullable(z.lazy(() => GetDeletedMediaFolder$inboundSchema))
+      .optional(),
+    cursor: z.nullable(z.string()).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "hashed_id": "hashedId",
+      "deleted_at": "deletedAt",
+      "restore_expires_at": "restoreExpiresAt",
+    });
+  })
+);
 
 export function getDeletedMediaResponseFromJSON(
   jsonString: string,

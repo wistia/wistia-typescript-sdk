@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -19,11 +19,11 @@ export type EditRequest = {
    */
   replacementText: string;
   /**
-   * Optional lower bound (inclusive, in the requested media's coordinate space) restricting the match to a time window. Must be sent with end_ms.
+   * Optional lower bound (inclusive, in the requested media's coordinate space) restricting the match to a time window. Omit to start at the beginning.
    */
   startMs?: number | undefined;
   /**
-   * Optional upper bound (inclusive) restricting the match to a time window. Must be sent with start_ms.
+   * Optional upper bound (inclusive) restricting the match to a time window. Omit to run to the end.
    */
   endMs?: number | undefined;
 };
@@ -45,7 +45,7 @@ export type PostMediasMediaHashedIdCaptionsLanguageCodeEditsRequest = {
    */
   mediaHashedId: string;
   /**
-   * The 3-character ISO 639-2 language code of the caption track to edit (e.g., `eng`, `fra`, `spa`). Some languages use extended IETF subtags (e.g., `zh-Hant`).
+   * The 3-character ISO 639-2 language code of the caption track to edit (e.g., `eng`, `fre`, `spa`). Some languages use extended IETF subtags (e.g., `zh-Hant`).
    */
   languageCode: string;
   requestBody: PostMediasMediaHashedIdCaptionsLanguageCodeEditsRequestBody;
@@ -221,19 +221,21 @@ export const EditRequest$outboundSchema: z.ZodType<
   EditRequest$Outbound,
   z.ZodTypeDef,
   EditRequest
-> = z.object({
-  targetText: z.string(),
-  replacementText: z.string(),
-  startMs: z.number().int().optional(),
-  endMs: z.number().int().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    targetText: "target_text",
-    replacementText: "replacement_text",
-    startMs: "start_ms",
-    endMs: "end_ms",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    targetText: z.string(),
+    replacementText: z.string(),
+    startMs: z.number().int().optional(),
+    endMs: z.number().int().optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      targetText: "target_text",
+      replacementText: "replacement_text",
+      startMs: "start_ms",
+      endMs: "end_ms",
+    });
+  })
+);
 
 export function editRequestToJSON(editRequest: EditRequest): string {
   return JSON.stringify(EditRequest$outboundSchema.parse(editRequest));
@@ -252,14 +254,16 @@ export const PostMediasMediaHashedIdCaptionsLanguageCodeEditsRequestBody$outboun
     PostMediasMediaHashedIdCaptionsLanguageCodeEditsRequestBody$Outbound,
     z.ZodTypeDef,
     PostMediasMediaHashedIdCaptionsLanguageCodeEditsRequestBody
-  > = z.object({
-    edits: z.array(z.lazy(() => EditRequest$outboundSchema)),
-    expectedVersion: z.number().int(),
-  }).transform((v) => {
-    return remap$(v, {
-      expectedVersion: "expected_version",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      edits: z.array(z.lazy(() => EditRequest$outboundSchema)),
+      expectedVersion: z.number().int(),
+    }).transform((v) => {
+      return remap$(v, {
+        expectedVersion: "expected_version",
+      });
+    })
+  );
 
 export function postMediasMediaHashedIdCaptionsLanguageCodeEditsRequestBodyToJSON(
   postMediasMediaHashedIdCaptionsLanguageCodeEditsRequestBody:
@@ -285,17 +289,19 @@ export const PostMediasMediaHashedIdCaptionsLanguageCodeEditsRequest$outboundSch
     PostMediasMediaHashedIdCaptionsLanguageCodeEditsRequest$Outbound,
     z.ZodTypeDef,
     PostMediasMediaHashedIdCaptionsLanguageCodeEditsRequest
-  > = z.object({
-    mediaHashedId: z.string(),
-    languageCode: z.string(),
-    requestBody: z.lazy(() =>
-      PostMediasMediaHashedIdCaptionsLanguageCodeEditsRequestBody$outboundSchema
-    ),
-  }).transform((v) => {
-    return remap$(v, {
-      requestBody: "RequestBody",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      mediaHashedId: z.string(),
+      languageCode: z.string(),
+      requestBody: z.lazy(() =>
+        PostMediasMediaHashedIdCaptionsLanguageCodeEditsRequestBody$outboundSchema
+      ),
+    }).transform((v) => {
+      return remap$(v, {
+        requestBody: "RequestBody",
+      });
+    })
+  );
 
 export function postMediasMediaHashedIdCaptionsLanguageCodeEditsRequestToJSON(
   postMediasMediaHashedIdCaptionsLanguageCodeEditsRequest:
@@ -310,24 +316,26 @@ export function postMediasMediaHashedIdCaptionsLanguageCodeEditsRequestToJSON(
 /** @internal */
 export const UnprocessableEntityReason$inboundSchema: z.ZodNativeEnum<
   typeof UnprocessableEntityReason
-> = z.nativeEnum(UnprocessableEntityReason);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(UnprocessableEntityReason));
 
 /** @internal */
 export const Candidate$inboundSchema: z.ZodType<
   Candidate,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  text: z.string(),
-  context: z.string(),
-  start_ms: z.number().int(),
-  end_ms: z.number().int(),
-}).transform((v) => {
-  return remap$(v, {
-    "start_ms": "startMs",
-    "end_ms": "endMs",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    text: z.string(),
+    context: z.string(),
+    start_ms: z.number().int(),
+    end_ms: z.number().int(),
+  }).transform((v) => {
+    return remap$(v, {
+      "start_ms": "startMs",
+      "end_ms": "endMs",
+    });
+  })
+);
 
 export function candidateFromJSON(
   jsonString: string,
@@ -344,16 +352,18 @@ export const EditFailure$inboundSchema: z.ZodType<
   EditFailure,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  target_text: z.string(),
-  reason: UnprocessableEntityReason$inboundSchema,
-  candidates: z.array(z.lazy(() => Candidate$inboundSchema)),
-  hint: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "target_text": "targetText",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    target_text: z.string(),
+    reason: UnprocessableEntityReason$inboundSchema,
+    candidates: z.array(z.lazy(() => Candidate$inboundSchema)),
+    hint: z.string(),
+  }).transform((v) => {
+    return remap$(v, {
+      "target_text": "targetText",
+    });
+  })
+);
 
 export function editFailureFromJSON(
   jsonString: string,
@@ -368,19 +378,23 @@ export function editFailureFromJSON(
 /** @internal */
 export const ConflictReason$inboundSchema: z.ZodNativeEnum<
   typeof ConflictReason
-> = z.nativeEnum(ConflictReason);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(ConflictReason));
 
 /** @internal */
 export const PostMediasMediaHashedIdCaptionsLanguageCodeEditsCode$inboundSchema:
   z.ZodNativeEnum<typeof PostMediasMediaHashedIdCaptionsLanguageCodeEditsCode> =
-    z.nativeEnum(PostMediasMediaHashedIdCaptionsLanguageCodeEditsCode);
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(PostMediasMediaHashedIdCaptionsLanguageCodeEditsCode)
+    );
 
 /** @internal */
 export const Version$inboundSchema: z.ZodType<Version, z.ZodTypeDef, unknown> =
-  z.object({
-    from: z.number().int(),
-    to: z.number().int(),
-  });
+  /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      from: z.number().int(),
+      to: z.number().int(),
+    })
+  );
 
 export function versionFromJSON(
   jsonString: string,
@@ -397,15 +411,17 @@ export const Original$inboundSchema: z.ZodType<
   Original,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  start_ms: z.number().int(),
-  end_ms: z.number().int(),
-}).transform((v) => {
-  return remap$(v, {
-    "start_ms": "startMs",
-    "end_ms": "endMs",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    start_ms: z.number().int(),
+    end_ms: z.number().int(),
+  }).transform((v) => {
+    return remap$(v, {
+      "start_ms": "startMs",
+      "end_ms": "endMs",
+    });
+  })
+);
 
 export function originalFromJSON(
   jsonString: string,
@@ -422,15 +438,17 @@ export const Replacement$inboundSchema: z.ZodType<
   Replacement,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  start_ms: z.number().int(),
-  end_ms: z.number().int(),
-}).transform((v) => {
-  return remap$(v, {
-    "start_ms": "startMs",
-    "end_ms": "endMs",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    start_ms: z.number().int(),
+    end_ms: z.number().int(),
+  }).transform((v) => {
+    return remap$(v, {
+      "start_ms": "startMs",
+      "end_ms": "endMs",
+    });
+  })
+);
 
 export function replacementFromJSON(
   jsonString: string,
@@ -447,20 +465,22 @@ export const EditResponse$inboundSchema: z.ZodType<
   EditResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  target_text: z.string(),
-  replacement_text: z.string(),
-  matched_text: z.string(),
-  context: z.string(),
-  original: z.lazy(() => Original$inboundSchema),
-  replacement: z.nullable(z.lazy(() => Replacement$inboundSchema)),
-}).transform((v) => {
-  return remap$(v, {
-    "target_text": "targetText",
-    "replacement_text": "replacementText",
-    "matched_text": "matchedText",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    target_text: z.string(),
+    replacement_text: z.string(),
+    matched_text: z.string(),
+    context: z.string(),
+    original: z.lazy(() => Original$inboundSchema),
+    replacement: z.nullable(z.lazy(() => Replacement$inboundSchema)),
+  }).transform((v) => {
+    return remap$(v, {
+      "target_text": "targetText",
+      "replacement_text": "replacementText",
+      "matched_text": "matchedText",
+    });
+  })
+);
 
 export function editResponseFromJSON(
   jsonString: string,
@@ -478,18 +498,20 @@ export const PostMediasMediaHashedIdCaptionsLanguageCodeEditsResponse$inboundSch
     PostMediasMediaHashedIdCaptionsLanguageCodeEditsResponse,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    applied: z.boolean(),
-    media_id: z.string(),
-    language: z.string(),
-    version: z.lazy(() => Version$inboundSchema),
-    edits: z.array(z.lazy(() => EditResponse$inboundSchema)),
-    warnings: z.array(z.string()),
-  }).transform((v) => {
-    return remap$(v, {
-      "media_id": "mediaId",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      applied: z.boolean(),
+      media_id: z.string(),
+      language: z.string(),
+      version: z.lazy(() => Version$inboundSchema),
+      edits: z.array(z.lazy(() => EditResponse$inboundSchema)),
+      warnings: z.array(z.string()),
+    }).transform((v) => {
+      return remap$(v, {
+        "media_id": "mediaId",
+      });
+    })
+  );
 
 export function postMediasMediaHashedIdCaptionsLanguageCodeEditsResponseFromJSON(
   jsonString: string,

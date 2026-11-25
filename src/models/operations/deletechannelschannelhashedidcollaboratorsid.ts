@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -106,10 +106,12 @@ export const DeleteChannelsChannelHashedIdCollaboratorsIdRequest$outboundSchema:
     DeleteChannelsChannelHashedIdCollaboratorsIdRequest$Outbound,
     z.ZodTypeDef,
     DeleteChannelsChannelHashedIdCollaboratorsIdRequest
-  > = z.object({
-    channelHashedId: z.string(),
-    id: z.number().int(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      channelHashedId: z.string(),
+      id: z.number().int(),
+    })
+  );
 
 export function deleteChannelsChannelHashedIdCollaboratorsIdRequestToJSON(
   deleteChannelsChannelHashedIdCollaboratorsIdRequest:
@@ -124,13 +126,17 @@ export function deleteChannelsChannelHashedIdCollaboratorsIdRequestToJSON(
 
 /** @internal */
 export const DeleteChannelsChannelHashedIdCollaboratorsIdCode$inboundSchema:
-  z.ZodNativeEnum<typeof DeleteChannelsChannelHashedIdCollaboratorsIdCode> = z
-    .nativeEnum(DeleteChannelsChannelHashedIdCollaboratorsIdCode);
+  z.ZodNativeEnum<typeof DeleteChannelsChannelHashedIdCollaboratorsIdCode> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(DeleteChannelsChannelHashedIdCollaboratorsIdCode)
+    );
 
 /** @internal */
 export const DeleteChannelsChannelHashedIdCollaboratorsIdRole$inboundSchema:
-  z.ZodNativeEnum<typeof DeleteChannelsChannelHashedIdCollaboratorsIdRole> = z
-    .nativeEnum(DeleteChannelsChannelHashedIdCollaboratorsIdRole);
+  z.ZodNativeEnum<typeof DeleteChannelsChannelHashedIdCollaboratorsIdRole> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(DeleteChannelsChannelHashedIdCollaboratorsIdRole)
+    );
 
 /** @internal */
 export const DeleteChannelsChannelHashedIdCollaboratorsIdShare$inboundSchema:
@@ -138,12 +144,14 @@ export const DeleteChannelsChannelHashedIdCollaboratorsIdShare$inboundSchema:
     DeleteChannelsChannelHashedIdCollaboratorsIdShare,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    id: z.number().int(),
-    name: z.string(),
-    type: z.string(),
-    email: z.string().optional(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      id: z.number().int(),
+      name: z.string(),
+      type: z.string(),
+      email: z.string().optional(),
+    })
+  );
 
 export function deleteChannelsChannelHashedIdCollaboratorsIdShareFromJSON(
   jsonString: string,
@@ -167,21 +175,23 @@ export const DeleteChannelsChannelHashedIdCollaboratorsIdResponse$inboundSchema:
     DeleteChannelsChannelHashedIdCollaboratorsIdResponse,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    id: z.number().int(),
-    role: DeleteChannelsChannelHashedIdCollaboratorsIdRole$inboundSchema,
-    created_at: z.string().datetime({ offset: true }).transform(v =>
-      new Date(v)
-    ),
-    share: z.lazy(() =>
-      DeleteChannelsChannelHashedIdCollaboratorsIdShare$inboundSchema
-    ),
-    cursor: z.nullable(z.string()).optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      "created_at": "createdAt",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      id: z.number().int(),
+      role: DeleteChannelsChannelHashedIdCollaboratorsIdRole$inboundSchema,
+      created_at: z.string().datetime({ offset: true }).transform(v =>
+        new Date(v)
+      ),
+      share: z.lazy(() =>
+        DeleteChannelsChannelHashedIdCollaboratorsIdShare$inboundSchema
+      ),
+      cursor: z.nullable(z.string()).optional(),
+    }).transform((v) => {
+      return remap$(v, {
+        "created_at": "createdAt",
+      });
+    })
+  );
 
 export function deleteChannelsChannelHashedIdCollaboratorsIdResponseFromJSON(
   jsonString: string,

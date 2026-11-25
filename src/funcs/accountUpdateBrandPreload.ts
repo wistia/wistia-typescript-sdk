@@ -39,6 +39,11 @@ import { Result } from "../types/fp.js";
  * (or a Wistia admin) — mirrors the auth check on the underlying
  * `updateWtwBrandKitAccountSettings` GraphQL mutation.
  *
+ * An [expiring access token](https://docs.wistia.com/reference/post_expiring-token)
+ * created with the `all:delegate_to_contact_permissions` scope and an
+ * `account` authorization granting the `manage-brand-preload` permission can
+ * also be used.
+ *
  * Deliberately narrower than the mutation: this endpoint does not
  * create/update BrandKits or set body font family. Glass's onboarding
  * customize step writes only these two fields; broader brand-kit

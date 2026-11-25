@@ -10,5 +10,6 @@ let value: PutMediasMediaIdCustomizationsPlaybackClickForSound = {};
 
 ## Fields
 
-| Field       | Type        | Required    | Description |
-| ----------- | ----------- | ----------- | ----------- |
+| Field              | Type               | Required           | Description        |
+| ------------------ | ------------------ | ------------------ | ------------------ |
+| `showText`         | *string*           | :heavy_minus_sign: | N/A                |

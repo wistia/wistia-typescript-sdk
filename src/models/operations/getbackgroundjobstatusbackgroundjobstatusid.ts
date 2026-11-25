@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -233,9 +233,11 @@ export const GetBackgroundJobStatusBackgroundJobStatusIdRequest$outboundSchema:
     GetBackgroundJobStatusBackgroundJobStatusIdRequest$Outbound,
     z.ZodTypeDef,
     GetBackgroundJobStatusBackgroundJobStatusIdRequest
-  > = z.object({
-    backgroundJobStatusId: z.string(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      backgroundJobStatusId: z.string(),
+    })
+  );
 
 export function getBackgroundJobStatusBackgroundJobStatusIdRequestToJSON(
   getBackgroundJobStatusBackgroundJobStatusIdRequest:
@@ -250,26 +252,34 @@ export function getBackgroundJobStatusBackgroundJobStatusIdRequestToJSON(
 
 /** @internal */
 export const GetBackgroundJobStatusBackgroundJobStatusIdCode$inboundSchema:
-  z.ZodNativeEnum<typeof GetBackgroundJobStatusBackgroundJobStatusIdCode> = z
-    .nativeEnum(GetBackgroundJobStatusBackgroundJobStatusIdCode);
+  z.ZodNativeEnum<typeof GetBackgroundJobStatusBackgroundJobStatusIdCode> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(GetBackgroundJobStatusBackgroundJobStatusIdCode)
+    );
 
 /** @internal */
 export const GetBackgroundJobStatusBackgroundJobStatusIdStatus$inboundSchema:
-  z.ZodNativeEnum<typeof GetBackgroundJobStatusBackgroundJobStatusIdStatus> = z
-    .nativeEnum(GetBackgroundJobStatusBackgroundJobStatusIdStatus);
+  z.ZodNativeEnum<typeof GetBackgroundJobStatusBackgroundJobStatusIdStatus> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(GetBackgroundJobStatusBackgroundJobStatusIdStatus)
+    );
 
 /** @internal */
 export const GetBackgroundJobStatusBackgroundJobStatusIdType$inboundSchema:
-  z.ZodNativeEnum<typeof GetBackgroundJobStatusBackgroundJobStatusIdType> = z
-    .nativeEnum(GetBackgroundJobStatusBackgroundJobStatusIdType);
+  z.ZodNativeEnum<typeof GetBackgroundJobStatusBackgroundJobStatusIdType> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(GetBackgroundJobStatusBackgroundJobStatusIdType)
+    );
 
 /** @internal */
 export const Summary$inboundSchema: z.ZodType<Summary, z.ZodTypeDef, unknown> =
-  z.object({
-    total: z.number().int(),
-    succeeded: z.number().int(),
-    failed: z.number().int(),
-  });
+  /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      total: z.number().int(),
+      succeeded: z.number().int(),
+      failed: z.number().int(),
+    })
+  );
 
 export function summaryFromJSON(
   jsonString: string,
@@ -284,11 +294,13 @@ export function summaryFromJSON(
 /** @internal */
 export const GetBackgroundJobStatusBackgroundJobStatusIdOperation$inboundSchema:
   z.ZodNativeEnum<typeof GetBackgroundJobStatusBackgroundJobStatusIdOperation> =
-    z.nativeEnum(GetBackgroundJobStatusBackgroundJobStatusIdOperation);
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(GetBackgroundJobStatusBackgroundJobStatusIdOperation)
+    );
 
 /** @internal */
 export const ObjectStatus$inboundSchema: z.ZodNativeEnum<typeof ObjectStatus> =
-  z.nativeEnum(ObjectStatus);
+  /* @__PURE__ */ lazySchema$(() => z.nativeEnum(ObjectStatus));
 
 /** @internal */
 export const GetBackgroundJobStatusBackgroundJobStatusIdResult$inboundSchema:
@@ -296,20 +308,22 @@ export const GetBackgroundJobStatusBackgroundJobStatusIdResult$inboundSchema:
     GetBackgroundJobStatusBackgroundJobStatusIdResult,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    position: z.number().int(),
-    operation:
-      GetBackgroundJobStatusBackgroundJobStatusIdOperation$inboundSchema
-        .optional(),
-    resource_type: z.string().optional(),
-    id: z.string().optional(),
-    status: ObjectStatus$inboundSchema,
-    error: z.string().optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      "resource_type": "resourceType",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      position: z.number().int(),
+      operation:
+        GetBackgroundJobStatusBackgroundJobStatusIdOperation$inboundSchema
+          .optional(),
+      resource_type: z.string().optional(),
+      id: z.string().optional(),
+      status: ObjectStatus$inboundSchema,
+      error: z.string().optional(),
+    }).transform((v) => {
+      return remap$(v, {
+        "resource_type": "resourceType",
+      });
+    })
+  );
 
 export function getBackgroundJobStatusBackgroundJobStatusIdResultFromJSON(
   jsonString: string,
@@ -332,15 +346,15 @@ export const ObjectBulkOperation$inboundSchema: z.ZodType<
   ObjectBulkOperation,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  type: GetBackgroundJobStatusBackgroundJobStatusIdType$inboundSchema,
-  summary: z.lazy(() => Summary$inboundSchema),
-  results: z.array(
-    z.lazy(() =>
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    type: GetBackgroundJobStatusBackgroundJobStatusIdType$inboundSchema,
+    summary: z.lazy(() => Summary$inboundSchema),
+    results: z.array(z.lazy(() =>
       GetBackgroundJobStatusBackgroundJobStatusIdResult$inboundSchema
-    ),
-  ),
-});
+    )),
+  })
+);
 
 export function objectBulkOperationFromJSON(
   jsonString: string,
@@ -354,7 +368,9 @@ export function objectBulkOperationFromJSON(
 
 /** @internal */
 export const ObjectT$inboundSchema: z.ZodType<ObjectT, z.ZodTypeDef, unknown> =
-  z.lazy(() => ObjectBulkOperation$inboundSchema);
+  /* @__PURE__ */ lazySchema$(() =>
+    z.lazy(() => ObjectBulkOperation$inboundSchema)
+  );
 
 export function objectFromJSON(
   jsonString: string,
@@ -372,16 +388,18 @@ export const GetBackgroundJobStatusBackgroundJobStatusIdBackgroundJobStatus$inbo
     GetBackgroundJobStatusBackgroundJobStatusIdBackgroundJobStatus,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    id: z.number().int(),
-    hashed_id: z.string(),
-    status: GetBackgroundJobStatusBackgroundJobStatusIdStatus$inboundSchema,
-    object: z.lazy(() => ObjectBulkOperation$inboundSchema).optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      "hashed_id": "hashedId",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      id: z.number().int(),
+      hashed_id: z.string(),
+      status: GetBackgroundJobStatusBackgroundJobStatusIdStatus$inboundSchema,
+      object: z.lazy(() => ObjectBulkOperation$inboundSchema).optional(),
+    }).transform((v) => {
+      return remap$(v, {
+        "hashed_id": "hashedId",
+      });
+    })
+  );
 
 export function getBackgroundJobStatusBackgroundJobStatusIdBackgroundJobStatusFromJSON(
   jsonString: string,
@@ -404,15 +422,17 @@ export const GetBackgroundJobStatusBackgroundJobStatusIdResponse$inboundSchema:
     GetBackgroundJobStatusBackgroundJobStatusIdResponse,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    background_job_status: z.lazy(() =>
-      GetBackgroundJobStatusBackgroundJobStatusIdBackgroundJobStatus$inboundSchema
-    ),
-  }).transform((v) => {
-    return remap$(v, {
-      "background_job_status": "backgroundJobStatus",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      background_job_status: z.lazy(() =>
+        GetBackgroundJobStatusBackgroundJobStatusIdBackgroundJobStatus$inboundSchema
+      ),
+    }).transform((v) => {
+      return remap$(v, {
+        "background_job_status": "backgroundJobStatus",
+      });
+    })
+  );
 
 export function getBackgroundJobStatusBackgroundJobStatusIdResponseFromJSON(
   jsonString: string,

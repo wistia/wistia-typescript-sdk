@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -96,9 +96,11 @@ export const GetStatsVisitorsVisitorKeyRequest$outboundSchema: z.ZodType<
   GetStatsVisitorsVisitorKeyRequest$Outbound,
   z.ZodTypeDef,
   GetStatsVisitorsVisitorKeyRequest
-> = z.object({
-  visitorKey: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    visitorKey: z.string(),
+  })
+);
 
 export function getStatsVisitorsVisitorKeyRequestToJSON(
   getStatsVisitorsVisitorKeyRequest: GetStatsVisitorsVisitorKeyRequest,
@@ -113,17 +115,21 @@ export function getStatsVisitorsVisitorKeyRequestToJSON(
 /** @internal */
 export const GetStatsVisitorsVisitorKeyCode$inboundSchema: z.ZodNativeEnum<
   typeof GetStatsVisitorsVisitorKeyCode
-> = z.nativeEnum(GetStatsVisitorsVisitorKeyCode);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(GetStatsVisitorsVisitorKeyCode)
+);
 
 /** @internal */
 export const GetStatsVisitorsVisitorKeyOrg$inboundSchema: z.ZodType<
   GetStatsVisitorsVisitorKeyOrg,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  name: z.nullable(z.string()).optional(),
-  title: z.nullable(z.string()).optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    name: z.nullable(z.string()).optional(),
+    title: z.nullable(z.string()).optional(),
+  })
+);
 
 export function getStatsVisitorsVisitorKeyOrgFromJSON(
   jsonString: string,
@@ -140,11 +146,13 @@ export const GetStatsVisitorsVisitorKeyVisitorIdentity$inboundSchema: z.ZodType<
   GetStatsVisitorsVisitorKeyVisitorIdentity,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  name: z.nullable(z.string()).optional(),
-  email: z.nullable(z.string()).optional(),
-  org: z.lazy(() => GetStatsVisitorsVisitorKeyOrg$inboundSchema).optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    name: z.nullable(z.string()).optional(),
+    email: z.nullable(z.string()).optional(),
+    org: z.lazy(() => GetStatsVisitorsVisitorKeyOrg$inboundSchema).optional(),
+  })
+);
 
 export function getStatsVisitorsVisitorKeyVisitorIdentityFromJSON(
   jsonString: string,
@@ -165,16 +173,18 @@ export function getStatsVisitorsVisitorKeyVisitorIdentityFromJSON(
 /** @internal */
 export const GetStatsVisitorsVisitorKeyUserAgentDetails$inboundSchema:
   z.ZodType<GetStatsVisitorsVisitorKeyUserAgentDetails, z.ZodTypeDef, unknown> =
-    z.object({
-      browser: z.string().optional(),
-      browser_version: z.string().optional(),
-      platform: z.string().optional(),
-      mobile: z.boolean().optional(),
-    }).transform((v) => {
-      return remap$(v, {
-        "browser_version": "browserVersion",
-      });
-    });
+    /* @__PURE__ */ lazySchema$(() =>
+      z.object({
+        browser: z.string().optional(),
+        browser_version: z.string().optional(),
+        platform: z.string().optional(),
+        mobile: z.boolean().optional(),
+      }).transform((v) => {
+        return remap$(v, {
+          "browser_version": "browserVersion",
+        });
+      })
+    );
 
 export function getStatsVisitorsVisitorKeyUserAgentDetailsFromJSON(
   jsonString: string,
@@ -197,36 +207,39 @@ export const GetStatsVisitorsVisitorKeyResponse$inboundSchema: z.ZodType<
   GetStatsVisitorsVisitorKeyResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  visitor_key: z.string().optional(),
-  created_at: z.string().datetime({ offset: true }).transform(v => new Date(v))
-    .optional(),
-  last_active_at: z.string().datetime({ offset: true }).transform(v =>
-    new Date(v)
-  ).optional(),
-  last_event_key: z.nullable(z.string()).optional(),
-  identifying_event_key: z.nullable(z.string()).optional(),
-  load_count: z.number().int().optional(),
-  play_count: z.number().int().optional(),
-  visitor_identity: z.lazy(() =>
-    GetStatsVisitorsVisitorKeyVisitorIdentity$inboundSchema
-  ).optional(),
-  user_agent_details: z.lazy(() =>
-    GetStatsVisitorsVisitorKeyUserAgentDetails$inboundSchema
-  ).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "visitor_key": "visitorKey",
-    "created_at": "createdAt",
-    "last_active_at": "lastActiveAt",
-    "last_event_key": "lastEventKey",
-    "identifying_event_key": "identifyingEventKey",
-    "load_count": "loadCount",
-    "play_count": "playCount",
-    "visitor_identity": "visitorIdentity",
-    "user_agent_details": "userAgentDetails",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    visitor_key: z.string().optional(),
+    created_at: z.string().datetime({ offset: true }).transform(v =>
+      new Date(v)
+    ).optional(),
+    last_active_at: z.string().datetime({ offset: true }).transform(v =>
+      new Date(v)
+    ).optional(),
+    last_event_key: z.nullable(z.string()).optional(),
+    identifying_event_key: z.nullable(z.string()).optional(),
+    load_count: z.number().int().optional(),
+    play_count: z.number().int().optional(),
+    visitor_identity: z.lazy(() =>
+      GetStatsVisitorsVisitorKeyVisitorIdentity$inboundSchema
+    ).optional(),
+    user_agent_details: z.lazy(() =>
+      GetStatsVisitorsVisitorKeyUserAgentDetails$inboundSchema
+    ).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "visitor_key": "visitorKey",
+      "created_at": "createdAt",
+      "last_active_at": "lastActiveAt",
+      "last_event_key": "lastEventKey",
+      "identifying_event_key": "identifyingEventKey",
+      "load_count": "loadCount",
+      "play_count": "playCount",
+      "visitor_identity": "visitorIdentity",
+      "user_agent_details": "userAgentDetails",
+    });
+  })
+);
 
 export function getStatsVisitorsVisitorKeyResponseFromJSON(
   jsonString: string,

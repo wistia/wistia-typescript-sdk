@@ -43,6 +43,9 @@ import { Result } from "../types/fp.js";
  * (`all:delegate_to_contact_permissions` scope) can also be used. Requests
  * made with such a token are authorized using the permissions of the
  * contact assigned to the token.
+ *
+ * Expiring access tokens created with authorizations cannot be used; such
+ * requests fail with a 403.
  */
 export function taggingsBulkCreate(
   client: WistiaCore,
