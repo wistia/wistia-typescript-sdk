@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { RFCDate } from "../../types/rfcdate.js";
@@ -96,66 +96,70 @@ export type GetAnalyticsMediasMediaIdEmbedLocationsResponse = {
   /**
    * The domain where the video is embedded.
    */
-  embedDomain?: string | undefined;
+  embedDomain?: string | null | undefined;
   /**
    * The path on the domain where the video is embedded.
    */
-  embedPath?: string | undefined;
+  embedPath?: string | null | undefined;
   /**
    * The full URL where the video is embedded.
    */
-  embedUrl?: string | undefined;
+  embedUrl?: string | null | undefined;
   /**
    * The title of the page where the video is embedded.
    */
-  pageTitle?: string | undefined;
+  pageTitle?: string | null | undefined;
   /**
    * The number of video loads from this location.
    */
-  loads?: number | undefined;
+  loads?: number | null | undefined;
   /**
    * The number of unique video loads from this location (one per visitor session).
    */
-  uniqueLoads?: number | undefined;
+  uniqueLoads?: number | null | undefined;
   /**
    * The number of video plays from this location.
    */
-  plays?: number | undefined;
+  plays?: number | null | undefined;
   /**
    * The number of unique video plays from this location (one per visitor session).
    */
-  uniquePlays?: number | undefined;
+  uniquePlays?: number | null | undefined;
   /**
    * The play rate from this location (between 0 and 1).
    */
-  playRate?: number | undefined;
+  playRate?: number | null | undefined;
   /**
    * Total time spent watching from this location in seconds.
    */
-  playedTime?: number | undefined;
+  playedTime?: number | null | undefined;
   /**
    * The average engagement rate from this location (between 0 and 1).
    */
-  engagementRate?: number | undefined;
+  engagementRate?: number | null | undefined;
   /**
    * The number of unique visitors from this location.
    */
-  uniqueVisitors?: number | undefined;
+  uniqueVisitors?: number | null | undefined;
   /**
    * The CTA conversion rate from this location (between 0 and 1).
    */
-  ctaConversionRate?: number | undefined;
+  ctaConversionRate?: number | null | undefined;
 };
 
 /** @internal */
 export const GetAnalyticsMediasMediaIdEmbedLocationsSortBy$outboundSchema:
-  z.ZodNativeEnum<typeof GetAnalyticsMediasMediaIdEmbedLocationsSortBy> = z
-    .nativeEnum(GetAnalyticsMediasMediaIdEmbedLocationsSortBy);
+  z.ZodNativeEnum<typeof GetAnalyticsMediasMediaIdEmbedLocationsSortBy> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(GetAnalyticsMediasMediaIdEmbedLocationsSortBy)
+    );
 
 /** @internal */
 export const GetAnalyticsMediasMediaIdEmbedLocationsSortDirection$outboundSchema:
   z.ZodNativeEnum<typeof GetAnalyticsMediasMediaIdEmbedLocationsSortDirection> =
-    z.nativeEnum(GetAnalyticsMediasMediaIdEmbedLocationsSortDirection);
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(GetAnalyticsMediasMediaIdEmbedLocationsSortDirection)
+    );
 
 /** @internal */
 export type GetAnalyticsMediasMediaIdEmbedLocationsRequest$Outbound = {
@@ -174,27 +178,29 @@ export const GetAnalyticsMediasMediaIdEmbedLocationsRequest$outboundSchema:
     GetAnalyticsMediasMediaIdEmbedLocationsRequest$Outbound,
     z.ZodTypeDef,
     GetAnalyticsMediasMediaIdEmbedLocationsRequest
-  > = z.object({
-    mediaId: z.string(),
-    startDate: z.instanceof(RFCDate).transform(v => v.toString()),
-    endDate: z.instanceof(RFCDate).transform(v => v.toString()),
-    sortBy: GetAnalyticsMediasMediaIdEmbedLocationsSortBy$outboundSchema
-      .default("plays"),
-    sortDirection:
-      GetAnalyticsMediasMediaIdEmbedLocationsSortDirection$outboundSchema
-        .default("desc"),
-    embedUrl: z.string().optional(),
-    perPage: z.number().int().default(10),
-  }).transform((v) => {
-    return remap$(v, {
-      startDate: "start_date",
-      endDate: "end_date",
-      sortBy: "sort_by",
-      sortDirection: "sort_direction",
-      embedUrl: "embed_url",
-      perPage: "per_page",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      mediaId: z.string(),
+      startDate: z.instanceof(RFCDate).transform(v => v.toString()),
+      endDate: z.instanceof(RFCDate).transform(v => v.toString()),
+      sortBy: GetAnalyticsMediasMediaIdEmbedLocationsSortBy$outboundSchema
+        .default("plays"),
+      sortDirection:
+        GetAnalyticsMediasMediaIdEmbedLocationsSortDirection$outboundSchema
+          .default("desc"),
+      embedUrl: z.string().optional(),
+      perPage: z.number().int().default(10),
+    }).transform((v) => {
+      return remap$(v, {
+        startDate: "start_date",
+        endDate: "end_date",
+        sortBy: "sort_by",
+        sortDirection: "sort_direction",
+        embedUrl: "embed_url",
+        perPage: "per_page",
+      });
+    })
+  );
 
 export function getAnalyticsMediasMediaIdEmbedLocationsRequestToJSON(
   getAnalyticsMediasMediaIdEmbedLocationsRequest:
@@ -209,8 +215,10 @@ export function getAnalyticsMediasMediaIdEmbedLocationsRequestToJSON(
 
 /** @internal */
 export const GetAnalyticsMediasMediaIdEmbedLocationsCode$inboundSchema:
-  z.ZodNativeEnum<typeof GetAnalyticsMediasMediaIdEmbedLocationsCode> = z
-    .nativeEnum(GetAnalyticsMediasMediaIdEmbedLocationsCode);
+  z.ZodNativeEnum<typeof GetAnalyticsMediasMediaIdEmbedLocationsCode> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(GetAnalyticsMediasMediaIdEmbedLocationsCode)
+    );
 
 /** @internal */
 export const GetAnalyticsMediasMediaIdEmbedLocationsResponse$inboundSchema:
@@ -218,35 +226,37 @@ export const GetAnalyticsMediasMediaIdEmbedLocationsResponse$inboundSchema:
     GetAnalyticsMediasMediaIdEmbedLocationsResponse,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    embed_domain: z.string().optional(),
-    embed_path: z.string().optional(),
-    embed_url: z.string().optional(),
-    page_title: z.string().optional(),
-    loads: z.number().int().optional(),
-    unique_loads: z.number().int().optional(),
-    plays: z.number().int().optional(),
-    unique_plays: z.number().int().optional(),
-    play_rate: z.number().optional(),
-    played_time: z.number().optional(),
-    engagement_rate: z.number().optional(),
-    unique_visitors: z.number().int().optional(),
-    cta_conversion_rate: z.number().optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      "embed_domain": "embedDomain",
-      "embed_path": "embedPath",
-      "embed_url": "embedUrl",
-      "page_title": "pageTitle",
-      "unique_loads": "uniqueLoads",
-      "unique_plays": "uniquePlays",
-      "play_rate": "playRate",
-      "played_time": "playedTime",
-      "engagement_rate": "engagementRate",
-      "unique_visitors": "uniqueVisitors",
-      "cta_conversion_rate": "ctaConversionRate",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      embed_domain: z.nullable(z.string()).optional(),
+      embed_path: z.nullable(z.string()).optional(),
+      embed_url: z.nullable(z.string()).optional(),
+      page_title: z.nullable(z.string()).optional(),
+      loads: z.nullable(z.number().int()).optional(),
+      unique_loads: z.nullable(z.number().int()).optional(),
+      plays: z.nullable(z.number().int()).optional(),
+      unique_plays: z.nullable(z.number().int()).optional(),
+      play_rate: z.nullable(z.number()).optional(),
+      played_time: z.nullable(z.number()).optional(),
+      engagement_rate: z.nullable(z.number()).optional(),
+      unique_visitors: z.nullable(z.number().int()).optional(),
+      cta_conversion_rate: z.nullable(z.number()).optional(),
+    }).transform((v) => {
+      return remap$(v, {
+        "embed_domain": "embedDomain",
+        "embed_path": "embedPath",
+        "embed_url": "embedUrl",
+        "page_title": "pageTitle",
+        "unique_loads": "uniqueLoads",
+        "unique_plays": "uniquePlays",
+        "play_rate": "playRate",
+        "played_time": "playedTime",
+        "engagement_rate": "engagementRate",
+        "unique_visitors": "uniqueVisitors",
+        "cta_conversion_rate": "ctaConversionRate",
+      });
+    })
+  );
 
 export function getAnalyticsMediasMediaIdEmbedLocationsResponseFromJSON(
   jsonString: string,

@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -191,10 +191,12 @@ export const CaptionsRequest$outboundSchema: z.ZodType<
   CaptionsRequest$Outbound,
   z.ZodTypeDef,
   CaptionsRequest
-> = z.object({
-  on: z.boolean().optional(),
-  onByDefault: z.boolean().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    on: z.boolean().optional(),
+    onByDefault: z.boolean().optional(),
+  })
+);
 
 export function captionsRequestToJSON(
   captionsRequest: CaptionsRequest,
@@ -215,10 +217,12 @@ export const PutMediasMediaIdCustomizationsAccessibilityCaptionsV1Request$outbou
     PutMediasMediaIdCustomizationsAccessibilityCaptionsV1Request$Outbound,
     z.ZodTypeDef,
     PutMediasMediaIdCustomizationsAccessibilityCaptionsV1Request
-  > = z.object({
-    on: z.boolean().optional(),
-    onByDefault: z.boolean().optional(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      on: z.boolean().optional(),
+      onByDefault: z.boolean().optional(),
+    })
+  );
 
 export function putMediasMediaIdCustomizationsAccessibilityCaptionsV1RequestToJSON(
   putMediasMediaIdCustomizationsAccessibilityCaptionsV1Request:
@@ -240,9 +244,11 @@ export const ExtendedAudioDescriptionRequest$outboundSchema: z.ZodType<
   ExtendedAudioDescriptionRequest$Outbound,
   z.ZodTypeDef,
   ExtendedAudioDescriptionRequest
-> = z.object({
-  on: z.boolean().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    on: z.boolean().optional(),
+  })
+);
 
 export function extendedAudioDescriptionRequestToJSON(
   extendedAudioDescriptionRequest: ExtendedAudioDescriptionRequest,
@@ -272,19 +278,21 @@ export const PutMediasMediaIdCustomizationsAccessibilityPluginRequest$outboundSc
     PutMediasMediaIdCustomizationsAccessibilityPluginRequest$Outbound,
     z.ZodTypeDef,
     PutMediasMediaIdCustomizationsAccessibilityPluginRequest
-  > = z.object({
-    captions: z.lazy(() => CaptionsRequest$outboundSchema).optional(),
-    captionsV1: z.lazy(() =>
-      PutMediasMediaIdCustomizationsAccessibilityCaptionsV1Request$outboundSchema
-    ).optional(),
-    extendedAudioDescription: z.lazy(() =>
-      ExtendedAudioDescriptionRequest$outboundSchema
-    ).optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      captionsV1: "captions-v1",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      captions: z.lazy(() => CaptionsRequest$outboundSchema).optional(),
+      captionsV1: z.lazy(() =>
+        PutMediasMediaIdCustomizationsAccessibilityCaptionsV1Request$outboundSchema
+      ).optional(),
+      extendedAudioDescription: z.lazy(() =>
+        ExtendedAudioDescriptionRequest$outboundSchema
+      ).optional(),
+    }).transform((v) => {
+      return remap$(v, {
+        captionsV1: "captions-v1",
+      });
+    })
+  );
 
 export function putMediasMediaIdCustomizationsAccessibilityPluginRequestToJSON(
   putMediasMediaIdCustomizationsAccessibilityPluginRequest:
@@ -317,19 +325,21 @@ export const PutMediasMediaIdCustomizationsAccessibilityRequestBody$outboundSche
     PutMediasMediaIdCustomizationsAccessibilityRequestBody$Outbound,
     z.ZodTypeDef,
     PutMediasMediaIdCustomizationsAccessibilityRequestBody
-  > = z.object({
-    captionsBackgroundColor: z.string().optional(),
-    captionsBorderRadius: z.number().int().optional(),
-    captionsTextColor: z.string().optional(),
-    captionsTextSize: z.number().int().optional(),
-    captionsFontFamily: z.string().optional(),
-    transcriptEnabled: z.boolean().optional(),
-    showTranscriptSpeakers: z.boolean().optional(),
-    audioDescriptionControl: z.boolean().optional(),
-    plugin: z.lazy(() =>
-      PutMediasMediaIdCustomizationsAccessibilityPluginRequest$outboundSchema
-    ).optional(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      captionsBackgroundColor: z.string().optional(),
+      captionsBorderRadius: z.number().int().optional(),
+      captionsTextColor: z.string().optional(),
+      captionsTextSize: z.number().int().optional(),
+      captionsFontFamily: z.string().optional(),
+      transcriptEnabled: z.boolean().optional(),
+      showTranscriptSpeakers: z.boolean().optional(),
+      audioDescriptionControl: z.boolean().optional(),
+      plugin: z.lazy(() =>
+        PutMediasMediaIdCustomizationsAccessibilityPluginRequest$outboundSchema
+      ).optional(),
+    })
+  );
 
 export function putMediasMediaIdCustomizationsAccessibilityRequestBodyToJSON(
   putMediasMediaIdCustomizationsAccessibilityRequestBody:
@@ -354,16 +364,18 @@ export const PutMediasMediaIdCustomizationsAccessibilityRequest$outboundSchema:
     PutMediasMediaIdCustomizationsAccessibilityRequest$Outbound,
     z.ZodTypeDef,
     PutMediasMediaIdCustomizationsAccessibilityRequest
-  > = z.object({
-    mediaId: z.string(),
-    requestBody: z.lazy(() =>
-      PutMediasMediaIdCustomizationsAccessibilityRequestBody$outboundSchema
-    ),
-  }).transform((v) => {
-    return remap$(v, {
-      requestBody: "RequestBody",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      mediaId: z.string(),
+      requestBody: z.lazy(() =>
+        PutMediasMediaIdCustomizationsAccessibilityRequestBody$outboundSchema
+      ),
+    }).transform((v) => {
+      return remap$(v, {
+        requestBody: "RequestBody",
+      });
+    })
+  );
 
 export function putMediasMediaIdCustomizationsAccessibilityRequestToJSON(
   putMediasMediaIdCustomizationsAccessibilityRequest:
@@ -378,8 +390,10 @@ export function putMediasMediaIdCustomizationsAccessibilityRequestToJSON(
 
 /** @internal */
 export const PutMediasMediaIdCustomizationsAccessibilityCode$inboundSchema:
-  z.ZodNativeEnum<typeof PutMediasMediaIdCustomizationsAccessibilityCode> = z
-    .nativeEnum(PutMediasMediaIdCustomizationsAccessibilityCode);
+  z.ZodNativeEnum<typeof PutMediasMediaIdCustomizationsAccessibilityCode> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(PutMediasMediaIdCustomizationsAccessibilityCode)
+    );
 
 /** @internal */
 export const PutMediasMediaIdCustomizationsAccessibilityCaptionsResponse$inboundSchema:
@@ -387,10 +401,12 @@ export const PutMediasMediaIdCustomizationsAccessibilityCaptionsResponse$inbound
     PutMediasMediaIdCustomizationsAccessibilityCaptionsResponse,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    on: z.string().optional(),
-    onByDefault: z.string().optional(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      on: z.string().optional(),
+      onByDefault: z.string().optional(),
+    })
+  );
 
 export function putMediasMediaIdCustomizationsAccessibilityCaptionsResponseFromJSON(
   jsonString: string,
@@ -413,10 +429,12 @@ export const PutMediasMediaIdCustomizationsAccessibilityCaptionsV1Response$inbou
     PutMediasMediaIdCustomizationsAccessibilityCaptionsV1Response,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    on: z.string().optional(),
-    onByDefault: z.string().optional(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      on: z.string().optional(),
+      onByDefault: z.string().optional(),
+    })
+  );
 
 export function putMediasMediaIdCustomizationsAccessibilityCaptionsV1ResponseFromJSON(
   jsonString: string,
@@ -439,9 +457,11 @@ export const PutMediasMediaIdCustomizationsAccessibilityExtendedAudioDescription
     PutMediasMediaIdCustomizationsAccessibilityExtendedAudioDescriptionResponse,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    on: z.string().optional(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      on: z.string().optional(),
+    })
+  );
 
 export function putMediasMediaIdCustomizationsAccessibilityExtendedAudioDescriptionResponseFromJSON(
   jsonString: string,
@@ -464,21 +484,23 @@ export const PutMediasMediaIdCustomizationsAccessibilityPluginResponse$inboundSc
     PutMediasMediaIdCustomizationsAccessibilityPluginResponse,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    captions: z.lazy(() =>
-      PutMediasMediaIdCustomizationsAccessibilityCaptionsResponse$inboundSchema
-    ).optional(),
-    "captions-v1": z.lazy(() =>
-      PutMediasMediaIdCustomizationsAccessibilityCaptionsV1Response$inboundSchema
-    ).optional(),
-    extendedAudioDescription: z.lazy(() =>
-      PutMediasMediaIdCustomizationsAccessibilityExtendedAudioDescriptionResponse$inboundSchema
-    ).optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      "captions-v1": "captionsV1",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      captions: z.lazy(() =>
+        PutMediasMediaIdCustomizationsAccessibilityCaptionsResponse$inboundSchema
+      ).optional(),
+      "captions-v1": z.lazy(() =>
+        PutMediasMediaIdCustomizationsAccessibilityCaptionsV1Response$inboundSchema
+      ).optional(),
+      extendedAudioDescription: z.lazy(() =>
+        PutMediasMediaIdCustomizationsAccessibilityExtendedAudioDescriptionResponse$inboundSchema
+      ).optional(),
+    }).transform((v) => {
+      return remap$(v, {
+        "captions-v1": "captionsV1",
+      });
+    })
+  );
 
 export function putMediasMediaIdCustomizationsAccessibilityPluginResponseFromJSON(
   jsonString: string,
@@ -501,19 +523,21 @@ export const PutMediasMediaIdCustomizationsAccessibilityResponse$inboundSchema:
     PutMediasMediaIdCustomizationsAccessibilityResponse,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    captionsBackgroundColor: z.string().optional(),
-    captionsBorderRadius: z.string().optional(),
-    captionsTextColor: z.string().optional(),
-    captionsTextSize: z.string().optional(),
-    captionsFontFamily: z.string().optional(),
-    transcriptEnabled: z.string().optional(),
-    showTranscriptSpeakers: z.string().optional(),
-    audioDescriptionControl: z.string().optional(),
-    plugin: z.lazy(() =>
-      PutMediasMediaIdCustomizationsAccessibilityPluginResponse$inboundSchema
-    ).optional(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      captionsBackgroundColor: z.string().optional(),
+      captionsBorderRadius: z.string().optional(),
+      captionsTextColor: z.string().optional(),
+      captionsTextSize: z.string().optional(),
+      captionsFontFamily: z.string().optional(),
+      transcriptEnabled: z.string().optional(),
+      showTranscriptSpeakers: z.string().optional(),
+      audioDescriptionControl: z.string().optional(),
+      plugin: z.lazy(() =>
+        PutMediasMediaIdCustomizationsAccessibilityPluginResponse$inboundSchema
+      ).optional(),
+    })
+  );
 
 export function putMediasMediaIdCustomizationsAccessibilityResponseFromJSON(
   jsonString: string,

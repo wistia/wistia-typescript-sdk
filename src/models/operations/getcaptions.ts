@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -188,7 +188,7 @@ export type GetCaptionsResponse = {
 /** @internal */
 export const GetCaptionsEnabled$outboundSchema: z.ZodNativeEnum<
   typeof GetCaptionsEnabled
-> = z.nativeEnum(GetCaptionsEnabled);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetCaptionsEnabled));
 
 /** @internal */
 export type GetCaptionsCursor$Outbound = {
@@ -202,11 +202,13 @@ export const GetCaptionsCursor$outboundSchema: z.ZodType<
   GetCaptionsCursor$Outbound,
   z.ZodTypeDef,
   GetCaptionsCursor
-> = z.object({
-  enabled: GetCaptionsEnabled$outboundSchema.optional(),
-  before: z.string().optional(),
-  after: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    enabled: GetCaptionsEnabled$outboundSchema.optional(),
+    before: z.string().optional(),
+    after: z.string().optional(),
+  })
+);
 
 export function getCaptionsCursorToJSON(
   getCaptionsCursor: GetCaptionsCursor,
@@ -219,12 +221,12 @@ export function getCaptionsCursorToJSON(
 /** @internal */
 export const GetCaptionsSortBy$outboundSchema: z.ZodNativeEnum<
   typeof GetCaptionsSortBy
-> = z.nativeEnum(GetCaptionsSortBy);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetCaptionsSortBy));
 
 /** @internal */
 export const GetCaptionsSortDirection$outboundSchema: z.ZodNativeEnum<
   typeof GetCaptionsSortDirection
-> = z.nativeEnum(GetCaptionsSortDirection);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetCaptionsSortDirection));
 
 /** @internal */
 export type GetCaptionsRequest$Outbound = {
@@ -241,21 +243,23 @@ export const GetCaptionsRequest$outboundSchema: z.ZodType<
   GetCaptionsRequest$Outbound,
   z.ZodTypeDef,
   GetCaptionsRequest
-> = z.object({
-  mediaId: z.string().optional(),
-  page: z.number().int().optional(),
-  perPage: z.number().int().optional(),
-  cursor: z.lazy(() => GetCaptionsCursor$outboundSchema).optional(),
-  sortBy: GetCaptionsSortBy$outboundSchema.default("id"),
-  sortDirection: GetCaptionsSortDirection$outboundSchema.default(1),
-}).transform((v) => {
-  return remap$(v, {
-    mediaId: "media_id",
-    perPage: "per_page",
-    sortBy: "sort_by",
-    sortDirection: "sort_direction",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    mediaId: z.string().optional(),
+    page: z.number().int().optional(),
+    perPage: z.number().int().optional(),
+    cursor: z.lazy(() => GetCaptionsCursor$outboundSchema).optional(),
+    sortBy: GetCaptionsSortBy$outboundSchema.default("id"),
+    sortDirection: GetCaptionsSortDirection$outboundSchema.default(1),
+  }).transform((v) => {
+    return remap$(v, {
+      mediaId: "media_id",
+      perPage: "per_page",
+      sortBy: "sort_by",
+      sortDirection: "sort_direction",
+    });
+  })
+);
 
 export function getCaptionsRequestToJSON(
   getCaptionsRequest: GetCaptionsRequest,
@@ -268,28 +272,30 @@ export function getCaptionsRequestToJSON(
 /** @internal */
 export const GetCaptionsCode$inboundSchema: z.ZodNativeEnum<
   typeof GetCaptionsCode
-> = z.nativeEnum(GetCaptionsCode);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetCaptionsCode));
 
 /** @internal */
 export const GetCaptionsResponse$inboundSchema: z.ZodType<
   GetCaptionsResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  english_name: z.string().optional(),
-  native_name: z.string().optional(),
-  language: z.string(),
-  text: z.nullable(z.string()).optional(),
-  is_draft: z.boolean(),
-  id: z.string(),
-  cursor: z.nullable(z.string()).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "english_name": "englishName",
-    "native_name": "nativeName",
-    "is_draft": "isDraft",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    english_name: z.string().optional(),
+    native_name: z.string().optional(),
+    language: z.string(),
+    text: z.nullable(z.string()).optional(),
+    is_draft: z.boolean(),
+    id: z.string(),
+    cursor: z.nullable(z.string()).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "english_name": "englishName",
+      "native_name": "nativeName",
+      "is_draft": "isDraft",
+    });
+  })
+);
 
 export function getCaptionsResponseFromJSON(
   jsonString: string,

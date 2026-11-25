@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { RFCDate } from "../../types/rfcdate.js";
@@ -182,20 +182,22 @@ export const GetAnalyticsWebinarsWebinarIdRequest$outboundSchema: z.ZodType<
   GetAnalyticsWebinarsWebinarIdRequest$Outbound,
   z.ZodTypeDef,
   GetAnalyticsWebinarsWebinarIdRequest
-> = z.object({
-  webinarId: z.string(),
-  includePostEvent: z.boolean().default(false),
-  postEventStartDate: z.instanceof(RFCDate).transform(v => v.toString())
-    .optional(),
-  postEventEndDate: z.instanceof(RFCDate).transform(v => v.toString())
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    includePostEvent: "include_post_event",
-    postEventStartDate: "post_event_start_date",
-    postEventEndDate: "post_event_end_date",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    webinarId: z.string(),
+    includePostEvent: z.boolean().default(false),
+    postEventStartDate: z.instanceof(RFCDate).transform(v => v.toString())
+      .optional(),
+    postEventEndDate: z.instanceof(RFCDate).transform(v => v.toString())
+      .optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      includePostEvent: "include_post_event",
+      postEventStartDate: "post_event_start_date",
+      postEventEndDate: "post_event_end_date",
+    });
+  })
+);
 
 export function getAnalyticsWebinarsWebinarIdRequestToJSON(
   getAnalyticsWebinarsWebinarIdRequest: GetAnalyticsWebinarsWebinarIdRequest,
@@ -210,16 +212,20 @@ export function getAnalyticsWebinarsWebinarIdRequestToJSON(
 /** @internal */
 export const GetAnalyticsWebinarsWebinarIdCode$inboundSchema: z.ZodNativeEnum<
   typeof GetAnalyticsWebinarsWebinarIdCode
-> = z.nativeEnum(GetAnalyticsWebinarsWebinarIdCode);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(GetAnalyticsWebinarsWebinarIdCode)
+);
 
 /** @internal */
-export const Option$inboundSchema: z.ZodType<Option, z.ZodTypeDef, unknown> = z
-  .object({
-    id: z.number().int().optional(),
-    text: z.string().optional(),
-    count: z.number().int().optional(),
-    percent: z.number().optional(),
-  });
+export const Option$inboundSchema: z.ZodType<Option, z.ZodTypeDef, unknown> =
+  /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      id: z.number().int().optional(),
+      text: z.string().optional(),
+      count: z.number().int().optional(),
+      percent: z.number().optional(),
+    })
+  );
 
 export function optionFromJSON(
   jsonString: string,
@@ -236,18 +242,20 @@ export const PollQuestion$inboundSchema: z.ZodType<
   PollQuestion,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.number().int().optional(),
-  poll_id: z.number().int().optional(),
-  text: z.string().optional(),
-  response_count: z.number().int().optional(),
-  options: z.nullable(z.array(z.lazy(() => Option$inboundSchema))).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "poll_id": "pollId",
-    "response_count": "responseCount",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    id: z.number().int().optional(),
+    poll_id: z.number().int().optional(),
+    text: z.string().optional(),
+    response_count: z.number().int().optional(),
+    options: z.nullable(z.array(z.lazy(() => Option$inboundSchema))).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "poll_id": "pollId",
+      "response_count": "responseCount",
+    });
+  })
+);
 
 export function pollQuestionFromJSON(
   jsonString: string,
@@ -264,46 +272,49 @@ export const GetAnalyticsWebinarsWebinarIdResponse$inboundSchema: z.ZodType<
   GetAnalyticsWebinarsWebinarIdResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  registrations: z.nullable(z.number().int()).optional(),
-  imported_registrations: z.nullable(z.number().int()).optional(),
-  on_demand_registrations: z.nullable(z.number().int()).optional(),
-  imported_on_demand_registrations: z.nullable(z.number().int()).optional(),
-  total_watch_time: z.nullable(z.number().int()).optional(),
-  average_watch_time: z.nullable(z.number().int()).optional(),
-  attendance: z.nullable(z.number().int()).optional(),
-  chatted_attendees: z.nullable(z.number().int()).optional(),
-  engagement_rate: z.nullable(z.number()).optional(),
-  chats: z.nullable(z.number().int()).optional(),
-  currently_watching: z.nullable(z.number().int()).optional(),
-  engaged_attendees: z.nullable(z.number().int()).optional(),
-  impressions: z.nullable(z.number().int()).optional(),
-  on_demand_impressions: z.nullable(z.number().int()).optional(),
-  on_demand_plays: z.nullable(z.number().int()).optional(),
-  on_demand_engagement_rate: z.nullable(z.number()).optional(),
-  event_time: z.nullable(z.number().int()).optional(),
-  qa_questions: z.nullable(z.number().int()).optional(),
-  poll_questions: z.nullable(z.array(z.lazy(() => PollQuestion$inboundSchema)))
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "imported_registrations": "importedRegistrations",
-    "on_demand_registrations": "onDemandRegistrations",
-    "imported_on_demand_registrations": "importedOnDemandRegistrations",
-    "total_watch_time": "totalWatchTime",
-    "average_watch_time": "averageWatchTime",
-    "chatted_attendees": "chattedAttendees",
-    "engagement_rate": "engagementRate",
-    "currently_watching": "currentlyWatching",
-    "engaged_attendees": "engagedAttendees",
-    "on_demand_impressions": "onDemandImpressions",
-    "on_demand_plays": "onDemandPlays",
-    "on_demand_engagement_rate": "onDemandEngagementRate",
-    "event_time": "eventTime",
-    "qa_questions": "qaQuestions",
-    "poll_questions": "pollQuestions",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    registrations: z.nullable(z.number().int()).optional(),
+    imported_registrations: z.nullable(z.number().int()).optional(),
+    on_demand_registrations: z.nullable(z.number().int()).optional(),
+    imported_on_demand_registrations: z.nullable(z.number().int()).optional(),
+    total_watch_time: z.nullable(z.number().int()).optional(),
+    average_watch_time: z.nullable(z.number().int()).optional(),
+    attendance: z.nullable(z.number().int()).optional(),
+    chatted_attendees: z.nullable(z.number().int()).optional(),
+    engagement_rate: z.nullable(z.number()).optional(),
+    chats: z.nullable(z.number().int()).optional(),
+    currently_watching: z.nullable(z.number().int()).optional(),
+    engaged_attendees: z.nullable(z.number().int()).optional(),
+    impressions: z.nullable(z.number().int()).optional(),
+    on_demand_impressions: z.nullable(z.number().int()).optional(),
+    on_demand_plays: z.nullable(z.number().int()).optional(),
+    on_demand_engagement_rate: z.nullable(z.number()).optional(),
+    event_time: z.nullable(z.number().int()).optional(),
+    qa_questions: z.nullable(z.number().int()).optional(),
+    poll_questions: z.nullable(
+      z.array(z.lazy(() => PollQuestion$inboundSchema)),
+    ).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "imported_registrations": "importedRegistrations",
+      "on_demand_registrations": "onDemandRegistrations",
+      "imported_on_demand_registrations": "importedOnDemandRegistrations",
+      "total_watch_time": "totalWatchTime",
+      "average_watch_time": "averageWatchTime",
+      "chatted_attendees": "chattedAttendees",
+      "engagement_rate": "engagementRate",
+      "currently_watching": "currentlyWatching",
+      "engaged_attendees": "engagedAttendees",
+      "on_demand_impressions": "onDemandImpressions",
+      "on_demand_plays": "onDemandPlays",
+      "on_demand_engagement_rate": "onDemandEngagementRate",
+      "event_time": "eventTime",
+      "qa_questions": "qaQuestions",
+      "poll_questions": "pollQuestions",
+    });
+  })
+);
 
 export function getAnalyticsWebinarsWebinarIdResponseFromJSON(
   jsonString: string,

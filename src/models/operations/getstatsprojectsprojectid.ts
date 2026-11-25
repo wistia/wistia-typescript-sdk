@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -66,9 +66,11 @@ export const GetStatsProjectsProjectIdRequest$outboundSchema: z.ZodType<
   GetStatsProjectsProjectIdRequest$Outbound,
   z.ZodTypeDef,
   GetStatsProjectsProjectIdRequest
-> = z.object({
-  projectId: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    projectId: z.string(),
+  })
+);
 
 export function getStatsProjectsProjectIdRequestToJSON(
   getStatsProjectsProjectIdRequest: GetStatsProjectsProjectIdRequest,
@@ -83,26 +85,30 @@ export function getStatsProjectsProjectIdRequestToJSON(
 /** @internal */
 export const GetStatsProjectsProjectIdCode$inboundSchema: z.ZodNativeEnum<
   typeof GetStatsProjectsProjectIdCode
-> = z.nativeEnum(GetStatsProjectsProjectIdCode);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(GetStatsProjectsProjectIdCode)
+);
 
 /** @internal */
 export const GetStatsProjectsProjectIdResponse$inboundSchema: z.ZodType<
   GetStatsProjectsProjectIdResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  load_count: z.number().int().optional(),
-  play_count: z.number().int().optional(),
-  hours_watched: z.number().optional(),
-  number_of_videos: z.number().int().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "load_count": "loadCount",
-    "play_count": "playCount",
-    "hours_watched": "hoursWatched",
-    "number_of_videos": "numberOfVideos",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    load_count: z.number().int().optional(),
+    play_count: z.number().int().optional(),
+    hours_watched: z.number().optional(),
+    number_of_videos: z.number().int().optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "load_count": "loadCount",
+      "play_count": "playCount",
+      "hours_watched": "hoursWatched",
+      "number_of_videos": "numberOfVideos",
+    });
+  })
+);
 
 export function getStatsProjectsProjectIdResponseFromJSON(
   jsonString: string,

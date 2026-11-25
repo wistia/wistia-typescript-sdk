@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 
 export type DeleteMediasMediaIdShareLinkRequest = {
@@ -38,9 +39,11 @@ export const DeleteMediasMediaIdShareLinkRequest$outboundSchema: z.ZodType<
   DeleteMediasMediaIdShareLinkRequest$Outbound,
   z.ZodTypeDef,
   DeleteMediasMediaIdShareLinkRequest
-> = z.object({
-  mediaId: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    mediaId: z.string(),
+  })
+);
 
 export function deleteMediasMediaIdShareLinkRequestToJSON(
   deleteMediasMediaIdShareLinkRequest: DeleteMediasMediaIdShareLinkRequest,
@@ -55,4 +58,6 @@ export function deleteMediasMediaIdShareLinkRequestToJSON(
 /** @internal */
 export const DeleteMediasMediaIdShareLinkCode$inboundSchema: z.ZodNativeEnum<
   typeof DeleteMediasMediaIdShareLinkCode
-> = z.nativeEnum(DeleteMediasMediaIdShareLinkCode);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(DeleteMediasMediaIdShareLinkCode)
+);

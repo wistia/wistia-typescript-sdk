@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -154,12 +154,14 @@ export const PutMediasMediaIdCustomizationsChaptersChaptersChapterListRequest$ou
     PutMediasMediaIdCustomizationsChaptersChaptersChapterListRequest$Outbound,
     z.ZodTypeDef,
     PutMediasMediaIdCustomizationsChaptersChaptersChapterListRequest
-  > = z.object({
-    id: z.string().optional(),
-    title: z.string().optional(),
-    time: z.string().optional(),
-    deleted: z.string().optional(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      id: z.string().optional(),
+      title: z.string().optional(),
+      time: z.string().optional(),
+      deleted: z.string().optional(),
+    })
+  );
 
 export function putMediasMediaIdCustomizationsChaptersChaptersChapterListRequestToJSON(
   putMediasMediaIdCustomizationsChaptersChaptersChapterListRequest:
@@ -188,15 +190,15 @@ export const PutMediasMediaIdCustomizationsChaptersChaptersRequest$outboundSchem
     PutMediasMediaIdCustomizationsChaptersChaptersRequest$Outbound,
     z.ZodTypeDef,
     PutMediasMediaIdCustomizationsChaptersChaptersRequest
-  > = z.object({
-    on: z.boolean().optional(),
-    visibleOnLoad: z.boolean().optional(),
-    chapterList: z.array(
-      z.lazy(() =>
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      on: z.boolean().optional(),
+      visibleOnLoad: z.boolean().optional(),
+      chapterList: z.array(z.lazy(() =>
         PutMediasMediaIdCustomizationsChaptersChaptersChapterListRequest$outboundSchema
-      ),
-    ).optional(),
-  });
+      )).optional(),
+    })
+  );
 
 export function putMediasMediaIdCustomizationsChaptersChaptersRequestToJSON(
   putMediasMediaIdCustomizationsChaptersChaptersRequest:
@@ -222,12 +224,14 @@ export const AudioChaptersChapterListRequest$outboundSchema: z.ZodType<
   AudioChaptersChapterListRequest$Outbound,
   z.ZodTypeDef,
   AudioChaptersChapterListRequest
-> = z.object({
-  id: z.string().optional(),
-  title: z.string().optional(),
-  time: z.string().optional(),
-  deleted: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    id: z.string().optional(),
+    title: z.string().optional(),
+    time: z.string().optional(),
+    deleted: z.string().optional(),
+  })
+);
 
 export function audioChaptersChapterListRequestToJSON(
   audioChaptersChapterListRequest: AudioChaptersChapterListRequest,
@@ -251,13 +255,15 @@ export const AudioChaptersRequest$outboundSchema: z.ZodType<
   AudioChaptersRequest$Outbound,
   z.ZodTypeDef,
   AudioChaptersRequest
-> = z.object({
-  on: z.boolean().optional(),
-  visibleOnLoad: z.boolean().optional(),
-  chapterList: z.array(
-    z.lazy(() => AudioChaptersChapterListRequest$outboundSchema),
-  ).optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    on: z.boolean().optional(),
+    visibleOnLoad: z.boolean().optional(),
+    chapterList: z.array(
+      z.lazy(() => AudioChaptersChapterListRequest$outboundSchema),
+    ).optional(),
+  })
+);
 
 export function audioChaptersRequestToJSON(
   audioChaptersRequest: AudioChaptersRequest,
@@ -281,12 +287,15 @@ export const PutMediasMediaIdCustomizationsChaptersPluginRequest$outboundSchema:
     PutMediasMediaIdCustomizationsChaptersPluginRequest$Outbound,
     z.ZodTypeDef,
     PutMediasMediaIdCustomizationsChaptersPluginRequest
-  > = z.object({
-    chapters: z.lazy(() =>
-      PutMediasMediaIdCustomizationsChaptersChaptersRequest$outboundSchema
-    ).optional(),
-    audioChapters: z.lazy(() => AudioChaptersRequest$outboundSchema).optional(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      chapters: z.lazy(() =>
+        PutMediasMediaIdCustomizationsChaptersChaptersRequest$outboundSchema
+      ).optional(),
+      audioChapters: z.lazy(() => AudioChaptersRequest$outboundSchema)
+        .optional(),
+    })
+  );
 
 export function putMediasMediaIdCustomizationsChaptersPluginRequestToJSON(
   putMediasMediaIdCustomizationsChaptersPluginRequest:
@@ -312,11 +321,13 @@ export const PutMediasMediaIdCustomizationsChaptersRequestBody$outboundSchema:
     PutMediasMediaIdCustomizationsChaptersRequestBody$Outbound,
     z.ZodTypeDef,
     PutMediasMediaIdCustomizationsChaptersRequestBody
-  > = z.object({
-    plugin: z.lazy(() =>
-      PutMediasMediaIdCustomizationsChaptersPluginRequest$outboundSchema
-    ).optional(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      plugin: z.lazy(() =>
+        PutMediasMediaIdCustomizationsChaptersPluginRequest$outboundSchema
+      ).optional(),
+    })
+  );
 
 export function putMediasMediaIdCustomizationsChaptersRequestBodyToJSON(
   putMediasMediaIdCustomizationsChaptersRequestBody:
@@ -341,16 +352,18 @@ export const PutMediasMediaIdCustomizationsChaptersRequestRequest$outboundSchema
     PutMediasMediaIdCustomizationsChaptersRequestRequest$Outbound,
     z.ZodTypeDef,
     PutMediasMediaIdCustomizationsChaptersRequestRequest
-  > = z.object({
-    mediaId: z.string(),
-    requestBody: z.lazy(() =>
-      PutMediasMediaIdCustomizationsChaptersRequestBody$outboundSchema
-    ),
-  }).transform((v) => {
-    return remap$(v, {
-      requestBody: "RequestBody",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      mediaId: z.string(),
+      requestBody: z.lazy(() =>
+        PutMediasMediaIdCustomizationsChaptersRequestBody$outboundSchema
+      ),
+    }).transform((v) => {
+      return remap$(v, {
+        requestBody: "RequestBody",
+      });
+    })
+  );
 
 export function putMediasMediaIdCustomizationsChaptersRequestRequestToJSON(
   putMediasMediaIdCustomizationsChaptersRequestRequest:
@@ -365,8 +378,10 @@ export function putMediasMediaIdCustomizationsChaptersRequestRequestToJSON(
 
 /** @internal */
 export const PutMediasMediaIdCustomizationsChaptersCode$inboundSchema:
-  z.ZodNativeEnum<typeof PutMediasMediaIdCustomizationsChaptersCode> = z
-    .nativeEnum(PutMediasMediaIdCustomizationsChaptersCode);
+  z.ZodNativeEnum<typeof PutMediasMediaIdCustomizationsChaptersCode> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(PutMediasMediaIdCustomizationsChaptersCode)
+    );
 
 /** @internal */
 export const PutMediasMediaIdCustomizationsChaptersChaptersChapterListResponse$inboundSchema:
@@ -374,12 +389,14 @@ export const PutMediasMediaIdCustomizationsChaptersChaptersChapterListResponse$i
     PutMediasMediaIdCustomizationsChaptersChaptersChapterListResponse,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    id: z.string().optional(),
-    title: z.string().optional(),
-    time: z.string().optional(),
-    deleted: z.string().optional(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      id: z.string().optional(),
+      title: z.string().optional(),
+      time: z.string().optional(),
+      deleted: z.string().optional(),
+    })
+  );
 
 export function putMediasMediaIdCustomizationsChaptersChaptersChapterListResponseFromJSON(
   jsonString: string,
@@ -402,15 +419,15 @@ export const PutMediasMediaIdCustomizationsChaptersChaptersResponse$inboundSchem
     PutMediasMediaIdCustomizationsChaptersChaptersResponse,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    on: z.string().optional(),
-    visibleOnLoad: z.string().optional(),
-    chapterList: z.array(
-      z.lazy(() =>
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      on: z.string().optional(),
+      visibleOnLoad: z.string().optional(),
+      chapterList: z.array(z.lazy(() =>
         PutMediasMediaIdCustomizationsChaptersChaptersChapterListResponse$inboundSchema
-      ),
-    ).optional(),
-  });
+      )).optional(),
+    })
+  );
 
 export function putMediasMediaIdCustomizationsChaptersChaptersResponseFromJSON(
   jsonString: string,
@@ -433,12 +450,14 @@ export const PutMediasMediaIdCustomizationsChaptersAudioChaptersChapterListRespo
     PutMediasMediaIdCustomizationsChaptersAudioChaptersChapterListResponse,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    id: z.string().optional(),
-    title: z.string().optional(),
-    time: z.string().optional(),
-    deleted: z.string().optional(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      id: z.string().optional(),
+      title: z.string().optional(),
+      time: z.string().optional(),
+      deleted: z.string().optional(),
+    })
+  );
 
 export function putMediasMediaIdCustomizationsChaptersAudioChaptersChapterListResponseFromJSON(
   jsonString: string,
@@ -461,15 +480,15 @@ export const PutMediasMediaIdCustomizationsChaptersAudioChaptersResponse$inbound
     PutMediasMediaIdCustomizationsChaptersAudioChaptersResponse,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    on: z.string().optional(),
-    visibleOnLoad: z.string().optional(),
-    chapterList: z.array(
-      z.lazy(() =>
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      on: z.string().optional(),
+      visibleOnLoad: z.string().optional(),
+      chapterList: z.array(z.lazy(() =>
         PutMediasMediaIdCustomizationsChaptersAudioChaptersChapterListResponse$inboundSchema
-      ),
-    ).optional(),
-  });
+      )).optional(),
+    })
+  );
 
 export function putMediasMediaIdCustomizationsChaptersAudioChaptersResponseFromJSON(
   jsonString: string,
@@ -492,14 +511,16 @@ export const PutMediasMediaIdCustomizationsChaptersPluginResponse$inboundSchema:
     PutMediasMediaIdCustomizationsChaptersPluginResponse,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    chapters: z.lazy(() =>
-      PutMediasMediaIdCustomizationsChaptersChaptersResponse$inboundSchema
-    ).optional(),
-    audioChapters: z.lazy(() =>
-      PutMediasMediaIdCustomizationsChaptersAudioChaptersResponse$inboundSchema
-    ).optional(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      chapters: z.lazy(() =>
+        PutMediasMediaIdCustomizationsChaptersChaptersResponse$inboundSchema
+      ).optional(),
+      audioChapters: z.lazy(() =>
+        PutMediasMediaIdCustomizationsChaptersAudioChaptersResponse$inboundSchema
+      ).optional(),
+    })
+  );
 
 export function putMediasMediaIdCustomizationsChaptersPluginResponseFromJSON(
   jsonString: string,
@@ -523,11 +544,13 @@ export const PutMediasMediaIdCustomizationsChaptersResponse$inboundSchema:
     PutMediasMediaIdCustomizationsChaptersResponse,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    plugin: z.lazy(() =>
-      PutMediasMediaIdCustomizationsChaptersPluginResponse$inboundSchema
-    ).optional(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      plugin: z.lazy(() =>
+        PutMediasMediaIdCustomizationsChaptersPluginResponse$inboundSchema
+      ).optional(),
+    })
+  );
 
 export function putMediasMediaIdCustomizationsChaptersResponseFromJSON(
   jsonString: string,

@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -156,47 +156,45 @@ export const GetChannelsCode = {
  */
 export type GetChannelsCode = ClosedEnum<typeof GetChannelsCode>;
 
-/**
- * The format for episodes for the podcast channel.
- */
 export const GetChannelsEpisodeFormat = {
   Episodic: "episodic",
   EpisodicWithSeasons: "episodic_with_seasons",
   Serial: "serial",
 } as const;
-/**
- * The format for episodes for the podcast channel.
- */
 export type GetChannelsEpisodeFormat = ClosedEnum<
   typeof GetChannelsEpisodeFormat
 >;
 
-/**
- * The primary category for the channel.
- */
 export const GetChannelsCategory1 = {
+  Arts: "arts",
   ArtsGreaterThanBooks: "arts > books",
   ArtsGreaterThanDesign: "arts > design",
   ArtsGreaterThanFashionAndBeauty: "arts > fashion_and_beauty",
   ArtsGreaterThanFood: "arts > food",
   ArtsGreaterThanPerformingArts: "arts > performing_arts",
   ArtsGreaterThanVisualArts: "arts > visual_arts",
+  Business: "business",
   BusinessGreaterThanCareers: "business > careers",
   BusinessGreaterThanEntrepreneurship: "business > entrepreneurship",
   BusinessGreaterThanInvesting: "business > investing",
   BusinessGreaterThanManagement: "business > management",
   BusinessGreaterThanMarketing: "business > marketing",
   BusinessGreaterThanNonProfit: "business > non_profit",
+  Comedy: "comedy",
   ComedyGreaterThanComedyInterviews: "comedy > comedy_interviews",
   ComedyGreaterThanImprov: "comedy > improv",
   ComedyGreaterThanStandUp: "comedy > stand_up",
+  Education: "education",
   EducationGreaterThanCourses: "education > courses",
   EducationGreaterThanHowTo: "education > how_to",
   EducationGreaterThanLanguageLearning: "education > language_learning",
   EducationGreaterThanSelfImprovement: "education > self_improvement",
+  Fiction: "fiction",
   FictionGreaterThanComedyFiction: "fiction > comedy_fiction",
   FictionGreaterThanDrama: "fiction > drama",
   FictionGreaterThanScienceFiction: "fiction > science_fiction",
+  Government: "government",
+  HealthAndFitness: "health_and_fitness",
   HealthAndFitnessGreaterThanAlternativeHealth:
     "health_and_fitness > alternative_health",
   HealthAndFitnessGreaterThanFitness: "health_and_fitness > fitness",
@@ -204,11 +202,14 @@ export const GetChannelsCategory1 = {
   HealthAndFitnessGreaterThanMentalHealth: "health_and_fitness > mental_health",
   HealthAndFitnessGreaterThanNutrition: "health_and_fitness > nutrition",
   HealthAndFitnessGreaterThanSexuality: "health_and_fitness > sexuality",
+  History: "history",
+  KidsAndFamily: "kids_and_family",
   KidsAndFamilyGreaterThanEducationForKids:
     "kids_and_family > education_for_kids",
   KidsAndFamilyGreaterThanParenting: "kids_and_family > parenting",
   KidsAndFamilyGreaterThanPetsAndAnimals: "kids_and_family > pets_and_animals",
   KidsAndFamilyGreaterThanStoriesForKids: "kids_and_family > stories_for_kids",
+  Leisure: "leisure",
   LeisureGreaterThanAnimationAndManga: "leisure > animation_and_manga",
   LeisureGreaterThanAutomotive: "leisure > automotive",
   LeisureGreaterThanAviation: "leisure > aviation",
@@ -217,9 +218,11 @@ export const GetChannelsCategory1 = {
   LeisureGreaterThanHobbies: "leisure > hobbies",
   LeisureGreaterThanHomeAndGarden: "leisure > home_and_garden",
   LeisureGreaterThanVideoGames: "leisure > video_games",
+  Music: "music",
   MusicGreaterThanMusicCommentary: "music > music_commentary",
   MusicGreaterThanMusicHistory: "music > music_history",
   MusicGreaterThanMusicInterviews: "music > music_interviews",
+  News: "news",
   NewsGreaterThanBusinessNews: "news > business_news",
   NewsGreaterThanDailyNews: "news > daily_news",
   NewsGreaterThanEntertainmentNews: "news > entertainment_news",
@@ -227,6 +230,7 @@ export const GetChannelsCategory1 = {
   NewsGreaterThanPolitics: "news > politics",
   NewsGreaterThanSportsNews: "news > sports_news",
   NewsGreaterThanTechNews: "news > tech_news",
+  ReligionAndSpirituality: "religion_and_spirituality",
   ReligionAndSpiritualityGreaterThanBuddhism:
     "religion_and_spirituality > buddhism",
   ReligionAndSpiritualityGreaterThanChristianity:
@@ -240,6 +244,7 @@ export const GetChannelsCategory1 = {
     "religion_and_spirituality > religion",
   ReligionAndSpiritualityGreaterThanSpirituality:
     "religion_and_spirituality > spirituality",
+  Science: "science",
   ScienceGreaterThanAstronomy: "science > astronomy",
   ScienceGreaterThanChemistry: "science > chemistry",
   ScienceGreaterThanEarthSciences: "science > earth_sciences",
@@ -249,6 +254,7 @@ export const GetChannelsCategory1 = {
   ScienceGreaterThanNature: "science > nature",
   ScienceGreaterThanPhysics: "science > physics",
   ScienceGreaterThanSocialSciences: "science > social_sciences",
+  SocietyAndCulture: "society_and_culture",
   SocietyAndCultureGreaterThanDocumentary: "society_and_culture > documentary",
   SocietyAndCultureGreaterThanPersonalJournals:
     "society_and_culture > personal_journals",
@@ -257,6 +263,7 @@ export const GetChannelsCategory1 = {
     "society_and_culture > places_and_travel",
   SocietyAndCultureGreaterThanRelationships:
     "society_and_culture > relationships",
+  Sports: "sports",
   SportsGreaterThanBaseball: "sports > baseball",
   SportsGreaterThanBasketball: "sports > basketball",
   SportsGreaterThanCricket: "sports > cricket",
@@ -272,43 +279,47 @@ export const GetChannelsCategory1 = {
   SportsGreaterThanVolleyball: "sports > volleyball",
   SportsGreaterThanWilderness: "sports > wilderness",
   SportsGreaterThanWrestling: "sports > wrestling",
+  Technology: "technology",
+  TrueCrime: "true_crime",
+  TvAndFilm: "tv_and_film",
   TvAndFilmGreaterThanAfterShows: "tv_and_film > after_shows",
   TvAndFilmGreaterThanFilmHistory: "tv_and_film > film_history",
   TvAndFilmGreaterThanFilmInterviews: "tv_and_film > film_interviews",
   TvAndFilmGreaterThanFilmReviews: "tv_and_film > film_reviews",
   TvAndFilmGreaterThanTvReviews: "tv_and_film > tv_reviews",
 } as const;
-/**
- * The primary category for the channel.
- */
 export type GetChannelsCategory1 = ClosedEnum<typeof GetChannelsCategory1>;
 
-/**
- * The secondary category for the channel.
- */
 export const GetChannelsCategory2 = {
+  Arts: "arts",
   ArtsGreaterThanBooks: "arts > books",
   ArtsGreaterThanDesign: "arts > design",
   ArtsGreaterThanFashionAndBeauty: "arts > fashion_and_beauty",
   ArtsGreaterThanFood: "arts > food",
   ArtsGreaterThanPerformingArts: "arts > performing_arts",
   ArtsGreaterThanVisualArts: "arts > visual_arts",
+  Business: "business",
   BusinessGreaterThanCareers: "business > careers",
   BusinessGreaterThanEntrepreneurship: "business > entrepreneurship",
   BusinessGreaterThanInvesting: "business > investing",
   BusinessGreaterThanManagement: "business > management",
   BusinessGreaterThanMarketing: "business > marketing",
   BusinessGreaterThanNonProfit: "business > non_profit",
+  Comedy: "comedy",
   ComedyGreaterThanComedyInterviews: "comedy > comedy_interviews",
   ComedyGreaterThanImprov: "comedy > improv",
   ComedyGreaterThanStandUp: "comedy > stand_up",
+  Education: "education",
   EducationGreaterThanCourses: "education > courses",
   EducationGreaterThanHowTo: "education > how_to",
   EducationGreaterThanLanguageLearning: "education > language_learning",
   EducationGreaterThanSelfImprovement: "education > self_improvement",
+  Fiction: "fiction",
   FictionGreaterThanComedyFiction: "fiction > comedy_fiction",
   FictionGreaterThanDrama: "fiction > drama",
   FictionGreaterThanScienceFiction: "fiction > science_fiction",
+  Government: "government",
+  HealthAndFitness: "health_and_fitness",
   HealthAndFitnessGreaterThanAlternativeHealth:
     "health_and_fitness > alternative_health",
   HealthAndFitnessGreaterThanFitness: "health_and_fitness > fitness",
@@ -316,11 +327,14 @@ export const GetChannelsCategory2 = {
   HealthAndFitnessGreaterThanMentalHealth: "health_and_fitness > mental_health",
   HealthAndFitnessGreaterThanNutrition: "health_and_fitness > nutrition",
   HealthAndFitnessGreaterThanSexuality: "health_and_fitness > sexuality",
+  History: "history",
+  KidsAndFamily: "kids_and_family",
   KidsAndFamilyGreaterThanEducationForKids:
     "kids_and_family > education_for_kids",
   KidsAndFamilyGreaterThanParenting: "kids_and_family > parenting",
   KidsAndFamilyGreaterThanPetsAndAnimals: "kids_and_family > pets_and_animals",
   KidsAndFamilyGreaterThanStoriesForKids: "kids_and_family > stories_for_kids",
+  Leisure: "leisure",
   LeisureGreaterThanAnimationAndManga: "leisure > animation_and_manga",
   LeisureGreaterThanAutomotive: "leisure > automotive",
   LeisureGreaterThanAviation: "leisure > aviation",
@@ -329,9 +343,11 @@ export const GetChannelsCategory2 = {
   LeisureGreaterThanHobbies: "leisure > hobbies",
   LeisureGreaterThanHomeAndGarden: "leisure > home_and_garden",
   LeisureGreaterThanVideoGames: "leisure > video_games",
+  Music: "music",
   MusicGreaterThanMusicCommentary: "music > music_commentary",
   MusicGreaterThanMusicHistory: "music > music_history",
   MusicGreaterThanMusicInterviews: "music > music_interviews",
+  News: "news",
   NewsGreaterThanBusinessNews: "news > business_news",
   NewsGreaterThanDailyNews: "news > daily_news",
   NewsGreaterThanEntertainmentNews: "news > entertainment_news",
@@ -339,6 +355,7 @@ export const GetChannelsCategory2 = {
   NewsGreaterThanPolitics: "news > politics",
   NewsGreaterThanSportsNews: "news > sports_news",
   NewsGreaterThanTechNews: "news > tech_news",
+  ReligionAndSpirituality: "religion_and_spirituality",
   ReligionAndSpiritualityGreaterThanBuddhism:
     "religion_and_spirituality > buddhism",
   ReligionAndSpiritualityGreaterThanChristianity:
@@ -352,6 +369,7 @@ export const GetChannelsCategory2 = {
     "religion_and_spirituality > religion",
   ReligionAndSpiritualityGreaterThanSpirituality:
     "religion_and_spirituality > spirituality",
+  Science: "science",
   ScienceGreaterThanAstronomy: "science > astronomy",
   ScienceGreaterThanChemistry: "science > chemistry",
   ScienceGreaterThanEarthSciences: "science > earth_sciences",
@@ -361,6 +379,7 @@ export const GetChannelsCategory2 = {
   ScienceGreaterThanNature: "science > nature",
   ScienceGreaterThanPhysics: "science > physics",
   ScienceGreaterThanSocialSciences: "science > social_sciences",
+  SocietyAndCulture: "society_and_culture",
   SocietyAndCultureGreaterThanDocumentary: "society_and_culture > documentary",
   SocietyAndCultureGreaterThanPersonalJournals:
     "society_and_culture > personal_journals",
@@ -369,6 +388,7 @@ export const GetChannelsCategory2 = {
     "society_and_culture > places_and_travel",
   SocietyAndCultureGreaterThanRelationships:
     "society_and_culture > relationships",
+  Sports: "sports",
   SportsGreaterThanBaseball: "sports > baseball",
   SportsGreaterThanBasketball: "sports > basketball",
   SportsGreaterThanCricket: "sports > cricket",
@@ -384,43 +404,47 @@ export const GetChannelsCategory2 = {
   SportsGreaterThanVolleyball: "sports > volleyball",
   SportsGreaterThanWilderness: "sports > wilderness",
   SportsGreaterThanWrestling: "sports > wrestling",
+  Technology: "technology",
+  TrueCrime: "true_crime",
+  TvAndFilm: "tv_and_film",
   TvAndFilmGreaterThanAfterShows: "tv_and_film > after_shows",
   TvAndFilmGreaterThanFilmHistory: "tv_and_film > film_history",
   TvAndFilmGreaterThanFilmInterviews: "tv_and_film > film_interviews",
   TvAndFilmGreaterThanFilmReviews: "tv_and_film > film_reviews",
   TvAndFilmGreaterThanTvReviews: "tv_and_film > tv_reviews",
 } as const;
-/**
- * The secondary category for the channel.
- */
 export type GetChannelsCategory2 = ClosedEnum<typeof GetChannelsCategory2>;
 
-/**
- * The third category for the channel.
- */
 export const GetChannelsCategory3 = {
+  Arts: "arts",
   ArtsGreaterThanBooks: "arts > books",
   ArtsGreaterThanDesign: "arts > design",
   ArtsGreaterThanFashionAndBeauty: "arts > fashion_and_beauty",
   ArtsGreaterThanFood: "arts > food",
   ArtsGreaterThanPerformingArts: "arts > performing_arts",
   ArtsGreaterThanVisualArts: "arts > visual_arts",
+  Business: "business",
   BusinessGreaterThanCareers: "business > careers",
   BusinessGreaterThanEntrepreneurship: "business > entrepreneurship",
   BusinessGreaterThanInvesting: "business > investing",
   BusinessGreaterThanManagement: "business > management",
   BusinessGreaterThanMarketing: "business > marketing",
   BusinessGreaterThanNonProfit: "business > non_profit",
+  Comedy: "comedy",
   ComedyGreaterThanComedyInterviews: "comedy > comedy_interviews",
   ComedyGreaterThanImprov: "comedy > improv",
   ComedyGreaterThanStandUp: "comedy > stand_up",
+  Education: "education",
   EducationGreaterThanCourses: "education > courses",
   EducationGreaterThanHowTo: "education > how_to",
   EducationGreaterThanLanguageLearning: "education > language_learning",
   EducationGreaterThanSelfImprovement: "education > self_improvement",
+  Fiction: "fiction",
   FictionGreaterThanComedyFiction: "fiction > comedy_fiction",
   FictionGreaterThanDrama: "fiction > drama",
   FictionGreaterThanScienceFiction: "fiction > science_fiction",
+  Government: "government",
+  HealthAndFitness: "health_and_fitness",
   HealthAndFitnessGreaterThanAlternativeHealth:
     "health_and_fitness > alternative_health",
   HealthAndFitnessGreaterThanFitness: "health_and_fitness > fitness",
@@ -428,11 +452,14 @@ export const GetChannelsCategory3 = {
   HealthAndFitnessGreaterThanMentalHealth: "health_and_fitness > mental_health",
   HealthAndFitnessGreaterThanNutrition: "health_and_fitness > nutrition",
   HealthAndFitnessGreaterThanSexuality: "health_and_fitness > sexuality",
+  History: "history",
+  KidsAndFamily: "kids_and_family",
   KidsAndFamilyGreaterThanEducationForKids:
     "kids_and_family > education_for_kids",
   KidsAndFamilyGreaterThanParenting: "kids_and_family > parenting",
   KidsAndFamilyGreaterThanPetsAndAnimals: "kids_and_family > pets_and_animals",
   KidsAndFamilyGreaterThanStoriesForKids: "kids_and_family > stories_for_kids",
+  Leisure: "leisure",
   LeisureGreaterThanAnimationAndManga: "leisure > animation_and_manga",
   LeisureGreaterThanAutomotive: "leisure > automotive",
   LeisureGreaterThanAviation: "leisure > aviation",
@@ -441,9 +468,11 @@ export const GetChannelsCategory3 = {
   LeisureGreaterThanHobbies: "leisure > hobbies",
   LeisureGreaterThanHomeAndGarden: "leisure > home_and_garden",
   LeisureGreaterThanVideoGames: "leisure > video_games",
+  Music: "music",
   MusicGreaterThanMusicCommentary: "music > music_commentary",
   MusicGreaterThanMusicHistory: "music > music_history",
   MusicGreaterThanMusicInterviews: "music > music_interviews",
+  News: "news",
   NewsGreaterThanBusinessNews: "news > business_news",
   NewsGreaterThanDailyNews: "news > daily_news",
   NewsGreaterThanEntertainmentNews: "news > entertainment_news",
@@ -451,6 +480,7 @@ export const GetChannelsCategory3 = {
   NewsGreaterThanPolitics: "news > politics",
   NewsGreaterThanSportsNews: "news > sports_news",
   NewsGreaterThanTechNews: "news > tech_news",
+  ReligionAndSpirituality: "religion_and_spirituality",
   ReligionAndSpiritualityGreaterThanBuddhism:
     "religion_and_spirituality > buddhism",
   ReligionAndSpiritualityGreaterThanChristianity:
@@ -464,6 +494,7 @@ export const GetChannelsCategory3 = {
     "religion_and_spirituality > religion",
   ReligionAndSpiritualityGreaterThanSpirituality:
     "religion_and_spirituality > spirituality",
+  Science: "science",
   ScienceGreaterThanAstronomy: "science > astronomy",
   ScienceGreaterThanChemistry: "science > chemistry",
   ScienceGreaterThanEarthSciences: "science > earth_sciences",
@@ -473,6 +504,7 @@ export const GetChannelsCategory3 = {
   ScienceGreaterThanNature: "science > nature",
   ScienceGreaterThanPhysics: "science > physics",
   ScienceGreaterThanSocialSciences: "science > social_sciences",
+  SocietyAndCulture: "society_and_culture",
   SocietyAndCultureGreaterThanDocumentary: "society_and_culture > documentary",
   SocietyAndCultureGreaterThanPersonalJournals:
     "society_and_culture > personal_journals",
@@ -481,6 +513,7 @@ export const GetChannelsCategory3 = {
     "society_and_culture > places_and_travel",
   SocietyAndCultureGreaterThanRelationships:
     "society_and_culture > relationships",
+  Sports: "sports",
   SportsGreaterThanBaseball: "sports > baseball",
   SportsGreaterThanBasketball: "sports > basketball",
   SportsGreaterThanCricket: "sports > cricket",
@@ -496,19 +529,19 @@ export const GetChannelsCategory3 = {
   SportsGreaterThanVolleyball: "sports > volleyball",
   SportsGreaterThanWilderness: "sports > wilderness",
   SportsGreaterThanWrestling: "sports > wrestling",
+  Technology: "technology",
+  TrueCrime: "true_crime",
+  TvAndFilm: "tv_and_film",
   TvAndFilmGreaterThanAfterShows: "tv_and_film > after_shows",
   TvAndFilmGreaterThanFilmHistory: "tv_and_film > film_history",
   TvAndFilmGreaterThanFilmInterviews: "tv_and_film > film_interviews",
   TvAndFilmGreaterThanFilmReviews: "tv_and_film > film_reviews",
   TvAndFilmGreaterThanTvReviews: "tv_and_film > tv_reviews",
 } as const;
-/**
- * The third category for the channel.
- */
 export type GetChannelsCategory3 = ClosedEnum<typeof GetChannelsCategory3>;
 
 /**
- * The ISO 639-1 language code for the channel.
+ * The ISO 639-1 language code for the channel, published in the RSS feed as `<language>`.
  */
 export const GetChannelsLanguage = {
   Af: "af",
@@ -609,7 +642,7 @@ export const GetChannelsLanguage = {
   ZhTw: "zh-tw",
 } as const;
 /**
- * The ISO 639-1 language code for the channel.
+ * The ISO 639-1 language code for the channel, published in the RSS feed as `<language>`.
  */
 export type GetChannelsLanguage = ClosedEnum<typeof GetChannelsLanguage>;
 
@@ -621,43 +654,43 @@ export type GetChannelsLanguage = ClosedEnum<typeof GetChannelsLanguage>;
  */
 export type GetChannelsPodcastSettings = {
   /**
-   * The channel's copyright information.
+   * The channel's copyright information, published in the RSS feed as `<copyright>`.
    */
   copyright?: string | null | undefined;
   /**
-   * The format for episodes for the podcast channel.
+   * The format for episodes for the podcast channel, published in the RSS feed as `<itunes:type>`. `episodic_with_seasons` is published as `episodic`.
    */
   episodeFormat?: GetChannelsEpisodeFormat | null | undefined;
   /**
-   * The name of the author(s) for the channel.
+   * The name of the author(s) for the channel, published in the RSS feed as `<itunes:author>`.
    */
   authorName?: string | null | undefined;
   /**
-   * Whether the channel contains explicit content.
+   * Whether the channel contains explicit content, published in the RSS feed as `<itunes:explicit>`.
    */
   explicit?: boolean | null | undefined;
   /**
-   * The name of the owner for the channel.
+   * The podcast owner's name, published in the channel's public RSS feed as `<itunes:owner>`. Podcast directories use this as the show's administrative contact.
    */
   ownerName?: string | null | undefined;
   /**
-   * The email of the owner for the channel.
+   * The podcast owner's email address, published in the channel's public RSS feed as `<itunes:owner>`. Podcast directories such as Apple Podcasts require it for ownership verification.
    */
   ownerEmail?: string | null | undefined;
   /**
-   * The primary category for the channel.
+   * The primary category for the channel, published in the RSS feed as `<itunes:category>`.
    */
   category1?: GetChannelsCategory1 | null | undefined;
   /**
-   * The secondary category for the channel.
+   * The secondary category for the channel, published in the RSS feed as `<itunes:category>`.
    */
   category2?: GetChannelsCategory2 | null | undefined;
   /**
-   * The third category for the channel.
+   * The third category for the channel, published in the RSS feed as `<itunes:category>`.
    */
   category3?: GetChannelsCategory3 | null | undefined;
   /**
-   * The ISO 639-1 language code for the channel.
+   * The ISO 639-1 language code for the channel, published in the RSS feed as `<language>`.
    */
   language?: GetChannelsLanguage | null | undefined;
 };
@@ -729,7 +762,7 @@ export type GetChannelsResponse = {
 /** @internal */
 export const GetChannelsEnabled$outboundSchema: z.ZodNativeEnum<
   typeof GetChannelsEnabled
-> = z.nativeEnum(GetChannelsEnabled);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetChannelsEnabled));
 
 /** @internal */
 export type GetChannelsCursor$Outbound = {
@@ -743,11 +776,13 @@ export const GetChannelsCursor$outboundSchema: z.ZodType<
   GetChannelsCursor$Outbound,
   z.ZodTypeDef,
   GetChannelsCursor
-> = z.object({
-  enabled: GetChannelsEnabled$outboundSchema.optional(),
-  before: z.string().optional(),
-  after: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    enabled: GetChannelsEnabled$outboundSchema.optional(),
+    before: z.string().optional(),
+    after: z.string().optional(),
+  })
+);
 
 export function getChannelsCursorToJSON(
   getChannelsCursor: GetChannelsCursor,
@@ -760,12 +795,12 @@ export function getChannelsCursorToJSON(
 /** @internal */
 export const GetChannelsSortBy$outboundSchema: z.ZodNativeEnum<
   typeof GetChannelsSortBy
-> = z.nativeEnum(GetChannelsSortBy);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetChannelsSortBy));
 
 /** @internal */
 export const GetChannelsSortDirection$outboundSchema: z.ZodNativeEnum<
   typeof GetChannelsSortDirection
-> = z.nativeEnum(GetChannelsSortDirection);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetChannelsSortDirection));
 
 /** @internal */
 export type GetChannelsRequest$Outbound = {
@@ -782,21 +817,23 @@ export const GetChannelsRequest$outboundSchema: z.ZodType<
   GetChannelsRequest$Outbound,
   z.ZodTypeDef,
   GetChannelsRequest
-> = z.object({
-  cursor: z.lazy(() => GetChannelsCursor$outboundSchema).optional(),
-  page: z.number().int().optional(),
-  perPage: z.number().int().optional(),
-  sortBy: GetChannelsSortBy$outboundSchema.optional(),
-  sortDirection: GetChannelsSortDirection$outboundSchema.optional(),
-  hashedIds: z.array(z.string()).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    perPage: "per_page",
-    sortBy: "sort_by",
-    sortDirection: "sort_direction",
-    hashedIds: "hashed_ids[]",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    cursor: z.lazy(() => GetChannelsCursor$outboundSchema).optional(),
+    page: z.number().int().optional(),
+    perPage: z.number().int().optional(),
+    sortBy: GetChannelsSortBy$outboundSchema.optional(),
+    sortDirection: GetChannelsSortDirection$outboundSchema.optional(),
+    hashedIds: z.array(z.string()).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      perPage: "per_page",
+      sortBy: "sort_by",
+      sortDirection: "sort_direction",
+      hashedIds: "hashed_ids[]",
+    });
+  })
+);
 
 export function getChannelsRequestToJSON(
   getChannelsRequest: GetChannelsRequest,
@@ -809,57 +846,60 @@ export function getChannelsRequestToJSON(
 /** @internal */
 export const GetChannelsCode$inboundSchema: z.ZodNativeEnum<
   typeof GetChannelsCode
-> = z.nativeEnum(GetChannelsCode);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetChannelsCode));
 
 /** @internal */
 export const GetChannelsEpisodeFormat$inboundSchema: z.ZodNativeEnum<
   typeof GetChannelsEpisodeFormat
-> = z.nativeEnum(GetChannelsEpisodeFormat);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetChannelsEpisodeFormat));
 
 /** @internal */
 export const GetChannelsCategory1$inboundSchema: z.ZodNativeEnum<
   typeof GetChannelsCategory1
-> = z.nativeEnum(GetChannelsCategory1);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetChannelsCategory1));
 
 /** @internal */
 export const GetChannelsCategory2$inboundSchema: z.ZodNativeEnum<
   typeof GetChannelsCategory2
-> = z.nativeEnum(GetChannelsCategory2);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetChannelsCategory2));
 
 /** @internal */
 export const GetChannelsCategory3$inboundSchema: z.ZodNativeEnum<
   typeof GetChannelsCategory3
-> = z.nativeEnum(GetChannelsCategory3);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetChannelsCategory3));
 
 /** @internal */
 export const GetChannelsLanguage$inboundSchema: z.ZodNativeEnum<
   typeof GetChannelsLanguage
-> = z.nativeEnum(GetChannelsLanguage);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetChannelsLanguage));
 
 /** @internal */
 export const GetChannelsPodcastSettings$inboundSchema: z.ZodType<
   GetChannelsPodcastSettings,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  copyright: z.nullable(z.string()).optional(),
-  episode_format: z.nullable(GetChannelsEpisodeFormat$inboundSchema).optional(),
-  author_name: z.nullable(z.string()).optional(),
-  explicit: z.nullable(z.boolean()).optional(),
-  owner_name: z.nullable(z.string()).optional(),
-  owner_email: z.nullable(z.string()).optional(),
-  category1: z.nullable(GetChannelsCategory1$inboundSchema).optional(),
-  category2: z.nullable(GetChannelsCategory2$inboundSchema).optional(),
-  category3: z.nullable(GetChannelsCategory3$inboundSchema).optional(),
-  language: z.nullable(GetChannelsLanguage$inboundSchema).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "episode_format": "episodeFormat",
-    "author_name": "authorName",
-    "owner_name": "ownerName",
-    "owner_email": "ownerEmail",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    copyright: z.nullable(z.string()).optional(),
+    episode_format: z.nullable(GetChannelsEpisodeFormat$inboundSchema)
+      .optional(),
+    author_name: z.nullable(z.string()).optional(),
+    explicit: z.nullable(z.boolean()).optional(),
+    owner_name: z.nullable(z.string()).optional(),
+    owner_email: z.nullable(z.string()).optional(),
+    category1: z.nullable(GetChannelsCategory1$inboundSchema).optional(),
+    category2: z.nullable(GetChannelsCategory2$inboundSchema).optional(),
+    category3: z.nullable(GetChannelsCategory3$inboundSchema).optional(),
+    language: z.nullable(GetChannelsLanguage$inboundSchema).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "episode_format": "episodeFormat",
+      "author_name": "authorName",
+      "owner_name": "ownerName",
+      "owner_email": "ownerEmail",
+    });
+  })
+);
 
 export function getChannelsPodcastSettingsFromJSON(
   jsonString: string,
@@ -876,32 +916,34 @@ export const GetChannelsResponse$inboundSchema: z.ZodType<
   GetChannelsResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.number().int(),
-  created: z.string().datetime({ offset: true }).transform(v => new Date(v)),
-  description: z.string(),
-  hashed_id: z.string(),
-  media_count: z.number().int(),
-  live_stream_event_count: z.number().int().optional(),
-  name: z.string(),
-  updated: z.string().datetime({ offset: true }).transform(v => new Date(v)),
-  auto_publish_enabled: z.nullable(z.boolean()).optional(),
-  podcast_enabled: z.nullable(z.boolean()).optional(),
-  custom_url: z.nullable(z.string()).optional(),
-  podcast_settings: z.lazy(() => GetChannelsPodcastSettings$inboundSchema)
-    .optional(),
-  cursor: z.nullable(z.string()).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "hashed_id": "hashedId",
-    "media_count": "mediaCount",
-    "live_stream_event_count": "liveStreamEventCount",
-    "auto_publish_enabled": "autoPublishEnabled",
-    "podcast_enabled": "podcastEnabled",
-    "custom_url": "customUrl",
-    "podcast_settings": "podcastSettings",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    id: z.number().int(),
+    created: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+    description: z.string(),
+    hashed_id: z.string(),
+    media_count: z.number().int(),
+    live_stream_event_count: z.number().int().optional(),
+    name: z.string(),
+    updated: z.string().datetime({ offset: true }).transform(v => new Date(v)),
+    auto_publish_enabled: z.nullable(z.boolean()).optional(),
+    podcast_enabled: z.nullable(z.boolean()).optional(),
+    custom_url: z.nullable(z.string()).optional(),
+    podcast_settings: z.lazy(() => GetChannelsPodcastSettings$inboundSchema)
+      .optional(),
+    cursor: z.nullable(z.string()).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "hashed_id": "hashedId",
+      "media_count": "mediaCount",
+      "live_stream_event_count": "liveStreamEventCount",
+      "auto_publish_enabled": "autoPublishEnabled",
+      "podcast_enabled": "podcastEnabled",
+      "custom_url": "customUrl",
+      "podcast_settings": "podcastSettings",
+    });
+  })
+);
 
 export function getChannelsResponseFromJSON(
   jsonString: string,

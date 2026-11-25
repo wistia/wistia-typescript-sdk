@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -172,9 +172,11 @@ export const GetStatsEventsEventKeyRequest$outboundSchema: z.ZodType<
   GetStatsEventsEventKeyRequest$Outbound,
   z.ZodTypeDef,
   GetStatsEventsEventKeyRequest
-> = z.object({
-  eventKey: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    eventKey: z.string(),
+  })
+);
 
 export function getStatsEventsEventKeyRequestToJSON(
   getStatsEventsEventKeyRequest: GetStatsEventsEventKeyRequest,
@@ -189,21 +191,23 @@ export function getStatsEventsEventKeyRequestToJSON(
 /** @internal */
 export const GetStatsEventsEventKeyCode$inboundSchema: z.ZodNativeEnum<
   typeof GetStatsEventsEventKeyCode
-> = z.nativeEnum(GetStatsEventsEventKeyCode);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetStatsEventsEventKeyCode));
 
 /** @internal */
 export const GetStatsEventsEventKeyThumbnail$inboundSchema: z.ZodType<
   GetStatsEventsEventKeyThumbnail,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  url: z.string().optional(),
-  width: z.number().int().optional(),
-  height: z.number().int().optional(),
-  fileSize: z.number().int().optional(),
-  contentType: z.string().optional(),
-  type: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    url: z.string().optional(),
+    width: z.number().int().optional(),
+    height: z.number().int().optional(),
+    fileSize: z.number().int().optional(),
+    contentType: z.string().optional(),
+    type: z.string().optional(),
+  })
+);
 
 export function getStatsEventsEventKeyThumbnailFromJSON(
   jsonString: string,
@@ -220,7 +224,7 @@ export const GetStatsEventsEventKeyConversionType$inboundSchema: z.ZodType<
   GetStatsEventsEventKeyConversionType,
   z.ZodTypeDef,
   unknown
-> = z.union([z.number().int(), z.string()]);
+> = /* @__PURE__ */ lazySchema$(() => z.union([z.number().int(), z.string()]));
 
 export function getStatsEventsEventKeyConversionTypeFromJSON(
   jsonString: string,
@@ -238,18 +242,20 @@ export const GetStatsEventsEventKeyConversionData$inboundSchema: z.ZodType<
   GetStatsEventsEventKeyConversionData,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  email: z.string().optional(),
-  first_name: z.string().optional(),
-  is_new_lead: z.boolean().optional(),
-  last_name: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "first_name": "firstName",
-    "is_new_lead": "isNewLead",
-    "last_name": "lastName",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    email: z.string().optional(),
+    first_name: z.string().optional(),
+    is_new_lead: z.boolean().optional(),
+    last_name: z.string().optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "first_name": "firstName",
+      "is_new_lead": "isNewLead",
+      "last_name": "lastName",
+    });
+  })
+);
 
 export function getStatsEventsEventKeyConversionDataFromJSON(
   jsonString: string,
@@ -267,16 +273,18 @@ export const GetStatsEventsEventKeyUserAgentDetails$inboundSchema: z.ZodType<
   GetStatsEventsEventKeyUserAgentDetails,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  browser: z.string().optional(),
-  browser_version: z.string().optional(),
-  platform: z.string().optional(),
-  mobile: z.boolean().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "browser_version": "browserVersion",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    browser: z.string().optional(),
+    browser_version: z.string().optional(),
+    platform: z.string().optional(),
+    mobile: z.boolean().optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "browser_version": "browserVersion",
+    });
+  })
+);
 
 export function getStatsEventsEventKeyUserAgentDetailsFromJSON(
   jsonString: string,
@@ -294,7 +302,7 @@ export const GetStatsEventsEventKeyAttributes$inboundSchema: z.ZodType<
   GetStatsEventsEventKeyAttributes,
   z.ZodTypeDef,
   unknown
-> = z.object({});
+> = /* @__PURE__ */ lazySchema$(() => z.object({}));
 
 export function getStatsEventsEventKeyAttributesFromJSON(
   jsonString: string,
@@ -311,52 +319,55 @@ export const GetStatsEventsEventKeyResponse$inboundSchema: z.ZodType<
   GetStatsEventsEventKeyResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  received_at: z.string().datetime({ offset: true }).transform(v => new Date(v))
-    .optional(),
-  event_key: z.string().optional(),
-  visitor_key: z.string().optional(),
-  embed_url: z.string().optional(),
-  percent_viewed: z.number().optional(),
-  ip: z.string().optional(),
-  org: z.string().optional(),
-  country: z.string().optional(),
-  region: z.string().optional(),
-  city: z.string().optional(),
-  lat: z.number().optional(),
-  lon: z.number().optional(),
-  email: z.nullable(z.string()).optional(),
-  media_id: z.string().optional(),
-  media_name: z.string().optional(),
-  media_url: z.string().optional(),
-  iframe_heatmap_url: z.string().optional(),
-  thumbnail: z.lazy(() => GetStatsEventsEventKeyThumbnail$inboundSchema)
-    .optional(),
-  conversion_type: z.union([z.number().int(), z.string()]).optional(),
-  conversion_data: z.lazy(() =>
-    GetStatsEventsEventKeyConversionData$inboundSchema
-  ).optional(),
-  user_agent_details: z.lazy(() =>
-    GetStatsEventsEventKeyUserAgentDetails$inboundSchema
-  ).optional(),
-  attributes: z.lazy(() => GetStatsEventsEventKeyAttributes$inboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "received_at": "receivedAt",
-    "event_key": "eventKey",
-    "visitor_key": "visitorKey",
-    "embed_url": "embedUrl",
-    "percent_viewed": "percentViewed",
-    "media_id": "mediaId",
-    "media_name": "mediaName",
-    "media_url": "mediaUrl",
-    "iframe_heatmap_url": "iframeHeatmapUrl",
-    "conversion_type": "conversionType",
-    "conversion_data": "conversionData",
-    "user_agent_details": "userAgentDetails",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    received_at: z.string().datetime({ offset: true }).transform(v =>
+      new Date(v)
+    ).optional(),
+    event_key: z.string().optional(),
+    visitor_key: z.string().optional(),
+    embed_url: z.string().optional(),
+    percent_viewed: z.number().optional(),
+    ip: z.string().optional(),
+    org: z.string().optional(),
+    country: z.string().optional(),
+    region: z.string().optional(),
+    city: z.string().optional(),
+    lat: z.number().optional(),
+    lon: z.number().optional(),
+    email: z.nullable(z.string()).optional(),
+    media_id: z.string().optional(),
+    media_name: z.string().optional(),
+    media_url: z.string().optional(),
+    iframe_heatmap_url: z.string().optional(),
+    thumbnail: z.lazy(() => GetStatsEventsEventKeyThumbnail$inboundSchema)
+      .optional(),
+    conversion_type: z.union([z.number().int(), z.string()]).optional(),
+    conversion_data: z.lazy(() =>
+      GetStatsEventsEventKeyConversionData$inboundSchema
+    ).optional(),
+    user_agent_details: z.lazy(() =>
+      GetStatsEventsEventKeyUserAgentDetails$inboundSchema
+    ).optional(),
+    attributes: z.lazy(() => GetStatsEventsEventKeyAttributes$inboundSchema)
+      .optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "received_at": "receivedAt",
+      "event_key": "eventKey",
+      "visitor_key": "visitorKey",
+      "embed_url": "embedUrl",
+      "percent_viewed": "percentViewed",
+      "media_id": "mediaId",
+      "media_name": "mediaName",
+      "media_url": "mediaUrl",
+      "iframe_heatmap_url": "iframeHeatmapUrl",
+      "conversion_type": "conversionType",
+      "conversion_data": "conversionData",
+      "user_agent_details": "userAgentDetails",
+    });
+  })
+);
 
 export function getStatsEventsEventKeyResponseFromJSON(
   jsonString: string,

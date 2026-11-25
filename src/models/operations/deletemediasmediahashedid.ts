@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -161,9 +161,11 @@ export const DeleteMediasMediaHashedIdRequest$outboundSchema: z.ZodType<
   DeleteMediasMediaHashedIdRequest$Outbound,
   z.ZodTypeDef,
   DeleteMediasMediaHashedIdRequest
-> = z.object({
-  mediaHashedId: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    mediaHashedId: z.string(),
+  })
+);
 
 export function deleteMediasMediaHashedIdRequestToJSON(
   deleteMediasMediaHashedIdRequest: DeleteMediasMediaHashedIdRequest,
@@ -178,28 +180,36 @@ export function deleteMediasMediaHashedIdRequestToJSON(
 /** @internal */
 export const DeleteMediasMediaHashedIdCode$inboundSchema: z.ZodNativeEnum<
   typeof DeleteMediasMediaHashedIdCode
-> = z.nativeEnum(DeleteMediasMediaHashedIdCode);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(DeleteMediasMediaHashedIdCode)
+);
 
 /** @internal */
 export const DeleteMediasMediaHashedIdType$inboundSchema: z.ZodNativeEnum<
   typeof DeleteMediasMediaHashedIdType
-> = z.nativeEnum(DeleteMediasMediaHashedIdType);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(DeleteMediasMediaHashedIdType)
+);
 
 /** @internal */
 export const DeleteMediasMediaHashedIdStatus$inboundSchema: z.ZodNativeEnum<
   typeof DeleteMediasMediaHashedIdStatus
-> = z.nativeEnum(DeleteMediasMediaHashedIdStatus);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(DeleteMediasMediaHashedIdStatus)
+);
 
 /** @internal */
 export const DeleteMediasMediaHashedIdThumbnail$inboundSchema: z.ZodType<
   DeleteMediasMediaHashedIdThumbnail,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  url: z.string().optional(),
-  width: z.number().int().optional(),
-  height: z.number().int().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    url: z.string().optional(),
+    width: z.number().int().optional(),
+    height: z.number().int().optional(),
+  })
+);
 
 export function deleteMediasMediaHashedIdThumbnailFromJSON(
   jsonString: string,
@@ -217,30 +227,32 @@ export const DeleteMediasMediaHashedIdResponse$inboundSchema: z.ZodType<
   DeleteMediasMediaHashedIdResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.number().int().optional(),
-  name: z.string().optional(),
-  type: DeleteMediasMediaHashedIdType$inboundSchema.optional(),
-  archived: z.boolean().optional(),
-  created: z.string().datetime({ offset: true }).transform(v => new Date(v))
-    .optional(),
-  updated: z.string().datetime({ offset: true }).transform(v => new Date(v))
-    .optional(),
-  duration: z.nullable(z.number()).optional(),
-  embedCode: z.string().optional(),
-  hashed_id: z.string().optional(),
-  description: z.string().optional(),
-  progress: z.number().optional(),
-  status: DeleteMediasMediaHashedIdStatus$inboundSchema.optional(),
-  section: z.nullable(z.string()).optional(),
-  thumbnail: z.lazy(() => DeleteMediasMediaHashedIdThumbnail$inboundSchema)
-    .optional(),
-  protected: z.nullable(z.boolean()).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "hashed_id": "hashedId",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    id: z.number().int().optional(),
+    name: z.string().optional(),
+    type: DeleteMediasMediaHashedIdType$inboundSchema.optional(),
+    archived: z.boolean().optional(),
+    created: z.string().datetime({ offset: true }).transform(v => new Date(v))
+      .optional(),
+    updated: z.string().datetime({ offset: true }).transform(v => new Date(v))
+      .optional(),
+    duration: z.nullable(z.number()).optional(),
+    embedCode: z.string().optional(),
+    hashed_id: z.string().optional(),
+    description: z.string().optional(),
+    progress: z.number().optional(),
+    status: DeleteMediasMediaHashedIdStatus$inboundSchema.optional(),
+    section: z.nullable(z.string()).optional(),
+    thumbnail: z.lazy(() => DeleteMediasMediaHashedIdThumbnail$inboundSchema)
+      .optional(),
+    protected: z.nullable(z.boolean()).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "hashed_id": "hashedId",
+    });
+  })
+);
 
 export function deleteMediasMediaHashedIdResponseFromJSON(
   jsonString: string,

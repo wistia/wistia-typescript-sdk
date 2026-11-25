@@ -1,6 +1,6 @@
 # PostChannelsLanguageRequest
 
-The ISO 639-1 language code for the channel.
+The ISO 639-1 language code for the channel, published in the RSS feed as `<language>`.
 
 ## Example Usage
 

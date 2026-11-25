@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -153,8 +153,8 @@ export type PutMediasMediaIdCustomizationsLeadCaptureResponse = {
 };
 
 /** @internal */
-export const Provider$outboundSchema: z.ZodNativeEnum<typeof Provider> = z
-  .nativeEnum(Provider);
+export const Provider$outboundSchema: z.ZodNativeEnum<typeof Provider> =
+  /* @__PURE__ */ lazySchema$(() => z.nativeEnum(Provider));
 
 /** @internal */
 export type Settings$Outbound = {
@@ -173,16 +173,18 @@ export const Settings$outboundSchema: z.ZodType<
   Settings$Outbound,
   z.ZodTypeDef,
   Settings
-> = z.object({
-  time: z.string().optional(),
-  allowSkip: z.boolean().optional(),
-  hashedId: z.string().optional(),
-  displayMode: z.string().optional(),
-  showLogo: z.boolean().optional(),
-  backgroundColor: z.string().optional(),
-  formId: z.string().optional(),
-  portalId: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    time: z.string().optional(),
+    allowSkip: z.boolean().optional(),
+    hashedId: z.string().optional(),
+    displayMode: z.string().optional(),
+    showLogo: z.boolean().optional(),
+    backgroundColor: z.string().optional(),
+    formId: z.string().optional(),
+    portalId: z.string().optional(),
+  })
+);
 
 export function settingsToJSON(settings: Settings): string {
   return JSON.stringify(Settings$outboundSchema.parse(settings));
@@ -201,11 +203,13 @@ export const PutMediasMediaIdCustomizationsLeadCaptureRequestBody$outboundSchema
     PutMediasMediaIdCustomizationsLeadCaptureRequestBody$Outbound,
     z.ZodTypeDef,
     PutMediasMediaIdCustomizationsLeadCaptureRequestBody
-  > = z.object({
-    provider: Provider$outboundSchema,
-    enabled: z.boolean().optional(),
-    settings: z.lazy(() => Settings$outboundSchema).optional(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      provider: Provider$outboundSchema,
+      enabled: z.boolean().optional(),
+      settings: z.lazy(() => Settings$outboundSchema).optional(),
+    })
+  );
 
 export function putMediasMediaIdCustomizationsLeadCaptureRequestBodyToJSON(
   putMediasMediaIdCustomizationsLeadCaptureRequestBody:
@@ -230,16 +234,18 @@ export const PutMediasMediaIdCustomizationsLeadCaptureRequest$outboundSchema:
     PutMediasMediaIdCustomizationsLeadCaptureRequest$Outbound,
     z.ZodTypeDef,
     PutMediasMediaIdCustomizationsLeadCaptureRequest
-  > = z.object({
-    mediaId: z.string(),
-    requestBody: z.lazy(() =>
-      PutMediasMediaIdCustomizationsLeadCaptureRequestBody$outboundSchema
-    ),
-  }).transform((v) => {
-    return remap$(v, {
-      requestBody: "RequestBody",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      mediaId: z.string(),
+      requestBody: z.lazy(() =>
+        PutMediasMediaIdCustomizationsLeadCaptureRequestBody$outboundSchema
+      ),
+    }).transform((v) => {
+      return remap$(v, {
+        requestBody: "RequestBody",
+      });
+    })
+  );
 
 export function putMediasMediaIdCustomizationsLeadCaptureRequestToJSON(
   putMediasMediaIdCustomizationsLeadCaptureRequest:
@@ -254,8 +260,10 @@ export function putMediasMediaIdCustomizationsLeadCaptureRequestToJSON(
 
 /** @internal */
 export const PutMediasMediaIdCustomizationsLeadCaptureCode$inboundSchema:
-  z.ZodNativeEnum<typeof PutMediasMediaIdCustomizationsLeadCaptureCode> = z
-    .nativeEnum(PutMediasMediaIdCustomizationsLeadCaptureCode);
+  z.ZodNativeEnum<typeof PutMediasMediaIdCustomizationsLeadCaptureCode> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(PutMediasMediaIdCustomizationsLeadCaptureCode)
+    );
 
 /** @internal */
 export const PutMediasMediaIdCustomizationsLeadCaptureRequireEmailV1$inboundSchema:
@@ -263,9 +271,11 @@ export const PutMediasMediaIdCustomizationsLeadCaptureRequireEmailV1$inboundSche
     PutMediasMediaIdCustomizationsLeadCaptureRequireEmailV1,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    on: z.string().optional(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      on: z.string().optional(),
+    })
+  );
 
 export function putMediasMediaIdCustomizationsLeadCaptureRequireEmailV1FromJSON(
   jsonString: string,
@@ -288,9 +298,11 @@ export const PutMediasMediaIdCustomizationsLeadCaptureForm$inboundSchema:
     PutMediasMediaIdCustomizationsLeadCaptureForm,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    on: z.string().optional(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      on: z.string().optional(),
+    })
+  );
 
 export function putMediasMediaIdCustomizationsLeadCaptureFormFromJSON(
   jsonString: string,
@@ -314,9 +326,11 @@ export const PutMediasMediaIdCustomizationsLeadCaptureHubspotForm$inboundSchema:
     PutMediasMediaIdCustomizationsLeadCaptureHubspotForm,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    on: z.string().optional(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      on: z.string().optional(),
+    })
+  );
 
 export function putMediasMediaIdCustomizationsLeadCaptureHubspotFormFromJSON(
   jsonString: string,
@@ -340,9 +354,11 @@ export const PutMediasMediaIdCustomizationsLeadCaptureMarketoForm$inboundSchema:
     PutMediasMediaIdCustomizationsLeadCaptureMarketoForm,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    on: z.string().optional(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      on: z.string().optional(),
+    })
+  );
 
 export function putMediasMediaIdCustomizationsLeadCaptureMarketoFormFromJSON(
   jsonString: string,
@@ -366,9 +382,11 @@ export const PutMediasMediaIdCustomizationsLeadCapturePardotForm$inboundSchema:
     PutMediasMediaIdCustomizationsLeadCapturePardotForm,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    on: z.string().optional(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      on: z.string().optional(),
+    })
+  );
 
 export function putMediasMediaIdCustomizationsLeadCapturePardotFormFromJSON(
   jsonString: string,
@@ -392,27 +410,29 @@ export const PutMediasMediaIdCustomizationsLeadCapturePlugin$inboundSchema:
     PutMediasMediaIdCustomizationsLeadCapturePlugin,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    "requireEmail-v1": z.lazy(() =>
-      PutMediasMediaIdCustomizationsLeadCaptureRequireEmailV1$inboundSchema
-    ).optional(),
-    form: z.lazy(() =>
-      PutMediasMediaIdCustomizationsLeadCaptureForm$inboundSchema
-    ).optional(),
-    hubspotForm: z.lazy(() =>
-      PutMediasMediaIdCustomizationsLeadCaptureHubspotForm$inboundSchema
-    ).optional(),
-    marketoForm: z.lazy(() =>
-      PutMediasMediaIdCustomizationsLeadCaptureMarketoForm$inboundSchema
-    ).optional(),
-    pardotForm: z.lazy(() =>
-      PutMediasMediaIdCustomizationsLeadCapturePardotForm$inboundSchema
-    ).optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      "requireEmail-v1": "requireEmailV1",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      "requireEmail-v1": z.lazy(() =>
+        PutMediasMediaIdCustomizationsLeadCaptureRequireEmailV1$inboundSchema
+      ).optional(),
+      form: z.lazy(() =>
+        PutMediasMediaIdCustomizationsLeadCaptureForm$inboundSchema
+      ).optional(),
+      hubspotForm: z.lazy(() =>
+        PutMediasMediaIdCustomizationsLeadCaptureHubspotForm$inboundSchema
+      ).optional(),
+      marketoForm: z.lazy(() =>
+        PutMediasMediaIdCustomizationsLeadCaptureMarketoForm$inboundSchema
+      ).optional(),
+      pardotForm: z.lazy(() =>
+        PutMediasMediaIdCustomizationsLeadCapturePardotForm$inboundSchema
+      ).optional(),
+    }).transform((v) => {
+      return remap$(v, {
+        "requireEmail-v1": "requireEmailV1",
+      });
+    })
+  );
 
 export function putMediasMediaIdCustomizationsLeadCapturePluginFromJSON(
   jsonString: string,
@@ -436,11 +456,13 @@ export const PutMediasMediaIdCustomizationsLeadCaptureResponse$inboundSchema:
     PutMediasMediaIdCustomizationsLeadCaptureResponse,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    plugin: z.lazy(() =>
-      PutMediasMediaIdCustomizationsLeadCapturePlugin$inboundSchema
-    ).optional(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      plugin: z.lazy(() =>
+        PutMediasMediaIdCustomizationsLeadCapturePlugin$inboundSchema
+      ).optional(),
+    })
+  );
 
 export function putMediasMediaIdCustomizationsLeadCaptureResponseFromJSON(
   jsonString: string,

@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -101,6 +101,16 @@ export type PostMediasMediaHashedIdLocalizationsTranscript = {
 };
 
 /**
+ * The expected price per minute that will be billed for the dubbing. Decimal prices are returned as strings.
+ */
+export type ExpectedBilledPricePerMinute = number | string;
+
+/**
+ * The expected total price that will be billed for the dubbing. Decimal prices are returned as strings.
+ */
+export type ExpectedBilledPrice = number | string;
+
+/**
  * A localization is a translation of a media into another language.
  *
  * @remarks
@@ -166,13 +176,17 @@ export type PostMediasMediaHashedIdLocalizationsResponse = {
    */
   expectedBilledMinutes: number | null;
   /**
-   * The expected price per minute that will be billed for the dubbing.
+   * The expected price per minute that will be billed for the dubbing. Decimal prices are returned as strings.
    */
-  expectedBilledPricePerMinute: number | null;
+  expectedBilledPricePerMinute: number | string | null;
   /**
-   * The expected total price that will be billed for the dubbing.
+   * The expected total price that will be billed for the dubbing. Decimal prices are returned as strings.
    */
-  expectedBilledPrice: number | null;
+  expectedBilledPrice: number | string | null;
+  /**
+   * The credits held for the dubbing, deducted when it completes. Null when the dubbing is not paid for with credits. Decimal amounts are returned as strings.
+   */
+  expectedBilledCredits: string | null;
   /**
    * The date when the dubbing was billed.
    */
@@ -191,15 +205,17 @@ export const PostMediasMediaHashedIdLocalizationsRequestBody$outboundSchema:
     PostMediasMediaHashedIdLocalizationsRequestBody$Outbound,
     z.ZodTypeDef,
     PostMediasMediaHashedIdLocalizationsRequestBody
-  > = z.object({
-    outputLanguage: z.string(),
-    autoEnable: z.boolean().default(true),
-  }).transform((v) => {
-    return remap$(v, {
-      outputLanguage: "output_language",
-      autoEnable: "auto_enable",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      outputLanguage: z.string(),
+      autoEnable: z.boolean().default(true),
+    }).transform((v) => {
+      return remap$(v, {
+        outputLanguage: "output_language",
+        autoEnable: "auto_enable",
+      });
+    })
+  );
 
 export function postMediasMediaHashedIdLocalizationsRequestBodyToJSON(
   postMediasMediaHashedIdLocalizationsRequestBody:
@@ -226,16 +242,18 @@ export const PostMediasMediaHashedIdLocalizationsRequest$outboundSchema:
     PostMediasMediaHashedIdLocalizationsRequest$Outbound,
     z.ZodTypeDef,
     PostMediasMediaHashedIdLocalizationsRequest
-  > = z.object({
-    mediaHashedId: z.string(),
-    requestBody: z.lazy(() =>
-      PostMediasMediaHashedIdLocalizationsRequestBody$outboundSchema
-    ).optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      requestBody: "RequestBody",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      mediaHashedId: z.string(),
+      requestBody: z.lazy(() =>
+        PostMediasMediaHashedIdLocalizationsRequestBody$outboundSchema
+      ).optional(),
+    }).transform((v) => {
+      return remap$(v, {
+        requestBody: "RequestBody",
+      });
+    })
+  );
 
 export function postMediasMediaHashedIdLocalizationsRequestToJSON(
   postMediasMediaHashedIdLocalizationsRequest:
@@ -250,8 +268,10 @@ export function postMediasMediaHashedIdLocalizationsRequestToJSON(
 
 /** @internal */
 export const PostMediasMediaHashedIdLocalizationsCode$inboundSchema:
-  z.ZodNativeEnum<typeof PostMediasMediaHashedIdLocalizationsCode> = z
-    .nativeEnum(PostMediasMediaHashedIdLocalizationsCode);
+  z.ZodNativeEnum<typeof PostMediasMediaHashedIdLocalizationsCode> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(PostMediasMediaHashedIdLocalizationsCode)
+    );
 
 /** @internal */
 export const PostMediasMediaHashedIdLocalizationsSourceMedia$inboundSchema:
@@ -259,23 +279,25 @@ export const PostMediasMediaHashedIdLocalizationsSourceMedia$inboundSchema:
     PostMediasMediaHashedIdLocalizationsSourceMedia,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    hashed_id: z.string(),
-    name: z.string(),
-    duration: z.number(),
-    created_at: z.string().datetime({ offset: true }).transform(v =>
-      new Date(v)
-    ),
-    updated_at: z.string().datetime({ offset: true }).transform(v =>
-      new Date(v)
-    ),
-  }).transform((v) => {
-    return remap$(v, {
-      "hashed_id": "hashedId",
-      "created_at": "createdAt",
-      "updated_at": "updatedAt",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      hashed_id: z.string(),
+      name: z.string(),
+      duration: z.number(),
+      created_at: z.string().datetime({ offset: true }).transform(v =>
+        new Date(v)
+      ),
+      updated_at: z.string().datetime({ offset: true }).transform(v =>
+        new Date(v)
+      ),
+    }).transform((v) => {
+      return remap$(v, {
+        "hashed_id": "hashedId",
+        "created_at": "createdAt",
+        "updated_at": "updatedAt",
+      });
+    })
+  );
 
 export function postMediasMediaHashedIdLocalizationsSourceMediaFromJSON(
   jsonString: string,
@@ -299,26 +321,28 @@ export const PostMediasMediaHashedIdLocalizationsTranscript$inboundSchema:
     PostMediasMediaHashedIdLocalizationsTranscript,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    hashed_id: z.string(),
-    language_name: z.string(),
-    native_language_name: z.string(),
-    text: z.string(),
-    created_at: z.string().datetime({ offset: true }).transform(v =>
-      new Date(v)
-    ),
-    updated_at: z.string().datetime({ offset: true }).transform(v =>
-      new Date(v)
-    ),
-  }).transform((v) => {
-    return remap$(v, {
-      "hashed_id": "hashedId",
-      "language_name": "languageName",
-      "native_language_name": "nativeLanguageName",
-      "created_at": "createdAt",
-      "updated_at": "updatedAt",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      hashed_id: z.string(),
+      language_name: z.string(),
+      native_language_name: z.string(),
+      text: z.string(),
+      created_at: z.string().datetime({ offset: true }).transform(v =>
+        new Date(v)
+      ),
+      updated_at: z.string().datetime({ offset: true }).transform(v =>
+        new Date(v)
+      ),
+    }).transform((v) => {
+      return remap$(v, {
+        "hashed_id": "hashedId",
+        "language_name": "languageName",
+        "native_language_name": "nativeLanguageName",
+        "created_at": "createdAt",
+        "updated_at": "updatedAt",
+      });
+    })
+  );
 
 export function postMediasMediaHashedIdLocalizationsTranscriptFromJSON(
   jsonString: string,
@@ -337,64 +361,102 @@ export function postMediasMediaHashedIdLocalizationsTranscriptFromJSON(
 }
 
 /** @internal */
+export const ExpectedBilledPricePerMinute$inboundSchema: z.ZodType<
+  ExpectedBilledPricePerMinute,
+  z.ZodTypeDef,
+  unknown
+> = /* @__PURE__ */ lazySchema$(() => z.union([z.number(), z.string()]));
+
+export function expectedBilledPricePerMinuteFromJSON(
+  jsonString: string,
+): SafeParseResult<ExpectedBilledPricePerMinute, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ExpectedBilledPricePerMinute$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ExpectedBilledPricePerMinute' from JSON`,
+  );
+}
+
+/** @internal */
+export const ExpectedBilledPrice$inboundSchema: z.ZodType<
+  ExpectedBilledPrice,
+  z.ZodTypeDef,
+  unknown
+> = /* @__PURE__ */ lazySchema$(() => z.union([z.number(), z.string()]));
+
+export function expectedBilledPriceFromJSON(
+  jsonString: string,
+): SafeParseResult<ExpectedBilledPrice, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ExpectedBilledPrice$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ExpectedBilledPrice' from JSON`,
+  );
+}
+
+/** @internal */
 export const PostMediasMediaHashedIdLocalizationsResponse$inboundSchema:
   z.ZodType<
     PostMediasMediaHashedIdLocalizationsResponse,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    hashed_id: z.string(),
-    language_code: z.string(),
-    iso639_2_language_code: z.string(),
-    language_name: z.string(),
-    native_language_name: z.string(),
-    created_at: z.string().datetime({ offset: true }).transform(v =>
-      new Date(v)
-    ),
-    updated_at: z.string().datetime({ offset: true }).transform(v =>
-      new Date(v)
-    ),
-    ordered_at: z.nullable(
-      z.string().datetime({ offset: true }).transform(v => new Date(v)),
-    ),
-    enabled_at: z.nullable(
-      z.string().datetime({ offset: true }).transform(v => new Date(v)),
-    ),
-    enabled: z.boolean(),
-    source_media: z.lazy(() =>
-      PostMediasMediaHashedIdLocalizationsSourceMedia$inboundSchema
-    ),
-    transcript: z.nullable(
-      z.lazy(() =>
-        PostMediasMediaHashedIdLocalizationsTranscript$inboundSchema
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      hashed_id: z.string(),
+      language_code: z.string(),
+      iso639_2_language_code: z.string(),
+      language_name: z.string(),
+      native_language_name: z.string(),
+      created_at: z.string().datetime({ offset: true }).transform(v =>
+        new Date(v)
       ),
-    ).optional(),
-    auto_enable_dubbing: z.boolean(),
-    expected_billed_minutes: z.nullable(z.number()),
-    expected_billed_price_per_minute: z.nullable(z.number()),
-    expected_billed_price: z.nullable(z.number()),
-    billed_at: z.nullable(
-      z.string().datetime({ offset: true }).transform(v => new Date(v)),
-    ),
-  }).transform((v) => {
-    return remap$(v, {
-      "hashed_id": "hashedId",
-      "language_code": "languageCode",
-      "iso639_2_language_code": "iso6392LanguageCode",
-      "language_name": "languageName",
-      "native_language_name": "nativeLanguageName",
-      "created_at": "createdAt",
-      "updated_at": "updatedAt",
-      "ordered_at": "orderedAt",
-      "enabled_at": "enabledAt",
-      "source_media": "sourceMedia",
-      "auto_enable_dubbing": "autoEnableDubbing",
-      "expected_billed_minutes": "expectedBilledMinutes",
-      "expected_billed_price_per_minute": "expectedBilledPricePerMinute",
-      "expected_billed_price": "expectedBilledPrice",
-      "billed_at": "billedAt",
-    });
-  });
+      updated_at: z.string().datetime({ offset: true }).transform(v =>
+        new Date(v)
+      ),
+      ordered_at: z.nullable(
+        z.string().datetime({ offset: true }).transform(v => new Date(v)),
+      ),
+      enabled_at: z.nullable(
+        z.string().datetime({ offset: true }).transform(v => new Date(v)),
+      ),
+      enabled: z.boolean(),
+      source_media: z.lazy(() =>
+        PostMediasMediaHashedIdLocalizationsSourceMedia$inboundSchema
+      ),
+      transcript: z.nullable(z.lazy(() =>
+        PostMediasMediaHashedIdLocalizationsTranscript$inboundSchema
+      )).optional(),
+      auto_enable_dubbing: z.boolean(),
+      expected_billed_minutes: z.nullable(z.number()),
+      expected_billed_price_per_minute: z.nullable(
+        z.union([z.number(), z.string()]),
+      ),
+      expected_billed_price: z.nullable(z.union([z.number(), z.string()])),
+      expected_billed_credits: z.nullable(z.string()),
+      billed_at: z.nullable(
+        z.string().datetime({ offset: true }).transform(v => new Date(v)),
+      ),
+    }).transform((v) => {
+      return remap$(v, {
+        "hashed_id": "hashedId",
+        "language_code": "languageCode",
+        "iso639_2_language_code": "iso6392LanguageCode",
+        "language_name": "languageName",
+        "native_language_name": "nativeLanguageName",
+        "created_at": "createdAt",
+        "updated_at": "updatedAt",
+        "ordered_at": "orderedAt",
+        "enabled_at": "enabledAt",
+        "source_media": "sourceMedia",
+        "auto_enable_dubbing": "autoEnableDubbing",
+        "expected_billed_minutes": "expectedBilledMinutes",
+        "expected_billed_price_per_minute": "expectedBilledPricePerMinute",
+        "expected_billed_price": "expectedBilledPrice",
+        "expected_billed_credits": "expectedBilledCredits",
+        "billed_at": "billedAt",
+      });
+    })
+  );
 
 export function postMediasMediaHashedIdLocalizationsResponseFromJSON(
   jsonString: string,

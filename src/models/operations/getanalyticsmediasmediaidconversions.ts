@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { RFCDate } from "../../types/rfcdate.js";
@@ -110,19 +110,21 @@ export const GetAnalyticsMediasMediaIdConversionsRequest$outboundSchema:
     GetAnalyticsMediasMediaIdConversionsRequest$Outbound,
     z.ZodTypeDef,
     GetAnalyticsMediasMediaIdConversionsRequest
-  > = z.object({
-    mediaId: z.string(),
-    startDate: z.instanceof(RFCDate).transform(v => v.toString()),
-    endDate: z.instanceof(RFCDate).transform(v => v.toString()),
-    perPage: z.number().int().default(25),
-    cursor: z.string().optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      startDate: "start_date",
-      endDate: "end_date",
-      perPage: "per_page",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      mediaId: z.string(),
+      startDate: z.instanceof(RFCDate).transform(v => v.toString()),
+      endDate: z.instanceof(RFCDate).transform(v => v.toString()),
+      perPage: z.number().int().default(25),
+      cursor: z.string().optional(),
+    }).transform((v) => {
+      return remap$(v, {
+        startDate: "start_date",
+        endDate: "end_date",
+        perPage: "per_page",
+      });
+    })
+  );
 
 export function getAnalyticsMediasMediaIdConversionsRequestToJSON(
   getAnalyticsMediasMediaIdConversionsRequest:
@@ -137,28 +139,32 @@ export function getAnalyticsMediasMediaIdConversionsRequestToJSON(
 
 /** @internal */
 export const GetAnalyticsMediasMediaIdConversionsCode$inboundSchema:
-  z.ZodNativeEnum<typeof GetAnalyticsMediasMediaIdConversionsCode> = z
-    .nativeEnum(GetAnalyticsMediasMediaIdConversionsCode);
+  z.ZodNativeEnum<typeof GetAnalyticsMediasMediaIdConversionsCode> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(GetAnalyticsMediasMediaIdConversionsCode)
+    );
 
 /** @internal */
 export const GetAnalyticsMediasMediaIdConversionsData$inboundSchema: z.ZodType<
   GetAnalyticsMediasMediaIdConversionsData,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  first_name: z.nullable(z.string()).optional(),
-  last_name: z.nullable(z.string()).optional(),
-  email: z.nullable(z.string()).optional(),
-  converted_at: z.string().datetime({ offset: true }).transform(v =>
-    new Date(v)
-  ).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "first_name": "firstName",
-    "last_name": "lastName",
-    "converted_at": "convertedAt",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    first_name: z.nullable(z.string()).optional(),
+    last_name: z.nullable(z.string()).optional(),
+    email: z.nullable(z.string()).optional(),
+    converted_at: z.string().datetime({ offset: true }).transform(v =>
+      new Date(v)
+    ).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "first_name": "firstName",
+      "last_name": "lastName",
+      "converted_at": "convertedAt",
+    });
+  })
+);
 
 export function getAnalyticsMediasMediaIdConversionsDataFromJSON(
   jsonString: string,
@@ -182,19 +188,21 @@ export const GetAnalyticsMediasMediaIdConversionsPageInfo$inboundSchema:
     GetAnalyticsMediasMediaIdConversionsPageInfo,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    has_next_page: z.boolean().optional(),
-    has_previous_page: z.boolean().optional(),
-    end_cursor: z.nullable(z.string()).optional(),
-    start_cursor: z.nullable(z.string()).optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      "has_next_page": "hasNextPage",
-      "has_previous_page": "hasPreviousPage",
-      "end_cursor": "endCursor",
-      "start_cursor": "startCursor",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      has_next_page: z.boolean().optional(),
+      has_previous_page: z.boolean().optional(),
+      end_cursor: z.nullable(z.string()).optional(),
+      start_cursor: z.nullable(z.string()).optional(),
+    }).transform((v) => {
+      return remap$(v, {
+        "has_next_page": "hasNextPage",
+        "has_previous_page": "hasPreviousPage",
+        "end_cursor": "endCursor",
+        "start_cursor": "startCursor",
+      });
+    })
+  );
 
 export function getAnalyticsMediasMediaIdConversionsPageInfoFromJSON(
   jsonString: string,
@@ -218,18 +226,20 @@ export const GetAnalyticsMediasMediaIdConversionsResponse$inboundSchema:
     GetAnalyticsMediasMediaIdConversionsResponse,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    data: z.array(
-      z.lazy(() => GetAnalyticsMediasMediaIdConversionsData$inboundSchema),
-    ).optional(),
-    page_info: z.lazy(() =>
-      GetAnalyticsMediasMediaIdConversionsPageInfo$inboundSchema
-    ).optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      "page_info": "pageInfo",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      data: z.array(
+        z.lazy(() => GetAnalyticsMediasMediaIdConversionsData$inboundSchema),
+      ).optional(),
+      page_info: z.lazy(() =>
+        GetAnalyticsMediasMediaIdConversionsPageInfo$inboundSchema
+      ).optional(),
+    }).transform((v) => {
+      return remap$(v, {
+        "page_info": "pageInfo",
+      });
+    })
+  );
 
 export function getAnalyticsMediasMediaIdConversionsResponseFromJSON(
   jsonString: string,

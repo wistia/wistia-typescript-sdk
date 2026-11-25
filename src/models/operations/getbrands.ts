@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -304,7 +304,7 @@ export type GetBrandsResponse = {
 /** @internal */
 export const GetBrandsEnabled$outboundSchema: z.ZodNativeEnum<
   typeof GetBrandsEnabled
-> = z.nativeEnum(GetBrandsEnabled);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetBrandsEnabled));
 
 /** @internal */
 export type GetBrandsCursor$Outbound = {
@@ -318,11 +318,13 @@ export const GetBrandsCursor$outboundSchema: z.ZodType<
   GetBrandsCursor$Outbound,
   z.ZodTypeDef,
   GetBrandsCursor
-> = z.object({
-  enabled: GetBrandsEnabled$outboundSchema.optional(),
-  before: z.string().optional(),
-  after: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    enabled: GetBrandsEnabled$outboundSchema.optional(),
+    before: z.string().optional(),
+    after: z.string().optional(),
+  })
+);
 
 export function getBrandsCursorToJSON(
   getBrandsCursor: GetBrandsCursor,
@@ -333,12 +335,12 @@ export function getBrandsCursorToJSON(
 /** @internal */
 export const GetBrandsSortBy$outboundSchema: z.ZodNativeEnum<
   typeof GetBrandsSortBy
-> = z.nativeEnum(GetBrandsSortBy);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetBrandsSortBy));
 
 /** @internal */
 export const GetBrandsSortDirection$outboundSchema: z.ZodNativeEnum<
   typeof GetBrandsSortDirection
-> = z.nativeEnum(GetBrandsSortDirection);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetBrandsSortDirection));
 
 /** @internal */
 export type GetBrandsRequest$Outbound = {
@@ -354,19 +356,21 @@ export const GetBrandsRequest$outboundSchema: z.ZodType<
   GetBrandsRequest$Outbound,
   z.ZodTypeDef,
   GetBrandsRequest
-> = z.object({
-  page: z.number().int().optional(),
-  perPage: z.number().int().optional(),
-  cursor: z.lazy(() => GetBrandsCursor$outboundSchema).optional(),
-  sortBy: GetBrandsSortBy$outboundSchema.optional(),
-  sortDirection: GetBrandsSortDirection$outboundSchema.optional(),
-}).transform((v) => {
-  return remap$(v, {
-    perPage: "per_page",
-    sortBy: "sort_by",
-    sortDirection: "sort_direction",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    page: z.number().int().optional(),
+    perPage: z.number().int().optional(),
+    cursor: z.lazy(() => GetBrandsCursor$outboundSchema).optional(),
+    sortBy: GetBrandsSortBy$outboundSchema.optional(),
+    sortDirection: GetBrandsSortDirection$outboundSchema.optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      perPage: "per_page",
+      sortBy: "sort_by",
+      sortDirection: "sort_direction",
+    });
+  })
+);
 
 export function getBrandsRequestToJSON(
   getBrandsRequest: GetBrandsRequest,
@@ -379,14 +383,16 @@ export function getBrandsRequestToJSON(
 /** @internal */
 export const GetBrandsCode$inboundSchema: z.ZodNativeEnum<
   typeof GetBrandsCode
-> = z.nativeEnum(GetBrandsCode);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(GetBrandsCode));
 
 /** @internal */
 export const PrimaryColor$inboundSchema: z.ZodType<
   PrimaryColor,
   z.ZodTypeDef,
   unknown
-> = z.union([z.string(), z.array(z.array(z.any()))]);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.union([z.string(), z.array(z.array(z.any()))])
+);
 
 export function primaryColorFromJSON(
   jsonString: string,
@@ -403,7 +409,9 @@ export const PageBackgroundColor$inboundSchema: z.ZodType<
   PageBackgroundColor,
   z.ZodTypeDef,
   unknown
-> = z.union([z.string(), z.array(z.array(z.any()))]);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.union([z.string(), z.array(z.array(z.any()))])
+);
 
 export function pageBackgroundColorFromJSON(
   jsonString: string,
@@ -418,22 +426,24 @@ export function pageBackgroundColorFromJSON(
 /** @internal */
 export const ContrastIcons$inboundSchema: z.ZodNativeEnum<
   typeof ContrastIcons
-> = z.nativeEnum(ContrastIcons);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(ContrastIcons));
 
 /** @internal */
 export const OpaqueControls$inboundSchema: z.ZodNativeEnum<
   typeof OpaqueControls
-> = z.nativeEnum(OpaqueControls);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(OpaqueControls));
 
 /** @internal */
 export const PageLogoDimensions$inboundSchema: z.ZodType<
   PageLogoDimensions,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  width: z.number().int().optional(),
-  height: z.number().int().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    width: z.number().int().optional(),
+    height: z.number().int().optional(),
+  })
+);
 
 export function pageLogoDimensionsFromJSON(
   jsonString: string,
@@ -450,12 +460,14 @@ export const PageLogo$inboundSchema: z.ZodType<
   PageLogo,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  url: z.string().optional(),
-  dimensions: z.nullable(z.lazy(() => PageLogoDimensions$inboundSchema))
-    .optional(),
-  size: z.nullable(z.number()).optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    url: z.string().optional(),
+    dimensions: z.nullable(z.lazy(() => PageLogoDimensions$inboundSchema))
+      .optional(),
+    size: z.nullable(z.number()).optional(),
+  })
+);
 
 export function pageLogoFromJSON(
   jsonString: string,
@@ -472,10 +484,12 @@ export const PlayerLogoDimensions$inboundSchema: z.ZodType<
   PlayerLogoDimensions,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  width: z.number().int().optional(),
-  height: z.number().int().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    width: z.number().int().optional(),
+    height: z.number().int().optional(),
+  })
+);
 
 export function playerLogoDimensionsFromJSON(
   jsonString: string,
@@ -492,12 +506,14 @@ export const PlayerLogo$inboundSchema: z.ZodType<
   PlayerLogo,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  url: z.string().optional(),
-  dimensions: z.nullable(z.lazy(() => PlayerLogoDimensions$inboundSchema))
-    .optional(),
-  size: z.nullable(z.number()).optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    url: z.string().optional(),
+    dimensions: z.nullable(z.lazy(() => PlayerLogoDimensions$inboundSchema))
+      .optional(),
+    size: z.nullable(z.number()).optional(),
+  })
+);
 
 export function playerLogoFromJSON(
   jsonString: string,
@@ -514,42 +530,44 @@ export const GetBrandsResponse$inboundSchema: z.ZodType<
   GetBrandsResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  name: z.string().optional(),
-  is_default: z.boolean().optional(),
-  created: z.string().datetime({ offset: true }).transform(v => new Date(v))
-    .optional(),
-  updated: z.string().datetime({ offset: true }).transform(v => new Date(v))
-    .optional(),
-  primary_color: z.nullable(z.union([z.string(), z.array(z.array(z.any()))]))
-    .optional(),
-  page_background_color: z.nullable(
-    z.union([z.string(), z.array(z.array(z.any()))]),
-  ).optional(),
-  body_font_family: z.nullable(z.string()).optional(),
-  headline_font_family: z.nullable(z.string()).optional(),
-  button_font_family: z.nullable(z.string()).optional(),
-  border_radius: z.nullable(z.number().int()).optional(),
-  contrast_icons: z.nullable(ContrastIcons$inboundSchema).optional(),
-  opaque_controls: z.nullable(OpaqueControls$inboundSchema).optional(),
-  page_logo: z.nullable(z.lazy(() => PageLogo$inboundSchema)).optional(),
-  player_logo: z.nullable(z.lazy(() => PlayerLogo$inboundSchema)).optional(),
-  cursor: z.nullable(z.string()).optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "is_default": "isDefault",
-    "primary_color": "primaryColor",
-    "page_background_color": "pageBackgroundColor",
-    "body_font_family": "bodyFontFamily",
-    "headline_font_family": "headlineFontFamily",
-    "button_font_family": "buttonFontFamily",
-    "border_radius": "borderRadius",
-    "contrast_icons": "contrastIcons",
-    "opaque_controls": "opaqueControls",
-    "page_logo": "pageLogo",
-    "player_logo": "playerLogo",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    name: z.string().optional(),
+    is_default: z.boolean().optional(),
+    created: z.string().datetime({ offset: true }).transform(v => new Date(v))
+      .optional(),
+    updated: z.string().datetime({ offset: true }).transform(v => new Date(v))
+      .optional(),
+    primary_color: z.nullable(z.union([z.string(), z.array(z.array(z.any()))]))
+      .optional(),
+    page_background_color: z.nullable(
+      z.union([z.string(), z.array(z.array(z.any()))]),
+    ).optional(),
+    body_font_family: z.nullable(z.string()).optional(),
+    headline_font_family: z.nullable(z.string()).optional(),
+    button_font_family: z.nullable(z.string()).optional(),
+    border_radius: z.nullable(z.number().int()).optional(),
+    contrast_icons: z.nullable(ContrastIcons$inboundSchema).optional(),
+    opaque_controls: z.nullable(OpaqueControls$inboundSchema).optional(),
+    page_logo: z.nullable(z.lazy(() => PageLogo$inboundSchema)).optional(),
+    player_logo: z.nullable(z.lazy(() => PlayerLogo$inboundSchema)).optional(),
+    cursor: z.nullable(z.string()).optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "is_default": "isDefault",
+      "primary_color": "primaryColor",
+      "page_background_color": "pageBackgroundColor",
+      "body_font_family": "bodyFontFamily",
+      "headline_font_family": "headlineFontFamily",
+      "button_font_family": "buttonFontFamily",
+      "border_radius": "borderRadius",
+      "contrast_icons": "contrastIcons",
+      "opaque_controls": "opaqueControls",
+      "page_logo": "pageLogo",
+      "player_logo": "playerLogo",
+    });
+  })
+);
 
 export function getBrandsResponseFromJSON(
   jsonString: string,

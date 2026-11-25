@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -68,9 +68,11 @@ export const GetMediasMediaIdCustomizationsRelatedMediaRequest$outboundSchema:
     GetMediasMediaIdCustomizationsRelatedMediaRequest$Outbound,
     z.ZodTypeDef,
     GetMediasMediaIdCustomizationsRelatedMediaRequest
-  > = z.object({
-    mediaId: z.string(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      mediaId: z.string(),
+    })
+  );
 
 export function getMediasMediaIdCustomizationsRelatedMediaRequestToJSON(
   getMediasMediaIdCustomizationsRelatedMediaRequest:
@@ -85,8 +87,10 @@ export function getMediasMediaIdCustomizationsRelatedMediaRequestToJSON(
 
 /** @internal */
 export const GetMediasMediaIdCustomizationsRelatedMediaCode$inboundSchema:
-  z.ZodNativeEnum<typeof GetMediasMediaIdCustomizationsRelatedMediaCode> = z
-    .nativeEnum(GetMediasMediaIdCustomizationsRelatedMediaCode);
+  z.ZodNativeEnum<typeof GetMediasMediaIdCustomizationsRelatedMediaCode> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(GetMediasMediaIdCustomizationsRelatedMediaCode)
+    );
 
 /** @internal */
 export const GetMediasMediaIdCustomizationsRelatedMediaRelatedMedia$inboundSchema:
@@ -94,14 +98,16 @@ export const GetMediasMediaIdCustomizationsRelatedMediaRelatedMedia$inboundSchem
     GetMediasMediaIdCustomizationsRelatedMediaRelatedMedia,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    on: z.string().optional(),
-    hashedIdList: z.array(z.string()).optional(),
-    shouldShowOnPause: z.string().optional(),
-    shouldShowOnEnd: z.string().optional(),
-    mediaLabelText: z.string().optional(),
-    watchButtonText: z.string().optional(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      on: z.string().optional(),
+      hashedIdList: z.array(z.string()).optional(),
+      shouldShowOnPause: z.string().optional(),
+      shouldShowOnEnd: z.string().optional(),
+      mediaLabelText: z.string().optional(),
+      watchButtonText: z.string().optional(),
+    })
+  );
 
 export function getMediasMediaIdCustomizationsRelatedMediaRelatedMediaFromJSON(
   jsonString: string,
@@ -124,11 +130,13 @@ export const GetMediasMediaIdCustomizationsRelatedMediaPlugin$inboundSchema:
     GetMediasMediaIdCustomizationsRelatedMediaPlugin,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    relatedMedia: z.lazy(() =>
-      GetMediasMediaIdCustomizationsRelatedMediaRelatedMedia$inboundSchema
-    ).optional(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      relatedMedia: z.lazy(() =>
+        GetMediasMediaIdCustomizationsRelatedMediaRelatedMedia$inboundSchema
+      ).optional(),
+    })
+  );
 
 export function getMediasMediaIdCustomizationsRelatedMediaPluginFromJSON(
   jsonString: string,
@@ -152,11 +160,13 @@ export const GetMediasMediaIdCustomizationsRelatedMediaResponse$inboundSchema:
     GetMediasMediaIdCustomizationsRelatedMediaResponse,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    plugin: z.lazy(() =>
-      GetMediasMediaIdCustomizationsRelatedMediaPlugin$inboundSchema
-    ).optional(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      plugin: z.lazy(() =>
+        GetMediasMediaIdCustomizationsRelatedMediaPlugin$inboundSchema
+      ).optional(),
+    })
+  );
 
 export function getMediasMediaIdCustomizationsRelatedMediaResponseFromJSON(
   jsonString: string,

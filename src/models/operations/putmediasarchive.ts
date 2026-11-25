@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -86,13 +86,15 @@ export const PutMediasArchiveRequest$outboundSchema: z.ZodType<
   PutMediasArchiveRequest$Outbound,
   z.ZodTypeDef,
   PutMediasArchiveRequest
-> = z.object({
-  hashedIds: z.array(z.string()),
-}).transform((v) => {
-  return remap$(v, {
-    hashedIds: "hashed_ids",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    hashedIds: z.array(z.string()),
+  }).transform((v) => {
+    return remap$(v, {
+      hashedIds: "hashed_ids",
+    });
+  })
+);
 
 export function putMediasArchiveRequestToJSON(
   putMediasArchiveRequest: PutMediasArchiveRequest,
@@ -105,27 +107,29 @@ export function putMediasArchiveRequestToJSON(
 /** @internal */
 export const PutMediasArchiveCode$inboundSchema: z.ZodNativeEnum<
   typeof PutMediasArchiveCode
-> = z.nativeEnum(PutMediasArchiveCode);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(PutMediasArchiveCode));
 
 /** @internal */
 export const PutMediasArchiveStatus$inboundSchema: z.ZodNativeEnum<
   typeof PutMediasArchiveStatus
-> = z.nativeEnum(PutMediasArchiveStatus);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(PutMediasArchiveStatus));
 
 /** @internal */
 export const PutMediasArchiveBackgroundJobStatus$inboundSchema: z.ZodType<
   PutMediasArchiveBackgroundJobStatus,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.number().int(),
-  hashed_id: z.string(),
-  status: PutMediasArchiveStatus$inboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    "hashed_id": "hashedId",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    id: z.number().int(),
+    hashed_id: z.string(),
+    status: PutMediasArchiveStatus$inboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      "hashed_id": "hashedId",
+    });
+  })
+);
 
 export function putMediasArchiveBackgroundJobStatusFromJSON(
   jsonString: string,
@@ -143,16 +147,18 @@ export const PutMediasArchiveResponse$inboundSchema: z.ZodType<
   PutMediasArchiveResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  message: z.string(),
-  background_job_status: z.lazy(() =>
-    PutMediasArchiveBackgroundJobStatus$inboundSchema
-  ),
-}).transform((v) => {
-  return remap$(v, {
-    "background_job_status": "backgroundJobStatus",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    message: z.string(),
+    background_job_status: z.lazy(() =>
+      PutMediasArchiveBackgroundJobStatus$inboundSchema
+    ),
+  }).transform((v) => {
+    return remap$(v, {
+      "background_job_status": "backgroundJobStatus",
+    });
+  })
+);
 
 export function putMediasArchiveResponseFromJSON(
   jsonString: string,

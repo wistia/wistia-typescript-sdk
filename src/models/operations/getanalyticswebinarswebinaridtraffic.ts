@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
@@ -112,31 +112,37 @@ export type GetAnalyticsWebinarsWebinarIdTrafficResponse = {
   /**
    * The number of registrations from this traffic source.
    */
-  registrations?: number | undefined;
+  registrations?: number | null | undefined;
   /**
    * The number of attendees from this traffic source.
    */
-  attendees?: number | undefined;
+  attendees?: number | null | undefined;
   /**
    * The number of registration page impressions from this traffic source.
    */
-  impressions?: number | undefined;
+  impressions?: number | null | undefined;
 };
 
 /** @internal */
 export const GetAnalyticsWebinarsWebinarIdTrafficGroupBy$outboundSchema:
-  z.ZodNativeEnum<typeof GetAnalyticsWebinarsWebinarIdTrafficGroupBy> = z
-    .nativeEnum(GetAnalyticsWebinarsWebinarIdTrafficGroupBy);
+  z.ZodNativeEnum<typeof GetAnalyticsWebinarsWebinarIdTrafficGroupBy> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(GetAnalyticsWebinarsWebinarIdTrafficGroupBy)
+    );
 
 /** @internal */
 export const GetAnalyticsWebinarsWebinarIdTrafficSortBy$outboundSchema:
-  z.ZodNativeEnum<typeof GetAnalyticsWebinarsWebinarIdTrafficSortBy> = z
-    .nativeEnum(GetAnalyticsWebinarsWebinarIdTrafficSortBy);
+  z.ZodNativeEnum<typeof GetAnalyticsWebinarsWebinarIdTrafficSortBy> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(GetAnalyticsWebinarsWebinarIdTrafficSortBy)
+    );
 
 /** @internal */
 export const GetAnalyticsWebinarsWebinarIdTrafficSortDirection$outboundSchema:
-  z.ZodNativeEnum<typeof GetAnalyticsWebinarsWebinarIdTrafficSortDirection> = z
-    .nativeEnum(GetAnalyticsWebinarsWebinarIdTrafficSortDirection);
+  z.ZodNativeEnum<typeof GetAnalyticsWebinarsWebinarIdTrafficSortDirection> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(GetAnalyticsWebinarsWebinarIdTrafficSortDirection)
+    );
 
 /** @internal */
 export type GetAnalyticsWebinarsWebinarIdTrafficRequest$Outbound = {
@@ -152,23 +158,24 @@ export const GetAnalyticsWebinarsWebinarIdTrafficRequest$outboundSchema:
     GetAnalyticsWebinarsWebinarIdTrafficRequest$Outbound,
     z.ZodTypeDef,
     GetAnalyticsWebinarsWebinarIdTrafficRequest
-  > = z.object({
-    webinarId: z.string(),
-    groupBy: GetAnalyticsWebinarsWebinarIdTrafficGroupBy$outboundSchema,
-    sortBy: GetAnalyticsWebinarsWebinarIdTrafficSortBy$outboundSchema.default(
-      "registrations",
-    ),
-    sortDirection:
-      GetAnalyticsWebinarsWebinarIdTrafficSortDirection$outboundSchema.default(
-        "desc",
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      webinarId: z.string(),
+      groupBy: GetAnalyticsWebinarsWebinarIdTrafficGroupBy$outboundSchema,
+      sortBy: GetAnalyticsWebinarsWebinarIdTrafficSortBy$outboundSchema.default(
+        "registrations",
       ),
-  }).transform((v) => {
-    return remap$(v, {
-      groupBy: "group_by",
-      sortBy: "sort_by",
-      sortDirection: "sort_direction",
-    });
-  });
+      sortDirection:
+        GetAnalyticsWebinarsWebinarIdTrafficSortDirection$outboundSchema
+          .default("desc"),
+    }).transform((v) => {
+      return remap$(v, {
+        groupBy: "group_by",
+        sortBy: "sort_by",
+        sortDirection: "sort_direction",
+      });
+    })
+  );
 
 export function getAnalyticsWebinarsWebinarIdTrafficRequestToJSON(
   getAnalyticsWebinarsWebinarIdTrafficRequest:
@@ -183,8 +190,10 @@ export function getAnalyticsWebinarsWebinarIdTrafficRequestToJSON(
 
 /** @internal */
 export const GetAnalyticsWebinarsWebinarIdTrafficCode$inboundSchema:
-  z.ZodNativeEnum<typeof GetAnalyticsWebinarsWebinarIdTrafficCode> = z
-    .nativeEnum(GetAnalyticsWebinarsWebinarIdTrafficCode);
+  z.ZodNativeEnum<typeof GetAnalyticsWebinarsWebinarIdTrafficCode> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(GetAnalyticsWebinarsWebinarIdTrafficCode)
+    );
 
 /** @internal */
 export const GetAnalyticsWebinarsWebinarIdTrafficResponse$inboundSchema:
@@ -192,22 +201,24 @@ export const GetAnalyticsWebinarsWebinarIdTrafficResponse$inboundSchema:
     GetAnalyticsWebinarsWebinarIdTrafficResponse,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    utm_campaign: z.nullable(z.string()).optional(),
-    utm_source: z.nullable(z.string()).optional(),
-    utm_medium: z.nullable(z.string()).optional(),
-    referrer_domain: z.nullable(z.string()).optional(),
-    registrations: z.number().int().optional(),
-    attendees: z.number().int().optional(),
-    impressions: z.number().int().optional(),
-  }).transform((v) => {
-    return remap$(v, {
-      "utm_campaign": "utmCampaign",
-      "utm_source": "utmSource",
-      "utm_medium": "utmMedium",
-      "referrer_domain": "referrerDomain",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      utm_campaign: z.nullable(z.string()).optional(),
+      utm_source: z.nullable(z.string()).optional(),
+      utm_medium: z.nullable(z.string()).optional(),
+      referrer_domain: z.nullable(z.string()).optional(),
+      registrations: z.nullable(z.number().int()).optional(),
+      attendees: z.nullable(z.number().int()).optional(),
+      impressions: z.nullable(z.number().int()).optional(),
+    }).transform((v) => {
+      return remap$(v, {
+        "utm_campaign": "utmCampaign",
+        "utm_source": "utmSource",
+        "utm_medium": "utmMedium",
+        "referrer_domain": "referrerDomain",
+      });
+    })
+  );
 
 export function getAnalyticsWebinarsWebinarIdTrafficResponseFromJSON(
   jsonString: string,
